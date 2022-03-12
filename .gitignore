@@ -6,3 +6,5 @@ assets/images/*.*
 assets/sounds/
 misc/
 *.bak
+node_modules
+dist
