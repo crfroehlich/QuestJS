@@ -34,7 +34,7 @@ currentWeatherTotal
 
 
 // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '() => void' is not assignable to... Remove this comment to see the full error message
-Quest.settings.afterTurn.push(function () {
+Quest.Settings.settings.afterTurn.push(function () {
   if (player.currentWeatherDisabled) return
   if (player.currentWeatherName) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
@@ -91,9 +91,9 @@ class Weather {
 
   outside(includeVisible: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'weatherReportsAssumeYes' does not exist ... Remove this comment to see the full error message
-    if (Quest.settings.weatherReportsAssumeYes && currentLocation.noWeather) return false
+    if (Quest.Settings.settings.weatherReportsAssumeYes && currentLocation.noWeather) return false
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'weatherReportsAssumeYes' does not exist ... Remove this comment to see the full error message
-    if (!Quest.settings.weatherReportsAssumeYes && !currentLocation.yesWeather) return false
+    if (!Quest.Settings.settings.weatherReportsAssumeYes && !currentLocation.yesWeather) return false
     if (includeVisible) return true
     return !currentLocation.weatherModifier
   }

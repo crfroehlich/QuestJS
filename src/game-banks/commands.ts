@@ -37,87 +37,87 @@ commands.push(new Cmd('Move', {
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 commands.push(new Cmd('Get in pod1', {
-  regex:/^(.+), ?(?:get in|go in|in) (?:stasis pod|stasis|pod)$/,
-  npcCmd:true,
-  attName:"stasis",
-  objects:[
+  regex: /^(.+), ?(?:get in|go in|in) (?:stasis pod|stasis|pod)$/,
+  npcCmd: true,
+  attName: "stasis",
+  objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-    {scope:parser.isHere, attName:"npc"},
+    { scope: parser.isHere, attName: "npc" },
   ],
-  defmsg:"That's not about to get in a stasis!",
+  defmsg: "That's not about to get in a stasis!",
 }));
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 commands.push(new Cmd('Get in pod2', {
-  regex:/^(?:tell|ask|instruct) (.+) to (?:get in|go in|in) (?:stasis pod|stasis|pod)$/,
-  npcCmd:true,
-  attName:"stasis",
-  objects:[
+  regex: /^(?:tell|ask|instruct) (.+) to (?:get in|go in|in) (?:stasis pod|stasis|pod)$/,
+  npcCmd: true,
+  attName: "stasis",
+  objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-    {scope:parser.isHere, attName:"npc"},
+    { scope: parser.isHere, attName: "npc" },
   ],
-  defmsg:"That's not about to get in a stasis!",
+  defmsg: "That's not about to get in a stasis!",
 }));
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 commands.push(new Cmd('Stop1', {
-  regex:/^(.+), (?:stop|halt|forget it)$/,
-  npcCmd:true,
-  attName:"stopAgenda",
-  objects:[
+  regex: /^(.+), (?:stop|halt|forget it)$/,
+  npcCmd: true,
+  attName: "stopAgenda",
+  objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-    {scope:parser.isHere, attName:"npc"},
+    { scope: parser.isHere, attName: "npc" },
   ],
-  defmsg:"That's not doing anything!",
+  defmsg: "That's not doing anything!",
 }));
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 commands.push(new Cmd('Stop2', {
-  regex:/^(?:tell|ask|instruct) (.+) to (?:stop|halt|forget it)$/,
-  npcCmd:true,
-  attName:"stopAgenda",
-  objects:[
+  regex: /^(?:tell|ask|instruct) (.+) to (?:stop|halt|forget it)$/,
+  npcCmd: true,
+  attName: "stopAgenda",
+  objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-    {scope:parser.isHere, attName:"npc"},
+    { scope: parser.isHere, attName: "npc" },
   ],
-  defmsg:"That's not doing anything",
+  defmsg: "That's not doing anything",
 }));
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 commands.push(new Cmd('Launch', {
-  regex:/^(?:launch|deploy) (.+)$/,
-  npcCmd:true,
-  objects:[
+  regex: /^(?:launch|deploy) (.+)$/,
+  npcCmd: true,
+  objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isInWorld' does not exist on type '{}'.
-    {scope:parser.isInWorld},
+    { scope: parser.isInWorld },
   ],
-  defmsg:"You can't launch that!",
+  defmsg: "You can't launch that!",
 }));
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 commands.push(new Cmd('Revive', {
-  regex:/^(?:revive|wake|awaken) (.+)$/,
-  npcCmd:true,
-  objects:[
+  regex: /^(?:revive|wake|awaken) (.+)$/,
+  npcCmd: true,
+  objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isInWorld' does not exist on type '{}'.
-    {scope:parser.isInWorld},
+    { scope: parser.isInWorld },
   ],
-  defmsg:"You can't revive that!",
+  defmsg: "You can't revive that!",
 }));
 
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 commands.push(new Cmd('Spray', {
-  regex:/^(?:spray) (.+)$/,
-  rules:[
-    function(cmd: any, char: any, item: any, multiple: any) {
+  regex: /^(?:spray) (.+)$/,
+  rules: [
+    function (cmd: any, char: any, item: any, multiple: any) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'spray_sealant' does not exist on type '{... Remove this comment to see the full error message
       if (w.spray_sealant.loc !== char.name) {
-        return falsemsg("{nv:char:do:true} not have the sealant spray.", {char:char})
+        return falsemsg("{nv:char:do:true} not have the sealant spray.", { char: char })
       }
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'spray' does not exist on type '{}'.
       if (w.spray.uses <= 0) {
-        return falsemsg("{nv:char:aim:true} the spray can at {nm:item}, but it is empty.", {char:char, item:item})
+        return falsemsg("{nv:char:aim:true} the spray can at {nm:item}, but it is empty.", { char: char, item: item })
       }
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'spray' does not exist on type '{}'.
       w.spray.uses--
@@ -125,49 +125,49 @@ commands.push(new Cmd('Spray', {
     }
   ],
   //npcCmd:true, // ???
-  objects:[
+  objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-    {scope:parser.isHere},
+    { scope: parser.isHere },
   ],
-  defmsg:"You can't spray that!",
+  defmsg: "You can't spray that!",
 }));
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 commands.push(new Cmd('Pressurise', {
-  regex:/^(?:pressuri[sz]e|pres) (.+)$/,
-  attName:'pressure',
-  objects:[
-    {scope:isRoomScope, extendedScope:true},
+  regex: /^(?:pressuri[sz]e|pres) (.+)$/,
+  attName: 'pressure',
+  objects: [
+    { scope: isRoomScope, extendedScope: true },
   ],
-  script:function(objects: any) { return handlePressurise(player, objects, true) },
-  defmsg:'Not something you can pressurise.',
+  script: function (objects: any) { return handlePressurise(player, objects, true) },
+  defmsg: 'Not something you can pressurise.',
 }));
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 commands.push(new Cmd('Depressurise', {
-  regex:/^(?:depressuri[sz]e|evacuate|depres) (.+)$/,
-  attName:'pressure',
-  objects:[
-    {scope:isRoomScope, extendedScope:true},
+  regex: /^(?:depressuri[sz]e|evacuate|depres) (.+)$/,
+  attName: 'pressure',
+  objects: [
+    { scope: isRoomScope, extendedScope: true },
   ],
-  script:function(objects: any) { return handlePressurise(player, objects, false) },
-  defmsg:'Not something you can evacuate.',
+  script: function (objects: any) { return handlePressurise(player, objects, false) },
+  defmsg: 'Not something you can evacuate.',
 }));
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 commands.push(new Cmd('NpcPressurise1', {
-  regex:/^(.+), ?(?:pressuri[sz]e|pres) (.+)$/,
-  attName:'pressure',
-  objects:[
+  regex: /^(.+), ?(?:pressuri[sz]e|pres) (.+)$/,
+  attName: 'pressure',
+  objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-    {scope:parser.isHere, attName:"npc"},
-    {scope:isRoomScope, extendedScope:true},
+    { scope: parser.isHere, attName: "npc" },
+    { scope: isRoomScope, extendedScope: true },
   ],
-  script:function(objects: any) {
+  script: function (objects: any) {
     var npc = objects[0][0];
     npc.actedThisTurn = true;
     if (!npc.npc) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       msg(CMD_not_npc(npc));
-      return world.FAILED; 
+      return world.FAILED;
     }
     objects.shift();
     return handlePressurise(npc, objects, true);
@@ -175,20 +175,20 @@ commands.push(new Cmd('NpcPressurise1', {
 }));
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 commands.push(new Cmd('NpcPressurise2', {
-  regex:/^(?:tell|ask|instruct) (.+) to (?:pressuri[sz]e|pres) (.+)$/,
-  attName:'pressure',
-  objects:[
+  regex: /^(?:tell|ask|instruct) (.+) to (?:pressuri[sz]e|pres) (.+)$/,
+  attName: 'pressure',
+  objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-    {scope:parser.isHere, attName:"npc"},
-    {scope:isRoomScope, extendedScope:true},
+    { scope: parser.isHere, attName: "npc" },
+    { scope: isRoomScope, extendedScope: true },
   ],
-  script:function(objects: any) {
+  script: function (objects: any) {
     var npc = objects[0][0];
     npc.actedThisTurn = true;
     if (!npc.npc) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       msg(CMD_not_npc(npc));
-      return world.FAILED; 
+      return world.FAILED;
     }
     objects.shift();
     return handlePressurise(npc, objects, true);
@@ -196,14 +196,14 @@ commands.push(new Cmd('NpcPressurise2', {
 }));
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 commands.push(new Cmd('NpcDepressurise1', {
-  regex:/^(.+), ?(?:depressuri[sz]e|evacuate|depres|evac) (.+)$/,
-  attName:'pressure',
-  objects:[
+  regex: /^(.+), ?(?:depressuri[sz]e|evacuate|depres|evac) (.+)$/,
+  attName: 'pressure',
+  objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-    {scope:parser.isHere, attName:"npc"},
-    {scope:isRoomScope, extendedScope:true},
+    { scope: parser.isHere, attName: "npc" },
+    { scope: isRoomScope, extendedScope: true },
   ],
-  script:function(objects: any) {
+  script: function (objects: any) {
     var npc = objects[0][0]
     npc.actedThisTurn = true
     if (!npc.npc) {
@@ -217,14 +217,14 @@ commands.push(new Cmd('NpcDepressurise1', {
 }))
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 commands.push(new Cmd('NpcDepressurise2', {
-  regex:/^(?:tell|ask|instruct) (.+) to (?:depressuri[sz]e|evacuate|depres) (.+)$/,
-  attName:'pressure',
-  objects:[
+  regex: /^(?:tell|ask|instruct) (.+) to (?:depressuri[sz]e|evacuate|depres) (.+)$/,
+  attName: 'pressure',
+  objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-    {scope:parser.isHere, attName:"npc"},
-    {scope:isRoomScope, extendedScope:true},
+    { scope: parser.isHere, attName: "npc" },
+    { scope: isRoomScope, extendedScope: true },
   ],
-  script:function(objects: any) {
+  script: function (objects: any) {
     var npc = objects[0][0]
     npc.actedThisTurn = true
     if (!npc.npc) {
@@ -250,17 +250,17 @@ function handlePressurise(char: any, objects: any, pressurise: any) {
     metamsg("You need to ask Xsansi to pressurise or depressurise any part of the ship.")
     return world.FAILED
   }
-  
+
   // I am counting these as successes as the player has successfully made the request, even if it was refused
   if (char.name !== "Xsansi") {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg("'{nm:char}, {if:pressurise:pressurise:depressurise} {nm:baseRoom:the},' you say.", {char:char, pressurise:pressurise, baseRoom:baseRoom})
+    msg("'{nm:char}, {if:pressurise:pressurise:depressurise} {nm:baseRoom:the},' you say.", { char: char, pressurise: pressurise, baseRoom: baseRoom })
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("'You need to ask Xsansi to pressurise or depressurise any part of the ship.'")
     return world.SUCCESS
   }
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-  msg("'Xsansi, {if:pressurise:pressurise:depressurise} {nm:baseRoom:the},' you say.", {pressurise:pressurise, baseRoom:baseRoom})
+  msg("'Xsansi, {if:pressurise:pressurise:depressurise} {nm:baseRoom:the},' you say.", { pressurise: pressurise, baseRoom: baseRoom })
   if (baseRoom.isSpace) {
     if (pressurise) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -276,7 +276,7 @@ function handlePressurise(char: any, objects: any, pressurise: any) {
   const mainRoom = (typeof baseRoom.vacuum === "string" ? w[baseRoom.vacuum] : baseRoom)
   if (mainRoom.vacuum !== pressurise) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'" + sentenceCase(lang.getName(mainRoom, {article:DEFINITE})) + " is already " + (pressurise ? 'pressurised' : 'depressurised') + ".")
+    msg("'" + Quest.Utilities.sentenceCase(lang.getName(mainRoom, { article: Quest.Utilities.DEFINITE })) + " is already " + (pressurise ? 'pressurised' : 'depressurised') + ".")
     return world.SUCCESS
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
@@ -294,18 +294,18 @@ function handlePressurise(char: any, objects: any, pressurise: any) {
   }
   if (!pressurise) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'Evacuating " + lang.getName(mainRoom, {article:DEFINITE}) + "... Room is now under vacuum.'")
+    msg("'Evacuating " + lang.getName(mainRoom, { article: Quest.Utilities.DEFINITE }) + "... Room is now under vacuum.'")
     mainRoom.vacuum = true;
     return world.SUCCESS
   }
   if (mainRoom.leaks) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'Pressurising " + lang.getName(mainRoom, {article:DEFINITE}) + "... Pressurisation failed.'")
+    msg("'Pressurising " + lang.getName(mainRoom, { article: Quest.Utilities.DEFINITE }) + "... Pressurisation failed.'")
     return world.SUCCESS
   }
 
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  msg("'Pressurising " + lang.getName(mainRoom, {article:DEFINITE}) + "... Room is now pressurised.'")
+  msg("'Pressurising " + lang.getName(mainRoom, { article: Quest.Utilities.DEFINITE }) + "... Room is now pressurised.'")
   mainRoom.vacuum = false;
   return world.SUCCESS
 }
@@ -314,11 +314,11 @@ function handlePressurise(char: any, objects: any, pressurise: any) {
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 commands.push(new Cmd('Approach', {
-  regex:/^approach (.+)$/,
-  objects:[
-    {scope:'isShip'},
+  regex: /^approach (.+)$/,
+  objects: [
+    { scope: 'isShip' },
   ],
-  script:function(objects: any) {
+  script: function (objects: any) {
     if (!objects[0][0].isShip) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       metamsg("The APPROACH command is for piloting the ship to a specific destination; a satellite or vessel for example.")
@@ -351,11 +351,11 @@ commands.push(new Cmd('Approach', {
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 commands.push(new Cmd('Scan', {
-  regex:/^scan (.+)$/,
-  objects:[
-    {scope:'isShip'},
+  regex: /^scan (.+)$/,
+  objects: [
+    { scope: 'isShip' },
   ],
-  script:function(objects: any) {
+  script: function (objects: any) {
     if (!objects[0][0].isShip) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       metamsg("The SCAN command is for scanning a target nearby in space, having approached it; a satellite or vessel for example.")
@@ -403,8 +403,8 @@ function isShip(item: any) {
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 commands.push(new Cmd('ProbeStatus', {
-  regex:/^probes?$/,
-  script:function() {
+  regex: /^probes?$/,
+  script: function () {
     const arr = getProbes();
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     metamsg("Found " + arr.length + " probes");
@@ -444,8 +444,8 @@ commands.push(new Cmd('ProbeStatus', {
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 commands.unshift(new Cmd('MapUpdate', {
-  regex:/^map?$/,
-  script:function() {
+  regex: /^map?$/,
+  script: function () {
     updateMap()
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     metamsg("Done")
@@ -458,7 +458,7 @@ commands.unshift(new Cmd('MapUpdate', {
 
 
 
-findCmd('MetaHelp').script = function() {
+findCmd('MetaHelp').script = function () {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   metamsg("Help is available on a number of topics...")
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -480,11 +480,11 @@ findCmd('MetaHelp').script = function() {
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 commands.push(new Cmd('HelpSubject', {
-  regex:/^(?:\?|help) (.*)$/,
-  objects:[
-    {special:'text'},
+  regex: /^(?:\?|help) (.*)$/,
+  objects: [
+    { special: 'text' },
   ],
-  script:function(objects: any) {
+  script: function (objects: any) {
     for (let el of this.topics) {
       if (objects[0].match(el.regex)) {
         el.script()
@@ -495,18 +495,18 @@ commands.push(new Cmd('HelpSubject', {
     metamsg("Sorry, no help topic found that matches \"" + objects[0] + "\"")
     return world.FAILED
   },
-  topics:[
+  topics: [
     {
-      regex:/^gen.*$/,
-      script:function() { lang.helpScript(); },
+      regex: /^gen.*$/,
+      script: function () { lang.helpScript(); },
     },
     {
-      regex:/^(credits?|about)$/,
-      script:function() { lang.aboutScript(); },
+      regex: /^(credits?|about)$/,
+      script: function () { lang.aboutScript(); },
     },
     {
-      regex:/^game$/,
-      script:function() {
+      regex: /^game$/,
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         metamsg("At each planet, you need to assess how many bio-probes and how many geo-probes to launch. Do {color:red:HELP PROBES} for details on that. You can {color:red:ASK AI ABOUT SHIP} to find how many of each probe is left.")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -518,23 +518,23 @@ commands.push(new Cmd('HelpSubject', {
       },
     },
     {
-      regex:/^npcs?$/,
-      script:function() {
+      regex: /^npcs?$/,
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         metamsg("{b:Interacting with NPCs:}")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         metamsg("You can ask an NPC to do something by using the same command you would use to have yourself do something, but prefixed with {color:red:[name],} (note the comma) or {color:red:TELL [name] TO}.")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg(Quest.settings.noTalkTo)
+        metamsg(Quest.Settings.settings.noTalkTo)
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         metamsg("Use the {color:red:TOPICS} command for some suggested topics. There are rather more for ASK than TELL, as you might expect.")
       },
     },
     {
-      regex:/^probes?$/,
-      script:function() {
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      metamsg("{b:Using probes:}");
+      regex: /^probes?$/,
+      script: function () {
+        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+        metamsg("{b:Using probes:}");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         metamsg("Kyle will automatically deploy a satellite on arrival at a new planet, but you need to tell your crew to deploy probes for the surface. Wait for Xsansi to announce that the satellite is in orbit, then {color:red:ASK XSANSI ABOUT PLANET}. You can then assess what probes you want to deploy.")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -550,8 +550,8 @@ commands.push(new Cmd('HelpSubject', {
       },
     },
     {
-      regex:/^stasis$/,
-      script:function() {
+      regex: /^stasis$/,
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         metamsg("{b:Stasis:}")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -563,8 +563,8 @@ commands.push(new Cmd('HelpSubject', {
       },
     },
     {
-      regex:/^(vacuum|d?e?pressur|evacuat)/,
-      script:function() {
+      regex: /^(vacuum|d?e?pressur|evacuat)/,
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         metamsg("{b:Vacuum:}")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -576,8 +576,8 @@ commands.push(new Cmd('HelpSubject', {
       },
     },
     {
-      regex:/^seal/,
-      script:function() {
+      regex: /^seal/,
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         metamsg("{b:Sealant Spray:}")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -587,8 +587,8 @@ commands.push(new Cmd('HelpSubject', {
       },
     },
     {
-      regex:/^dock/,
-      script:function() {
+      regex: /^dock/,
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         metamsg("{b:Docking:}")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -598,8 +598,8 @@ commands.push(new Cmd('HelpSubject', {
       },
     },
     {
-      regex:/^universe$/,
-      script:function() {
+      regex: /^universe$/,
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         metamsg("{b:The game world:}")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -611,8 +611,8 @@ commands.push(new Cmd('HelpSubject', {
       },
     },
     {
-      regex:/^system$/,
-      script:function() {
+      regex: /^system$/,
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         metamsg("{b:The Game System:}")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.

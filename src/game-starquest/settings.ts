@@ -1,77 +1,77 @@
 "use strict"
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{ perform... Remove this comment to see the full error message
-Quest.settings.title = "Star Quest"
+Quest.Settings.settings.title = "Star Quest"
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'author' does not exist on type '{ perfor... Remove this comment to see the full error message
-Quest.settings.author = "The Pixie"
+Quest.Settings.settings.author = "The Pixie"
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'version' does not exist on type '{ perfo... Remove this comment to see the full error message
-Quest.settings.version = "0.1"
+Quest.Settings.settings.version = "0.1"
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'thanks' does not exist on type '{ perfor... Remove this comment to see the full error message
-Quest.settings.thanks = []
+Quest.Settings.settings.thanks = []
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'warnings' does not exist on type '{ perf... Remove this comment to see the full error message
-Quest.settings.warnings = "No warnings have been set for this game."
+Quest.Settings.settings.warnings = "No warnings have been set for this game."
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
-Quest.settings.playMode = "dev"
+Quest.Settings.settings.playMode = "dev"
 
-Quest.settings.compassPane = false
-Quest.settings.panesCollapseAt = 0
-Quest.settings.themes = ['sans-serif']
+Quest.Settings.settings.compassPane = false
+Quest.Settings.settings.panesCollapseAt = 0
+Quest.Settings.settings.themes = ['sans-serif']
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'styleFile' does not exist on type '{ per... Remove this comment to see the full error message
-Quest.settings.styleFile = 'style'
-Quest.settings.files = ["code", "data", "crew", "page", "stars", "missions"]
-Quest.settings.tests = true
+Quest.Settings.settings.styleFile = 'style'
+Quest.Settings.settings.files = ["code", "data", "crew", "page", "stars", "missions"]
+Quest.Settings.settings.tests = true
 // @ts-expect-error ts-migrate(2322) FIXME: Type 'boolean' is not assignable to type 'string'.
-Quest.settings.noTalkTo = false
+Quest.Settings.settings.noTalkTo = false
 // @ts-expect-error ts-migrate(2322) FIXME: Type 'boolean' is not assignable to type 'string'.
-Quest.settings.iconsFolder = false
+Quest.Settings.settings.iconsFolder = false
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'onView' does not exist on type '{ perfor... Remove this comment to see the full error message
-Quest.settings.onView = function(item: any) { return w.ship.onView === item.name && currentLocation === w.bridge }
+Quest.Settings.settings.onView = function (item: any) { return w.ship.onView === item.name && currentLocation === w.bridge }
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'pageOption' does not exist on type '{ pe... Remove this comment to see the full error message
-Quest.settings.pageOption = function(item: any) { return item.pageOption }
+Quest.Settings.settings.pageOption = function (item: any) { return item.pageOption }
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'inventoryPane' does not exist on type '{... Remove this comment to see the full error message
-Quest.settings.inventoryPane = [
-//  {name:'Items Held', alt:'itemsHeld', test:Quest.settings.isHeldNotWorn, getLoc:function() { return player.name; } },
+Quest.Settings.settings.inventoryPane = [
+  //  {name:'Items Held', alt:'itemsHeld', test:Quest.Settings.settings.isHeldNotWorn, getLoc:function() { return player.name; } },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'onView' does not exist on type '{ perfor... Remove this comment to see the full error message
-  {name:'On Viewscreen', alt:'itemsView', test:Quest.settings.onView },
+  { name: 'On Viewscreen', alt: 'itemsView', test: Quest.Settings.settings.onView },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'pageOption' does not exist on type '{ pe... Remove this comment to see the full error message
-  {name:'Your PAGE', alt:'pageOptions', test:Quest.settings.pageOption },
-  {name:'People Here', alt:'itemsHere', test:Quest.settings.isHere, getLoc:function() { return player.loc; } },
+  { name: 'Your PAGE', alt: 'pageOptions', test: Quest.Settings.settings.pageOption },
+  { name: 'People Here', alt: 'itemsHere', test: Quest.Settings.settings.isHere, getLoc: function () { return player.loc; } },
 ]
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'favicon' does not exist on type '{ perfo... Remove this comment to see the full error message
-Quest.settings.favicon = 'assets/icons/sq.png'
+Quest.Settings.settings.favicon = 'assets/icons/sq.png'
 
-Quest.settings.funcForDynamicConv = 'showMenuDiag'
+Quest.Settings.settings.funcForDynamicConv = 'showMenuDiag'
 
-Quest.settings.status = [
+Quest.Settings.settings.status = [
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
-  function() { return "<td>Stardate:</td><td>" + w.ship.getDateTime() + "</td>"; },
+  function () { return "<td>Stardate:</td><td>" + w.ship.getDateTime() + "</td>"; },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
-  function() { return "<td>Alert:</td><td>" + w.ship.getAlert() + "</td>"; },
+  function () { return "<td>Alert:</td><td>" + w.ship.getAlert() + "</td>"; },
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
-  function() { return "<td>System:</td><td>" + stars.getSystem().alias + "</td>"; },
+  function () { return "<td>System:</td><td>" + stars.getSystem().alias + "</td>"; },
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
-  function() { return "<td>Location:</td><td>" + stars.getLocation().alias + "</td>"; },
+  function () { return "<td>Location:</td><td>" + stars.getLocation().alias + "</td>"; },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
-  function() { return "<td>Hull:</td><td>" + w.ship.hullIntegrity + "%</td>"; },
+  function () { return "<td>Hull:</td><td>" + w.ship.hullIntegrity + "%</td>"; },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
-  function() { return "<td>Shields:</td><td>" + w.ship.getShields() + "</td>"; },
+  function () { return "<td>Shields:</td><td>" + w.ship.getShields() + "</td>"; },
 ]
 
-Quest.settings.libraries.push('image-pane')
+Quest.Settings.settings.libraries.push('image-pane')
 // @ts-expect-error ts-migrate(2551) FIXME: Property 'imageStyle' does not exist on type '{ pe... Remove this comment to see the full error message
-Quest.settings.imageStyle = {
-  right:'0',
-  top:'200px',
-  width:'400px',
-  height:'400px',
-  'background-color':'#111', 
-  border:'3px black solid',
+Quest.Settings.settings.imageStyle = {
+  right: '0',
+  top: '200px',
+  width: '400px',
+  height: '400px',
+  'background-color': '#111',
+  border: '3px black solid',
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'roomCreateFunc' does not exist on type '... Remove this comment to see the full error message
-Quest.settings.roomCreateFunc = function(o: any) {
+Quest.Settings.settings.roomCreateFunc = function (o: any) {
   if (o.dests) {
     for (const ex of o.dests) {
       ex.origin = o
@@ -81,19 +81,19 @@ Quest.settings.roomCreateFunc = function(o: any) {
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'setup' does not exist on type '{ perform... Remove this comment to see the full error message
-Quest.settings.setup = function() {
-  
-  createAdditionalPane(1, "Go to", 'directions', function() {
+Quest.Settings.settings.setup = function () {
+
+  createAdditionalPane(1, "Go to", 'directions', function () {
     let html = ''
     for (const ex of currentLocation.dests) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       const dest = w[ex.name]
-      html += '<div style="margin-bottom: 10px;"><p class="item" onclick="runCmd(\'go to ' + dest.alias.toLowerCase() + '\')">' + dest.headingAlias + '</p></div>'
+      html += '<div style="margin-bottom: 10px;"><p class="item" onclick="Quest.Utilities.runCmd(\'go to ' + dest.alias.toLowerCase() + '\')">' + dest.headingAlias + '</p></div>'
     }
     return html
   })
-  
-  
+
+
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
   msg("You step on to the bridge. 'Welcome aboard, sir,' says a blonde woman in a red uniform, handing you a PAGE. 'I'm Yeoman Rand, I've been designated as your aide. The ship is all set, sir. We just need to to appoint the bridge officers. I believe Command has prepared a short list on your PAGE.'")
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -107,47 +107,47 @@ Quest.settings.setup = function() {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
   msg("'I was just told to report to the Starbase. Beyond that... you know as much as I do, yeoman. Hopefully we'll not be close enough to the border to encounter any Brakk ships.'")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
-  if (Quest.settings.playMode !== 'dev') wait()
-  
+  if (Quest.Settings.settings.playMode !== 'dev') wait()
+
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   metamsg("If this is your first play through - or you just want a reminder of how to get going - you might want to look at the {cmd:intro1:introductory text}, see {cmd:intro2:how to start} or look at the {cmd:intro3:further notes}.")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
-  if (Quest.settings.playMode !== 'dev') wait()
+  if (Quest.Settings.settings.playMode !== 'dev') wait()
   stars.draw('stardock')
 }
 
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'updateCustomUI' does not exist on type '... Remove this comment to see the full error message
-Quest.settings.updateCustomUI = function() {
+Quest.Settings.settings.updateCustomUI = function () {
   const encyc = Array.from(document.getElementsByClassName('item')).filter(el => el.innerHTML === 'Encyclopedia')[0]
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'onclick' does not exist on type 'Element... Remove this comment to see the full error message
-  encyc.onclick = function() { askDiag("Search the web", w.encyclopedia.askDiag, "Submit") }
-  
+  encyc.onclick = function () { askDiag("Search the web", w.encyclopedia.askDiag, "Submit") }
+
 }
 
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogTitle' does not exist on t... Remove this comment to see the full error message
-Quest.settings.startingDialogTitle = "Crew Roster"
+Quest.Settings.settings.startingDialogTitle = "Crew Roster"
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogWidth' does not exist on t... Remove this comment to see the full error message
-Quest.settings.startingDialogWidth = 500
+Quest.Settings.settings.startingDialogWidth = 500
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogHeight' does not exist on ... Remove this comment to see the full error message
-Quest.settings.startingDialogHeight = 480
+Quest.Settings.settings.startingDialogHeight = 480
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogOnClick' does not exist on... Remove this comment to see the full error message
-Quest.settings.startingDialogOnClick = function() {
+Quest.Settings.settings.startingDialogOnClick = function () {
   // ...
 }
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogInit' does not exist on ty... Remove this comment to see the full error message
-Quest.settings.startingDialogInit = function() {
+Quest.Settings.settings.startingDialogInit = function () {
   //document.querySelector('#namefield').focus()
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogOnClick' does not exist on... Remove this comment to see the full error message
-Quest.settings.startingDialogOnClick = function() {
-  Quest.settings.startingDialogEnabled = true
+Quest.Settings.settings.startingDialogOnClick = function () {
+  Quest.Settings.settings.startingDialogEnabled = true
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'dialogType' does not exist on type '{ pe... Remove this comment to see the full error message
-  if (Quest.settings.dialogType === 'crew roster' && !w.ship.arrivedAtSector) {
+  if (Quest.Settings.settings.dialogType === 'crew roster' && !w.ship.arrivedAtSector) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     const npc = w[document.querySelector("#diag-name").value]
 
@@ -172,24 +172,24 @@ Quest.settings.startingDialogOnClick = function() {
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("You assign " + formatList(roles) + " to " + npc.alias + ".")
+      msg("You assign " + Quest.Utilities.formatList(roles) + " to " + npc.alias + ".")
     }
     if (roles.length === 0 && npc.loc) {
       npc.loc = false
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(npc.leaving, {char:npc})
+      msg(npc.leaving, { char: npc })
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'updateUIItems' does not exist on type '{... Remove this comment to see the full error message
       io.updateUIItems()
     }
     if (roles.length !== 0 && !npc.loc) {
       npc.loc = 'bridge'
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(npc.entering, {char:npc})
+      msg(npc.entering, { char: npc })
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'updateUIItems' does not exist on type '{... Remove this comment to see the full error message
       io.updateUIItems()
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'dialogType' does not exist on type '{ pe... Remove this comment to see the full error message
-    delete Quest.settings.dialogType
+    delete Quest.Settings.settings.dialogType
   }
-}        
+}
 

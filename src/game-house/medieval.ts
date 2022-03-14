@@ -35,7 +35,7 @@ createRoom("great_gallery", {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'brass_dining_room' does not exist on typ... Remove this comment to see the full error message
       if (w.brass_dining_room.blocked()) return falsemsg("Mandy starts heading east, but the dining room is now so full of mannequins, she cannot get into it.")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSimpleExitUse' does not exist on ... Remove this comment to see the full error message
-      return util.defaultSimpleExitUse(char, this)
+      return Quest.Utilities.util.defaultSimpleExitUse(char, this)
     }
   }),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -409,12 +409,12 @@ createItem("Patch", NPC(false), {
       s += " He is wearing a pair of boots."
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
-    const held = scopeHeldBy(w.Patch)
+    const held = Quest.Utilities.scopeHeldBy(w.Patch)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'remove' does not exist on type '{}'.
-    array.remove(held, w.boots)
+    Quest.Utilities.array.remove(held, w.boots)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'remove' does not exist on type '{}'.
-    array.remove(held, w.boots_toe)
-    if (held.length > 0) s += ' He is holding ' + formatList(held, { article: INDEFINITE, lastJoiner: 'and' }) + '.'
+    Quest.Utilities.array.remove(held, w.boots_toe)
+    if (held.length > 0) s += ' He is holding ' + Quest.Utilities.formatList(held, { article: Quest.Utilities.INDEFINITE, lastJoiner: 'and' }) + '.'
     if (this.huggingTree) s += '|He is currently hugging a tree.'
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg(s)
@@ -474,7 +474,7 @@ createItem("Patch", NPC(false), {
     return false
   },
   hasPod: function () {
-    const l = scopeHeldBy(this)
+    const l = Quest.Utilities.scopeHeldBy(this)
     for (const el of l) {
       if (el.name.startsWith('tamarind_pod_prototype')) return true
     }
@@ -563,12 +563,12 @@ w.Patch.nameModifierFunctions[0] = function (item: any, l: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
   if (w.boots.loc === 'Patch') l.push('wearing a pair of boots')
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
-  const held = scopeHeldBy(w.Patch)
+  const held = Quest.Utilities.scopeHeldBy(w.Patch)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'remove' does not exist on type '{}'.
-  array.remove(held, w.boots)
+  Quest.Utilities.array.remove(held, w.boots)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'remove' does not exist on type '{}'.
-  array.remove(held, w.boots_toe)
-  if (held.length > 0) l.push('holding ' + formatList(held, { article: INDEFINITE, lastJoiner: 'and' }))
+  Quest.Utilities.array.remove(held, w.boots_toe)
+  if (held.length > 0) l.push('holding ' + Quest.Utilities.formatList(held, { article: Quest.Utilities.INDEFINITE, lastJoiner: 'and' }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
   if (w.Patch.huggingTree) l.push('hugging a tree')
 }
@@ -876,7 +876,7 @@ createItem("yellow_balloon", {
       msg(this.states[0])
       this.state++
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      for (const s of Quest.settings.roomTemplate) msg(s)
+      for (const s of Quest.Settings.settings.roomTemplate) msg(s)
     }
   },
   reset: function () {

@@ -3,13 +3,13 @@
 
 
 register('observatory', {
-  book:'Comedy of Errors',
-  uniform:'a curious white dress that buttons at the front; more like a lab coat really',
-  smell:'The room smells slightly of oil.',
-  listen:'Mandy can hear nothing.',
-  floor:"The floor is wood.",
-  walls:"The walls are all painted white.",
-  ceiling:"The ceiling is domed.",
+  book: 'Comedy of Errors',
+  uniform: 'a curious white dress that buttons at the front; more like a lab coat really',
+  smell: 'The room smells slightly of oil.',
+  listen: 'Mandy can hear nothing.',
+  floor: "The floor is wood.",
+  walls: "The walls are all painted white.",
+  ceiling: "The ceiling is domed.",
 })
 
 
@@ -19,22 +19,22 @@ register('observatory', {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("observatory", {
-  windowsface:'none',
-  desc:"The room is dominated, filled even, by a telescope and its supporting mechanism, which is not difficult, as the room is not big. There are some controls on the wall, and the only exit is the stairs she has just come up.{if telescope.roofOpen: A section of roof is open on the west side of the dome.}{if:spike:alias:mangled metal: There is a black line along the floor marking where the wire had been before the lightning strike.}",
+  windowsface: 'none',
+  desc: "The room is dominated, filled even, by a telescope and its supporting mechanism, which is not difficult, as the room is not big. There are some controls on the wall, and the only exit is the stairs she has just come up.{if telescope.roofOpen: A section of roof is open on the west side of the dome.}{if:spike:alias:mangled metal: There is a black line along the floor marking where the wire had been before the lightning strike.}",
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  down:new Exit("great_gallery"),
+  down: new Exit("great_gallery"),
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  up:new Exit("observatory_up", {alsoDir:['climb'], msg:'She clambers up the telescope.'}),
-  afterEnter:function() {
+  up: new Exit("observatory_up", { alsoDir: ['climb'], msg: 'She clambers up the telescope.' }),
+  afterEnter: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'uniform' does not exist on type '{}'.
-    if (w.uniform.wet === 4) { 
+    if (w.uniform.wet === 4) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'uniform' does not exist on type '{}'.
       w.uniform.wet = 3
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       msg("She is dripping water on to the floor.")
     }
   },
-  examine_ceiling:function() {
+  examine_ceiling: function () {
     let s = "The observatory is a domed roof, perhaps made of wood, painted an off-white colour."
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
     if (w.telescope.roofOpen) {
@@ -57,10 +57,10 @@ createRoom("observatory", {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("slot", {
-  isLocatedAt:function(loc: any) { return ["observatory", "observatory_up", "telescope_end"].includes(loc) },
-  scenery:true,
-  synonyms:['opening'],
-  examine:function() {
+  isLocatedAt: function (loc: any) { return ["observatory", "observatory_up", "telescope_end"].includes(loc) },
+  scenery: true,
+  synonyms: ['opening'],
+  examine: function () {
     let s = ""
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
     if (w.telescope.roofOpen) {
@@ -83,15 +83,15 @@ createItem("slot", {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("telescope", {
-  loc:"observatory",
-  scenery:true,
-  alias:"telescope",
-  synonyms:['mechanism'],
-  roofOpen:false,
-  azimuth:1,
-  azimuthAsDegrees:45,
-  altitude:5,
-  altitudes:[
+  loc: "observatory",
+  scenery: true,
+  alias: "telescope",
+  synonyms: ['mechanism'],
+  roofOpen: false,
+  azimuth: 1,
+  azimuthAsDegrees: 45,
+  altitude: 5,
+  altitudes: [
     'horizontal',
     'nearly horizontal',
     'slightly raised',
@@ -101,10 +101,10 @@ createItem("telescope", {
     'raised high',
     'nearly vertical',
   ],
-  azimuths:['north', 'northeast', 'east', 'southeast', 'south', 'southwest', 'west', 'northwest'],
-  shardTime:7,
-  shardReversed:false,
-  shardViews:[
+  azimuths: ['north', 'northeast', 'east', 'southeast', 'south', 'southwest', 'west', 'northwest'],
+  shardTime: 7,
+  shardReversed: false,
+  shardViews: [
     "There is just blackness. Is this before she was born?",
     "This is a view in a hospital; her mother is in a bed, clearly in pain.{once: Mandy cannot remember her mother being in hospital, when was this? Then she notices the huge belly. This is Mandy's birth!} She watches in fascination as her mother silently screams with each push, as the baby Mandy emerges into the world.{once: Mandy revises her plan to have a large family...}",
     "A room... The lounge in her house, she realises, and the toddler -- stood, holding on to the chair -- must be her aged about one. The little girl lets go of the chair, takes two hesitant steps, then falls to ground. But undeterred, she crawls back to the chair, uses it to stand, and takes a few more steps.",
@@ -121,14 +121,14 @@ createItem("telescope", {
     "Much more fuzzy now; she can see a woman, she guesses herself, but it is hard to tell, in a smart skirt and jacket. Her first day at work, Mandy thinks for a moment, but no, future-Mandy is telling everyone else what to do.{once: What sort of business is this? Does she own it? It is too fuzzy to see.}",
     "It is all too fuzzy to see anything now.{once: Perhaps the future is not set in stone, and this has yet to be decided.}",
   ],
-  examine:function() {
+  examine: function () {
     let s = "The telescope itself is about four metres long. It is held in place by a complicated mechanism, involving cogs and gears, and the whole thing is made of brass, giving it a strange beauty.{if:observatory_up:visited:0: Mandy wonders idly if she could climb up it.}"
     s += " It is currently " + this.altitudes[this.altitude] + ","
     s += " and pointing " + this.azimuths[this.azimuth] + "ward."
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg(s)
   },
-  use:function() {
+  use: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'glass_shard' does not exist on type '{}'... Remove this comment to see the full error message
     if (this.azimuth === 4 && this.altitude === 0 && w.glass_shard.loc === 'controls') {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'glass_shard' does not exist on type '{}'... Remove this comment to see the full error message
@@ -157,34 +157,34 @@ createItem("telescope", {
     }
     return true
   },
-  lookthrough:function() { return this.use() },
-  lookin:function() { return this.use() },
-  climbverb:function(options: any) {
+  lookthrough: function () { return this.use() },
+  lookin: function () { return this.use() },
+  climbverb: function (options: any) {
     return currentLocation.up.use(options.char)
   },
-  goUpDirection:'up',
+  goUpDirection: 'up',
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("controls", SURFACE(), {
-  loc:"observatory",
-  scenery:true,
-  synonyms:['panel', 'slim box'],
-  alias:"controls",
-  examine:"The controls consist of two wheels, one on the left, one on the right, and a lever, all set into a slim box, all in brass, fixed to the wall on the south side of the room.",
+  loc: "observatory",
+  scenery: true,
+  synonyms: ['panel', 'slim box'],
+  alias: "controls",
+  examine: "The controls consist of two wheels, one on the left, one on the right, and a lever, all set into a slim box, all in brass, fixed to the wall on the south side of the room.",
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("left_wheel", {
   // azimuth
-  loc:"observatory",
-  scenery:true,
-  alias:"left wheel",
-  examine:"The left wheel is about seven centimetres across, and made of brass. There is a set of numbers on dials, like a gas meter, just above the wheel, showing {show:telescope:azimuthAsDegrees}.",
-  turn:"Mandy looks at the wheel, wondering if she wants to turn the left wheel left or turn it right...",
-  turnleft:function() { return this.doTurn(-1) },
-  turnright:function() { return this.doTurn(1) },
-  doTurn:function(inc: any) { 
+  loc: "observatory",
+  scenery: true,
+  alias: "left wheel",
+  examine: "The left wheel is about seven centimetres across, and made of brass. There is a set of numbers on dials, like a gas meter, just above the wheel, showing {show:telescope:azimuthAsDegrees}.",
+  turn: "Mandy looks at the wheel, wondering if she wants to turn the left wheel left or turn it right...",
+  turnleft: function () { return this.doTurn(-1) },
+  turnright: function () { return this.doTurn(1) },
+  doTurn: function (inc: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
     w.telescope.azimuth += inc
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
@@ -194,7 +194,7 @@ createItem("left_wheel", {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
     w.telescope.azimuthAsDegrees = w.telescope.azimuth * 45 + (w.telescope.azimuths[w.telescope.azimuth].length % 5 + 1)
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg("{if:params:inc:-1:With a grunt of effort, }Mandy turns the left wheel a full rotation {if:params:inc:-1:anti-}clockwise{if:params:inc:-1: -- it is hard work! As:, and as} she does the entire telescope, and the mechanism holding it, {if:params:inc:-1:rotates, with a painful grinding noise:smoothly rotates}. At the same time, the ceiling also turns{if:telescope:roofOpen:{if:telescope:azimuth:6:, and she can just see the roof of the great hall through the slot}}.", {inc:inc})
+    msg("{if:params:inc:-1:With a grunt of effort, }Mandy turns the left wheel a full rotation {if:params:inc:-1:anti-}clockwise{if:params:inc:-1: -- it is hard work! As:, and as} she does the entire telescope, and the mechanism holding it, {if:params:inc:-1:rotates, with a painful grinding noise:smoothly rotates}. At the same time, the ceiling also turns{if:telescope:roofOpen:{if:telescope:azimuth:6:, and she can just see the roof of the great hall through the slot}}.", { inc: inc })
     return true
   },
 })
@@ -202,12 +202,12 @@ createItem("left_wheel", {
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("right_wheel", {
   // altitude
-  loc:"observatory",
-  scenery:true,
-  alias:"right wheel",
-  examine:"The right wheel is about seven centimetres across, and made of brass. There is a set of numbers on dials, like a gas meter, just above the wheel, showing {show:telescope:altitude}0.",
-  turn:"Mandy looks at the wheel, wondering if she wants to turn the right wheel left or turn it right...",
-  turnright:function() {
+  loc: "observatory",
+  scenery: true,
+  alias: "right wheel",
+  examine: "The right wheel is about seven centimetres across, and made of brass. There is a set of numbers on dials, like a gas meter, just above the wheel, showing {show:telescope:altitude}0.",
+  turn: "Mandy looks at the wheel, wondering if she wants to turn the right wheel left or turn it right...",
+  turnright: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
     if (w.telescope.altitude === w.telescope.altitudes.length - 1) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -220,7 +220,7 @@ createItem("right_wheel", {
     msg("Mandy turns the right wheel a full rotation clockwise, and as she does the telescope rises.")
     return true
   },
-  turnleft:function() { 
+  turnleft: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
     if (w.telescope.altitude === 0) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -237,10 +237,10 @@ createItem("right_wheel", {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("lever", {
-  loc:"observatory",
-  scenery:true,
-  examine:"A small brass level, currently in the {if:telescope:roofOpen:down}{ifNot:telescope:roofOpen:up} position.",
-  push:function(options: any) {
+  loc: "observatory",
+  scenery: true,
+  examine: "A small brass level, currently in the {if:telescope:roofOpen:down}{ifNot:telescope:roofOpen:up} position.",
+  push: function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'currentCommand' does not exist on type '... Remove this comment to see the full error message
     const verb = parser.currentCommand.name.toLowerCase()
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
@@ -265,8 +265,8 @@ createItem("lever", {
     }
     return true
   },
-  pull:function(options: any) { return this.push(options) },
-  flip:function(options: any) { return this.push(options) },
+  pull: function (options: any) { return this.push(options) },
+  flip: function (options: any) { return this.push(options) },
 })
 
 
@@ -274,17 +274,17 @@ createItem("lever", {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("observatory_up", {
-  windowsface:'none',
-  alias:'up on the telescope',
-  headingAlias:"The Observatory (On The Telescope)",
-  noFollow:true,
-  desc:function() {
+  windowsface: 'none',
+  alias: 'up on the telescope',
+  headingAlias: "The Observatory (On The Telescope)",
+  noFollow: true,
+  desc: function () {
     let s = "Mandy clings to the top of the mechanism that supports the telescope. From here she can... Not do a lot. The domed roof is too far to touch, and the eyepiece of the telescope is back on the ground.{ifLessThan:telescope:altitude:5: She could perhaps edge {select:telescope:azimuths:azimuth} along the telescope itself.}"
     return s
   },
-  afterEnter:function() {
+  afterEnter: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'uniform' does not exist on type '{}'.
-    if (w.uniform.wet === 5) { 
+    if (w.uniform.wet === 5) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'uniform' does not exist on type '{}'.
       w.uniform.wet = 4
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -292,33 +292,33 @@ createRoom("observatory_up", {
     }
   },
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  down:new Exit("observatory", {alsoDir:['climb_down']}),
+  down: new Exit("observatory", { alsoDir: ['climb_down'] }),
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'observatory' does not exist on type '{}'... Remove this comment to see the full error message
-  examine_ceiling:function() { w.observatory.examine_ceiling() },
-  afterDropIn:function(item: any) { item.loc = 'observatory' }
+  examine_ceiling: function () { w.observatory.examine_ceiling() },
+  afterDropIn: function (item: any) { item.loc = 'observatory' }
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("telescope_while_on_it", {
-  loc:"observatory_up",
-  scenery:true,
-  alias:"telescope",
+  loc: "observatory_up",
+  scenery: true,
+  alias: "telescope",
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
-  examine:function() { w.telescope.examine() },
+  examine: function () { w.telescope.examine() },
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  use:function() { return falsemsg("She cannot use the telescope while climbing on it.") },
+  use: function () { return falsemsg("She cannot use the telescope while climbing on it.") },
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  lookthrough:function() { return falsemsg("She cannot look though the telescope while climbing on it.") },
-  climbdownverb:function(options: any) {
+  lookthrough: function () { return falsemsg("She cannot look though the telescope while climbing on it.") },
+  climbdownverb: function (options: any) {
     return currentLocation.down.use(options.char)
   },
-  goDownDirection:'down',
+  goDownDirection: 'down',
 })
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("roof_from_telescrope", {
-  isLocatedAt:function(loc: any) {
+  isLocatedAt: function (loc: any) {
     if (loc !== "observatory_up") return false
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
     if (!w.telescope.roofOpen) return false
@@ -326,20 +326,20 @@ createItem("roof_from_telescrope", {
     if (w.telescope.azimuth !== 6) return false
     return true
   },
-  scenery:true,
-  alias:"roof",
-  examine:"Through the open slot in the domed roof, Mandy can see the peaked roof of the Great Hall, and on it a weather vane. {ifMoreThan:telescope:altitude:4:If the telescope was lower, she might be able to reach the roof:She wonders if she could go west along the telescope, and get onto the roof}.",
+  scenery: true,
+  alias: "roof",
+  examine: "Through the open slot in the domed roof, Mandy can see the peaked roof of the Great Hall, and on it a weather vane. {ifMoreThan:telescope:altitude:4:If the telescope was lower, she might be able to reach the roof:She wonders if she could go west along the telescope, and get onto the roof}.",
 })
 
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("telescope_end", {
-  windowsface:'none',
-  alias:'end of the telescope',
-  headingAlias:"The Observatory (End Of The Telescope)",
-  noFollow:true,
-  desc:function() {
+  windowsface: 'none',
+  alias: 'end of the telescope',
+  headingAlias: "The Observatory (End Of The Telescope)",
+  noFollow: true,
+  desc: function () {
     let s = "Mandy sits -- somewhat precariously -- straddling the telescope."
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
     if (w.telescope.roofOpen) {
@@ -347,11 +347,11 @@ createRoom("telescope_end", {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
       if (w.telescope.azimuth === 6) {
         s += " she can see the roof of the great hall. It looks close enough she might be able to head west, climbing across."
-     }
-     else {
+      }
+      else {
         s += " the open sky -- and a long drop down."
-     }
-   
+      }
+
     }
     else {
       s += " From here she could touch the ceiling, if she really want to."
@@ -364,23 +364,23 @@ createRoom("telescope_end", {
 for (const dir of w.telescope.azimuths) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'observatory_up' does not exist on type '... Remove this comment to see the full error message
   w.observatory_up[dir] = new Exit("telescope_end", {
-    isHidden:function() {
+    isHidden: function () {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
       return (this.dir !== w.telescope.azimuths[w.telescope.azimuth])
     },
-    simpleUse:function(char: any) {
+    simpleUse: function (char: any) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
-      if (this.dir !== w.telescope.azimuths[w.telescope.azimuth]) return falsemsg(lang.not_that_way, {char:char, dir:this.dir})
+      if (this.dir !== w.telescope.azimuths[w.telescope.azimuth]) return falsemsg(lang.not_that_way, { char: char, dir: this.dir })
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
       if (w.telescope.altitude > 4) return falsemsg("Mandy looks at the end of the telescope; if it were not so steep and smooth, she could edge along it{if:telescope:azimuth:6:, and perhaps get out onto the roof to the west}.")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSimpleExitUse' does not exist on ... Remove this comment to see the full error message
-      return util.defaultSimpleExitUse(char, this)
+      return Quest.Utilities.util.defaultSimpleExitUse(char, this)
     },
-    msg:"Mandy cautiously edges along the telescope to the very end.",
+    msg: "Mandy cautiously edges along the telescope to the very end.",
   })
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope_end' does not exist on type '{... Remove this comment to see the full error message
   w.telescope_end[dir] = new Exit("observatory_up", {
-    isHidden:function() {
+    isHidden: function () {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
       if (this.dir === w.telescope.azimuths[w.telescope.azimuth]) return false
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
@@ -388,7 +388,7 @@ for (const dir of w.telescope.azimuths) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
       return (this.dir !== w.telescope.azimuths[(w.telescope.azimuth + 4) % 8])
     },
-    simpleUse:function(char: any) {
+    simpleUse: function (char: any) {
       // if we are here, altitude must be okay
       // catch early for special message
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
@@ -397,27 +397,27 @@ for (const dir of w.telescope.azimuths) {
       if (w.telescope.roofOpen && this.dir !== "west" && this.dir === w.telescope.azimuths[w.telescope.azimuth]) return falsemsg("Mandy considers for a moment a leap of faith from the end of the telescope, out through the slot in the ceiling... No, not a good idea.")
 
 
-      if (this.isHidden()) return falsemsg(lang.not_that_way, {char:char, dir:this.dir})
+      if (this.isHidden()) return falsemsg(lang.not_that_way, { char: char, dir: this.dir })
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
-      if (this.dir === w.telescope.azimuths[(w.telescope.azimuth + 4) % 8]) return util.defaultSimpleExitUse(char, this)
+      if (this.dir === w.telescope.azimuths[(w.telescope.azimuth + 4) % 8]) return Quest.Utilities.util.defaultSimpleExitUse(char, this)
 
       // should only be west, with telescope pointing west by this point
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSimpleExitUse' does not exist on ... Remove this comment to see the full error message
-      return util.defaultSimpleExitUse(char, new Exit('roof_location_east', {origin:this.origin, dir:this.dir, msg:"Mandy reaches over to the opening in the roof. She climbs through, and for a moment is balanced precariously on the bottom of the slot, before she jumps onto the adjacent roof, heart pounding in her chest."})
-   )
+      return Quest.Utilities.util.defaultSimpleExitUse(char, new Exit('roof_location_east', { origin: this.origin, dir: this.dir, msg: "Mandy reaches over to the opening in the roof. She climbs through, and for a moment is balanced precariously on the bottom of the slot, before she jumps onto the adjacent roof, heart pounding in her chest." })
+      )
     },
-    msg:"Mandy cautiously edges back along the telescope to where it is supported, and clings to the mechanism, feeling decidedly safer.",
+    msg: "Mandy cautiously edges back along the telescope to where it is supported, and clings to the mechanism, feeling decidedly safer.",
   })
 }
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("roof_seen_from_telescope", {
-  scenery:true,
-  alias:'roof',
+  scenery: true,
+  alias: 'roof',
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
-  isLocatedAt:function(loc: any) { return loc === 'telescope_end' && w.telescope.roofOpen },
-  examine:'The roof of the great hall can be seen though the slot in the roof. It has a definite gothic vibe going on, with pointy bits at either end -- the further one sporting a weather vane --  and an ornate metal ridge between them.',
+  isLocatedAt: function (loc: any) { return loc === 'telescope_end' && w.telescope.roofOpen },
+  examine: 'The roof of the great hall can be seen though the slot in the roof. It has a definite gothic vibe going on, with pointy bits at either end -- the further one sporting a weather vane --  and an ornate metal ridge between them.',
 })
 
 
@@ -427,13 +427,13 @@ createItem("roof_seen_from_telescope", {
 
 
 register('roof', {
-  book:'The Tempest',
-  uniform:'a midnight blue uniform that is actually not that bad',
-  smell:'The air is certainly fresh up here!',
-  listen:'Mandy can hear the wind howling around her.',
-  floor:"There is no floor, just the roof of the Great Hall.",
-  walls:"There are no walls here.",
-  ceiling:"The ceiling is the clouds... No, seriously, there is no ceiling here.",
+  book: 'The Tempest',
+  uniform: 'a midnight blue uniform that is actually not that bad',
+  smell: 'The air is certainly fresh up here!',
+  listen: 'Mandy can hear the wind howling around her.',
+  floor: "There is no floor, just the roof of the Great Hall.",
+  walls: "There are no walls here.",
+  ceiling: "The ceiling is the clouds... No, seriously, there is no ceiling here.",
 })
 
 
@@ -442,12 +442,12 @@ register('roof', {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("roof_location_east", {
-  alias:'east end of the roof',
-  headingAlias:"On A High Roof",
-  desc:"Mandy is standing -- rather nervously -- on the apex of a roof{once:. She is far above the ground. Not just scary far but also does-not-make-sense far above the ground. It is a two-story house! Then again, she is pretty sure number 23 does not have an observatory at the back.|As she looks harder, she realises she cannot see the Ash Tree Estate, instead there are only fields. Perhaps no bad thing, she thinks, but then she notices that there is no modern housing at all. This is what the town would have looked like before the war. Possibly before the first world war.|:, far above the ground. }As for the roof itself, it is slate, with a rusty iron decorative ridge to which Mandy is clinging. There is a weather vane at one end{ifIs:wire:tiedTo2:spike:, with wire wrapped round the letter E}.",
-  afterEnter:function() {
+  alias: 'east end of the roof',
+  headingAlias: "On A High Roof",
+  desc: "Mandy is standing -- rather nervously -- on the apex of a roof{once:. She is far above the ground. Not just scary far but also does-not-make-sense far above the ground. It is a two-story house! Then again, she is pretty sure number 23 does not have an observatory at the back.|As she looks harder, she realises she cannot see the Ash Tree Estate, instead there are only fields. Perhaps no bad thing, she thinks, but then she notices that there is no modern housing at all. This is what the town would have looked like before the war. Possibly before the first world war.|:, far above the ground. }As for the roof itself, it is slate, with a rusty iron decorative ridge to which Mandy is clinging. There is a weather vane at one end{ifIs:wire:tiedTo2:spike:, with wire wrapped round the letter E}.",
+  afterEnter: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'wire' does not exist on type '{}'.
-    if (w.wire.isAtLoc(player) && w.sky.state < 3) { 
+    if (w.wire.isAtLoc(player) && w.sky.state < 3) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'sky' does not exist on type '{}'.
       w.sky.state = 3
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -456,7 +456,7 @@ createRoom("roof_location_east", {
       w.uniform.wet = 5
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'wire' does not exist on type '{}'.
-    if (w.wire.tiedTo2 === 'spike' && w.sky.state < 6) { 
+    if (w.wire.tiedTo2 === 'spike' && w.sky.state < 6) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'sky' does not exist on type '{}'.
       w.sky.state = 6
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -464,29 +464,29 @@ createRoom("roof_location_east", {
     }
   },
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  east:new Exit("telescope_end", {msg:'Mandy nervously jumps back on to the sill of the opening in the observatory roof. After a moment to catch her breath, she reaches across, to grab the telescope, and straddle the end of it.'}),
+  east: new Exit("telescope_end", { msg: 'Mandy nervously jumps back on to the sill of the opening in the observatory roof. After a moment to catch her breath, she reaches across, to grab the telescope, and straddle the end of it.' }),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  testDropIn:function() { return falsemsg("It occurs to Mandy that anything she drops here will fall down the roof, and will be lost forever.") },
+  testDropIn: function () { return falsemsg("It occurs to Mandy that anything she drops here will fall down the roof, and will be lost forever.") },
 })
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("roof", {
-  loc:"roof_location_east",
-  synonyms:['ridge', 'tiles', 'slates', 'mold', 'ridge tiles'],
-  scenery:true,
-  examine:"The roof is slate, and slopes down to the north and south. Many of the slates have mould growing on them, or are chipped or crooked, suggesting the roof has not been repaired for a long time. Then again, this is the first roof Mandy has seen so close-up -- maybe this is normal. ",
+  loc: "roof_location_east",
+  synonyms: ['ridge', 'tiles', 'slates', 'mold', 'ridge tiles'],
+  scenery: true,
+  examine: "The roof is slate, and slopes down to the north and south. Many of the slates have mould growing on them, or are chipped or crooked, suggesting the roof has not been repaired for a long time. Then again, this is the first roof Mandy has seen so close-up -- maybe this is normal. ",
 })
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("spike", {
-  loc:"roof_location_east",
-  alias:'weather vane',
-  synonyms:['weather vane', 'raven', 'weathervane'],
-  scenery:true,
-  attachable:true,
-  examine:function() {
+  loc: "roof_location_east",
+  alias: 'weather vane',
+  synonyms: ['weather vane', 'raven', 'weathervane'],
+  scenery: true,
+  attachable: true,
+  examine: function () {
     if (this.alias === 'mangled metal') {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       msg("The weather vane is a twisted lump of black metal. Two rods stick out, with \"N\" and \"W\" of them, the only hint of what it used to be.")
@@ -516,10 +516,10 @@ createItem("spike", {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("sky", {
-  isLocatedAt:function(loc: any) { return loc.startsWith("roof_location") },
-  scenery:true,
-  state:2,
-  examine:function() {
+  isLocatedAt: function (loc: any) { return loc.startsWith("roof_location") },
+  scenery: true,
+  state: 2,
+  examine: function () {
     switch (this.state) {
       case 20:
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.

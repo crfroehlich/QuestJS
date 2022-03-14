@@ -328,7 +328,7 @@ class Cmd {
         }
         if (!rule(this, options)) return false
       }
-      let result = printOrRun(options.char, options.item, this.attName, options);
+      let result = Quest.Utilities.printOrRun(options.char, options.item, this.attName, options);
       if (typeof result !== "boolean" && result !== world.SUCCESS_NO_TURNSCRIPTS) {
         // Assume the author wants to return true from the verb
         result = true;
@@ -375,11 +375,11 @@ function NpcCmd(this: any, name: any, hash: any) {
   Object.assign(this, cmd);
   // Cmd.call(this, name, hash);
   if (!this.cmdCategory) this.cmdCategory = name;
-  this.script = function(objects: any) {
+  this.script = function (objects: any) {
     const npc = objects[0][0];
     if (!npc.npc) {
-      failedmsg(lang.not_npc, {char:player, item:npc});
-      return world.FAILED; 
+      failedmsg(lang.not_npc, { char: player, item: npc });
+      return world.FAILED;
     }
     let success = false, handled;
     if (objects.length !== 2) {
@@ -390,13 +390,13 @@ function NpcCmd(this: any, name: any, hash: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'currentCommand' does not exist on type '... Remove this comment to see the full error message
     const multiple = (objects[1].length > 1 || parser.currentCommand.all);
     for (let obj of objects[1]) {
-      const options = {multiple:multiple, char:npc, item:obj}
+      const options = { multiple: multiple, char: npc, item: obj }
       if (!npc.getAgreement(this.cmdCategory, obj, this)) continue
       if (!obj[this.attName]) {
         this.default(options);
       }
       else {
-        let result = this.processCommand({multiple:multiple, char:npc, item:obj});
+        let result = this.processCommand({ multiple: multiple, char: npc, item: obj });
         if (result === world.SUCCESS_NO_TURNSCRIPTS) {
           result = true;
         }
@@ -408,7 +408,7 @@ function NpcCmd(this: any, name: any, hash: any) {
       return (this.noTurnscripts ? world.SUCCESS_NO_TURNSCRIPTS : world.SUCCESS);
     }
     else {
-      return world.FAILED; 
+      return world.FAILED;
     }
   };
 }
@@ -419,44 +419,44 @@ function ExitCmd(this: any, name: any, dir: any, hash: any) {
   //Cmd.call(this, name, hash);
   this.exitCmd = true;
   this.dir = dir;
-  this.objects = [{special:'ignore'}, {special:'ignore'}, ],
-  this.script = function(objects: any) {
-    if (!currentLocation.hasExit(this.dir)) {
-      const exitObj = lang.exit_list.find(el => el.name === this.dir )
-      // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
-      if (exitObj.not_that_way) return failedmsg(exitObj.not_that_way, {char:player, dir:this.dir})
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'customNoExitMsg' does not exist on type ... Remove this comment to see the full error message
-      if (Quest.settings.customNoExitMsg) return failedmsg(Quest.settings.customNoExitMsg(player, dir))
-      return failedmsg(lang.not_that_way, {char:player, dir:this.dir})
-    }
-    else {
-      const ex = currentLocation.getExit(this.dir);
-      if (typeof ex === "object"){
-        if (!player.testMove(ex)) {
-          return world.FAILED;
-        }
-        if (typeof ex.use !== 'function') {
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-          errormsg("Exit's 'use' attribute is not a function (or does not exist).");
-          console.log("Bad exit:")
-          console.log(ex)
-          return world.FAILED;
-        }
-        const flag = ex.use(player, ex);
-        if (typeof flag !== "boolean") {
-          console.warn("Exit on " + currentLocation.name + " failed to return a Boolean value, indicating success or failure; assuming success");
-          return world.SUCCESS;
-        }
-        if (flag && ex.extraTime) game.elapsedTime += ex.extraTime
-        return flag ? world.SUCCESS : world.FAILED;
+  this.objects = [{ special: 'ignore' }, { special: 'ignore' },],
+    this.script = function (objects: any) {
+      if (!currentLocation.hasExit(this.dir)) {
+        const exitObj = lang.exit_list.find(el => el.name === this.dir)
+        // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
+        if (exitObj.not_that_way) return failedmsg(exitObj.not_that_way, { char: player, dir: this.dir })
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'customNoExitMsg' does not exist on type ... Remove this comment to see the full error message
+        if (Quest.Settings.settings.customNoExitMsg) return failedmsg(Quest.Settings.settings.customNoExitMsg(player, dir))
+        return failedmsg(lang.not_that_way, { char: player, dir: this.dir })
       }
       else {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        errormsg("Unsupported type for direction");
-        return world.FAILED;
+        const ex = currentLocation.getExit(this.dir);
+        if (typeof ex === "object") {
+          if (!player.testMove(ex)) {
+            return world.FAILED;
+          }
+          if (typeof ex.use !== 'function') {
+            // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+            errormsg("Exit's 'use' attribute is not a function (or does not exist).");
+            console.log("Bad exit:")
+            console.log(ex)
+            return world.FAILED;
+          }
+          const flag = ex.use(player, ex);
+          if (typeof flag !== "boolean") {
+            console.warn("Exit on " + currentLocation.name + " failed to return a Boolean value, indicating success or failure; assuming success");
+            return world.SUCCESS;
+          }
+          if (flag && ex.extraTime) game.elapsedTime += ex.extraTime
+          return flag ? world.SUCCESS : world.FAILED;
+        }
+        else {
+          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+          errormsg("Unsupported type for direction");
+          return world.FAILED;
+        }
       }
-    }
-  };
+    };
 }
 
 function NpcExitCmd(this: any, name: any, dir: any, hash: any) {
@@ -466,37 +466,37 @@ function NpcExitCmd(this: any, name: any, dir: any, hash: any) {
   this.exitCmd = true;
   this.dir = dir;
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-  this.objects = [{scope:parser.isHere, attName:"npc"}, {special:'ignore'}, {special:'ignore'}, ],
-  this.script = function(objects: any) {
-    const npc = objects[0][0]
-    if (!npc.npc) return failedmsg(lang.not_npc, {char:player, item:npc})
-    if (!currentLocation.hasExit(this.dir)) {
-      const exitObj = lang.exit_list.find(el => el.name === this.dir )
-      // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
-      if (exitObj.not_that_way) return failedmsg(exitObj.not_that_way, {char:npc, dir:this.dir})
-      return failedmsg(lang.not_that_way, {char:npc, dir:this.dir})
+  this.objects = [{ scope: parser.isHere, attName: "npc" }, { special: 'ignore' }, { special: 'ignore' },],
+    this.script = function (objects: any) {
+      const npc = objects[0][0]
+      if (!npc.npc) return failedmsg(lang.not_npc, { char: player, item: npc })
+      if (!currentLocation.hasExit(this.dir)) {
+        const exitObj = lang.exit_list.find(el => el.name === this.dir)
+        // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
+        if (exitObj.not_that_way) return failedmsg(exitObj.not_that_way, { char: npc, dir: this.dir })
+        return failedmsg(lang.not_that_way, { char: npc, dir: this.dir })
+      }
+
+      const ex = currentLocation.getExit(this.dir)
+      if (typeof ex !== "object") {
+        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+        errormsg("Unsupported type for direction")
+        return world.FAILED
+      }
+
+      if (npc.testMove && !npc.testMove(ex)) return world.FAILED
+      if (!npc.getAgreement("Go", ex)) return world.FAILED
+
+      const flag = ex.use(npc, ex)
+      if (flag) npc.pause()
+      return flag ? world.SUCCESS : world.FAILED;
     }
-
-    const ex = currentLocation.getExit(this.dir)
-    if (typeof ex !== "object"){
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      errormsg("Unsupported type for direction")
-      return world.FAILED
-    }
-
-    if (npc.testMove && !npc.testMove(ex)) return world.FAILED
-    if (!npc.getAgreement("Go", ex)) return world.FAILED
-
-    const flag = ex.use(npc, ex)
-    if (flag) npc.pause()
-    return flag ? world.SUCCESS : world.FAILED;
-  }
 }
 
 
 
 
-  // Should be called during the initialisation process
+// Should be called during the initialisation process
 function initCommands() {
   const newCmds = [];
   for (let el of commands) {
@@ -509,17 +509,17 @@ function initCommands() {
       const regexAsStr = el.regexes[0]?.source.substr(1);  // lose the ^ at the start, as we will prepend to it
       const objects = el.objects.slice();
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-      objects.unshift({scope:parser.isHere, attName:"npc"});
-      
+      objects.unshift({ scope: parser.isHere, attName: "npc" });
+
       const data = {
-        objects:objects,
-        attName:el.attName,
-        default:el.default,
-        defmsg:el.defmsg,
-        rules:el.rules,
-        score:el.score,
-        cmdCategory:el.cmdCategory ? el.cmdCategory : el.name,
-        forNpc:true,
+        objects: objects,
+        attName: el.attName,
+        default: el.default,
+        defmsg: el.defmsg,
+        rules: el.rules,
+        score: el.score,
+        cmdCategory: el.cmdCategory ? el.cmdCategory : el.name,
+        forNpc: true,
       };
 
       // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
@@ -540,24 +540,24 @@ function initCommands() {
       newCmds.push(cmd)
     }
   }
-  
+
   commands.push.apply(commands, newCmds);
-  
+
   for (let el of lang.exit_list) {
     if (el.type !== 'nocmd') {
       let regex = "(" + lang.go_pre_regex + ")(" + el.name + "|" + el.abbrev.toLowerCase();
       if (el.alt) { regex += "|" + el.alt; }
       regex += ")$";
       // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-      commands.push(new ExitCmd("Go" + sentenceCase(el.name), el.name, { regexes:[new RegExp("^" + regex)] }));
-      
+      commands.push(new ExitCmd("Go" + Quest.Utilities.sentenceCase(el.name), el.name, { regexes: [new RegExp("^" + regex)] }));
+
       const regexes = []
       for (let key in lang.tell_to_prefixes) {
         // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         regexes.push(new RegExp("^" + lang.tell_to_prefixes[key] + regex))
       }
       // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-      commands.push(new NpcExitCmd("NpcGo" + sentenceCase(el.name) + "2", el.name, { regexes:regexes }))
+      commands.push(new NpcExitCmd("NpcGo" + Quest.Utilities.sentenceCase(el.name) + "2", el.name, { regexes: regexes }))
     }
   }
 }
@@ -569,8 +569,8 @@ function extractChar(cmd: any, objects: any) {
   if (cmd.forNpc) {
     char = objects[0][0];
     if (!char.npc) {
-      failedmsg(lang.not_npc, {char:player, item:char});
-      return world.FAILED; 
+      failedmsg(lang.not_npc, { char: player, item: char });
+      return world.FAILED;
     }
     objects.shift();
   }
@@ -603,7 +603,7 @@ const cmdRules = {};
 
 // Item's location is the char and it is not worn
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeldNotWorn' does not exist on type '{... Remove this comment to see the full error message
-cmdRules.isHeldNotWorn = function(cmd: any, options: any) {
+cmdRules.isHeldNotWorn = function (cmd: any, options: any) {
   if (!options.item.getWorn() && options.item.isAtLoc(options.char.name, world.PARSER)) return true
 
   if (options.item.isAtLoc(options.char.name, world.PARSER)) return falsemsg(lang.already_wearing, options)
@@ -613,44 +613,44 @@ cmdRules.isHeldNotWorn = function(cmd: any, options: any) {
     options.holder = w[options.item.loc]
     if (options.holder.npc || options.holder.player) return falsemsg(lang.char_has_it, options)
   }
-    
+
   return falsemsg(lang.not_carrying, options)
 }
 
 // Item's location is the char and it is worn
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'isWorn' does not exist on type '{}'.
-cmdRules.isWorn = function(cmd: any, options: any) {
+cmdRules.isWorn = function (cmd: any, options: any) {
   if (options.item.getWorn() && options.item.isAtLoc(options.char.name, world.PARSER)) return true
 
   if (options.item.isAtLoc(options.char.name, world.PARSER)) return falsemsg(lang.not_wearing, options)
-  
+
   if (options.item.loc) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     options.holder = w[options.item.loc];
     if (options.holder.npc || options.holder.player) return falsemsg(lang.char_has_it, options)
   }
-    
+
   return falsemsg(lang.not_carrying, options)
 }
 
 // Item's location is the char
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
-cmdRules.isHeld = function(cmd: any, options: any) {
+cmdRules.isHeld = function (cmd: any, options: any) {
   if (options.item.isAtLoc(options.char.name, world.PARSER)) return true
-    
+
   if (options.item.loc) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     options.holder = w[options.item.loc]
     if (options.holder.npc || options.holder.player) return falsemsg(lang.char_has_it, options)
   }
-    
+
   return falsemsg(lang.not_carrying, options)
 }
 
 // Item's location is the char's location or the char
 // or item is reachable, but not held by someone else
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
-cmdRules.isPresent = function(cmd: any, options: any) {
+cmdRules.isPresent = function (cmd: any, options: any) {
   if (options.item.isAtLoc(options.char.loc, world.PARSER)) return true
   if (options.item.isAtLoc(options.char.name, world.PARSER)) return true
 
@@ -660,7 +660,7 @@ cmdRules.isPresent = function(cmd: any, options: any) {
     // Has a specific location and held by someone
     if (options.holder.npc || options.holder.player) return falsemsg(lang.char_has_it, options)
   }
-  
+
   if (options.item.scopeStatus.canReach) return true
 
   return falsemsg(lang.not_here, options)
@@ -669,7 +669,7 @@ cmdRules.isPresent = function(cmd: any, options: any) {
 // Item's location is the char's location or the char
 // or item is reachable, but not held by someone else
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-cmdRules.isHere = function(cmd: any, options: any) {
+cmdRules.isHere = function (cmd: any, options: any) {
   if (options.item.isAtLoc(options.char.loc, world.PARSER)) return true
 
   if (options.item.loc) {
@@ -678,14 +678,14 @@ cmdRules.isHere = function(cmd: any, options: any) {
     if (options.already && options.holder === options.char) return falsemsg(lang.already_have, options)
     if (options.holder.npc || options.holder.player) return falsemsg(lang.char_has_it, options)
   }
-  
+
   if (options.item.scopeStatus.canReach || options.item.multiLoc) return true
   return falsemsg(lang.not_here, options)
 }
 
 // Used by take to note if player already holding
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHereAlready' does not exist on type '{... Remove this comment to see the full error message
-cmdRules.isHereAlready = function(cmd: any, options: any) {
+cmdRules.isHereAlready = function (cmd: any, options: any) {
   options.already = true
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
   return cmdRules.isHere(cmd, options)
@@ -694,12 +694,12 @@ cmdRules.isHereAlready = function(cmd: any, options: any) {
 
 // In this location or held by this char, or in a container (used by eg TAKE)
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresentOrContained' does not exist on ... Remove this comment to see the full error message
-cmdRules.isPresentOrContained = function(cmd: any, options: any) {
+cmdRules.isPresentOrContained = function (cmd: any, options: any) {
   // use parser functions here as we do not want messages at this point
-  
+
   if (!options.item.isAtLoc) log(options.item.name)
   if (!options.char) log(cmd.name)
-  
+
   if (options.item.isAtLoc(options.char.name, world.PARSER)) return true;
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
   if (parser.isHere(options.item)) return true;
@@ -715,20 +715,20 @@ cmdRules.isPresentOrContained = function(cmd: any, options: any) {
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
-cmdRules.testManipulate = function(cmd: any, options: any) {
+cmdRules.testManipulate = function (cmd: any, options: any) {
   if (!options.char.testManipulate(options.item, cmd.name)) return false
   return true
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'canTalkTo' does not exist on type '{}'.
-cmdRules.canTalkTo = function(cmd: any, options: any) {
+cmdRules.canTalkTo = function (cmd: any, options: any) {
   if (!options.char.testTalk(options.item)) return false
   if (!options.item.npc && !options.item.talker && !options.item.player) return falsemsg(lang.not_able_to_hear, options)
   return true
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'testPosture' does not exist on type '{}'... Remove this comment to see the full error message
-cmdRules.testPosture = function(cmd: any, options: any) {
+cmdRules.testPosture = function (cmd: any, options: any) {
   if (!options.char.testPosture(cmd.name)) return false
   return true
 }

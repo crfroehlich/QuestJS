@@ -12,12 +12,12 @@ const DEFAULT_OBJECT = {
 
   isApparentTo: function (situation: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultIsApparentTo' does not exist on t... Remove this comment to see the full error message
-    if (Quest.settings.defaultIsApparentTo) return Quest.settings.defaultIsApparentTo(situation)
+    if (Quest.Settings.settings.defaultIsApparentTo) return Quest.Settings.settings.defaultIsApparentTo(situation)
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'scenery' does not exist on type '{ prono... Remove this comment to see the full error message
     if (situation === world.LOOK && this.scenery) return false
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'scenery' does not exist on type '{ prono... Remove this comment to see the full error message
-    if (situation === world.SIDE_PANE && this.scenery && !Quest.settings.showSceneryInSidePanes) return false
+    if (situation === world.SIDE_PANE && this.scenery && !Quest.Settings.settings.showSceneryInSidePanes) return false
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'player' does not exist on type '{ pronou... Remove this comment to see the full error message
     if (situation === world.SIDE_PANE && this.player) return false
     return true
@@ -110,8 +110,8 @@ const DEFAULT_OBJECT = {
 
   canReachThroughThis: () => false,
   canSeeThroughThis: () => false,
-  afterTakeOut: NULL_FUNC,
-  afterDropIn: NULL_FUNC,
+  afterTakeOut: Quest.Utilities.NULL_FUNC,
+  afterDropIn: Quest.Utilities.NULL_FUNC,
   testTalkPlayer: () => false,
   getExits: function () { return []; },
   hasExit: (dir: any) => false,
@@ -121,7 +121,7 @@ const DEFAULT_OBJECT = {
 
   moveToFrom: function (options: any, toLoc: any, fromLoc: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'setToFrom' does not exist on type '{}'.
-    util.setToFrom(options, toLoc, fromLoc)
+    Quest.Utilities.util.setToFrom(options, toLoc, fromLoc)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'loc' does not exist on type '{ pronouns:... Remove this comment to see the full error message
     if (options.fromLoc === undefined) options.fromLoc = this.loc
     if (options.fromLoc === options.toLoc) return
@@ -143,13 +143,13 @@ const DEFAULT_OBJECT = {
     if (options.toLoc === player.name && this.afterTake !== undefined) this.afterTake(options)
   },
 
-  afterLoad: NULL_FUNC,
+  afterLoad: Quest.Utilities.NULL_FUNC,
 
   afterLoadForTemplate: function () {
     this.afterLoad();
   },
 
-  beforeSave: NULL_FUNC,
+  beforeSave: Quest.Utilities.NULL_FUNC,
 
   beforeSaveForTemplate: function () {
     this.beforeSave();
@@ -183,9 +183,9 @@ const DEFAULT_OBJECT = {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     if (this[att] instanceof Exit) return true
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'hasMatch' does not exist on type '{}'.
-    if (array.hasMatch(Quest.settings.saveLoadExcludedAtts, att)) return true
+    if (Quest.Utilities.array.hasMatch(Quest.Settings.settings.saveLoadExcludedAtts, att)) return true
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'hasMatch' does not exist on type '{}'.
-    if (array.hasMatch(this.saveLoadExcludedAtts, att)) return true
+    if (Quest.Utilities.array.hasMatch(this.saveLoadExcludedAtts, att)) return true
     return false
   },
 
@@ -194,9 +194,9 @@ const DEFAULT_OBJECT = {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'alias' does not exist on type '{ pronoun... Remove this comment to see the full error message
     this.alias = alias
     // @ts-expect-error ts-migrate(2551) FIXME: Property 'listAlias' does not exist on type '{ pro... Remove this comment to see the full error message
-    this.listAlias = options.listAlias ? options.listAlias : sentenceCase(alias)
+    this.listAlias = options.listAlias ? options.listAlias : Quest.Utilities.sentenceCase(alias)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'headingAlias' does not exist on type '{ ... Remove this comment to see the full error message
-    this.headingAlias = options.headingAlias ? options.headingAlias : Quest.settings.getDefaultRoomHeading(this)
+    this.headingAlias = options.headingAlias ? options.headingAlias : Quest.Settings.settings.getDefaultRoomHeading(this)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'parserOptionsSet' does not exist on type... Remove this comment to see the full error message
     this.parserOptionsSet = false
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'pluralAlias' does not exist on type '{ p... Remove this comment to see the full error message
@@ -245,13 +245,13 @@ const DEFAULT_OBJECT = {
 
 const DEFAULT_ROOM = {
   room: true,
-  beforeEnter: NULL_FUNC,
-  beforeFirstEnter: NULL_FUNC,
-  afterEnter: NULL_FUNC,
+  beforeEnter: Quest.Utilities.NULL_FUNC,
+  beforeFirstEnter: Quest.Utilities.NULL_FUNC,
+  afterEnter: Quest.Utilities.NULL_FUNC,
   afterEnterIf: {},
   afterEnterIfFlags: '',
-  afterFirstEnter: NULL_FUNC,
-  afterExit: NULL_FUNC,
+  afterFirstEnter: Quest.Utilities.NULL_FUNC,
+  afterExit: Quest.Utilities.NULL_FUNC,
   visited: 0,
 
   lightSource: () => world.LIGHT_FULL,
@@ -260,10 +260,10 @@ const DEFAULT_ROOM = {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'dark' does not exist on type '{ turnCoun... Remove this comment to see the full error message
     if (game.dark) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
-      printOrRun(player, this, "darkDesc");
+      Quest.Utilities.printOrRun(player, this, "darkDesc");
       return true;
     }
-    for (let line of Quest.settings.roomTemplate) {
+    for (let line of Quest.Settings.settings.roomTemplate) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       msg(line);
     }
@@ -274,7 +274,7 @@ const DEFAULT_ROOM = {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'dark' does not exist on type '{ turnCoun... Remove this comment to see the full error message
     if (game.dark) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
-      printOrRun(player, this, "darkDesc");
+      Quest.Utilities.printOrRun(player, this, "darkDesc");
       return true;
     }
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -286,7 +286,7 @@ const DEFAULT_ROOM = {
   darkDescription: () => msg("It is dark."),
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getContents' does not exist on type '{}'... Remove this comment to see the full error message
-  getContents: util.getContents,
+  getContents: Quest.Utilities.util.getContents,
 
   getExit: function (dir: any) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message

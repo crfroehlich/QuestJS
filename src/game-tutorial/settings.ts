@@ -2,29 +2,29 @@
 
 // About your game
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{ perform... Remove this comment to see the full error message
-Quest.settings.title = "Professor Kleinscope";
+Quest.Settings.settings.title = "Professor Kleinscope";
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'author' does not exist on type '{ perfor... Remove this comment to see the full error message
-Quest.settings.author = "The Pixie"
+Quest.Settings.settings.author = "The Pixie"
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'version' does not exist on type '{ perfo... Remove this comment to see the full error message
-Quest.settings.version = "1.4";
+Quest.Settings.settings.version = "1.4";
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'additionalAbout' does not exist on type ... Remove this comment to see the full error message
-Quest.settings.additionalAbout = {'Thanks to':'Pertex and R2T1 for beta-testing.'}
+Quest.Settings.settings.additionalAbout = { 'Thanks to': 'Pertex and R2T1 for beta-testing.' }
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'warnings' does not exist on type '{ perf... Remove this comment to see the full error message
-Quest.settings.warnings = 'No warning relevant for this game.'
-Quest.settings.files = ["data", "code", "npcs"];
+Quest.Settings.settings.warnings = 'No warning relevant for this game.'
+Quest.Settings.settings.files = ["data", "code", "npcs"];
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
-Quest.settings.playMode = 'dev'
+Quest.Settings.settings.playMode = 'dev'
 // @ts-expect-error ts-migrate(2322) FIXME: Type 'boolean' is not assignable to type 'string'.
-Quest.settings.noTalkTo = false
+Quest.Settings.settings.noTalkTo = false
 // @ts-expect-error ts-migrate(2322) FIXME: Type 'boolean' is not assignable to type 'string'.
-Quest.settings.noAskTell = false
-Quest.settings.givePlayerAskTellMsg  = false
-Quest.settings.symbolsForCompass = true
+Quest.Settings.settings.noAskTell = false
+Quest.Settings.settings.givePlayerAskTellMsg = false
+Quest.Settings.settings.symbolsForCompass = true
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'ifid' does not exist on type '{ performa... Remove this comment to see the full error message
-Quest.settings.ifid = '3749B11B-0AAA-494B-B2C7-19E0A8E6EBCE'
+Quest.Settings.settings.ifid = '3749B11B-0AAA-494B-B2C7-19E0A8E6EBCE'
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterSave' does not exist on type '{ per... Remove this comment to see the full error message
-Quest.settings.afterSave = function(filename: any) {
+Quest.Settings.settings.afterSave = function (filename: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'before' does not exist on type '{}'.
   if (hint.before('save')) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -48,7 +48,7 @@ Quest.settings.afterSave = function(filename: any) {
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterLoad' does not exist on type '{ per... Remove this comment to see the full error message
-Quest.settings.afterLoad = function() {
+Quest.Settings.settings.afterLoad = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'before' does not exist on type '{}'.
   if (!hint.before('westRobot')) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -57,12 +57,12 @@ Quest.settings.afterLoad = function() {
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'intro' does not exist on type '{ perform... Remove this comment to see the full error message
-Quest.settings.intro = [
+Quest.Settings.settings.intro = [
   "Your mission is to retrieve some files from the computer of Professor Kleinscope. His office is upstairs, but getting there will not be easy.",
 ]
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'setup' does not exist on type '{ perform... Remove this comment to see the full error message
-Quest.settings.setup = function() {
+Quest.Settings.settings.setup = function () {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   tmsg("This is a simple introduction to text adventures; comments like this will lead you by the hand as you do most of the common things in a text adventures (you can toggle these comments on and off with the TUTORIAL command).")
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -73,7 +73,7 @@ Quest.settings.setup = function() {
   tmsg("I suggest you type WAIT now (by he way, I will give commands you type in capitals; you can use upper or lower case as you prefer -input is not case sensitive).")
 }
 
-Quest.settings.roomTemplate = [
+Quest.Settings.settings.roomTemplate = [
   "#{cap:{hereName}}",
   "{terse:{hereDesc}}",
   "{objectsHere:You can see {objects} here.}",

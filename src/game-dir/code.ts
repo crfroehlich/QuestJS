@@ -30,34 +30,34 @@ commands.unshift(new Cmd('Charge', {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'isRoom' does not exist on type '{}'.
-parser.isRoom =function(o: any) { return o.room }
+parser.isRoom = function (o: any) { return o.room }
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 commands.unshift(new Cmd('GoTo', {
-  npcCmd:true,
-  regex:/^(?:go to|go) (.+)$/,
-  objects:[
+  npcCmd: true,
+  regex: /^(?:go to|go) (.+)$/,
+  objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isRoom' does not exist on type '{}'.
-    {scope:parser.isRoom}
+    { scope: parser.isRoom }
   ],
-  script:function(objects: any) {
+  script: function (objects: any) {
     const room = objects[0][0]
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     if (room === currentLocation) return failedmsg("As if by magic, you are suddenly... where you already were.")
-    if (!room.room) return failedmsg("{pv:item:be:true} not a destination.", {item:room})
+    if (!room.room) return failedmsg("{pv:item:be:true} not a destination.", { item: room })
     for (const ex of currentLocation.dests) {
       if (room.name === ex.name) {
         return ex.use(player, ex) ? world.SUCCESS : world.FAILED
       }
     }
-    return failedmsg("{pv:item:be:true} not a destination you can get to from here.", {item:room})
+    return failedmsg("{pv:item:be:true} not a destination you can get to from here.", { item: room })
   },
 }))
 
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'isContact' does not exist on type '{}'.
-parser.isContact = function(o: any) { return o.contact }
+parser.isContact = function (o: any) { return o.contact }
 
 
 
@@ -67,13 +67,13 @@ const smartPhoneFunctions = ["Contacts", "Take photo", "Photo gallery", "Search 
 for (let el of smartPhoneFunctions) {
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
   commands.unshift(new Cmd(el, {
-    regex:new RegExp('^' + el.toLowerCase() + ' (.+)$'),
-    attName:verbify(el),
-    objects:[
+    regex: new RegExp('^' + el.toLowerCase() + ' (.+)$'),
+    attName: Quest.Utilities.verbify(el),
+    objects: [
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
-      {scope:parser.isHeld},
+      { scope: parser.isHeld },
     ],
-    defmsg:"{pv:item:'be:true} not something you can do that with.",
+    defmsg: "{pv:item:'be:true} not something you can do that with.",
   }))
 }
 
@@ -81,13 +81,13 @@ for (let el of smartPhoneFunctions) {
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 commands.unshift(new Cmd('Phone', {
-  npcCmd:true,
-  regex:/^(?:telephone|phone|call|contact) (.+)$/,
-  objects:[
+  npcCmd: true,
+  regex: /^(?:telephone|phone|call|contact) (.+)$/,
+  objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isContact' does not exist on type '{}'.
-    {scope:parser.isContact}
+    { scope: parser.isContact }
   ],
-  script:function(objects: any) {
+  script: function (objects: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'phone' does not exist on type '{}'.
     return w.phone.makeCall(objects[0][0]) ? world.SUCCESS : world.FAILED
   },
@@ -97,11 +97,11 @@ commands.unshift(new Cmd('Phone', {
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 commands.unshift(new Cmd('HangUp', {
-  npcCmd:true,
-  regex:/^(?:hang up|end call)$/,
-  objects:[
+  npcCmd: true,
+  regex: /^(?:hang up|end call)$/,
+  objects: [
   ],
-  script:function() {
+  script: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     if (!player.onPhoneTo) return failedmsg("You are not on a call.")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'phone' does not exist on type '{}'.
@@ -118,18 +118,18 @@ commands.unshift(new Cmd('HangUp', {
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 commands.unshift(new Cmd('DialogTest', {
-  npcCmd:true,
-  regex:/^(?:dialog) (.*)$/,
-  objects:[
-  {special:'text'},
+  npcCmd: true,
+  regex: /^(?:dialog) (.*)$/,
+  objects: [
+    { special: 'text' },
   ],
-  script:function(objects: any) {
+  script: function (objects: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'currentCommand' does not exist on type '... Remove this comment to see the full error message
     const funcName = parser.currentCommand.string.replace(/dialog /i, '')
     log(funcName)
     const choices = ['red', 'yellow', 'blue']
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    io.menuFunctions[funcName]('Pick a colour?', choices, function(result: any) {
+    io.menuFunctions[funcName]('Pick a colour?', choices, function (result: any) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       msg("You picked " + result)
     })

@@ -5,14 +5,14 @@ test.resetOnCompletion = false
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'tests' does not exist on type '{}'.
-test.tests = function() {
-  
+test.tests = function () {
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Planet Analysis")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
   w.Xsansi.currentPlanet = 2
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Ostap' does not exist on type '{}'.
-  const response = {char:w.Ostap}
+  const response = { char: w.Ostap }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("'Not as interesting as the last one, I think.'", planetAnalysis(response))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Ostap' does not exist on type '{}'.
@@ -30,7 +30,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Probe events 1")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'testing' does not exist on type '{}'.
-  test.testing = true;
+  Quest.Utilities.test.testing = true;
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'testOutput' does not exist on type '{}'.
   test.testOutput = [];
 
@@ -100,11 +100,11 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
   w.Xsansi.currentPlanet = 0
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'testing' does not exist on type '{}'.
-  test.testing = false;
+  Quest.Utilities.test.testing = false;
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("'Bio-probe I has successfully landed on the planet.' announces Xsansi.", test.testOutput[0])
-  
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'start' does not exist on type '{}'.
   test.start("Spacesuit")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -123,23 +123,23 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("remove j", ["You take your jumpsuit off.",])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
-  test.assertCmd("wear s", ["You put on your spacesuit.","'Satellite I has successfully entered orbit around the planet.' announces Xsansi.",])
+  test.assertCmd("wear s", ["You put on your spacesuit.", "'Satellite I has successfully entered orbit around the planet.' announces Xsansi.",])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("s", ["You can't go starboard.",])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
-  test.assertCmd("a", ["You head aft.","The cargo bay","The cargo bay is a large, open area, with numerous crates, several with their own stasis fields. Yellow lines on the floor indicate access ways to be kept clear. The ship's airlock is to port, whilst engineering is aft. The stasis bay is forward, and to starboard, stairs lead up to the top deck, where the living quarters are.",])
+  test.assertCmd("a", ["You head aft.", "The cargo bay", "The cargo bay is a large, open area, with numerous crates, several with their own stasis fields. Yellow lines on the floor indicate access ways to be kept clear. The ship's airlock is to port, whilst engineering is aft. The stasis bay is forward, and to starboard, stairs lead up to the top deck, where the living quarters are.",])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
-  test.assertCmd("starboard", ["You head starboard.","The airlock","The airlock is just big enough for two persons wearing spacesuits, and is featureless besides the doors, port and starboard, and the controls.",])
+  test.assertCmd("starboard", ["You head starboard.", "The airlock", "The airlock is just big enough for two persons wearing spacesuits, and is featureless besides the doors, port and starboard, and the controls.",])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("ai, evac airlock", ["'Evacuating the airlock... Room is now under vacuum.'",])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("port", "The door to the cargo bay will not open while it is pressurised and the airlock is not.")
 
-  
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'start' does not exist on type '{}'.
   test.start("Planet one")
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("ask ai about crew", test.padArray(["'Tell me about the crew, Xsansi,' you say."], 4));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -148,7 +148,7 @@ test.tests = function() {
   test.assertCmd("get jumpsuit", ["You take your jumpsuit.", "The stasis pod drawer slides shut."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("wear jumpsuit", ["You put on your jumpsuit."]);
-  
+
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Go to Ostap")
@@ -187,7 +187,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("d", ["You head down.", "The Forward probe hanger", /^The forward probe hanger is where the satellites/, "You can see Kyle and Ostap here.", "Ostap leaves the Forward probe hanger, heading aft."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
-  test.assertCmd("a", ["You head aft.", "The Aft probe hanger",/^The aft probe hanger has/, "You can see Ostap here.", "'Okay, two probes to deploy...' mutters Ostap as he types at the console."]);
+  test.assertCmd("a", ["You head aft.", "The Aft probe hanger", /^The aft probe hanger has/, "You can see Ostap here.", "'Okay, two probes to deploy...' mutters Ostap as he types at the console."]);
 
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
@@ -210,8 +210,8 @@ test.tests = function() {
   test.assertCmd("z", ["Time passes...", "Ostap launches the second bio-probe."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("z", ["Time passes...", "'Okay, two probes launched,' says Ostap as he stands up.", "'Bio-probe I has successfully landed on the planet.' announces Xsansi."]);
-  
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Waiting")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -238,7 +238,7 @@ test.tests = function() {
   test.assertCmd("ask ostap about planet", ["'What's your report on HD 154088D?' you ask Ostap.", "'So far, we see nothing. No life, no green. Perhaps bacteria living below the surface?'"]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("ask ostap about jjjj", ["Ostap has no interest in that."]);
-  
+
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Ostap to stasis");
@@ -264,7 +264,7 @@ test.tests = function() {
   test.assertCmd("z", "Time passes...");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("z", "Time passes...");
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("l", ["The stasis bay", /All pods are currently open/, "You can see Ostap here."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.

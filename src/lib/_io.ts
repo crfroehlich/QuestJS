@@ -25,7 +25,7 @@ const printError = function (msg: any, err: any, suppressTrace: any) {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
-if (Quest.settings.playMode !== 'dev') {
+if (Quest.Settings.settings.playMode !== 'dev') {
   window.onbeforeunload = function (event: any) {
     event.returnValue = "Are you sure?";
   }
@@ -35,9 +35,9 @@ if (Quest.settings.playMode !== 'dev') {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'mediaQuery' does not exist on type '{ pe... Remove this comment to see the full error message
-Quest.settings.mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)")
+Quest.Settings.settings.mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)")
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'autoscroll' does not exist on type '{ pe... Remove this comment to see the full error message
-Quest.settings.autoscroll = !Quest.settings.mediaQuery.matches
+Quest.Settings.settings.autoscroll = !Quest.Settings.settings.mediaQuery.matches
 
 
 
@@ -86,7 +86,7 @@ function _msg(s: any, params: any, options: any) {
       line = line.replace(RegExp('@@@' + el + '@@@', 'ig'), io.escapeCodes[el])
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'convertDoubleDash' does not exist on typ... Remove this comment to see the full error message
-    if (Quest.settings.convertDoubleDash && !test.testing) line = line.replace(/ -- /g, ' &mdash; ')
+    if (Quest.Settings.settings.convertDoubleDash && !Quest.Utilities.test.testing) line = line.replace(/ -- /g, ' &mdash; ')
     const data = {}
     Object.assign(data, options)  // need to do it this way as options may be same object
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'text' does not exist on type '{}'.
@@ -95,7 +95,7 @@ function _msg(s: any, params: any, options: any) {
     if (!data.action) data.action = 'output'
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'testing' does not exist on type '{}'.
-    if (test.testing) {
+    if (Quest.Utilities.test.testing) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'ignoreHTML' does not exist on type '{}'.
       if (test.ignoreHTML) line = line.replace(/(<([^>]+)>)/gi, '')
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'fullOutputData' does not exist on type '... Remove this comment to see the full error message
@@ -254,14 +254,14 @@ function msgHeading(s: any, level: any, params: any) {
 // The file name should include the path. For a local image, that would probably be the images folder,
 // but it could be the web address of an image hosted elsewhere.
 function picture(filename: any, width: any, height: any) {
-  const src = filename.includes('/') ? filename : Quest.settings.imagesFolder + filename
+  const src = filename.includes('/') ? filename : Quest.Settings.settings.imagesFolder + filename
   _msg('', {}, { action: 'output', width: width, height: height, tag: 'img', src: src, printBlank: true })
 }
 
 
 
 function image(filename: any, width: any, height: any) {
-  const src = filename.includes('/') ? filename : Quest.settings.imagesFolder + filename
+  const src = filename.includes('/') ? filename : Quest.Settings.settings.imagesFolder + filename
   _msg('', {}, { action: 'output', width: width, height: height, tag: 'img', src: src, cssClass: 'centred', printBlank: true, destination: 'quest-image' })
 }
 
@@ -272,11 +272,11 @@ function image(filename: any, width: any, height: any) {
 //@DOC
 // Plays a sound. The filename must include the extension, and the file should be in the folder specified by audioFolder (defaults to the game folder).
 function sound(filename: any) {
-  //console.log(Quest.settings.ssFolder)
+  //console.log(Quest.Settings.settings.ssFolder)
   _msg('Your browser does not support the <code>audio</code> element.', {}, { action: 'sound', name: filename })
 }
 function ambient(filename: any, volume: any) {
-  //console.log(Quest.settings.ssFolder)
+  //console.log(Quest.Settings.settings.ssFolder)
   _msg('Your browser does not support the <code>audio</code> element.', {}, { action: 'ambient', name: filename, volume: volume })
 }
 
@@ -285,9 +285,9 @@ function ambient(filename: any, volume: any) {
 // Plays a video. The filename must include the extension, and the file should be in the folder specified by audioFolder (defaults to the game folder).
 // There are some issues about codecs and formats; use at your discretion.
 function video(filename: any) {
-  //console.log(Quest.settings.ssFolder)
+  //console.log(Quest.Settings.settings.ssFolder)
   // @ts-expect-error ts-migrate(2551) FIXME: Property 'videoFolder' does not exist on type '{ p... Remove this comment to see the full error message
-  _msg('Your browser does not support the <code>video</code> element.', {}, { action: 'output', autoplay: true, tag: 'video', src: Quest.settings.videoFolder + '/' + filename })
+  _msg('Your browser does not support the <code>video</code> element.', {}, { action: 'output', autoplay: true, tag: 'video', src: Quest.Settings.settings.videoFolder + '/' + filename })
 }
 
 
@@ -307,7 +307,7 @@ function draw(width: any, height: any, data: any, options: any) {
   s += 'xmlns="http://www.w3.org/2000/svg">'
   s += data.join('') + '</svg>'
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'reportAllSvg' does not exist on type '{ ... Remove this comment to see the full error message
-  if (Quest.settings.reportAllSvg) console.log(s.replace(/></g, '>\n<'))
+  if (Quest.Settings.settings.reportAllSvg) console.log(s.replace(/></g, '>\n<'))
   if (options.destination) {
     // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
     document.querySelector('#' + options.destination).innerHTML = s
@@ -409,7 +409,7 @@ function errormsg(s: any, suppressTrace: any) {
 // It does not use the text processor.
 function debugmsg(s: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
-  if (Quest.settings.playMode === 'dev' || Quest.settings.playMode === 'meta') {
+  if (Quest.Settings.settings.playMode === 'dev' || Quest.Settings.settings.playMode === 'meta') {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'print' does not exist on type '{ nextid:... Remove this comment to see the full error message
     io.print({ tag: 'pre', cssClass: "debug", text: s, id: io.nextid })
     io.nextid++
@@ -446,7 +446,7 @@ function clearScreen() {
 // Stops outputting whilst waiting for the player to click.
 function wait(delay: any, text: any, func: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'testing' does not exist on type '{}'.
-  if (test.testing || Quest.settings.walkthroughInProgress) return
+  if (Quest.Utilities.test.testing || Quest.Settings.settings.walkthroughInProgress) return
   if (delay === undefined) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'addToOutputQueue' does not exist on type... Remove this comment to see the full error message
     io.addToOutputQueue({ action: 'wait', text: text, cssClass: 'continue', func: func })
@@ -475,7 +475,7 @@ function trigger(func: any) {
 //        msg("You picked " + result + ".");
 //      });
 function showMenu(title: any, options: any, fn: any) {
-  const opts = { article: DEFINITE, capital: true, noLinks: true }
+  const opts = { article: Quest.Utilities.DEFINITE, capital: true, noLinks: true }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'input' does not exist on type '{ nextid:... Remove this comment to see the full error message
   io.input(title, options, false, fn, function (options: any) {
     for (let i = 0; i < options.length; i++) {
@@ -491,7 +491,7 @@ function showMenu(title: any, options: any, fn: any) {
 
 
 function showMenuNumbersOnly(title: any, options: any, fn: any) {
-  const opts = { article: DEFINITE, capital: true, noLinks: true }
+  const opts = { article: Quest.Utilities.DEFINITE, capital: true, noLinks: true }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'overrideWith' does not exist on type '{}... Remove this comment to see the full error message
   parser.overrideWith(function (s: any) { io.menuResponse(s) })
   const disableTextFunction = function (disable: any) {
@@ -538,7 +538,7 @@ function showMenuNumbersOnly(title: any, options: any, fn: any) {
 
 
 function showMenuWithNumbers(title: any, options: any, fn: any) {
-  const opts = { article: DEFINITE, capital: true, noLinks: true }
+  const opts = { article: Quest.Utilities.DEFINITE, capital: true, noLinks: true }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'overrideWith' does not exist on type '{}... Remove this comment to see the full error message
   parser.overrideWith(function (s: any) { io.menuResponse(s) })
   const disableTextFunction = function (disable: any) {
@@ -556,7 +556,7 @@ function showMenuWithNumbers(title: any, options: any, fn: any) {
   const failFunction = function (input: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("I do not understand: " + input)
-    runCmd(input)
+    Quest.Utilities.runCmd(input)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'savedCommands' does not exist on type '{... Remove this comment to see the full error message
     io.savedCommands.push(input)
   }
@@ -578,7 +578,7 @@ function showMenuWithNumbers(title: any, options: any, fn: any) {
 
 
 function showDropDown(title: any, options: any, fn: any) {
-  const opts = { article: DEFINITE, capital: true, noLinks: true }
+  const opts = { article: Quest.Utilities.DEFINITE, capital: true, noLinks: true }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'input' does not exist on type '{ nextid:... Remove this comment to see the full error message
   io.input(title, options, false, fn, function (options: any) {
     let s = '<select id="menu-select" class="custom-select" style="width:400px;" ';
@@ -601,7 +601,7 @@ function showDropDown(title: any, options: any, fn: any) {
 function showMenuDiag(title: any, options: any, fn: any, cssClass: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'showMenuDiagTitle' does not exist on typ... Remove this comment to see the full error message
   io.showMenuDiagTitle = title
-  const opts = { article: DEFINITE, capital: true, noLinks: true }
+  const opts = { article: Quest.Utilities.DEFINITE, capital: true, noLinks: true }
   const disableTextFunction = function (disable: any) {
     if (disable) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'disable' does not exist on type '{ nexti... Remove this comment to see the full error message
@@ -611,7 +611,7 @@ function showMenuDiag(title: any, options: any, fn: any, cssClass: any) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'enable' does not exist on type '{ nextid... Remove this comment to see the full error message
       io.enable()
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'testing' does not exist on type '{}'.
-      if (!test.testing) {
+      if (!Quest.Utilities.test.testing) {
         const el = document.querySelector('#sidepane-menu')
         if (el) el.remove() // may not exist in walk-through
       }
@@ -770,7 +770,7 @@ function askDiag(title: any, fn: any, submitButton: any) {
 
 // This should be called after each turn to ensure we are at the end of the page and the text box has the focus
 function endTurnUI(update: any) {
-  if (Quest.settings.panes !== 'none' && update) {
+  if (Quest.Settings.settings.panes !== 'none' && update) {
     // set the lang.exit_list
     for (let exit of lang.exit_list) {
       const el = document.querySelector('#exit-' + exit.name)
@@ -794,13 +794,13 @@ function endTurnUI(update: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'updateUIItems' does not exist on type '{... Remove this comment to see the full error message
   io.updateUIItems()
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'updateCustomUI' does not exist on type '... Remove this comment to see the full error message
-  if (Quest.settings.updateCustomUI) Quest.settings.updateCustomUI()
+  if (Quest.Settings.settings.updateCustomUI) Quest.Settings.settings.updateCustomUI()
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'scrollToEnd' does not exist on type '{ n... Remove this comment to see the full error message
   io.scrollToEnd
   // give focus to command bar
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-  if (Quest.settings.textInput) { document.querySelector('#textbox').focus(); }
+  if (Quest.Settings.settings.textInput) { document.querySelector('#textbox').focus(); }
 }
 
 
@@ -814,7 +814,7 @@ function createAdditionalPane(position: any, title: any, id: any, func: any) {
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
   el.insertBefore(div, el.children[position])
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  Quest.settings.customPaneFunctions[id] = func
+  Quest.Settings.settings.customPaneFunctions[id] = func
 }
 
 
@@ -872,7 +872,7 @@ const io = {
       return false
     }
 
-    Quest.settings.loadCssFiles(tab.document, path)
+    Quest.Settings.settings.loadCssFiles(tab.document, path)
 
     const myScript = tab.document.createElement("script")
     myScript.setAttribute("src", path + 'lib/_transcript.js')
@@ -880,14 +880,14 @@ const io = {
     tab.document.body.innerHTML = html
     tab.document.title = title
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'favicon' does not exist on type '{ perfo... Remove this comment to see the full error message
-    tab.document.head.setAttribute('data-favicon', Quest.settings.favicon)
+    tab.document.head.setAttribute('data-favicon', Quest.Settings.settings.favicon)
     tab.document.head.setAttribute('data-path', path)
 
     const link = tab.document.createElement('link')
     link.id = 'dynamic-favicon'
     link.rel = 'shortcut icon'
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'favicon' does not exist on type '{ perfo... Remove this comment to see the full error message
-    link.href = path + Quest.settings.favicon
+    link.href = path + Quest.Settings.settings.favicon
     tab.document.head.appendChild(link)
   },
 
@@ -919,7 +919,7 @@ io.input = function (title: any, options: any, disableTextFunction: any, reactFu
 
   // Skip if unit-testing
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'testing' does not exist on type '{}'.
-  if (test.testing) {
+  if (Quest.Utilities.test.testing) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'menuResponseNumber' does not exist on ty... Remove this comment to see the full error message
     if (test.menuResponseNumber === undefined) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'menuResponseNumber' does not exist on ty... Remove this comment to see the full error message
@@ -952,8 +952,8 @@ io.input = function (title: any, options: any, disableTextFunction: any, reactFu
   }
 
   // Skip if walk-through
-  if (Quest.settings.walkthroughMenuResponses.length > 0) {
-    const response = Quest.settings.walkthroughMenuResponses.shift()
+  if (Quest.Settings.settings.walkthroughMenuResponses.length > 0) {
+    const response = Quest.Settings.settings.walkthroughMenuResponses.shift()
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'menuResponse' does not exist on type '{ ... Remove this comment to see the full error message
     io.menuResponse(response);
     return;
@@ -990,7 +990,7 @@ io.unpause = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'outputFromQueue' does not exist on type ... Remove this comment to see the full error message
   io.outputFromQueue()
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-  if (Quest.settings.textInput) document.querySelector('#textbox').focus();
+  if (Quest.Settings.settings.textInput) document.querySelector('#textbox').focus();
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addToOutputQueue' does not exist on type... Remove this comment to see the full error message
@@ -1023,7 +1023,7 @@ io.outputFromQueue = function () {
     return
   }
 
-  //if (Quest.settings.textInput) document.querySelector('#input').style.display = 'block'
+  //if (Quest.Settings.settings.textInput) document.querySelector('#input').style.display = 'block'
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'outputQueue' does not exist on type '{ n... Remove this comment to see the full error message
   const data = io.outputQueue.shift()
   if (data.action === 'wait') {
@@ -1031,7 +1031,7 @@ io.outputFromQueue = function () {
     io.disable()
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'outputSuspended' does not exist on type ... Remove this comment to see the full error message
     io.outputSuspended = true
-    //if (Quest.settings.textInput) document.querySelector('#input').style.display = 'none'
+    //if (Quest.Settings.settings.textInput) document.querySelector('#input').style.display = 'none'
     data.tag = 'p'
     data.onclick = "io.unpause()"
     if (!data.text) data.text = lang.click_to_continue
@@ -1077,7 +1077,7 @@ io.outputFromQueue = function () {
     io.outputFromQueue()
   }
   if (data.action === 'sound') {
-    if (!Quest.settings.silent) {
+    if (!Quest.Settings.settings.silent) {
       const el = document.getElementById(data.name)
       // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
       el.currentTime = 0
@@ -1087,7 +1087,7 @@ io.outputFromQueue = function () {
   }
   if (data.action === 'ambient') {
     for (let el of document.getElementsByTagName('audio')) el.pause()
-    if (!Quest.settings.silent && data.name) {
+    if (!Quest.Settings.settings.silent && data.name) {
       const el = document.getElementById(data.name)
       // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
       el.currentTime = 0
@@ -1103,7 +1103,7 @@ io.outputFromQueue = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'scrollToEnd' does not exist on type '{ n... Remove this comment to see the full error message
   io.scrollToEnd()
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-  if (Quest.settings.textInput) document.querySelector('#textbox').focus()
+  if (Quest.Settings.settings.textInput) document.querySelector('#textbox').focus()
 }
 
 
@@ -1179,7 +1179,7 @@ io.typewriterEffect = function (data: any) {
     io.outputSuspended = true
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'forceOutputFromQueue' does not exist on ... Remove this comment to see the full error message
-  setTimeout(io.forceOutputFromQueue, Quest.settings.textEffectDelay)
+  setTimeout(io.forceOutputFromQueue, Quest.Settings.settings.textEffectDelay)
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'unscrambleEffect' does not exist on type... Remove this comment to see the full error message
@@ -1239,7 +1239,7 @@ io.unscrambleEffect = function (data: any) {
     io.outputSuspended = true
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'forceOutputFromQueue' does not exist on ... Remove this comment to see the full error message
-  setTimeout(io.forceOutputFromQueue, Quest.settings.textEffectDelay)
+  setTimeout(io.forceOutputFromQueue, Quest.Settings.settings.textEffectDelay)
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'unscamblePick' does not exist on type '{... Remove this comment to see the full error message
@@ -1262,7 +1262,7 @@ io.unscambleScramble = function (data: any) {
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'cmdlink' does not exist on type '{ nexti... Remove this comment to see the full error message
 io.cmdlink = function (command: any, str: any) {
-  return `<a class="cmd-link" onclick="runCmd('${command}')">${str}</a>`;
+  return `<a class="cmd-link" onclick="Quest.Utilities.runCmd('${command}')">${str}</a>`;
 }
 
 
@@ -1289,11 +1289,11 @@ io.calcMargins = function () {
   let mapImageWidth = 0
   if (typeof map !== 'undefined') {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'hideMap' does not exist on type '{ perfo... Remove this comment to see the full error message
-    if (!Quest.settings.hideMap) mapImageWidth = Quest.settings.mapWidth
+    if (!Quest.Settings.settings.hideMap) mapImageWidth = Quest.Settings.settings.mapWidth
   }
   if (typeof imagePane !== 'undefined') {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'hideImagePane' does not exist on type '{... Remove this comment to see the full error message
-    if (!Quest.settings.hideImagePane && Quest.settings.imageWidth > mapImageWidth) mapImageWidth = Quest.settings.imageWidth
+    if (!Quest.Settings.settings.hideImagePane && Quest.Settings.settings.imageWidth > mapImageWidth) mapImageWidth = Quest.Settings.settings.imageWidth
   }
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
   document.querySelector('#main').style.marginLeft = '40px'
@@ -1301,8 +1301,8 @@ io.calcMargins = function () {
   document.querySelector('#main').style.marginRight = '40px'
 
   // Do we show the side panes?
-  if (Quest.settings.panes !== 'none') {
-    const margin = Quest.settings.panes === 'left' ? 'margin-left' : 'margin-right'
+  if (Quest.Settings.settings.panes !== 'none') {
+    const margin = Quest.Settings.settings.panes === 'left' ? 'margin-left' : 'margin-right'
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'resizePanesListener' does not exist on t... Remove this comment to see the full error message
     if (io.resizePanesListener.matches) { // If media query matches
       // hide sidepane
@@ -1319,13 +1319,13 @@ io.calcMargins = function () {
     }
   }
 
-  // Note: As of Jan/22 this takes account of Quest.settings.hideMap - but not of whether
+  // Note: As of Jan/22 this takes account of Quest.Settings.settings.hideMap - but not of whether
   // the image should be hidden
-  let margin = Quest.settings.panes === 'right' ? 'margin-left' : 'margin-right'
+  let margin = Quest.Settings.settings.panes === 'right' ? 'margin-left' : 'margin-right'
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapImageSide' does not exist on type '{ ... Remove this comment to see the full error message
-  if (Quest.settings.mapImageSide) margin = Quest.settings.mapImageSide === 'left' ? 'margin-left' : 'margin-right'
+  if (Quest.Settings.settings.mapImageSide) margin = Quest.Settings.settings.mapImageSide === 'left' ? 'margin-left' : 'margin-right'
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'resizeMapImageListener' does not exist o... Remove this comment to see the full error message
-  if (io.resizeMapImageListener.matches || Quest.settings.hideMap) { // If media query matches
+  if (io.resizeMapImageListener.matches || Quest.Settings.settings.hideMap) { // If media query matches
     // hide image
     // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
     document.querySelector('#main').style[margin] = io.mainGutter + 'px'
@@ -1349,9 +1349,9 @@ io.mainGutter = 20
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'panesWidth' does not exist on type '{ ne... Remove this comment to see the full error message
 io.panesWidth = 160
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'resizePanesListener' does not exist on t... Remove this comment to see the full error message
-io.resizePanesListener = window.matchMedia('(max-width: ' + Quest.settings.panesCollapseAt + 'px)')
+io.resizePanesListener = window.matchMedia('(max-width: ' + Quest.Settings.settings.panesCollapseAt + 'px)')
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'resizeMapImageListener' does not exist o... Remove this comment to see the full error message
-io.resizeMapImageListener = window.matchMedia('(max-width: ' + Quest.settings.mapAndImageCollapseAt + 'px)')
+io.resizeMapImageListener = window.matchMedia('(max-width: ' + Quest.Settings.settings.mapAndImageCollapseAt + 'px)')
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'resizePanesListener' does not exist on t... Remove this comment to see the full error message
 io.resizePanesListener.addListener(io.calcMargins) // Attach listener function on state changes
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'resizeMapImageListener' does not exist o... Remove this comment to see the full error message
@@ -1395,7 +1395,7 @@ io.enable = function (level: any) {
   io.disableLevel = 0
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
   document.querySelector('#input').style.display = 'block'
-  if (Quest.settings.panes !== 'none') {
+  if (Quest.Settings.settings.panes !== 'none') {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'setCssByClass' does not exist on type '{... Remove this comment to see the full error message
     io.setCssByClass('compass-button .dark-body', 'color', io.textColour)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'setCssByClass' does not exist on type '{... Remove this comment to see the full error message
@@ -1430,10 +1430,10 @@ io.addClassForClass = function (oldClass: any, newClass: any) {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'updateUIItems' does not exist on type '{... Remove this comment to see the full error message
 io.updateUIItems = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'inventoryPane' does not exist on type '{... Remove this comment to see the full error message
-  if (Quest.settings.panes === 'none' || !Quest.settings.inventoryPane) { return; }
+  if (Quest.Settings.settings.panes === 'none' || !Quest.Settings.settings.inventoryPane) { return; }
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'inventoryPane' does not exist on type '{... Remove this comment to see the full error message
-  for (let inv of Quest.settings.inventoryPane) {
+  for (let inv of Quest.Settings.settings.inventoryPane) {
     // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
     document.querySelector('#' + inv.alt).textContent = ""
     inv.hasContent = false
@@ -1444,7 +1444,7 @@ io.updateUIItems = function () {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     const item = w[key];
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'inventoryPane' does not exist on type '{... Remove this comment to see the full error message
-    for (let inv of Quest.settings.inventoryPane) {
+    for (let inv of Quest.Settings.settings.inventoryPane) {
       const loc = inv.getLoc ? inv.getLoc() : null
       if (inv.test(item) && !item.inventorySkip) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'appendItem' does not exist on type '{ ne... Remove this comment to see the full error message
@@ -1454,9 +1454,9 @@ io.updateUIItems = function () {
     }
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'additionalInv' does not exist on type '{... Remove this comment to see the full error message
-  if (Quest.settings.additionalInv) Quest.settings.additionalInv()
+  if (Quest.Settings.settings.additionalInv) Quest.Settings.settings.additionalInv()
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'inventoryPane' does not exist on type '{... Remove this comment to see the full error message
-  for (let inv of Quest.settings.inventoryPane) {
+  for (let inv of Quest.Settings.settings.inventoryPane) {
     if (!inv.hasContent && inv.noContent) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       const s = processText(inv.noContent)
@@ -1464,11 +1464,11 @@ io.updateUIItems = function () {
       document.querySelector('#' + inv.alt).innerHTML = '<div class="item-nothing">' + s + '</div>'
     }
   }
-  for (const key in Quest.settings.customPaneFunctions) {
+  for (const key in Quest.Settings.settings.customPaneFunctions) {
     const el = document.querySelector('#' + key)
     if (!el) return
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    let html = Quest.settings.customPaneFunctions[key]()
+    let html = Quest.Settings.settings.customPaneFunctions[key]()
     el.innerHTML = html
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'clickItem' does not exist on type '{ nex... Remove this comment to see the full error message
@@ -1478,14 +1478,14 @@ io.updateUIItems = function () {
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'updateStatus' does not exist on type '{ ... Remove this comment to see the full error message
 io.updateStatus = function () {
-  if (Quest.settings.statusPane) {
+  if (Quest.Settings.settings.statusPane) {
     // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
     document.querySelector("#status-pane").textContent = "";
-    for (let st of Quest.settings.status) {
+    for (let st of Quest.Settings.settings.status) {
       if (typeof st === "string") {
         if (player[st] !== undefined) {
-          let s = '<tr><td width="' + Quest.settings.statusWidthLeft + '">' + sentenceCase(st) + "</td>";
-          s += '<td width="' + Quest.settings.statusWidthRight + '">' + player[st] + "</td></tr>";
+          let s = '<tr><td width="' + Quest.Settings.settings.statusWidthLeft + '">' + Quest.Utilities.sentenceCase(st) + "</td>";
+          s += '<td width="' + Quest.Settings.settings.statusWidthRight + '">' + player[st] + "</td></tr>";
           // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
           document.querySelector("#status-pane").innerHTML += s
         }
@@ -1498,7 +1498,7 @@ io.updateStatus = function () {
   }
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'toolbar' does not exist on type '{ perfo... Remove this comment to see the full error message
-  if (Quest.settings.toolbar) {
+  if (Quest.Settings.settings.toolbar) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'createToolbar' does not exist on type '{... Remove this comment to see the full error message
     io.createToolbar()
   }
@@ -1548,7 +1548,7 @@ io.menuResponse = function (n: any) {
   }
   endTurnUI(true);
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-  if (Quest.settings.textInput) document.querySelector('#textbox').focus()
+  if (Quest.Settings.settings.textInput) document.querySelector('#textbox').focus()
 };
 
 
@@ -1572,7 +1572,7 @@ io.textResponse = function (s: any) {
   if (io.menuFn) io.menuFn(s);
   endTurnUI(true);
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-  if (Quest.settings.textInput) document.querySelector('#textbox').focus()
+  if (Quest.Settings.settings.textInput) document.querySelector('#textbox').focus()
 }
 
 
@@ -1583,7 +1583,7 @@ io.clickExit = function (dir: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'disableLevel' does not exist on type '{ ... Remove this comment to see the full error message
   if (io.disableLevel) return
   let failed = false
-  runCmd(dir)
+  Quest.Utilities.runCmd(dir)
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'clickItem' does not exist on type '{ nex... Remove this comment to see the full error message
@@ -1614,7 +1614,7 @@ io.clickItemAction = function (itemName: any, action: any) {
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   const item = w[itemName];
   const cmd = action.includes('%') ? action.replace('%', item.alias) : action + ' ' + item.alias
-  runCmd(cmd)
+  Quest.Utilities.runCmd(cmd)
 }
 
 
@@ -1668,21 +1668,21 @@ io.getItemHtml = function (item: any, loc: any, isSubItem: any, highlight: any) 
 // Should only be called once, when the page is first built
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'createPanes' does not exist on type '{ n... Remove this comment to see the full error message
 io.createPanes = function () {
-  if (!['right', 'left', 'none'].includes(Quest.settings.panes)) {
-    console.error('ERROR: Your Quest.settings.panes value is "' + Quest.settings.panes + '". It must be one of "right", "left" or "none" (all lower-case). It is probably set in the file setiings.js.')
+  if (!['right', 'left', 'none'].includes(Quest.Settings.settings.panes)) {
+    console.error('ERROR: Your Quest.Settings.settings.panes value is "' + Quest.Settings.settings.panes + '". It must be one of "right", "left" or "none" (all lower-case). It is probably set in the file setiings.js.')
     return
   }
 
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-  document.querySelector('#input').innerHTML = '<span id="cursor">' + Quest.settings.cursor + '</span><input type="text" name="textbox" id="textbox" />'
+  document.querySelector('#input').innerHTML = '<span id="cursor">' + Quest.Settings.settings.cursor + '</span><input type="text" name="textbox" id="textbox" />'
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-  if (!Quest.settings.textInput) document.querySelector('#input').style.display = 'none'
+  if (!Quest.Settings.settings.textInput) document.querySelector('#input').style.display = 'none'
 
-  if (Quest.settings.panes === 'none') return
+  if (Quest.Settings.settings.panes === 'none') return
 
   let html = ''
 
-  if (Quest.settings.compassPane) {
+  if (Quest.Settings.settings.compassPane) {
     html += '<div class="pane-div">'
     html += '<table id="compass-table">'
     for (let i = 0; i < 3; i++) {
@@ -1704,18 +1704,18 @@ io.createPanes = function () {
     html += '</div>'
   }
 
-  if (Quest.settings.statusPane) {
+  if (Quest.Settings.settings.statusPane) {
     html += '<div class="pane-div">'
-    html += '<h4 class="side-pane-heading">' + Quest.settings.statusPane + '</h4>'
+    html += '<h4 class="side-pane-heading">' + Quest.Settings.settings.statusPane + '</h4>'
     html += '<table id="status-pane">'
     html += '</table>'
     html += '</div>'
   }
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'inventoryPane' does not exist on type '{... Remove this comment to see the full error message
-  if (Quest.settings.inventoryPane) {
+  if (Quest.Settings.settings.inventoryPane) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'inventoryPane' does not exist on type '{... Remove this comment to see the full error message
-    for (let inv of Quest.settings.inventoryPane) {
+    for (let inv of Quest.Settings.settings.inventoryPane) {
       html += '<div class="pane-div">'
       html += '<h4 class="side-pane-heading">' + inv.name + '</h4>'
       html += '<div class="item-list" id="' + inv.alt + '">'
@@ -1733,7 +1733,7 @@ io.createPanes = function () {
   el.innerHTML = html
   el.setAttribute("id", "panes")
   el.classList.add('side-panes')
-  el.classList.add('side-panes-' + Quest.settings.panes)
+  el.classList.add('side-panes-' + Quest.Settings.settings.panes)
   el.classList.add('panes-narrow')
 
   const referenceNode = document.querySelector('#main')
@@ -1746,7 +1746,7 @@ io.createPanes = function () {
   io.panesWidth = document.querySelector('.side-panes').clientWidth
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'customUI' does not exist on type '{ perf... Remove this comment to see the full error message
-  if (Quest.settings.customUI) Quest.settings.customUI();
+  if (Quest.Settings.settings.customUI) Quest.Settings.settings.customUI();
 };
 
 
@@ -1756,7 +1756,7 @@ io.writeExit = function (n: any) {
   html += '<span class="compass-button" id="exit-' + lang.exit_list[n].name
   html += '" onclick="io.clickExit(\'' + lang.exit_list[n].name + '\')">'
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'displayIconsCompass' does not exist on t... Remove this comment to see the full error message
-  html += Quest.settings.symbolsForCompass ? io.displayIconsCompass(lang.exit_list[n]) : lang.exit_list[n].abbrev
+  html += Quest.Settings.settings.symbolsForCompass ? io.displayIconsCompass(lang.exit_list[n]) : lang.exit_list[n].abbrev
   html += '</span></td>'
   return html
 };
@@ -1777,7 +1777,7 @@ io.getCommand = function (name: any) {
 io.msgInputText = function (s: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'transcriptWalkthrough' does not exist on... Remove this comment to see the full error message
   if (saveLoad.transcript) saveLoad.transcriptWalkthrough.push('    "' + s + '",')
-  if (!Quest.settings.cmdEcho || s === '') return
+  if (!Quest.Settings.settings.cmdEcho || s === '') return
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
   document.querySelector("#output").innerHTML += '<p id="n' + io.nextid + '" class="input-text">&gt; ' + s + "</p>"
   io.nextid++
@@ -1795,11 +1795,11 @@ io.savedCommandsPos = 0;
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'init' does not exist on type '{ nextid: ... Remove this comment to see the full error message
 io.init = function () {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
-  Quest.settings.performanceLog('Start io.onload')
+  Quest.Settings.settings.performanceLog('Start io.onload')
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'createPanes' does not exist on type '{ n... Remove this comment to see the full error message
   io.createPanes()
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
-  if (Quest.settings.playMode === 'play') window.oncontextmenu = function () { return false }
+  if (Quest.Settings.settings.playMode === 'play') window.oncontextmenu = function () { return false }
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
   document.querySelector("#fileDialog").onchange = saveLoad.loadGameAsFile
 
@@ -1813,9 +1813,9 @@ io.init = function () {
     }
     const keycode = (event.keyCode ? event.keyCode : event.which)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'customKeyResponses' does not exist on ty... Remove this comment to see the full error message
-    if (Quest.settings.customKeyResponses) {
+    if (Quest.Settings.settings.customKeyResponses) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'customKeyResponses' does not exist on ty... Remove this comment to see the full error message
-      if (Quest.settings.customKeyResponses(keycode, event)) return false
+      if (Quest.Settings.settings.customKeyResponses(keycode, event)) return false
     }
     for (let exit of lang.exit_list) {
       if (exit.key && exit.key === keycode) {
@@ -1831,16 +1831,16 @@ io.init = function () {
       }
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
-    if (keycode == 123 && Quest.settings.playMode === 'play') return false
+    if (keycode == 123 && Quest.Settings.settings.playMode === 'play') return false
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
-    if (event.ctrlKey && event.shiftKey && keycode == 73 && Quest.settings.playMode === 'play') return false
+    if (event.ctrlKey && event.shiftKey && keycode == 73 && Quest.Settings.settings.playMode === 'play') return false
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
-    if (event.ctrlKey && event.shiftKey && keycode == 74 && Quest.settings.playMode === 'play') return false
+    if (event.ctrlKey && event.shiftKey && keycode == 74 && Quest.Settings.settings.playMode === 'play') return false
 
     if (keycode === 13) {
       // enter
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
-      if (event.ctrlKey && (Quest.settings.playMode === 'dev' || Quest.settings.playMode === 'beta')) {
+      if (event.ctrlKey && (Quest.Settings.settings.playMode === 'dev' || Quest.Settings.settings.playMode === 'beta')) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'parse' does not exist on type '{}'.
         parser.parse("script show")
       }
@@ -1916,7 +1916,7 @@ io.init = function () {
       document.querySelector('#textbox').value = ''
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
-    if (keycode === 96 && (Quest.settings.playMode === 'dev' || Quest.settings.playMode === 'beta')) {
+    if (keycode === 96 && (Quest.Settings.settings.playMode === 'dev' || Quest.Settings.settings.playMode === 'beta')) {
       if (event.ctrlKey && event.altKey) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'parse' does not exist on type '{}'.
         parser.parse("wt b")
@@ -1942,49 +1942,49 @@ io.init = function () {
     }
   })
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'textColour' does not exist on type '{ ne... Remove this comment to see the full error message
-  if (Quest.settings.panes !== 'none') io.textColour = document.querySelector(".side-panes").style.color
-  /*if (Quest.settings.soundFiles) {
+  if (Quest.Settings.settings.panes !== 'none') io.textColour = document.querySelector(".side-panes").style.color
+  /*if (Quest.Settings.settings.soundFiles) {
     const main = document.querySelector('#main')
-    for (let el of Quest.settings.soundFiles) {
-      main.innerHTML += '<audio id="' + el + '" src="' + Quest.settings.soundsFolder + el + Quest.settings.soundsFileExt + '"/>'
+    for (let el of Quest.Settings.settings.soundFiles) {
+      main.innerHTML += '<audio id="' + el + '" src="' + Quest.Settings.settings.soundsFolder + el + Quest.Settings.settings.soundsFileExt + '"/>'
     }
   }*/
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
-  Quest.settings.performanceLog('UI built')
+  Quest.Settings.settings.performanceLog('UI built')
   endTurnUI(true)
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
-  Quest.settings.performanceLog('endTurnUI completed')
+  Quest.Settings.settings.performanceLog('endTurnUI completed')
 
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
   if (document.querySelector('#loading')) document.querySelector('#loading').remove()
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'suppressTitle' does not exist on type '{... Remove this comment to see the full error message
-  if (!Quest.settings.suppressTitle) msgHeading(Quest.settings.title, 2)
+  if (!Quest.Settings.settings.suppressTitle) msgHeading(Quest.Settings.settings.title, 2)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'subtitle' does not exist on type '{ perf... Remove this comment to see the full error message
-  if (Quest.settings.subtitle) msgHeading(Quest.settings.subtitle, 3)
+  if (Quest.Settings.settings.subtitle) msgHeading(Quest.Settings.settings.subtitle, 3)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'setTitleAndInit' does not exist on type ... Remove this comment to see the full error message
-  io.setTitleAndInit(Quest.settings.title)
+  io.setTitleAndInit(Quest.Settings.settings.title)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
-  if (Quest.settings.playMode === 'beta') lang.betaTestIntro()
+  if (Quest.Settings.settings.playMode === 'beta') lang.betaTestIntro()
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
-  Quest.settings.performanceLog('Title/intro printed')
+  Quest.Settings.settings.performanceLog('Title/intro printed')
 
-  if (Quest.settings.startingDialogEnabled) {
+  if (Quest.Settings.settings.startingDialogEnabled) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'setUpDialog' does not exist on type '{ p... Remove this comment to see the full error message
-    Quest.settings.setUpDialog()
+    Quest.Settings.settings.setUpDialog()
     setTimeout(function () {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogInit' does not exist on ty... Remove this comment to see the full error message
-      if (Quest.settings.startingDialogInit) Quest.settings.startingDialogInit()
+      if (Quest.Settings.settings.startingDialogInit) Quest.Settings.settings.startingDialogInit()
     }, 10)
   }
   else {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogAlt' does not exist on typ... Remove this comment to see the full error message
-    if (Quest.settings.startingDialogAlt) Quest.settings.startingDialogAlt()
+    if (Quest.Settings.settings.startingDialogAlt) Quest.Settings.settings.startingDialogAlt()
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'delayStart' does not exist on type '{ pe... Remove this comment to see the full error message
-    Quest.settings.delayStart = false
+    Quest.Settings.settings.delayStart = false
     world.begin()
   }
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
-  Quest.settings.performanceLog('End io.onload')
+  Quest.Settings.settings.performanceLog('End io.onload')
 }
 
 
@@ -2062,19 +2062,19 @@ io.showHtml = function (title: any, html: any) {
 io.finish = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'finished' does not exist on type '{ next... Remove this comment to see the full error message
   io.finished = true
-  Quest.settings.textInput = false
+  Quest.Settings.settings.textInput = false
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
   document.querySelector('#input').style.display = 'none'
-  if (Quest.settings.panes !== 'none') {
+  if (Quest.Settings.settings.panes !== 'none') {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'style' does not exist on type 'Element'.
     for (const el of document.querySelectorAll('.pane-div')) el.style.display = 'none'
     // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
     document.querySelector('.pane-div-finished').style.display = 'block'
   }
   // @ts-expect-error ts-migrate(2349) FIXME: This expression is not callable.
-  for (const el of Quest.settings.afterFinish) el()
+  for (const el of Quest.Settings.settings.afterFinish) el()
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'finishMetaComment' does not exist on typ... Remove this comment to see the full error message
-  if (Quest.settings.finishMetaComment) metamsg(Quest.settings.finishMetaComment)
+  if (Quest.Settings.settings.finishMetaComment) metamsg(Quest.Settings.settings.finishMetaComment)
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
   if (saveLoad.transcriptExists()) metamsg(lang.transcript_finish)
 }
@@ -2083,8 +2083,8 @@ io.finish = function () {
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'toggleDarkMode' does not exist on type '... Remove this comment to see the full error message
 io.toggleDarkMode = function () {
-  Quest.settings.darkModeActive = !Quest.settings.darkModeActive
-  if (Quest.settings.darkModeActive) {
+  Quest.Settings.settings.darkModeActive = !Quest.Settings.settings.darkModeActive
+  if (Quest.Settings.settings.darkModeActive) {
     // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
     document.querySelector('body').classList.add("dark-body")
   }
@@ -2093,9 +2093,9 @@ io.toggleDarkMode = function () {
     document.querySelector('body').classList.remove("dark-body")
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterDarkToggle' does not exist on type ... Remove this comment to see the full error message
-  if (Quest.settings.afterDarkToggle) Quest.settings.afterDarkToggle()
+  if (Quest.Settings.settings.afterDarkToggle) Quest.Settings.settings.afterDarkToggle()
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'textColour' does not exist on type '{ ne... Remove this comment to see the full error message
-  if (Quest.settings.panes !== 'none') io.textColour = document.querySelector(".side-panes").style.color
+  if (Quest.Settings.settings.panes !== 'none') io.textColour = document.querySelector(".side-panes").style.color
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   metamsg(lang.done_msg)
   return world.SUCCESS_NO_TURNSCRIPTS
@@ -2105,9 +2105,9 @@ io.toggleDarkMode = function () {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'toggleAutoScrollMode' does not exist on ... Remove this comment to see the full error message
 io.toggleAutoScrollMode = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'autoscroll' does not exist on type '{ pe... Remove this comment to see the full error message
-  Quest.settings.autoscroll = !Quest.settings.autoscroll
+  Quest.Settings.settings.autoscroll = !Quest.Settings.settings.autoscroll
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterAutoScrollToggle' does not exist on... Remove this comment to see the full error message
-  if (Quest.settings.afterAutoScrollToggle) Quest.settings.afterAutoScrollToggle()
+  if (Quest.Settings.settings.afterAutoScrollToggle) Quest.Settings.settings.afterAutoScrollToggle()
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   metamsg(lang.done_msg)
   return world.SUCCESS_NO_TURNSCRIPTS
@@ -2118,17 +2118,17 @@ io.toggleAutoScrollMode = function () {
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'toggleNarrowMode' does not exist on type... Remove this comment to see the full error message
 io.toggleNarrowMode = function () {
-  Quest.settings.narrowMode = (Quest.settings.narrowMode + 1) % 3
+  Quest.Settings.settings.narrowMode = (Quest.Settings.settings.narrowMode + 1) % 3
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
   document.querySelector('body').classList.remove("narrow-body")
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
   document.querySelector('body').classList.remove("very-narrow-body")
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-  if (Quest.settings.narrowMode === 1) document.querySelector('body').classList.add("narrow-body")
+  if (Quest.Settings.settings.narrowMode === 1) document.querySelector('body').classList.add("narrow-body")
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-  if (Quest.settings.narrowMode === 2) document.querySelector('body').classList.add("very-narrow-body")
+  if (Quest.Settings.settings.narrowMode === 2) document.querySelector('body').classList.add("very-narrow-body")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterNarrowChange' does not exist on typ... Remove this comment to see the full error message
-  if (Quest.settings.afterNarrowChange) Quest.settings.afterNarrowChange()
+  if (Quest.Settings.settings.afterNarrowChange) Quest.Settings.settings.afterNarrowChange()
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   metamsg(lang.done_msg)
   return world.SUCCESS_NO_TURNSCRIPTS
@@ -2137,8 +2137,8 @@ io.toggleNarrowMode = function () {
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'togglePlainFontMode' does not exist on t... Remove this comment to see the full error message
 io.togglePlainFontMode = function () {
-  Quest.settings.plainFontModeActive = !Quest.settings.plainFontModeActive
-  if (Quest.settings.plainFontModeActive) {
+  Quest.Settings.settings.plainFontModeActive = !Quest.Settings.settings.plainFontModeActive
+  if (Quest.Settings.settings.plainFontModeActive) {
     // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
     document.querySelector('body').classList.add("plain-font-body")
   }
@@ -2147,7 +2147,7 @@ io.togglePlainFontMode = function () {
     document.querySelector('body').classList.remove("plain-font-body")
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterPlainFontToggle' does not exist on ... Remove this comment to see the full error message
-  if (Quest.settings.afterPlainFontToggle) Quest.settings.afterPlainFontToggle()
+  if (Quest.Settings.settings.afterPlainFontToggle) Quest.Settings.settings.afterPlainFontToggle()
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   metamsg(lang.done_msg)
   return world.SUCCESS_NO_TURNSCRIPTS
@@ -2208,10 +2208,10 @@ io.copyTextToClipboard = function (text: any) {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'getIcon' does not exist on type '{ nexti... Remove this comment to see the full error message
 io.getIcon = function (item: any) {
   // @ts-expect-error ts-migrate(2367) FIXME: This condition will always return 'false' since th... Remove this comment to see the full error message
-  if (Quest.settings.iconsFolder === false) return ''
+  if (Quest.Settings.settings.iconsFolder === false) return ''
   if (!item.icon) return ''
   if (item.icon() === '') return ''
-  return '<img src="' + Quest.settings.iconsFolder + (Quest.settings.darkModeActive ? 'l_' : 'd_') + item.icon() + '.png" />'
+  return '<img src="' + Quest.Settings.settings.iconsFolder + (Quest.Settings.settings.darkModeActive ? 'l_' : 'd_') + item.icon() + '.png" />'
 }
 
 
@@ -2260,7 +2260,7 @@ io.displayIconsCompass = function (exit: any) {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'scrollToEnd' does not exist on type '{ n... Remove this comment to see the full error message
 io.scrollToEnd = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'autoscroll' does not exist on type '{ pe... Remove this comment to see the full error message
-  if (Quest.settings.autoscroll) window.scrollTo(0, document.getElementById('main').scrollHeight);
+  if (Quest.Settings.settings.autoscroll) window.scrollTo(0, document.getElementById('main').scrollHeight);
 }
 
 
@@ -2293,11 +2293,11 @@ io.createToolbar = function () {
 
   let html = "";
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getToolbarHTML' does not exist on type '... Remove this comment to see the full error message
-  html += '<div class="left">' + io.getToolbarHTML(Quest.settings.toolbar[0]) + '</div>'
+  html += '<div class="left">' + io.getToolbarHTML(Quest.Settings.settings.toolbar[0]) + '</div>'
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getToolbarHTML' does not exist on type '... Remove this comment to see the full error message
-  html += '<div class="middle">' + io.getToolbarHTML(Quest.settings.toolbar[1]) + '</div>'
+  html += '<div class="middle">' + io.getToolbarHTML(Quest.Settings.settings.toolbar[1]) + '</div>'
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getToolbarHTML' does not exist on type '... Remove this comment to see the full error message
-  html += '<div class="right">' + io.getToolbarHTML(Quest.settings.toolbar[2]) + '</div>'
+  html += '<div class="right">' + io.getToolbarHTML(Quest.Settings.settings.toolbar[2]) + '</div>'
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
   el.innerHTML = html
 }
@@ -2306,9 +2306,9 @@ io.createToolbar = function () {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'getToolbarHTML' does not exist on type '... Remove this comment to see the full error message
 io.getToolbarHTML = function (data = {}) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'room' does not exist on type '{}'.
-  if (data.room) return sentenceCase(lang.getName(w[player.loc], { article: DEFINITE }))
+  if (data.room) return Quest.Utilities.sentenceCase(lang.getName(w[player.loc], { article: Quest.Utilities.DEFINITE }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
-  if (data.title) return '<b><i>' + Quest.settings.title + '</i></b>'
+  if (data.title) return '<b><i>' + Quest.Settings.settings.title + '</i></b>'
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'content' does not exist on type '{}'.
   if (data.content) return data.content()
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'buttons' does not exist on type '{}'.
@@ -2316,7 +2316,7 @@ io.getToolbarHTML = function (data = {}) {
     let s = ''
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'buttons' does not exist on type '{}'.
     for (let el of data.buttons) {
-      const js = el.cmd ? "runCmd('" + el.cmd + "')" : el.onclick
+      const js = el.cmd ? "Quest.Utilities.runCmd('" + el.cmd + "')" : el.onclick
       s += ` <a class="link" onclick="${js}"><i class="fas ${el.icon}" title="${el.title}"></i></a>`;
     }
     return s

@@ -34,7 +34,7 @@ const RPG_TEMPLATE = {
   },
   unsetGuard() {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'remove' does not exist on type '{}'.
-    array.remove(w[this.guardingLoc][this.guardingDir].guardedBy, this.name)
+    Quest.Utilities.array.remove(w[this.guardingLoc][this.guardingDir].guardedBy, this.name)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'guardingLoc' does not exist on type '{ o... Remove this comment to see the full error message
     delete this.guardingLoc
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'guardingDir' does not exist on type '{ o... Remove this comment to see the full error message
@@ -144,24 +144,24 @@ const RPG_PLAYER = function (female: any) {
   res.allegiance = 'friend'
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getEquippedWeapon' does not exist on typ... Remove this comment to see the full error message
   res.getEquippedWeapon = function () {
-    const carried = scopeHeldBy(this)
+    const carried = Quest.Utilities.scopeHeldBy(this)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'weapon_unarmed' does not exist on type '... Remove this comment to see the full error message
     return carried.find((el: any) => el.equipped && el.weapon) || w.weapon_unarmed;
   }
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getEquippedShield' does not exist on typ... Remove this comment to see the full error message
   res.getEquippedShield = function () {
-    const carried = scopeHeldBy(this)
+    const carried = Quest.Utilities.scopeHeldBy(this)
     return carried.find((el: any) => el.equipped && el.shield);
   }
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getArmour' does not exist on type '{ can... Remove this comment to see the full error message
   res.getArmour = function () {
-    const garments = scopeHeldBy(this).filter((el: any) => el.worn)
+    const garments = Quest.Utilities.scopeHeldBy(this).filter((el: any) => el.worn)
     let armour = 0
     for (let el of garments) armour += el.getArmour()
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'armourScaling' does not exist on type '{... Remove this comment to see the full error message
-    return armour / Quest.settings.armourScaling
+    return armour / Quest.Settings.settings.armourScaling
   }
 
   res.afterCreation = function (o) {
@@ -266,7 +266,7 @@ const RPG_NPC = function (female: any) {
       }
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'includeHitsInExamine' does not exist on ... Remove this comment to see the full error message
-    if (Quest.settings.includeHitsInExamine) {
+    if (Quest.Settings.settings.includeHitsInExamine) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'health' does not exist on type '{ canRea... Remove this comment to see the full error message
       s += ' {class:tactical:Hits: ' + this.health + '/' + this.maxHealth + '.}'
     }
@@ -279,10 +279,10 @@ const RPG_NPC = function (female: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'dead' does not exist on type '{ canReach... Remove this comment to see the full error message
     if (!this.dead && !this.asleep) return falsemsg(lang.searchAlive, options)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSearch' does not exist on type '{... Remove this comment to see the full error message
-    if (!Quest.settings.defaultSearch) return falsemsg(lang.searchNothing, options)
+    if (!Quest.Settings.settings.defaultSearch) return falsemsg(lang.searchNothing, options)
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSearch' does not exist on type '{... Remove this comment to see the full error message
-    Quest.settings.defaultSearch(this)
+    Quest.Settings.settings.defaultSearch(this)
     return true
   }
 

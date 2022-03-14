@@ -306,7 +306,7 @@ createItem("hourglass", SIZE_CHANGING(), {
   },
   fill: function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'findSource' does not exist on type '{}'.
-    if (!util.findSource(options)) return falsemsg(lang.no_generic_fluid_here, { item: this })
+    if (!Quest.Utilities.util.findSource(options)) return falsemsg(lang.no_generic_fluid_here, { item: this })
     options.item = this
     if (this.testFill && !this.testFill(options)) return false
     return this.sink(options.fluid, options.char, options.source)
@@ -348,7 +348,7 @@ createItem("hourglass", SIZE_CHANGING(), {
         s = "Mandy closes the tap of the hourglass, picks it up to turn it over."
       }
       s += " As she does, {nv:item:wither} away to nothing."
-      if (doOnce(this, 'flagWithered')) s += " 'Shit...' she mutters in disappointment."
+      if (Quest.Utilities.doOnce(this, 'flagWithered')) s += " 'Shit...' she mutters in disappointment."
       s += " She turns the hourglass over, and puts it down again."
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'grown_tamarind_tree' does not exist on t... Remove this comment to see the full error message
       w.grown_tamarind_tree.seedsPlanted = 0
@@ -659,7 +659,7 @@ createRoom("up_a_tall_tree", {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'lift' does not exist on type '{}'.
       if (w.lift.getTransitDestLocation() !== w.steam_control_room) return falsemsg("Mandy looks at the top of the metal box, and realises the lift is not there. It would be a bad idea heading that way, she decides.")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSimpleExitUse' does not exist on ... Remove this comment to see the full error message
-      return util.defaultSimpleExitUse(char, this)
+      return Quest.Utilities.util.defaultSimpleExitUse(char, this)
     },
   }),
 })

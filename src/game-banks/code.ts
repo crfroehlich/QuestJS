@@ -37,7 +37,7 @@ Each awakening gets steadily worse, by the fourth you are throwing up.
 
 
 
-const CREW = function(isFemale: any) {
+const CREW = function (isFemale: any) {
   const res = NPC(isFemale)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'status' does not exist on type '{ canRea... Remove this comment to see the full error message
   res.status = "okay"
@@ -54,14 +54,14 @@ const CREW = function(isFemale: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'oxygenUseModifier' does not exist on typ... Remove this comment to see the full error message
   res.oxygenUseModifier = 1
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'oxygenUse' does not exist on type '{ can... Remove this comment to see the full error message
-  res.oxygenUse = function() {
+  res.oxygenUse = function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'status' does not exist on type '{ canRea... Remove this comment to see the full error message
     if (typeof this.status !== 'number') return 0
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'baseOxygeUse' does not exist on type '{ ... Remove this comment to see the full error message
     return this.baseOxygeUse * this.oxygenUseModifier
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'revive' does not exist on type '{ canRea... Remove this comment to see the full error message
-  res.revive = function(options: any) {
+  res.revive = function (options: any) {
     // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'char'.
     if (char === player) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
@@ -85,12 +85,12 @@ const CREW = function(isFemale: any) {
       return false;
     }
     // check number revived TODO!!!
-    
+
   }
   // Description
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'examine' does not exist on type '{ canRe... Remove this comment to see the full error message
-  res.examine = function(options: any) {
-    const tpParams = {char:this}
+  res.examine = function (options: any) {
+    const tpParams = { char: this }
     let s;
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'clothing' does not exist on type '{ canR... Remove this comment to see the full error message
     switch (this.clothing) {
@@ -111,8 +111,8 @@ const CREW = function(isFemale: any) {
     msg(this.desc + s, tpParams);
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'stasis' does not exist on type '{ canRea... Remove this comment to see the full error message
-  res.stasis = function() {
-    const tpParams = {char:this}
+  res.stasis = function () {
+    const tpParams = { char: this }
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
     msg("'{nm:char}, you're work here is done; you can go get in your stasis pod.'", tpParams);
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'deployProbeTotal' does not exist on type... Remove this comment to see the full error message
@@ -132,8 +132,8 @@ const CREW = function(isFemale: any) {
     this.stasisPodCount = 0;
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'stasisPod' does not exist on type '{ can... Remove this comment to see the full error message
-  res.stasisPod = function() {
-    const tpParams = {char:this}
+  res.stasisPod = function () {
+    const tpParams = { char: this }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'clothing' does not exist on type '{ canR... Remove this comment to see the full error message
     if (this.clothing === 2) {
       this.msg("{nv:char:pull:true} off {pa:char} jumpsuit, and puts it in the drawer under {pa:char} stasis pod.", tpParams);
@@ -166,7 +166,7 @@ const CREW = function(isFemale: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'deployProbeOverallTotal' does not exist ... Remove this comment to see the full error message
   res.deployProbeOverallTotal = 0  // total
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'deployProbe' does not exist on type '{ c... Remove this comment to see the full error message
-  res.deployProbe = function(arr: any) {
+  res.deployProbe = function (arr: any) {
     // This is an agenda item; it will continue until it returns true and is set other parameters from the agenda (just the count in this case).
     // It will run every turn until done. It should only start once the character is at the correct location.
     // Progress is tracked with deployProbeAction.
@@ -177,7 +177,7 @@ const CREW = function(isFemale: any) {
     // Once a probe is launched this system forgets it
     const count = parseInt(arr[0])
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'deployProbeCount' does not exist on type... Remove this comment to see the full error message
-    const tpParams = {char:this, count:this.deployProbeCount + 1}
+    const tpParams = { char: this, count: this.deployProbeCount + 1 }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'deployProbeAction' does not exist on typ... Remove this comment to see the full error message
     switch (this.deployProbeAction) {
       case 0:
@@ -208,7 +208,7 @@ const CREW = function(isFemale: any) {
   }
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'actuallyDeployProbe' does not exist on t... Remove this comment to see the full error message
-  res.actuallyDeployProbe = function(count: any) {
+  res.actuallyDeployProbe = function (count: any) {
     // the details of leaunching a probe are done here
     // housekeeping
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'probesRemaining' does not exist on type ... Remove this comment to see the full error message
@@ -234,8 +234,8 @@ const CREW = function(isFemale: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'probe_prototype' does not exist on type ... Remove this comment to see the full error message
     w.probe_prototype.cloneMe(this)
   }
-  
-  return res 
+
+  return res
 }
 
 
@@ -247,7 +247,7 @@ const CREW = function(isFemale: any) {
 
 // @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'walkthroug... Remove this comment to see the full error message
 const walkthroughs = {
-  c:[
+  c: [
     "o",
     "get jumpsuit",
     "wear jumpsuit",
@@ -339,7 +339,7 @@ const walkthroughs = {
 
     /**/
   ],
-  c1:[
+  c1: [
     "o",
     "get jumpsuit",
     "wear jumpsuit",
@@ -350,7 +350,7 @@ const walkthroughs = {
     "z",
     "a",
     "d",
-    
+
   ],
 }
 
@@ -365,17 +365,17 @@ function isRoomScope(obj: any) { return obj.room }
 
 function createTopics(npc: any) {
   npc.askOptions.push({
-    name:"health",
-    regex:/(his |her )?(health|well\-?being)/,
-    test:function(p: any) { return p.text.match(this.regex); }, 
-    script:howAreYouFeeling,
+    name: "health",
+    regex: /(his |her )?(health|well\-?being)/,
+    test: function (p: any) { return p.text.match(this.regex); },
+    script: howAreYouFeeling,
   });
   npc.askOptions.push({
-    name:"planet",
-    regex:/(this |the |)?planet/,
-    test:function(p: any) { return p.text.match(this.regex) }, 
-    script:function(response: any) {
-      const tpParams = {char:response.char}
+    name: "planet",
+    regex: /(this |the |)?planet/,
+    test: function (p: any) { return p.text.match(this.regex) },
+    script: function (response: any) {
+      const tpParams = { char: response.char }
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
       msg("'What's your report on {planet}?' you ask {nm:char:the}.", tpParams)
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
@@ -383,43 +383,43 @@ function createTopics(npc: any) {
     },
   });
   npc.askOptions.push({
-    name:"probes",
-    regex:/probes?/,
-    test:function(p: any) { return p.text.match(this.regex) }, 
-    script:function(response: any) {
+    name: "probes",
+    regex: /probes?/,
+    test: function (p: any) { return p.text.match(this.regex) },
+    script: function (response: any) {
       response.char.probesAskResponse();
     }
   });
   npc.askOptions.push({
-    name:"expertise", 
-    regex:/(your |his |her )?(area|special.*|expert.*|job|role)/,
-    test:function(p: any) { return p.text.match(this.regex); }, 
-    script:function(response: any) {
+    name: "expertise",
+    regex: /(your |his |her )?(area|special.*|expert.*|job|role)/,
+    test: function (p: any) { return p.text.match(this.regex); },
+    script: function (response: any) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'What is your area of expertise?' you ask " + lang.getName(response.char, {article:DEFINITE}) + ".");
+      msg("'What is your area of expertise?' you ask " + lang.getName(response.char, { article: Quest.Utilities.DEFINITE }) + ".");
       response.char.areaAskResponse();
     }
   });
   npc.askOptions.push({
-    name:"background", 
-    regex:/^((his |her )?(background))|((him|her)self)$/,
-    test:function(p: any) { return p.text.match(this.regex); }, 
-    script:function(response: any) {
+    name: "background",
+    regex: /^((his |her )?(background))|((him|her)self)$/,
+    test: function (p: any) { return p.text.match(this.regex); },
+    script: function (response: any) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'Tell me about yourself,' you say to " + lang.getName(response.char, {article:DEFINITE}) + ".");
+      msg("'Tell me about yourself,' you say to " + lang.getName(response.char, { article: Quest.Utilities.DEFINITE }) + ".");
       response.char.backgroundAskResponse();
       trackRelationship(response.char, 1, "background");
     }
   });
   npc.askOptions.push({
-    msg:"{nv:char:have:true} no interest in that.",
-    failed:true,
+    msg: "{nv:char:have:true} no interest in that.",
+    failed: true,
   })
 }
- 
+
 function howAreYouFeeling(response: any) {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  msg("'How are you feeling?' you ask " + lang.getName(response.char, {article:DEFINITE}) + ".");
+  msg("'How are you feeling?' you ask " + lang.getName(response.char, { article: Quest.Utilities.DEFINITE }) + ".");
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
   msg(PLANETS[w.Xsansi.currentPlanet][response.char.name + "_how_are_you"]);
 }
@@ -440,24 +440,24 @@ function planetAnalysis(response: any) {
   return arr[rank]
 }
 
-  
+
 function createPlanets() {
   for (let i = 0; i < PLANETS.length; i++) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
     createItem("planet" + i,
-      { 
-        starName:PLANETS[i].starName,
-        alias:PLANETS[i].starName + " " + PLANETS[i].planet,
-        geology:0,
-        marine:0,
-        biology:0,
-        coms:0,
-        satellite:false,
-        probeLandingSuccess:PLANETS[i].probeLandingSuccess,
-        eventIsActive:function() { return this.satellite; },
-        eventPeriod:5,
-        eventScript:function() {
-          this.coms++; 
+      {
+        starName: PLANETS[i].starName,
+        alias: PLANETS[i].starName + " " + PLANETS[i].planet,
+        geology: 0,
+        marine: 0,
+        biology: 0,
+        coms: 0,
+        satellite: false,
+        probeLandingSuccess: PLANETS[i].probeLandingSuccess,
+        eventIsActive: function () { return this.satellite; },
+        eventPeriod: 5,
+        eventScript: function () {
+          this.coms++;
         },
       }
     )
@@ -489,7 +489,7 @@ function arrival() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
   w.Kyle.setAgenda(["walkTo:probes_forward", "text:deployProbe:1"])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'updateStatus' does not exist on type '{ ... Remove this comment to see the full error message
-  io.updateStatus() 
+  io.updateStatus()
 }
 
 // If a topic has an attribute "name2", then using code=2,
@@ -513,11 +513,11 @@ function trackRelationship(npc: any, inc: any, code: any) {
     npc.relationshipTracker += code + "~"
   }
 }
-    
+
 
 
 function reviveNpc(npc: any, object: any) {
-  
+
 }
 
 
@@ -568,10 +568,10 @@ function probeLandsOkay() {
   }
   return flag;
 }
-  
-  
+
+
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'deckNames' does not exist on type '{ per... Remove this comment to see the full error message
-Quest.settings.deckNames = {layer1:'Deck 2', layer3:'Deck 1', layer4:'Deck 3'}
+Quest.Settings.settings.deckNames = { layer1: 'Deck 2', layer3: 'Deck 1', layer4: 'Deck 3' }
 
 function updateMap() {
   if (!document.querySelector('#layer1')) return
@@ -584,7 +584,7 @@ function updateMap() {
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   const currentDeck = w[player.loc].deckName
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-  document.querySelector('#map').setAttribute('title', 'The Joseph Banks, ' + Quest.settings.deckNames[currentDeck]);
+  document.querySelector('#map').setAttribute('title', 'The Joseph Banks, ' + Quest.Settings.settings.deckNames[currentDeck]);
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   if (!currentDeck) return errormsg("No deckName for " + player.loc)
   let el = document.querySelector('#' + currentDeck)
@@ -611,13 +611,13 @@ function updateMap() {
     // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
     if (mySvgId) document.querySelector('#' + mySvgId).style.fill = 'yellow'
     // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-    if (otherSvgId) document.querySelector('#' + otherSvgId).style.fill ='blue'
+    if (otherSvgId) document.querySelector('#' + otherSvgId).style.fill = 'blue'
   }
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-  document.querySelector('#rect10').style.fill = Quest.settings.darkModeActive ? '#606' : '#bbb'
+  document.querySelector('#rect10').style.fill = Quest.Settings.settings.darkModeActive ? '#606' : '#bbb'
   for (let id of [3334, 2800, 2788, 3330]) {
     // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-    document.querySelector('#text' + id).style.fill = Quest.settings.darkModeActive ? 'white' : 'black'
+    document.querySelector('#text' + id).style.fill = Quest.Settings.settings.darkModeActive ? 'white' : 'black'
     // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
     document.querySelector('#text' + id).style.fontFamily = 'Orbitron, sans-serif'
   }

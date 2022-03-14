@@ -27,10 +27,10 @@ createRoom("steam_hall", ROOM_SET("steam hall"), {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'lift' does not exist on type '{}'.
       if (w.lift.getTransitDestLocation() !== this.origin) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSimpleExitUse' does not exist on ... Remove this comment to see the full error message
-        return util.defaultSimpleExitUse(char, new Exit('lift_shaft', { origin: this.origin, dir: this.dir, msg: "She heads through the doorway." }))
+        return Quest.Utilities.util.defaultSimpleExitUse(char, new Exit('lift_shaft', { origin: this.origin, dir: this.dir, msg: "She heads through the doorway." }))
       }
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSimpleExitUse' does not exist on ... Remove this comment to see the full error message
-      return util.defaultSimpleExitUse(char, this)
+      return Quest.Utilities.util.defaultSimpleExitUse(char, this)
     },
   }),
   desc: "This large room is dominated by a huge engine, turning a giant flywheel from two cylinders connected to beams way over Mandy's head. Every second or so there is a puff of steam from a piston, making the room very hot and humid. There is a gallery above, and numerous pipes of different sizes going everywhere, but especially heading down a corridor to the west. The doorway east {if:greenhouse_west:visited:0:looks like it might head outside - Mandy can see plants out there:heads to the greenhouse}. There is a smaller door to the southeast.",
@@ -95,7 +95,7 @@ createRoom("lift_shaft", {
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
   out: new Exit('steam_hall', { alsoDir: ['west', 'northwest'] }),
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  up: new Exit("_", { use: util.cannotUse, msg: 'If she was only Peter Parker, she could get up there.{once: There must be lots of spiders, if she can only work out which is radioactive. And get it to bite her. Yeah, maybe not such a great idea, she decides.}' }),
+  up: new Exit("_", { use: Quest.Utilities.util.cannotUse, msg: 'If she was only Peter Parker, she could get up there.{once: There must be lots of spiders, if she can only work out which is radioactive. And get it to bite her. Yeah, maybe not such a great idea, she decides.}' }),
   desc: function () {
     let s = "{once:A small room, with a strangely high roof. Looking up, Mandy realises she:Mandy} is standing at the bottom of a lift shaft. "
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'lift' does not exist on type '{}'.
@@ -144,7 +144,7 @@ createRoom("steam_corridor", {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'brass_dining_room' does not exist on typ... Remove this comment to see the full error message
       if (w.brass_dining_room.blocked()) return falsemsg("Mandy starts heading west, but the dining room is now so full of mannequins, she cannot get into it.")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSimpleExitUse' does not exist on ... Remove this comment to see the full error message
-      return util.defaultSimpleExitUse(char, this)
+      return Quest.Utilities.util.defaultSimpleExitUse(char, this)
     }
   }),
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
@@ -154,7 +154,7 @@ createRoom("steam_corridor", {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'grating' does not exist on type '{}'.
       if (w.grating.scenery) return falsemsg("It works in Hollywood... Mandy gives the grating a good pull... It is stuck solid. No way is she getting into the vents without something sharp and strong to prise the grating off the wall.")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSimpleExitUse' does not exist on ... Remove this comment to see the full error message
-      return util.defaultSimpleExitUse(char, this)
+      return Quest.Utilities.util.defaultSimpleExitUse(char, this)
     },
     msg: "Following a fine tradition of Hollywood movies, Mandy climbs into the vent. What can possibly go wrong?",
   }),
@@ -393,7 +393,7 @@ createRoom("upper_steam_hall", ROOM_SET("steam hall"), {
         return false
       }
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSimpleExitUse' does not exist on ... Remove this comment to see the full error message
-      return util.defaultSimpleExitUse(char, this)
+      return Quest.Utilities.util.defaultSimpleExitUse(char, this)
     },
   }),
   scenery: [
@@ -814,7 +814,7 @@ createItem("Winfield_Malewicz", NPC(), {
         msg("'I'm not sure what you're talking about.'");
         let s = "'You were dropping me clues. "
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Winfield_Malewicz' does not exist on typ... Remove this comment to see the full error message
-        s += formatList(w.Winfield_Malewicz.songlist.map((el: any) => "{i:" + el + "}"), { lastJoiner: 'and' })
+        s += Quest.Utilities.formatList(w.Winfield_Malewicz.songlist.map((el: any) => "{i:" + el + "}"), { lastJoiner: 'and' })
         s += ". They're all One Direction song titles.'"
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg(s)

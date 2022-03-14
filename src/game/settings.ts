@@ -1,4 +1,4 @@
-Quest.settings.add({
+Quest.Settings.settings.add({
   title: "Your new game",
   author: "Your name",
   version: "0.1",

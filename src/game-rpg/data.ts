@@ -2,70 +2,70 @@
 
 
 
-  
+
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("me", RPG_PLAYER(), {
-  loc:"practice_room",
-  regex:/^(me|myself|player)$/,
-  health:100,
-  pp:40,
-  maxPP:40,
-  spellCasting:5,
-  offensiveBonus:3,
-  examine:function() {
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("A " + (this.isFemale ? "chick" : "guy") + " called " + this.alias);
-  },
+    loc: "practice_room",
+    regex: /^(me|myself|player)$/,
+    health: 100,
+    pp: 40,
+    maxPP: 40,
+    spellCasting: 5,
+    offensiveBonus: 3,
+    examine: function () {
+        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        msg("A " + (this.isFemale ? "chick" : "guy") + " called " + this.alias);
+    },
 })
 
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("knife", WEAPON("d4+2", "blade"), {
-  loc:"me",
-  image:"knife",
-  examine:"An example of a poor weapon.",
-  offensiveBonus:-2,
+    loc: "me",
+    image: "knife",
+    examine: "An example of a poor weapon.",
+    offensiveBonus: -2,
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("flail", WEAPON("2d10+4", "crush"), {
-  loc:"me",
-  image:"flail",
-  examine:"An example of a good weapon.",
+    loc: "me",
+    image: "flail",
+    examine: "An example of a good weapon.",
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("long_bow", LIMITED_AMMO_WEAPON("2d8", "bow", "arrow"), {
-  loc:"me",
-  examine:"An example of a bow.",
+    loc: "me",
+    examine: "An example of a bow.",
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("arrow", COUNTABLE({yard:14}), {
-  examine:"A simple arrow.",
+createItem("arrow", COUNTABLE({ yard: 14 }), {
+    examine: "A simple arrow.",
 })
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("flaming_sword", WEAPON("3d6+2", "blade"), {
-  //loc:"me",
-  image:"sword",
-  examine:"An example of a magic weapon.",
-  activeEffects:["Flaming weapon"],
+    //loc:"me",
+    image: "sword",
+    examine: "An example of a magic weapon.",
+    activeEffects: ["Flaming weapon"],
 });
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("ice_amulet", WEARABLE(4, ['neck']), {
-  loc:"me",
-  examine:"An example of a wearable magic item; it stops ice/frost damage.",
-  modifyIncomingAttack:function(attack: any) {
-    if (this.worn && attack.element === 'frost') {
-      attack.damageMultiplier = 0
-      attack.primarySuccess = attack.primarySuccess.replace(/[.!]/, ", but the ice amulet protects {sb:target}, and {pv:target:take} no damage.")
+    loc: "me",
+    examine: "An example of a wearable magic item; it stops ice/frost damage.",
+    modifyIncomingAttack: function (attack: any) {
+        if (this.worn && attack.element === 'frost') {
+            attack.damageMultiplier = 0
+            attack.primarySuccess = attack.primarySuccess.replace(/[.!]/, ", but the ice amulet protects {sb:target}, and {pv:target:take} no damage.")
+        }
     }
-  }
 });
 
 
@@ -74,25 +74,25 @@ createItem("ice_amulet", WEARABLE(4, ['neck']), {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("practice_room", {
-  desc:'A large room with straw scattered across the floor. The only exit is west',
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  west:new Exit('great_hall'),
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  east:new Exit('passage'),
-  /*east:new Exit('passage', {
-    simpleUse:function(char) {
-      if (w.practice_room.guarded && !w.orc.dead) {
-        rpg.broadcast('guards', 'attack', 'practice room exit')
-        return falsemsg("You try to head east, but the orc bars your way. Looks like he is going to attack!")
-      }
-      return util.defaultSimpleExitUse(char, this)
-    }    
-  }),*/
-  // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  south:new Exit('cupboard', {
-    lockedmsg:"It seems to be locked."
-  }),
-  exit_locked_south:true,
+    desc: 'A large room with straw scattered across the floor. The only exit is west',
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+    west: new Exit('great_hall'),
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+    east: new Exit('passage'),
+    /*east:new Exit('passage', {
+      simpleUse:function(char) {
+        if (w.practice_room.guarded && !w.orc.dead) {
+          rpg.broadcast('guards', 'attack', 'practice room exit')
+          return falsemsg("You try to head east, but the orc bars your way. Looks like he is going to attack!")
+        }
+        return Quest.Utilities.util.defaultSimpleExitUse(char, this)
+      }    
+    }),*/
+    // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+    south: new Exit('cupboard', {
+        lockedmsg: "It seems to be locked."
+    }),
+    exit_locked_south: true,
 });
 
 
@@ -100,84 +100,84 @@ createRoom("practice_room", {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("great_hall", {
-  desc:'An imposing - and rather cold - room with a high, vaulted roof{if:tapestry.scenery:, and an impressive tapestry hanging from the wall}.',
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  east:new Exit('practice_room'),
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  north:new Exit('yard'),
+    desc: 'An imposing - and rather cold - room with a high, vaulted roof{if:tapestry.scenery:, and an impressive tapestry hanging from the wall}.',
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+    east: new Exit('practice_room'),
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+    north: new Exit('yard'),
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("tapestry", TAKEABLE(), {
-  examine:'A huge tapestry, taller than you, and wider than it is tall.',
-  scenery:true,
-  loc:'great_hall',
+    examine: 'A huge tapestry, taller than you, and wider than it is tall.',
+    scenery: true,
+    loc: 'great_hall',
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("passage", {
-  desc:'A long passage.',
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  west:new Exit('practice_room'),
+    desc: 'A long passage.',
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+    west: new Exit('practice_room'),
 })
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("practice_room_door", LOCKED_DOOR("small_key", "great_hall", "practice_room"), {
-  examine:'A very solid, wooden door.',
+    examine: 'A very solid, wooden door.',
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("cupboard", {
-  desc:'A large storeroom, with no windows.',
-  darkDesc:"It is dark, but the exit is north.",
-  lightSource:function() { return world.LIGHT_NONE },
-  // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  north:new Exit('practice_room', {
-    isHidden:function() { return false }
-  }),
+    desc: 'A large storeroom, with no windows.',
+    darkDesc: "It is dark, but the exit is north.",
+    lightSource: function () { return world.LIGHT_NONE },
+    // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+    north: new Exit('practice_room', {
+        isHidden: function () { return false }
+    }),
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("small_key", KEY(), {
-  examine:'A small key.',
-  loc:"practice_room",
+    examine: 'A small key.',
+    loc: "practice_room",
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("yard", {
-  desc:'A large open area in front of the Great Hall, which is to the south. There is a lake to the north, and you can see an island in the lake.',
-  yesWeather:true,
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  south:new Exit('great_hall'),
-  // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  north:new Exit('lake_swimming', {
-    simpleUse:function(char: any) {
-      if (char.hasEffect('Walk On Water')) {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSimpleExitUse' does not exist on ... Remove this comment to see the full error message
-        return util.defaultSimpleExitUse(char, new Exit('lake', {origin:this.origin, dir:this.dir, msg:"You walk out on to the surface of the lake."}))
-      }
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSimpleExitUse' does not exist on ... Remove this comment to see the full error message
-      return util.defaultSimpleExitUse(char, this)
-    },
-    msg:'You dive into the lake...',
-  }),
+    desc: 'A large open area in front of the Great Hall, which is to the south. There is a lake to the north, and you can see an island in the lake.',
+    yesWeather: true,
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+    south: new Exit('great_hall'),
+    // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+    north: new Exit('lake_swimming', {
+        simpleUse: function (char: any) {
+            if (char.hasEffect('Walk On Water')) {
+                // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSimpleExitUse' does not exist on ... Remove this comment to see the full error message
+                return Quest.Utilities.util.defaultSimpleExitUse(char, new Exit('lake', { origin: this.origin, dir: this.dir, msg: "You walk out on to the surface of the lake." }))
+            }
+            // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSimpleExitUse' does not exist on ... Remove this comment to see the full error message
+            return Quest.Utilities.util.defaultSimpleExitUse(char, this)
+        },
+        msg: 'You dive into the lake...',
+    }),
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("lake", {
-  desc:'You are stood on a lake! Dry land is to the south.',
-  yesWeather:true,
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  south:new Exit('yard'),
+    desc: 'You are stood on a lake! Dry land is to the south.',
+    yesWeather: true,
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+    south: new Exit('yard'),
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("lake_swimming", {
-  desc:'You are swimming in a lake! Dry land is to the south.',
-  yesWeather:true,
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  south:new Exit('yard'),
+    desc: 'You are swimming in a lake! Dry land is to the south.',
+    yesWeather: true,
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+    south: new Exit('yard'),
 })
 
 
@@ -185,108 +185,108 @@ createRoom("lake_swimming", {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("goblin", RPG_NPC(false), {
-  loc:"practice_room",
-  damage:"d8",
-  health:40,
-  signalGroups:['guards'],
-  ex:"A rather small green humanoid; hairless and dressed in rags.",
+    loc: "practice_room",
+    damage: "d8",
+    health: 40,
+    signalGroups: ['guards'],
+    ex: "A rather small green humanoid; hairless and dressed in rags.",
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("orc", RPG_NPC(false), {
-  loc:"practice_room",
-  damage:"2d10+4",
-  health:60,
-  signalGroups:['guards'],
-  ex:"A large green humanoid; hairless and dressed in leather.",
-  signalResponses:{
-    wake:function() {
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("He rolls over and goes back to sleep.")
+    loc: "practice_room",
+    damage: "2d10+4",
+    health: 60,
+    signalGroups: ['guards'],
+    ex: "A large green humanoid; hairless and dressed in leather.",
+    signalResponses: {
+        wake: function () {
+            // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+            msg("He rolls over and goes back to sleep.")
+        },
     },
-  },  
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("huge_shield", SHIELD(10), {
-  loc:"orc",
+    loc: "orc",
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("snotling", RPG_NPC(false), {
-  loc:"practice_room",
-  damage:"2d4",
-  health:20,
-  signalGroups:['guards'],
-  ex:"A cowering green humanoid; hairless and dressed in rags.",
+    loc: "practice_room",
+    damage: "2d4",
+    health: 20,
+    signalGroups: ['guards'],
+    ex: "A cowering green humanoid; hairless and dressed in rags.",
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("rabbit", RPG_BEAST(false), {
-  loc:"practice_room",
-  damage:"2d4",
-  health:20,
-  ex:"{lore:An example of a monster you can talk to after casting the right spell, and is generally not hostile.:With Lore active, you can learn all about rabbit culture... they like carrots.}",
-  allegiance:'friend',
-  talk:function() {
-    switch (this.talkto_count) {
-      case 0 : 
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("You say 'Hello,' to the rabbit, 'how is it going?'");
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("The rabbit looks at you. 'Need carrots.' It looks plaintively at it round tummy. 'Fading away bunny!");
-        break;
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      default: msg("You wonder what you can talk to the rabbit about."); break;
-    }
-    return true
-  },  
+    loc: "practice_room",
+    damage: "2d4",
+    health: 20,
+    ex: "{lore:An example of a monster you can talk to after casting the right spell, and is generally not hostile.:With Lore active, you can learn all about rabbit culture... they like carrots.}",
+    allegiance: 'friend',
+    talk: function () {
+        switch (this.talkto_count) {
+            case 0:
+                // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+                msg("You say 'Hello,' to the rabbit, 'how is it going?'");
+                // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+                msg("The rabbit looks at you. 'Need carrots.' It looks plaintively at it round tummy. 'Fading away bunny!");
+                break;
+            // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+            default: msg("You wonder what you can talk to the rabbit about."); break;
+        }
+        return true
+    },
 });
 
 
 
 const elementals = [
-  {name:'frost', level:0, desc:"swirling mass of freezing air that chills you to the bone"},
-  {name:'fire', level:2, desc:"burning ball of fire"},
-  {name:'storm', level:1, desc:"sizzling whirlwind of crackling lightning"},
-  {name:'earthmight', level:3, desc:"churning mass of rocks and earth"},
-  {name:'shadow', level:1, desc:"ball of utter darkness"},
-  {name:'rainbow', level:2, desc:"kaleidoscope of colours too painful to look at"},
+    { name: 'frost', level: 0, desc: "swirling mass of freezing air that chills you to the bone" },
+    { name: 'fire', level: 2, desc: "burning ball of fire" },
+    { name: 'storm', level: 1, desc: "sizzling whirlwind of crackling lightning" },
+    { name: 'earthmight', level: 3, desc: "churning mass of rocks and earth" },
+    { name: 'shadow', level: 1, desc: "ball of utter darkness" },
+    { name: 'rainbow', level: 2, desc: "kaleidoscope of colours too painful to look at" },
 ]
 
 for (const el of elementals) {
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-  createItem("lesser_" + el.name + "_elemental_prototype", RPG_ELEMENTAL(el.name), {
-    alias:"lesser " + el.name + ' elemental',
-    damage:"2d" + (4 + el.level),
-    health:35 + 5 * el.level,
-    signalGroups:['elementals'],
-    ex:'A small ' + el.desc + '.',
-  })
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-  createItem("greater_" + el.name + "_elemental_prototype", RPG_ELEMENTAL(el.name), {
-    alias:"greater " + el.name + ' elemental',
-    damage:"3d" + (6 + el.level),
-    health:100 + 10 * el.level,
-    signalGroups:['elementals'],
-    ex:'A large ' + el.desc + '.',
-  })
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+    createItem("lesser_" + el.name + "_elemental_prototype", RPG_ELEMENTAL(el.name), {
+        alias: "lesser " + el.name + ' elemental',
+        damage: "2d" + (4 + el.level),
+        health: 35 + 5 * el.level,
+        signalGroups: ['elementals'],
+        ex: 'A small ' + el.desc + '.',
+    })
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+    createItem("greater_" + el.name + "_elemental_prototype", RPG_ELEMENTAL(el.name), {
+        alias: "greater " + el.name + ' elemental',
+        damage: "3d" + (6 + el.level),
+        health: 100 + 10 * el.level,
+        signalGroups: ['elementals'],
+        ex: 'A large ' + el.desc + '.',
+    })
 }
 
 
 for (const el of elementals) {
-  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  new SpellSummon(w['lesser_' + el.name + '_elemental_prototype'], { level:2 + el.level, duration:6, })
-  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  new SpellSummon(w['greater_' + el.name + '_elemental_prototype'], { level:12 + el.level, duration:6, })
+    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+    new SpellSummon(w['lesser_' + el.name + '_elemental_prototype'], { level: 2 + el.level, duration: 6, })
+    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+    new SpellSummon(w['greater_' + el.name + '_elemental_prototype'], { level: 12 + el.level, duration: 6, })
 }
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("phantasm_prototype", RPG_PHANTOM(), {
-  alias:"phantom",
-  damage:"1",
-  health:1,
+    alias: "phantom",
+    damage: "1",
+    health: 1,
 })
 
 
@@ -296,7 +296,7 @@ createItem("phantasm_prototype", RPG_PHANTOM(), {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'phantasm_prototype' does not exist on ty... Remove this comment to see the full error message
-new SpellSummon(w.phantasm_prototype, { level:1, duration:6, })
+new SpellSummon(w.phantasm_prototype, { level: 1, duration: 6, })
 
 
 
@@ -315,96 +315,96 @@ createItem("zombie_prototype", RPG_CORPOREAL_UNDEAD(), {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("pink_scroll", SCROLL("Fireball", false), {
-  examine:'A scroll with a magical glyph on it.',
+    examine: 'A scroll with a magical glyph on it.',
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("blue_scroll", SCROLL("Ice shard", true), {
-  examine:'A scroll with a magical glyph on it.',
+    examine: 'A scroll with a magical glyph on it.',
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("healing_potion", POTION("Healing"), {
-  examine:'A sweet smelling concoction!',
+    examine: 'A sweet smelling concoction!',
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
 createItem("chest", CONTAINER(true), LOCKED_WITH(), {
-  loc:"practice_room",
+    loc: "practice_room",
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("spellbook", SPELLBOOK(["Fireball", "Stoneskin", "Steelskin", "Lightning bolt", "Ice shard"]), {
-  examine:"An example of a spell book, obviously.",
-  loc:"practice_room",
+    examine: "An example of a spell book, obviously.",
+    loc: "practice_room",
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("helmet", WEARABLE(2, ['head']), {
-  loc:"practice_room",
-  examine:"An example of armour; it will add +{armour} to your armour rating.",
-  armour:10,
+    loc: "practice_room",
+    examine: "An example of armour; it will add +{armour} to your armour rating.",
+    armour: 10,
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("chestplate", WEARABLE(2, ['chest']), {
-  loc:"practice_room",
-  examine:"An example of armour; it will add +{armour} to your armour rating.",
-  armour:20,
+    loc: "practice_room",
+    examine: "An example of armour; it will add +{armour} to your armour rating.",
+    armour: 20,
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("boots", WEARABLE(2, ['feet']), {
-  loc:"practice_room",
-  pronouns:lang.pronouns.plural,
+    loc: "practice_room",
+    pronouns: lang.pronouns.plural,
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("shotgun", LIMITED_AMMO_WEAPON("2d10+4", 'firearm', 1), {
-  loc:"practice_room",
-  ammo:1,
-  examine:"An example of a limited ammo weapon.",
-  image:"flail",
+    loc: "practice_room",
+    ammo: 1,
+    examine: "An example of a limited ammo weapon.",
+    image: "flail",
 });
 
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("Stone_of_Returning", TAKEABLE(), {
-  loc:"yard",
+    loc: "yard",
 });
 
 
 
 
 new Effect("Flaming weapon", {
-  modifyOutgoingAttack:function(attack: any, source: any) {
-    if (!source.equipped) return
-    attack.element = 'fire'
-  },
+    modifyOutgoingAttack: function (attack: any, source: any) {
+        if (!source.equipped) return
+        attack.element = 'fire'
+    },
 })
 
 
 new Effect("Frost vulnerability", {
-  modifyIncomingAttack:function(attack: any) {
-    if (attack.element) attack.damageMultiplier *= 2
-  },
+    modifyIncomingAttack: function (attack: any) {
+        if (attack.element) attack.damageMultiplier *= 2
+    },
 })
 
 new Effect("Report for testing", {
-  modifyOutgoingAttack:function(attack: any) {
-    attack.element = 'fire'
-  },
-  modifyIncomingAttack:function(attack: any) {
-    if (attack.element) attack.damageMultiplier *= 2
-  },
+    modifyOutgoingAttack: function (attack: any) {
+        attack.element = 'fire'
+    },
+    modifyIncomingAttack: function (attack: any) {
+        if (attack.element) attack.damageMultiplier *= 2
+    },
 })
 
 new Effect("Defensive", {
-  modifyIncomingAttack:function(attack: any) {
-    attack.offensiveBonus -= 3
-  },
-  suppressFinishMsg:true,
+    modifyIncomingAttack: function (attack: any) {
+        attack.offensiveBonus -= 3
+    },
+    suppressFinishMsg: true,
 })
 
 
@@ -413,276 +413,276 @@ new Effect("Defensive", {
 
 
 new Skill("Double attack", {
-  level:2,
-  description:"Two attacks is better than one - though admittedky less accurate.",
-  tactical:"Attack one foe twice, but at -2 to the attack roll",
-  modifyOutgoingAttack:function(attack: any) {
-    attack.offensiveBonus -= 2
-    attack.attackNumber = 2
-  },
+    level: 2,
+    description: "Two attacks is better than one - though admittedky less accurate.",
+    tactical: "Attack one foe twice, but at -2 to the attack roll",
+    modifyOutgoingAttack: function (attack: any) {
+        attack.offensiveBonus -= 2
+        attack.attackNumber = 2
+    },
 })
 
 new Skill("Sweeping attack", {
-  level:1,
-  description:"You attack you foe with a flourish that may do minor damage to the others who assail you.",
-  tactical:"Attack one foe as normal. In addition, attack any other foe -2; on a success do 4 damage.", 
-  getSecondaryTargets:rpg.getFoesBut,
-  testUseable:function(char: any) {
-    // @ts-expect-error ts-migrate(2367) FIXME: This condition will always return 'false' since th... Remove this comment to see the full error message
-    if (!char.equipped.weaponType === 'blade') return falsemsg("This skill is only useable with a bladed weapon.")
-    return rpg.defaultSkillTestUseable(char)
-  },
-  modifyOutgoingAttack:function(attack: any) {
-    // @ts-expect-error ts-migrate(2552) FIXME: Cannot find name 'options'. Did you mean 'Option'?
-    if (options.secondary) {
-      attack.damageNumber = 0
-      attack.damageBonus = 4
-    }
-    attack.offensiveBonus -= 2
-  },
+    level: 1,
+    description: "You attack you foe with a flourish that may do minor damage to the others who assail you.",
+    tactical: "Attack one foe as normal. In addition, attack any other foe -2; on a success do 4 damage.",
+    getSecondaryTargets: rpg.getFoesBut,
+    testUseable: function (char: any) {
+        // @ts-expect-error ts-migrate(2367) FIXME: This condition will always return 'false' since th... Remove this comment to see the full error message
+        if (!char.equipped.weaponType === 'blade') return falsemsg("This skill is only useable with a bladed weapon.")
+        return rpg.defaultSkillTestUseable(char)
+    },
+    modifyOutgoingAttack: function (attack: any) {
+        // @ts-expect-error ts-migrate(2552) FIXME: Cannot find name 'options'. Did you mean 'Option'?
+        if (options.secondary) {
+            attack.damageNumber = 0
+            attack.damageBonus = 4
+        }
+        attack.offensiveBonus -= 2
+    },
 })
 
 new Skill("Defensive attack", {
-  level:2,
-  description:"Make a cautious attack, careful to maintain your defense, at the expense of your attack.",
-  tactical:"Attack one foe with a -2 penalty, but any attacks on you will suffer a -3 penalty until your next turn.",
-  testUseable:function(char: any) {
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (char.getEquippedWeapon().weaponType === 'bow') return falsemsg("This skill is not useable with a bow.")
-    return rpg.defaultSkillTestUseable(char)
-  },
-  modifyOutgoingAttack:function(attack: any) {
-    attack.offensiveBonus -= 2
-  },
-  afterUse:function(attack: any, count: any) {
-    const effect = rpg.findEffect('Defensive')
-    // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
-    effect.apply(attack, attack.attacker, 1)
-    rpg.defaultSkillAfterUse(attack, count)
-  }
+    level: 2,
+    description: "Make a cautious attack, careful to maintain your defense, at the expense of your attack.",
+    tactical: "Attack one foe with a -2 penalty, but any attacks on you will suffer a -3 penalty until your next turn.",
+    testUseable: function (char: any) {
+        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+        if (char.getEquippedWeapon().weaponType === 'bow') return falsemsg("This skill is not useable with a bow.")
+        return rpg.defaultSkillTestUseable(char)
+    },
+    modifyOutgoingAttack: function (attack: any) {
+        attack.offensiveBonus -= 2
+    },
+    afterUse: function (attack: any, count: any) {
+        const effect = rpg.findEffect('Defensive')
+        // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
+        effect.apply(attack, attack.attacker, 1)
+        rpg.defaultSkillAfterUse(attack, count)
+    }
 })
 
 const imported = [
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-  createItem("slug_prototype", RPG_CORRUPTED(), {
-    "name": "slug",
-    "alias": "Giant slug",
-    "desc": "At least fifteen foot of slimy slug.",
-  }),          
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-  createItem("giant_rat_prototype", RPG_BEAST(), {
-    "alias": "Giant rat",
-    "level":1,
-    "hitpoints":20,
-    "defence":3,
-    "armour":1,
-    "damage":2,
-    "noncorporeal": [],
-    "movetype": "Constrained",
-    "guarding": [],
-    "image": "giant_rat",
-    "desc": "This thing looks like a rat, only bigger. Much bigger.",
-    "loredesc": "Giantism is a common way for those skilled in the art to create powerful guardians, and in many ways the rat is the idea starting point, being fierce, easy to feed and overly abundant.",
-    "treasurechance":8,
-  }),          
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-  createItem("gargoyle_prototype", RPG_CREATED(), {
-    "alias": "Gargoyle",
-    "desc": "A dire cross between a bat and a statue.",
-    "treasurechance":0,
-  }),          
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-  createItem("tentacled_horror_prototype", RPG_CORRUPTED(), {
-    "alias": "Tentacled horror",
-    "desc": "A writhing black mass of mouths and eyes.",
-  }),          
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-  createItem("mudman_prototype", RPG_CREATED(), {
-    "alias": "Mudman",
-    "level":2,
-    "damage":"2d6+1",
-    "desc": "Composed of primordial mud, the mudman is a horrific caricature of a man. Dark holes for eyes, a gaping mawl, and no neck or nose. It looks tough to fight, but it is guarding the way north.",
-    "element":"earthmight",
-  }),          
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-  createItem("hydra_prototype", RPG_BEAST(), {
-    "alias": "Hydra",
-    "desc": "A semi-aquatic creature with numerous heads,",
-    "loredesc": "A semi-aquatic creature with numerous heads, academics have suggested that it is related to the dragon, adapted for life in water. Some speculate that in fact it is a colony of creatures; each head is in fact a separate entity, but this theory so far remains unpopular with more respected scholars.",
-  }),          
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-  createItem("rust_monster_prototype", RPG_BEAST(), {
-    "armour":3,
-    "attackdesc": "% bites at you",
-    "level":8,
-    "hitpoints":32,
-    "alias": "Rust monster",
-    "desc": "A beetle-like reptile, with two long tendrils extending from its mouth, and a spiky tail.",
-    "defence":1,
-    "treasurechance":5,
-    "attackbonus":2,
-    "damage":"3d8+2",
-    "onweaponhit":"if (player.equipped.canberusted) {\n            msg (\"Your \" + player.equipped.alias + \" has been rusted by its contact with the creature. It will not be so effective from now on (but it is immune to further rusting).\")\n            player.equipped.canberusted = false\n            player.equipped.rusted = true\n            player.equipped.attackbonus = player.equipped.attackbonus - 2\n            player.equipped.damagebonus = player.equipped.damagebonus - 2\n            player.equipped.damagedicesides = player.equipped.damagedicesides - 2\n            player.equipped.alias = player.equipped.alias + \" (rusted)\"\n            UpdateStatus\n          }",
-  }),          
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-  createItem("amorphous_blob_prototype", RPG_PLANT(), {
-    "alias": "Amorphous blob",
-    "level":7,
-    "canberusted":false,
-    "nocorpse": [],
-    "desc": "The blob is a grey-green colour, and every now and again is vaguely man-shaped, but seems unable to keep any shape for long.",
-    "attackdesc": "% lunges at you with a pseudopod",
-    "attackbonus":3,
-    "damage":"3d8",
-    "hitpoints":40,
-    "treasurechance":0,
-    "ondeath":"msg (\"The blob slumps to the ground, split in to three by your attack, dead at last...\")\n          msg (\"Wait... The bits are starting to twitch. As you watch, each of the three parts rises up, a new, albeit smaller, amorphous blob.\")\n          for (i, 1, 3) {\n            o = CloneObjectAndMove(amorphous_blob_2, this.parent)\n            do (o, \"settoattack\")\n          }",
-  }),          
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-  createItem("amorphous_blob_2_prototype", RPG_PLANT(), {
-    "alias": "Amorphous blob",
-    "level":3,
-    "attackonsight": [],
-    "canberusted":false,
-    "nocorpse": [],
-    "desc": "The smaller blob is a grey-green colour, and every now and again is vaguely man-shaped, but seems unable to keep any shape for long.",
-    "attackdesc": "% lunges at you with a pseudopod",
-    "attackbonus":3,
-    "damage":"2d6",
-    "treasurechance":0,
-    "ondeath":"msg (\"The smaller blob slumps to the ground.\")\n          msg (\"Then the bits start to twitch. As you watch, each of the parts rises up, a new, even smaller, amorphous blob.\")\n          for (i, 1, GetRandomInt(2, 4)) {\n            o = CloneObjectAndMove(amorphous_blob_3, this.parent)\n            do (o, \"settoattack\")\n          }",
-  }),          
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-  createItem("amorphous_blob_3_prototype", RPG_PLANT(), {
-    "alias": "Amorphous blob",
-    "level":1,
-    "attackonsight": [],
-    "canberusted":false,
-    "nocorpse": [],
-    "desc": "The small blob is a grey-green colour, and every now and again is vaguely man-shaped, but seems unable to keep any shape for long.",
-    "attackdesc": "% lunges at you with a pseudopod",
-    "hitpoints":1,
-    "treasurechance":0,
-    "attackbonus":3,
-    "death": "The remains of the blob seep away through cracks in the floor.",
-    "ondeath":"msg (\"The blob slumps to the ground, split in two by your attack, dead at last...\")\n          msg (\"Wait... The bits are starting to twitch. As you watch, each of the three parts rises up, a new, albeit smaller, amorphous blob.\")\n          for (i, 1, 3) {\n            o = CloneObjectAndMove(amorphous_blob_2, this.parent)\n            do (o, \"settoattack\")\n          }",
-  }),          
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-  createItem("adherer_prototype", RPG_CORRUPTED(), {
-    "armour":2,
-    "attackdesc": "% bites at you",
-    "level":4,
-    "hitpoints":24,
-    "nonweapon": [],
-    "alias": "Weird mummy creature",
-    "desc": "This creature looks kind of like a mummy, but it seems to have various things stuck to it; you can see a dagger and some kind of club. It has the slow, shambling gait of a mummy, but somehow you feel it is not undead.",
-    "lookwhendead": "There is just a pile of bandages and junk.",
-    "damage":"2d8+1",
-    "attackonsight": [],
-    "onweaponhit":"if (not player.equipped = fists) {\n            msg (\"Your \" + player.equipped.alias + \" has stuck fast to the creature!\")\n            player.equipped.parent = this\n            player.equipped.inventoryverbs = Split (\"Look at;Drop;Equip;Sell\", \";\")\n            player.equipped = fists\n            UpdateStatus\n            this.alias = \"Adherer\"\n          }",
-  }),          
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-  createItem("mimic_prototype", RPG_PLANT(), {
-    "nonweapon": [],
-    "alias": "Chest",
-    "look": "This battered chest has a lock, but it looks crude.",
-    "attackdesc": "% bites at you",
-    "death": "The mimic now looks like a surrealist take on the subject of chests.",
-    "attackbonus":2,
-    "damage":"3+6",
-    "hitpoints":14,
-    "level":3,
-  }),          
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-  createItem("mushroomman_prototype", RPG_PLANT(), {
-    "alias": "Mushroomman",
-    "desc": "A weirldly humanoid mushroom, according to that guy in the Greedy Goblin, they explode when killed.",
-    "level":1,
-    "damage":"d6",
-    "attackonsight":false,
-    "nocorpse": [],
-    "ondeath": "if (DoesInherit(player.currectattack, \"spell\") or DoesInherit(player.currectattack, \"scroll\")) {\n            msg (\"The mushroom man's corpse explodes in a haze of spores. Just as well you were not right next to it.\")\n          }\n          else if (GetBoolean(player.currectattack, \"longreach\")) {\n            msg (\"The mushroomman's corpse explodes in a haze of spores. Just as well you finished it off with a weapon with long reach.\")\n          }\n          else {\n            msg (\"The mushroomman's corpse explodes in a haze of spores, leaving you coughing and spluttering. -6 hits.\")\n            game.pov.hitpoints = game.pov.hitpoints - 6\n          }"
-  }),          
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-  createItem("dark_pixie_prototype", RPG_FEY(), {
-    "alias": "Dark pixie",
-    "desc": "While most pixies are wondrous and clever, dark pixies are annoying! They are less than a foot tall, and have wings not unlike that of a dragon fly. Cunning and elusive!",
-    "poisonimmunity":true,
-    "poisonimmunitymsg": "Poison has no effect on pixies, they are just too cool!",
-    "reflectsmagic": [],
-    "level":3,
-    "defence":5,
-    "attackasgroup": []
-  }),          
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-  createItem("shambling_mound_prototype", RPG_CORPOREAL_UNDEAD(), {
-    "alias": "Shambling Mound",
-    "desc": "Humanoid, flesh-eating vegetation!",
-    "absorbsmagic": [],
-    "level":1,
-    "hitpoints":24,
-    "attackonsight": []
-  }),          
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-  createItem("dire_hag_prototype", RPG_CORRUPTED(), {
-    "desc": "At first glance the hag resembles an old woman, but the reality is this creature is considerably tougher than that.",
-    "death": "In the death, the Dire Hag looks like a sad old woman.",
-    "level":5,
-    "hitpoints":24,
-    "defence":3,
-    "alias": "Dire hag",
-    "attackonsight": [],
-    "ondeath": "if (HasString(this, \"oldroomdesc\")) {\n            this.parent.description = this.oldroomdesc\n          }\n          foreach (ex, ScopeExitsForRoom(this.parent)) {\n            ex.visible = true\n          }\n          msg (\"As the Dire Hag dies, the lava-filled cavern shimmers before you eyes, and a moment later you are back in the chamber you first encountered the creature - if you ever left it?\")",
-  }),          
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-  createItem("iron_cobra_prototype", RPG_CONSTRUCT(), {
-    "alias": "Iron cobra",
-    "desc": "A huge, mechanical snake, constructed of articulated segments.",
-    "attackonsight": [],
-    "hitpoints":50,
-    "armour":4,
-    "level":10,
-  }),          
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-  createItem("lich_prototype", RPG_CORPOREAL_UNDEAD(), {
-    "name": "lich",
-    "desc": "A malicious wizard who has tried to cheat death, the lich resembles a bonelord, but retains his evil powers,",
-    "alias": "Lich",
-    "level":15,
-    "hitpoints":80,
-    "defence":4,
-    "armour":2,
-    "attackonsight": [],
-  }),          
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-  createItem("electric_skeleton_prototype", RPG_CORPOREAL_UNDEAD(), {
-    "desc": "A skeleton, with electricity sparking off it.",
-    "alias": "Electric skeleton",
-    "level":8,
-    "hitpoints":30,
-    "defence":2,
-    "armour":2,
-    "attackonsight": [],
-    "attackdesc": "% lunges at you",
-  }),          
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-  createItem("fire_zombie_prototype", RPG_CORPOREAL_UNDEAD(), {
-    "desc": "A zombie, burning, but not consumed in the fire.",
-    "alias": "Fire zombie",
-    "level":5,
-    "hitpoints":25,
-    "defence":1,
-    "armour":0,
-    "attackonsight": [],
-    "attackdesc": "% swings a burning hard at you",
-  }),
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+    createItem("slug_prototype", RPG_CORRUPTED(), {
+        "name": "slug",
+        "alias": "Giant slug",
+        "desc": "At least fifteen foot of slimy slug.",
+    }),
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+    createItem("giant_rat_prototype", RPG_BEAST(), {
+        "alias": "Giant rat",
+        "level": 1,
+        "hitpoints": 20,
+        "defence": 3,
+        "armour": 1,
+        "damage": 2,
+        "noncorporeal": [],
+        "movetype": "Constrained",
+        "guarding": [],
+        "image": "giant_rat",
+        "desc": "This thing looks like a rat, only bigger. Much bigger.",
+        "loredesc": "Giantism is a common way for those skilled in the art to create powerful guardians, and in many ways the rat is the idea starting point, being fierce, easy to feed and overly abundant.",
+        "treasurechance": 8,
+    }),
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+    createItem("gargoyle_prototype", RPG_CREATED(), {
+        "alias": "Gargoyle",
+        "desc": "A dire cross between a bat and a statue.",
+        "treasurechance": 0,
+    }),
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+    createItem("tentacled_horror_prototype", RPG_CORRUPTED(), {
+        "alias": "Tentacled horror",
+        "desc": "A writhing black mass of mouths and eyes.",
+    }),
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+    createItem("mudman_prototype", RPG_CREATED(), {
+        "alias": "Mudman",
+        "level": 2,
+        "damage": "2d6+1",
+        "desc": "Composed of primordial mud, the mudman is a horrific caricature of a man. Dark holes for eyes, a gaping mawl, and no neck or nose. It looks tough to fight, but it is guarding the way north.",
+        "element": "earthmight",
+    }),
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+    createItem("hydra_prototype", RPG_BEAST(), {
+        "alias": "Hydra",
+        "desc": "A semi-aquatic creature with numerous heads,",
+        "loredesc": "A semi-aquatic creature with numerous heads, academics have suggested that it is related to the dragon, adapted for life in water. Some speculate that in fact it is a colony of creatures; each head is in fact a separate entity, but this theory so far remains unpopular with more respected scholars.",
+    }),
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+    createItem("rust_monster_prototype", RPG_BEAST(), {
+        "armour": 3,
+        "attackdesc": "% bites at you",
+        "level": 8,
+        "hitpoints": 32,
+        "alias": "Rust monster",
+        "desc": "A beetle-like reptile, with two long tendrils extending from its mouth, and a spiky tail.",
+        "defence": 1,
+        "treasurechance": 5,
+        "attackbonus": 2,
+        "damage": "3d8+2",
+        "onweaponhit": "if (player.equipped.canberusted) {\n            msg (\"Your \" + player.equipped.alias + \" has been rusted by its contact with the creature. It will not be so effective from now on (but it is immune to further rusting).\")\n            player.equipped.canberusted = false\n            player.equipped.rusted = true\n            player.equipped.attackbonus = player.equipped.attackbonus - 2\n            player.equipped.damagebonus = player.equipped.damagebonus - 2\n            player.equipped.damagedicesides = player.equipped.damagedicesides - 2\n            player.equipped.alias = player.equipped.alias + \" (rusted)\"\n            UpdateStatus\n          }",
+    }),
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+    createItem("amorphous_blob_prototype", RPG_PLANT(), {
+        "alias": "Amorphous blob",
+        "level": 7,
+        "canberusted": false,
+        "nocorpse": [],
+        "desc": "The blob is a grey-green colour, and every now and again is vaguely man-shaped, but seems unable to keep any shape for long.",
+        "attackdesc": "% lunges at you with a pseudopod",
+        "attackbonus": 3,
+        "damage": "3d8",
+        "hitpoints": 40,
+        "treasurechance": 0,
+        "ondeath": "msg (\"The blob slumps to the ground, split in to three by your attack, dead at last...\")\n          msg (\"Wait... The bits are starting to twitch. As you watch, each of the three parts rises up, a new, albeit smaller, amorphous blob.\")\n          for (i, 1, 3) {\n            o = CloneObjectAndMove(amorphous_blob_2, this.parent)\n            do (o, \"settoattack\")\n          }",
+    }),
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+    createItem("amorphous_blob_2_prototype", RPG_PLANT(), {
+        "alias": "Amorphous blob",
+        "level": 3,
+        "attackonsight": [],
+        "canberusted": false,
+        "nocorpse": [],
+        "desc": "The smaller blob is a grey-green colour, and every now and again is vaguely man-shaped, but seems unable to keep any shape for long.",
+        "attackdesc": "% lunges at you with a pseudopod",
+        "attackbonus": 3,
+        "damage": "2d6",
+        "treasurechance": 0,
+        "ondeath": "msg (\"The smaller blob slumps to the ground.\")\n          msg (\"Then the bits start to twitch. As you watch, each of the parts rises up, a new, even smaller, amorphous blob.\")\n          for (i, 1, GetRandomInt(2, 4)) {\n            o = CloneObjectAndMove(amorphous_blob_3, this.parent)\n            do (o, \"settoattack\")\n          }",
+    }),
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+    createItem("amorphous_blob_3_prototype", RPG_PLANT(), {
+        "alias": "Amorphous blob",
+        "level": 1,
+        "attackonsight": [],
+        "canberusted": false,
+        "nocorpse": [],
+        "desc": "The small blob is a grey-green colour, and every now and again is vaguely man-shaped, but seems unable to keep any shape for long.",
+        "attackdesc": "% lunges at you with a pseudopod",
+        "hitpoints": 1,
+        "treasurechance": 0,
+        "attackbonus": 3,
+        "death": "The remains of the blob seep away through cracks in the floor.",
+        "ondeath": "msg (\"The blob slumps to the ground, split in two by your attack, dead at last...\")\n          msg (\"Wait... The bits are starting to twitch. As you watch, each of the three parts rises up, a new, albeit smaller, amorphous blob.\")\n          for (i, 1, 3) {\n            o = CloneObjectAndMove(amorphous_blob_2, this.parent)\n            do (o, \"settoattack\")\n          }",
+    }),
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+    createItem("adherer_prototype", RPG_CORRUPTED(), {
+        "armour": 2,
+        "attackdesc": "% bites at you",
+        "level": 4,
+        "hitpoints": 24,
+        "nonweapon": [],
+        "alias": "Weird mummy creature",
+        "desc": "This creature looks kind of like a mummy, but it seems to have various things stuck to it; you can see a dagger and some kind of club. It has the slow, shambling gait of a mummy, but somehow you feel it is not undead.",
+        "lookwhendead": "There is just a pile of bandages and junk.",
+        "damage": "2d8+1",
+        "attackonsight": [],
+        "onweaponhit": "if (not player.equipped = fists) {\n            msg (\"Your \" + player.equipped.alias + \" has stuck fast to the creature!\")\n            player.equipped.parent = this\n            player.equipped.inventoryverbs = Split (\"Look at;Drop;Equip;Sell\", \";\")\n            player.equipped = fists\n            UpdateStatus\n            this.alias = \"Adherer\"\n          }",
+    }),
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+    createItem("mimic_prototype", RPG_PLANT(), {
+        "nonweapon": [],
+        "alias": "Chest",
+        "look": "This battered chest has a lock, but it looks crude.",
+        "attackdesc": "% bites at you",
+        "death": "The mimic now looks like a surrealist take on the subject of chests.",
+        "attackbonus": 2,
+        "damage": "3+6",
+        "hitpoints": 14,
+        "level": 3,
+    }),
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+    createItem("mushroomman_prototype", RPG_PLANT(), {
+        "alias": "Mushroomman",
+        "desc": "A weirldly humanoid mushroom, according to that guy in the Greedy Goblin, they explode when killed.",
+        "level": 1,
+        "damage": "d6",
+        "attackonsight": false,
+        "nocorpse": [],
+        "ondeath": "if (DoesInherit(player.currectattack, \"spell\") or DoesInherit(player.currectattack, \"scroll\")) {\n            msg (\"The mushroom man's corpse explodes in a haze of spores. Just as well you were not right next to it.\")\n          }\n          else if (GetBoolean(player.currectattack, \"longreach\")) {\n            msg (\"The mushroomman's corpse explodes in a haze of spores. Just as well you finished it off with a weapon with long reach.\")\n          }\n          else {\n            msg (\"The mushroomman's corpse explodes in a haze of spores, leaving you coughing and spluttering. -6 hits.\")\n            game.pov.hitpoints = game.pov.hitpoints - 6\n          }"
+    }),
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+    createItem("dark_pixie_prototype", RPG_FEY(), {
+        "alias": "Dark pixie",
+        "desc": "While most pixies are wondrous and clever, dark pixies are annoying! They are less than a foot tall, and have wings not unlike that of a dragon fly. Cunning and elusive!",
+        "poisonimmunity": true,
+        "poisonimmunitymsg": "Poison has no effect on pixies, they are just too cool!",
+        "reflectsmagic": [],
+        "level": 3,
+        "defence": 5,
+        "attackasgroup": []
+    }),
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+    createItem("shambling_mound_prototype", RPG_CORPOREAL_UNDEAD(), {
+        "alias": "Shambling Mound",
+        "desc": "Humanoid, flesh-eating vegetation!",
+        "absorbsmagic": [],
+        "level": 1,
+        "hitpoints": 24,
+        "attackonsight": []
+    }),
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+    createItem("dire_hag_prototype", RPG_CORRUPTED(), {
+        "desc": "At first glance the hag resembles an old woman, but the reality is this creature is considerably tougher than that.",
+        "death": "In the death, the Dire Hag looks like a sad old woman.",
+        "level": 5,
+        "hitpoints": 24,
+        "defence": 3,
+        "alias": "Dire hag",
+        "attackonsight": [],
+        "ondeath": "if (HasString(this, \"oldroomdesc\")) {\n            this.parent.description = this.oldroomdesc\n          }\n          foreach (ex, ScopeExitsForRoom(this.parent)) {\n            ex.visible = true\n          }\n          msg (\"As the Dire Hag dies, the lava-filled cavern shimmers before you eyes, and a moment later you are back in the chamber you first encountered the creature - if you ever left it?\")",
+    }),
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+    createItem("iron_cobra_prototype", RPG_CONSTRUCT(), {
+        "alias": "Iron cobra",
+        "desc": "A huge, mechanical snake, constructed of articulated segments.",
+        "attackonsight": [],
+        "hitpoints": 50,
+        "armour": 4,
+        "level": 10,
+    }),
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+    createItem("lich_prototype", RPG_CORPOREAL_UNDEAD(), {
+        "name": "lich",
+        "desc": "A malicious wizard who has tried to cheat death, the lich resembles a bonelord, but retains his evil powers,",
+        "alias": "Lich",
+        "level": 15,
+        "hitpoints": 80,
+        "defence": 4,
+        "armour": 2,
+        "attackonsight": [],
+    }),
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+    createItem("electric_skeleton_prototype", RPG_CORPOREAL_UNDEAD(), {
+        "desc": "A skeleton, with electricity sparking off it.",
+        "alias": "Electric skeleton",
+        "level": 8,
+        "hitpoints": 30,
+        "defence": 2,
+        "armour": 2,
+        "attackonsight": [],
+        "attackdesc": "% lunges at you",
+    }),
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+    createItem("fire_zombie_prototype", RPG_CORPOREAL_UNDEAD(), {
+        "desc": "A zombie, burning, but not consumed in the fire.",
+        "alias": "Fire zombie",
+        "level": 5,
+        "hitpoints": 25,
+        "defence": 1,
+        "armour": 0,
+        "attackonsight": [],
+        "attackdesc": "% swings a burning hard at you",
+    }),
 ]
 
 
 const monsters = [
     {
-        name:"ghost",
-        desc:"Floating a little above the ground, the insubstantial ghost regards you with its one good eye.",
+        name: "ghost",
+        desc: "Floating a little above the ground, the insubstantial ghost regards you with its one good eye.",
         instances: [
             {
                 "desc": "The spirit of someone who has died in unfortunate circumstances.",
@@ -748,18 +748,18 @@ const monsters = [
         specialAttacks: [
             {
                 "name": "ghost_attack",
-                "canberusted":false,
+                "canberusted": false,
                 "attackdesc": "The % lunges at you"
             },
             {
                 "name": "wraith_attack",
-                "canberusted":false,
+                "canberusted": false,
                 "attackdesc": "The % tries to drain your intelligence",
                 "mustmatch": "wraith"
             },
             {
                 "name": "banshee shriek",
-                "canberusted":false,
+                "canberusted": false,
                 "attackdesc": "The % emits an ear-spliting shriek",
                 "mustmatch": "banshee",
                 "onsuccessfulattack": {
@@ -769,13 +769,13 @@ const monsters = [
             }
         ],
         treasureChance: 0,
-        template:RPG_NON_CORPOREAL_UNDEAD(),
+        template: RPG_NON_CORPOREAL_UNDEAD(),
     },
     {
-        name:"zombie",
-        desc:"The bodies of the recently dead are easily transformed into zombies by those skilled in the necrotic arts.",
-        template:RPG_CORPOREAL_UNDEAD(),
-        instances:[
+        name: "zombie",
+        desc: "The bodies of the recently dead are easily transformed into zombies by those skilled in the necrotic arts.",
+        template: RPG_CORPOREAL_UNDEAD(),
+        instances: [
             {
                 "desc": "The bodies of the recently dead are easily transformed into animated corpses by those skilled in the necrotic arts.",
                 "name": "animated corpse"
@@ -839,10 +839,10 @@ const monsters = [
         ]
     },
     {
-        name:"kobold",
+        name: "kobold",
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
-        template:RPG_NPC(),
-        instances:[
+        template: RPG_NPC(),
+        instances: [
             {
                 "desc": "Smallest of the goblinoids, the snotling is nevertheless dangerous when encountered in numbers.",
                 "name": "snotling"
@@ -906,10 +906,10 @@ const monsters = [
         ]
     },
     {
-        name:"kobold_shaman",
+        name: "kobold_shaman",
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
-        template:RPG_NPC(),
-        instances:[
+        template: RPG_NPC(),
+        instances: [
             {
                 "desc": "Smallest of the goblinoids, the snotling is nevertheless dangerous when encountered in numbers.",
                 "name": "snotling shaman"
@@ -971,7 +971,7 @@ const monsters = [
                 "name": "ogre monarch magi"
             }
         ],
-        specialAttacks:[
+        specialAttacks: [
             {
                 "name": "kobold_shaman_ice_blast",
                 "attackdesc": "The % casts <i>Ice blast</i> at you",
@@ -1028,7 +1028,7 @@ const monsters = [
                 }
             }
         ],
-        treasureChance:20,
+        treasureChance: 20,
     },
     /*
         name:"elemental_archetype",
@@ -1073,9 +1073,9 @@ const monsters = [
         ]
     },*/
     {
-        name:"fiend",
-        template:RPG_DEMON(),
-        instances:[
+        name: "fiend",
+        template: RPG_DEMON(),
+        instances: [
             {
                 "desc": "A small humanoid, the imp has grey skin, pointed eyes and no hair at all. It stares at you with cruel, cat-like eyes.",
                 "name": "imp"
@@ -1137,7 +1137,7 @@ const monsters = [
                 "name": "demon lord"
             }
         ],
-        specialAttacks:[
+        specialAttacks: [
             {
                 "name": "fiend_fire_blast",
                 "attackdesc": "The % casts <i>Fire Storm</i> at you",
@@ -1194,12 +1194,12 @@ const monsters = [
                 }
             }
         ],
-        treasureChance:20,
+        treasureChance: 20,
     },
     {
-        name:"horror",
-        template:RPG_CORRUPTED(),
-        instances:[
+        name: "horror",
+        template: RPG_CORRUPTED(),
+        instances: [
             {
                 "desc": "A mottled worm-like creature, with three sickly-white tentacles emerging from its mouth.",
                 "name": "maloeg grub"
@@ -1261,7 +1261,7 @@ const monsters = [
                 "name": "ascended maloeg"
             }
         ],
-        specialAttacks:[
+        specialAttacks: [
             {
                 "name": "horror_death_blast",
                 "attackdesc": "The % blasts you with necrotic might",
@@ -1300,12 +1300,12 @@ const monsters = [
                 "alias": "Tentacle"
             }
         ],
-        treasureChance:0,
+        treasureChance: 0,
     },
     {
-        name:"construct_archetype",
-        template:RPG_CONSTRUCT(),
-        instances:[
+        name: "construct_archetype",
+        template: RPG_CONSTRUCT(),
+        instances: [
             {
                 "desc": "Unlike the usual scarecrow, this one has eyes of fire. And it moves.",
                 "name": "scarecrow"
@@ -1369,10 +1369,10 @@ const monsters = [
         ]
     },
     {
-        name:"dragon",
+        name: "dragon",
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 0.
-        template:RPG_BEAST(),
-        instances:[
+        template: RPG_BEAST(),
+        instances: [
             {
                 "desc": "A large snake with intelligent eyes.",
                 "name": "serpent"
@@ -1434,7 +1434,7 @@ const monsters = [
                 "name": "ancient dragon"
             }
         ],
-        specialAttacks:[
+        specialAttacks: [
             {
                 "name": "dragon_bite",
                 "attackdesc": "The % bites at you",
@@ -1465,7 +1465,7 @@ const monsters = [
                     "type": "int",
                     "text": "2"
                 },
-                "canberusted":false,
+                "canberusted": false,
                 "nonweapon": [],
                 "level": {
                     "type": "int",
@@ -1484,7 +1484,7 @@ const monsters = [
                     "type": "int",
                     "text": "4"
                 },
-                "canberusted":false,
+                "canberusted": false,
                 "nonweapon": [],
                 "level": {
                     "type": "int",
@@ -1501,20 +1501,20 @@ const monsters = [
 
 
 for (const el of monsters) {
-  
-  for (let i = 0; i < el.instances.length; i++) {
-    const name = el.instances[i].name.replace(/ /g, '_') + "_prototype"
-    //log(name)
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-    createItem(name, el.template, {
-      name:el.instances[i].name,
-      alias:sentenceCase(el.instances[i].name),
-      desc:el.instances[i].desc,
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'element' does not exist on type '{ name:... Remove this comment to see the full error message
-      element:el.element,
-      level:i,
-    })
-  }
-  
-  
+
+    for (let i = 0; i < el.instances.length; i++) {
+        const name = el.instances[i].name.replace(/ /g, '_') + "_prototype"
+        //log(name)
+        // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+        createItem(name, el.template, {
+            name: el.instances[i].name,
+            alias: Quest.Utilities.sentenceCase(el.instances[i].name),
+            desc: el.instances[i].desc,
+            // @ts-expect-error ts-migrate(2339) FIXME: Property 'element' does not exist on type '{ name:... Remove this comment to see the full error message
+            element: el.element,
+            level: i,
+        })
+    }
+
+
 }

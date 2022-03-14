@@ -135,7 +135,7 @@ class Attack {
     attack.report('After attacker effects:', attack.offensiveBonus)
 
     // Anything the attacker is holding
-    const items = scopeHeldBy(attack.attacker)
+    const items = Quest.Utilities.scopeHeldBy(attack.attacker)
     for (let el of items) {
       if (el.modifyOutgoingAttack) el.modifyOutgoingAttack(attack)
       attack.applyActiveEffects(el, true)
@@ -190,7 +190,7 @@ class Attack {
     this.target = target
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'testAttribute' does not exist on type '{... Remove this comment to see the full error message
-    if (isPrimary && !util.testAttribute(this.skill, "suppressAntagonise") && this.target.antagonise) {
+    if (isPrimary && !Quest.Utilities.util.testAttribute(this.skill, "suppressAntagonise") && this.target.antagonise) {
       this.target.antagonise(this.attacker)
     }
 
@@ -200,7 +200,7 @@ class Attack {
       // Now take into account the target's active spell
       this.applyActiveEffects(target, false)
       // And anything the target is holding
-      const items = scopeHeldBy(target)
+      const items = Quest.Utilities.scopeHeldBy(target)
       for (let el of items) {
         if (el.modifyIncomingAttack) el.modifyIncomingAttack(this)
         this.applyActiveEffects(el, false)
@@ -313,7 +313,7 @@ class Attack {
 
   output() {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'output' does not exist on type '{ perfor... Remove this comment to see the full error message
-    Quest.settings.output(this.reportTexts)
+    Quest.Settings.settings.output(this.reportTexts)
     return this
   }
 

@@ -62,7 +62,7 @@ class Spell extends Skill {
     this.statForOffensiveBonus = 'spellCasting'
   }
   testUseable(char: any) { return rpg.defaultSpellTestUseable(char) }
-  afterUse(attack: any, count: any) {  rpg.defaultSpellAfterUse(attack, count) }
+  afterUse(attack: any, count: any) { rpg.defaultSpellAfterUse(attack, count) }
 }
 
 class SpellSelf extends Spell {
@@ -74,7 +74,7 @@ class SpellSelf extends Spell {
   suppressAntagonise: any;
   constructor(name: any, data: any) {
     super(name, data)
-    this.getPrimaryTargets = function(target: any, attack: any) { 
+    this.getPrimaryTargets = function (target: any, attack: any) {
       return [attack.attacker]
     }
     this.noTarget = true
@@ -93,7 +93,7 @@ class SpellSummon extends Spell {
   prototype: any;
   constructor(prototype: any, data: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'summonSpellPre' does not exist on type '... Remove this comment to see the full error message
-    super(lang.summonSpellPre + ' ' + titleCase(prototype.alias.replace('_', ' ')), data)
+    super(lang.summonSpellPre + ' ' + Quest.Utilities.titleCase(prototype.alias.replace('_', ' ')), data)
     this.noTarget = true
     this.automaticSuccess = true
     this.prototype = prototype
@@ -132,10 +132,10 @@ class SpellInanimate extends Spell {
 
 const defaultSkill = new Skill("Basic attack", {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'primarySuccess' does not exist on type '... Remove this comment to see the full error message
-  primarySuccess:lang.primarySuccess,
+  primarySuccess: lang.primarySuccess,
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'primaryFailure' does not exist on type '... Remove this comment to see the full error message
-  primaryFailure:lang.primaryFailure,
-  modifyOutgoingAttack:function(attack: any) {},
+  primaryFailure: lang.primaryFailure,
+  modifyOutgoingAttack: function (attack: any) { },
 })
 
 
