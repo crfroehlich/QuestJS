@@ -653,7 +653,7 @@ createRoom("bedroom", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("wardrobe", DEFAULT_ROOM, {
+createItem("wardrobe", Quest.Defaults.DEFAULT_ROOM, {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   out: new Exit("bedroom"),
   loc: "bedroom",

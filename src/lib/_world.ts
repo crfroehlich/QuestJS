@@ -23,7 +23,7 @@ const w = {};
 function createItem() {
   const args = Array.prototype.slice.call(arguments)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'itemCreateFunc' does not exist on type '... Remove this comment to see the full error message
-  return createItemOrRoom(args, DEFAULT_ITEM, Quest.Settings.settings.itemCreateFunc)
+  return createItemOrRoom(args, Quest.Defaults.DEFAULT_ITEM, Quest.Settings.settings.itemCreateFunc)
 }
 
 
@@ -38,7 +38,7 @@ function createItem() {
 function createRoom() {
   const args = Array.prototype.slice.call(arguments)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'roomCreateFunc' does not exist on type '... Remove this comment to see the full error message
-  const o = createItemOrRoom(args, DEFAULT_ROOM, Quest.Settings.settings.roomCreateFunc)
+  const o = createItemOrRoom(args, Quest.Defaults.DEFAULT_ROOM, Quest.Settings.settings.roomCreateFunc)
   // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
   if (o.scenery) {
     // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
@@ -132,7 +132,7 @@ function createObject(name: any, listOfHashes: any) {
   if (typeof listOfHashes.unshift !== 'function') return errormsg("The list of hashes for `" + name + "` is not what I was expecting. Maybe you meant to use createItem or createRoom?")
 
   // put the default attributes on the lift
-  listOfHashes.unshift(DEFAULT_OBJECT)
+  listOfHashes.unshift(Quest.Defaults.DEFAULT_OBJECT)
 
   const item = { name: name }
 
@@ -485,7 +485,7 @@ const world = {
   enterRoom: function (exit: any) {
     if (currentLocation.beforeEnter === undefined) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      return errormsg("This room, " + currentLocation.name + ", has no 'beforeEnter` function defined.  This is probably because it is not actually a room (it was not created with 'createRoom' and has not got the DEFAULT_ROOM template), but is an item. It is not clear what state the game will continue in.")
+      return errormsg("This room, " + currentLocation.name + ", has no 'beforeEnter` function defined.  This is probably because it is not actually a room (it was not created with 'createRoom' and has not got the Quest.Defaults.DEFAULT_ROOM template), but is an item. It is not clear what state the game will continue in.")
     }
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
     Quest.Settings.settings.beforeEnter(exit)
