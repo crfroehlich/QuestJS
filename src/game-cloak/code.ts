@@ -17,18 +17,18 @@ tp.addDirective("cloakHere", function (arr: any, params: any) {
   return cloakHere() ? arr[0] : arr[1]
 });
 
-findCmd('MetaCredits').script = function () {
+Quest.Command.findCmd('MetaCredits').script = function () {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   metamsg('This game was created by The Pixie, following the Cloak of Darkness specification by Roger Firth.')
 }
 
-findCmd('MetaHelp').script = function () {
+Quest.Command.findCmd('MetaHelp').script = function () {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   metamsg('Just type stuff at the prompt!')
 }
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Cmd('HangUp', {
+commands.push(new Quest.Command.Cmd('HangUp', {
   regex: /^(?:hang up|hang) (.+?)(?: on the hook| on hook|)$/,
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.

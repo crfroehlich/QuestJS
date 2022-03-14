@@ -1,7 +1,7 @@
 "use strict"
 
 /*
-commands.unshift(new Cmd('Charge', {
+commands.unshift(new Quest.Command.Cmd('Charge', {
   npcCmd:true,
   regex:/^(?:charge|power) (.+)$/,
   objects:[
@@ -33,7 +33,7 @@ commands.unshift(new Cmd('Charge', {
 parser.isRoom = function (o: any) { return o.room }
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Cmd('GoTo', {
+commands.unshift(new Quest.Command.Cmd('GoTo', {
   npcCmd: true,
   regex: /^(?:go to|go) (.+)$/,
   objects: [
@@ -66,7 +66,7 @@ const smartPhoneFunctions = ["Contacts", "Take photo", "Photo gallery", "Search 
 
 for (let el of smartPhoneFunctions) {
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  commands.unshift(new Cmd(el, {
+  commands.unshift(new Quest.Command.Cmd(el, {
     regex: new RegExp('^' + el.toLowerCase() + ' (.+)$'),
     attName: Quest.Utilities.verbify(el),
     objects: [
@@ -80,7 +80,7 @@ for (let el of smartPhoneFunctions) {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Cmd('Phone', {
+commands.unshift(new Quest.Command.Cmd('Phone', {
   npcCmd: true,
   regex: /^(?:telephone|phone|call|contact) (.+)$/,
   objects: [
@@ -96,7 +96,7 @@ commands.unshift(new Cmd('Phone', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Cmd('HangUp', {
+commands.unshift(new Quest.Command.Cmd('HangUp', {
   npcCmd: true,
   regex: /^(?:hang up|end call)$/,
   objects: [
@@ -117,7 +117,7 @@ commands.unshift(new Cmd('HangUp', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Cmd('DialogTest', {
+commands.unshift(new Quest.Command.Cmd('DialogTest', {
   npcCmd: true,
   regex: /^(?:dialog) (.*)$/,
   objects: [

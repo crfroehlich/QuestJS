@@ -126,7 +126,7 @@ createItem("book", TAKEABLE(), READABLE(true), {
   examine: "A leather-bound book.",
   read: function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
-    if (cmdRules.isHeld(null, options)) {
+    if (Quest.Command.cmdRules.isHeld(null, options)) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Lara' does not exist on type '{}'.
       if (options.char === w.Lara) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.

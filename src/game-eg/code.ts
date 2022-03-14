@@ -21,10 +21,10 @@ quest.create('A carrot for Buddy', [
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Cmd('TestInput', {
+commands.unshift(new Quest.Command.Cmd('TestInput', {
   npcCmd: true,
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
-  rules: [cmdRules.isPresent],
+  rules: [Quest.Command.cmdRules.isPresent],
   regex: /^inp/,
   script: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -52,7 +52,7 @@ commands.unshift(new Cmd('TestInput', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Cmd('TextReveal', {
+commands.unshift(new Quest.Command.Cmd('TextReveal', {
   regex: /^reveal$/,
   script: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -80,7 +80,7 @@ commands.unshift(new Cmd('TextReveal', {
 }));
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Cmd('Image', {
+commands.unshift(new Quest.Command.Cmd('Image', {
   regex: /^img$/,
   script: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -91,7 +91,7 @@ commands.unshift(new Cmd('Image', {
 }));
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Cmd('Audio', {
+commands.unshift(new Quest.Command.Cmd('Audio', {
   regex: /^beep$/,
   script: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -104,7 +104,7 @@ commands.unshift(new Cmd('Audio', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Cmd('Alpha', {
+commands.unshift(new Quest.Command.Cmd('Alpha', {
   regex: /^alpha$/,
   script: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -133,7 +133,7 @@ commands.unshift(new Cmd('Alpha', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Cmd('DialogTest', {
+commands.unshift(new Quest.Command.Cmd('DialogTest', {
   npcCmd: true,
   regex: /^(?:dialog) (.*)$/,
   objects: [
@@ -156,7 +156,7 @@ commands.unshift(new Cmd('DialogTest', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Cmd('TextTest', {
+commands.unshift(new Quest.Command.Cmd('TextTest', {
   npcCmd: true,
   regex: /^(?:text)$/,
   objects: [
@@ -174,10 +174,10 @@ commands.unshift(new Cmd('TextTest', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Cmd('EgKick', {
+commands.unshift(new Quest.Command.Cmd('EgKick', {
   npcCmd: true,
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
-  rules: [cmdRules.isPresent],
+  rules: [Quest.Command.cmdRules.isPresent],
   regex: /^(kick) (.+)$/,
   objects: [
     { special: 'ignore' },
@@ -190,10 +190,10 @@ commands.unshift(new Cmd('EgKick', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Cmd('EgCharge', {
+commands.unshift(new Quest.Command.Cmd('EgCharge', {
   npcCmd: true,
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
-  rules: [cmdRules.isHeld],
+  rules: [Quest.Command.cmdRules.isHeld],
   regex: /^(?:charge|power) (.+)$/,
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
@@ -204,10 +204,10 @@ commands.unshift(new Cmd('EgCharge', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Cmd('EgMove', {
+commands.unshift(new Quest.Command.Cmd('EgMove', {
   npcCmd: true,
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
-  rules: [cmdRules.isPresent],
+  rules: [Quest.Command.cmdRules.isPresent],
   regex: /^(move) (.+)$/,
   objects: [
     { special: 'ignore' },
@@ -217,7 +217,7 @@ commands.unshift(new Cmd('EgMove', {
   defmsg: "{pv:item:'be:true} not something you can move.",
 }));
 
-findCmd('MetaHint').script = function () {
+Quest.Command.findCmd('MetaHint').script = function () {
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   if (w[player.loc].hint) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -249,7 +249,7 @@ const clues = [
 
 
 // How to save???
-findCmd('MetaHint').script = function () {
+Quest.Command.findCmd('MetaHint').script = function () {
   for (let clue of clues) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'count' does not exist on type '{ questio... Remove this comment to see the full error message
     if (clue.count === undefined) clue.count = 0
@@ -297,8 +297,8 @@ Quest.lang.createVerbWith("Slice", { held: true, ing: 'Slicing' })
 
 /*
 // This is not a properly written command, it is just to test the item order can be reversed.
-commands.unshift(new Cmd('SliceCarrot', {
-  rules:[cmdRules.isHeld],
+commands.unshift(new Quest.Command.Cmd('SliceCarrot', {
+  rules:[Quest.Command.cmdRules.isHeld],
   regexes:[/^use (.+) to slice (.+)$/, /^use (.+) slice (.+)$/, {regex:/slice (.+) with (.+)/, mod:{reverse:true}}],
   objects:[
     {scope:parser.isPresent},

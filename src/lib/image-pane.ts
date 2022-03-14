@@ -50,7 +50,7 @@ imagePane.show = function () { document.querySelector('#quest-image').style.disp
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Cmd('MetaImages', {
+commands.unshift(new Quest.Command.Cmd('MetaImages', {
   script: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'hideImagePane' does not exist on type '{... Remove this comment to see the full error message
     if (Quest.Settings.settings.hideImagePane) {

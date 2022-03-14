@@ -2,20 +2,20 @@
 
 
 const quest = {
-  INITIAL:0,
-  ACTIVE:1,
-  MOOT:2,
-  FAILED:3,
-  SUCCESS:4,
-  data:[],
-  progressNames:['', 'Active', 'Moot', 'Failed', 'Success'],
+  INITIAL: 0,
+  ACTIVE: 1,
+  MOOT: 2,
+  FAILED: 3,
+  SUCCESS: 4,
+  data: [],
+  progressNames: ['', 'Active', 'Moot', 'Failed', 'Success'],
 }
 
 
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'create' does not exist on type '{ INITIA... Remove this comment to see the full error message
-quest.create = function(name: any, stages: any, data: any) {
+quest.create = function (name: any, stages: any, data: any) {
   if (!data) data = {}
   data.name = name
   data.stages = stages
@@ -27,7 +27,7 @@ quest.create = function(name: any, stages: any, data: any) {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'getState' does not exist on type '{ INIT... Remove this comment to see the full error message
-quest.getState = function(name: any, char: any) {
+quest.getState = function (name: any, char: any) {
   if (!char) char = player
   const result = {}
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'quest' does not exist on type '{}'.
@@ -55,7 +55,7 @@ quest.getState = function(name: any, char: any) {
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'comment' does not exist on type '{ INITI... Remove this comment to see the full error message
-quest.comment = function(q: any, n: any, s: any) {
+quest.comment = function (q: any, n: any, s: any) {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   metamsg(s + ": {i:" + q.name + "}")
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -63,7 +63,7 @@ quest.comment = function(q: any, n: any, s: any) {
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'start' does not exist on type '{ INITIAL... Remove this comment to see the full error message
-quest.start = function(name: any) {
+quest.start = function (name: any) {
   console.log(name)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getState' does not exist on type '{ INIT... Remove this comment to see the full error message
   const result = quest.getState(name, player)
@@ -76,7 +76,7 @@ quest.start = function(name: any) {
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'restart' does not exist on type '{ INITI... Remove this comment to see the full error message
-quest.restart = function(name: any, n: any) {
+quest.restart = function (name: any, n: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getState' does not exist on type '{ INIT... Remove this comment to see the full error message
   const data = quest.getState(name, player)
   // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'result'.
@@ -91,7 +91,7 @@ quest.restart = function(name: any, n: any) {
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'next' does not exist on type '{ INITIAL:... Remove this comment to see the full error message
-quest.next = function(name: any) {
+quest.next = function (name: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getState' does not exist on type '{ INIT... Remove this comment to see the full error message
   const data = quest.getState(name, player)
   // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'result'.
@@ -106,7 +106,7 @@ quest.next = function(name: any) {
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'complete' does not exist on type '{ INIT... Remove this comment to see the full error message
-quest.complete = function(name: any) {
+quest.complete = function (name: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getState' does not exist on type '{ INIT... Remove this comment to see the full error message
   const data = quest.getState(name, player)
   // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'result'.
@@ -121,7 +121,7 @@ quest.complete = function(name: any) {
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'fail' does not exist on type '{ INITIAL:... Remove this comment to see the full error message
-quest.fail = function(name: any) {
+quest.fail = function (name: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getState' does not exist on type '{ INIT... Remove this comment to see the full error message
   const data = quest.getState(name, player)
   // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'result'.
@@ -136,7 +136,7 @@ quest.fail = function(name: any) {
 }
 
 // @ts-expect-error ts-migrate(2551) FIXME: Property 'moot' does not exist on type '{ INITIAL:... Remove this comment to see the full error message
-quest.moot = function(name: any) {
+quest.moot = function (name: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getState' does not exist on type '{ INIT... Remove this comment to see the full error message
   const data = quest.getState(name, player)
   // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'result'.
@@ -151,7 +151,7 @@ quest.moot = function(name: any) {
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'set' does not exist on type '{ INITIAL: ... Remove this comment to see the full error message
-quest.set = function(name: any, n: any) {
+quest.set = function (name: any, n: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getState' does not exist on type '{ INIT... Remove this comment to see the full error message
   const data = quest.getState(name, player)
   // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'result'.
@@ -170,7 +170,7 @@ quest.set = function(name: any, n: any) {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'progress' does not exist on type '{ INIT... Remove this comment to see the full error message
-quest.progress = function(name: any, all: any) {
+quest.progress = function (name: any, all: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getState' does not exist on type '{ INIT... Remove this comment to see the full error message
   const data = quest.getState(name, player)
   // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'result'.
@@ -180,7 +180,7 @@ quest.progress = function(name: any, all: any) {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   metamsg(data.name + ', {i:' + quest.progressNames[result.progress] + '}')
   // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'result'.
-  if (result.progress === quest.ACTIVE) metamsg(data.quest.stages[result.stateName].text) 
+  if (result.progress === quest.ACTIVE) metamsg(data.quest.stages[result.stateName].text)
   return true
 }
 
@@ -194,7 +194,7 @@ quest.progress = function(name: any, all: any) {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'list' does not exist on type '{ INITIAL:... Remove this comment to see the full error message
-quest.list = function(all: any) {
+quest.list = function (all: any) {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   metamsg(all ? 'Active Quests' : 'All Quests')
   let flag = false
@@ -209,29 +209,29 @@ quest.list = function(all: any) {
 }
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Cmd('MetaQuests', {
+commands.unshift(new Quest.Command.Cmd('MetaQuests', {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
-  rules:[cmdRules.isPresent],
-  regex:/^(?:quest|quests|q)$/,
-  objects:[
+  rules: [Quest.Command.cmdRules.isPresent],
+  regex: /^(?:quest|quests|q)$/,
+  objects: [
   ],
-  script:function(item: any) {
+  script: function (item: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'list' does not exist on type '{ INITIAL:... Remove this comment to see the full error message
     quest.list(false)
   },
 }))
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Cmd('MetaQuestsAll', {
+commands.unshift(new Quest.Command.Cmd('MetaQuestsAll', {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
-  rules:[cmdRules.isPresent],
-  regex:/^(?:quest|quests|q) all$/,
-  objects:[
+  rules: [Quest.Command.cmdRules.isPresent],
+  regex: /^(?:quest|quests|q) all$/,
+  objects: [
   ],
-  script:function(item: any) {
+  script: function (item: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'list' does not exist on type '{ INITIAL:... Remove this comment to see the full error message
     quest.list(true)
   },
 }))
-  
-  
+
+

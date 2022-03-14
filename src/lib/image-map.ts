@@ -213,7 +213,7 @@ map.polyany = function (type: any, room: any, points: any, attrs: any) {
   return s
 }
 
-findCmd('Map').script = function () {
+Quest.Command.findCmd('Map').script = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'hideMap' does not exist on type '{ perfo... Remove this comment to see the full error message
   if (Quest.Settings.settings.hideMap) {
     // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.

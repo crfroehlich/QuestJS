@@ -27,7 +27,7 @@ hintSystem.toWiki = function () {
 
 
 
-findCmd('MetaHint').script = function () {
+Quest.Command.findCmd('MetaHint').script = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'hints' does not exist on type '{}'.
   if (!player.hintCounter) player.hintCounter = new Array(hintSystem.hints.length).fill(0)
 

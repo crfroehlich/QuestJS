@@ -107,7 +107,7 @@ hint.before = function (name: any) {
 
 
 
-findCmd('MetaHint').script = function () {
+Quest.Command.findCmd('MetaHint').script = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'data' does not exist on type '{}'.
   if (typeof hint.data[player.hintCounter].hint === 'string') {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -228,7 +228,7 @@ tp.addDirective("rope", function (arr: any, params: any) {
 
 
 
-findCmd('MetaSave').script = function () {
+Quest.Command.findCmd('MetaSave').script = function () {
   script: Quest.lang.saveLoadScript()
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'before' does not exist on type '{}'.
   if (hint.before('saveGame')) {
@@ -241,7 +241,7 @@ findCmd('MetaSave').script = function () {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Cmd('Crowbar', {
+commands.push(new Quest.Command.Cmd('Crowbar', {
   regex: /^(crowbar|level) (.+)$/,
   objects: [
     { special: 'ignore' },
@@ -253,10 +253,10 @@ commands.push(new Cmd('Crowbar', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Cmd('Move', {
+commands.unshift(new Quest.Command.Cmd('Move', {
   npcCmd: true,
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
-  rules: [cmdRules.isPresent],
+  rules: [Quest.Command.cmdRules.isPresent],
   regex: /^(move) (.+)$/,
   objects: [
     { special: 'ignore' },
@@ -269,7 +269,7 @@ commands.unshift(new Cmd('Move', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Cmd('Tutorial', {
+commands.push(new Quest.Command.Cmd('Tutorial', {
   regex: /^tutorial$/,
   objects: [
   ],
@@ -313,7 +313,7 @@ const unwrapScript = function (obj1: any, obj2: any) {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Cmd('Wrap1', {
+commands.unshift(new Quest.Command.Cmd('Wrap1', {
   // wrap fist in newspaper
   regex: /^(?:wrap|cover) (.+) (?:with|in) (.+)$/,
   objects: [
@@ -326,7 +326,7 @@ commands.unshift(new Cmd('Wrap1', {
 }));
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Cmd('Wrap2', {
+commands.unshift(new Quest.Command.Cmd('Wrap2', {
   // wrap newspaper round fist
   regex: /^(?:wrap) (.+) (?:round|around) (.+)$/,
   objects: [
@@ -339,7 +339,7 @@ commands.unshift(new Cmd('Wrap2', {
 }));
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Cmd('Unwrap1', {
+commands.unshift(new Quest.Command.Cmd('Unwrap1', {
   // unwrap fist
   regex: /^(?:unwrap|uncover) (.+)$/,
   objects: [
@@ -353,7 +353,7 @@ commands.unshift(new Cmd('Unwrap1', {
 }));
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Cmd('Unwrap2', {
+commands.unshift(new Quest.Command.Cmd('Unwrap2', {
   // take newspaper off fist
   regex: /^(?:take|remove) (.+) (?:off|from) (.+)$/,
   objects: [
@@ -368,7 +368,7 @@ commands.unshift(new Cmd('Unwrap2', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Cmd('ThrowThrough', {
+commands.unshift(new Quest.Command.Cmd('ThrowThrough', {
   // throw rope out window
   regex: /^(?:throw|chuck|hurl|toss|pitch|lob|heave) (.+) (?:out of|out|through) (.+)$/,
   objects: [
@@ -417,7 +417,7 @@ const smashWithScript = function (item: any, dest: any) {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Cmd('SmashWith', {
+commands.unshift(new Quest.Command.Cmd('SmashWith', {
   // throw rope out window
   regex: /^(?:smash|break|destroy) (.+) (?:with|using) (.+)$/,
   objects: [
@@ -433,7 +433,7 @@ commands.unshift(new Cmd('SmashWith', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Cmd('UseToSmash', {
+commands.unshift(new Quest.Command.Cmd('UseToSmash', {
   // throw rope out window
   regex: /^(?:use|using) (.+?) (?:to |)(?:smash|break|destroy) (.+)$/,
   objects: [
@@ -450,7 +450,7 @@ commands.unshift(new Cmd('UseToSmash', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Cmd('Attack', {
+commands.unshift(new Quest.Command.Cmd('Attack', {
   // throw rope out window
   regex: /^(?:attack|kick|punch|hit|strike|kill) (.+?)$/,
   objects: [
@@ -481,7 +481,7 @@ commands.unshift(new Cmd('Attack', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Cmd('TieUp', {
+commands.unshift(new Quest.Command.Cmd('TieUp', {
   // throw rope out window
   regex: /^(?:tie up|tie|bind) (.+?)$/,
   objects: [
@@ -518,7 +518,7 @@ commands.unshift(new Cmd('TieUp', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Cmd('RudeCommand', {
+commands.push(new Quest.Command.Cmd('RudeCommand', {
   // throw rope out window
   regex: /^(?:fuck|facefuck|face-fuck|face fuck|bugger|shag|suck|suck off|assfuck|ass-fuck|ass fuck|rape|ass-rape|ass rape) (.+?)$/,
   objects: [
@@ -545,7 +545,7 @@ commands.push(new Cmd('RudeCommand', {
 
 
 /*
-commands.unshift(new Cmd('ThrowAt', {
+commands.unshift(new Quest.Command.Cmd('ThrowAt', {
   // throw computer at window
   regex:/^(?:wrap|cover) (.+) (?:with|in) (.+)$/,
   objects:[

@@ -11,7 +11,7 @@ createItem("missions", {
 })
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Cmd("Mission", {
+commands.unshift(new Quest.Command.Cmd("Mission", {
   regex: /(.+) missions$/,
   objects: [
     { special: 'text' },
@@ -54,7 +54,7 @@ createItem("crew_roster", {
 })
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Cmd("Crew Roster", {
+commands.unshift(new Quest.Command.Cmd("Crew Roster", {
   regex: /(.+) crew roster$/,
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isInWorld' does not exist on type '{}'.
@@ -136,7 +136,7 @@ createItem("encyclopedia", {
 })
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Cmd("Encyclopedia", {
+commands.unshift(new Quest.Command.Cmd("Encyclopedia", {
   regex: /encyclopedia (.+)$/,
   objects: [
     { special: 'text' },

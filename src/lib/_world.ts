@@ -242,7 +242,7 @@ const world = {
     }
 
     // Initialise commands
-    initCommands()
+    Quest.Command.initCommands()
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'verbosity' does not exist on type '{ per... Remove this comment to see the full error message
     Quest.Settings.settings.verbosity = world.VERBOSE

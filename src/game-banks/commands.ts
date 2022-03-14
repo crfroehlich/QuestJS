@@ -3,9 +3,9 @@
 
 
 /*
-commands.push(new Cmd('Kick', {
+commands.push(new Quest.Command.Cmd('Kick', {
   npcCmd:true,
-  rules:[cmdRules.isPresent],
+  rules:[Quest.Command.cmdRules.isPresent],
   regex:/^(kick) (.+)$/,
   objects:[
     {special:'ignore'},
@@ -17,9 +17,9 @@ commands.push(new Cmd('Kick', {
   },
 }));
 
-commands.push(new Cmd('Move', {
+commands.push(new Quest.Command.Cmd('Move', {
   npcCmd:true,
-  rules:[cmdRules.isPresent],
+  rules:[Quest.Command.cmdRules.isPresent],
   regex:/^(move) (.+)$/,
   objects:[
     {special:'ignore'},
@@ -36,7 +36,7 @@ commands.push(new Cmd('Move', {
 // kyle, in stasis
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Cmd('Get in pod1', {
+commands.push(new Quest.Command.Cmd('Get in pod1', {
   regex: /^(.+), ?(?:get in|go in|in) (?:stasis pod|stasis|pod)$/,
   npcCmd: true,
   attName: "stasis",
@@ -47,7 +47,7 @@ commands.push(new Cmd('Get in pod1', {
   defmsg: "That's not about to get in a stasis!",
 }));
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Cmd('Get in pod2', {
+commands.push(new Quest.Command.Cmd('Get in pod2', {
   regex: /^(?:tell|ask|instruct) (.+) to (?:get in|go in|in) (?:stasis pod|stasis|pod)$/,
   npcCmd: true,
   attName: "stasis",
@@ -59,7 +59,7 @@ commands.push(new Cmd('Get in pod2', {
 }));
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Cmd('Stop1', {
+commands.push(new Quest.Command.Cmd('Stop1', {
   regex: /^(.+), (?:stop|halt|forget it)$/,
   npcCmd: true,
   attName: "stopAgenda",
@@ -70,7 +70,7 @@ commands.push(new Cmd('Stop1', {
   defmsg: "That's not doing anything!",
 }));
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Cmd('Stop2', {
+commands.push(new Quest.Command.Cmd('Stop2', {
   regex: /^(?:tell|ask|instruct) (.+) to (?:stop|halt|forget it)$/,
   npcCmd: true,
   attName: "stopAgenda",
@@ -83,7 +83,7 @@ commands.push(new Cmd('Stop2', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Cmd('Launch', {
+commands.push(new Quest.Command.Cmd('Launch', {
   regex: /^(?:launch|deploy) (.+)$/,
   npcCmd: true,
   objects: [
@@ -94,7 +94,7 @@ commands.push(new Cmd('Launch', {
 }));
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Cmd('Revive', {
+commands.push(new Quest.Command.Cmd('Revive', {
   regex: /^(?:revive|wake|awaken) (.+)$/,
   npcCmd: true,
   objects: [
@@ -107,7 +107,7 @@ commands.push(new Cmd('Revive', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Cmd('Spray', {
+commands.push(new Quest.Command.Cmd('Spray', {
   regex: /^(?:spray) (.+)$/,
   rules: [
     function (cmd: any, char: any, item: any, multiple: any) {
@@ -133,7 +133,7 @@ commands.push(new Cmd('Spray', {
 }));
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Cmd('Pressurise', {
+commands.push(new Quest.Command.Cmd('Pressurise', {
   regex: /^(?:pressuri[sz]e|pres) (.+)$/,
   attName: 'pressure',
   objects: [
@@ -143,7 +143,7 @@ commands.push(new Cmd('Pressurise', {
   defmsg: 'Not something you can pressurise.',
 }));
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Cmd('Depressurise', {
+commands.push(new Quest.Command.Cmd('Depressurise', {
   regex: /^(?:depressuri[sz]e|evacuate|depres) (.+)$/,
   attName: 'pressure',
   objects: [
@@ -153,7 +153,7 @@ commands.push(new Cmd('Depressurise', {
   defmsg: 'Not something you can evacuate.',
 }));
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Cmd('NpcPressurise1', {
+commands.push(new Quest.Command.Cmd('NpcPressurise1', {
   regex: /^(.+), ?(?:pressuri[sz]e|pres) (.+)$/,
   attName: 'pressure',
   objects: [
@@ -174,7 +174,7 @@ commands.push(new Cmd('NpcPressurise1', {
   },
 }));
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Cmd('NpcPressurise2', {
+commands.push(new Quest.Command.Cmd('NpcPressurise2', {
   regex: /^(?:tell|ask|instruct) (.+) to (?:pressuri[sz]e|pres) (.+)$/,
   attName: 'pressure',
   objects: [
@@ -195,7 +195,7 @@ commands.push(new Cmd('NpcPressurise2', {
   },
 }));
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Cmd('NpcDepressurise1', {
+commands.push(new Quest.Command.Cmd('NpcDepressurise1', {
   regex: /^(.+), ?(?:depressuri[sz]e|evacuate|depres|evac) (.+)$/,
   attName: 'pressure',
   objects: [
@@ -216,7 +216,7 @@ commands.push(new Cmd('NpcDepressurise1', {
   },
 }))
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Cmd('NpcDepressurise2', {
+commands.push(new Quest.Command.Cmd('NpcDepressurise2', {
   regex: /^(?:tell|ask|instruct) (.+) to (?:depressuri[sz]e|evacuate|depres) (.+)$/,
   attName: 'pressure',
   objects: [
@@ -313,7 +313,7 @@ function handlePressurise(char: any, objects: any, pressurise: any) {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Cmd('Approach', {
+commands.push(new Quest.Command.Cmd('Approach', {
   regex: /^approach (.+)$/,
   objects: [
     { scope: 'isShip' },
@@ -350,7 +350,7 @@ commands.push(new Cmd('Approach', {
 }));
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Cmd('Scan', {
+commands.push(new Quest.Command.Cmd('Scan', {
   regex: /^scan (.+)$/,
   objects: [
     { scope: 'isShip' },
@@ -402,7 +402,7 @@ function isShip(item: any) {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Cmd('ProbeStatus', {
+commands.push(new Quest.Command.Cmd('ProbeStatus', {
   regex: /^probes?$/,
   script: function () {
     const arr = getProbes();
@@ -443,7 +443,7 @@ commands.push(new Cmd('ProbeStatus', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Cmd('MapUpdate', {
+commands.unshift(new Quest.Command.Cmd('MapUpdate', {
   regex: /^map?$/,
   script: function () {
     updateMap()
@@ -458,7 +458,7 @@ commands.unshift(new Cmd('MapUpdate', {
 
 
 
-findCmd('MetaHelp').script = function () {
+Quest.Command.findCmd('MetaHelp').script = function () {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   metamsg("Help is available on a number of topics...")
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -479,7 +479,7 @@ findCmd('MetaHelp').script = function () {
 }
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Cmd('HelpSubject', {
+commands.push(new Quest.Command.Cmd('HelpSubject', {
   regex: /^(?:\?|help) (.*)$/,
   objects: [
     { special: 'text' },

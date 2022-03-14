@@ -4,10 +4,10 @@
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Cmd('Attack', {
+commands.push(new Quest.Command.Cmd('Attack', {
   npcCmd: true,
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
-  rules: [cmdRules.isPresent],
+  rules: [Quest.Command.cmdRules.isPresent],
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
     { scope: parser.isPresent }
@@ -17,10 +17,10 @@ commands.push(new Cmd('Attack', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Cmd('Search', {
+commands.push(new Quest.Command.Cmd('Search', {
   npcCmd: true,
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
-  rules: [cmdRules.isPresent],
+  rules: [Quest.Command.cmdRules.isPresent],
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
     { scope: parser.isPresent }
@@ -29,10 +29,10 @@ commands.push(new Cmd('Search', {
 }))
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Cmd('Equip', {
+commands.push(new Quest.Command.Cmd('Equip', {
   npcCmd: true,
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
-  rules: [cmdRules.isHeld],
+  rules: [Quest.Command.cmdRules.isHeld],
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
     { scope: parser.isHeld }
@@ -42,10 +42,10 @@ commands.push(new Cmd('Equip', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Cmd('Unequip', {
+commands.push(new Quest.Command.Cmd('Unequip', {
   npcCmd: true,
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
-  rules: [cmdRules.isHeld],
+  rules: [Quest.Command.cmdRules.isHeld],
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
     { scope: parser.isHeld }
@@ -58,10 +58,10 @@ commands.push(new Cmd('Unequip', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Cmd('LearnSpell', {
+commands.push(new Quest.Command.Cmd('LearnSpell', {
   npcCmd: true,
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
-  rules: [cmdRules.isPresent],
+  rules: [Quest.Command.cmdRules.isPresent],
   objects: [
     { special: 'text' }
   ],
@@ -85,10 +85,10 @@ commands.push(new Cmd('LearnSpell', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Cmd('CastSpell', {
+commands.push(new Quest.Command.Cmd('CastSpell', {
   npcCmd: true,
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
-  rules: [cmdRules.isPresent],
+  rules: [Quest.Command.cmdRules.isPresent],
   objects: [
     { special: 'text' }
   ],
@@ -117,10 +117,10 @@ commands.push(new Cmd('CastSpell', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Cmd('CastSpellAt', {
+commands.push(new Quest.Command.Cmd('CastSpellAt', {
   npcCmd: true,
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
-  rules: [cmdRules.isPresent],
+  rules: [Quest.Command.cmdRules.isPresent],
   objects: [
     { special: 'text' },
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
@@ -152,7 +152,7 @@ commands.push(new Cmd('CastSpellAt', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Cmd('DebugRPG', {
+commands.push(new Quest.Command.Cmd('DebugRPG', {
   regex: /^rpg$/,
   objects: [
   ],
