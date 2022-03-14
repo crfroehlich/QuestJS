@@ -572,7 +572,7 @@ createItem("helmsman_go_to_star", TOPIC(false), {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
     showMenuDiag("Which star system?", stars.getStarNames(), function (result: any) {
       log(result)
-      if (result === lang.never_mind) return
+      if (result === Quest.lang.never_mind) return
       const system = stars.getSystem(result)
       log(system)
     })

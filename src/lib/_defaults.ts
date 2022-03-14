@@ -5,7 +5,7 @@
 
 
 const DEFAULT_OBJECT = {
-  pronouns: lang.pronouns.thirdperson,
+  pronouns: Quest.lang.pronouns.thirdperson,
 
   // @ts-expect-error ts-migrate(7023) FIXME: 'isLocatedAt' implicitly has return type 'any' bec... Remove this comment to see the full error message
   isLocatedAt: function (loc: any) { return loc === this.loc },
@@ -200,7 +200,7 @@ const DEFAULT_OBJECT = {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'parserOptionsSet' does not exist on type... Remove this comment to see the full error message
     this.parserOptionsSet = false
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'pluralAlias' does not exist on type '{ p... Remove this comment to see the full error message
-    this.pluralAlias = options.pluralAlias ? options.pluralAlias : lang.getPlural(alias)
+    this.pluralAlias = options.pluralAlias ? options.pluralAlias : Quest.lang.getPlural(alias)
     // @ts-expect-error ts-migrate(2551) FIXME: Property 'properNoun' does not exist on type '{ pr... Remove this comment to see the full error message
     this.properNoun = options.properNoun === undefined ? /^[A-Z]/.test(this.alias) : options.properNoun
   },
@@ -297,7 +297,7 @@ const DEFAULT_ROOM = {
     if (options === undefined) options = {};
     const list = []
     if (options.excludeAlsoDir === undefined) options.excludeAlsoDir = true
-    for (let exit of lang.exit_list) {
+    for (let exit of Quest.lang.exit_list) {
       if (this.hasExit(exit.name, options)) {
         list.push(exit)
       }
@@ -334,7 +334,7 @@ const DEFAULT_ROOM = {
 
   findExit: function (dest: any, options: any) {
     if (typeof dest === "object") dest = dest.name;
-    for (let exit of lang.exit_list) {
+    for (let exit of Quest.lang.exit_list) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       if (this.hasExit(exit.name, options) && this[exit.name].name === dest) {
         // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
@@ -379,7 +379,7 @@ const DEFAULT_ROOM = {
   // Returns an exit going TO this room. If sent "west", it will return the exit from the room to the west, to this room
   // which will probably be east, but may not
   getReverseExit: function (dir: any) {
-    const reverseDir = lang.exit_list.find(el => el.name === dir)
+    const reverseDir = Quest.lang.exit_list.find(el => el.name === dir)
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     const dest = this[dir]
     return dest.findExit(this)

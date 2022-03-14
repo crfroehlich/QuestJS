@@ -331,7 +331,7 @@ createItem("clockwork_thespian", NPC(), CONTAINER(false), {
   },
 
   testTalk: function (text: any) {
-    if (!this.npc) return falsemsg(text ? lang.cannot_ask_about : lang.cannot_talk_to, { item: this, char: player, text: text })
+    if (!this.npc) return falsemsg(text ? Quest.lang.cannot_ask_about : Quest.lang.cannot_talk_to, { item: this, char: player, text: text })
     return true
   },
   askOptions: [

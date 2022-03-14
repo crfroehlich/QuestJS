@@ -1,4 +1,4 @@
-var cloakHere = function() {
+var cloakHere = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'cloak' does not exist on type '{}'.
   if (w.cloak.isAtLoc('me')) return true
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'cloak' does not exist on type '{}'.
@@ -8,9 +8,9 @@ var cloakHere = function() {
   return false
 }
 
-lang.no_smell = "It smells slightly musty."
+Quest.lang.no_smell = "It smells slightly musty."
 
-lang.no_listen = "It is quiet as the grave..."
+Quest.lang.no_listen = "It is quiet as the grave..."
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
 tp.addDirective("cloakHere", function (arr: any, params: any) {

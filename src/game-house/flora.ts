@@ -122,7 +122,7 @@ createItem("poppies", {
   synonyms: ['poppy'],
   scenery: true,
   smell: "Mandy wonders how the poppies smell, and is about to take a sniff when she remembers that scene in the Wizard of Oz. Probably better not to risk it.",
-  pronouns: lang.pronouns.plural,
+  pronouns: Quest.lang.pronouns.plural,
   examine: 'There is a large flowerbed with poppies growing. They look slightly past their prime; a little wilted.',
 })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
@@ -272,7 +272,7 @@ createItem("hourglass", SIZE_CHANGING(), {
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg(lang.done_msg)
+      msg(Quest.lang.done_msg)
     }
 
   },
@@ -306,7 +306,7 @@ createItem("hourglass", SIZE_CHANGING(), {
   },
   fill: function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'findSource' does not exist on type '{}'.
-    if (!Quest.Utilities.util.findSource(options)) return falsemsg(lang.no_generic_fluid_here, { item: this })
+    if (!Quest.Utilities.util.findSource(options)) return falsemsg(Quest.lang.no_generic_fluid_here, { item: this })
     options.item = this
     if (this.testFill && !this.testFill(options)) return false
     return this.sink(options.fluid, options.char, options.source)
@@ -444,7 +444,7 @@ createItem("hourglass", SIZE_CHANGING(), {
       s += " The lower bulb looks to be full."
     }
     else {
-      s += " The lower bulb looks to be about " + lang.toWords(this.fillState) + " fifths full to Mandy's eye."
+      s += " The lower bulb looks to be about " + Quest.lang.toWords(this.fillState) + " fifths full to Mandy's eye."
     }
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
     msg(s, { item: vessel })
@@ -504,7 +504,7 @@ tp.addDirective("hourglass", function (arr: any, params: any) {
   }
   else {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'hourglass' does not exist on type '{}'.
-    s = "The upper bulb in the hourglass is empty, but even so the lower bulb is only " + lang.toWords(w.hourglass.fillState) + " fifths full."
+    s = "The upper bulb in the hourglass is empty, but even so the lower bulb is only " + Quest.lang.toWords(w.hourglass.fillState) + " fifths full."
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'paper_funnel' does not exist on type '{}... Remove this comment to see the full error message
   if (w.paper_funnel.loc === 'protrusion') s += ' There is a paper funnel in it.'
@@ -567,7 +567,7 @@ createItem("grown_tamarind_tree", {
   },
   getHeight: function () {
     const n = Number(Math.pow(2, this.growthTime / 1.3).toPrecision(1))
-    let s = n >= 100 ? lang.toWords(n / 100) + ' metre' : lang.toWords(n) + ' centimetre'
+    let s = n >= 100 ? Quest.lang.toWords(n / 100) + ' metre' : Quest.lang.toWords(n) + ' centimetre'
     if (n !== 1 && n !== 100) s += 's'
     return s
   },
@@ -575,9 +575,9 @@ createItem("grown_tamarind_tree", {
     this.update()
   },
   update: function () {
-    this.pronouns = this.seedsPlanted === 1 ? lang.pronouns.thirdperson : lang.pronouns.plural
+    this.pronouns = this.seedsPlanted === 1 ? Quest.lang.pronouns.thirdperson : Quest.lang.pronouns.plural
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'grown_tamarind_tree_from_catwalk' does n... Remove this comment to see the full error message
-    w.grown_tamarind_tree_from_catwalk.pronouns = this.seedsPlanted === 1 ? lang.pronouns.thirdperson : lang.pronouns.plural
+    w.grown_tamarind_tree_from_catwalk.pronouns = this.seedsPlanted === 1 ? Quest.lang.pronouns.thirdperson : Quest.lang.pronouns.plural
     let alias = this.growthTime < 4 ? 'shoot' : (this.growthTime < 9 ? 'plant' : 'tree')
     this.setAlias(alias)
   },
@@ -1049,7 +1049,7 @@ createItem("tamarind_pod_prototype", SIZE_CHANGING(), {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'int' does not exist on type '{ buffer: n... Remove this comment to see the full error message
     const count = Quest.Random.rndm.int(3, 5)
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg("Using {nm:item:the}, Mandy cuts the pod open. Inside she finds " + lang.toWords(count) + " seeds, which she quickly extracts, throwing away the useless husk.", { item: sharp })
+    msg("Using {nm:item:the}, Mandy cuts the pod open. Inside she finds " + Quest.lang.toWords(count) + " seeds, which she quickly extracts, throwing away the useless husk.", { item: sharp })
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'tamarind_seed' does not exist on type '{... Remove this comment to see the full error message
     if (!w.tamarind_seed.countableLocs[player.name]) w.tamarind_seed.countableLocs[player.name] = 0
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'tamarind_seed' does not exist on type '{... Remove this comment to see the full error message
@@ -1071,7 +1071,7 @@ createItem("tamarind_seed", COUNTABLE(), {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     return falsemsg('Mandy decides it is best not to drop any seeds here -- they might grow into a tree!')
   },
-  msgDropIn: "{ifNot:container:name:bare_earth:" + lang.drop_successful + ":Mandy carefully plants {nm:item:count} in the bare earth{ifIs:params:excess:true:, wishing she had a few more}.}",
+  msgDropIn: "{ifNot:container:name:bare_earth:" + Quest.lang.drop_successful + ":Mandy carefully plants {nm:item:count} in the bare earth{ifIs:params:excess:true:, wishing she had a few more}.}",
 })
 
 

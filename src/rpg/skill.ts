@@ -11,7 +11,7 @@ class Skill {
   constructor(name: any, data: any) {
     this.name = name
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'attacking' does not exist on type '{ reg... Remove this comment to see the full error message
-    this.reportText = lang.attacking
+    this.reportText = Quest.lang.attacking
     this.offensiveBonus = 0
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     for (let key in data) this[key] = data[key]
@@ -40,7 +40,7 @@ class MonsterAttack extends Skill {
     super(name, data)
     this.noWeapon = true
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'castSpell' does not exist on type '{ reg... Remove this comment to see the full error message
-    this.reportText = lang.castSpell
+    this.reportText = Quest.lang.castSpell
     this.statForOffensiveBonus = 'spellCasting'
   }
   testUseable(char: any) { return true }
@@ -58,7 +58,7 @@ class Spell extends Skill {
     this.spell = true
     this.noWeapon = true
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'castSpell' does not exist on type '{ reg... Remove this comment to see the full error message
-    this.reportText = lang.castSpell
+    this.reportText = Quest.lang.castSpell
     this.statForOffensiveBonus = 'spellCasting'
   }
   testUseable(char: any) { return rpg.defaultSpellTestUseable(char) }
@@ -93,12 +93,12 @@ class SpellSummon extends Spell {
   prototype: any;
   constructor(prototype: any, data: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'summonSpellPre' does not exist on type '... Remove this comment to see the full error message
-    super(lang.summonSpellPre + ' ' + Quest.Utilities.titleCase(prototype.alias.replace('_', ' ')), data)
+    super(Quest.lang.summonSpellPre + ' ' + Quest.Utilities.titleCase(prototype.alias.replace('_', ' ')), data)
     this.noTarget = true
     this.automaticSuccess = true
     this.prototype = prototype
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'summonSpellDesc' does not exist on type ... Remove this comment to see the full error message
-    if (!this.description) this.description = lang.summonSpellDesc(this)
+    if (!this.description) this.description = Quest.lang.summonSpellDesc(this)
 
   }
 
@@ -107,7 +107,7 @@ class SpellSummon extends Spell {
     attack.item = cloneObject(this.prototype, attack.attacker.loc)
     attack.item.summonedCountdown = this.duration
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'summoning_successful' does not exist on ... Remove this comment to see the full error message
-    attack.msg(lang.summoning_successful, 1)
+    attack.msg(Quest.lang.summoning_successful, 1)
   }
 }
 
@@ -132,9 +132,9 @@ class SpellInanimate extends Spell {
 
 const defaultSkill = new Skill("Basic attack", {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'primarySuccess' does not exist on type '... Remove this comment to see the full error message
-  primarySuccess: lang.primarySuccess,
+  primarySuccess: Quest.lang.primarySuccess,
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'primaryFailure' does not exist on type '... Remove this comment to see the full error message
-  primaryFailure: lang.primaryFailure,
+  primaryFailure: Quest.lang.primaryFailure,
   modifyOutgoingAttack: function (attack: any) { },
 })
 

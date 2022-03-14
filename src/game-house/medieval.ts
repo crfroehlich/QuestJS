@@ -182,7 +182,7 @@ createItem("chamber_pot", SIZE_CHANGING(), VESSEL(), {
     return true
   },
   afterMove: function () {
-    this.msgTake = lang.take_successful
+    this.msgTake = Quest.lang.take_successful
     this.underLeak = false
     this.underTree = false
     this.flipped = false
@@ -307,7 +307,7 @@ createItem("stuffed_crocodile", TAKEABLE(), CONTAINER(true), { // cannot get tak
   },
   msgTake: 'Patch looks up at the crocodile for a moment. He reaches up, and gives it a good pull, yanking the fixing from the ceiling in a shower of dust.',
   afterMove: function (options: any) {
-    this.msgTake = lang.take_successful
+    this.msgTake = Quest.lang.take_successful
   },
   testCarry: function (options: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -654,7 +654,7 @@ createItem("wire", ROPE(8, "strange_device"), {
   loc: "mad_science_lab",
   alias: "wire",
   synonyms: ['coil of wires', 'wires', 'cable'],
-  pronouns: lang.pronouns.massnoun,
+  pronouns: Quest.lang.pronouns.massnoun,
   indefArticle: 'some',
   scenery: true,
   parserPriority: 10,
@@ -666,7 +666,7 @@ createItem("wire", ROPE(8, "strange_device"), {
     let length = this.locs.length
     if (this.isHeld()) length--
     if (length === 1) {
-      s += "she guesses there is about " + lang.toWords(5 * this.ropeLength) + " metres of it, the end of which is soldered to the side of the machine at the head of the table."
+      s += "she guesses there is about " + Quest.lang.toWords(5 * this.ropeLength) + " metres of it, the end of which is soldered to the side of the machine at the head of the table."
     }
     else if (length === 2) {
       s += "she guesses there is about twenty metres of it on the spindle, which is also metal, and more heading down the stairs to the laboratory."
@@ -678,7 +678,7 @@ createItem("wire", ROPE(8, "strange_device"), {
       s += "she is holding just the end of it."
     }
     else {
-      s += "she guesses there is about " + lang.toWords(5 * (this.ropeLength - length)) + " metres of it in a coil; more is heading back to the laboratory."
+      s += "she guesses there is about " + Quest.lang.toWords(5 * (this.ropeLength - length)) + " metres of it in a coil; more is heading back to the laboratory."
     }
     this.examined = true
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -988,7 +988,7 @@ createItem("yellow_balloon", {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("yellow_balloon_remains", {
-  pronouns: lang.pronouns.plural,
+  pronouns: Quest.lang.pronouns.plural,
   alias: "remains of a yellow balloon",
   synonyms: ['remnants'],
   examine: "A ragged piece of yellow rubber.",

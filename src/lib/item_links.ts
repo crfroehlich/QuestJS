@@ -33,7 +33,7 @@ have it disable all the existing exits, then output the new ones with links adde
 Items is far more complex...
 
 This is what the HTML looks like. The object is in the first child of the child span, with the verbs collected in the second.
-JS dataset attributes are used to store data, including all the options sent to lang.getName, so we can reproduce it.
+JS dataset attributes are used to store data, including all the options sent to Quest.lang.getName, so we can reproduce it.
 
 This means if the item changes its alias, the text could get changed.
 
@@ -199,7 +199,7 @@ itemLinks.updateItemLinks2 = function (el) {
   for (const key in el.dataset) options[key] = Quest.Utilities.util.guessMyType(el.dataset[key])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'modified' does not exist on type '{}'.
   options.modified = false
-  el.innerHTML = lang.getName(obj, options)
+  el.innerHTML = Quest.lang.getName(obj, options)
 }
 
 
@@ -240,7 +240,7 @@ tp.text_processors.exitsHere = function (arr, params) {
   itemLinks.disableAllLinks('exit-link')
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   const list = w[player.loc].getExitDirs().map(el => '<span class="exit-link" onclick="Quest.Utilities.runCmd(\'' + el + '\')">' + el + '</span>')
-  return Quest.Utilities.formatList(list, { lastJoiner: lang.list_or, nothing: lang.list_nowhere });
+  return Quest.Utilities.formatList(list, { lastJoiner: Quest.lang.list_or, nothing: Quest.lang.list_nowhere });
 }
 
 
@@ -270,7 +270,7 @@ Quest.Settings.settings.afterFinish.push(function () {
 
 
 //@DOC
-// Used by lang.getName to add HTML link tags, etc
+// Used by Quest.lang.getName to add HTML link tags, etc
 //
 // Returns **&lt;STRING&gt;**
 //
@@ -278,7 +278,7 @@ Quest.Settings.settings.afterFinish.push(function () {
 //
 // **PARAMS:**
 //
-// - ```alias``` - **&lt;STRING&gt;** The iitem's name, as prepared by lang.getName
+// - ```alias``` - **&lt;STRING&gt;** The iitem's name, as prepared by Quest.lang.getName
 // - ```obj``` - **&lt;OBJECT&gt;** The in-game item
 //
 //---

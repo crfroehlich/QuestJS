@@ -88,7 +88,7 @@ test.assertCmd = function (cmdStr: any, expected: any, extraOutput: any) {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertSPCmd' does not exist on type '{}'... Remove this comment to see the full error message
 test.assertSPCmd = function (item: any, verb: any, expected: any, extraOutput: any) {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  const cmdStr = verb + ' ' + lang.getName(item)
+  const cmdStr = verb + ' ' + Quest.lang.getName(item)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'logCommand' does not exist on type '{}'.
   if (test.logCommand) test.logCommand(cmdStr)
 

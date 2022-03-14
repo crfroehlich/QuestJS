@@ -63,7 +63,7 @@ parser.parse = function (inputText: any) {
 
   // Split into commands on full stop unless this is a user comment.
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'inputTexts' does not exist on type '{}'.
-  parser.inputTexts = parser.keepTogether(inputText) ? [inputText] : inputText.split(lang.command_split_regex)
+  parser.inputTexts = parser.keepTogether(inputText) ? [inputText] : inputText.split(Quest.lang.command_split_regex)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'inputTexts' does not exist on type '{}'.
   while (parser.inputTexts.length > 0) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'inputTexts' does not exist on type '{}'.
@@ -139,7 +139,7 @@ parser.parseSingle = function (inputText: any) {
           // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           const fn = io.menuFunctions[Quest.Settings.settings.funcForDisambigMenu]
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'currentCommand' does not exist on type '... Remove this comment to see the full error message
-          fn(lang.disambig_msg, parser.currentCommand.tmp.objects[i][j], function (result: any) {
+          fn(Quest.lang.disambig_msg, parser.currentCommand.tmp.objects[i][j], function (result: any) {
             // @ts-expect-error ts-migrate(2339) FIXME: Property 'currentCommand' does not exist on type '... Remove this comment to see the full error message
             parser.currentCommand.tmp.objects[parser.currentCommand.tmp.disambiguate1][parser.currentCommand.tmp.disambiguate2] = result
             // @ts-expect-error ts-migrate(2339) FIXME: Property 'parseSingle' does not exist on type '{}'... Remove this comment to see the full error message
@@ -230,7 +230,7 @@ parser.findCommand = function (inputText: any) {
 
   // convert numbers in words to digits
   if (Quest.Settings.settings.convertNumbersInParser) {
-    cmdString = lang.convertNumbers(cmdString);
+    cmdString = Quest.lang.convertNumbers(cmdString);
   }
 
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
@@ -241,7 +241,7 @@ parser.findCommand = function (inputText: any) {
   // This will help us narrow down the candidates (maybe)
   // matchedCandidates is an array of dictionaries,
   // each one containing a command and some matched objects if applicable
-  //let error = lang.general_obj_error;
+  //let error = Quest.lang.general_obj_error;
   let bestMatch
 
   for (const el of commands) {
@@ -265,7 +265,7 @@ parser.findCommand = function (inputText: any) {
   Quest.Settings.settings.performanceLog('Best match found')
 
   if (!bestMatch) {
-    return lang.not_known_msg;
+    return Quest.lang.not_known_msg;
   }
 
   bestMatch.tmp.string = inputText;
@@ -284,12 +284,12 @@ parser.findCommand = function (inputText: any) {
 parser.matchToNames = function (s: any, scopes: any, cmdParams: any, res: any) {
   // Within this item position, break the substring into each item section
   // For PUT HAT, CUP IN BOX, the first will be ['hat', 'cup']
-  const objectNames = s.split(lang.joiner_regex).map(function (el: any) { return el.trim() })
+  const objectNames = s.split(Quest.lang.joiner_regex).map(function (el: any) { return el.trim() })
 
   let objectWordList: any = [], score = 0
   for (let s of objectNames) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'matchToName' does not exist on type '{}'... Remove this comment to see the full error message
-    const n = parser.matchToName(lang.article_filter_regex.exec(s)[1], scopes, cmdParams, objectWordList)
+    const n = parser.matchToName(Quest.lang.article_filter_regex.exec(s)[1], scopes, cmdParams, objectWordList)
     if (n < 0) {
       res.score = n
       res.error_s = s
@@ -299,7 +299,7 @@ parser.matchToNames = function (s: any, scopes: any, cmdParams: any, res: any) {
   }
 
   if (objectWordList.length > 1 && !cmdParams.multiple) {
-    res.error = lang.no_multiples_msg;
+    res.error = Quest.lang.no_multiples_msg;
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'DISALLOWED_MULTIPLE' does not exist on t... Remove this comment to see the full error message
     res.score = parser.DISALLOWED_MULTIPLE;
     return
@@ -361,11 +361,11 @@ parser.findInScope = function (s: any, scopes: any, cmdParams: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{}'.
   parser.msg("Now matching: " + s)
   // First handle IT etc.
-  for (const key in lang.pronouns) {
+  for (const key in Quest.lang.pronouns) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    if (s === lang.pronouns[key].objective && parser.pronouns[lang.pronouns[key].objective]) {
+    if (s === Quest.lang.pronouns[key].objective && parser.pronouns[Quest.lang.pronouns[key].objective]) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'pronouns' does not exist on type '{}'.
-      return [[parser.pronouns[lang.pronouns[key].objective]], 1];
+      return [[parser.pronouns[Quest.lang.pronouns[key].objective]], 1];
     }
   }
 
@@ -584,7 +584,7 @@ parser.specialText.fluid = {
   error: function (text: any) {
     // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'any' is not assignable to parame... Remove this comment to see the full error message
     if (Quest.Settings.settings.fluids.includes(text)) return false
-    return processText(lang.not_a_fluid_here, { text: text })
+    return processText(Quest.lang.not_a_fluid_here, { text: text })
   },
   exec: function (text: any) {
     return text
@@ -595,12 +595,12 @@ parser.specialText.fluid = {
 parser.specialText.number = {
   error: function (text: any) {
     if (text.match(/^\d+$/)) return false
-    if (lang.numberUnits.includes(text)) return false
+    if (Quest.lang.numberUnits.includes(text)) return false
     return true
   },
   exec: function (text: any) {
     if (text.match(/^\d+$/)) return parseInt(text)
-    return lang.numberUnits.indexOf(text)
+    return Quest.lang.numberUnits.indexOf(text)
   },
 }
 
@@ -668,7 +668,7 @@ parser.scopeFromWorld = function (fn: any, options: any) {
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'keepTogether' does not exist on type '{}... Remove this comment to see the full error message
 parser.keepTogether = function (s: any) {
-  return lang.regex.MetaUserComment.test(s)
+  return Quest.lang.regex.MetaUserComment.test(s)
 }
 
 

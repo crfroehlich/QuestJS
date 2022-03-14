@@ -489,6 +489,6 @@ findCmd('Map').script = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'calcMargins' does not exist on type '{ n... Remove this comment to see the full error message
   io.calcMargins()
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  msg(lang.done_msg)
+  msg(Quest.lang.done_msg)
   return world.SUCCESS_NO_TURNSCRIPTS
 }

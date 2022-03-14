@@ -396,7 +396,7 @@ function createTopics(npc: any) {
     test: function (p: any) { return p.text.match(this.regex); },
     script: function (response: any) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'What is your area of expertise?' you ask " + lang.getName(response.char, { article: Quest.Utilities.DEFINITE }) + ".");
+      msg("'What is your area of expertise?' you ask " + Quest.lang.getName(response.char, { article: Quest.Utilities.DEFINITE }) + ".");
       response.char.areaAskResponse();
     }
   });
@@ -406,7 +406,7 @@ function createTopics(npc: any) {
     test: function (p: any) { return p.text.match(this.regex); },
     script: function (response: any) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'Tell me about yourself,' you say to " + lang.getName(response.char, { article: Quest.Utilities.DEFINITE }) + ".");
+      msg("'Tell me about yourself,' you say to " + Quest.lang.getName(response.char, { article: Quest.Utilities.DEFINITE }) + ".");
       response.char.backgroundAskResponse();
       trackRelationship(response.char, 1, "background");
     }
@@ -419,7 +419,7 @@ function createTopics(npc: any) {
 
 function howAreYouFeeling(response: any) {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  msg("'How are you feeling?' you ask " + lang.getName(response.char, { article: Quest.Utilities.DEFINITE }) + ".");
+  msg("'How are you feeling?' you ask " + Quest.lang.getName(response.char, { article: Quest.Utilities.DEFINITE }) + ".");
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
   msg(PLANETS[w.Xsansi.currentPlanet][response.char.name + "_how_are_you"]);
 }

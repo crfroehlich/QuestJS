@@ -28,11 +28,11 @@ const EQUIPPABLE = function () {
     o.oldRpgOnCreation(o)
     o.verbFunctions.push(function (o: any, verbList: any) {
       if (o.isAtLoc(player)) {
-        verbList.push(o.equipped ? lang.verbs.unequip : lang.verbs.equip)
+        verbList.push(o.equipped ? Quest.lang.verbs.unequip : Quest.lang.verbs.equip)
       }
     })
     o.nameModifierFunctions.push(function (o: any, list: any) {
-      if (o.equipped && o.isAtLoc(player.name)) list.push(lang.invModifiers.equipped)
+      if (o.equipped && o.isAtLoc(player.name)) list.push(Quest.lang.invModifiers.equipped)
     })
   }
 
@@ -41,7 +41,7 @@ const EQUIPPABLE = function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'equipped' does not exist on type '{ afte... Remove this comment to see the full error message
     if (this.equipped) this.equipped = false
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg(lang.drop_successful, options);
+    msg(Quest.lang.drop_successful, options);
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'moveToFrom' does not exist on type '{ af... Remove this comment to see the full error message
     this.moveToFrom(options, "loc", "name");
     return true;
@@ -51,15 +51,15 @@ const EQUIPPABLE = function () {
   res.equip = function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'getObstructing' does not exist on type '... Remove this comment to see the full error message
     const equipped = this.getObstructing(options.char)
-    if (equipped.includes(this)) return falsemsg(lang.already, options)
+    if (equipped.includes(this)) return falsemsg(Quest.lang.already, options)
     if (equipped.length === 0) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(lang.equip, options)
+      msg(Quest.lang.equip, options)
     }
     else {
-      options.list = Quest.Utilities.formatList(equipped, { article: Quest.Utilities.DEFINITE, joiner: lang.list_and })
+      options.list = Quest.Utilities.formatList(equipped, { article: Quest.Utilities.DEFINITE, joiner: Quest.lang.list_and })
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(lang.unequipAndEquip, options)
+      msg(Quest.lang.unequipAndEquip, options)
       for (let el of equipped) el.equipped = false
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'equipped' does not exist on type '{ afte... Remove this comment to see the full error message
@@ -70,11 +70,11 @@ const EQUIPPABLE = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'unequip' does not exist on type '{ after... Remove this comment to see the full error message
   res.unequip = function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'equipped' does not exist on type '{ afte... Remove this comment to see the full error message
-    if (!this.equipped) return falsemsg(lang.already, options)
+    if (!this.equipped) return falsemsg(Quest.lang.already, options)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'equipped' does not exist on type '{ afte... Remove this comment to see the full error message
     this.equipped = false
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg(lang.unequip, options)
+    msg(Quest.lang.unequip, options)
     return true;
   }
 
@@ -193,7 +193,7 @@ const SPELLBOOK = function (list: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'examine' does not exist on type '{ after... Remove this comment to see the full error message
   res.examine = function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg(this.examineX + ' It contains the spells ' + Quest.Utilities.formatList(this.spellsAvailableToLearn.map((el: any) => '<i>' + el + '</i>'), { lastJoiner: lang.list_and }) + '.')
+    msg(this.examineX + ' It contains the spells ' + Quest.Utilities.formatList(this.spellsAvailableToLearn.map((el: any) => '<i>' + el + '</i>'), { lastJoiner: Quest.lang.list_and }) + '.')
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'icon' does not exist on type '{ afterCre... Remove this comment to see the full error message
   res.icon = () => 'spell12'
@@ -249,7 +249,7 @@ const ONE_USE_ITEM = function (spellName: any, requiresTarget: any) {
 const SCROLL = function (spellName: any, requiresTarget: any) {
   const res = Object.assign({}, ONE_USE_ITEM(spellName, requiresTarget))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'reportText' does not exist on type '{ af... Remove this comment to see the full error message
-  res.reportText = lang.castSpellFrom
+  res.reportText = Quest.lang.castSpellFrom
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'msgDestroy' does not exist on type '{ af... Remove this comment to see the full error message
   res.msgDestroy = 'The scroll crumbles to dust.'
   return res
@@ -259,7 +259,7 @@ const SCROLL = function (spellName: any, requiresTarget: any) {
 const POTION = function (spellName: any) {
   const res = Object.assign({}, ONE_USE_ITEM(spellName, false))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'reportText' does not exist on type '{ af... Remove this comment to see the full error message
-  res.reportText = lang.drinkPotion
+  res.reportText = Quest.lang.drinkPotion
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'drink' does not exist on type '{ afterCr... Remove this comment to see the full error message
   res.drink = function (options: any) { return this.use(options) }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'ingest' does not exist on type '{ afterC... Remove this comment to see the full error message

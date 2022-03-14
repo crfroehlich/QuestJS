@@ -74,7 +74,7 @@ class Attack {
 
     if (attack.primaryTargets.length === 0) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'noTarget' does not exist on type '{ rege... Remove this comment to see the full error message
-      return falsemsg(attack.skill.msgNoTarget ? attack.skill.msgNoTarget : lang.noTarget, attack)
+      return falsemsg(attack.skill.msgNoTarget ? attack.skill.msgNoTarget : Quest.lang.noTarget, attack)
     }
 
 
@@ -375,7 +375,7 @@ class Attack {
       this.report("Total damage:", this.modifiedDamage)
       target.health -= this.modifiedDamage
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'damageReport' does not exist on type '{ ... Remove this comment to see the full error message
-      this.msg(lang.damageReport, 1)
+      this.msg(Quest.lang.damageReport, 1)
     }
   }
 

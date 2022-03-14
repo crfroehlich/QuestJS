@@ -39,7 +39,7 @@ const saveLoad = {
 
     if (localStorage.getItem(this.getName(filename)) && !overwrite) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      metamsg(lang.sl_already_exists)
+      metamsg(Quest.lang.sl_already_exists)
       return
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'saveComment' does not exist on type '{ p... Remove this comment to see the full error message
@@ -47,7 +47,7 @@ const saveLoad = {
     const s = saveLoad.saveTheWorld(comment);
     //console.log(s)
     localStorage.setItem(this.getName(filename), s);
-    metamsg(lang.sl_saved, { filename: filename });
+    metamsg(Quest.lang.sl_saved, { filename: filename });
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterSave' does not exist on type '{ per... Remove this comment to see the full error message
     if (Quest.Settings.settings.afterSave) Quest.Settings.settings.afterSave(filename)
     return true;
@@ -130,17 +130,17 @@ const saveLoad = {
   loadGame: function (filename, contents) {
     if (!contents) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      metamsg(lang.sl_file_not_found);
+      metamsg(Quest.lang.sl_file_not_found);
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{ perform... Remove this comment to see the full error message
     else if (!contents.startsWith(Quest.Settings.settings.title + '!')) {
       const encodedTitle = contents.substr(0, contents.indexOf('!'));
-      metamsg(lang.sl_bad_format, { title: saveLoad.decodeString(encodedTitle) })
+      metamsg(Quest.lang.sl_bad_format, { title: saveLoad.decodeString(encodedTitle) })
     }
     else {
       saveLoad.loadTheWorld(contents, 4)
       clearScreen()
-      metamsg(lang.sl_file_loaded, { filename: filename })
+      metamsg(Quest.lang.sl_file_loaded, { filename: filename })
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterLoad' does not exist on type '{ per... Remove this comment to see the full error message
       if (Quest.Settings.settings.afterLoad) Quest.Settings.settings.afterLoad(filename)
       currentLocation.description()
@@ -392,11 +392,11 @@ const saveLoad = {
   deleteGame: function (filename) {
     localStorage.removeItem(this.getName(filename));
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    metamsg(lang.sl_deleted);
+    metamsg(Quest.lang.sl_deleted);
   },
 
   dirGame: function () {
-    const arr0 = lang.sl_dir_headings.map(el => '<th>' + el + '</th>')
+    const arr0 = Quest.lang.sl_dir_headings.map(el => '<th>' + el + '</th>')
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'saveComment' does not exist on type '{ p... Remove this comment to see the full error message
     if (!Quest.Settings.settings.saveComment) arr0.pop()
     let s = arr0.join('')
@@ -416,7 +416,7 @@ const saveLoad = {
     }
     _msg(s, {}, { cssClass: "meta", tag: 'table' })
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    metamsg(lang.sl_dir_msg)
+    metamsg(Quest.lang.sl_dir_msg)
   },
 
   // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'filename' implicitly has an 'any' type.
@@ -458,15 +458,15 @@ const saveLoad = {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'transcriptWalkthrough' does not exist on... Remove this comment to see the full error message
     this.transcriptWalkthrough = []
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    metamsg(lang.transcript_on)
-    this.transcriptWrite(lang.transcriptStart())
+    metamsg(Quest.lang.transcript_on)
+    this.transcriptWrite(Quest.lang.transcriptStart())
   },
 
   transcriptEnd: function () {
-    this.transcriptWrite(lang.transcriptEnd())
+    this.transcriptWrite(Quest.lang.transcriptEnd())
     this.transcript = false
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    metamsg(lang.transcript_off)
+    metamsg(Quest.lang.transcript_off)
   },
 
   // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'data' implicitly has an 'any' type.
@@ -497,7 +497,7 @@ const saveLoad = {
   transcriptClear: function (data) {
     localStorage.removeItem(this.transcriptName)
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    metamsg(lang.transcript_cleared)
+    metamsg(Quest.lang.transcript_cleared)
   },
 
   // Is there a transcript saved?
@@ -510,19 +510,19 @@ const saveLoad = {
     const s = localStorage.getItem(this.transcriptName)
     if (!s) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      metamsg(lang.transcript_none)
+      metamsg(Quest.lang.transcript_none)
       return false
     }
 
     let html = ''
     html += '<div id="main"><div id="inner"><div id="output">'
-    html += lang.transcriptTitle()
+    html += Quest.lang.transcriptTitle()
     html += s
     html += '</div></div></div>'
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{ perform... Remove this comment to see the full error message
     io.showInTab(html, 'QuestJS Transcript: ' + Quest.Settings.settings.title)
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    metamsg(lang.done_msg)
+    metamsg(Quest.lang.done_msg)
   },
 
   transcriptWalk: function () {

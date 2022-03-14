@@ -38,7 +38,7 @@ Quest.Settings.settings.files = [
 Quest.Settings.settings.tests = true
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'styleFile' does not exist on type '{ per... Remove this comment to see the full error message
 Quest.Settings.settings.styleFile = 'style'
-Quest.Settings.settings.getDefaultRoomHeading = function (item) { return Quest.Utilities.titleCase(lang.addDefiniteArticle(item) + item.alias) }
+Quest.Settings.settings.getDefaultRoomHeading = function (item) { return Quest.Utilities.titleCase(Quest.lang.addDefiniteArticle(item) + item.alias) }
 Quest.Settings.settings.symbolsForCompass = true
 //Quest.Settings.settings.panes = 'none'
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
@@ -77,7 +77,7 @@ Quest.Settings.settings.customNoExitMsg = function (char: any, dir: any) {
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   const list = w[player.loc].getExitDirs({ excludeLocked: true, excludeScenery: true, excludeAlsoDir: true })
   if (list.length === 1) return "She cannot go " + dir + ". Looks like the only exit is back " + list[0] + "."
-  const listString = Quest.Utilities.formatList(list, { lastJoiner: lang.list_or, nothing: lang.list_nowhere })
+  const listString = Quest.Utilities.formatList(list, { lastJoiner: Quest.lang.list_or, nothing: Quest.lang.list_nowhere })
   return "She cannot go " + dir + " - the exits she can see are " + listString + "."
 }
 

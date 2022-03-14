@@ -169,13 +169,13 @@ createRoom("brass_dining_room", {
         s += "A single mannequin is sat at the table."
       }
       else if (this.mannequinCount < 9) {
-        s += lang.toWords(this.mannequinCount) + " mannequins are sitting, dressed up in clothes and wigs."
+        s += Quest.lang.toWords(this.mannequinCount) + " mannequins are sitting, dressed up in clothes and wigs."
       }
       else if (this.mannequinCount === 9) {
         s += "eight mannequins are sitting, dressed up in clothes and wigs; a ninth is standing behind one of the chairs."
       }
       else {
-        s += "eight mannequins are sitting, dressed up in clothes and wigs; " + lang.toWords(this.mannequinCount - 8) + " more are standing as though waiting to take their place."
+        s += "eight mannequins are sitting, dressed up in clothes and wigs; " + Quest.lang.toWords(this.mannequinCount - 8) + " more are standing as though waiting to take their place."
       }
       if (this.mannequinCount > 12) s += " It is getting crowded in here!"
     }
@@ -873,7 +873,7 @@ createRoom("room_small", {
     isHidden: function () { return w.boots.loc !== "room_small" || w.boots.size < 6 },
     simpleUse: function (char: any) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
-      if (w.boots.loc !== "room_small" || w.boots.size < 6) return falsemsg(lang.not_that_way, { char: char, dir: this.dir })
+      if (w.boots.loc !== "room_small" || w.boots.size < 6) return falsemsg(Quest.lang.not_that_way, { char: char, dir: this.dir })
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSimpleExitUse' does not exist on ... Remove this comment to see the full error message
       return Quest.Utilities.util.defaultSimpleExitUse(char, this)
     },
@@ -1137,7 +1137,7 @@ createItem("boots", SIZE_CHANGING(), {
   loc: "secret_room",
   scenery: true,
   mended: false,
-  parserPronouns: lang.pronouns.plural,
+  parserPronouns: Quest.lang.pronouns.plural,
   alias: "pair of boots",
   desc5: "The boots are big, like a size fifteen or something, Mandy reckons. Her dad has big feet, but not like these.",
   desc4: "The boots are tiny, suitable for a doll maybe.",

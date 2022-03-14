@@ -39,7 +39,7 @@ createItem("me", PLAYER(), {
     if (room2.name === 'space') return falsemsg("The external airlock door cannot be opened while the airlock is pressurised.")
 
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("The door to " + lang.getName(room2, { article: Quest.Utilities.DEFINITE }) + " will not open while it is " + (room1.vacuum ? 'pressurised' : 'depressurised') + " and " + lang.getName(room1, { article: Quest.Utilities.DEFINITE }) + " is not.")
+    msg("The door to " + Quest.lang.getName(room2, { article: Quest.Utilities.DEFINITE }) + " will not open while it is " + (room1.vacuum ? 'pressurised' : 'depressurised') + " and " + Quest.lang.getName(room1, { article: Quest.Utilities.DEFINITE }) + " is not.")
     return false
   },
   spray: function (char: any) {
@@ -107,7 +107,7 @@ createRoom("stasis_bay", {
     switch (arr.length) {
       case 0: return "All pods are currently open.";
       case 4: return "Currently only your pod and the spare pod are open.";
-      case 1: return lang.getName(arr[0], { possessive: true }) + " stasis pod is closed.";
+      case 1: return Quest.lang.getName(arr[0], { possessive: true }) + " stasis pod is closed.";
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       default: return "The stasis pods of " + Quest.Utilities.formatList(arr) + " are closed.";
     }
@@ -807,11 +807,11 @@ createItem("probe_prototype", COUNTABLE([]), {
 
     if (number === 1) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'Launch a " + char.probeType + ",' you say to " + lang.getName(char, { article: Quest.Utilities.DEFINITE }) + ".")
+      msg("'Launch a " + char.probeType + ",' you say to " + Quest.lang.getName(char, { article: Quest.Utilities.DEFINITE }) + ".")
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'Launch " + number + " " + char.probeType + "s,' you say to " + lang.getName(char, { article: Quest.Utilities.DEFINITE }) + ".")
+      msg("'Launch " + number + " " + char.probeType + "s,' you say to " + Quest.lang.getName(char, { article: Quest.Utilities.DEFINITE }) + ".")
     }
     if (number > char.probesRemaining) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -836,7 +836,7 @@ createItem("probe_prototype", COUNTABLE([]), {
     if (char.deployProbeAction === 0 || char.deployProbeAction === 4) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       msg("'Okay captain.'");
-      char.setAgenda(["walkTo:probes_aft:" + lang.getName(char, { article: Quest.Utilities.DEFINITE }) + " goes to the probe deployment console.", "text:deployProbe:" + number])
+      char.setAgenda(["walkTo:probes_aft:" + Quest.lang.getName(char, { article: Quest.Utilities.DEFINITE }) + " goes to the probe deployment console.", "text:deployProbe:" + number])
       char.deployProbeAction = 0;
       char.deployProbeCount = 0;
     }

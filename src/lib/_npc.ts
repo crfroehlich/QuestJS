@@ -13,7 +13,7 @@ const NPC = function (isFemale: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'isFemale' does not exist on type '{ canR... Remove this comment to see the full error message
   res.isFemale = isFemale
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'pronouns' does not exist on type '{ canR... Remove this comment to see the full error message
-  res.pronouns = isFemale ? lang.pronouns.female : lang.pronouns.male
+  res.pronouns = isFemale ? Quest.lang.pronouns.female : Quest.lang.pronouns.male
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'askOptions' does not exist on type '{ ca... Remove this comment to see the full error message
   res.askOptions = [];
@@ -111,7 +111,7 @@ const NPC = function (isFemale: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'startFollow' does not exist on type '{ c... Remove this comment to see the full error message
   res.startFollow = function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'leaderName' does not exist on type '{ ca... Remove this comment to see the full error message
-    if (this.leaderName) return falsemsg(lang.already_following, { npc: this })
+    if (this.leaderName) return falsemsg(Quest.lang.already_following, { npc: this })
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'setLeader' does not exist on type '{ can... Remove this comment to see the full error message
     this.setLeader(player)
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
@@ -121,7 +121,7 @@ const NPC = function (isFemale: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'endFollow' does not exist on type '{ can... Remove this comment to see the full error message
     res.endFollow = function () {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'leaderName' does not exist on type '{ ca... Remove this comment to see the full error message
-      if (!this.leaderName) return falsemsg(lang.already_waiting, { npc: this })
+      if (!this.leaderName) return falsemsg(Quest.lang.already_waiting, { npc: this })
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'setLeader' does not exist on type '{ can... Remove this comment to see the full error message
       this.setLeader()
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
@@ -175,7 +175,7 @@ const NPC = function (isFemale: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'askOptions' does not exist on type '{ ca... Remove this comment to see the full error message
     if (this.askOptions.length === 0 && this.tellOptions.length === 0) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      metamsg(lang.topics_no_ask_tell);
+      metamsg(Quest.lang.topics_no_ask_tell);
       return world.SUCCESS_NO_TURNSCRIPTS;
     }
 
@@ -196,7 +196,7 @@ const NPC = function (isFemale: any) {
     }
 
     if (!flag) {
-      metamsg(lang.topics_none_found, { item: this })
+      metamsg(Quest.lang.topics_none_found, { item: this })
     }
 
     return Quest.Settings.settings.lookCountsAsTurn ? world.SUCCESS : world.SUCCESS_NO_TURNSCRIPTS
@@ -304,19 +304,19 @@ const npc_utilities = {
     // handle dynamic talkto    
     const topics = this.getTopics()
     player.conversingWithNpc = this
-    if (topics.length === 0) return failedmsg(lang.no_topics, { char: player, item: this });
+    if (topics.length === 0) return failedmsg(Quest.lang.no_topics, { char: player, item: this });
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'greeting' does not exist on type '{ find... Remove this comment to see the full error message
     if (this.greeting) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
       Quest.Utilities.printOrRun(this, this, "greeting");
     }
-    topics.push(lang.never_mind)
+    topics.push(Quest.lang.never_mind)
 
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     const fn = io.menuFunctions[Quest.Settings.settings.funcForDynamicConv]
-    fn(lang.speak_to_menu_title(this), topics, function (result: any) {
-      if (result !== lang.never_mind) {
+    fn(Quest.lang.speak_to_menu_title(this), topics, function (result: any) {
+      if (result !== Quest.lang.never_mind) {
         result.runscript();
       }
     })
@@ -389,11 +389,11 @@ const AGENDA_FOLLOWER = function () {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'savedAlias' does not exist on type '{}'.
       this.savedAlias = this.alias
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'pronouns' does not exist on type '{}'.
-      this.pronouns = lang.pronouns.plural;
+      this.pronouns = Quest.lang.pronouns.plural;
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'followers' does not exist on type '{}'.
       this.followers.unshift(this.name);
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'alias' does not exist on type '{}'.
-      this.alias = Quest.Utilities.formatList(this.getFollowers(), { lastJoiner: lang.list_and });
+      this.alias = Quest.Utilities.formatList(this.getFollowers(), { lastJoiner: Quest.lang.list_and });
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'followers' does not exist on type '{}'.
       this.followers.shift();
     }
@@ -851,12 +851,12 @@ const CONSULTABLE = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'askabout' does not exist on type '{}'.
   res.askabout = function (text1: any, text2: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'asktellabout' does not exist on type '{}... Remove this comment to see the full error message
-    return this.asktellabout(text1, text2, lang.ask_about_intro, this.askOptions, "ask")
+    return this.asktellabout(text1, text2, Quest.lang.ask_about_intro, this.askOptions, "ask")
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'tellabout' does not exist on type '{}'.
   res.tellabout = function (text1: any, text2: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'asktellabout' does not exist on type '{}... Remove this comment to see the full error message
-    return this.asktellabout(text1, text2, lang.tell_about_intro, this.tellOptions, "tell")
+    return this.asktellabout(text1, text2, Quest.lang.tell_about_intro, this.tellOptions, "tell")
   }
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'talkabout' does not exist on type '{}'.
@@ -866,7 +866,7 @@ const CONSULTABLE = function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'talkOptions' does not exist on type '{}'... Remove this comment to see the full error message
     if (!this.talkOptions) data = this.tellOptions ? this.tellOptions.concat(this.askOptions) : this.askOptions
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'asktellabout' does not exist on type '{}... Remove this comment to see the full error message
-    return this.asktellabout(text1, text2, lang.talk_about_intro, data, "talk");
+    return this.asktellabout(text1, text2, Quest.lang.talk_about_intro, data, "talk");
   }
 
 
@@ -905,7 +905,7 @@ const CONSULTABLE = function () {
   res.askTellDone = function (params: any, response: any) {
     if (!response) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(lang.npc_no_interest_in, params)
+      msg(Quest.lang.npc_no_interest_in, params)
       return
     }
     if (response.mentions) {

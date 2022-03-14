@@ -10,29 +10,29 @@
 // though perjaps it is mourning Kyle that does it for her
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("Xsansi", NPC(true), { 
-  isLocatedAt:function(loc: any, situation: any) {
+createItem("Xsansi", NPC(true), {
+  isLocatedAt: function (loc: any, situation: any) {
     return isOnShip() && (situation === world.PARSER || situation === world.SIDE_PANE);
   },
-  properNoun:true,
-  regex:/^(ai|xsan|computer)$/,
-  scenery:true,
-  status:100,
-  bioProbes:16,
-  geoProbes:16,
-  seederPods:6,
-  locate:'Ostap',
-  satellites:6,
-  crewStatusTemplate:"'Crew member {nms:char} designation is: {show:char:specialisation}. {pa:char:true} current status is: {status}.{ifNot:char:loc:nowhere: {pa:char:true} current location is@@@colon@@@ {nm:room:the}.}'",
-  currentPlanet:-1,
-  shipStatus:"All systems nominal.",
-  pressureOverride:false,
-  examine:"Xsansi, or eXtra-Solar Advanced Navigation and Systems Intelligence, is a type IV artificial intelligence, with a \"Real People\" personality sub-system. Though her hardware is in the server room, forward of the bottom deck, she is present throughout the ship.",
-  askOptions:[
+  properNoun: true,
+  regex: /^(ai|xsan|computer)$/,
+  scenery: true,
+  status: 100,
+  bioProbes: 16,
+  geoProbes: 16,
+  seederPods: 6,
+  locate: 'Ostap',
+  satellites: 6,
+  crewStatusTemplate: "'Crew member {nms:char} designation is: {show:char:specialisation}. {pa:char:true} current status is: {status}.{ifNot:char:loc:nowhere: {pa:char:true} current location is@@@colon@@@ {nm:room:the}.}'",
+  currentPlanet: -1,
+  shipStatus: "All systems nominal.",
+  pressureOverride: false,
+  examine: "Xsansi, or eXtra-Solar Advanced Navigation and Systems Intelligence, is a type IV artificial intelligence, with a \"Real People\" personality sub-system. Though her hardware is in the server room, forward of the bottom deck, she is present throughout the ship.",
+  askOptions: [
     {
-      name:"mission",
-      test:function(p: any) { return p.text.match(/mission/); }, 
-      script:function() {
+      name: "mission",
+      test: function (p: any) { return p.text.match(/mission/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'Remind me of the mission, Xsansi,' you say.");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -43,28 +43,28 @@ createItem("Xsansi", NPC(true), {
         msg("'Note that $25k will be deducted from you bonus should a crew member die,' she adds. 'Note that no bonus will be awarded in he event of your own death.'");
       },
     },
-    
+
     {
-      name:"crew",
-      test:function(p: any) { return p.text.match(/crew|team/); }, 
-      script:function() {
+      name: "crew",
+      test: function (p: any) { return p.text.match(/crew|team/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'Tell me about the crew, Xsansi,' you say.");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        for (let npc of NPCS) msg(processText(w.Xsansi.crewStatusTemplate, {char:npc, room:w[npc.loc]}))
+        for (let npc of NPCS) msg(processText(w.Xsansi.crewStatusTemplate, { char: npc, room: w[npc.loc] }))
       },
     },
-    
+
     {
-      name:"kyle",
-      test:function(p: any) { return p.text.match(/kyle/); }, 
-      script:function() {
+      name: "kyle",
+      test: function (p: any) { return p.text.match(/kyle/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'Tell me about Kyle, Xsansi,' you say.");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         if (w.Xsansi.currentPlanet < 3) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg(processText(w.Xsansi.crewStatusTemplate, {char:w.Kyle, room:w[w.Kyle.loc]}))
+          msg(processText(w.Xsansi.crewStatusTemplate, { char: w.Kyle, room: w[w.Kyle.loc] }))
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
           w.Xsansi.locate = 'Kyle'
         }
@@ -74,17 +74,17 @@ createItem("Xsansi", NPC(true), {
         }
       },
     },
-    
+
     {
-      name:"aada",
-      test:function(p: any) { return p.text.match(/house/); }, 
-      script:function() {
+      name: "aada",
+      test: function (p: any) { return p.text.match(/house/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'Tell me about Aada, Xsansi,' you say.");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         if (w.Xsansi.currentPlanet < 3) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg(processText(w.Xsansi.crewStatusTemplate, {char:w.Aada, room:w[w.Aada.loc]}))
+          msg(processText(w.Xsansi.crewStatusTemplate, { char: w.Aada, room: w[w.Aada.loc] }))
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
           w.Xsansi.locate = 'Aada'
         }
@@ -94,17 +94,17 @@ createItem("Xsansi", NPC(true), {
         }
       },
     },
-    
+
     {
-      name:"ha_yoon",
-      test:function(p: any) { return p.text.match(/ha-yoon|ha yoon|ha|yoon/); }, 
-      script:function() {
+      name: "ha_yoon",
+      test: function (p: any) { return p.text.match(/ha-yoon|ha yoon|ha|yoon/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'Tell me about Ha-yoon, Xsansi,' you say.");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         if (w.Xsansi.currentPlanet < 3) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg(processText(w.Xsansi.crewStatusTemplate, {char:w.Ha_yoon, room:w[w.Ha_yoon.loc]}))
+          msg(processText(w.Xsansi.crewStatusTemplate, { char: w.Ha_yoon, room: w[w.Ha_yoon.loc] }))
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
           w.Xsansi.locate = 'Ha_yoon'
         }
@@ -118,17 +118,17 @@ createItem("Xsansi", NPC(true), {
         }
       },
     },
-    
+
     {
-      name:"ostap",
-      test:function(p: any) { return p.text.match(/ostap/); }, 
-      script:function() {
+      name: "ostap",
+      test: function (p: any) { return p.text.match(/ostap/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'Tell me about Ostap, Xsansi,' you say.");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         if (w.Xsansi.currentPlanet < 3) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg(processText(w.Xsansi.crewStatusTemplate, {char:w.Ostap, room:w[w.Ostap.loc]}))
+          msg(processText(w.Xsansi.crewStatusTemplate, { char: w.Ostap, room: w[w.Ostap.loc] }))
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
           w.Xsansi.locate = 'Ostap'
         }
@@ -138,11 +138,11 @@ createItem("Xsansi", NPC(true), {
         }
       },
     },
-    
+
     {
-      name:"xsansi",
-      test:function(p: any) { return p.text.match(/^(ai|xsan|computer)$/); }, 
-      script:function() {
+      name: "xsansi",
+      test: function (p: any) { return p.text.match(/^(ai|xsan|computer)$/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'Tell me about yourself, Xsansi,' you say.");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
@@ -156,11 +156,11 @@ createItem("Xsansi", NPC(true), {
         }
       },
     },
-    
+
     {
-      name:"ship",
-      test:function(p: any) { return p.text.match(/status|ship/); }, 
-      script:function() {
+      name: "ship",
+      test: function (p: any) { return p.text.match(/status|ship/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'What is the ship's status, Xsansi?' you ask.");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
@@ -183,11 +183,11 @@ createItem("Xsansi", NPC(true), {
         }
       },
     },
-    
+
     {
-      name:"vacuum",
-      test:function(p: any) { return p.text.match(/vacuum|pressur/); }, 
-      script:function() {
+      name: "vacuum",
+      test: function (p: any) { return p.text.match(/vacuum|pressur/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'What areas of the ship are not pressurised, Xsansi?' you ask.");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
@@ -218,11 +218,11 @@ createItem("Xsansi", NPC(true), {
         }
       },
     },
-    
+
     {
-      name:"satellite",
-      test:function(p: any) { return p.text.match(/satellite/); }, 
-      script:function() {
+      name: "satellite",
+      test: function (p: any) { return p.text.match(/satellite/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'Tell me about the satellite, Xsansi.'");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
@@ -258,11 +258,11 @@ createItem("Xsansi", NPC(true), {
         }
       },
     },
-    
+
     {
-      name:"bio-probe",
-      test:function(p: any) { return p.text.match(/bioprobe|bio-probe/); }, 
-      script:function() {
+      name: "bio-probe",
+      test: function (p: any) { return p.text.match(/bioprobe|bio-probe/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'Tell me about the bio-probes, Xsansi.'");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
@@ -280,9 +280,9 @@ createItem("Xsansi", NPC(true), {
     },
 
     {
-      name:"geo-probe",
-      test:function(p: any) { return p.text.match(/geoprobe|geo-probe/); }, 
-      script:function() {
+      name: "geo-probe",
+      test: function (p: any) { return p.text.match(/geoprobe|geo-probe/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'Tell me about the bio-probes, Xsansi.'");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
@@ -300,9 +300,9 @@ createItem("Xsansi", NPC(true), {
     },
 
     {
-      name:"probe",
-      test:function(p: any) { return p.text.match(/probe/); }, 
-      script:function() {
+      name: "probe",
+      test: function (p: any) { return p.text.match(/probe/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'Tell me about the probes, Xsansi.'");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
@@ -320,9 +320,9 @@ createItem("Xsansi", NPC(true), {
     },
 
     {
-      name:"stasis",
-      test:function(p: any) { return p.text.match(/stasis/); }, 
-      script:function() {
+      name: "stasis",
+      test: function (p: any) { return p.text.match(/stasis/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'Tell me about the stasis system, Xsansi.'");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
@@ -336,11 +336,11 @@ createItem("Xsansi", NPC(true), {
         }
       },
     },
-      
+
     {
-      name:"Joseph Banks",
-      test:function(p: any) { return p.text.match(/joseph|banks/); }, 
-      script:function() {
+      name: "Joseph Banks",
+      test: function (p: any) { return p.text.match(/joseph|banks/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'Who was this Joseph Banks guy the ship is named after, Xsansi?'");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -349,11 +349,11 @@ createItem("Xsansi", NPC(true), {
         msg("'Some old scientist guy. Got it.'");
       },
     },
-    
+
     {
-      name:"itinerary",
-      test:function(p: any) { return p.text.match(/itinerary|stars|planets|route|destinations/); }, 
-      script:function() {
+      name: "itinerary",
+      test: function (p: any) { return p.text.match(/itinerary|stars|planets|route|destinations/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'Remind me of the itinerary, Xsansi,' you say.");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
@@ -372,11 +372,11 @@ createItem("Xsansi", NPC(true), {
         }
       },
     },
-    
+
     {
-      name:"radioSignals",
-      test:function(p: any) { return p.text.match(/radio|signal/); }, 
-      script:function() {
+      name: "radioSignals",
+      test: function (p: any) { return p.text.match(/radio|signal/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'Tell me of the radio signals, Xsansi,' you say.");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
@@ -385,7 +385,7 @@ createItem("Xsansi", NPC(true), {
           msg("'No radio signals have been detected.'");
         }
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-        else  if (w.Xsansi.currentPlanet === 2) {
+        else if (w.Xsansi.currentPlanet === 2) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           msg("'A single radio signal has been detected; you should consult with Kyle for further information.'");
         }
@@ -399,18 +399,18 @@ createItem("Xsansi", NPC(true), {
         }
       },
     },
-    
+
     {
-      name:"planet",
-      test:function(p: any) { return p.text.match(/this planet|this star|planet|star|the planet|the star/); }, 
-      script:function() {
+      name: "planet",
+      test: function (p: any) { return p.text.match(/this planet|this star|planet|star|the planet|the star/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'Tell me about this planet, Xsansi,' you say.");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         if (w.Xsansi.currentPlanet < 3) {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
           const planet = PLANETS[w.Xsansi.currentPlanet];
-          let s = "'We are currently in orbit around the planet " + planet.starName + planet.planet +"' she says. '";
+          let s = "'We are currently in orbit around the planet " + planet.starName + planet.planet + "' she says. '";
           s += planet.planetDesc + " " + planet.atmosphere + " ";
           s += planet.lights + " " + planet.radio + "'";
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -422,11 +422,11 @@ createItem("Xsansi", NPC(true), {
         }
       },
     },
-    
+
     {
-      name:"meteors",
-      test:function(p: any) { return p.text.match(/meteor|incident/); }, 
-      script:function() {
+      name: "meteors",
+      test: function (p: any) { return p.text.match(/meteor|incident/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         if (w.Xsansi.currentPlanet === 0) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -441,7 +441,7 @@ createItem("Xsansi", NPC(true), {
           console.log(w.Xsansi.currentPlanet);
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
           console.log(w.Xsansi.name);
-          
+
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
           if (w.Xsansi.currentPlanet < 3) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -454,11 +454,11 @@ createItem("Xsansi", NPC(true), {
         }
       },
     },
-    
+
     {
-      name:"damage", regex:/damage/,
-      test:function(p: any) { return p.text.match(/damage/); }, 
-      script:function() {
+      name: "damage", regex: /damage/,
+      test: function (p: any) { return p.text.match(/damage/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         if (w.Xsansi.currentPlanet === 0) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -470,17 +470,17 @@ createItem("Xsansi", NPC(true), {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           msg("'Tell me about the damage to the ship, Xsansi,' you say.")
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-          w.Xsansi,damageAskedAbout = true;
+          w.Xsansi, damageAskedAbout = true;
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           msg("'There is significant damage to the upper forward and port areas resulting from passing through the meteor shower. The ship is depressurised while the crew are in stasis. Attempts to repressurise has revealed hull integrity is compromised in: the lounge, the captain's cabin, the top deck corridor. Currently only the stasis bay is pressurised.'")
         }
       },
     },
-    
+
     {
-      name:"repairs", regex:/repairs/, 
-      test:function(p: any) { return p.text.match(/repairs/); }, 
-      script:function() {
+      name: "repairs", regex: /repairs/,
+      test: function (p: any) { return p.text.match(/repairs/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         if (w.Xsansi.currentPlanet === 0) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -492,7 +492,7 @@ createItem("Xsansi", NPC(true), {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           msg("'How do we do repairs, Xsansi?' you ask.")
           // @ts-expect-error ts-migrate(2695) FIXME: Left side of comma operator is unused and has no s... Remove this comment to see the full error message
-          if (!w.Xsansi,damageAskedAbout) {
+          if (!w.Xsansi, damageAskedAbout) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
             msg("'There is significant damage to the upper forward and port areas resulting from passing through the meteor shower. The ship is depressurised while the crew are in stasis. Attempts to repressurise has revealed hull integrity is compromised in: the lounge, the captain's cabin, the top deck corridor. Currently only the stasis bay is pressurised.")
           }
@@ -501,11 +501,11 @@ createItem("Xsansi", NPC(true), {
         }
       },
     },
-    
+
     {
-      name:"escape pods", regex:/repairs/, 
-      test:function(p: any) { return p.text.match(/escape pod/); }, 
-      script:function() {
+      name: "escape pods", regex: /repairs/,
+      test: function (p: any) { return p.text.match(/escape pod/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'Where are the escape pods, Xsansi?' you ask.")
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
@@ -527,23 +527,23 @@ createItem("Xsansi", NPC(true), {
         }
       },
     },
-    
+
     {
-      script:function(p: any) {
+      script: function (p: any) {
         console.log(p)
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        msg("'Tell me about {text},' you say to Xsansi.", p) 
+        msg("'Tell me about {text},' you say to Xsansi.", p)
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'That is not a area I am knowledgeable in.'") 
+        msg("'That is not a area I am knowledgeable in.'")
       },
-      failed:true,
-    }    
-    
+      failed: true,
+    }
+
   ],
-  tellOptions:[
+  tellOptions: [
     {
-      test:function(p: any) { return p.text.match(/.* hot/); }, 
-      script:function() {
+      test: function (p: any) { return p.text.match(/.* hot/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'You look hot!' you say to Xsansi.")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -555,26 +555,26 @@ createItem("Xsansi", NPC(true), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("Kyle", CREW(false), { 
-  notes:"Kyle (M) is from Australia (born Newcastle but raised in Sydney), 32, a gay nerd. Expert in computing and cooking. Kyle handles the satellite and understanding radio transmissions. Joined up so he can see the future - it is a kind of time travel; hopes to upload himself to become immortal. Terminally ill.",
-  loc:"flightdeck",
-  specialisation:"coms",
-  okay:"'Righto, captain.'",
-  baseOxygeUse:6,
+createItem("Kyle", CREW(false), {
+  notes: "Kyle (M) is from Australia (born Newcastle but raised in Sydney), 32, a gay nerd. Expert in computing and cooking. Kyle handles the satellite and understanding radio transmissions. Joined up so he can see the future - it is a kind of time travel; hopes to upload himself to become immortal. Terminally ill.",
+  loc: "flightdeck",
+  specialisation: "coms",
+  okay: "'Righto, captain.'",
+  baseOxygeUse: 6,
 
-  desc:"Kyle is the computer expert, but also a good cook, and has volunteered for the role of chef. An Australian, he is slim, and below average height, with very short blonde hair, and green eyes.",
+  desc: "Kyle is the computer expert, but also a good cook, and has volunteered for the role of chef. An Australian, he is slim, and below average height, with very short blonde hair, and green eyes.",
 
   // Reactions
-  reactions:[
+  reactions: [
     {
-      name:'seenNaked',
+      name: 'seenNaked',
       // @ts-expect-error ts-migrate(7023) FIXME: 'test' implicitly has return type 'any' because it... Remove this comment to see the full error message
-      test:function() {
+      test: function () {
         const g = player.getOuterWearable("body")
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'reactionToUndress' does not exist on typ... Remove this comment to see the full error message
         return (g === false && this.reactionToUndress < 2)
       },
-      action:function() {
+      action: function () {
         if (player.isFemale) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           msg("Kyle glances at you briefly. Kind of insulting that he is so uninterested in your naked body.");
@@ -592,19 +592,19 @@ createItem("Kyle", CREW(false), {
   ],
 
   // Conversations
-  probesAskResponse:function() {
+  probesAskResponse: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("'What probes do you handle?' you ask Kyle.");
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("'I launch the satellites, one per planet. No need to tell me, I know the routine. Once in orbit they photograph the planet surface, elay signals from the other probes and listen for radio emissions.");
   },
-  areaAskResponse:function() {
+  areaAskResponse: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("'Communication systems. So I launch the satellite, but unless we find intelligent life, there's not a lot for me to do.' He thinks for a moment. 'Actually my background is computing, so if Xsansi is playing up, I'll have a tinker.'");
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("'You will not,' says Xsansi, indignantly. 'I can assure you that I am self-maintaining, and designed to last for centuries.'");
   },
-  backgroundAskResponse:function() {
+  backgroundAskResponse: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("'Er, there' not much to tell really... Just a regular guy.'");
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -612,34 +612,36 @@ createItem("Kyle", CREW(false), {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("'That's right, cobber! Did the accent give it away?' Actually his accent is pretty faint, apart from the occasional \"cobber\", which you suspect is just an affectation. 'I'm from Sydney... well, originally Newcastle, but lived in Sydney most of my life.'")
   },
-  askOptions:[
+  askOptions: [
     {
-      test:function(p: any) { return p.text.match(/newcastle/); }, 
-      script:function() {
+      test: function (p: any) { return p.text.match(/newcastle/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'What's Newcastle like?' you ask Kyle.");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'It's... okay. But no better than that. I guess it's too close to Sydney, and anything interesting goes there, so its kinda dull.'");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
         trackRelationship(w.Kyle, 1, "background2");
-      }},
-    
+      }
+    },
+
     {
-      test:function(p: any) { return p.text.match(/sydney/); }, 
-      esponse:function() {
+      test: function (p: any) { return p.text.match(/sydney/); },
+      esponse: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'What's Sydney like?' you ask Kyle.");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'It's great! Really great nightlife, just so lively. Everyone said when they banned vehicles from the CBD, back in '68, it would die a death, but I think it made it even better.'");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
         trackRelationship(w.Kyle, 1, "background2");
-      }},
-    
+      }
+    },
+
     {
-      name:"radioSignals", 
-      test:function(p: any) { return p.text.match(this.regex); }, 
-      regex:/radio|signal/, 
-      script:function() {
+      name: "radioSignals",
+      test: function (p: any) { return p.text.match(this.regex); },
+      regex: /radio|signal/,
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'Talk to me about the radio signal,' you say.");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
@@ -688,11 +690,11 @@ createItem("Kyle", CREW(false), {
         }
       },
     },
-    
+
     {
-      regex:/virus|program/,
-      test:function(p: any) { return p.text.match(this.regex); }, 
-      script:function() {
+      regex: /virus|program/,
+      test: function (p: any) { return p.text.match(this.regex); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'You say the signal could be a virus,' you say to Kyle. 'Is it dangerous?'");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -712,12 +714,12 @@ createItem("Kyle", CREW(false), {
         }
       },
     },
-    
+
   ],
-  tellOptions:[
+  tellOptions: [
     {
-      test:function(p: any) { return p.text.match(/.* hot/); }, 
-      script:function() {
+      test: function (p: any) { return p.text.match(/.* hot/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'You look hot!' you say to Ostap.")
         if (player.female) {
@@ -731,18 +733,18 @@ createItem("Kyle", CREW(false), {
       },
     },
   ],
-  
+
   // Satellite deployment
-  probeType:'satellite',
-  probesRemaining:6,
-  probeAction0:function() { this.msg("Kyle sits at the console, and logs in.") },
-  probeAction3:function() { this.msg("Kyle watches the satellite as it goes into its prescribed orbit.") },
-  probeInPlace:function() {
+  probeType: 'satellite',
+  probesRemaining: 6,
+  probeAction0: function () { this.msg("Kyle sits at the console, and logs in.") },
+  probeAction3: function () { this.msg("Kyle watches the satellite as it goes into its prescribed orbit.") },
+  probeInPlace: function () {
     this.msg("'Ripper!' said Kyle.");
     shipAlert("The satellite is in orbit,");
     currentPlanet().satellite = true;
   },
-  data:[
+  data: [
     [
       // planet 0
       "'I've launched the satellite, but not picking anything up.'",
@@ -773,17 +775,17 @@ createItem("Kyle", CREW(false), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("Ostap", CREW(false), { 
-  notes:"Ostap (M) is from the Ukraine (Nastasiv, nr Ternopil), 30, a gentle giant who thinks he has psychic powers; he is lactose intolerant. Biologist. Ostap handles the bio-probes probes. Starts hitting on Aada, but she is not interested. Later couples up with Ha-yoon",
-  loc:"canteen",
-  specialisation:"biology",
-  okay:"'Right, okay then.'",
-  desc:"Ostap is a big guy; not fat, but broad and tall. He keeps his dark hair in a short ponytail.",
-  baseOxygeUse:9,
+createItem("Ostap", CREW(false), {
+  notes: "Ostap (M) is from the Ukraine (Nastasiv, nr Ternopil), 30, a gentle giant who thinks he has psychic powers; he is lactose intolerant. Biologist. Ostap handles the bio-probes probes. Starts hitting on Aada, but she is not interested. Later couples up with Ha-yoon",
+  loc: "canteen",
+  specialisation: "biology",
+  okay: "'Right, okay then.'",
+  desc: "Ostap is a big guy; not fat, but broad and tall. He keeps his dark hair in a short ponytail.",
+  baseOxygeUse: 9,
 
   // Agenda
   //feventIsActive:function() { return this.status = "okay"; },
-  stopAgenda:function() {
+  stopAgenda: function () {
     const agendaLast = this.agenda[this.agenda.length - 1];
     if (agendaLast && /stasisPod/.test(agendaLast)) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -805,27 +807,27 @@ createItem("Ostap", CREW(false), {
     }
     this.agenda = [];  // TODO!!!
   },
-  
+
   // Reactions
-  reactionToUndress:0,
-  reactions:[
+  reactionToUndress: 0,
+  reactions: [
     {
-      name:'seenNaked',
+      name: 'seenNaked',
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'reactionToUndress' does not exist on typ... Remove this comment to see the full error message
-      test:function() { player.getOuterWearable("body") === false && this.reactionToUndress < 2 },
-      action:function() {
+      test: function () { player.getOuterWearable("body") === false && this.reactionToUndress < 2 },
+      action: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("Ostap looks you up and down, and smiles. 'Maybe I will get naked too! So liberating. The others are okay with it?'")
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'reactionToUndress' does not exist on typ... Remove this comment to see the full error message
         this.reactionToUndress = 2
       },
-      override:["seenInUnderwear"],
+      override: ["seenInUnderwear"],
     },
     {
-      name:'seenInUnderwear',
+      name: 'seenInUnderwear',
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'reactionToUndress' does not exist on typ... Remove this comment to see the full error message
-      test:function() { player.getOuterWearable("body").wear_layer === 1 && this.reactionToUndress < 1 },
-      action:function() {
+      test: function () { player.getOuterWearable("body").wear_layer === 1 && this.reactionToUndress < 1 },
+      action: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("Ostap looks you up and down, and shrugs.")
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'reactionToUndress' does not exist on typ... Remove this comment to see the full error message
@@ -835,7 +837,7 @@ createItem("Ostap", CREW(false), {
   ],
 
   // Conversations
-  probesAskResponse:function() {
+  probesAskResponse: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("'How does a bio-probe work?' you ask Ostap.");
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -843,19 +845,19 @@ createItem("Ostap", CREW(false), {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("'Okay, cool.'");
   },
-  areaAskResponse:function() {
+  areaAskResponse: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("'I am the biologist. I studied at University of Kiev, then later at Notre Dame, in Paris, I did my Ph.D. thesis on extremophiles, and then I did a lot of work on Xenobiology for Tokyo Life Sciences.'");
   },
-  backgroundAskResponse:function() {
+  backgroundAskResponse: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("'I'm from Nastasiv, near Ternopil.' He sees you blank face. 'In the Ukraine. I grew up with three brothers and two sisters, so it was always noisy.' He smiles. 'Both my sisters, they are biologists too. Well, one a botanist. We take after our babusya - Professor Oliynyk made one of the first synthetic cells in '82.'");
   },
-  askOptions:[
+  askOptions: [
     {
-      nameLost:"lost probe",
-      test:function(p: any) { return p.text.match(/(lost|destroyed) (bio|geo|bio-|geo-)?(probe|contact)/); }, 
-      script:function() {
+      nameLost: "lost probe",
+      test: function (p: any) { return p.text.match(/(lost|destroyed) (bio|geo|bio-|geo-)?(probe|contact)/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Ostap' does not exist on type '{}'.
         if (w.Ostap.lostProbe) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -870,9 +872,9 @@ createItem("Ostap", CREW(false), {
       },
     },
     {
-      regex:/babusya/,
-      test:function(p: any) { return p.text.match(/babusya/); }, 
-      script:function() {
+      regex: /babusya/,
+      test: function (p: any) { return p.text.match(/babusya/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'What does babusya?' you ask Ostap.");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -881,12 +883,12 @@ createItem("Ostap", CREW(false), {
         trackRelationship(w.Ostap, 1, "background2");
       },
     },
-    
+
   ],
-  tellOptions:[
+  tellOptions: [
     {
-      test:function(p: any) { return p.text.match(/.* hot/); }, 
-      script:function() {
+      test: function (p: any) { return p.text.match(/.* hot/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'You look hot!' you say to Ostap.")
         if (player.female) {
@@ -900,13 +902,13 @@ createItem("Ostap", CREW(false), {
       },
     },
   ],
-  
+
   // Probe deployment
-  probeType:'bio-probe',
-  probesRemaining:16,
-  probeAction0:function(count: any) { this.msg("'Okay, " + lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + " to deploy...' mutters Ostap as he types at the console.") },
-  probeAction3:function(count: any) { this.msg("'Okay, " + lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + " launched,' says Ostap as he stands up.") },
-  data:[
+  probeType: 'bio-probe',
+  probesRemaining: 16,
+  probeAction0: function (count: any) { this.msg("'Okay, " + Quest.lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + " to deploy...' mutters Ostap as he types at the console.") },
+  probeAction3: function (count: any) { this.msg("'Okay, " + Quest.lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + " launched,' says Ostap as he stands up.") },
+  data: [
     [
       // planet 0
       "'So, this one does not look so interesting,' he replies. 'I think we see nothing more than bacteria here - maybe not even that.'",
@@ -947,24 +949,24 @@ createItem("Ostap", CREW(false), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("Aada", CREW(true), { 
-  notes:"Aada (F) is from Finland (Oulu), 35, father genetically engineered her, planning to create a dynasty. Her older sister (effectively a lone) rebelled, so the father kept a very tight rein on this one (ef Miranda's sister). Drinks vodka a lot. Signed on as geologist, but not really her speciality - the corp was desperate and so was she. Aada handles the geo-probes.",
-  loc:"girls_cabin",
-  status:"okay",
-  specialisation:"geology",
-  geologyFlag1:false,
-  okay:"'Sure, captain.'",
-  geologyFlag2:false,
-  desc:"Aada is a Finnish woman with features so ideal you suspect genetic engineering. Tall, with a perfect figure, she keeps her blonde hair short.",
-  baseOxygeUse:6,
-  
+createItem("Aada", CREW(true), {
+  notes: "Aada (F) is from Finland (Oulu), 35, father genetically engineered her, planning to create a dynasty. Her older sister (effectively a lone) rebelled, so the father kept a very tight rein on this one (ef Miranda's sister). Drinks vodka a lot. Signed on as geologist, but not really her speciality - the corp was desperate and so was she. Aada handles the geo-probes.",
+  loc: "girls_cabin",
+  status: "okay",
+  specialisation: "geology",
+  geologyFlag1: false,
+  okay: "'Sure, captain.'",
+  geologyFlag2: false,
+  desc: "Aada is a Finnish woman with features so ideal you suspect genetic engineering. Tall, with a perfect figure, she keeps her blonde hair short.",
+  baseOxygeUse: 6,
+
   // Reactions
-  reactions:[
+  reactions: [
     {
-      name:'seenNaked',
+      name: 'seenNaked',
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'reactionToUndress' does not exist on typ... Remove this comment to see the full error message
-      test:function() { player.getOuterWearable("body") === false && this.reactionToUndress < 2 },
-      action:function() {
+      test: function () { player.getOuterWearable("body") === false && this.reactionToUndress < 2 },
+      action: function () {
         if (player.isFemale) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           msg("Aada looks you up and down. 'Very trim!' she notes. 'I bet the guys like the view.'")
@@ -983,9 +985,9 @@ createItem("Aada", CREW(true), {
       },
     },
   ],
-  
+
   // Conversations
-  probesAskResponse:function() {
+  probesAskResponse: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("'How does a geo-probe work?' you ask Aada.");
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -997,17 +999,17 @@ createItem("Aada", CREW(true), {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Aada' does not exist on type '{}'.
     w.Aada.geologyFlag1 = true;
   },
-  areaAskResponse:function() {
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'I am the geologist.'");
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'Okay. So how long have you been in geology?'");
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'Well, I've taken an interest for years....'");
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'Aada' does not exist on type '{}'.
-      w.Aada.geologyFlag2 = true;
+  areaAskResponse: function () {
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    msg("'I am the geologist.'");
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    msg("'Okay. So how long have you been in geology?'");
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    msg("'Well, I've taken an interest for years....'");
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'Aada' does not exist on type '{}'.
+    w.Aada.geologyFlag2 = true;
   },
-  backgroundAskResponse:function() {
+  backgroundAskResponse: function () {
     if (this.relationship < 3) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       msg("'I'd... rather not say. There's nothing sinister, it's just... well, I'd rather you judge me on what I do, rather than where I come from. Does that make sense?'");
@@ -1021,11 +1023,11 @@ createItem("Aada", CREW(true), {
       msg("'So here I am,' she continued, 'a clone of Maikki. For years father kept me, well, prisoner in effect. I escaped, but I knew he would always be after me. This seemed the perfect getaway; no way can he reach me here, and by the time we get back to Earth, centuries will've passed. So I signed up as geologist.'");
     }
   },
-  askOptions:[
+  askOptions: [
     {
-      name:"lost probe",
-      test:function(p: any) { return p.text.match(/(lost|destroyed) (bio|geo|bio-|geo-)?(probe|contact)/); }, 
-      script:function() {
+      name: "lost probe",
+      test: function (p: any) { return p.text.match(/(lost|destroyed) (bio|geo|bio-|geo-)?(probe|contact)/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Ostap' does not exist on type '{}'.
         if (w.Ostap.lostProbe) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -1047,8 +1049,8 @@ createItem("Aada", CREW(true), {
     },
 
     {
-      test:function(p: any) { return p.text.match(/lack of*|inability/); }, 
-      script:function() {
+      test: function (p: any) { return p.text.match(/lack of*|inability/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'You don't seem that... well up on geology,' you suggest to Aada.");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -1064,13 +1066,13 @@ createItem("Aada", CREW(true), {
         w.Aada.geologyFlag2 = true;
       },
     },
-    
+
   ],
-  
-  tellOptions:[
+
+  tellOptions: [
     {
-      test:function(p: any) { return p.text.match(/.* hot/); }, 
-      script:function() {
+      test: function (p: any) { return p.text.match(/.* hot/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'You look hot!' you say Aada.");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -1078,29 +1080,29 @@ createItem("Aada", CREW(true), {
       },
     },
   ],
-  
+
   // Probe deployment
-  probeType:'geo-probe',
-  probesRemaining:16,
-  probeAction0:function(count: any) {
+  probeType: 'geo-probe',
+  probesRemaining: 16,
+  probeAction0: function (count: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
     if (w.Xsansi.currentPlanet === 0 && this.deployProbeTotal === 0) {
-      this.msg("'Okay, " + lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + "...' says Aada, looking blankly at the console for a moment. 'How hard can it be?' She starts tapping at the key board.");
+      this.msg("'Okay, " + Quest.lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + "...' says Aada, looking blankly at the console for a moment. 'How hard can it be?' She starts tapping at the key board.");
     }
     else {
-      this.msg("'Another " + lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + "...' says Aada. 'Easy enough.'");
+      this.msg("'Another " + Quest.lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + "...' says Aada. 'Easy enough.'");
     }
   },
-  probeAction3:function(count: any) { 
+  probeAction3: function (count: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
     if (w.Xsansi.currentPlanet === 0 && this.deployProbeTotal === count) {
-      this.msg("'There!' says Aada, triumphantly. '" + lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + " deployed. I knew it couldn't be {i:that} tricky.'");
+      this.msg("'There!' says Aada, triumphantly. '" + Quest.lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + " deployed. I knew it couldn't be {i:that} tricky.'");
     }
     else {
-      this.msg("'That's another " + lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + " deployed,' says Aada.");
+      this.msg("'That's another " + Quest.lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + " deployed,' says Aada.");
     }
   },
-  data:[
+  data: [
     [
       // planet 0
       "'Our first planet!' she says excitedly. 'I can't wait to get a probe deployed down there.'",
@@ -1140,22 +1142,22 @@ createItem("Aada", CREW(true), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("Ha_yoon", CREW(true), { 
-  alias:"Ha-yoon",
-  notes:"Ha-yoon (F) is from Korean (Seoul), 28, and is on the run, after killing a couple of guys. She hopes that after all the time in space her crimes will be forgotten. Engineer.",
-  loc:"engineering3",
-  specialisation:"engineering",
-  okay:"'Okay,' she smiles.'",
-  desc:"Ha-yoon is a well-respected Korean engineer, making her possibly the most important member of the crew for ensuring the ship gets back to Earth. She is the shortest of the crew, but perhaps the loudest. She has long, raven-black hair, that falls to her waist, and dark eyes.",
-  baseOxygeUse:4,
-  
+createItem("Ha_yoon", CREW(true), {
+  alias: "Ha-yoon",
+  notes: "Ha-yoon (F) is from Korean (Seoul), 28, and is on the run, after killing a couple of guys. She hopes that after all the time in space her crimes will be forgotten. Engineer.",
+  loc: "engineering3",
+  specialisation: "engineering",
+  okay: "'Okay,' she smiles.'",
+  desc: "Ha-yoon is a well-respected Korean engineer, making her possibly the most important member of the crew for ensuring the ship gets back to Earth. She is the shortest of the crew, but perhaps the loudest. She has long, raven-black hair, that falls to her waist, and dark eyes.",
+  baseOxygeUse: 4,
+
   // Reactions
-  reactions:[
+  reactions: [
     {
-      name:'seenNaked',
+      name: 'seenNaked',
       // @ts-expect-error ts-migrate(7023) FIXME: 'test' implicitly has return type 'any' because it... Remove this comment to see the full error message
-      test:function() { return player.getOuterWearable("body") === false && this.reactionToUndress < 2 },
-      action:function() {
+      test: function () { return player.getOuterWearable("body") === false && this.reactionToUndress < 2 },
+      action: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'Captain!' exclaims Ha-yoon when she sees you naked.{ifNot:player:isFemale: 'I'm sure we don't need to see {i:that}!'}");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'reactionToUndress' does not exist on typ... Remove this comment to see the full error message
@@ -1163,23 +1165,23 @@ createItem("Ha_yoon", CREW(true), {
       },
     },
   ],
-  
+
   // Conversations
-  probesAskResponse:function() {
+  probesAskResponse: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("'How do the probe works?' you ask Ha-yoon.");
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("'i don't know about the analyse, but each probe is contained in an ablative shell, which is sheds as it descends, with the impact slowed by a combination of parachutes and retro-rockets. Once on the surface, the autonomous probe will start collecting samples, following its programming, moving on crawler tracks. They also have a limited amount of propellent to jump them out of holes.'");
   },
-  areaAskResponse:function() {
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'I am the engineer. I worked for PanTech in the asteroids, so I know spaceship systems. This is a bit different as it runs unmanned for decades...'");
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'Apart from me,' Xsansi adds.");
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'... Which doesn't change the fact there there are stasis systems for the crew and food, which I had never seen before.'");
+  areaAskResponse: function () {
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    msg("'I am the engineer. I worked for PanTech in the asteroids, so I know spaceship systems. This is a bit different as it runs unmanned for decades...'");
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    msg("'Apart from me,' Xsansi adds.");
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    msg("'... Which doesn't change the fact there there are stasis systems for the crew and food, which I had never seen before.'");
   },
-  backgroundAskResponse:function() {
+  backgroundAskResponse: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("'I am from Seoul.'");
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -1187,11 +1189,11 @@ createItem("Ha_yoon", CREW(true), {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("'No, no family.'");
   },
-  askOptions:[
+  askOptions: [
     {
-      name:"ship",
-      test:function(p: any) { return p.text.match(/ship/); }, 
-      script:function() {
+      name: "ship",
+      test: function (p: any) { return p.text.match(/ship/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'How is the ship,' you ask Ha-yoon.")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -1199,10 +1201,10 @@ createItem("Ha_yoon", CREW(true), {
       },
     },
   ],
-  tellOptions:[
+  tellOptions: [
     {
-      test:function(p: any) { return p.text.match(/.* hot/); }, 
-      script:function() {
+      test: function (p: any) { return p.text.match(/.* hot/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'You look hot!' you say Ha-yoon.");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -1210,7 +1212,7 @@ createItem("Ha_yoon", CREW(true), {
       },
     },
   ],
-  data:[
+  data: [
     ["'You should talk to the other about that.'"],
     ["'You should talk to the other about that.'"],
     ["'You should talk to the other about that.'"],
@@ -1230,4 +1232,4 @@ for (let npc of NPCS) {
   npc.status = 100
   for (let i = 0; i < 4; i++) npc['rank' + i] = 0
 }
-  
+

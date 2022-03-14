@@ -14,10 +14,10 @@ const zoneExit = function (this: any, char: any, exit: any) {
   for (let el of this.origin.zoneExits) {
     if (char.positionX === el.x && char.positionY === el.y && dir === el.dir) {
       const tpParams = { char: char, dir: dir }
-      if (el.blocking) return falsemsg(el.blockedmsg || lang.not_that_way, tpParams)
-      if (el.isLocked) return falsemsg(el.lockedmsg || lang.locked_exit, tpParams)
+      if (el.blocking) return falsemsg(el.blockedmsg || Quest.lang.not_that_way, tpParams)
+      if (el.isLocked) return falsemsg(el.lockedmsg || Quest.lang.locked_exit, tpParams)
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(el.msg || lang.go_successful, tpParams)
+      msg(el.msg || Quest.lang.go_successful, tpParams)
       this.origin.afterZoneEixit(dir)
       // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
       char.moveChar(new Exit(el.dest, exit))
@@ -26,7 +26,7 @@ const zoneExit = function (this: any, char: any, exit: any) {
   }
 
   // If the direction is "in", "up", or "down", just say no
-  if (this.origin.defaultToBlocked || this.data.type !== 'compass') return failedmsg(lang.not_that_way, { char: char, dir: this.dir })
+  if (this.origin.defaultToBlocked || this.data.type !== 'compass') return failedmsg(Quest.lang.not_that_way, { char: char, dir: this.dir })
 
 
   // Check if a feature blocks the way
@@ -50,9 +50,9 @@ const zoneExit = function (this: any, char: any, exit: any) {
   char.positionX = newX
   char.positionY = newY
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  msg(lang.stop_posture(char));
+  msg(Quest.lang.stop_posture(char));
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-  msg(lang.go_successful, { char: char, dir: dir });
+  msg(Quest.lang.go_successful, { char: char, dir: dir });
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
   char.moveChar(new Exit(this.origin.name, exit))
 
@@ -77,7 +77,7 @@ const ZONE = function (defaultToBlocked: any) {
     mapFont: '12px sans-serif',
   }
 
-  for (let ex of lang.exit_list) {
+  for (let ex of Quest.lang.exit_list) {
     if (ex.type === 'nocmd') continue
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     res[ex.name] = new Exit("_", { use: zoneExit, data: ex })
@@ -86,7 +86,7 @@ const ZONE = function (defaultToBlocked: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getExitObjs' does not exist on type '{ z... Remove this comment to see the full error message
   res.getExitObjs = function (options: any) {
     const zoneExits = []
-    for (let ex of lang.exit_list) {
+    for (let ex of Quest.lang.exit_list) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'hasExit' does not exist on type '{ zoneE... Remove this comment to see the full error message
       if (ex.type !== 'nocmd' && this.hasExit(ex.name, options)) zoneExits.push(ex)
     }
@@ -231,15 +231,15 @@ const ZONE = function (defaultToBlocked: any) {
     const r = Math.sqrt(x * x + y * y)
     if (range && r > range) return false
     const theta = Math.atan(y / x) * 180 / Math.PI
-    if (x > 0 && theta <= 22.5 && theta >= -22.5) return lang.exit_list[7].name
-    if (x > 0 && theta <= 67.5 && theta >= 22.5) return lang.exit_list[2].name
-    if (x > 0 && theta >= -67.5 && theta <= -22.5) return lang.exit_list[12].name
+    if (x > 0 && theta <= 22.5 && theta >= -22.5) return Quest.lang.exit_list[7].name
+    if (x > 0 && theta <= 67.5 && theta >= 22.5) return Quest.lang.exit_list[2].name
+    if (x > 0 && theta >= -67.5 && theta <= -22.5) return Quest.lang.exit_list[12].name
 
-    if (x < 0 && theta <= 22.5 && theta >= -22.5) return lang.exit_list[5].name
-    if (x < 0 && theta <= 67.5 && theta >= 22.5) return lang.exit_list[10].name
-    if (x < 0 && theta >= -67.5 && theta <= -22.5) return lang.exit_list[0].name
+    if (x < 0 && theta <= 22.5 && theta >= -22.5) return Quest.lang.exit_list[5].name
+    if (x < 0 && theta <= 67.5 && theta >= 22.5) return Quest.lang.exit_list[10].name
+    if (x < 0 && theta >= -67.5 && theta <= -22.5) return Quest.lang.exit_list[0].name
 
-    return y > 0 ? lang.exit_list[1].name : lang.exit_list[11].name
+    return y > 0 ? Quest.lang.exit_list[1].name : Quest.lang.exit_list[11].name
   }
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getBorders' does not exist on type '{ zo... Remove this comment to see the full error message

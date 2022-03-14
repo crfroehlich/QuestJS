@@ -94,7 +94,7 @@ map.init = function () {
 
 
     // go through each exit
-    for (let dir of lang.exit_list) {
+    for (let dir of Quest.lang.exit_list) {
       // we are only interested in compass and vertical, and if the exit exists
       if (dir.type !== 'compass' && dir.type !== 'vertical') continue
       if (!room.hasExit(dir.name)) continue
@@ -149,7 +149,7 @@ map.init = function () {
 
 }
 
-// Mapping from room to exitRoom, exit is the exit linking the two, dir is an object from lang.exit_list
+// Mapping from room to exitRoom, exit is the exit linking the two, dir is an object from Quest.lang.exit_list
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapRoomFromExit' does not exist on type ... Remove this comment to see the full error message
 map.mapRoomFromExit = function (room: any, exitRoom: any, exit: any, dir: any, rooms: any) {
   //console.log(exit)
@@ -189,7 +189,7 @@ map.mapRoomFromExit = function (room: any, exitRoom: any, exit: any, dir: any, r
 
 
 
-// Mapping from room to exitRoom, exit is the exit linking the two, dir is an object from lang.exit_list
+// Mapping from room to exitRoom, exit is the exit linking the two, dir is an object from Quest.lang.exit_list
 // Use when exitRoom is multi-location, so is not to be added to the room list, and needs to know each location
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapMultiRoomFromExit' does not exist on ... Remove this comment to see the full error message
 map.mapMultiRoomFromExit = function (room: any, exitRoom: any, exit: any, dir: any) {
@@ -301,7 +301,7 @@ map.mapDraw = function (lists: any, region: any, level: any, room: any) {
   if (room.mapZ !== level) return
 
   // Exits
-  for (let dir of lang.exit_list) {
+  for (let dir of Quest.lang.exit_list) {
     if (dir.type !== 'compass') continue
     if (!room.hasExit(dir.name)) continue
     const exit = room[dir.name]
@@ -375,7 +375,7 @@ map.moveableLocDraw = function (lists: any, region: any, level: any, room: any) 
     destinationLayer.push(room.mapDrawBase ? room.mapDrawBase(level, el) : map.mapDrawDefault(room, el))
 
     // Exits
-    for (let dir of lang.exit_list) {
+    for (let dir of Quest.lang.exit_list) {
       if (dir.type !== 'compass') continue
       if (!room.hasExit(dir.name)) continue
       const exit = room[dir.name]
@@ -599,6 +599,6 @@ findCmd('Map').script = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'calcMargins' does not exist on type '{ n... Remove this comment to see the full error message
   io.calcMargins()
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  msg(lang.done_msg)
+  msg(Quest.lang.done_msg)
   return world.SUCCESS_NO_TURNSCRIPTS
 }

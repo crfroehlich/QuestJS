@@ -151,7 +151,7 @@ createItem("light_switch", SWITCHABLE(false), {
 createItem("crates", {
   loc: "basement",
   examine: "A bunch of old crates.",
-  pronouns: lang.pronouns.plural,
+  pronouns: Quest.lang.pronouns.plural,
   move: function () {
     if (!this.moved) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -335,7 +335,7 @@ createItem("box", READABLE(), CONTAINER(true), LOCKED_WITH([]), {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("It is large, wooden box. It does not look very substantial, but it survived the fall nevertheless. There is a label on the {ifNot:box:closed:open }lid.")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    if (!this.closed) msg(lang.look_inside_it, tpParams)
+    if (!this.closed) msg(Quest.lang.look_inside_it, tpParams)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
     if (!this.flag2) hint.now('readBox')
   },
@@ -536,7 +536,7 @@ createItem("lab_door", OPENABLE(false), {
   open: function (options: any) {
     if (!this.closed) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(lang.already, { item: this })
+      msg(Quest.lang.already, { item: this })
       return false;
     }
     if (options.char.strong) {
@@ -686,7 +686,7 @@ createItem("control_rod", TAKEABLE(), {
     // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'char'.
     if (this.isAtLoc(char.name)) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(lang.already_have, tpParams);
+      msg(Quest.lang.already_have, tpParams);
       return false;
     }
     // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'char'.
@@ -702,7 +702,7 @@ createItem("control_rod", TAKEABLE(), {
     }
     let flag = (this.loc === "reactor")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg(lang.take_successful, tpParams)
+    msg(Quest.lang.take_successful, tpParams)
     this.moveToFrom(options, "name")
     if (flag) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -801,7 +801,7 @@ createItem("office_window", {
   outside: [],
   lookout: function () {
     let s = 'Out of the window you can see the street at the front of the house. Your black SUV is parked at the side on the road.'
-    if (this.outside.length > 0) s += ' On the street below the house you can see ' + Quest.Utilities.formatList(this.outside, { article: Quest.Utilities.DEFINITE, lastJoiner: lang.list_and }) + '.'
+    if (this.outside.length > 0) s += ' On the street below the house you can see ' + Quest.Utilities.formatList(this.outside, { article: Quest.Utilities.DEFINITE, lastJoiner: Quest.lang.list_and }) + '.'
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg(s)
   },

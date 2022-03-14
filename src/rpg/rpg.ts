@@ -133,7 +133,7 @@ class Effect {
     if (this.finish) s = this.finish(target)
     if (this.suppressFinishMsg) return ''
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultEffectExpires' does not exist on ... Remove this comment to see the full error message
-    if (!s) s = lang.defaultEffectExpires
+    if (!s) s = Quest.lang.defaultEffectExpires
     return processText(s, { effect: this, target: target })
   }
 }
@@ -287,7 +287,7 @@ const rpg = {
     if (char === player) {
       world.update()
       // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-      world.enterRoom(new Exit(loc, { origin: oldLocation, dir: 'teleport', msg: lang.teleport }))
+      world.enterRoom(new Exit(loc, { origin: oldLocation, dir: 'teleport', msg: Quest.lang.teleport }))
     }
   },
 
@@ -363,7 +363,7 @@ Quest.Utilities.util.defaultExitUse = function (char: any, exit: any) {
   const guards = exit.isGuarded()
   if (guards && guards.length > 0) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg(lang.wayGuarded, { exit: exit })
+    msg(Quest.lang.wayGuarded, { exit: exit })
     for (const guard of guards) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
       if (guard.guardingComment) msg(guard.guardingComment, { char: char })
@@ -374,7 +374,7 @@ Quest.Utilities.util.defaultExitUse = function (char: any, exit: any) {
   }
 
   if (exit.isLocked()) {
-    return falsemsg(exit.lockedmsg ? exit.lockedmsg : lang.locked_exit, { char: char, exit: exit })
+    return falsemsg(exit.lockedmsg ? exit.lockedmsg : Quest.lang.locked_exit, { char: char, exit: exit })
   }
   if (exit.testExit && !exit.testExit(char, exit)) return false
   for (const el of char.getCarrying()) {

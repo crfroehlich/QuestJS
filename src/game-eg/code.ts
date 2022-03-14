@@ -37,7 +37,7 @@ commands.unshift(new Cmd('TestInput', {
       }
       else {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("You picked " + lang.getName(result, { article: Quest.Utilities.DEFINITE }) + ".");
+        msg("You picked " + Quest.lang.getName(result, { article: Quest.Utilities.DEFINITE }) + ".");
       }
     })
     /*    askText("What colour?", function(result) {
@@ -224,7 +224,7 @@ findCmd('MetaHint').script = function () {
     metamsg(w[player.loc].hint);
   }
   else {
-    return lang.hintScript()
+    return Quest.lang.hintScript()
   }
 }
 
@@ -293,7 +293,7 @@ tp.addDirective("charger_state", function () {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'createVerbWith' does not exist on type '... Remove this comment to see the full error message
-lang.createVerbWith("Slice", { held: true, ing: 'Slicing' })
+Quest.lang.createVerbWith("Slice", { held: true, ing: 'Slicing' })
 
 /*
 // This is not a properly written command, it is just to test the item order can be reversed.

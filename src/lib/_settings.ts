@@ -234,7 +234,7 @@ export namespace Quest {
       }
 
       getDefaultRoomHeading(item: any) {
-        return Quest.Utilities.sentenceCase(lang.addDefiniteArticle(item) + item.alias)
+        return Quest.Utilities.sentenceCase(Quest.lang.addDefiniteArticle(item) + item.alias)
       }
 
       // Functions for the side panes lists

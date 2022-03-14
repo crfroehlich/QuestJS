@@ -102,14 +102,14 @@ export namespace Quest {
     }
 
     //@DOC
-    // Creates a string from an array. If the array element is a string, that is used, if it is an item, `lang.getName` is used (and passed the `options`). Items are sorted alphabetically, based on the "name" attribute.
+    // Creates a string from an array. If the array element is a string, that is used, if it is an item, `Quest.lang.getName` is used (and passed the `options`). Items are sorted alphabetically, based on the "name" attribute.
     //
     // Options:
     //
-    // * article:    Quest.DEFINITE (for "the") or Quest.INDEFINITE (for "a"), defaults to none (see `lang.getName`)
+    // * article:    Quest.DEFINITE (for "the") or Quest.INDEFINITE (for "a"), defaults to none (see `Quest.lang.getName`)
     // * sep:        separator (defaults to comma)
     // * lastJoiner: separator for last two items (just separator if not provided); you should not include any spaces
-    // * modified:   item aliases modified (see `lang.getName`) (defaults to false)
+    // * modified:   item aliases modified (see `Quest.lang.getName`) (defaults to false)
     // * nothing:    return this if the list is empty (defaults to empty string)
     // * count:      if this is a number, the name will be prefixed by that (instead of the article)
     // * doNotSort   if true the list is not sorted
@@ -160,7 +160,7 @@ export namespace Quest {
 
       const l = itemArray.map((el: any) => {
         //if (el === undefined) return "[undefined]";
-        return typeof el === "string" ? el : lang.getName(el, options)
+        return typeof el === "string" ? el : Quest.lang.getName(el, options)
       })
 
 
@@ -286,7 +286,7 @@ export namespace Quest {
     // Converts the string to the standard direction name, so "down", "dn" and "d" will all return "down".
     // Uses the EXITS array, so language neutral.
     export function getDir(s: any) {
-      for (let exit of lang.exit_list) {
+      for (let exit of Quest.lang.exit_list) {
         if (exit.type === 'nocmd') continue;
         if (exit.name === s) return exit.name;
         if (exit.abbrev.toLowerCase() === s) return exit.name;
@@ -596,7 +596,7 @@ export namespace Quest {
         // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         while (w[contName]) {
           // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          if (w[contName].loc === item.name) return falsemsg(lang.container_recursion, { char: char, container: this, item: item })
+          if (w[contName].loc === item.name) return falsemsg(Quest.lang.container_recursion, { char: char, container: this, item: item })
           // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           contName = w[contName].loc
         }
@@ -609,7 +609,7 @@ export namespace Quest {
         //console.log(contents)
         if (contents.length > 0 && (!o.closed || o.transparent)) {
           // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          list.push(lang.contentsForData[o.contentsType].prefix + o.listContents(world.LOOK) + lang.contentsForData[o.contentsType].suffix)
+          list.push(Quest.lang.contentsForData[o.contentsType].prefix + o.listContents(world.LOOK) + Quest.lang.contentsForData[o.contentsType].suffix)
         }
         //console.log(list)
       },
@@ -763,7 +763,7 @@ export namespace Quest {
       // This should be assigned to an object, and then used from there
       listContents: function (situation: any, modified = true) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'getContents' does not exist on type '{}'... Remove this comment to see the full error message
-        return formatList(this.getContents(situation), { article: Quest.INDEFINITE, lastJoiner: lang.list_and, modified: modified, nothing: lang.list_nothing, loc: this.name })
+        return formatList(this.getContents(situation), { article: Quest.INDEFINITE, lastJoiner: Quest.lang.list_and, modified: modified, nothing: Quest.lang.list_nothing, loc: this.name })
       },
 
 
@@ -936,7 +936,7 @@ export namespace Quest {
         }
         char.player = true
         char.npcPronouns = char.pronouns
-        char.pronouns = pronouns ? pronouns : lang.pronouns.secondperson
+        char.pronouns = pronouns ? pronouns : Quest.lang.pronouns.secondperson
         char.regex = new RegExp('^(me|myself|player|' + (char.npcAlias ? char.npcAlias : char.alias) + ')$')
         player = char
         player = char
@@ -1090,7 +1090,7 @@ export namespace Quest {
         if (!exit) exit = this
         if (char.testMove && !char.testMove(exit)) return false
         if (exit.isLocked()) {
-          return falsemsg(exit.lockedmsg ? exit.lockedmsg : lang.locked_exit, { char: char, exit: exit })
+          return falsemsg(exit.lockedmsg ? exit.lockedmsg : Quest.lang.locked_exit, { char: char, exit: exit })
         }
         if (exit.testExit && !exit.testExit(char, exit)) return false
         for (const el of char.getCarrying()) {
@@ -1107,7 +1107,7 @@ export namespace Quest {
         if (exit.name === '_') return errormsg("Trying to move character to location \"_\" from room " + exit.origin.name + ". This is probably a bug, as \"_\" is used to flag a destination that cannot be reached.")
         if (exit === undefined) exit = this
 
-        char.msg(lang.stop_posture(char))
+        char.msg(Quest.lang.stop_posture(char))
         char.movingMsg(exit)
         char.moveChar(exit)
         return true
@@ -1132,7 +1132,7 @@ export namespace Quest {
         if (!obj.locked) {
           obj.closed = false
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-          msg(lang.open_and_enter, tpParams)
+          msg(Quest.lang.open_and_enter, tpParams)
           char.moveChar(this)
           return true
         }
@@ -1140,12 +1140,12 @@ export namespace Quest {
           obj.closed = false
           obj.locked = false
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-          msg(lang.unlock_and_enter, tpParams)
+          msg(Quest.lang.unlock_and_enter, tpParams)
           char.moveChar(this)
           return true
         }
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        msg(lang.try_but_locked, tpParams)
+        msg(Quest.lang.try_but_locked, tpParams)
         return false
       },
 
@@ -1155,7 +1155,7 @@ export namespace Quest {
       cannotUse: function (char: any, dir: any) {
         const tpParams = { char: char }
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        msg(this.msg ? this.msg : lang.try_but_locked, tpParams)
+        msg(this.msg ? this.msg : Quest.lang.try_but_locked, tpParams)
         return false
       },
     };

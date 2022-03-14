@@ -72,7 +72,7 @@ const RPG_TEMPLATE = {
   },
   testTalk: function () {
     // @ts-expect-error ts-migrate(2552) FIXME: Cannot find name 'falsems'. Did you mean 'falsemsg... Remove this comment to see the full error message
-    if (this.dead) return falsems(lang.npc_dead)
+    if (this.dead) return falsems(Quest.lang.npc_dead)
     return true
   },
   getDefensiveBonus: function (skill: any) {
@@ -188,15 +188,15 @@ const RPG_NPC = function (female: any) {
     o.oldRpgOnCreation(o)
     if (!o.maxHealth) o.maxHealth = o.health
     o.verbFunctions.push(function (o: any, verbList: any) {
-      verbList.push(lang.verbs.attack)
+      verbList.push(Quest.lang.verbs.attack)
     })
     o.nameModifierFunctions.push(function (o: any, list: any) {
-      if (o.dead) list.push(lang.invModifiers.dead)
+      if (o.dead) list.push(Quest.lang.invModifiers.dead)
     })
   }
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'msgDeath' does not exist on type '{ canR... Remove this comment to see the full error message
-  res.msgDeath = lang.deathGeneral
+  res.msgDeath = Quest.lang.deathGeneral
 
   // An NPC is hostile if aggression is true and it is targeting the given character or an allied one
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHostile' does not exist on type '{ can... Remove this comment to see the full error message
@@ -236,7 +236,7 @@ const RPG_NPC = function (female: any) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'ex' does not exist on type '{ canReachTh... Remove this comment to see the full error message
         s = typeof this.ex === 'string' ? this.ex : this.ex()
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'deadAddendum' does not exist on type '{ ... Remove this comment to see the full error message
-        s += lang.deadAddendum
+        s += Quest.lang.deadAddendum
       }
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'asleep' does not exist on type '{ canRea... Remove this comment to see the full error message
@@ -248,7 +248,7 @@ const RPG_NPC = function (female: any) {
       }
       else {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'ex' does not exist on type '{ canReachTh... Remove this comment to see the full error message
-        s = typeof this.ex === 'string' ? this.ex : this.ex() + lang.asleepAddendum
+        s = typeof this.ex === 'string' ? this.ex : this.ex() + Quest.lang.asleepAddendum
       }
     }
     else {
@@ -257,12 +257,12 @@ const RPG_NPC = function (female: any) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'health' does not exist on type '{ canRea... Remove this comment to see the full error message
       if (this.health < this.maxHealth / 5) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'badlyInjuredAddendum' does not exist on ... Remove this comment to see the full error message
-        s += lang.badlyInjuredAddendum
+        s += Quest.lang.badlyInjuredAddendum
       }
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'health' does not exist on type '{ canRea... Remove this comment to see the full error message
       else if (this.health < this.maxHealth / 2) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'injuredAddendum' does not exist on type ... Remove this comment to see the full error message
-        s += lang.injuredAddendum
+        s += Quest.lang.injuredAddendum
       }
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'includeHitsInExamine' does not exist on ... Remove this comment to see the full error message
@@ -277,9 +277,9 @@ const RPG_NPC = function (female: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'search' does not exist on type '{ canRea... Remove this comment to see the full error message
   res.search = function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'dead' does not exist on type '{ canReach... Remove this comment to see the full error message
-    if (!this.dead && !this.asleep) return falsemsg(lang.searchAlive, options)
+    if (!this.dead && !this.asleep) return falsemsg(Quest.lang.searchAlive, options)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSearch' does not exist on type '{... Remove this comment to see the full error message
-    if (!Quest.Settings.settings.defaultSearch) return falsemsg(lang.searchNothing, options)
+    if (!Quest.Settings.settings.defaultSearch) return falsemsg(Quest.lang.searchNothing, options)
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSearch' does not exist on type '{... Remove this comment to see the full error message
     Quest.Settings.settings.defaultSearch(this)
@@ -406,9 +406,9 @@ const RPG_CORPOREAL_UNDEAD = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'element' does not exist on type '{ canRe... Remove this comment to see the full error message
   res.element = 'necrotic'
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'pronouns' does not exist on type '{ canR... Remove this comment to see the full error message
-  res.pronouns = lang.pronouns.thirdperson
+  res.pronouns = Quest.lang.pronouns.thirdperson
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'msgDeath' does not exist on type '{ canR... Remove this comment to see the full error message
-  res.msgDeath = lang.deathUndead
+  res.msgDeath = Quest.lang.deathUndead
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'poisonImmunity' does not exist on type '... Remove this comment to see the full error message
   res.poisonImmunity = true
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'poisonImmunityMsg' does not exist on typ... Remove this comment to see the full error message
@@ -421,7 +421,7 @@ const RPG_NON_CORPOREAL_UNDEAD = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'noCorpse' does not exist on type '{ canR... Remove this comment to see the full error message
   res.noCorpse = true
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'msgDeath' does not exist on type '{ canR... Remove this comment to see the full error message
-  res.msgDeath = lang.deathUndeadNoCorpse
+  res.msgDeath = Quest.lang.deathUndeadNoCorpse
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'modifyIncomingAttack' does not exist on ... Remove this comment to see the full error message
   res.modifyIncomingAttack = function (attack: any) {
     if (attack.element || attack.isMagic || attack.spell) {
@@ -440,9 +440,9 @@ const RPG_PHANTOM = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'noCorpse' does not exist on type '{ canR... Remove this comment to see the full error message
   res.noCorpse = true
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'msgDeath' does not exist on type '{ canR... Remove this comment to see the full error message
-  res.msgDeath = lang.deathPhantom
+  res.msgDeath = Quest.lang.deathPhantom
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'pronouns' does not exist on type '{ canR... Remove this comment to see the full error message
-  res.pronouns = lang.pronouns.thirdperson
+  res.pronouns = Quest.lang.pronouns.thirdperson
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'poisonImmunity' does not exist on type '... Remove this comment to see the full error message
   res.poisonImmunity = true
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'poisonImmunityMsg' does not exist on typ... Remove this comment to see the full error message
@@ -473,9 +473,9 @@ const RPG_ELEMENTAL = function (element: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'noCorpse' does not exist on type '{ canR... Remove this comment to see the full error message
   res.noCorpse = true
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'msgDeath' does not exist on type '{ canR... Remove this comment to see the full error message
-  res.msgDeath = lang.deathElemental
+  res.msgDeath = Quest.lang.deathElemental
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'pronouns' does not exist on type '{ canR... Remove this comment to see the full error message
-  res.pronouns = lang.pronouns.thirdperson
+  res.pronouns = Quest.lang.pronouns.thirdperson
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'poisonImmunity' does not exist on type '... Remove this comment to see the full error message
   res.poisonImmunity = true
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'poisonImmunityMsg' does not exist on typ... Remove this comment to see the full error message
@@ -487,9 +487,9 @@ const RPG_CONSTRUCT = function () {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
   const res = RPG_NPC()
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'msgDeath' does not exist on type '{ canR... Remove this comment to see the full error message
-  res.msgDeath = lang.deathConstruct
+  res.msgDeath = Quest.lang.deathConstruct
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'pronouns' does not exist on type '{ canR... Remove this comment to see the full error message
-  res.pronouns = lang.pronouns.thirdperson
+  res.pronouns = Quest.lang.pronouns.thirdperson
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'poisonImmunity' does not exist on type '... Remove this comment to see the full error message
   res.poisonImmunity = true
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'poisonImmunityMsg' does not exist on typ... Remove this comment to see the full error message
@@ -501,9 +501,9 @@ const RPG_DEMON = function () {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
   const res = RPG_NPC()
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'msgDeath' does not exist on type '{ canR... Remove this comment to see the full error message
-  res.msgDeath = lang.deathConstruct
+  res.msgDeath = Quest.lang.deathConstruct
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'pronouns' does not exist on type '{ canR... Remove this comment to see the full error message
-  res.pronouns = lang.pronouns.thirdperson
+  res.pronouns = Quest.lang.pronouns.thirdperson
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'poisonImmunity' does not exist on type '... Remove this comment to see the full error message
   res.poisonImmunity = true
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'poisonImmunityMsg' does not exist on typ... Remove this comment to see the full error message
@@ -515,9 +515,9 @@ const RPG_CORRUPTED = function () {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
   const res = RPG_NPC()
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'msgDeath' does not exist on type '{ canR... Remove this comment to see the full error message
-  res.msgDeath = lang.deathConstruct
+  res.msgDeath = Quest.lang.deathConstruct
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'pronouns' does not exist on type '{ canR... Remove this comment to see the full error message
-  res.pronouns = lang.pronouns.thirdperson
+  res.pronouns = Quest.lang.pronouns.thirdperson
   return res
 }
 
@@ -525,9 +525,9 @@ const RPG_CREATED = function () {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
   const res = RPG_NPC()
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'msgDeath' does not exist on type '{ canR... Remove this comment to see the full error message
-  res.msgDeath = lang.deathConstruct
+  res.msgDeath = Quest.lang.deathConstruct
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'pronouns' does not exist on type '{ canR... Remove this comment to see the full error message
-  res.pronouns = lang.pronouns.thirdperson
+  res.pronouns = Quest.lang.pronouns.thirdperson
   return res
 }
 
@@ -535,9 +535,9 @@ const RPG_PLANT = function () {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
   const res = RPG_NPC()
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'msgDeath' does not exist on type '{ canR... Remove this comment to see the full error message
-  res.msgDeath = lang.deathConstruct
+  res.msgDeath = Quest.lang.deathConstruct
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'pronouns' does not exist on type '{ canR... Remove this comment to see the full error message
-  res.pronouns = lang.pronouns.thirdperson
+  res.pronouns = Quest.lang.pronouns.thirdperson
   return res
 }
 
@@ -559,11 +559,11 @@ const RPG_BEAST = function (female: any, aggressive: any) {
   res.aggressive = aggressive
   res.testTalk = function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'dead' does not exist on type '{ canReach... Remove this comment to see the full error message
-    if (this.dead) return falsems(lang.npc_dead)
+    if (this.dead) return falsems(Quest.lang.npc_dead)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'activeEffects' does not exist on type '{... Remove this comment to see the full error message
-    if (this.activeEffects.includes(lang.communeWithAnimalSpell)) return true
+    if (this.activeEffects.includes(Quest.lang.communeWithAnimalSpell)) return true
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'cannotTalkToBeast' does not exist on typ... Remove this comment to see the full error message
-    return falsemsg(lang.cannotTalkToBeast, { item: this, char: player })
+    return falsemsg(Quest.lang.cannotTalkToBeast, { item: this, char: player })
   }
 
   return res

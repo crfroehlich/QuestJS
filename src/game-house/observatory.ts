@@ -370,7 +370,7 @@ for (const dir of w.telescope.azimuths) {
     },
     simpleUse: function (char: any) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
-      if (this.dir !== w.telescope.azimuths[w.telescope.azimuth]) return falsemsg(lang.not_that_way, { char: char, dir: this.dir })
+      if (this.dir !== w.telescope.azimuths[w.telescope.azimuth]) return falsemsg(Quest.lang.not_that_way, { char: char, dir: this.dir })
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
       if (w.telescope.altitude > 4) return falsemsg("Mandy looks at the end of the telescope; if it were not so steep and smooth, she could edge along it{if:telescope:azimuth:6:, and perhaps get out onto the roof to the west}.")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSimpleExitUse' does not exist on ... Remove this comment to see the full error message
@@ -397,7 +397,7 @@ for (const dir of w.telescope.azimuths) {
       if (w.telescope.roofOpen && this.dir !== "west" && this.dir === w.telescope.azimuths[w.telescope.azimuth]) return falsemsg("Mandy considers for a moment a leap of faith from the end of the telescope, out through the slot in the ceiling... No, not a good idea.")
 
 
-      if (this.isHidden()) return falsemsg(lang.not_that_way, { char: char, dir: this.dir })
+      if (this.isHidden()) return falsemsg(Quest.lang.not_that_way, { char: char, dir: this.dir })
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
       if (this.dir === w.telescope.azimuths[(w.telescope.azimuth + 4) % 8]) return Quest.Utilities.util.defaultSimpleExitUse(char, this)
 

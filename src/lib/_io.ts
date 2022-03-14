@@ -5,7 +5,7 @@ const printError = function (msg: any, err: any, suppressTrace: any) {
   console.error("ERROR: " + msg)
   if (world.isCreated) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'print' does not exist on type '{ nextid:... Remove this comment to see the full error message
-    io.print({ tag: 'p', cssClass: "error", text: lang.error })
+    io.print({ tag: 'p', cssClass: "error", text: Quest.lang.error })
     saveLoad.transcriptAppend({ cssClass: 'error', text: msg, stack: err.stack, })
   }
   if (suppressTrace) return false
@@ -480,7 +480,7 @@ function showMenu(title: any, options: any, fn: any) {
   io.input(title, options, false, fn, function (options: any) {
     for (let i = 0; i < options.length; i++) {
       let s = '<a class="menu-option" onclick="io.menuResponse(' + i + ')">';
-      s += (typeof options[i] === 'string' ? options[i] : lang.getName(options[i], opts))
+      s += (typeof options[i] === 'string' ? options[i] : Quest.lang.getName(options[i], opts))
       s += '</a>';
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       msg(s);
@@ -528,7 +528,7 @@ function showMenuNumbersOnly(title: any, options: any, fn: any) {
   io.input(title, options, disableTextFunction, fn, function (options: any) {
     for (let i = 0; i < options.length; i++) {
       let s = (i + 1) + '. <a class="menu-option" onclick="io.menuResponse(' + i + ')">';
-      s += (typeof options[i] === 'string' ? options[i] : lang.getName(options[i], opts))
+      s += (typeof options[i] === 'string' ? options[i] : Quest.lang.getName(options[i], opts))
       s += '</a>';
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       msg(s);
@@ -566,7 +566,7 @@ function showMenuWithNumbers(title: any, options: any, fn: any) {
   io.input(title, options, disableTextFunction, fn, function (options: any) {
     for (let i = 0; i < options.length; i++) {
       let s = (i + 1) + '. <a class="menu-option" onclick="io.menuResponse(' + i + ')">';
-      s += (typeof options[i] === 'string' ? options[i] : lang.getName(options[i], opts))
+      s += (typeof options[i] === 'string' ? options[i] : Quest.lang.getName(options[i], opts))
       s += '</a>';
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       msg(s);
@@ -586,7 +586,7 @@ function showDropDown(title: any, options: any, fn: any) {
     s += '<option value="-1">-- Select one --</option>';
     for (let i = 0; i < options.length; i++) {
       s += '<option value="' + (i + 1) + '">';
-      s += (typeof options[i] === 'string' ? options[i] : lang.getName(options[i], opts))
+      s += (typeof options[i] === 'string' ? options[i] : Quest.lang.getName(options[i], opts))
       s += '</option>';
     }
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -635,7 +635,7 @@ function showMenuDiag(title: any, options: any, fn: any, cssClass: any) {
     }
     for (let i = 0; i < options.length; i++) {
       s += '<p value="' + i + '" onclick="io.menuResponse(' + i + ')" class="sidepane-menu-option">'
-      s += (typeof options[i] === 'string' ? options[i] : lang.getName(options[i], opts))
+      s += (typeof options[i] === 'string' ? options[i] : Quest.lang.getName(options[i], opts))
       s += '</p>';
     }
     s += '</div>'
@@ -652,15 +652,15 @@ function showMenuDiag(title: any, options: any, fn: any, cssClass: any) {
 
 
 function showYesNoMenu(title: any, fn: any) {
-  showMenu(title, lang.yesNo, fn)
+  showMenu(title, Quest.lang.yesNo, fn)
 }
 
 function showYesNoMenuWithNumbers(title: any, fn: any) {
-  showMenuWithNumbers(title, lang.yesNo, fn)
+  showMenuWithNumbers(title, Quest.lang.yesNo, fn)
 }
 
 function showYesNoDropDown(title: any, fn: any) {
-  showDropDown(title, lang.yesNo, fn)
+  showDropDown(title, Quest.lang.yesNo, fn)
 }
 
 
@@ -771,8 +771,8 @@ function askDiag(title: any, fn: any, submitButton: any) {
 // This should be called after each turn to ensure we are at the end of the page and the text box has the focus
 function endTurnUI(update: any) {
   if (Quest.Settings.settings.panes !== 'none' && update) {
-    // set the lang.exit_list
-    for (let exit of lang.exit_list) {
+    // set the Quest.lang.exit_list
+    for (let exit of Quest.lang.exit_list) {
       const el = document.querySelector('#exit-' + exit.name)
       if (!el) continue
       if (currentLocation.hasExit(exit.name, { excludeScenery: true }) || exit.type === 'nocmd') {
@@ -868,7 +868,7 @@ const io = {
     const tab = window.open('about:blank', '_blank')
     if (!tab) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      metamsg(lang.new_tab_failed)
+      metamsg(Quest.lang.new_tab_failed)
       return false
     }
 
@@ -1034,7 +1034,7 @@ io.outputFromQueue = function () {
     //if (Quest.Settings.settings.textInput) document.querySelector('#input').style.display = 'none'
     data.tag = 'p'
     data.onclick = "io.unpause()"
-    if (!data.text) data.text = lang.click_to_continue
+    if (!data.text) data.text = Quest.lang.click_to_continue
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'print' does not exist on type '{ nextid:... Remove this comment to see the full error message
     io.print(data)
   }
@@ -1725,7 +1725,7 @@ io.createPanes = function () {
   }
 
   html += '<div class="pane-div-finished">'
-  html += lang.game_over_html
+  html += Quest.lang.game_over_html
   html += '</div>'
   html += '</div>'
 
@@ -1752,11 +1752,11 @@ io.createPanes = function () {
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'writeExit' does not exist on type '{ nex... Remove this comment to see the full error message
 io.writeExit = function (n: any) {
-  let html = '<td class="compass-button" title="' + lang.exit_list[n].name + '">'
-  html += '<span class="compass-button" id="exit-' + lang.exit_list[n].name
-  html += '" onclick="io.clickExit(\'' + lang.exit_list[n].name + '\')">'
+  let html = '<td class="compass-button" title="' + Quest.lang.exit_list[n].name + '">'
+  html += '<span class="compass-button" id="exit-' + Quest.lang.exit_list[n].name
+  html += '" onclick="io.clickExit(\'' + Quest.lang.exit_list[n].name + '\')">'
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'displayIconsCompass' does not exist on t... Remove this comment to see the full error message
-  html += Quest.Settings.settings.symbolsForCompass ? io.displayIconsCompass(lang.exit_list[n]) : lang.exit_list[n].abbrev
+  html += Quest.Settings.settings.symbolsForCompass ? io.displayIconsCompass(Quest.lang.exit_list[n]) : Quest.lang.exit_list[n].abbrev
   html += '</span></td>'
   return html
 };
@@ -1817,7 +1817,7 @@ io.init = function () {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'customKeyResponses' does not exist on ty... Remove this comment to see the full error message
       if (Quest.Settings.settings.customKeyResponses(keycode, event)) return false
     }
-    for (let exit of lang.exit_list) {
+    for (let exit of Quest.lang.exit_list) {
       if (exit.key && exit.key === keycode) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'msgInputText' does not exist on type '{ ... Remove this comment to see the full error message
         io.msgInputText(exit.name);
@@ -1964,7 +1964,7 @@ io.init = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'setTitleAndInit' does not exist on type ... Remove this comment to see the full error message
   io.setTitleAndInit(Quest.Settings.settings.title)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
-  if (Quest.Settings.settings.playMode === 'beta') lang.betaTestIntro()
+  if (Quest.Settings.settings.playMode === 'beta') Quest.lang.betaTestIntro()
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
   Quest.Settings.settings.performanceLog('Title/intro printed')
 
@@ -2076,7 +2076,7 @@ io.finish = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'finishMetaComment' does not exist on typ... Remove this comment to see the full error message
   if (Quest.Settings.settings.finishMetaComment) metamsg(Quest.Settings.settings.finishMetaComment)
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
-  if (saveLoad.transcriptExists()) metamsg(lang.transcript_finish)
+  if (saveLoad.transcriptExists()) metamsg(Quest.lang.transcript_finish)
 }
 
 
@@ -2097,7 +2097,7 @@ io.toggleDarkMode = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'textColour' does not exist on type '{ ne... Remove this comment to see the full error message
   if (Quest.Settings.settings.panes !== 'none') io.textColour = document.querySelector(".side-panes").style.color
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  metamsg(lang.done_msg)
+  metamsg(Quest.lang.done_msg)
   return world.SUCCESS_NO_TURNSCRIPTS
 }
 
@@ -2109,7 +2109,7 @@ io.toggleAutoScrollMode = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterAutoScrollToggle' does not exist on... Remove this comment to see the full error message
   if (Quest.Settings.settings.afterAutoScrollToggle) Quest.Settings.settings.afterAutoScrollToggle()
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  metamsg(lang.done_msg)
+  metamsg(Quest.lang.done_msg)
   return world.SUCCESS_NO_TURNSCRIPTS
 }
 
@@ -2130,7 +2130,7 @@ io.toggleNarrowMode = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterNarrowChange' does not exist on typ... Remove this comment to see the full error message
   if (Quest.Settings.settings.afterNarrowChange) Quest.Settings.settings.afterNarrowChange()
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  metamsg(lang.done_msg)
+  metamsg(Quest.lang.done_msg)
   return world.SUCCESS_NO_TURNSCRIPTS
 }
 
@@ -2149,7 +2149,7 @@ io.togglePlainFontMode = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterPlainFontToggle' does not exist on ... Remove this comment to see the full error message
   if (Quest.Settings.settings.afterPlainFontToggle) Quest.Settings.settings.afterPlainFontToggle()
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  metamsg(lang.done_msg)
+  metamsg(Quest.lang.done_msg)
   return world.SUCCESS_NO_TURNSCRIPTS
 }
 
@@ -2220,7 +2220,7 @@ io.againOrOops = function (isAgain: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'savedCommands' does not exist on type '{... Remove this comment to see the full error message
   if (io.savedCommands.length === 0) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    metamsg(lang.again_not_available)
+    metamsg(Quest.lang.again_not_available)
     return world.FAILED
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'savedCommands' does not exist on type '{... Remove this comment to see the full error message
@@ -2306,7 +2306,7 @@ io.createToolbar = function () {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'getToolbarHTML' does not exist on type '... Remove this comment to see the full error message
 io.getToolbarHTML = function (data = {}) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'room' does not exist on type '{}'.
-  if (data.room) return Quest.Utilities.sentenceCase(lang.getName(w[player.loc], { article: Quest.Utilities.DEFINITE }))
+  if (data.room) return Quest.Utilities.sentenceCase(Quest.lang.getName(w[player.loc], { article: Quest.Utilities.DEFINITE }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   if (data.title) return '<b><i>' + Quest.Settings.settings.title + '</i></b>'
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'content' does not exist on type '{}'.

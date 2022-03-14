@@ -196,7 +196,7 @@ createRoom("steam_corridor", {
 createItem("pipes", {
   loc: "steam_corridor",
   scenery: true,
-  pronouns: lang.pronouns.plural,
+  pronouns: Quest.lang.pronouns.plural,
   examine: "The pipes are brass, and polished to a shine, though as she looks more closely Mandy can see the more hidden bits are not so well cared for. Some are too hot to touch, others feel very cold.",
 })
 
@@ -205,7 +205,7 @@ createItem("vent", {
   loc: "steam_corridor",
   scenery: true,
   synonyms: ['duct'],
-  pronouns: lang.pronouns.plural,
+  pronouns: Quest.lang.pronouns.plural,
   examine: "{if:grating:scenery:The vent behind the grating looks dark:The vent is about half a metre wide and a little higher. There are pipes running through it at the top. It is too dark to see far into it}.",
 })
 
@@ -241,7 +241,7 @@ createItem("grating", TAKEABLE(), {
     return falsemsg("Mandy gives the grating a good pull, but it is not moving. If she was stronger... or had something to use as a lever...")
   },
   afterMove: function (options: any) {
-    this.msgTake = lang.take_successful
+    this.msgTake = Quest.lang.take_successful
   },
   open: function (options: any) { return this.take(options) },
 })
@@ -285,7 +285,7 @@ createRoom("steam_corridor_duct", {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("Silver", NPC(), {
-  pronouns: lang.pronouns.thirdperson,
+  pronouns: Quest.lang.pronouns.thirdperson,
   synonyms: ['silver man', 'silver humanoid', 'silver figure'],
   scenery: true,
   active: false,
@@ -566,7 +566,7 @@ createRoom("steam_control_room", {
 createItem("steampunk_controls", {
   alias: 'controls',
   count: 0,
-  pronouns: lang.pronouns.plural,
+  pronouns: Quest.lang.pronouns.plural,
   loc: "steam_control_room",
   synonyms: ['knobs', 'dials', 'switches'],
   examine: 'There is a myriad of knobs, switches and dials, with no obvious pattern.{ifMoreThan:steampunk_controls:count:4: There is smoke coming from the panel.}',

@@ -8,15 +8,15 @@
 const TAKEABLE_DICTIONARY = {
   afterCreation: function (o: any) {
     o.verbFunctions.push(function (o: any, verbList: any) {
-      verbList.push(o.isAtLoc(player.name) ? lang.verbs.drop : lang.verbs.take)
+      verbList.push(o.isAtLoc(player.name) ? Quest.lang.verbs.drop : Quest.lang.verbs.take)
     })
   },
 
   takeable: true,
-  msgDrop: lang.drop_successful,
-  msgDropIn: lang.done_msg,
-  msgTake: lang.take_successful,
-  msgTakeOut: lang.done_msg,
+  msgDrop: Quest.lang.drop_successful,
+  msgDropIn: Quest.lang.done_msg,
+  msgTake: Quest.lang.take_successful,
+  msgTakeOut: Quest.lang.done_msg,
 
   drop: function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'testDrop' does not exist on type '{ afte... Remove this comment to see the full error message
@@ -35,7 +35,7 @@ const TAKEABLE_DICTIONARY = {
   take: function (options: any) {
     const char = options.char
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isAtLoc' does not exist on type '{ after... Remove this comment to see the full error message
-    if (this.isAtLoc(char.name)) return falsemsg(lang.already_have, options)
+    if (this.isAtLoc(char.name)) return falsemsg(Quest.lang.already_have, options)
     if (!char.testManipulate(this, "take")) return false
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'testTake' does not exist on type '{ afte... Remove this comment to see the full error message
     if (this.testTake && !this.testTake(options)) return false
@@ -97,7 +97,7 @@ const createEnsemble = function (name: any, ensembleMembers: any, dict: any) {
 
   // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
   res.nameModifierFunctions = [function (o: any, list: any) {
-    if (o.ensembleMembers[0].getWorn() && o.isAllTogether() && o.ensembleMembers[0].isAtLoc(player.name)) list.push(lang.invModifiers.worn)
+    if (o.ensembleMembers[0].getWorn() && o.isAllTogether() && o.ensembleMembers[0].isAtLoc(player.name)) list.push(Quest.lang.invModifiers.worn)
   }]
 
 
@@ -134,9 +134,9 @@ const createEnsemble = function (name: any, ensembleMembers: any, dict: any) {
   }
 
   // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
-  res.msgDrop = lang.drop_successful
+  res.msgDrop = Quest.lang.drop_successful
   // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
-  res.msgTake = lang.take_successful
+  res.msgTake = Quest.lang.take_successful
 
   // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
   res.drop = function (options: any) {
@@ -159,7 +159,7 @@ const createEnsemble = function (name: any, ensembleMembers: any, dict: any) {
     // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
     if (this.isAtLoc(char.name)) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(lang.already_have, options);
+      msg(Quest.lang.already_have, options);
       return false;
     }
 
@@ -189,8 +189,8 @@ const MERCH = function (value: any, locs: any) {
   const res = {
     price: value,
     getPrice: function () { return this.price },
-    msgPurchase: lang.purchase_successful,
-    msgSell: lang.sell_successful,
+    msgPurchase: Quest.lang.purchase_successful,
+    msgSell: Quest.lang.sell_successful,
 
 
     // The price when the player sells the item
@@ -250,12 +250,12 @@ const MERCH = function (value: any, locs: any) {
       if (this.testPurchase && !this.testPurchase(options)) return false
       if (!this.isForSale(options.char.loc)) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'doNotClone' does not exist on type '{ pr... Remove this comment to see the full error message
-        return failedmsg(this.doNotClone && this.isAtLoc(options.char.name) ? lang.cannot_purchase_again : lang.cannot_purchase_here, options)
+        return failedmsg(this.doNotClone && this.isAtLoc(options.char.name) ? Quest.lang.cannot_purchase_again : Quest.lang.cannot_purchase_here, options)
       }
 
       const cost = this.getBuyingPrice(options.char);
       options.money = cost
-      if (options.char.money < cost) return failedmsg(lang.cannot_afford, options);
+      if (options.char.money < cost) return failedmsg(Quest.lang.cannot_afford, options);
       return this.purchaseScript(options, options.char, cost)
     },
 
@@ -289,7 +289,7 @@ const MERCH = function (value: any, locs: any) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'testSell' does not exist on type '{ pric... Remove this comment to see the full error message
       if (this.testSell && !this.testSell(options)) return false
       if (!this.canBeSoldHere(options.char.loc)) {
-        return failedmsg(lang.cannot_sell_here, options);
+        return failedmsg(Quest.lang.cannot_sell_here, options);
       }
       const cost = this.getSellingPrice(options.char);
       options.money = cost
@@ -502,7 +502,7 @@ const COUNTABLE = function (countableLocs: any) {
   res.take = function (options) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'findSource' does not exist on type '{ af... Remove this comment to see the full error message
     const sourceLoc = this.findSource(options.char.loc, true);
-    if (!sourceLoc) return falsemsg(lang.none_here, options)
+    if (!sourceLoc) return falsemsg(Quest.lang.none_here, options)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'getTakeDropCount' does not exist on type... Remove this comment to see the full error message
     this.getTakeDropCount(options, sourceLoc)
 
@@ -524,7 +524,7 @@ const COUNTABLE = function (countableLocs: any) {
 
   res.drop = function (options) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'countAtLoc' does not exist on type '{ af... Remove this comment to see the full error message
-    if (this.countAtLoc(options.char.name) === 0) return falsemsg(lang.none_held, options)
+    if (this.countAtLoc(options.char.name) === 0) return falsemsg(Quest.lang.none_held, options)
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     const dest = w[options.char.loc]
     options.destination = dest
@@ -578,26 +578,26 @@ const WEARABLE = function (wear_layer: any, slots: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getArmour' does not exist on type '{ aft... Remove this comment to see the full error message
   res.getArmour = function () { return this.armour }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'msgWear' does not exist on type '{ after... Remove this comment to see the full error message
-  res.msgWear = lang.wear_successful
+  res.msgWear = Quest.lang.wear_successful
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'msgRemove' does not exist on type '{ aft... Remove this comment to see the full error message
-  res.msgRemove = lang.remove_successful
+  res.msgRemove = Quest.lang.remove_successful
 
   res.afterCreation = function (o) {
     o.verbFunctions.push(function (o: any, verbList: any) {
       if (!o.isAtLoc(player.name)) {
-        verbList.push(lang.verbs.take)
+        verbList.push(Quest.lang.verbs.take)
       }
       else if (o.getWorn()) {
-        if (!o.getWearRemoveBlocker(player, false)) verbList.push(lang.verbs.remove)
+        if (!o.getWearRemoveBlocker(player, false)) verbList.push(Quest.lang.verbs.remove)
       }
       else {
-        verbList.push(lang.verbs.drop)
-        if (!o.getWearRemoveBlocker(player, true)) verbList.push(lang.verbs.wear)
+        verbList.push(Quest.lang.verbs.drop)
+        if (!o.getWearRemoveBlocker(player, true)) verbList.push(Quest.lang.verbs.wear)
       }
     })
 
     o.nameModifierFunctions.push(function (o: any, list: any) {
-      if (o.worn && o.isAtLoc(player.name)) list.push(lang.invModifiers.worn)
+      if (o.worn && o.isAtLoc(player.name)) list.push(Quest.lang.invModifiers.worn)
     })
   }
 
@@ -639,7 +639,7 @@ const WEARABLE = function (wear_layer: any, slots: any) {
     const outer = this.getWearRemoveBlocker(options.char, toWear)
     if (outer) {
       options.outer = outer
-      return falsemsg(toWear ? lang.cannot_wear_over : lang.cannot_remove_under, options)
+      return falsemsg(toWear ? Quest.lang.cannot_wear_over : Quest.lang.cannot_remove_under, options)
     }
     return true;
   };
@@ -681,11 +681,11 @@ const WEARABLE = function (wear_layer: any, slots: any) {
 
 
 const OPENABLE_DICTIONARY = {
-  msgClose: lang.close_successful,
-  msgOpen: lang.open_successful,
-  msgLock: lang.lock_successful,
-  msgUnlock: lang.unlock_successful,
-  msgCloseAndLock: lang.close_and_lock_successful,
+  msgClose: Quest.lang.close_successful,
+  msgOpen: Quest.lang.open_successful,
+  msgLock: Quest.lang.lock_successful,
+  msgUnlock: Quest.lang.unlock_successful,
+  msgCloseAndLock: Quest.lang.close_and_lock_successful,
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
   openMsg: function (options: any) { msg(this.msgOpen, options) },
   open: function (options: any) {
@@ -693,13 +693,13 @@ const OPENABLE_DICTIONARY = {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'openable' does not exist on type '{ msgC... Remove this comment to see the full error message
     if (!this.openable) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(lang.cannot_open, { item: this });
+      msg(Quest.lang.cannot_open, { item: this });
       return false;
     }
     // @ts-expect-error ts-migrate(2551) FIXME: Property 'closed' does not exist on type '{ msgClo... Remove this comment to see the full error message
     else if (!this.closed) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(lang.already, { item: this });
+      msg(Quest.lang.already, { item: this });
       return false;
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'testOpen' does not exist on type '{ msgC... Remove this comment to see the full error message
@@ -721,7 +721,7 @@ const OPENABLE_DICTIONARY = {
       }
       else {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        msg(lang.locked, options)
+        msg(Quest.lang.locked, options)
         return false;
       }
     }
@@ -738,13 +738,13 @@ const OPENABLE_DICTIONARY = {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'openable' does not exist on type '{ msgC... Remove this comment to see the full error message
     if (!this.openable) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(lang.cannot_close, { item: this });
+      msg(Quest.lang.cannot_close, { item: this });
       return false;
     }
     // @ts-expect-error ts-migrate(2551) FIXME: Property 'closed' does not exist on type '{ msgClo... Remove this comment to see the full error message
     else if (this.closed) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(lang.already, { item: this });
+      msg(Quest.lang.already, { item: this });
       return false;
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'testClose' does not exist on type '{ msg... Remove this comment to see the full error message
@@ -787,7 +787,7 @@ const CONTAINER = function (openable: any) {
   res.afterCreation = function (o: any) {
     o.verbFunctions.push(function (o: any, verbList: any) {
       if (o.openable) {
-        verbList.push(o.closed ? lang.verbs.open : lang.verbs.close);
+        verbList.push(o.closed ? Quest.lang.verbs.open : Quest.lang.verbs.close);
       }
     })
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'nameModifierFunctionForContainer' does n... Remove this comment to see the full error message
@@ -800,13 +800,13 @@ const CONTAINER = function (openable: any) {
       // @ts-expect-error ts-migrate(2551) FIXME: Property 'closed' does not exist on type '{ msgClo... Remove this comment to see the full error message
       if (this.closed && !this.transparent) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        msg(lang.nothing_inside, options);
+        msg(Quest.lang.nothing_inside, options);
         return false;
       }
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'listContents' does not exist on type '{ ... Remove this comment to see the full error message
       options.list = this.listContents(world.LOOK, true)
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(lang.look_inside, options);
+      msg(Quest.lang.look_inside, options);
       return true;
     };
 
@@ -814,7 +814,7 @@ const CONTAINER = function (openable: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'listContents' does not exist on type '{ ... Remove this comment to see the full error message
     options.list = this.listContents(world.LOOK)
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg(this.msgOpen + " " + (options.list === lang.list_nothing ? lang.it_is_empty : lang.look_inside_it), options)
+    msg(this.msgOpen + " " + (options.list === Quest.lang.list_nothing ? Quest.lang.it_is_empty : Quest.lang.look_inside_it), options)
   };
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'icon' does not exist on type '{ msgClose... Remove this comment to see the full error message
@@ -870,10 +870,10 @@ const OPENABLE = function (alreadyOpen: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterCreation' does not exist on type '{... Remove this comment to see the full error message
   res.afterCreation = function (o: any) {
     o.verbFunctions.push(function (o: any, verbList: any) {
-      verbList.push(o.closed ? lang.verbs.open : lang.verbs.close);
+      verbList.push(o.closed ? Quest.lang.verbs.open : Quest.lang.verbs.close);
     })
     o.nameModifierFunctions.push(function (o: any, list: any) {
-      if (!o.closed) list.push(lang.invModifiers.open)
+      if (!o.closed) list.push(Quest.lang.invModifiers.open)
     })
   }
 
@@ -893,8 +893,8 @@ const LOCKED_WITH = function (keyNames: any) {
 
     lock: function (options: any) {
       options.container = this
-      if (this.locked) return falsemsg(lang.already, options)
-      if (!this.testKeys(options.char, true)) return falsemsg(lang.no_key, options)
+      if (this.locked) return falsemsg(Quest.lang.already, options)
+      if (!this.testKeys(options.char, true)) return falsemsg(Quest.lang.no_key, options)
 
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'closed' does not exist on type '{ keyNam... Remove this comment to see the full error message
       if (!this.closed) {
@@ -916,12 +916,12 @@ const LOCKED_WITH = function (keyNames: any) {
 
     unlock: function (options: any) {
       options.container = this
-      if (!this.locked) return falsemsg(lang.already, { item: this })
+      if (!this.locked) return falsemsg(Quest.lang.already, { item: this })
       if (options.secondItem) {
-        if (!this.keyNames.includes(options.secondItem.name)) return falsemsg(lang.cannot_unlock_with, options)
+        if (!this.keyNames.includes(options.secondItem.name)) return falsemsg(Quest.lang.cannot_unlock_with, options)
       }
       else {
-        if (!this.testKeys(options.char, false)) return falsemsg(lang.no_key, options)
+        if (!this.testKeys(options.char, false)) return falsemsg(Quest.lang.no_key, options)
       }
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
       msg(this.msgUnlock, options)
@@ -993,14 +993,14 @@ const LOCKED_DOOR = function (key: any, loc1: any, loc2: any, name1: any, name2:
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'dir1' does not exist on type '{ msgClose... Remove this comment to see the full error message
     room1[this.dir1].door = this.name
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'dir1' does not exist on type '{ msgClose... Remove this comment to see the full error message
-    room1[this.dir1].doorName = this.name1 || 'door to ' + lang.getName(w[this.loc2], { article: Quest.Utilities.DEFINITE })
+    room1[this.dir1].doorName = this.name1 || 'door to ' + Quest.lang.getName(w[this.loc2], { article: Quest.Utilities.DEFINITE })
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'dir2' does not exist on type '{ msgClose... Remove this comment to see the full error message
     room2[this.dir2].use = Quest.Utilities.util.useWithDoor
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'dir2' does not exist on type '{ msgClose... Remove this comment to see the full error message
     room2[this.dir2].door = this.name
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'dir2' does not exist on type '{ msgClose... Remove this comment to see the full error message
-    room2[this.dir2].doorName = this.name2 || 'door to ' + lang.getName(w[this.loc1], { article: Quest.Utilities.DEFINITE })
+    room2[this.dir2].doorName = this.name2 || 'door to ' + Quest.lang.getName(w[this.loc1], { article: Quest.Utilities.DEFINITE })
   }
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'isLocatedAt' does not exist on type '{ m... Remove this comment to see the full error message
@@ -1034,7 +1034,7 @@ const READABLE = function (mustBeHeld: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterCreation' does not exist on type '{... Remove this comment to see the full error message
   res.afterCreation = function (o: any) {
     o.verbFunctions.push(function (o: any, verbList: any) {
-      if (o.loc === player.name || !o.mustBeHeld) verbList.push(lang.verbs.read)
+      if (o.loc === player.name || !o.mustBeHeld) verbList.push(Quest.lang.verbs.read)
     })
   }
   return res;
@@ -1049,11 +1049,11 @@ const FURNITURE = function (options: any) {
     testPostureOn: () => true,
     getoff: function (options: any) {
       if (!options.char.posture) {
-        options.char.msg(lang.already, options);
+        options.char.msg(Quest.lang.already, options);
         return false;
       }
       if (options.char.posture) {
-        options.char.msg(lang.stop_posture(options.char));  // stop_posture handles details
+        options.char.msg(Quest.lang.stop_posture(options.char));  // stop_posture handles details
         return true;
       }
     },
@@ -1069,13 +1069,13 @@ const FURNITURE = function (options: any) {
   res.afterCreation = function (o: any) {
     o.verbFunctions.push(function (o: any, verbList: any) {
       if (player.posture && player.postureFurniture === o.name) {
-        verbList.push(lang.verbs.getOff)
+        verbList.push(Quest.lang.verbs.getOff)
         return
       }
       if (player.posture && player.posture !== 'standing') return
-      if (o.siton) verbList.push(lang.verbs.sitOn)
-      if (o.standon) verbList.push(lang.verbs.standOn)
-      if (o.reclineon) verbList.push(lang.verbs.reclineOn)
+      if (o.siton) verbList.push(Quest.lang.verbs.sitOn)
+      if (o.standon) verbList.push(Quest.lang.verbs.standOn)
+      if (o.reclineon) verbList.push(Quest.lang.verbs.reclineOn)
     })
   }
 
@@ -1085,7 +1085,7 @@ const FURNITURE = function (options: any) {
     const char = options.char
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'name' does not exist on type '{ testPost... Remove this comment to see the full error message
     if (char.posture === posture && char.postureFurniture === this.name) {
-      char.msg(lang.already, { item: char })
+      char.msg(Quest.lang.already, { item: char })
       return false
     }
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
@@ -1154,15 +1154,15 @@ const SWITCHABLE = function (alreadyOn: any, nameModifier: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'nameModifier' does not exist on type '{}... Remove this comment to see the full error message
   res.nameModifier = nameModifier
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'msgSwitchOff' does not exist on type '{}... Remove this comment to see the full error message
-  res.msgSwitchOff = lang.switch_off_successful
+  res.msgSwitchOff = Quest.lang.switch_off_successful
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'msgSwitchOn' does not exist on type '{}'... Remove this comment to see the full error message
-  res.msgSwitchOn = lang.switch_on_successful
+  res.msgSwitchOn = Quest.lang.switch_on_successful
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterCreation' does not exist on type '{... Remove this comment to see the full error message
   res.afterCreation = function (o: any) {
     o.verbFunctions.push(function (o: any, verbList: any) {
       if (!o.mustBeHeldToOperate || o.isAtLoc(player)) {
-        verbList.push(o.switchedon ? lang.verbs.switchoff : lang.verbs.switchon)
+        verbList.push(o.switchedon ? Quest.lang.verbs.switchoff : Quest.lang.verbs.switchon)
       }
     })
     o.nameModifierFunctions.push(function (o: any, list: any) {
@@ -1174,7 +1174,7 @@ const SWITCHABLE = function (alreadyOn: any, nameModifier: any) {
   res.switchon = function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'switchedon' does not exist on type '{}'.
     if (this.switchedon) {
-      options.char.msg(lang.already, { item: this });
+      options.char.msg(Quest.lang.already, { item: this });
       return false;
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'testSwitchOn' does not exist on type '{}... Remove this comment to see the full error message
@@ -1212,7 +1212,7 @@ const SWITCHABLE = function (alreadyOn: any, nameModifier: any) {
   res.switchoff = function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'switchedon' does not exist on type '{}'.
     if (!this.switchedon) {
-      options.char.msg(lang.already, { item: this });
+      options.char.msg(Quest.lang.already, { item: this });
       return false;
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'testSwitchOff' does not exist on type '{... Remove this comment to see the full error message
@@ -1269,7 +1269,7 @@ const COMPONENT = function (nameOfWhole: any) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       options.whole = w[this.loc]
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(lang.cannot_take_component, options);
+      msg(Quest.lang.cannot_take_component, options);
       return false;
     },
   };
@@ -1286,13 +1286,13 @@ const EDIBLE = function (isLiquid: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'isLiquid' does not exist on type '{ afte... Remove this comment to see the full error message
   res.isLiquid = isLiquid
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'msgIngest' does not exist on type '{ aft... Remove this comment to see the full error message
-  res.msgIngest = isLiquid ? lang.drink_successful : lang.eat_successful
+  res.msgIngest = isLiquid ? Quest.lang.drink_successful : Quest.lang.eat_successful
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'eat' does not exist on type '{ afterCrea... Remove this comment to see the full error message
   res.eat = function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isLiquid' does not exist on type '{ afte... Remove this comment to see the full error message
     if (this.isLiquid) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(lang.cannot_eat, options);
+      msg(Quest.lang.cannot_eat, options);
       return false;
     }
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
@@ -1308,7 +1308,7 @@ const EDIBLE = function (isLiquid: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isLiquid' does not exist on type '{ afte... Remove this comment to see the full error message
     if (!this.isLiquid) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(lang.cannot_drink, options);
+      msg(Quest.lang.cannot_drink, options);
       return false;
     }
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
@@ -1335,8 +1335,8 @@ const EDIBLE = function (isLiquid: any) {
   res.icon = () => 'edible12'
   res.afterCreation = function (o) {
     o.verbFunctions.push(function (o: any, verbList: any) {
-      verbList.push(o.isAtLoc(player.name) ? lang.verbs.drop : lang.verbs.take)
-      if (o.isAtLoc(player)) verbList.push(o.isLiquid ? lang.verbs.drink : lang.verbs.eat)
+      verbList.push(o.isAtLoc(player.name) ? Quest.lang.verbs.drop : Quest.lang.verbs.take)
+      if (o.isAtLoc(player)) verbList.push(o.isLiquid ? Quest.lang.verbs.drink : Quest.lang.verbs.eat)
     })
   }
   return res;
@@ -1362,7 +1362,7 @@ const VESSEL = function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'fill' does not exist on type '{}'.
     res.fill = function (options: any) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'findSource' does not exist on type '{}'.
-      if (!this.findSource(options)) return falsemsg(lang.no_generic_fluid_here, { item: this })
+      if (!this.findSource(options)) return falsemsg(Quest.lang.no_generic_fluid_here, { item: this })
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'doFill' does not exist on type '{}'.
       return this.doFill(options)
     },
@@ -1373,14 +1373,14 @@ const VESSEL = function () {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'testFill' does not exist on type '{}'.
       if (this.testFill && !this.testFill(options)) return false
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'containedFluidName' does not exist on ty... Remove this comment to see the full error message
-      if (this.containedFluidName) return falsemsg(lang.already_full, options)
+      if (this.containedFluidName) return falsemsg(Quest.lang.already_full, options)
 
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'containedFluidName' does not exist on ty... Remove this comment to see the full error message
       this.containedFluidName = options.fluid
       if (options.source.vessel) delete options.source.containedFluidName
 
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(lang.fill_successful, options)
+      msg(Quest.lang.fill_successful, options)
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterFill' does not exist on type '{}'.
       if (this.afterFill) this.afterFill(options)
       return true
@@ -1400,23 +1400,23 @@ const VESSEL = function () {
     options.fluid = this.containedFluidName
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'containedFluidName' does not exist on ty... Remove this comment to see the full error message
-    if (!this.containedFluidName) return falsemsg(lang.already_empty, options)
+    if (!this.containedFluidName) return falsemsg(Quest.lang.already_empty, options)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'testEmpty' does not exist on type '{}'.
     if (this.testEmpty && !this.testEmpty(options)) return false
 
     if (!options.item) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(lang.empty_successful, options)
+      msg(Quest.lang.empty_successful, options)
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'containedFluidName' does not exist on ty... Remove this comment to see the full error message
       delete this.containedFluidName
     }
     else if (options.item === options.source) {
-      return falsemsg(lang.pour_into_self, options)
+      return falsemsg(Quest.lang.pour_into_self, options)
     }
     else if (options.item.vessel) {
-      if (options.item.containedFluidName) return falsemsg(lang.already_full, { char: options.char, item: options.sink, fluid: options.item.containedFluidName })
+      if (options.item.containedFluidName) return falsemsg(Quest.lang.already_full, { char: options.char, item: options.sink, fluid: options.item.containedFluidName })
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(lang.empty_into_successful, options)
+      msg(Quest.lang.empty_into_successful, options)
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'containedFluidName' does not exist on ty... Remove this comment to see the full error message
       options.item.containedFluidName = this.containedFluidName
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'containedFluidName' does not exist on ty... Remove this comment to see the full error message
@@ -1428,7 +1428,7 @@ const VESSEL = function () {
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(lang.empty_onto_successful, options)
+      msg(Quest.lang.empty_onto_successful, options)
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'containedFluidName' does not exist on ty... Remove this comment to see the full error message
       delete this.containedFluidName
     }
@@ -1459,7 +1459,7 @@ const VESSEL = function () {
       }*/
       else {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        msg(lang.not_container_not_vessel, options)
+        msg(Quest.lang.not_container_not_vessel, options)
       }
     }
     if (success) options.char.pause();
@@ -1470,7 +1470,7 @@ const VESSEL = function () {
     res.afterCreation = function (o: any) {
       o.verbFunctions.push(function (o: any, verbList: any) {
         if (!o.isAtLoc(player.name)) return
-        verbList.push(o.containedFluidName ? lang.verbs.empty : lang.verbs.fill)
+        verbList.push(o.containedFluidName ? Quest.lang.verbs.empty : Quest.lang.verbs.fill)
       })
     }
   return res;
@@ -1486,7 +1486,7 @@ const CONSTRUCTION = function (componentNames: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'destroyComponentsOnBuild' does not exist... Remove this comment to see the full error message
   res.destroyComponentsOnBuild = true
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'msgConstruction' does not exist on type ... Remove this comment to see the full error message
-  res.msgConstruction = lang.construction_done
+  res.msgConstruction = Quest.lang.construction_done
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'testComponents' does not exist on type '... Remove this comment to see the full error message
   res.testComponents = function (components: any, options: any) {
@@ -1494,7 +1494,7 @@ const CONSTRUCTION = function (componentNames: any) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'componentNames' does not exist on type '... Remove this comment to see the full error message
       if (!res.componentNames.includes(el.name)) {
         options.wrong = el
-        return falsemsg(lang.component_wrong, options)
+        return falsemsg(Quest.lang.component_wrong, options)
       }
     }
     return true
@@ -1503,11 +1503,11 @@ const CONSTRUCTION = function (componentNames: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'buildPrecheck' does not exist on type '{... Remove this comment to see the full error message
   res.buildPrecheck = function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'loc' does not exist on type '{}'.
-    if (this.loc) return falsemsg(lang.construction_already, options)
+    if (this.loc) return falsemsg(Quest.lang.construction_already, options)
     for (const el of options.components) {
       if (el.loc !== player.name) {
         options.missing = el
-        return falsemsg(lang.component_missing, options)
+        return falsemsg(Quest.lang.component_missing, options)
       }
     }
     return true
@@ -1550,13 +1550,13 @@ const ROPE = function (length: any, tetheredTo: any) {
     tiedTo1: tetheredTo,
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     locs: tetheredTo ? [w[w[tetheredTo].loc]] : [],
-    attachVerb: lang.rope_attach_verb,
-    attachedVerb: lang.rope_attached_verb,
-    detachVerb: lang.rope_detach_verb,
-    msgDetach: lang.rope_detach_success,
-    msgAttach: lang.rope_attach_success,
-    msgWind: lang.rope_wind,
-    msgUnwind: lang.rope_unwind,
+    attachVerb: Quest.lang.rope_attach_verb,
+    attachedVerb: Quest.lang.rope_attached_verb,
+    detachVerb: Quest.lang.rope_detach_verb,
+    msgDetach: Quest.lang.rope_detach_success,
+    msgAttach: Quest.lang.rope_attach_success,
+    msgWind: Quest.lang.rope_wind,
+    msgUnwind: Quest.lang.rope_unwind,
     isLocatedAt: function (loc: any, situation: any) {
       // @ts-expect-error ts-migrate(2551) FIXME: Property 'loc' does not exist on type '{ rope: boo... Remove this comment to see the full error message
       if (this.loc) {
@@ -1594,9 +1594,9 @@ const ROPE = function (length: any, tetheredTo: any) {
       // Handle the easy cases, only one loc in locs
       if (this.locs.length === 1) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'examineAddBothEnds' does not exist on ty... Remove this comment to see the full error message
-        if (obj1 && obj2) return processText(lang.examineAddBothEnds, { item: this, obj1: obj1, obj2: obj2 })
-        if (obj1) return processText(lang.rope_examine_attached_one_end, { item: this, obj1: obj1 })
-        if (obj2) return processText(lang.rope_examine_attached_one_end, { item: this, obj1: obj2 })
+        if (obj1 && obj2) return processText(Quest.lang.examineAddBothEnds, { item: this, obj1: obj1, obj2: obj2 })
+        if (obj1) return processText(Quest.lang.rope_examine_attached_one_end, { item: this, obj1: obj1 })
+        if (obj2) return processText(Quest.lang.rope_examine_attached_one_end, { item: this, obj1: obj2 })
         return ''  // just in one place, like any ordinary object
       }
 
@@ -1618,31 +1618,31 @@ const ROPE = function (length: any, tetheredTo: any) {
       let s = ''
       let flag = false
       if (obj1 || holder1 || loc1) {
-        s += ' ' + lang.rope_one_end + ' '
+        s += ' ' + Quest.lang.rope_one_end + ' '
         flag = true
       }
       if (obj1) {
-        s += lang.rope_examine_end_attached.replace('obj', 'obj1')
+        s += Quest.lang.rope_examine_end_attached.replace('obj', 'obj1')
       }
       else if (holder1) {
-        s += lang.rope_examine_end_held.replace('holder', 'holder1')
+        s += Quest.lang.rope_examine_end_held.replace('holder', 'holder1')
       }
       else if (loc1) {
-        s += lang.rope_examine_end_headed.replace('loc', 'loc1')
+        s += Quest.lang.rope_examine_end_headed.replace('loc', 'loc1')
       }
 
       if (obj2 || holder2 || loc2) {
-        s += ' ' + (flag ? lang.rope_other_end : lang.rope_one_end) + ' '
+        s += ' ' + (flag ? Quest.lang.rope_other_end : Quest.lang.rope_one_end) + ' '
         flag = true
       }
       if (obj2) {
-        s += lang.rope_examine_end_attached.replace('obj', 'obj2')
+        s += Quest.lang.rope_examine_end_attached.replace('obj', 'obj2')
       }
       else if (holder2) {
-        s += lang.rope_examine_end_held.replace('holder', 'holder2')
+        s += Quest.lang.rope_examine_end_held.replace('holder', 'holder2')
       }
       else if (loc2) {
-        s += lang.rope_examine_end_headed.replace('loc', 'loc2')
+        s += Quest.lang.rope_examine_end_headed.replace('loc', 'loc2')
       }
 
       return processText(s, { item: this, obj1: obj1, obj2: obj2, holder1: holder1, holder2: holder2, loc1: loc1, loc2: loc2 })
@@ -1655,14 +1655,14 @@ const ROPE = function (length: any, tetheredTo: any) {
       if (obj === undefined) obj = this.findAttachable(this)
       const options = { char: char, item: this, obj: obj }
 
-      if (obj === undefined) return falsemsg(lang.rope_no_attachable_here, options)
-      if (!obj.attachable) return failedmsg(lang.rope_not_attachable_to, options)
+      if (obj === undefined) return falsemsg(Quest.lang.rope_no_attachable_here, options)
+      if (!obj.attachable) return failedmsg(Quest.lang.rope_not_attachable_to, options)
 
-      if (this.tiedTo1 === obj.name) return failedmsg(lang.already, { item: this })
+      if (this.tiedTo1 === obj.name) return failedmsg(Quest.lang.already, { item: this })
       // @ts-expect-error ts-migrate(2551) FIXME: Property 'tiedTo2' does not exist on type '{ rope:... Remove this comment to see the full error message
-      if (this.tiedTo2 === obj.name) return failedmsg(lang.already, { item: this })
+      if (this.tiedTo2 === obj.name) return failedmsg(Quest.lang.already, { item: this })
       // @ts-expect-error ts-migrate(2551) FIXME: Property 'tiedTo' does not exist on type '{ rope: ... Remove this comment to see the full error message
-      if (this.tiedTo1 && this.tiedTo) return failedmsg(lang.rope_tied_both_ends_already, { item: this, obj1: w[this.tiedTo1], obj2: w[this.tiedTo2] })
+      if (this.tiedTo1 && this.tiedTo) return failedmsg(Quest.lang.rope_tied_both_ends_already, { item: this, obj1: w[this.tiedTo1], obj2: w[this.tiedTo2] })
 
       if (obj.testAttach && !obj.testAttach(options)) return world.FAILED
       this.attachTo(char, obj)
@@ -1675,7 +1675,7 @@ const ROPE = function (length: any, tetheredTo: any) {
       if (obj === undefined) {
         // obj not set; can we guess it?
         // @ts-expect-error ts-migrate(2551) FIXME: Property 'tiedTo2' does not exist on type '{ rope:... Remove this comment to see the full error message
-        if (!this.tiedTo1 && !this.tiedTo2) return failedmsg(lang.rope_not_attached, tpParams)
+        if (!this.tiedTo1 && !this.tiedTo2) return failedmsg(Quest.lang.rope_not_attached, tpParams)
         // @ts-expect-error ts-migrate(2551) FIXME: Property 'tiedTo2' does not exist on type '{ rope:... Remove this comment to see the full error message
         if (this.tiedTo1 && !this.tiedTo2) {
           // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
@@ -1697,17 +1697,17 @@ const ROPE = function (length: any, tetheredTo: any) {
           obj = w[this.tiedTo2]
         }
         else {
-          return failedmsg(lang.rope_detach_end_ambig, tpParams)
+          return failedmsg(Quest.lang.rope_detach_end_ambig, tpParams)
         }
         tpParams.obj = obj
       }
       else {
         // @ts-expect-error ts-migrate(2551) FIXME: Property 'tiedTo2' does not exist on type '{ rope:... Remove this comment to see the full error message
         if (this.tiedTo1 !== obj.name && this.tiedTo2 !== obj.name) {
-          return failedmsg(lang.rope_not_attached_to, tpParams)
+          return failedmsg(Quest.lang.rope_not_attached_to, tpParams)
         }
       }
-      if (obj === this.tiedTo1 && this.tethered) return failedmsg(lang.rope_tethered, tpParams)
+      if (obj === this.tiedTo1 && this.tethered) return failedmsg(Quest.lang.rope_tethered, tpParams)
 
       this.detachFrom(char, obj)
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'suppessMsgs' does not exist on type '{ r... Remove this comment to see the full error message
@@ -1769,7 +1769,7 @@ const ROPE = function (length: any, tetheredTo: any) {
   res.drop = function (options) {
     const char = options.char
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isAtLoc' does not exist on type '{ rope:... Remove this comment to see the full error message
-    if (!this.isAtLoc(char.name)) return falsemsg(lang.not_carrying, options)
+    if (!this.isAtLoc(char.name)) return falsemsg(Quest.lang.not_carrying, options)
 
     let end
     if (this.locs.length === 1) {
@@ -1805,10 +1805,10 @@ const ROPE = function (length: any, tetheredTo: any) {
   res.take = function (options) {
     const char = options.char
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isAtLoc' does not exist on type '{ rope:... Remove this comment to see the full error message
-    if (this.isAtLoc(char.name) && !this.isAtLoc(options.char.loc)) return falsemsg(lang.already_have, options)
+    if (this.isAtLoc(char.name) && !this.isAtLoc(options.char.loc)) return falsemsg(Quest.lang.already_have, options)
     if (!char.testManipulate(this, "take")) return false;
     // @ts-expect-error ts-migrate(2551) FIXME: Property 'tiedTo2' does not exist on type '{ rope:... Remove this comment to see the full error message
-    if (this.tiedTo1 && this.tiedTo2) return falsemsg(lang.rope_tied_both_end, options)
+    if (this.tiedTo1 && this.tiedTo2) return falsemsg(Quest.lang.rope_tied_both_end, options)
 
     let end
     // @ts-expect-error ts-migrate(2551) FIXME: Property 'tiedTo2' does not exist on type '{ rope:... Remove this comment to see the full error message
@@ -1830,10 +1830,10 @@ const ROPE = function (length: any, tetheredTo: any) {
     }
     else if (this.locs[0] === char.loc || this.locs[this.locs.length - 1] === char.loc) {
       // an end is here - presumably tied to something
-      return falsemsg(lang.rope_tied_one_end, options)
+      return falsemsg(Quest.lang.rope_tied_one_end, options)
     }
     else {
-      return falsemsg(lang.rope_no_end, options)
+      return falsemsg(Quest.lang.rope_no_end, options)
     }
     options.end = end
     options.toLoc = char.name
@@ -1867,7 +1867,7 @@ const ROPE = function (length: any, tetheredTo: any) {
     }
     if (this.locs.length <= this.ropeLength) return true
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg(lang.rope_cannot_move, options)
+    msg(Quest.lang.rope_cannot_move, options)
     return false
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterCarry' does not exist on type '{ ro... Remove this comment to see the full error message
@@ -1910,11 +1910,11 @@ const ROPE = function (length: any, tetheredTo: any) {
 
 const BUTTON_DICTIONARY = {
   button: true,
-  msgPress: lang.press_button_successful,
+  msgPress: Quest.lang.press_button_successful,
 
   afterCreation: function (o: any) {
     o.verbFunctions.push(function (o: any, verbList: any) {
-      verbList.push(lang.verbs.push)
+      verbList.push(Quest.lang.verbs.push)
     })
   },
 }
@@ -1944,9 +1944,9 @@ const TRANSIT_BUTTON = function (nameOfTransit: any, transitDest: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'transitButton' does not exist on type '{... Remove this comment to see the full error message
   res.transitButton = true,
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'transitAlreadyHere' does not exist on ty... Remove this comment to see the full error message
-    res.transitAlreadyHere = lang.transit_already_here
+    res.transitAlreadyHere = Quest.lang.transit_already_here
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'transitGoToDest' does not exist on type ... Remove this comment to see the full error message
-  res.transitGoToDest = lang.transit_go_to_dest
+  res.transitGoToDest = Quest.lang.transit_go_to_dest
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'push' does not exist on type '{ button: ... Remove this comment to see the full error message
   res.push = function (options: any) {
@@ -2138,11 +2138,11 @@ const CHARACTER = function () {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'posture' does not exist on type '{ canRe... Remove this comment to see the full error message
       if (!this.posture) return false;
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'posture' does not exist on type '{ canRe... Remove this comment to see the full error message
-      return this.posture + " " + this.postureAdverb + " " + lang.getName(w[this.postureFurniture], { article: Quest.Utilities.DEFINITE });
+      return this.posture + " " + this.postureAdverb + " " + Quest.lang.getName(w[this.postureFurniture], { article: Quest.Utilities.DEFINITE });
     },
 
     handleGiveTo: function (options: any) {
-      if (!options.item.isAtLoc(options.char.name)) return falsemsg(lang.not_carrying, options)
+      if (!options.item.isAtLoc(options.char.name)) return falsemsg(Quest.lang.not_carrying, options)
       if (!options.char.getAgreement("Give", options.item, this)) return false
       if (!options.char.testManipulate(options.item, "give")) return false
 
@@ -2166,7 +2166,7 @@ const CHARACTER = function () {
         this.receiveItemsFailMsg(options)
         return false
       }
-      return falsemsg(lang.not_interested_for_give, options)
+      return falsemsg(Quest.lang.not_interested_for_give, options)
     },
 
     getOuterWearable: function (slot: any) {
@@ -2206,17 +2206,17 @@ const CHARACTER = function () {
           list.push(state);
         }
         if (held.length > 0) {
-          list.push(lang.invHoldingPrefix + ' ' + Quest.Utilities.formatList(held, { article: Quest.Utilities.INDEFINITE, lastJoiner: lang.list_and, modified: false, nothing: lang.list_nothing, loc: o.name, npc: true }));
+          list.push(Quest.lang.invHoldingPrefix + ' ' + Quest.Utilities.formatList(held, { article: Quest.Utilities.INDEFINITE, lastJoiner: Quest.lang.list_and, modified: false, nothing: Quest.lang.list_nothing, loc: o.name, npc: true }));
         }
         if (worn.length > 0) {
-          list.push(lang.invWearingPrefix + ' ' + Quest.Utilities.formatList(worn, { article: Quest.Utilities.INDEFINITE, lastJoiner: lang.list_and, modified: false, nothing: lang.list_nothing, loc: o.name, npc: true }));
+          list.push(Quest.lang.invWearingPrefix + ' ' + Quest.Utilities.formatList(worn, { article: Quest.Utilities.INDEFINITE, lastJoiner: Quest.lang.list_and, modified: false, nothing: Quest.lang.list_nothing, loc: o.name, npc: true }));
         }
         if (list.length > 0) l.push(list.join('; '))
       })
       o.verbFunctions.push(function (o: any, verbList: any) {
         verbList.shift()
-        verbList.push(lang.verbs.lookat)
-        if (!Quest.Settings.settings.noTalkTo) verbList.push(lang.verbs.talkto)
+        verbList.push(Quest.lang.verbs.lookat)
+        if (!Quest.Settings.settings.noTalkTo) verbList.push(Quest.lang.verbs.talkto)
       })
     },
 
@@ -2261,9 +2261,9 @@ const CHARACTER = function () {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
           Quest.Utilities.printOrRun(this, exit, "msg")
         }
-        else if (lang.go_successful) {
+        else if (Quest.lang.go_successful) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-          msg(lang.go_successful, { char: this, dir: exit.dir })
+          msg(Quest.lang.go_successful, { char: this, dir: exit.dir })
         }
       }
       else {
@@ -2272,8 +2272,8 @@ const CHARACTER = function () {
           exit.msgNPC(char)
         }
         else {
-          lang.npc_leaving_msg(this, exit)
-          lang.npc_entering_msg(this, exit)
+          Quest.lang.npc_leaving_msg(this, exit)
+          Quest.lang.npc_entering_msg(this, exit)
         }
       }
     },
@@ -2302,7 +2302,7 @@ const CHARACTER = function () {
 const PLAYER = function () {
   const res = CHARACTER()
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'pronouns' does not exist on type '{ canR... Remove this comment to see the full error message
-  res.pronouns = lang.pronouns.secondperson
+  res.pronouns = Quest.lang.pronouns.secondperson
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'player' does not exist on type '{ canRea... Remove this comment to see the full error message
   res.player = true
 
@@ -2312,7 +2312,7 @@ const PLAYER = function () {
       test: function () { return true },
       f: function (options: any) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        msg(lang.done_msg, options)
+        msg(Quest.lang.done_msg, options)
         options.item.loc = this.name
         return true
       }

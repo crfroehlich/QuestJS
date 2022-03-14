@@ -77,7 +77,7 @@ commands.push(new Cmd('LearnSpell', {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'name' does not exist on type 'never'.
     player.skillsLearnt.push(spell.name)
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("You learn {i:" + spell.name + "} from " + lang.getName(source, { article: Quest.Utilities.DEFINITE }) + ".")
+    msg("You learn {i:" + spell.name + "} from " + Quest.lang.getName(source, { article: Quest.Utilities.DEFINITE }) + ".")
     return world.SUCCESS
   },
 }))

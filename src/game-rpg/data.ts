@@ -356,7 +356,7 @@ createItem("chestplate", WEARABLE(2, ['chest']), {
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("boots", WEARABLE(2, ['feet']), {
     loc: "practice_room",
-    pronouns: lang.pronouns.plural,
+    pronouns: Quest.lang.pronouns.plural,
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.

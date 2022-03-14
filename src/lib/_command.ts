@@ -155,11 +155,11 @@ class Cmd {
           }
         }
 
-        else if (lang.all_regex.test(arr[i]) || lang.all_exclude_regex.test(arr[i])) {
+        else if (Quest.lang.all_regex.test(arr[i]) || Quest.lang.all_exclude_regex.test(arr[i])) {
           // Handle ALL and ALL BUT
           this.tmp.all = true
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'DISALLOWED_MULTIPLE' does not exist on t... Remove this comment to see the full error message
-          if (!cmdParams.multiple) return this.setError(parser.DISALLOWED_MULTIPLE, lang.no_multiples_msg)
+          if (!cmdParams.multiple) return this.setError(parser.DISALLOWED_MULTIPLE, Quest.lang.no_multiples_msg)
           if (!cmdParams.scope) console.log("WARNING: Command without scope - " + this.name)
 
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'getScope' does not exist on type '{}'.
@@ -171,7 +171,7 @@ class Cmd {
             if (item.scenery || item.excludeFromAll) exclude.push(item)
           }
 
-          if (lang.all_exclude_regex.test(arr[i])) {
+          if (Quest.lang.all_exclude_regex.test(arr[i])) {
             // if this is ALL BUT we need to remove some things from the list
             // excludes must be in isVisible
             // if it is ambiguous or not recognised it does not get added to the list
@@ -187,9 +187,9 @@ class Cmd {
           }
           scope = scope.filter((el: any) => !exclude.includes(el))
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'DISALLOWED_MULTIPLE' does not exist on t... Remove this comment to see the full error message
-          if (scope.length > 1 && !cmdParams.multiple) return this.setError(parser.DISALLOWED_MULTIPLE, lang.no_multiples_msg)
+          if (scope.length > 1 && !cmdParams.multiple) return this.setError(parser.DISALLOWED_MULTIPLE, Quest.lang.no_multiples_msg)
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'NONE_FOR_ALL' does not exist on type '{}... Remove this comment to see the full error message
-          if (scope.length === 0) return this.setError(parser.NONE_FOR_ALL, this.nothingForAll ? this.nothingForAll : lang.nothing_msg)
+          if (scope.length === 0) return this.setError(parser.NONE_FOR_ALL, this.nothingForAll ? this.nothingForAll : Quest.lang.nothing_msg)
           score = 2
           this.tmp.objects.push(scope.map((el: any) => [el]))
         }
@@ -254,7 +254,7 @@ class Cmd {
       const multiple = objects[0] && (objects[0].length > 1 || parser.currentCommand.all)
       if (objects[0].length === 0) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg(lang.nothing_msg)
+        metamsg(Quest.lang.nothing_msg)
         return world.FAILED;
       }
       for (let i = 0; i < objects[0].length; i++) {
@@ -293,7 +293,7 @@ class Cmd {
       const multiple = objects[0] && (objects[0].length > 1 || parser.currentCommand.all)
       if (objects[0].length === 0) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg(lang.nothing_msg)
+        metamsg(Quest.lang.nothing_msg)
         return world.FAILED;
       }
       for (let i = 0; i < objects[0].length; i++) {
@@ -337,7 +337,7 @@ class Cmd {
     };
 
     this.noobjecterror = function (s: any) {
-      return lang.object_unknown_msg(s)
+      return Quest.lang.object_unknown_msg(s)
     }
 
     for (let key in hash) {
@@ -352,7 +352,7 @@ class Cmd {
     }
     if (!this.regex && !this.regexes) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      this.regexes = Array.isArray(lang.regex[this.name]) ? lang.regex[this.name] : [lang.regex[this.name]]
+      this.regexes = Array.isArray(Quest.lang.regex[this.name]) ? Quest.lang.regex[this.name] : [Quest.lang.regex[this.name]]
     }
     if (this.withScript) this.script = this.scriptWith
   }
@@ -378,7 +378,7 @@ function NpcCmd(this: any, name: any, hash: any) {
   this.script = function (objects: any) {
     const npc = objects[0][0];
     if (!npc.npc) {
-      failedmsg(lang.not_npc, { char: player, item: npc });
+      failedmsg(Quest.lang.not_npc, { char: player, item: npc });
       return world.FAILED;
     }
     let success = false, handled;
@@ -422,12 +422,12 @@ function ExitCmd(this: any, name: any, dir: any, hash: any) {
   this.objects = [{ special: 'ignore' }, { special: 'ignore' },],
     this.script = function (objects: any) {
       if (!currentLocation.hasExit(this.dir)) {
-        const exitObj = lang.exit_list.find(el => el.name === this.dir)
+        const exitObj = Quest.lang.exit_list.find(el => el.name === this.dir)
         // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
         if (exitObj.not_that_way) return failedmsg(exitObj.not_that_way, { char: player, dir: this.dir })
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'customNoExitMsg' does not exist on type ... Remove this comment to see the full error message
         if (Quest.Settings.settings.customNoExitMsg) return failedmsg(Quest.Settings.settings.customNoExitMsg(player, dir))
-        return failedmsg(lang.not_that_way, { char: player, dir: this.dir })
+        return failedmsg(Quest.lang.not_that_way, { char: player, dir: this.dir })
       }
       else {
         const ex = currentLocation.getExit(this.dir);
@@ -469,12 +469,12 @@ function NpcExitCmd(this: any, name: any, dir: any, hash: any) {
   this.objects = [{ scope: parser.isHere, attName: "npc" }, { special: 'ignore' }, { special: 'ignore' },],
     this.script = function (objects: any) {
       const npc = objects[0][0]
-      if (!npc.npc) return failedmsg(lang.not_npc, { char: player, item: npc })
+      if (!npc.npc) return failedmsg(Quest.lang.not_npc, { char: player, item: npc })
       if (!currentLocation.hasExit(this.dir)) {
-        const exitObj = lang.exit_list.find(el => el.name === this.dir)
+        const exitObj = Quest.lang.exit_list.find(el => el.name === this.dir)
         // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
         if (exitObj.not_that_way) return failedmsg(exitObj.not_that_way, { char: npc, dir: this.dir })
-        return failedmsg(lang.not_that_way, { char: npc, dir: this.dir })
+        return failedmsg(Quest.lang.not_that_way, { char: npc, dir: this.dir })
       }
 
       const ex = currentLocation.getExit(this.dir)
@@ -525,9 +525,9 @@ function initCommands() {
       // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
       const cmd = new NpcCmd("Npc" + el.name, data)
       cmd.regexes = []
-      for (let key in lang.tell_to_prefixes) {
+      for (let key in Quest.lang.tell_to_prefixes) {
         // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-        cmd.regexes.push(new RegExp("^" + lang.tell_to_prefixes[key] + regexAsStr))
+        cmd.regexes.push(new RegExp("^" + Quest.lang.tell_to_prefixes[key] + regexAsStr))
       }
       if (el.useThisScriptForNpcs) cmd.script = el.script
       cmd.scope = []
@@ -543,18 +543,18 @@ function initCommands() {
 
   commands.push.apply(commands, newCmds);
 
-  for (let el of lang.exit_list) {
+  for (let el of Quest.lang.exit_list) {
     if (el.type !== 'nocmd') {
-      let regex = "(" + lang.go_pre_regex + ")(" + el.name + "|" + el.abbrev.toLowerCase();
+      let regex = "(" + Quest.lang.go_pre_regex + ")(" + el.name + "|" + el.abbrev.toLowerCase();
       if (el.alt) { regex += "|" + el.alt; }
       regex += ")$";
       // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
       commands.push(new ExitCmd("Go" + Quest.Utilities.sentenceCase(el.name), el.name, { regexes: [new RegExp("^" + regex)] }));
 
       const regexes = []
-      for (let key in lang.tell_to_prefixes) {
+      for (let key in Quest.lang.tell_to_prefixes) {
         // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-        regexes.push(new RegExp("^" + lang.tell_to_prefixes[key] + regex))
+        regexes.push(new RegExp("^" + Quest.lang.tell_to_prefixes[key] + regex))
       }
       // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
       commands.push(new NpcExitCmd("NpcGo" + Quest.Utilities.sentenceCase(el.name) + "2", el.name, { regexes: regexes }))
@@ -569,7 +569,7 @@ function extractChar(cmd: any, objects: any) {
   if (cmd.forNpc) {
     char = objects[0][0];
     if (!char.npc) {
-      failedmsg(lang.not_npc, { char: player, item: char });
+      failedmsg(Quest.lang.not_npc, { char: player, item: char });
       return world.FAILED;
     }
     objects.shift();
@@ -606,15 +606,15 @@ const cmdRules = {};
 cmdRules.isHeldNotWorn = function (cmd: any, options: any) {
   if (!options.item.getWorn() && options.item.isAtLoc(options.char.name, world.PARSER)) return true
 
-  if (options.item.isAtLoc(options.char.name, world.PARSER)) return falsemsg(lang.already_wearing, options)
+  if (options.item.isAtLoc(options.char.name, world.PARSER)) return falsemsg(Quest.lang.already_wearing, options)
 
   if (options.item.loc) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     options.holder = w[options.item.loc]
-    if (options.holder.npc || options.holder.player) return falsemsg(lang.char_has_it, options)
+    if (options.holder.npc || options.holder.player) return falsemsg(Quest.lang.char_has_it, options)
   }
 
-  return falsemsg(lang.not_carrying, options)
+  return falsemsg(Quest.lang.not_carrying, options)
 }
 
 // Item's location is the char and it is worn
@@ -622,15 +622,15 @@ cmdRules.isHeldNotWorn = function (cmd: any, options: any) {
 cmdRules.isWorn = function (cmd: any, options: any) {
   if (options.item.getWorn() && options.item.isAtLoc(options.char.name, world.PARSER)) return true
 
-  if (options.item.isAtLoc(options.char.name, world.PARSER)) return falsemsg(lang.not_wearing, options)
+  if (options.item.isAtLoc(options.char.name, world.PARSER)) return falsemsg(Quest.lang.not_wearing, options)
 
   if (options.item.loc) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     options.holder = w[options.item.loc];
-    if (options.holder.npc || options.holder.player) return falsemsg(lang.char_has_it, options)
+    if (options.holder.npc || options.holder.player) return falsemsg(Quest.lang.char_has_it, options)
   }
 
-  return falsemsg(lang.not_carrying, options)
+  return falsemsg(Quest.lang.not_carrying, options)
 }
 
 // Item's location is the char
@@ -641,10 +641,10 @@ cmdRules.isHeld = function (cmd: any, options: any) {
   if (options.item.loc) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     options.holder = w[options.item.loc]
-    if (options.holder.npc || options.holder.player) return falsemsg(lang.char_has_it, options)
+    if (options.holder.npc || options.holder.player) return falsemsg(Quest.lang.char_has_it, options)
   }
 
-  return falsemsg(lang.not_carrying, options)
+  return falsemsg(Quest.lang.not_carrying, options)
 }
 
 // Item's location is the char's location or the char
@@ -658,12 +658,12 @@ cmdRules.isPresent = function (cmd: any, options: any) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     options.holder = w[options.item.loc]
     // Has a specific location and held by someone
-    if (options.holder.npc || options.holder.player) return falsemsg(lang.char_has_it, options)
+    if (options.holder.npc || options.holder.player) return falsemsg(Quest.lang.char_has_it, options)
   }
 
   if (options.item.scopeStatus.canReach) return true
 
-  return falsemsg(lang.not_here, options)
+  return falsemsg(Quest.lang.not_here, options)
 }
 
 // Item's location is the char's location or the char
@@ -675,12 +675,12 @@ cmdRules.isHere = function (cmd: any, options: any) {
   if (options.item.loc) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     options.holder = w[options.item.loc]
-    if (options.already && options.holder === options.char) return falsemsg(lang.already_have, options)
-    if (options.holder.npc || options.holder.player) return falsemsg(lang.char_has_it, options)
+    if (options.already && options.holder === options.char) return falsemsg(Quest.lang.already_have, options)
+    if (options.holder.npc || options.holder.player) return falsemsg(Quest.lang.char_has_it, options)
   }
 
   if (options.item.scopeStatus.canReach || options.item.multiLoc) return true
-  return falsemsg(lang.not_here, options)
+  return falsemsg(Quest.lang.not_here, options)
 }
 
 // Used by take to note if player already holding
@@ -707,11 +707,11 @@ cmdRules.isPresentOrContained = function (cmd: any, options: any) {
   if (options.item.loc) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     options.holder = w[options.item.loc]
-    if (options.holder && (options.holder.npc || options.holder.player)) return falsemsg(lang.char_has_it, options)
+    if (options.holder && (options.holder.npc || options.holder.player)) return falsemsg(Quest.lang.char_has_it, options)
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'isContained' does not exist on type '{}'... Remove this comment to see the full error message
   if (parser.isContained(options.item)) return true;
-  return falsemsg(lang.not_here, options)
+  return falsemsg(Quest.lang.not_here, options)
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
@@ -723,7 +723,7 @@ cmdRules.testManipulate = function (cmd: any, options: any) {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'canTalkTo' does not exist on type '{}'.
 cmdRules.canTalkTo = function (cmd: any, options: any) {
   if (!options.char.testTalk(options.item)) return false
-  if (!options.item.npc && !options.item.talker && !options.item.player) return falsemsg(lang.not_able_to_hear, options)
+  if (!options.item.npc && !options.item.talker && !options.item.player) return falsemsg(Quest.lang.not_able_to_hear, options)
   return true
 }
 

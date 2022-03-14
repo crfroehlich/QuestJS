@@ -433,8 +433,8 @@ tp.text_processors.object = tp.text_processors.show
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'getWhatever' does not exist on type '{ t... Remove this comment to see the full error message
 tp.getWhatever = function (val: any, params: any, obj: any) {
-  if (val === false) return lang.tp_false
-  if (val === true) return lang.tp_true
+  if (val === false) return Quest.lang.tp_false
+  if (val === true) return Quest.lang.tp_true
   if (val === undefined) return ''
   if (typeof val === 'string') return val
   if (typeof val === 'number') return val.toString()
@@ -481,13 +481,13 @@ tp.text_processors.rndalt = function (arr: any, params: any) {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'number' does not exist on type '{}'.
 tp.text_processors.number = function (arr: any, params: any) {
   let name = arr.shift()
-  if (name.match(/^\d+$/)) return lang.toWords(parseInt(name))
-  if (typeof params[name] === 'number') return lang.toWords(params[name])
+  if (name.match(/^\d+$/)) return Quest.lang.toWords(parseInt(name))
+  if (typeof params[name] === 'number') return Quest.lang.toWords(params[name])
   // @ts-expect-error ts-migrate(2339) FIXME: Property '_findObject' does not exist on type '{ t... Remove this comment to see the full error message
   const obj = tp._findObject(name, params, arr)
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   if (!obj) return errormsg("Failed to find object '" + name + "' in text processor 'number' (" + params.tpOriginalString + ")")
-  if (typeof obj[arr[0]] === 'number') return lang.toWords(obj[arr[0]])
+  if (typeof obj[arr[0]] === 'number') return Quest.lang.toWords(obj[arr[0]])
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   return errormsg("Failed to find a number for object '" + name + "' in text processor (" + params.tpOriginalString + ")")
 };
@@ -495,13 +495,13 @@ tp.text_processors.number = function (arr: any, params: any) {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'ordinal' does not exist on type '{}'.
 tp.text_processors.ordinal = function (arr: any, params: any) {
   let name = arr.shift()
-  if (name.match(/^\d+$/)) return lang.toOrdinal(parseInt(name))
-  if (typeof params[name] === 'number') return lang.toOrdinal(params[name])
+  if (name.match(/^\d+$/)) return Quest.lang.toOrdinal(parseInt(name))
+  if (typeof params[name] === 'number') return Quest.lang.toOrdinal(params[name])
   // @ts-expect-error ts-migrate(2339) FIXME: Property '_findObject' does not exist on type '{ t... Remove this comment to see the full error message
   const obj = tp._findObject(name, params, arr)
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   if (!obj) return errormsg("Failed to find object '" + name + "' in text processor 'number' (" + params.tpOriginalString + ")")
-  if (typeof obj[arr[0]] === 'number') return lang.toOrdinal(obj[arr[0]])
+  if (typeof obj[arr[0]] === 'number') return Quest.lang.toOrdinal(obj[arr[0]])
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   return errormsg("Failed to find a number for object '" + name + "' in text processor (" + params.tpOriginalString + ")")
 };
@@ -561,7 +561,7 @@ tp.text_processors.transitDest = function (arr: any, params: any) {
   }
   const destName = transit[transit.transitDoorDir].name
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  return lang.getName(w[destName], { capital: true })
+  return Quest.lang.getName(w[destName], { capital: true })
 };
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'img' does not exist on type '{}'.
@@ -882,14 +882,14 @@ tp.text_processors.exitsHere = function (arr: any, params: any) {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'objects' does not exist on type '{}'.
 tp.text_processors.objects = function (arr: any, params: any) {
   const listOfOjects = Quest.Utilities.scopeHereListed();
-  return Quest.Utilities.formatList(listOfOjects, { article: Quest.Utilities.INDEFINITE, lastJoiner: lang.list_and, modified: true, nothing: lang.list_nothing, loc: player.loc });
+  return Quest.Utilities.formatList(listOfOjects, { article: Quest.Utilities.INDEFINITE, lastJoiner: Quest.lang.list_and, modified: true, nothing: Quest.lang.list_nothing, loc: player.loc });
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'exits' does not exist on type '{}'.
 tp.text_processors.exits = function (arr: any, params: any) {
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   const list = w[player.loc].getExitDirs()
-  return Quest.Utilities.formatList(list, { lastJoiner: lang.list_or, nothing: lang.list_nowhere });
+  return Quest.Utilities.formatList(list, { lastJoiner: Quest.lang.list_or, nothing: Quest.lang.list_nowhere });
 }
 
 
@@ -903,11 +903,11 @@ tp.text_processors.exits = function (arr: any, params: any) {
 
 
 /*
-The name functions could readily be expanded. You can add further parameters and Quest will then grab those and pass them to lang.getName. Thus, if we have this:
+The name functions could readily be expanded. You can add further parameters and Quest will then grab those and pass them to Quest.lang.getName. Thus, if we have this:
 
 msg("You see {nm:item:the:false:x_count}.", {item:w.terror_cat, x_count:4})
 
-Then the options passed to lang.getName will include x_count set to 4.
+Then the options passed to Quest.lang.getName will include x_count set to 4.
 */
 
 // {function:character:article:capitalise}
@@ -939,21 +939,21 @@ tp.nameFunction = function (arr: any, params: any, isPossessive: any) {
     options[arr[n]] = params[arr[n]]
     n++
   }
-  return arr[1] === 'true' ? Quest.Utilities.sentenceCase(lang.getName(subject, options)) : lang.getName(subject, options);
+  return arr[1] === 'true' ? Quest.Utilities.sentenceCase(Quest.lang.getName(subject, options)) : Quest.lang.getName(subject, options);
 }
 
 
 // {function:character:verb:capitalise}
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'nv' does not exist on type '{}'.
-tp.text_processors.nv = function (arr: any, params: any) { return tp.conjugations(lang.nounVerb, arr, params) }
+tp.text_processors.nv = function (arr: any, params: any) { return tp.conjugations(Quest.lang.nounVerb, arr, params) }
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'pv' does not exist on type '{}'.
-tp.text_processors.pv = function (arr: any, params: any) { return tp.conjugations(lang.pronounVerb, arr, params) }
+tp.text_processors.pv = function (arr: any, params: any) { return tp.conjugations(Quest.lang.pronounVerb, arr, params) }
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'vn' does not exist on type '{}'.
-tp.text_processors.vn = function (arr: any, params: any) { return tp.conjugations(lang.verbNoun, arr, params) }
+tp.text_processors.vn = function (arr: any, params: any) { return tp.conjugations(Quest.lang.verbNoun, arr, params) }
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'vp' does not exist on type '{}'.
-tp.text_processors.vp = function (arr: any, params: any) { return tp.conjugations(lang.verbPronoun, arr, params) }
+tp.text_processors.vp = function (arr: any, params: any) { return tp.conjugations(Quest.lang.verbPronoun, arr, params) }
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'cj' does not exist on type '{}'.
-tp.text_processors.cj = function (arr: any, params: any) { return tp.conjugations(lang.conjugate, arr, params) }
+tp.text_processors.cj = function (arr: any, params: any) { return tp.conjugations(Quest.lang.conjugate, arr, params) }
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'conjugations' does not exist on type '{ ... Remove this comment to see the full error message
 tp.conjugations = function (func: any, arr: any, params: any) {
   const name = arr.shift()
@@ -1021,7 +1021,7 @@ tp.text_processors.pa2 = function (arr: any, params: any) {
 
   if (chr1.pronouns === chr2.pronouns && chr1 !== chr2) {
     const opt = { article: Quest.Utilities.DEFINITE, possessive: true };
-    return arr[0] === 'true' ? Quest.Utilities.sentenceCase(lang.getName(chr1, opt)) : lang.getName(chr1, opt)
+    return arr[0] === 'true' ? Quest.Utilities.sentenceCase(Quest.lang.getName(chr1, opt)) : Quest.lang.getName(chr1, opt)
   }
 
   return arr[0] === 'true' ? Quest.Utilities.sentenceCase(chr1.pronouns.poss_adj) : chr1.pronouns.poss_adj;
@@ -1042,7 +1042,7 @@ tp.text_processors.pa3 = function (arr: any, params: any) {
   if (chr1 !== chr2) {
     const opt = { article: Quest.Utilities.DEFINITE, possessive: true };
     // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'subject'.
-    return arr[0] === 'true' ? Quest.Utilities.sentenceCase(lang.getName(subject, opt)) : lang.getName(subject, opt);
+    return arr[0] === 'true' ? Quest.Utilities.sentenceCase(Quest.lang.getName(subject, opt)) : Quest.lang.getName(subject, opt);
   }
 
   return arr[0] === 'true' ? Quest.Utilities.sentenceCase(chr1.pronouns.poss_adj) : chr1.pronouns.poss_adj;

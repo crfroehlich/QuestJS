@@ -276,7 +276,7 @@ function handlePressurise(char: any, objects: any, pressurise: any) {
   const mainRoom = (typeof baseRoom.vacuum === "string" ? w[baseRoom.vacuum] : baseRoom)
   if (mainRoom.vacuum !== pressurise) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'" + Quest.Utilities.sentenceCase(lang.getName(mainRoom, { article: Quest.Utilities.DEFINITE })) + " is already " + (pressurise ? 'pressurised' : 'depressurised') + ".")
+    msg("'" + Quest.Utilities.sentenceCase(Quest.lang.getName(mainRoom, { article: Quest.Utilities.DEFINITE })) + " is already " + (pressurise ? 'pressurised' : 'depressurised') + ".")
     return world.SUCCESS
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
@@ -294,18 +294,18 @@ function handlePressurise(char: any, objects: any, pressurise: any) {
   }
   if (!pressurise) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'Evacuating " + lang.getName(mainRoom, { article: Quest.Utilities.DEFINITE }) + "... Room is now under vacuum.'")
+    msg("'Evacuating " + Quest.lang.getName(mainRoom, { article: Quest.Utilities.DEFINITE }) + "... Room is now under vacuum.'")
     mainRoom.vacuum = true;
     return world.SUCCESS
   }
   if (mainRoom.leaks) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'Pressurising " + lang.getName(mainRoom, { article: Quest.Utilities.DEFINITE }) + "... Pressurisation failed.'")
+    msg("'Pressurising " + Quest.lang.getName(mainRoom, { article: Quest.Utilities.DEFINITE }) + "... Pressurisation failed.'")
     return world.SUCCESS
   }
 
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  msg("'Pressurising " + lang.getName(mainRoom, { article: Quest.Utilities.DEFINITE }) + "... Room is now pressurised.'")
+  msg("'Pressurising " + Quest.lang.getName(mainRoom, { article: Quest.Utilities.DEFINITE }) + "... Room is now pressurised.'")
   mainRoom.vacuum = false;
   return world.SUCCESS
 }
@@ -498,11 +498,11 @@ commands.push(new Cmd('HelpSubject', {
   topics: [
     {
       regex: /^gen.*$/,
-      script: function () { lang.helpScript(); },
+      script: function () { Quest.lang.helpScript(); },
     },
     {
       regex: /^(credits?|about)$/,
-      script: function () { lang.aboutScript(); },
+      script: function () { Quest.lang.aboutScript(); },
     },
     {
       regex: /^game$/,

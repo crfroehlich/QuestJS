@@ -4,7 +4,7 @@
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-const showMap = function () { return failedmsg(lang.no_map) }
+const showMap = function () { return failedmsg(Quest.lang.no_map) }
 
 
 findCmd('MetaHint').script = function () {
@@ -27,11 +27,11 @@ findCmd('MetaHint').script = function () {
 
 
   // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '{ name: string; alt: string; abb... Remove this comment to see the full error message
-  lang.exit_list.push({ name: 'climb', alt: 'climb up', abbrev: 'Cl', niceDir: "above", type: 'vertical', x: 0, y: 0, z: 1, opp: 'down', not_that_way: 'Nothing to climb here.' },)
+  Quest.lang.exit_list.push({ name: 'climb', alt: 'climb up', abbrev: 'Cl', niceDir: "above", type: 'vertical', x: 0, y: 0, z: 1, opp: 'down', not_that_way: 'Nothing to climb here.' },)
 // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '{ name: string; alt: string; abb... Remove this comment to see the full error message
-lang.exit_list.push({ name: 'climb_down', alt: 'climb down', abbrev: 'CD', niceDir: "below", type: 'vertical', x: 0, y: 0, z: -1, opp: 'climb', not_that_way: 'Nothing to climb down here.' },)
+Quest.lang.exit_list.push({ name: 'climb_down', alt: 'climb down', abbrev: 'CD', niceDir: "below", type: 'vertical', x: 0, y: 0, z: -1, opp: 'climb', not_that_way: 'Nothing to climb down here.' },)
 // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '{ name: string; abbrev: string; ... Remove this comment to see the full error message
-lang.exit_list.push({ name: 'swim', abbrev: 'Swim', niceDir: "above", type: 'vertical', x: 0, y: 0, z: 1, opp: 'down', not_that_way: 'Nothing to swim here.' },)
+Quest.lang.exit_list.push({ name: 'swim', abbrev: 'Swim', niceDir: "above", type: 'vertical', x: 0, y: 0, z: 1, opp: 'down', not_that_way: 'Nothing to swim here.' },)
 
 
 
@@ -44,51 +44,51 @@ lang.exit_list.push({ name: 'swim', abbrev: 'Swim', niceDir: "above", type: 'ver
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'createVerb' does not exist on type '{ re... Remove this comment to see the full error message
-lang.createVerb('Touch')
+Quest.lang.createVerb('Touch')
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'createVerb' does not exist on type '{ re... Remove this comment to see the full error message
-lang.createVerb('Play', { words: 'play in|play' })
+Quest.lang.createVerb('Play', { words: 'play in|play' })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'createVerb' does not exist on type '{ re... Remove this comment to see the full error message
-lang.createVerb('Kick')
+Quest.lang.createVerb('Kick')
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'createVerb' does not exist on type '{ re... Remove this comment to see the full error message
-lang.createVerb('Tighten')
+Quest.lang.createVerb('Tighten')
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'createVerb' does not exist on type '{ re... Remove this comment to see the full error message
-lang.createVerb('Beat', { words: 'beat|flog' })
+Quest.lang.createVerb('Beat', { words: 'beat|flog' })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'createVerb' does not exist on type '{ re... Remove this comment to see the full error message
-lang.createVerb('Ride', { words: 'ride|mount' })
+Quest.lang.createVerb('Ride', { words: 'ride|mount' })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'createVerb' does not exist on type '{ re... Remove this comment to see the full error message
-lang.createVerb('Clean', { words: 'clean|brush|sweep' })
+Quest.lang.createVerb('Clean', { words: 'clean|brush|sweep' })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'createVerb' does not exist on type '{ re... Remove this comment to see the full error message
-lang.createVerb('Roll', { words: 'roll up|roll' })
+Quest.lang.createVerb('Roll', { words: 'roll up|roll' })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'createVerb' does not exist on type '{ re... Remove this comment to see the full error message
-lang.createVerb('Shake', { ing: 'Shaking' })
+Quest.lang.createVerb('Shake', { ing: 'Shaking' })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'createVerb' does not exist on type '{ re... Remove this comment to see the full error message
-lang.createVerb('Flip', { ing: 'flipping' })
+Quest.lang.createVerb('Flip', { ing: 'flipping' })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'createVerb' does not exist on type '{ re... Remove this comment to see the full error message
-lang.createVerb('Dig', { ing: 'digging' })
+Quest.lang.createVerb('Dig', { ing: 'digging' })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'createVerb' does not exist on type '{ re... Remove this comment to see the full error message
-lang.createVerb('Hug', { words: 'hug|embrace|cuddle', ing: 'Hugging' })
+Quest.lang.createVerb('Hug', { words: 'hug|embrace|cuddle', ing: 'Hugging' })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'createVerb' does not exist on type '{ re... Remove this comment to see the full error message
-lang.createVerb('KnockOn', { words: 'knock on|knock up|knock|rap|rap on|tap|tap on', defmsg: "{pv:item:be:true} not something Mandy can knock on." })
+Quest.lang.createVerb('KnockOn', { words: 'knock on|knock up|knock|rap|rap on|tap|tap on', defmsg: "{pv:item:be:true} not something Mandy can knock on." })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'createVerb' does not exist on type '{ re... Remove this comment to see the full error message
-lang.createVerb('Repair', { words: 'fix|mend|repair|tighten', defmsg: "{pv:item:be:true} not broken." })
+Quest.lang.createVerb('Repair', { words: 'fix|mend|repair|tighten', defmsg: "{pv:item:be:true} not broken." })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'createVerb' does not exist on type '{ re... Remove this comment to see the full error message
-lang.createVerb('SetClock', { words: 'set|reset|change', defmsg: true })
+Quest.lang.createVerb('SetClock', { words: 'set|reset|change', defmsg: true })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'createVerb' does not exist on type '{ re... Remove this comment to see the full error message
-lang.createVerb('CallLift', { words: 'call|summon', defmsg: true })
+Quest.lang.createVerb('CallLift', { words: 'call|summon', defmsg: true })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'createVerb' does not exist on type '{ re... Remove this comment to see the full error message
-lang.createVerb('WindUp', { words: 'wind up|wind', defmsg: "{pv:item:'be:true} not something you can wind up." })
+Quest.lang.createVerb('WindUp', { words: 'wind up|wind', defmsg: "{pv:item:'be:true} not something you can wind up." })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'createVerb' does not exist on type '{ re... Remove this comment to see the full error message
-lang.createVerb('Kill', { words: 'kill|slaughter|murder|attack', defmsg: "{pv:item:be:true} is not something worth killing." })
+Quest.lang.createVerb('Kill', { words: 'kill|slaughter|murder|attack', defmsg: "{pv:item:be:true} is not something worth killing." })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'createVerb' does not exist on type '{ re... Remove this comment to see the full error message
-lang.createVerb('WaveAt', { words: 'wave at', defmsg: "Mandy spends a few minutes waving at {nm:item:the}. Then wonders why she did." })
+Quest.lang.createVerb('WaveAt', { words: 'wave at', defmsg: "Mandy spends a few minutes waving at {nm:item:the}. Then wonders why she did." })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'createVerb' does not exist on type '{ re... Remove this comment to see the full error message
-lang.createVerb('Catch', { defmsg: "Catching {nm:item:the} is not going to achieve much -- have you tried just taking it?" })
+Quest.lang.createVerb('Catch', { defmsg: "Catching {nm:item:the} is not going to achieve much -- have you tried just taking it?" })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'createVerb' does not exist on type '{ re... Remove this comment to see the full error message
-lang.createVerb('StareAt', { words: 'stare at|stare', defmsg: "Mandy stares at {nm:item:the} for a few minutes, not sure quite what she expects it to do." })
+Quest.lang.createVerb('StareAt', { words: 'stare at|stare', defmsg: "Mandy stares at {nm:item:the} for a few minutes, not sure quite what she expects it to do." })
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'createVerbWith' does not exist on type '... Remove this comment to see the full error message
-lang.createVerbWith('Open', { held: true })
+Quest.lang.createVerbWith('Open', { held: true })
 
 
 
@@ -426,8 +426,8 @@ commands.unshift(new Cmd('Shift', {
     const obj = objects[0][0]
     const tpParams = { item: obj, char: player }
 
-    if (!obj.shiftable && obj.takeable) return failedmsg(lang.take_not_push, tpParams)
-    if (!obj.shiftable) return failedmsg(lang.cannot_push, tpParams)
+    if (!obj.shiftable && obj.takeable) return failedmsg(Quest.lang.take_not_push, tpParams)
+    if (!obj.shiftable) return failedmsg(Quest.lang.cannot_push, tpParams)
 
     return obj.shift() ? world.SUCCESS : world.FAILED
   },

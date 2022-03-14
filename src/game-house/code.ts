@@ -664,7 +664,7 @@ const SIZE_CHANGING = function () {
   res.take = function (options) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isAtLoc' does not exist on type '{ after... Remove this comment to see the full error message
     if (this.isAtLoc(options.char.name)) {
-      return falsemsg(lang.already_have, options)
+      return falsemsg(Quest.lang.already_have, options)
     }
     if (!options.char.testManipulate(this, "take")) return false
 

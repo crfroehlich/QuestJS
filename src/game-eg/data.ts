@@ -182,7 +182,7 @@ createItem("book_cover", COMPONENT("book"), {
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("boots", WEARABLE(), {
   loc: "lounge",
-  pronouns: lang.pronouns.plural,
+  pronouns: Quest.lang.pronouns.plural,
   examine: "Some old boots.",
   special_att_3: 'three',
 })
@@ -674,7 +674,7 @@ createItem("underwear",
   WEARABLE(1, ["lower"]),
   {
     loc: "bedroom",
-    pronouns: lang.pronouns.massnoun,
+    pronouns: Quest.lang.pronouns.massnoun,
     examine: "Clean!",
   }
 );
@@ -682,7 +682,7 @@ createItem("underwear",
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("jeans",
   WEARABLE(2, ["lower"]),
-  { loc: "bedroom", pronouns: lang.pronouns.plural, examine: "Clean!", }
+  { loc: "bedroom", pronouns: Quest.lang.pronouns.plural, examine: "Clean!", }
 );
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
@@ -711,7 +711,7 @@ createItem("jumpsuit",
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("suit_trousers",
   WEARABLE(2, ["lower"]),
-  { loc: "wardrobe", examine: "The trousers.", pronouns: lang.pronouns.plural }
+  { loc: "wardrobe", examine: "The trousers.", pronouns: Quest.lang.pronouns.plural }
 );
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
@@ -1437,7 +1437,7 @@ createItem("piggy_suu", NPC(true), {
       test: function () { return true },
       f: function (options: any) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        msg(lang.done_msg, options)
+        msg(Quest.lang.done_msg, options)
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'name' does not exist on type '{ test: ()... Remove this comment to see the full error message
         options.item.loc = this.name
         return true

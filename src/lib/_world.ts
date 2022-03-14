@@ -55,7 +55,7 @@ function createRoom() {
         alias: alias,
         synonyms: aliases,
         scenery: true,
-        examine: el.examine ? el.examine : lang.default_description,
+        examine: el.examine ? el.examine : Quest.lang.default_description,
       })
       delete el.alias
       delete el.examine
@@ -149,8 +149,8 @@ function createObject(name: any, listOfHashes: any) {
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'verbFunctions' does not exist on type '{... Remove this comment to see the full error message
   item.verbFunctions = [function (o: any, verbList: any) {
-    verbList.push(lang.verbs.examine)
-    if (o.use !== undefined) verbList.push(lang.verbs.use)
+    verbList.push(Quest.lang.verbs.examine)
+    if (o.use !== undefined) verbList.push(Quest.lang.verbs.use)
   }]
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'nameModifierFunctions' does not exist on... Remove this comment to see the full error message
   item.nameModifierFunctions = []
@@ -270,7 +270,7 @@ const world = {
 
     if (item._setup) item._setup()
     if (item.setup) item.setup()
-    for (let exit of lang.exit_list) {
+    for (let exit of Quest.lang.exit_list) {
       const ex = item[exit.name];
       if (ex) {
         ex.origin = item;
@@ -315,7 +315,7 @@ const world = {
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
     if (Quest.Settings.settings.playMode === 'dev') {
-      const dirs = lang.exit_list.filter(el => el.type !== 'nocmd').map(el => el.name)
+      const dirs = Quest.lang.exit_list.filter(el => el.type !== 'nocmd').map(el => el.name)
       //console.log(dirs)
       for (let key in item) {
         if (dirs.includes(key)) {
@@ -612,7 +612,7 @@ function Exit(this: any, name: any, hash: any) {
   this.name = name
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultExitUse' does not exist on type '... Remove this comment to see the full error message
   this.use = Quest.Utilities.util.defaultExitUse
-  this.getExitObject = function () { return lang.exit_list.find(el => el.name === this.dir) }
+  this.getExitObject = function () { return Quest.lang.exit_list.find(el => el.name === this.dir) }
   this.nice = function () {
     const dirObj = this.getExitObject()
     return dirObj.niceDir ? dirObj.niceDir : dirObj.name
@@ -624,7 +624,7 @@ function Exit(this: any, name: any, hash: any) {
   this.reverse = function () { return this.getExitObject().opp }
   this.reverseObject = function () {
     const dir = this.getExitObject().opp
-    return lang.exit_list.find(el => el.name === dir)
+    return Quest.lang.exit_list.find(el => el.name === dir)
   }
   this.guardedBy = []  // this is a list of names of NPCs that may be guarding the exit
   this.isGuarded = function () {
