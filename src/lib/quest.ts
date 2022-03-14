@@ -209,7 +209,7 @@ quest.list = function (all: any) {
 }
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('MetaQuests', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('MetaQuests', {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
   rules: [Quest.Command.cmdRules.isPresent],
   regex: /^(?:quest|quests|q)$/,
@@ -222,7 +222,7 @@ commands.unshift(new Quest.Command.Cmd('MetaQuests', {
 }))
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('MetaQuestsAll', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('MetaQuestsAll', {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
   rules: [Quest.Command.cmdRules.isPresent],
   regex: /^(?:quest|quests|q) all$/,

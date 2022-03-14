@@ -1,9 +1,6 @@
-"use strict"
-
-
 
 /*
-commands.push(new Quest.Command.Cmd('Kick', {
+Quest.Commands.commands.push(new Quest.Command.Cmd('Kick', {
   npcCmd:true,
   rules:[Quest.Command.cmdRules.isPresent],
   regex:/^(kick) (.+)$/,
@@ -17,7 +14,7 @@ commands.push(new Quest.Command.Cmd('Kick', {
   },
 }));
 
-commands.push(new Quest.Command.Cmd('Move', {
+Quest.Commands.commands.push(new Quest.Command.Cmd('Move', {
   npcCmd:true,
   rules:[Quest.Command.cmdRules.isPresent],
   regex:/^(move) (.+)$/,
@@ -36,7 +33,7 @@ commands.push(new Quest.Command.Cmd('Move', {
 // kyle, in stasis
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Quest.Command.Cmd('Get in pod1', {
+Quest.Commands.commands.push(new Quest.Command.Cmd('Get in pod1', {
   regex: /^(.+), ?(?:get in|go in|in) (?:stasis pod|stasis|pod)$/,
   npcCmd: true,
   attName: "stasis",
@@ -47,7 +44,7 @@ commands.push(new Quest.Command.Cmd('Get in pod1', {
   defmsg: "That's not about to get in a stasis!",
 }));
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Quest.Command.Cmd('Get in pod2', {
+Quest.Commands.commands.push(new Quest.Command.Cmd('Get in pod2', {
   regex: /^(?:tell|ask|instruct) (.+) to (?:get in|go in|in) (?:stasis pod|stasis|pod)$/,
   npcCmd: true,
   attName: "stasis",
@@ -59,7 +56,7 @@ commands.push(new Quest.Command.Cmd('Get in pod2', {
 }));
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Quest.Command.Cmd('Stop1', {
+Quest.Commands.commands.push(new Quest.Command.Cmd('Stop1', {
   regex: /^(.+), (?:stop|halt|forget it)$/,
   npcCmd: true,
   attName: "stopAgenda",
@@ -70,7 +67,7 @@ commands.push(new Quest.Command.Cmd('Stop1', {
   defmsg: "That's not doing anything!",
 }));
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Quest.Command.Cmd('Stop2', {
+Quest.Commands.commands.push(new Quest.Command.Cmd('Stop2', {
   regex: /^(?:tell|ask|instruct) (.+) to (?:stop|halt|forget it)$/,
   npcCmd: true,
   attName: "stopAgenda",
@@ -83,7 +80,7 @@ commands.push(new Quest.Command.Cmd('Stop2', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Quest.Command.Cmd('Launch', {
+Quest.Commands.commands.push(new Quest.Command.Cmd('Launch', {
   regex: /^(?:launch|deploy) (.+)$/,
   npcCmd: true,
   objects: [
@@ -94,7 +91,7 @@ commands.push(new Quest.Command.Cmd('Launch', {
 }));
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Quest.Command.Cmd('Revive', {
+Quest.Commands.commands.push(new Quest.Command.Cmd('Revive', {
   regex: /^(?:revive|wake|awaken) (.+)$/,
   npcCmd: true,
   objects: [
@@ -107,7 +104,7 @@ commands.push(new Quest.Command.Cmd('Revive', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Quest.Command.Cmd('Spray', {
+Quest.Commands.commands.push(new Quest.Command.Cmd('Spray', {
   regex: /^(?:spray) (.+)$/,
   rules: [
     function (cmd: any, char: any, item: any, multiple: any) {
@@ -133,7 +130,7 @@ commands.push(new Quest.Command.Cmd('Spray', {
 }));
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Quest.Command.Cmd('Pressurise', {
+Quest.Commands.commands.push(new Quest.Command.Cmd('Pressurise', {
   regex: /^(?:pressuri[sz]e|pres) (.+)$/,
   attName: 'pressure',
   objects: [
@@ -143,7 +140,7 @@ commands.push(new Quest.Command.Cmd('Pressurise', {
   defmsg: 'Not something you can pressurise.',
 }));
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Quest.Command.Cmd('Depressurise', {
+Quest.Commands.commands.push(new Quest.Command.Cmd('Depressurise', {
   regex: /^(?:depressuri[sz]e|evacuate|depres) (.+)$/,
   attName: 'pressure',
   objects: [
@@ -153,7 +150,7 @@ commands.push(new Quest.Command.Cmd('Depressurise', {
   defmsg: 'Not something you can evacuate.',
 }));
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Quest.Command.Cmd('NpcPressurise1', {
+Quest.Commands.commands.push(new Quest.Command.Cmd('NpcPressurise1', {
   regex: /^(.+), ?(?:pressuri[sz]e|pres) (.+)$/,
   attName: 'pressure',
   objects: [
@@ -174,7 +171,7 @@ commands.push(new Quest.Command.Cmd('NpcPressurise1', {
   },
 }));
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Quest.Command.Cmd('NpcPressurise2', {
+Quest.Commands.commands.push(new Quest.Command.Cmd('NpcPressurise2', {
   regex: /^(?:tell|ask|instruct) (.+) to (?:pressuri[sz]e|pres) (.+)$/,
   attName: 'pressure',
   objects: [
@@ -195,7 +192,7 @@ commands.push(new Quest.Command.Cmd('NpcPressurise2', {
   },
 }));
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Quest.Command.Cmd('NpcDepressurise1', {
+Quest.Commands.commands.push(new Quest.Command.Cmd('NpcDepressurise1', {
   regex: /^(.+), ?(?:depressuri[sz]e|evacuate|depres|evac) (.+)$/,
   attName: 'pressure',
   objects: [
@@ -216,7 +213,7 @@ commands.push(new Quest.Command.Cmd('NpcDepressurise1', {
   },
 }))
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Quest.Command.Cmd('NpcDepressurise2', {
+Quest.Commands.commands.push(new Quest.Command.Cmd('NpcDepressurise2', {
   regex: /^(?:tell|ask|instruct) (.+) to (?:depressuri[sz]e|evacuate|depres) (.+)$/,
   attName: 'pressure',
   objects: [
@@ -313,7 +310,7 @@ function handlePressurise(char: any, objects: any, pressurise: any) {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Quest.Command.Cmd('Approach', {
+Quest.Commands.commands.push(new Quest.Command.Cmd('Approach', {
   regex: /^approach (.+)$/,
   objects: [
     { scope: 'isShip' },
@@ -350,7 +347,7 @@ commands.push(new Quest.Command.Cmd('Approach', {
 }));
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Quest.Command.Cmd('Scan', {
+Quest.Commands.commands.push(new Quest.Command.Cmd('Scan', {
   regex: /^scan (.+)$/,
   objects: [
     { scope: 'isShip' },
@@ -402,7 +399,7 @@ function isShip(item: any) {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Quest.Command.Cmd('ProbeStatus', {
+Quest.Commands.commands.push(new Quest.Command.Cmd('ProbeStatus', {
   regex: /^probes?$/,
   script: function () {
     const arr = getProbes();
@@ -443,7 +440,7 @@ commands.push(new Quest.Command.Cmd('ProbeStatus', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('MapUpdate', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('MapUpdate', {
   regex: /^map?$/,
   script: function () {
     updateMap()
@@ -479,7 +476,7 @@ Quest.Command.findCmd('MetaHelp').script = function () {
 }
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Quest.Command.Cmd('HelpSubject', {
+Quest.Commands.commands.push(new Quest.Command.Cmd('HelpSubject', {
   regex: /^(?:\?|help) (.*)$/,
   objects: [
     { special: 'text' },

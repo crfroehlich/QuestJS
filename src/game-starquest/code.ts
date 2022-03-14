@@ -8,7 +8,7 @@
 parser.isRoom = function (o: any) { return o.room }
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('GoToDest', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('GoToDest', {
   npcCmd: true,
   regex: /^(?:go to|go) (.+)$/,
   objects: [
@@ -140,7 +140,7 @@ const newVerbs = [
 
 for (let el of newVerbs) {
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  commands.unshift(new Quest.Command.Cmd(el.name, {
+  Quest.Commands.commands.unshift(new Quest.Command.Cmd(el.name, {
     regex: new RegExp('^' + el.name.toLowerCase() + ' (.+)$'),
     attName: Quest.Utilities.verbify(el.name),
     objects: [
@@ -171,7 +171,7 @@ const newCmds = [
 
 for (let el of newCmds) {
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  commands.unshift(new Quest.Command.Cmd(el.name, {
+  Quest.Commands.commands.unshift(new Quest.Command.Cmd(el.name, {
     regex: new RegExp('^' + el.name.toLowerCase() + '$'),
     objects: [
     ],
@@ -188,7 +188,7 @@ for (let el of newCmds) {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd("JumpStart", {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd("JumpStart", {
   regex: /start/,
   objects: [
   ],

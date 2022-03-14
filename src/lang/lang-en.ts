@@ -1,4 +1,4 @@
-export namespace Quest {
+namespace Quest {
   // Language support
   export const lang = {
 
@@ -1294,7 +1294,7 @@ export namespace Quest {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'defmsg' does not exist on type '{}'.
       if (options.defmsg === true) options.defmsg = "{pv:item:'be:true} not something you can do that with."
       // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-      commands.unshift(new Quest.Command.Cmd(name, {
+      Quest.Commands.commands.unshift(new Quest.Command.Cmd(name, {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'words' does not exist on type '{}'.
         regex: new RegExp("^(?:" + options.words + ") (.+)$"),
         objects: [
@@ -1317,7 +1317,7 @@ export namespace Quest {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'defmsg' does not exist on type '{}'.
       if (options.defmsg === true) options.defmsg = "{pv:item:'be:true} not something you can do that with."
       // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-      commands.unshift(new Quest.Command.Cmd(name + "With", {
+      Quest.Commands.commands.unshift(new Quest.Command.Cmd(name + "With", {
         regexes: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'words' does not exist on type '{}'.
           new RegExp("^(?:" + options.words + ") (.+) (?:using|with) (.+)$"),

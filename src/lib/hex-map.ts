@@ -454,7 +454,7 @@ map.generate = function (x: any, y: any, data: any) {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
 if (Quest.Settings.settings.playMode === 'dev') {
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  commands.unshift(new Quest.Command.Cmd('DebugMap', {
+  Quest.Commands.commands.unshift(new Quest.Command.Cmd('DebugMap', {
     regex: /^debug map$/,
     objects: [
     ],

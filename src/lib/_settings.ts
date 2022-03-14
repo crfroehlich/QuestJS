@@ -1,6 +1,4 @@
-// import { ICustomPaneFunctions, IDateTime, IInventoryPane, IMapStyle, IScriptDoc, ISettings, IStatsDatum, noop, TGetBool, TGetString, TGetVoid } from "./interfaces";
-// import { getGlobals, setGlobal } from "./_globals";
-export namespace Quest {
+namespace Quest {
   export namespace Settings {
     export type TGetVoid = (...params: any) => void;
     export type TGetString = (...params: any[]) => string;

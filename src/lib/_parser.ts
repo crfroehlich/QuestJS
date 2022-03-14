@@ -244,7 +244,7 @@ parser.findCommand = function (inputText: any) {
   //let error = Quest.lang.general_obj_error;
   let bestMatch
 
-  for (const el of commands) {
+  for (const el of Quest.Commands.commands) {
     // matchItemsToCmd will attempt to fit the objects, returns a dictionary if successful
     // or an error message otherwise. Could have more than one object,
     // either because multiple were specified or because it was ambiguous (or both)

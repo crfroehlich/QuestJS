@@ -1,7 +1,7 @@
 "use strict"
 
 /*
-commands.unshift(new Quest.Command.Cmd('Charge', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('Charge', {
   npcCmd:true,
   regex:/^(?:charge|power) (.+)$/,
   objects:[

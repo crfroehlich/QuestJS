@@ -1,4 +1,4 @@
-export namespace Quest {
+namespace Quest {
   export namespace Utilities {
     // ============  Utilities  =================================
 

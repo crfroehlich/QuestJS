@@ -94,7 +94,7 @@ Quest.lang.createVerbWith('Open', { held: true })
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('Rude', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('Rude', {
   regex: /^(?:fuck|shag|shit|crap|damn|wank|frig)/,
   objects: [],
   script: function () {
@@ -105,7 +105,7 @@ commands.unshift(new Quest.Command.Cmd('Rude', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('Xyzzy', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('Xyzzy', {
   regex: /^(?:say |)xyzzy$/,
   objects: [],
   script: function () {
@@ -115,7 +115,7 @@ commands.unshift(new Quest.Command.Cmd('Xyzzy', {
   },
 }))
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('Dance', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('Dance', {
   regex: /^dance$/,
   objects: [],
   script: function () {
@@ -145,7 +145,7 @@ commands.unshift(new Quest.Command.Cmd('Dance', {
   },
 }))
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('Sing', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('Sing', {
   regex: /^sing$/,
   objects: [
   ],
@@ -170,7 +170,7 @@ commands.unshift(new Quest.Command.Cmd('Sing', {
   },
 }))
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('Act', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('Act', {
   regex: /^act$/,
   objects: [
   ],
@@ -203,7 +203,7 @@ commands.unshift(new Quest.Command.Cmd('Act', {
   },
 }))
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('Jump', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('Jump', {
   regexes: [
     /^jump$/,
     /^jump (?:off|from)(?: the catwalk| catwalk|)$/,
@@ -224,7 +224,7 @@ commands.unshift(new Quest.Command.Cmd('Jump', {
   },
 }))
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('Shout', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('Shout', {
   regex: /^(?:shout|yell|holler|cry out)$/,
   objects: [
   ],
@@ -242,7 +242,7 @@ commands.unshift(new Quest.Command.Cmd('Shout', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('ThrowAtPod', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('ThrowAtPod', {
   regexes: [
     /^(?:throw|lob|hurl) (.+) at (?:pods?|tree)$/,
     /^(?:hit|knock) (?:pods?|tree) with (.+)$/,
@@ -297,7 +297,7 @@ commands.unshift(new Quest.Command.Cmd('ThrowAtPod', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('TurnWithOar', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('TurnWithOar', {
   regexes: [
     /^(?:turn|shift|rotate|move) (.+) (?:with|using) oar$/,
     /^use oar to (?:turn|shift|rotate|move) (.+)$/,
@@ -311,7 +311,7 @@ commands.unshift(new Quest.Command.Cmd('TurnWithOar', {
 }))
 
 /*
-commands.unshift(new Quest.Command.Cmd('OpenWith', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('OpenWith', {
   regexes:[
     /^(?:open|remove|get) (.+) (?:with|using) (.+)$/,
     {regex:/^use (.+) to (?:open|remove|get) (.+)$/, mod:{reverse:true}},
@@ -329,7 +329,7 @@ commands.unshift(new Quest.Command.Cmd('OpenWith', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('GrindUnderHeel', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('GrindUnderHeel', {
   regexes: [
     /^(?:grind) (.+?) (?:under|into) (?:heel|your heel|foot|your foot|ground|the ground)$/,
     /^(?:grind) (.+?)$/,
@@ -356,7 +356,7 @@ for (const s of helpStrs2) {
 }
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('NpcHelp', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('NpcHelp', {
   regexes: [
     new RegExp('^(.+), ?(?:' + helpStr + ')$'),
     new RegExp('^(?:tell|ask|instruct) (.+) to (?:' + helpStr + ')$'),
@@ -390,7 +390,7 @@ commands.unshift(new Quest.Command.Cmd('NpcHelp', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('Plant', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('Plant', {
   regexes: [
     /^(?:plant|bury) (.+) in (?:earth|ground|soil|bare earth|bare ground)$/,
     /^(?:plant|bury) (.+)$/,
@@ -415,7 +415,7 @@ commands.unshift(new Quest.Command.Cmd('Plant', {
 }))
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('Shift', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('Shift', {
   regex: /^(?:shift|move) (.+)$/,
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
@@ -434,7 +434,7 @@ commands.unshift(new Quest.Command.Cmd('Shift', {
 }))
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('Invert', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('Invert', {
   regexes: [
     /^(?:invert|turn over) (.+)$/,
     /^turn (.+) over$/,
@@ -452,7 +452,7 @@ commands.unshift(new Quest.Command.Cmd('Invert', {
 }))
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('BurstBalloon', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('BurstBalloon', {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
   rules: [Quest.Command.cmdRules.isHeld],
   regexes: [
@@ -479,7 +479,7 @@ commands.unshift(new Quest.Command.Cmd('BurstBalloon', {
 }))
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('BurstBalloonOnly', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('BurstBalloonOnly', {
   regex: /^(?:burst|break|cut|puncture|pierce|stab|pop) (.+?)$/,
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
@@ -498,7 +498,7 @@ commands.unshift(new Quest.Command.Cmd('BurstBalloonOnly', {
 }))
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('WakeUp', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('WakeUp', {
   regex: /^(?:wake|wake up|awaken)$/,
   objects: [
   ],
@@ -511,7 +511,7 @@ commands.unshift(new Quest.Command.Cmd('WakeUp', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('Fly', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('Fly', {
   regex: /^(?:try to fly|fly)$/,
   objects: [
   ],
@@ -524,7 +524,7 @@ commands.unshift(new Quest.Command.Cmd('Fly', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('ConfrontFears', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('ConfrontFears', {
   regex: /^confront (?:her |your |my |)fears?$/,
   objects: [
   ],
@@ -550,7 +550,7 @@ commands.unshift(new Quest.Command.Cmd('ConfrontFears', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('PhoneAFriend', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('PhoneAFriend', {
   regex: /^(?:phone|call) (?:someone|a friend|friend|police|cops|parents|her parents)$/,
   objects: [
   ],
@@ -566,7 +566,7 @@ commands.unshift(new Quest.Command.Cmd('PhoneAFriend', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('PutUnder', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('PutUnder', {
   regex: /^(?:put|place|drop) (.+) (?:under|beneath|below) (.+)$/,
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
   rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],

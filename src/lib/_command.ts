@@ -1,4 +1,4 @@
-export namespace Quest {
+namespace Quest {
   export namespace Command {
     // Should all be language neutral (except the inspect function, which is just for debugging)
 
@@ -499,7 +499,7 @@ export namespace Quest {
     // Should be called during the initialisation process
     export function initCommands() {
       const newCmds = [];
-      for (let el of commands) {
+      for (let el of Quest.Commands.commands) {
         if (!el.regexes) {
           el.regexes = [el.regex]
         }
@@ -541,7 +541,7 @@ export namespace Quest {
         }
       }
 
-      commands.push.apply(commands, newCmds);
+      Quest.Commands.commands.push.apply(Quest.Commands.commands, newCmds);
 
       for (let el of Quest.lang.exit_list) {
         if (el.type !== 'nocmd') {
@@ -549,7 +549,7 @@ export namespace Quest {
           if (el.alt) { regex += "|" + el.alt; }
           regex += ")$";
           // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-          commands.push(new ExitCmd("Go" + Quest.Utilities.sentenceCase(el.name), el.name, { regexes: [new RegExp("^" + regex)] }));
+          Quest.Commands.commands.push(new ExitCmd("Go" + Quest.Utilities.sentenceCase(el.name), el.name, { regexes: [new RegExp("^" + regex)] }));
 
           const regexes = []
           for (let key in Quest.lang.tell_to_prefixes) {
@@ -557,7 +557,7 @@ export namespace Quest {
             regexes.push(new RegExp("^" + Quest.lang.tell_to_prefixes[key] + regex))
           }
           // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-          commands.push(new NpcExitCmd("NpcGo" + Quest.Utilities.sentenceCase(el.name) + "2", el.name, { regexes: regexes }))
+          Quest.Commands.commands.push(new NpcExitCmd("NpcGo" + Quest.Utilities.sentenceCase(el.name) + "2", el.name, { regexes: regexes }))
         }
       }
     }
@@ -580,7 +580,7 @@ export namespace Quest {
     }
 
     export function findCmd(name: any) {
-      return commands.find(el => el.name === name)
+      return Quest.Commands.commands.find(el => el.name === name)
     }
 
     function testCmd(name: any, s: any) {

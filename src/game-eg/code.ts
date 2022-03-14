@@ -21,7 +21,7 @@ quest.create('A carrot for Buddy', [
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('TestInput', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('TestInput', {
   npcCmd: true,
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
   rules: [Quest.Command.cmdRules.isPresent],
@@ -52,7 +52,7 @@ commands.unshift(new Quest.Command.Cmd('TestInput', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('TextReveal', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('TextReveal', {
   regex: /^reveal$/,
   script: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -80,7 +80,7 @@ commands.unshift(new Quest.Command.Cmd('TextReveal', {
 }));
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('Image', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('Image', {
   regex: /^img$/,
   script: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -91,7 +91,7 @@ commands.unshift(new Quest.Command.Cmd('Image', {
 }));
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('Audio', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('Audio', {
   regex: /^beep$/,
   script: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -104,7 +104,7 @@ commands.unshift(new Quest.Command.Cmd('Audio', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('Alpha', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('Alpha', {
   regex: /^alpha$/,
   script: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -133,7 +133,7 @@ commands.unshift(new Quest.Command.Cmd('Alpha', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('DialogTest', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('DialogTest', {
   npcCmd: true,
   regex: /^(?:dialog) (.*)$/,
   objects: [
@@ -156,7 +156,7 @@ commands.unshift(new Quest.Command.Cmd('DialogTest', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('TextTest', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('TextTest', {
   npcCmd: true,
   regex: /^(?:text)$/,
   objects: [
@@ -174,7 +174,7 @@ commands.unshift(new Quest.Command.Cmd('TextTest', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('EgKick', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('EgKick', {
   npcCmd: true,
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
   rules: [Quest.Command.cmdRules.isPresent],
@@ -190,7 +190,7 @@ commands.unshift(new Quest.Command.Cmd('EgKick', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('EgCharge', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('EgCharge', {
   npcCmd: true,
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
   rules: [Quest.Command.cmdRules.isHeld],
@@ -204,7 +204,7 @@ commands.unshift(new Quest.Command.Cmd('EgCharge', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('EgMove', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('EgMove', {
   npcCmd: true,
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
   rules: [Quest.Command.cmdRules.isPresent],
@@ -297,7 +297,7 @@ Quest.lang.createVerbWith("Slice", { held: true, ing: 'Slicing' })
 
 /*
 // This is not a properly written command, it is just to test the item order can be reversed.
-commands.unshift(new Quest.Command.Cmd('SliceCarrot', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('SliceCarrot', {
   rules:[Quest.Command.cmdRules.isHeld],
   regexes:[/^use (.+) to slice (.+)$/, /^use (.+) slice (.+)$/, {regex:/slice (.+) with (.+)/, mod:{reverse:true}}],
   objects:[

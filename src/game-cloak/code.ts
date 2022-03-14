@@ -28,7 +28,7 @@ Quest.Command.findCmd('MetaHelp').script = function () {
 }
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Quest.Command.Cmd('HangUp', {
+Quest.Commands.commands.push(new Quest.Command.Cmd('HangUp', {
   regex: /^(?:hang up|hang) (.+?)(?: on the hook| on hook|)$/,
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.

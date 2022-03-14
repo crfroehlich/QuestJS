@@ -1766,7 +1766,7 @@ io.writeExit = function (n: any) {
 // Gets the command with the given name
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'getCommand' does not exist on type '{ ne... Remove this comment to see the full error message
 io.getCommand = function (name: any) {
-  const found = commands.find(function (el) {
+  const found = Quest.Commands.commands.find(function (el) {
     return el.name === name;
   });
   return found;

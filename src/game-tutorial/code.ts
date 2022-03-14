@@ -241,7 +241,7 @@ Quest.Command.findCmd('MetaSave').script = function () {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Quest.Command.Cmd('Crowbar', {
+Quest.Commands.commands.push(new Quest.Command.Cmd('Crowbar', {
   regex: /^(crowbar|level) (.+)$/,
   objects: [
     { special: 'ignore' },
@@ -253,7 +253,7 @@ commands.push(new Quest.Command.Cmd('Crowbar', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('Move', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('Move', {
   npcCmd: true,
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
   rules: [Quest.Command.cmdRules.isPresent],
@@ -269,7 +269,7 @@ commands.unshift(new Quest.Command.Cmd('Move', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Quest.Command.Cmd('Tutorial', {
+Quest.Commands.commands.push(new Quest.Command.Cmd('Tutorial', {
   regex: /^tutorial$/,
   objects: [
   ],
@@ -313,7 +313,7 @@ const unwrapScript = function (obj1: any, obj2: any) {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('Wrap1', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('Wrap1', {
   // wrap fist in newspaper
   regex: /^(?:wrap|cover) (.+) (?:with|in) (.+)$/,
   objects: [
@@ -326,7 +326,7 @@ commands.unshift(new Quest.Command.Cmd('Wrap1', {
 }));
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('Wrap2', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('Wrap2', {
   // wrap newspaper round fist
   regex: /^(?:wrap) (.+) (?:round|around) (.+)$/,
   objects: [
@@ -339,7 +339,7 @@ commands.unshift(new Quest.Command.Cmd('Wrap2', {
 }));
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('Unwrap1', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('Unwrap1', {
   // unwrap fist
   regex: /^(?:unwrap|uncover) (.+)$/,
   objects: [
@@ -353,7 +353,7 @@ commands.unshift(new Quest.Command.Cmd('Unwrap1', {
 }));
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('Unwrap2', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('Unwrap2', {
   // take newspaper off fist
   regex: /^(?:take|remove) (.+) (?:off|from) (.+)$/,
   objects: [
@@ -368,7 +368,7 @@ commands.unshift(new Quest.Command.Cmd('Unwrap2', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('ThrowThrough', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('ThrowThrough', {
   // throw rope out window
   regex: /^(?:throw|chuck|hurl|toss|pitch|lob|heave) (.+) (?:out of|out|through) (.+)$/,
   objects: [
@@ -417,7 +417,7 @@ const smashWithScript = function (item: any, dest: any) {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('SmashWith', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('SmashWith', {
   // throw rope out window
   regex: /^(?:smash|break|destroy) (.+) (?:with|using) (.+)$/,
   objects: [
@@ -433,7 +433,7 @@ commands.unshift(new Quest.Command.Cmd('SmashWith', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('UseToSmash', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('UseToSmash', {
   // throw rope out window
   regex: /^(?:use|using) (.+?) (?:to |)(?:smash|break|destroy) (.+)$/,
   objects: [
@@ -450,7 +450,7 @@ commands.unshift(new Quest.Command.Cmd('UseToSmash', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('Attack', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('Attack', {
   // throw rope out window
   regex: /^(?:attack|kick|punch|hit|strike|kill) (.+?)$/,
   objects: [
@@ -481,7 +481,7 @@ commands.unshift(new Quest.Command.Cmd('Attack', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.unshift(new Quest.Command.Cmd('TieUp', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('TieUp', {
   // throw rope out window
   regex: /^(?:tie up|tie|bind) (.+?)$/,
   objects: [
@@ -518,7 +518,7 @@ commands.unshift(new Quest.Command.Cmd('TieUp', {
 
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-commands.push(new Quest.Command.Cmd('RudeCommand', {
+Quest.Commands.commands.push(new Quest.Command.Cmd('RudeCommand', {
   // throw rope out window
   regex: /^(?:fuck|facefuck|face-fuck|face fuck|bugger|shag|suck|suck off|assfuck|ass-fuck|ass fuck|rape|ass-rape|ass rape) (.+?)$/,
   objects: [
@@ -545,7 +545,7 @@ commands.push(new Quest.Command.Cmd('RudeCommand', {
 
 
 /*
-commands.unshift(new Quest.Command.Cmd('ThrowAt', {
+Quest.Commands.commands.unshift(new Quest.Command.Cmd('ThrowAt', {
   // throw computer at window
   regex:/^(?:wrap|cover) (.+) (?:with|in) (.+)$/,
   objects:[
