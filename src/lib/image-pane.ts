@@ -29,11 +29,11 @@ imagePane.init = function() {
   // First set up the HTMP page
 
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-  Object.assign(document.querySelector('#quest-image').style, imagePane.defaultStyle, settings.imageStyle)
+  Object.assign(document.querySelector('#quest-image').style, imagePane.defaultStyle, Quest.settings.imageStyle)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'imageHeight' does not exist on type '{ p... Remove this comment to see the full error message
-  settings.imageHeight = parseInt(settings.imageStyle.height)
+  Quest.settings.imageHeight = parseInt(Quest.settings.imageStyle.height)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'imageWidth' does not exist on type '{ pe... Remove this comment to see the full error message
-  settings.imageWidth = parseInt(settings.imageStyle.width)
+  Quest.settings.imageWidth = parseInt(Quest.settings.imageStyle.width)
   
   // Set the default values for settings
   for (let key in imagePane.defaults) {
@@ -53,17 +53,17 @@ imagePane.show = function() { document.querySelector('#quest-image').style.displ
 commands.unshift(new Cmd('MetaImages', {
   script:function() {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'hideImagePane' does not exist on type '{... Remove this comment to see the full error message
-    if (settings.hideImagePane) {
+    if (Quest.settings.hideImagePane) {
       // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
       document.querySelector('#quest-images').style.display = 'block'
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'hideImagePane' does not exist on type '{... Remove this comment to see the full error message
-      delete settings.hideImagePane
+      delete Quest.settings.hideImagePane
     }
     else {
       // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
       document.querySelector('#quest-images').style.display = 'none'
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'hideImagePane' does not exist on type '{... Remove this comment to see the full error message
-      settings.hideImagePane = true
+      Quest.settings.hideImagePane = true
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'calcMargins' does not exist on type '{ n... Remove this comment to see the full error message
     io.calcMargins()

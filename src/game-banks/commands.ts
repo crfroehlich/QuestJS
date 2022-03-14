@@ -525,7 +525,7 @@ commands.push(new Cmd('HelpSubject', {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         metamsg("You can ask an NPC to do something by using the same command you would use to have yourself do something, but prefixed with {color:red:[name],} (note the comma) or {color:red:TELL [name] TO}.")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg(settings.noTalkTo)
+        metamsg(Quest.settings.noTalkTo)
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         metamsg("Use the {color:red:TOPICS} command for some suggested topics. There are rather more for ASK than TELL, as you might expect.")
       },

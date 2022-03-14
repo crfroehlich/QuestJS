@@ -64,15 +64,15 @@ const commands = [
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
   new Cmd('MetaSilent', {
     script:function() {
-      if (settings.silent) {
+      if (Quest.settings.silent) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         metamsg(lang.mode_silent_off)
-        settings.silent = false
+        Quest.settings.silent = false
       }
       else {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         metamsg(lang.mode_silent_on)
-        settings.silent = true
+        Quest.settings.silent = true
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 0.
         ambient()
       }
@@ -106,13 +106,13 @@ const commands = [
     script:function() {
       io.spoken = true;
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'intro' does not exist on type '{ perform... Remove this comment to see the full error message
-      if (typeof settings.intro === "string") {
+      if (typeof Quest.settings.intro === "string") {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg(settings.intro)
+        msg(Quest.settings.intro)
       }
       else {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'intro' does not exist on type '{ perform... Remove this comment to see the full error message
-        for (let el of settings.intro) msg(el)
+        for (let el of Quest.settings.intro) msg(el)
       }
       return world.SUCCESS_NO_TURNSCRIPTS
     },
@@ -121,7 +121,7 @@ const commands = [
   new Cmd('MetaBrief', {
     script:function() {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'verbosity' does not exist on type '{ per... Remove this comment to see the full error message
-      settings.verbosity = world.BRIEF
+      Quest.settings.verbosity = world.BRIEF
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       metamsg(lang.mode_brief)
       return world.SUCCESS_NO_TURNSCRIPTS
@@ -131,7 +131,7 @@ const commands = [
   new Cmd('MetaTerse', {
     script:function() {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'verbosity' does not exist on type '{ per... Remove this comment to see the full error message
-      settings.verbosity = world.TERSE
+      Quest.settings.verbosity = world.TERSE
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       metamsg(lang.mode_terse)
       return world.SUCCESS_NO_TURNSCRIPTS
@@ -141,7 +141,7 @@ const commands = [
   new Cmd('MetaVerbose', {
     script:function() {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'verbosity' does not exist on type '{ per... Remove this comment to see the full error message
-      settings.verbosity = world.VERBOSE
+      Quest.settings.verbosity = world.VERBOSE
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       metamsg(llang.mode_verbose)
       return world.SUCCESS_NO_TURNSCRIPTS
@@ -236,7 +236,7 @@ const commands = [
   new Cmd('MetaSaveGame', {
     script:function(arr: any) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'localStorageDisabled' does not exist on ... Remove this comment to see the full error message
-      if (settings.localStorageDisabled) {
+      if (Quest.settings.localStorageDisabled) {
         saveLoad.saveGameAsFile(arr[0])
       }
       else {
@@ -263,7 +263,7 @@ const commands = [
   new Cmd('MetaLoad', {
     script:function(arr: any) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'localStorageDisabled' does not exist on ... Remove this comment to see the full error message
-      if (settings.localStorageDisabled) {
+      if (Quest.settings.localStorageDisabled) {
         // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
         document.getElementById('fileDialog').click()
       }
@@ -318,7 +318,7 @@ const commands = [
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
   new Cmd('MetaUndo', {
     script:function() {
-      if (settings.maxUndo === 0) {
+      if (Quest.settings.maxUndo === 0) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         metamsg(lang.undo_disabled)
         return world.FAILED
@@ -395,12 +395,12 @@ const commands = [
   // I see them as jogging the user's mind about the game world, rather than
   // doing something in the game world, so by default
   // no ttime passes.
-  // Set settings.lookCountsAsTurn to true if you disagree!
+  // Set Quest.settings.lookCountsAsTurn to true if you disagree!
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
   new Cmd('Look', {
     script:function() {
       currentLocation.description();
-      return settings.lookCountsAsTurn ? world.SUCCESS : world.SUCCESS_NO_TURNSCRIPTS;
+      return Quest.settings.lookCountsAsTurn ? world.SUCCESS : world.SUCCESS_NO_TURNSCRIPTS;
     },
   }),
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
@@ -408,7 +408,7 @@ const commands = [
     script:function() {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
       msg(lang.can_go, {char:player});
-      return settings.lookCountsAsTurn ? world.SUCCESS : world.SUCCESS_NO_TURNSCRIPTS;
+      return Quest.settings.lookCountsAsTurn ? world.SUCCESS : world.SUCCESS_NO_TURNSCRIPTS;
     },
   }),
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
@@ -417,7 +417,7 @@ const commands = [
       const listOfOjects = player.getContents(world.INVENTORY);
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
       msg(lang.inventory_prefix + " " + formatList(listOfOjects, {article:INDEFINITE, lastJoiner:lang.list_and, modified:true, nothing:lang.list_nothing, loc:player.name}) + ".", {char:player});
-      return settings.lookCountsAsTurn ? world.SUCCESS : world.SUCCESS_NO_TURNSCRIPTS;
+      return Quest.settings.lookCountsAsTurn ? world.SUCCESS : world.SUCCESS_NO_TURNSCRIPTS;
     },
   }),
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
@@ -425,7 +425,7 @@ const commands = [
     script:function() {
       if (typeof showMap !== 'undefined') {
         showMap();
-        return settings.lookCountsAsTurn ? world.SUCCESS : world.SUCCESS_NO_TURNSCRIPTS;
+        return Quest.settings.lookCountsAsTurn ? world.SUCCESS : world.SUCCESS_NO_TURNSCRIPTS;
       }
       else {
         // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
@@ -1190,13 +1190,13 @@ const commands = [
       
       const options = {char:player, text: sentenceCase(arr[1])}
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      if (settings.givePlayerSayMsg) msg(lang.say_something, options)
+      if (Quest.settings.givePlayerSayMsg) msg(lang.say_something, options)
       for (let chr of l) {
         // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         if (chr.sayQuestion && w[chr.sayQuestion].sayResponse(chr, arr[1])) return world.SUCCESS;
         if (chr.sayResponse && chr.sayResponse(arr[1], arr[0])) return world.SUCCESS;
       }
-      if (settings.givePlayerSayMsg) {
+      if (Quest.settings.givePlayerSayMsg) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
         msg(lang.say_no_response, options);
       }
@@ -2115,7 +2115,7 @@ for (const s of ['In', 'Out', 'Up', 'Down', 'Through']) {
 // DEBUG commands
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
-if (settings.playMode === 'dev') {
+if (Quest.settings.playMode === 'dev') {
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
   commands.push(new Cmd('DebugWalkThrough', {
     objects:[
@@ -2132,19 +2132,19 @@ if (settings.playMode === 'dev') {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       if (wt === undefined) return failedmsg("No walkthrough found called " + objects[0])
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'walkthroughInProgress' does not exist on... Remove this comment to see the full error message
-      settings.walkthroughInProgress = true
+      Quest.settings.walkthroughInProgress = true
       for (let el of wt) {
         if (typeof el === "string") {
           runCmd(el)
         }
         else {
-          settings.walkthroughMenuResponses = Array.isArray(el.menu) ? el.menu : [el.menu]
+          Quest.settings.walkthroughMenuResponses = Array.isArray(el.menu) ? el.menu : [el.menu]
           runCmd(el.cmd)
-          settings.walkthroughMenuResponses = []
+          Quest.settings.walkthroughMenuResponses = []
         }
       }
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'walkthroughInProgress' does not exist on... Remove this comment to see the full error message
-      settings.walkthroughInProgress = false
+      Quest.settings.walkthroughInProgress = false
       return world.SUCCESS_NO_TURNSCRIPTS
     },
   })) 
@@ -2186,10 +2186,10 @@ if (settings.playMode === 'dev') {
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
   commands.push(new Cmd('DebugTest', {
     script:function() {
-      if (!settings.tests) {
+      if (!Quest.settings.tests) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         metamsg('The TEST command is for unit testing during game development, and is not activated (F12 for more).')
-        console.log('To activate testing in your game, set settings.tests to true. More details here: https://github.com/ThePix/QuestJS/wiki/Unit-testing')
+        console.log('To activate testing in your game, set Quest.settings.tests to true. More details here: https://github.com/ThePix/QuestJS/wiki/Unit-testing')
         return world.SUCCESS_NO_TURNSCRIPTS;
       }
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'runTests' does not exist on type '{}'.
@@ -2294,9 +2294,9 @@ if (settings.playMode === 'dev') {
   commands.push(new Cmd('DebugStats', {
     script:function(arr: any) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'count' does not exist on type '{ name: s... Remove this comment to see the full error message
-      for (const el of settings.statsData) el.count = 0
+      for (const el of Quest.settings.statsData) el.count = 0
       for (const key in w) {
-        for (const el of settings.statsData) {
+        for (const el of Quest.settings.statsData) {
           // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           const res = el.test(w[key])
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'count' does not exist on type '{ name: s... Remove this comment to see the full error message
@@ -2305,7 +2305,7 @@ if (settings.playMode === 'dev') {
           if (typeof res === 'number') el.count += res
         }
       }
-      for (const el of settings.statsData) {
+      for (const el of Quest.settings.statsData) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'count' does not exist on type '{ name: s... Remove this comment to see the full error message
         debugmsg(el.name + ": " + el.count)
       }

@@ -13,7 +13,7 @@ tp.addDirective("status", function(arr: any, params: any) {
   }
   else {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'intervalDescs' does not exist on type '{... Remove this comment to see the full error message
-    return settings.intervalDescs[util.getByInterval(settings.intervals, params.char.status)]
+    return Quest.settings.intervalDescs[util.getByInterval(Quest.settings.intervals, params.char.status)]
   }
 })
 

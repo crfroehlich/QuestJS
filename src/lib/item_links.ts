@@ -85,7 +85,7 @@ io.modulesToUpdate.push(itemLinks)
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'update' does not exist on type '{}'.
 itemLinks.update = function() {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'linksEnabled' does not exist on type '{ ... Remove this comment to see the full error message
-	if (!settings.linksEnabled) return
+	if (!Quest.settings.linksEnabled) return
 
   for (const el of document.querySelectorAll(".object-link")) {
 // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
@@ -186,7 +186,7 @@ itemLinks.updateItemLinks = function(el) {
   const obj = w[el.dataset.objname]
   const alias = el.children[0].innerHTML
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'nameTransformer' does not exist on type ... Remove this comment to see the full error message
-  el.innerHTML = settings.nameTransformer(alias, obj)
+  el.innerHTML = Quest.settings.nameTransformer(alias, obj)
 }
 
 
@@ -252,11 +252,11 @@ tp.text_processors.exitsHere = function(arr, params) {
 
 // Set to ```true``` by this library to enable the links
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'linksEnabled' does not exist on type '{ ... Remove this comment to see the full error message
-settings.linksEnabled = true;
+Quest.settings.linksEnabled = true;
 
 
 // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '() => void' is not assignable to... Remove this comment to see the full error message
-settings.afterFinish.push(function(){
+Quest.settings.afterFinish.push(function(){
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'disableAllLinks' does not exist on type ... Remove this comment to see the full error message
   itemLinks.disableAllLinks('exit-link')
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'disableAllLinks' does not exist on type ... Remove this comment to see the full error message
@@ -283,9 +283,9 @@ settings.afterFinish.push(function(){
 //
 //---
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'nameTransformer' does not exist on type ... Remove this comment to see the full error message
-settings.nameTransformer = function(alias, obj, options) {
+Quest.settings.nameTransformer = function(alias, obj, options) {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'linksEnabled' does not exist on type '{ ... Remove this comment to see the full error message
-	if(!settings.linksEnabled) return alias
+	if(!Quest.settings.linksEnabled) return alias
 
 	let s = `<span class="object-link dropdown" data-objname="${obj.name}"` 
   //for (const key in options) s += ` data-${key}="${options[key]}"`

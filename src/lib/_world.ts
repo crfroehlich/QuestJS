@@ -23,7 +23,7 @@ const w = {};
 function createItem() {
   const args = Array.prototype.slice.call(arguments)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'itemCreateFunc' does not exist on type '... Remove this comment to see the full error message
-  return createItemOrRoom(args, DEFAULT_ITEM, settings.itemCreateFunc)
+  return createItemOrRoom(args, DEFAULT_ITEM, Quest.settings.itemCreateFunc)
 }
 
 
@@ -38,7 +38,7 @@ function createItem() {
 function createRoom() {
   const args = Array.prototype.slice.call(arguments)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'roomCreateFunc' does not exist on type '... Remove this comment to see the full error message
-  const o = createItemOrRoom(args, DEFAULT_ROOM, settings.roomCreateFunc)
+  const o = createItemOrRoom(args, DEFAULT_ROOM, Quest.settings.roomCreateFunc)
   // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
   if (o.scenery) {
     // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
@@ -123,7 +123,7 @@ function cloneObject(item: any, loc: any, newName: any) {
 // Creates a basic object. Generally it is better to use CreateItem or CreateRoom.
 function createObject(name: any, listOfHashes: any) {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  if (world.isCreated && !settings.saveDisabled) return errormsg("Attempting to use createObject with `" + name + "` after set up. To ensure games save properly you should use cloneObject to create ites during play.")
+  if (world.isCreated && !Quest.settings.saveDisabled) return errormsg("Attempting to use createObject with `" + name + "` after set up. To ensure games save properly you should use cloneObject to create ites during play.")
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   if (/\W/.test(name)) return errormsg("Attempting to use the prohibited name `" + name + "`; a name can only include letters and digits - no spaces or accented characters. Use the 'alias' attribute to give an item a name with other characters.")
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
@@ -223,7 +223,7 @@ const world = {
 
   init:function() {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
-    settings.performanceLog('Start world.init')
+    Quest.settings.performanceLog('Start world.init')
     // Initialise the player
     for (let key in w) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
@@ -245,17 +245,17 @@ const world = {
     initCommands()
     
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'verbosity' does not exist on type '{ per... Remove this comment to see the full error message
-    settings.verbosity = world.VERBOSE
+    Quest.settings.verbosity = world.VERBOSE
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'ticker' does not exist on type '{ turnCo... Remove this comment to see the full error message
-    game.ticker = setInterval(world.gameTimer, settings.timerInterval);
+    game.ticker = setInterval(world.gameTimer, Quest.settings.timerInterval);
 
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     w[player.loc].visited++
     world.update()
     world.saveGameState()
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
-    settings.performanceLog('End world.init')
+    Quest.settings.performanceLog('End world.init')
     world.isCreated = true
   },
 
@@ -264,7 +264,7 @@ const world = {
   // if creating items on the fly (but you should not be doing that anyway!).
   initItem:function(item: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
-    if (settings.playMode === 'dev' && item.loc && !w[item.loc]) {
+    if (Quest.settings.playMode === 'dev' && item.loc && !w[item.loc]) {
       console.log("ERROR: The item `" + item.name + "` is in an unknown location (" + item.loc + ")");
     }
     
@@ -289,7 +289,7 @@ const world = {
     }
     
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
-    if (settings.playMode === 'dev' && item.consultable && !settings.noAskTell) {
+    if (Quest.settings.playMode === 'dev' && item.consultable && !Quest.settings.noAskTell) {
       if (!item.tellOptions || item.tellOptions.length === 0) log("WARNING: No tellOptions " + item.name)
       if (!item.askOptions || item.askOptions.length === 0) log("WARNING: No askOptions " + item.name)
     }
@@ -305,16 +305,16 @@ const world = {
     
     if (item.roomSet) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      if (!settings.roomSetList[item.roomSet]) {
+      if (!Quest.settings.roomSetList[item.roomSet]) {
         // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-        settings.roomSetList[item.roomSet] = []
+        Quest.settings.roomSetList[item.roomSet] = []
       }
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      settings.roomSetList[item.roomSet].push({name:item.name, visited:false})
+      Quest.settings.roomSetList[item.roomSet].push({name:item.name, visited:false})
     }
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
-    if (settings.playMode === 'dev') {
+    if (Quest.settings.playMode === 'dev') {
       const dirs = lang.exit_list.filter(el => el.type !== 'nocmd').map(el => el.name)
       //console.log(dirs)
       for (let key in item) {
@@ -335,24 +335,24 @@ const world = {
   // Start the game - could be called after the start up dialog, so not part of init
   begin:function() {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
-    settings.performanceLog('Start begin')
-    if (settings.startingDialogEnabled) return
+    Quest.settings.performanceLog('Start begin')
+    if (Quest.settings.startingDialogEnabled) return
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'intro' does not exist on type '{ perform... Remove this comment to see the full error message
-    if (typeof settings.intro === "string") {
+    if (typeof Quest.settings.intro === "string") {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg(settings.intro)
+      msg(Quest.settings.intro)
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'intro' does not exist on type '{ perform... Remove this comment to see the full error message
-    else if (settings.intro) {
+    else if (Quest.settings.intro) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'intro' does not exist on type '{ perform... Remove this comment to see the full error message
-      for (let el of settings.intro) msg(el)
+      for (let el of Quest.settings.intro) msg(el)
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'setup' does not exist on type '{ perform... Remove this comment to see the full error message
-    if (typeof settings.setup === "function") settings.setup()
+    if (typeof Quest.settings.setup === "function") Quest.settings.setup()
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
     world.enterRoom()
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
-    settings.performanceLog('End begin')
+    Quest.settings.performanceLog('End begin')
   },
 
 
@@ -367,15 +367,15 @@ const world = {
     if (result === false) log("That command returned 'false', rather than the proper result code.");
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'handleChangeListeners' does not exist on... Remove this comment to see the full error message
     util.handleChangeListeners()
-    if (result === world.SUCCESS || (settings.failCountsAsTurn && result === world.FAILED)) {
+    if (result === world.SUCCESS || (Quest.settings.failCountsAsTurn && result === world.FAILED)) {
       game.turnCount++
-      game.elapsedTime += settings.dateTime.secondsPerTurn;
+      game.elapsedTime += Quest.settings.dateTime.secondsPerTurn;
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       for (let key in w) w[key].endTurn()
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'handleChangeListeners' does not exist on... Remove this comment to see the full error message
       util.handleChangeListeners()
       // @ts-expect-error ts-migrate(2349) FIXME: This expression is not callable.
-      for (const el of settings.afterTurn) el(true)
+      for (const el of Quest.settings.afterTurn) el(true)
       world.resetPauses();
       world.update();
       world.saveGameState();
@@ -383,7 +383,7 @@ const world = {
     }
     else {
       // @ts-expect-error ts-migrate(2349) FIXME: This expression is not callable.
-      for (const el of settings.afterTurn) el(false)
+      for (const el of Quest.settings.afterTurn) el(false)
       endTurnUI(false);
     }
   },
@@ -488,12 +488,12 @@ const world = {
       return errormsg("This room, " + currentLocation.name + ", has no 'beforeEnter` function defined.  This is probably because it is not actually a room (it was not created with 'createRoom' and has not got the DEFAULT_ROOM template), but is an item. It is not clear what state the game will continue in.")
     }
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
-    settings.beforeEnter(exit)
+    Quest.settings.beforeEnter(exit)
     if (currentLocation.visited === 0) {
       if (currentLocation.roomSet) {
         currentLocation.roomSetOrder = 1
         // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-        for (const el of settings.roomSetList[currentLocation.roomSet]) {
+        for (const el of Quest.settings.roomSetList[currentLocation.roomSet]) {
           if (el.visited) currentLocation.roomSetOrder++
           if (el.name === currentLocation.name) el.visited = true
         }
@@ -511,7 +511,7 @@ const world = {
     currentLocation.visited++
     currentLocation.afterEnter(exit)
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
-    settings.afterEnter(exit)
+    Quest.settings.afterEnter(exit)
     if (currentLocation.visited === 1) { currentLocation.afterFirstEnter(exit) }
     for (let key in currentLocation.afterEnterIf) {
       // if already done, skip
@@ -534,7 +534,7 @@ const world = {
     for (let i = 0; i < game.timerEventNames.length; i++) {
       if (game.timerEventTriggerTimes[i] && game.timerEventTriggerTimes[i] < game.elapsedRealTime) {
         // @ts-expect-error ts-migrate(2349) FIXME: This expression is not callable.
-        const flag = settings.eventFunctions[game.timerEventNames[i]]()
+        const flag = Quest.settings.eventFunctions[game.timerEventNames[i]]()
         if (game.timerEventIntervals[i] !== -1 && !flag) {
           // @ts-expect-error ts-migrate(2322) FIXME: Type 'number' is not assignable to type 'never'.
           game.timerEventTriggerTimes[i] += game.timerEventIntervals[i]
@@ -555,10 +555,10 @@ const world = {
   // UNDO Support
   gameState:[],
   saveGameState:function() {
-    if (settings.maxUndo > 0) {
+    if (Quest.settings.maxUndo > 0) {
       // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'string' is not assignable to par... Remove this comment to see the full error message
       world.gameState.push(saveLoad.getSaveBody());
-      if (world.gameState.length > settings.maxUndo) world.gameState.shift();
+      if (world.gameState.length > Quest.settings.maxUndo) world.gameState.shift();
     }
   },
 
@@ -572,7 +572,7 @@ const game = {
   turnCount:0,
   elapsedTime:0,
   elapsedRealTime:0,
-  startTime:settings.dateTime.start,
+  startTime:Quest.settings.dateTime.start,
   name:'built-in_game_object',
   
   timerEventNames:[],

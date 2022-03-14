@@ -329,7 +329,7 @@ tp.text_processors.dialogue = function(arr: any, params: any) {
     prefix += '"'
   }
   prefix += '>'
-  return prefix + settings.openQuotation + arr.join() + settings.closeQuotation + "</span>"
+  return prefix + Quest.settings.openQuotation + arr.join() + Quest.settings.closeQuotation + "</span>"
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'random' does not exist on type '{}'.
@@ -387,7 +387,7 @@ tp._findObject = function(name: any, params: any, arr: any) {
   if (params && params[name]) return typeof params[name] === 'string' ? w[params[name]] : params[name]
   if (name === "player") return player
   if (name === "currentLocation") return currentLocation
-  if (name === "settings") return settings
+  if (name === "settings") return Quest.settings
   if (name === "params") return params
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   if (w[name]) return w[name]
@@ -566,7 +566,7 @@ tp.text_processors.transitDest = function(arr: any, params: any) {
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'img' does not exist on type '{}'.
 tp.text_processors.img = function(arr: any, params: any) {
-  const src = arr[0].includes('/') ? arr[0] : settings.imagesFolder + arr[0]
+  const src = arr[0].includes('/') ? arr[0] : Quest.settings.imagesFolder + arr[0]
   return '<img src="' + src + '" title="' + arr[1] + '" alt="' + arr[2] + '"/>'; 
 }
 
@@ -822,7 +822,7 @@ tp.handleIfPlayer = function(arr: any, params: any, reverse: any) {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'terse' does not exist on type '{}'.
 tp.text_processors.terse = function(arr: any, params: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'verbosity' does not exist on type '{ per... Remove this comment to see the full error message
-  if ((settings.verbosity === world.TERSE && currentLocation.visited === 0) || settings.verbosity === world.VERBOSE) {
+  if ((Quest.settings.verbosity === world.TERSE && currentLocation.visited === 0) || Quest.settings.verbosity === world.VERBOSE) {
     return sentenceCase(arr.join(":"))
   }
   else {

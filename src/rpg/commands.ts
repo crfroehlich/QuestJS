@@ -158,7 +158,7 @@ commands.push(new Cmd('DebugRPG', {
   ],
   script:function(objects: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'attackOutputLevel' does not exist on typ... Remove this comment to see the full error message
-    settings.attackOutputLevel = 10
+    Quest.settings.attackOutputLevel = 10
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     metamsg("All output from attacks will now be seen.");
     return world.SUCCESS_NO_TURNSCRIPTS

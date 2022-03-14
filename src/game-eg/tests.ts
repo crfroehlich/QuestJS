@@ -529,7 +529,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual('one, three and two', formatList(['one', 'two', 'three'], {lastJoiner:'and'}))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'oxfordComma' does not exist on type '{ p... Remove this comment to see the full error message
-  settings.oxfordComma = true
+  Quest.settings.oxfordComma = true
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual('one', formatList(['one']))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -537,7 +537,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual('one, three, and two', formatList(['one', 'two', 'three'], {lastJoiner:'and'}))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'oxfordComma' does not exist on type '{ p... Remove this comment to see the full error message
-  settings.oxfordComma = false
+  Quest.settings.oxfordComma = false
 
 
 
@@ -625,7 +625,7 @@ test.tests = function() {
   test.assertEqual("Simple text: no", processText("Simple text: {if:player:tpTest3:Kyle:yes:no}", {val:8}))
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'tpTest' does not exist on type '{ perfor... Remove this comment to see the full error message
-  settings.tpTest = 9
+  Quest.settings.tpTest = 9
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("Simple text: 9", processText("Simple text: {show:settings:tpTest}"))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -1037,17 +1037,17 @@ test.tests = function() {
   test.assertEqual("$1234", displayMoney(1234));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("$-1234", displayMoney(-1234));
-  settings.moneyFormat = "!3.2! credits"
+  Quest.settings.moneyFormat = "!3.2! credits"
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("012.34 credits", displayMoney(1234));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("-012.34 credits", displayMoney(-1234));
-  settings.moneyFormat = "!+3.2! credits"
+  Quest.settings.moneyFormat = "!+3.2! credits"
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("+012.34 credits", displayMoney(1234));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("-012.34 credits", displayMoney(-1234));
-  settings.moneyFormat = "!$1,2!($1,2)!"
+  Quest.settings.moneyFormat = "!$1,2!($1,2)!"
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("$12,34", displayMoney(1234));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message

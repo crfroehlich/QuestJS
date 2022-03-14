@@ -161,7 +161,7 @@ const RPG_PLAYER = function(female: any) {
     let armour = 0
     for (let el of garments) armour += el.getArmour()
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'armourScaling' does not exist on type '{... Remove this comment to see the full error message
-    return armour / settings.armourScaling
+    return armour / Quest.settings.armourScaling
   }
 
   res.afterCreation = function(o) {
@@ -266,7 +266,7 @@ const RPG_NPC = function(female: any) {
       }
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'includeHitsInExamine' does not exist on ... Remove this comment to see the full error message
-    if (settings.includeHitsInExamine) {
+    if (Quest.settings.includeHitsInExamine) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'health' does not exist on type '{ canRea... Remove this comment to see the full error message
       s += ' {class:tactical:Hits: ' + this.health + '/' + this.maxHealth + '.}'
     }
@@ -279,10 +279,10 @@ const RPG_NPC = function(female: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'dead' does not exist on type '{ canReach... Remove this comment to see the full error message
     if (!this.dead && !this.asleep) return falsemsg(lang.searchAlive, options)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSearch' does not exist on type '{... Remove this comment to see the full error message
-    if (!settings.defaultSearch) return falsemsg(lang.searchNothing, options)
+    if (!Quest.settings.defaultSearch) return falsemsg(lang.searchNothing, options)
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSearch' does not exist on type '{... Remove this comment to see the full error message
-    settings.defaultSearch(this)
+    Quest.settings.defaultSearch(this)
     return true
   }
   

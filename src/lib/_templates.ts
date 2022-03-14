@@ -2216,7 +2216,7 @@ const CHARACTER = function() {
       o.verbFunctions.push(function(o: any, verbList: any) {
         verbList.shift()
         verbList.push(lang.verbs.lookat)
-        if (!settings.noTalkTo) verbList.push(lang.verbs.talkto)
+        if (!Quest.settings.noTalkTo) verbList.push(lang.verbs.talkto)
       })
     },
 
@@ -2232,7 +2232,7 @@ const CHARACTER = function() {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'player' does not exist on type '{ canRea... Remove this comment to see the full error message
       if (this.player) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'clearScreenOnRoomEnter' does not exist o... Remove this comment to see the full error message
-        if (settings.clearScreenOnRoomEnter) clearScreen();
+        if (Quest.settings.clearScreenOnRoomEnter) clearScreen();
         currentLocation.afterExit(exit)
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'loc' does not exist on type '{ canReachT... Remove this comment to see the full error message
         this.loc = room.name

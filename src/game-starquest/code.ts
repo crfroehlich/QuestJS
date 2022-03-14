@@ -36,7 +36,7 @@ commands.unshift(new Cmd('GoToDest', {
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'msgInputText' does not exist on type '{ ... Remove this comment to see the full error message
 io.msgInputText = function(s: any) {
-  if (!settings.cmdEcho || s === '') return
+  if (!Quest.settings.cmdEcho || s === '') return
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
   document.querySelector("#output").innerHTML += '<p id="n' + io.nextid + '" class="input-text">&gt; ' + s.toUpperCase() + "</p>"
   io.nextid++

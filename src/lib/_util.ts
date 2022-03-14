@@ -28,7 +28,7 @@ test.testing = false;
 // If we try to do anything fancy with log we get this line number not the calling line
 const log = console.log
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
-const debuglog = (s: any) => { if(settings.playMode === 'dev' || settings.playMode === 'beta'){ log(s)} }
+const debuglog = (s: any) => { if(Quest.settings.playMode === 'dev' || Quest.settings.playMode === 'beta'){ log(s)} }
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'debug' does not exist on type '{}'.
 const parserlog = (s: any) => { if(parser.debug){ log(s)} }
 
@@ -330,12 +330,12 @@ function formatList(itemArray: any, options: any) {
   
   let s = "";
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'oxfordComma' does not exist on type '{ p... Remove this comment to see the full error message
-  if (settings.oxfordComma && l.length === 2 && options.lastJoiner) return l[0] + ' ' + options.lastJoiner + ' ' + l[1]
+  if (Quest.settings.oxfordComma && l.length === 2 && options.lastJoiner) return l[0] + ' ' + options.lastJoiner + ' ' + l[1]
   do {
     s += l.shift()
     if (l.length === 1 && options.lastJoiner) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'oxfordComma' does not exist on type '{ p... Remove this comment to see the full error message
-      if (settings.oxfordComma) s += options.sep
+      if (Quest.settings.oxfordComma) s += options.sep
       s += ' ' + options.lastJoiner + ' '
     } else if (l.length > 0) s += options.sep + ' '
   } while (l.length > 0);
@@ -383,16 +383,16 @@ function toRoman(number: any) {
 
 
 //@DOC
-// Returns the given number as a string formatted as money. The formatting is defined by settings.moneyFormat.
+// Returns the given number as a string formatted as money. The formatting is defined by Quest.settings.moneyFormat.
 function displayMoney(n: any) {
-  if (typeof settings.moneyFormat === "undefined") {
+  if (typeof Quest.settings.moneyFormat === "undefined") {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    errormsg ("No format for money set (set settings.moneyFormat in settings.js).");
+    errormsg ("No format for money set (set Quest.settings.moneyFormat in Quest.settings.js).");
     return "" + n;
   }
-  const ary = settings.moneyFormat.split("!");
+  const ary = Quest.settings.moneyFormat.split("!");
   if (ary.length === 2) {
-    return settings.moneyFormat.replace("!", "" + n);
+    return Quest.settings.moneyFormat.replace("!", "" + n);
   }
   else if (ary.length === 3) {
     const negative = (n < 0)
@@ -417,7 +417,7 @@ function displayMoney(n: any) {
   }
   else {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    errormsg ("settings.moneyFormat in settings.js expected to have either 1, 2 or 3 exclamation marks.")
+    errormsg ("Quest.settings.moneyFormat in Quest.settings.js expected to have either 1, 2 or 3 exclamation marks.")
     return "" + n;
   }
 }
@@ -871,18 +871,18 @@ util.clamp = function(num: any, min: any, max: any) {
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'registerTimerFunction' does not exist on... Remove this comment to see the full error message
 util.registerTimerFunction = function(eventName: any, func: any) {
-  if (world.isCreated && !settings.saveDisabled) {
+  if (world.isCreated && !Quest.settings.saveDisabled) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     errormsg("Attempting to use registerEvent after set up.")
     return
   }
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  settings.eventFunctions[eventName] = func;
+  Quest.settings.eventFunctions[eventName] = func;
 }
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'registerTimerEvent' does not exist on ty... Remove this comment to see the full error message
 util.registerTimerEvent = function(eventName: any, triggerTime: any, interval: any) {
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  if (!settings.eventFunctions[eventName]) errormsg("A timer is trying to call event '" + eventName + "' but no such function is registered.")
+  if (!Quest.settings.eventFunctions[eventName]) errormsg("A timer is trying to call event '" + eventName + "' but no such function is registered.")
   // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'any' is not assignable to parame... Remove this comment to see the full error message
   game.timerEventNames.push(eventName)
   // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'any' is not assignable to parame... Remove this comment to see the full error message
@@ -942,7 +942,7 @@ util.defaultChangeListenerTest = function(object: any, currentValue: any, oldVal
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addChangeListener' does not exist on typ... Remove this comment to see the full error message
 util.addChangeListener = function(object: any, attName: any, func: any, test = util.defaultChangeListenerTest) {
-  if (world.isCreated && !settings.saveDisabled) {
+  if (world.isCreated && !Quest.settings.saveDisabled) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     errormsg("Attempting to use addChangeListener after set up.")
     return
@@ -993,7 +993,7 @@ util.setChangeListenersLoadString = function(s: any) {
 // This is a big topic, see [here](https://github.com/ThePix/QuestJS/wiki/The-respond-function) for more.
 function respond(params: any, list: any, func: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'responseDebug' does not exist on type '{... Remove this comment to see the full error message
-  if (settings.responseDebug) log(params)
+  if (Quest.settings.responseDebug) log(params)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'findResponse' does not exist on type '{}... Remove this comment to see the full error message
   const response = util.findResponse(params, list)
   if (!response) {
@@ -1180,10 +1180,10 @@ util.getNameModifiers = function(item: any, options: any) {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'getDateTime' does not exist on type '{}'... Remove this comment to see the full error message
 util.getDateTime = function(options: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'formats' does not exist on type '{ year:... Remove this comment to see the full error message
-  if (!settings.dateTime.formats) {
+  if (!Quest.settings.dateTime.formats) {
     const time = new Date(game.elapsedTime * 1000 + game.startTime.getTime())
     // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '{ year: string; month: string; d... Remove this comment to see the full error message
-    return time.toLocaleString(settings.dateTime.locale, settings.dateTime)
+    return time.toLocaleString(Quest.settings.dateTime.locale, Quest.settings.dateTime)
   }
   
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getCustomDateTime' does not exist on typ... Remove this comment to see the full error message
@@ -1194,7 +1194,7 @@ util.getDateTime = function(options: any) {
 util.getDateTimeDict = function(options: any) {
   if (!options) options = {}
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'formats' does not exist on type '{ year:... Remove this comment to see the full error message
-  return settings.dateTime.formats ? util.getCustomDateTimeDict(options) : util.getStdDateTimeDict(options)
+  return Quest.settings.dateTime.formats ? util.getCustomDateTimeDict(options) : util.getStdDateTimeDict(options)
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'getStdDateTimeDict' does not exist on ty... Remove this comment to see the full error message
@@ -1225,12 +1225,12 @@ util.getStdDateTimeDict = function(options: any) {
 util.getCustomDateTimeDict = function(options: any) {
   const dict = {}
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'startTime' does not exist on type '{ yea... Remove this comment to see the full error message
-  let time = settings.dateTime.startTime + game.elapsedTime
+  let time = Quest.settings.dateTime.startTime + game.elapsedTime
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'startTime' does not exist on type '{ yea... Remove this comment to see the full error message
-  if (options.is) time = settings.dateTime.startTime + options.is
+  if (options.is) time = Quest.settings.dateTime.startTime + options.is
   if (options.add) time += options.add
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'data' does not exist on type '{ year: st... Remove this comment to see the full error message
-  for (let el of settings.dateTime.data) {
+  for (let el of Quest.settings.dateTime.data) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     dict[el.name] = time % el.number
     time = Math.floor(time / el.number)
@@ -1244,11 +1244,11 @@ util.getCustomDateTime = function(options: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getCustomDateTimeDict' does not exist on... Remove this comment to see the full error message
   const dict = util.getCustomDateTimeDict(options)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'formats' does not exist on type '{ year:... Remove this comment to see the full error message
-  let s = options.format ? settings.dateTime.formats[options.format] : settings.dateTime.formats.def
+  let s = options.format ? Quest.settings.dateTime.formats[options.format] : Quest.settings.dateTime.formats.def
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'functions' does not exist on type '{ yea... Remove this comment to see the full error message
-  for (let key in settings.dateTime.functions) {
+  for (let key in Quest.settings.dateTime.functions) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'functions' does not exist on type '{ yea... Remove this comment to see the full error message
-    s = s.replace('%' + key + '%', settings.dateTime.functions[key](dict))
+    s = s.replace('%' + key + '%', Quest.settings.dateTime.functions[key](dict))
   }
   return s
 }
@@ -1256,7 +1256,7 @@ util.getCustomDateTime = function(options: any) {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'seconds' does not exist on type '{}'.
 util.seconds = function(seconds: any, minutes = 0, hours = 0, days = 0) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'convertSeconds' does not exist on type '... Remove this comment to see the full error message
-  if (settings.dateTime.convertSeconds) return settings.dateTime.convertSeconds(seconds, minutes, hours, days)
+  if (Quest.settings.dateTime.convertSeconds) return Quest.settings.dateTime.convertSeconds(seconds, minutes, hours, days)
   return ((((days * 24) + hours) * 60) + minutes) * 60 + seconds
 }
 
@@ -1358,7 +1358,7 @@ util.findUniqueName = function(s: any) {
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'findSource' does not exist on type '{}'.
 util.findSource = function(options: any) {
-  const fluids = options.fluid ? [options.fluid] : settings.fluids
+  const fluids = options.fluid ? [options.fluid] : Quest.settings.fluids
   const chr = options.char ? options.char : player
   
   // Is character a source?

@@ -6,12 +6,12 @@
 
 // Authors can overide as desired
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'attackOutputLevel' does not exist on typ... Remove this comment to see the full error message
-settings.attackOutputLevel = 10
+Quest.settings.attackOutputLevel = 10
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'output' does not exist on type '{ perfor... Remove this comment to see the full error message
-settings.output = function(reportTexts: any) {
+Quest.settings.output = function(reportTexts: any) {
   for (let el of reportTexts) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'attackOutputLevel' does not exist on typ... Remove this comment to see the full error message
-    if (el.level <= settings.attackOutputLevel) {
+    if (el.level <= Quest.settings.attackOutputLevel) {
       if (el.level === 1) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg(el.t)
@@ -31,7 +31,7 @@ settings.output = function(reportTexts: any) {
 
 
 // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '() => void' is not assignable to... Remove this comment to see the full error message
-settings.afterTurn.push(function() {
+Quest.settings.afterTurn.push(function() {
   for (const key in w) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     const obj = w[key]

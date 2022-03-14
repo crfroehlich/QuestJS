@@ -614,7 +614,7 @@ const lang = {
 
 
   helpScript:function() {
-    if (settings.textInput) {
+    if (Quest.settings.textInput) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       metamsg("Type commands in the command bar to interact with the world.");      
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -643,14 +643,14 @@ const lang = {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       metamsg("See also {link:here:https://github.com/ThePix/QuestJS/wiki/How-To-Play} for more details, which will open in a new tab.")      
     }
-    if (settings.panes !== "none") {
+    if (Quest.settings.panes !== "none") {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'inventoryPane' does not exist on type '{... Remove this comment to see the full error message
-      if (settings.inventoryPane) {
+      if (Quest.settings.inventoryPane) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         metamsg("{b:User Interface:} To interact with an object, click on its name in the side pane, and a set of possible actions will appear under it. Click on the appropriate action.")
       }
-      if (settings.compassPane) {
-        if (settings.symbolsForCompass) {
+      if (Quest.settings.compassPane) {
+        if (Quest.settings.symbolsForCompass) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           metamsg("You can also use the compass rose at the top to move around. Click the eye symbol, &#128065;, to look at you current location, the clock symbol to wait or &#128712; for help.")
         }
@@ -661,9 +661,9 @@ const lang = {
       }
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'additionalHelp' does not exist on type '... Remove this comment to see the full error message
-    if (settings.additionalHelp !== undefined) {
+    if (Quest.settings.additionalHelp !== undefined) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'additionalHelp' does not exist on type '... Remove this comment to see the full error message
-      for (const s of settings.additionalHelp) metamsg(s)
+      for (const s of Quest.settings.additionalHelp) metamsg(s)
     }
     return world.SUCCESS_NO_TURNSCRIPTS
   },
@@ -677,38 +677,38 @@ const lang = {
   aboutScript:function() {
     metamsg("{i:{show:settings:title} version {show:settings:version}} was written by {show:settings:author} using QuestJS (Quest 6) version {show:settings:questVersion}.", {settings:settings})
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'ifdb' does not exist on type '{ performa... Remove this comment to see the full error message
-    if (settings.ifdb) metamsg("IFDB number: " + settings.ifdb)
+    if (Quest.settings.ifdb) metamsg("IFDB number: " + Quest.settings.ifdb)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'thanks' does not exist on type '{ perfor... Remove this comment to see the full error message
-    if (settings.thanks && settings.thanks.length > 0) {
+    if (Quest.settings.thanks && Quest.settings.thanks.length > 0) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      metamsg("{i:Thanks to:} " + formatList(settings.thanks, {lastJoiner:lang.list_and}) + ".")
+      metamsg("{i:Thanks to:} " + formatList(Quest.settings.thanks, {lastJoiner:lang.list_and}) + ".")
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'additionalAbout' does not exist on type ... Remove this comment to see the full error message
-    if (settings.additionalAbout !== undefined) {
+    if (Quest.settings.additionalAbout !== undefined) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'additionalAbout' does not exist on type ... Remove this comment to see the full error message
-      for (const key in settings.additionalAbout) metamsg('{i:' + key + ':} ' + settings.additionalAbout[key])
+      for (const key in Quest.settings.additionalAbout) metamsg('{i:' + key + ':} ' + Quest.settings.additionalAbout[key])
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'ifid' does not exist on type '{ performa... Remove this comment to see the full error message
-    if (settings.ifid) metamsg("{i:IFDB number:} " + settings.ifid)
+    if (Quest.settings.ifid) metamsg("{i:IFDB number:} " + Quest.settings.ifid)
     return world.SUCCESS_NO_TURNSCRIPTS
   },
 
   warningsScript:function() {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'warnings' does not exist on type '{ perf... Remove this comment to see the full error message
-    switch (typeof settings.warnings) {
+    switch (typeof Quest.settings.warnings) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       case 'undefined' : metamsg('No warning have been set for this game.'); break;
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      case 'string' : metamsg(settings.warnings); break;
+      case 'string' : metamsg(Quest.settings.warnings); break;
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'warnings' does not exist on type '{ perf... Remove this comment to see the full error message
-      default: for (const el of settings.warnings) metamsg(el)
+      default: for (const el of Quest.settings.warnings) metamsg(el)
     }
     return world.SUCCESS_NO_TURNSCRIPTS;
   },
 
   saveLoadScript:function() {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'localStorageDisabled' does not exist on ... Remove this comment to see the full error message
-    if (!settings.localStorageDisabled) {
+    if (!Quest.settings.localStorageDisabled) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       metamsg("QuestJS offers players two ways to save your progress - to LocalStorage or to file.")
 
@@ -762,7 +762,7 @@ const lang = {
     let html = ''
     html += '<h2>QuestJS Transcript for "'
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{ perform... Remove this comment to see the full error message
-    html += settings.title + '" (version ' + settings.version
+    html += Quest.settings.title + '" (version ' + Quest.settings.version
     html += ')</h2>'
     html += '<p><a onclick="document.download()" style="cursor:pointer;border:black solid 1px;border-radius:5px;background:silver;line-height:1em">Click here</a> to save this file to your downloads folder as "transcript.html".</p>'
     html += '<hr/>'
@@ -786,8 +786,8 @@ const lang = {
   
   betaTestIntro:function() {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    metamsg("This version is for beta-testing (" + settings.version + "); the browser reports that it is running on: " + navigator.userAgent)
-    if (settings.textInput) {
+    metamsg("This version is for beta-testing (" + Quest.settings.version + "); the browser reports that it is running on: " + navigator.userAgent)
+    if (Quest.settings.textInput) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       metamsg("A transcript will be automatically recorded. When you finish, do Ctrl-Enter or type SCRIPT SHOW to open the transcript in a new tab, or click the link if you reach the end of the game; it can then be saved (you should see a save button at the top) and attached to an e-mail. Alternatively, copy-and-pasted into an e-mail.")
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -1097,7 +1097,7 @@ const lang = {
     }
     if (options.capital) s = sentenceCase(s)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'nameTransformer' does not exist on type ... Remove this comment to see the full error message
-    if (settings.nameTransformer) s = settings.nameTransformer(s, item, options)
+    if (Quest.settings.nameTransformer) s = Quest.settings.nameTransformer(s, item, options)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'getNameModifiers' does not exist on type... Remove this comment to see the full error message
     s += util.getNameModifiers(item, options)
     return s

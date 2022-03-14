@@ -47,7 +47,7 @@ test.start = function(title: any, filename = test.saveFilename) {
   if (s != null) {
     saveLoad.loadTheWorld(s, 4)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterLoad' does not exist on type '{ per... Remove this comment to see the full error message
-    if (settings.afterLoad) settings.afterLoad(filename)
+    if (Quest.settings.afterLoad) Quest.settings.afterLoad(filename)
   }
   else {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.

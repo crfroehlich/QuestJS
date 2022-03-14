@@ -9,7 +9,7 @@ function createHex(x: any, y: any, data: any) {
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   if (w[name]) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapReportRepeats' does not exist on type... Remove this comment to see the full error message
-    if (settings.mapReportRepeats) log('Already got a ' + name)
+    if (Quest.settings.mapReportRepeats) log('Already got a ' + name)
     return null
   }
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
@@ -69,7 +69,7 @@ function createHex(x: any, y: any, data: any) {
   }
   
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapDefaultAlias' does not exist on type ... Remove this comment to see the full error message
-  if (settings.mapDefaultAlias && !data.alias) settings.mapDefaultAlias(o)
+  if (Quest.settings.mapDefaultAlias && !data.alias) Quest.settings.mapDefaultAlias(o)
   
   return o
 }
@@ -78,14 +78,14 @@ function createHex(x: any, y: any, data: any) {
 function createBiome(x: any, y: any, biomeChar: any, data = {}) {
   if (biomeChar === ' ') return null
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapBiomes' does not exist on type '{ per... Remove this comment to see the full error message
-  if (!settings.mapBiomes[biomeChar]) {
+  if (!Quest.settings.mapBiomes[biomeChar]) {
     log("No biome for " + biomeChar)
     return null
   }
   const o = createHex(x, y, data)
   if (!o) return null
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'biome' does not exist on type '{ name: a... Remove this comment to see the full error message
-  o.biome = settings.mapBiomes[biomeChar]
+  o.biome = Quest.settings.mapBiomes[biomeChar]
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getHexColour' does not exist on type '{ ... Remove this comment to see the full error message
   o.getHexColour = function() { return this.biome.colour }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'desc' does not exist on type '{ name: an... Remove this comment to see the full error message
@@ -157,16 +157,16 @@ map.init = function() {
 
   // Set up the HTML page
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-  Object.assign(document.querySelector('#quest-map').style, map.defaultStyle, settings.mapStyle)
+  Object.assign(document.querySelector('#quest-map').style, map.defaultStyle, Quest.settings.mapStyle)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapHeight' does not exist on type '{ per... Remove this comment to see the full error message
-  settings.mapHeight = parseInt(settings.mapStyle.height)
+  Quest.settings.mapHeight = parseInt(Quest.settings.mapStyle.height)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapWidth' does not exist on type '{ perf... Remove this comment to see the full error message
-  settings.mapWidth = parseInt(settings.mapStyle.width)
+  Quest.settings.mapWidth = parseInt(Quest.settings.mapStyle.width)
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'xFactor' does not exist on type '{ toggl... Remove this comment to see the full error message
-  map.xFactor = settings.mapXOffset1 + settings.mapXOffset2
+  map.xFactor = Quest.settings.mapXOffset1 + Quest.settings.mapXOffset2
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'yFactor' does not exist on type '{ toggl... Remove this comment to see the full error message
-  map.yFactor = settings.mapYOffset * 2    
+  map.yFactor = Quest.settings.mapYOffset * 2    
   
 
 
@@ -174,14 +174,14 @@ map.init = function() {
   map.layers = [
     // rooms on this level
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapBorderColour' does not exist on type ... Remove this comment to see the full error message
-    {name:'base', attrs:'stroke="' + settings.mapBorderColour + '" stroke-width="1" fill="' + settings.mapLocationColour + '"'},
+    {name:'base', attrs:'stroke="' + Quest.settings.mapBorderColour + '" stroke-width="1" fill="' + Quest.settings.mapLocationColour + '"'},
     // borders
     {name:'borders', attrs:''},
     // symbols (anything the author might want to add)
     {name:'symbols', attrs:''},
     // labels
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapLabelColour' does not exist on type '... Remove this comment to see the full error message
-    {name:'labels', attrs:'pointer-events="none" fill="' + settings.mapLabelColour + '" text-anchor="middle"'},
+    {name:'labels', attrs:'pointer-events="none" fill="' + Quest.settings.mapLabelColour + '" text-anchor="middle"'},
   ]
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'update' does not exist on type '{ toggle... Remove this comment to see the full error message
   map.update()
@@ -213,13 +213,13 @@ map.update = function() {
 
   // set up some values; these are all in hex units
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapScrolling' does not exist on type '{ ... Remove this comment to see the full error message
-  const mapXOffset = settings.mapScrolling ? -playerCoord[0] : 0
+  const mapXOffset = Quest.settings.mapScrolling ? -playerCoord[0] : 0
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapScrolling' does not exist on type '{ ... Remove this comment to see the full error message
-  const mapYOffset = settings.mapScrolling ? -playerCoord[1] : 0
+  const mapYOffset = Quest.settings.mapScrolling ? -playerCoord[1] : 0
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapXOffset1' does not exist on type '{ p... Remove this comment to see the full error message
-  const hexWidth = Math.floor(parseInt(settings.mapStyle.width) / (settings.mapXOffset1 + settings.mapXOffset2) + 1)
+  const hexWidth = Math.floor(parseInt(Quest.settings.mapStyle.width) / (Quest.settings.mapXOffset1 + Quest.settings.mapXOffset2) + 1)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapYOffset' does not exist on type '{ pe... Remove this comment to see the full error message
-  const hexHeight = Math.floor(parseInt(settings.mapStyle.height) / settings.mapYOffset / 2 + hexWidth / 2 + 1)
+  const hexHeight = Math.floor(parseInt(Quest.settings.mapStyle.height) / Quest.settings.mapYOffset / 2 + hexWidth / 2 + 1)
   const hexStartX = Math.floor(-hexWidth / 2 - mapXOffset)
   const hexStartY = Math.floor(-hexHeight / 2 - mapYOffset)
   
@@ -239,7 +239,7 @@ map.update = function() {
 
   // Add it all together
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapDefs' does not exist on type '{ perfo... Remove this comment to see the full error message
-  const result = settings.mapDefs ? settings.mapDefs() : []
+  const result = Quest.settings.mapDefs ? Quest.settings.mapDefs() : []
   for (let key in lists) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     for (let el of lists[key]) result.push(el)
@@ -247,19 +247,19 @@ map.update = function() {
   }
   // Author can add extras to go over the top
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapExtras' does not exist on type '{ per... Remove this comment to see the full error message
-  if (settings.mapExtras) result.push(...settings.mapExtras())
+  if (Quest.settings.mapExtras) result.push(...Quest.settings.mapExtras())
   // Add the player position marker
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapMarker' does not exist on type '{ per... Remove this comment to see the full error message
-  result.push(settings.mapMarker ? settings.mapMarker(w[player.loc]) : map.marker())
+  result.push(Quest.settings.mapMarker ? Quest.settings.mapMarker(w[player.loc]) : map.marker())
   log(result)
   
   // The image will be draweing using these coordinates (in pixels)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapWidth' does not exist on type '{ perf... Remove this comment to see the full error message
-  const x = -settings.mapWidth / 2 - mapXOffset * map.xFactor
+  const x = -Quest.settings.mapWidth / 2 - mapXOffset * map.xFactor
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapHeight' does not exist on type '{ per... Remove this comment to see the full error message
-  const y = -settings.mapHeight / 2 - (-mapYOffset - mapXOffset / 2) * map.yFactor
+  const y = -Quest.settings.mapHeight / 2 - (-mapYOffset - mapXOffset / 2) * map.yFactor
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapWidth' does not exist on type '{ perf... Remove this comment to see the full error message
-  draw(settings.mapWidth, settings.mapHeight, result, {destination:'quest-map', x:x, y:y})
+  draw(Quest.settings.mapWidth, Quest.settings.mapHeight, result, {destination:'quest-map', x:x, y:y})
 }
 
 // Points aroud the hexagon, starting from ten o'clock, and going clockwise
@@ -290,13 +290,13 @@ map.mapDraw = function(lists: any, cell: any, x_: any, y_: any) {
   let s = '<polygon points="'
   for (let i = 0; i < 6; i++) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapXOffset1' does not exist on type '{ p... Remove this comment to see the full error message
-    s += (x + settings.mapXOffset1 * map.hexPoints[i][0] + settings.mapXOffset2 * map.hexPoints[i][1]) + ',' + (y + settings.mapYOffset * map.hexPoints[i][2]) + ' '
+    s += (x + Quest.settings.mapXOffset1 * map.hexPoints[i][0] + Quest.settings.mapXOffset2 * map.hexPoints[i][1]) + ',' + (y + Quest.settings.mapYOffset * map.hexPoints[i][2]) + ' '
   }
   
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapHexStroke' does not exist on type '{ ... Remove this comment to see the full error message
-  s += '" onclick="settings.mapClick(' + x_ + ', ' + y_ + ')" stroke="' + settings.mapHexStroke + '" fill="'
+  s += '" onclick="Quest.settings.mapClick(' + x_ + ', ' + y_ + ')" stroke="' + Quest.settings.mapHexStroke + '" fill="'
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapDefaultColour' does not exist on type... Remove this comment to see the full error message
-  s += cell.getHexColour ? cell.getHexColour() : settings.mapDefaultColour
+  s += cell.getHexColour ? cell.getHexColour() : Quest.settings.mapDefaultColour
   s += '"/>'
   //console.log(s)
   lists.base.push(s)
@@ -320,17 +320,17 @@ map.mapDrawBorder = function(lists: any, cell: any, x: any, y: any, side: any) {
   if (!style) return
   let s = '<line x1="'
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapXOffset1' does not exist on type '{ p... Remove this comment to see the full error message
-  s += (x + settings.mapXOffset1 * map.hexPoints[side][0] + settings.mapXOffset2 * map.hexPoints[side][1])
+  s += (x + Quest.settings.mapXOffset1 * map.hexPoints[side][0] + Quest.settings.mapXOffset2 * map.hexPoints[side][1])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapYOffset' does not exist on type '{ pe... Remove this comment to see the full error message
-  s += '" y1="' + (y + settings.mapYOffset * map.hexPoints[side][2])
+  s += '" y1="' + (y + Quest.settings.mapYOffset * map.hexPoints[side][2])
   s += '" x2="'
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapXOffset1' does not exist on type '{ p... Remove this comment to see the full error message
-  s += (x + settings.mapXOffset1 * map.hexPoints[side+1][0] + settings.mapXOffset2 * map.hexPoints[side+1][1])
+  s += (x + Quest.settings.mapXOffset1 * map.hexPoints[side+1][0] + Quest.settings.mapXOffset2 * map.hexPoints[side+1][1])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapYOffset' does not exist on type '{ pe... Remove this comment to see the full error message
-  s += '" y2="' + (y + settings.mapYOffset * map.hexPoints[side+1][2])
+  s += '" y2="' + (y + Quest.settings.mapYOffset * map.hexPoints[side+1][2])
   if (typeof style === 'string') {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapHexStrokeWidth' does not exist on typ... Remove this comment to see the full error message
-    s += '" stroke="' + style + '" stroke-width="' + settings.mapHexStrokeWidth + 'px'
+    s += '" stroke="' + style + '" stroke-width="' + Quest.settings.mapHexStrokeWidth + 'px'
   }
   else {
     for (const key in style) {
@@ -352,9 +352,9 @@ map.mapDrawLabel = function(lists: any, cell: any, x: any, y: any) {
   s += x
   s += '" y="'
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapLabelOffset' does not exist on type '... Remove this comment to see the full error message
-  s += (y - settings.mapLabelOffset)
+  s += (y - Quest.settings.mapLabelOffset)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapLabelRotate' does not exist on type '... Remove this comment to see the full error message
-  if (settings.mapLabelRotate) s += '" transform="rotate(' + settings.mapLabelRotate + ',' + x + ',' + (y - settings.mapLabelOffset) + ')'
+  if (Quest.settings.mapLabelRotate) s += '" transform="rotate(' + Quest.settings.mapLabelRotate + ',' + x + ',' + (y - Quest.settings.mapLabelOffset) + ')'
   s += '" pointer-events="none">'
   s += label
   s += '</text>'
@@ -404,7 +404,7 @@ map.marker = function() {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'river' does not exist on type '{ toggle:... Remove this comment to see the full error message
 map.river = function(x: any, y: any, ...data: any[]) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'border' does not exist on type '{ toggle... Remove this comment to see the full error message
-  map.border(x, y, settings.mapRiverColour, ...data)
+  map.border(x, y, Quest.settings.mapRiverColour, ...data)
 }  
   
   
@@ -450,7 +450,7 @@ map.generate = function(x: any, y: any, data: any) {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
-if (settings.playMode === 'dev') {
+if (Quest.settings.playMode === 'dev') {
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
   commands.unshift(new Cmd('DebugMap', {
     regex:/^debug map$/,
@@ -472,17 +472,17 @@ if (settings.playMode === 'dev') {
 
 findCmd('Map').script = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'hideMap' does not exist on type '{ perfo... Remove this comment to see the full error message
-  if (settings.hideMap) {
+  if (Quest.settings.hideMap) {
     // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
     document.querySelector('#quest-map').style.display = 'block'
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'hideMap' does not exist on type '{ perfo... Remove this comment to see the full error message
-    delete settings.hideMap
+    delete Quest.settings.hideMap
   }
   else {
     // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
     document.querySelector('#quest-map').style.display = 'none'
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'hideMap' does not exist on type '{ perfo... Remove this comment to see the full error message
-    settings.hideMap = true
+    Quest.settings.hideMap = true
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'calcMargins' does not exist on type '{ n... Remove this comment to see the full error message
   io.calcMargins()

@@ -3,12 +3,16 @@
     "typescript": "^4.6.2"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.14.0",
+    "@typescript-eslint/parser": "^5.14.0",
     "esbuild": "^0.14.25",
     "esbuild-node-tsc": "^1.8.5",
+    "eslint": "^8.11.0",
     "nodemon": "^2.0.15",
     "ts-migrate": "^0.1.28"
   },
   "scripts": {
-    "dev": "etsc"
-  }
+    "dev": "etsc --target=chrome"
+  },
+  "type": "commonjs"
 }

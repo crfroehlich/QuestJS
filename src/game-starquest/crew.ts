@@ -145,42 +145,42 @@ const CANDIDATE = function(female: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'dutiesDiag' does not exist on type '{ ca... Remove this comment to see the full error message
   res.dutiesDiag = function() {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
-    settings.startingDialogHtml = '<p>Name: <i>' + this.alias + '</i></p>'
+    Quest.settings.startingDialogHtml = '<p>Name: <i>' + this.alias + '</i></p>'
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
-    settings.startingDialogHtml += '<p>Species: <i>' + this.species + '</i></p>'
+    Quest.settings.startingDialogHtml += '<p>Species: <i>' + this.species + '</i></p>'
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
-    settings.startingDialogHtml += '<p>Comments: <i>' + this.cv + '</i></p>'
+    Quest.settings.startingDialogHtml += '<p>Comments: <i>' + this.cv + '</i></p>'
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
-    settings.startingDialogHtml += '<input type="hidden" name="name" id="diag-name" value="' + this.name + '"/>'
+    Quest.settings.startingDialogHtml += '<input type="hidden" name="name" id="diag-name" value="' + this.name + '"/>'
     for (let role of roster.data) {
       const npc = roster.getOfficer(role.name)
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
       if (!w.ship.arrivedAtSector) {
         if (npc === this) {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
-          settings.startingDialogHtml += '<p><input type="checkbox" name="' + role.name + '" id="diag-' + role.name + '" checked="yes"/> ' + role.alias + '</p>'
+          Quest.settings.startingDialogHtml += '<p><input type="checkbox" name="' + role.name + '" id="diag-' + role.name + '" checked="yes"/> ' + role.alias + '</p>'
         }
         else if (npc) {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
-          settings.startingDialogHtml += '<p><input type="checkbox" checked="yes" disabled="yes"/> ' + role.alias + ': <i>' + npc.alias + '</i></p>'
+          Quest.settings.startingDialogHtml += '<p><input type="checkbox" checked="yes" disabled="yes"/> ' + role.alias + ': <i>' + npc.alias + '</i></p>'
         }
         else {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
-          settings.startingDialogHtml += '<p><input type="checkbox" name="' + role.name + '" id="diag-' + role.name + '"/> ' + role.alias + '</p>'
+          Quest.settings.startingDialogHtml += '<p><input type="checkbox" name="' + role.name + '" id="diag-' + role.name + '"/> ' + role.alias + '</p>'
         }
       }
       else {
         if (npc === this) {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
-          settings.startingDialogHtml += '<p>Assigned as: ' + role.alias + '</p>'
+          Quest.settings.startingDialogHtml += '<p>Assigned as: ' + role.alias + '</p>'
         }
       }
     }
     
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'dialogType' does not exist on type '{ pe... Remove this comment to see the full error message
-    settings.dialogType = 'crew roster'
+    Quest.settings.dialogType = 'crew roster'
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'setUpDialog' does not exist on type '{ p... Remove this comment to see the full error message
-    settings.setUpDialog()
+    Quest.settings.setUpDialog()
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'entering' does not exist on type '{ canR... Remove this comment to see the full error message
   if (!res.entering) res.entering = '{nm:char} enters the bridge.'

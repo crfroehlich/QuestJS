@@ -30,15 +30,15 @@ const missions = {
   add:function(data: any) {
     data.diag = function() {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
-      settings.startingDialogHtml = '<p>Name: <i>' + this.alias + '</i></p>'
+      Quest.settings.startingDialogHtml = '<p>Name: <i>' + this.alias + '</i></p>'
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
-      settings.startingDialogHtml += '<p>Brief:</p>'
+      Quest.settings.startingDialogHtml += '<p>Brief:</p>'
       const s = (typeof this.brief === 'function') ? this.brief() : this.brief
       const ary = s.split('|')
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
-      for (const el of ary) settings.startingDialogHtml += '<p><i>' + el + '</i></p>'
+      for (const el of ary) Quest.settings.startingDialogHtml += '<p><i>' + el + '</i></p>'
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'setUpDialog' does not exist on type '{ p... Remove this comment to see the full error message
-      settings.setUpDialog()
+      Quest.settings.setUpDialog()
     }
     data.properNoun = true
   

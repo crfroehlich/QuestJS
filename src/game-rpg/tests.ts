@@ -17,8 +17,8 @@ test.tests = function() {
   //ioUpdateCustom()
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'attackOutputLevel' does not exist on typ... Remove this comment to see the full error message
-  settings.attackOutputLevel = 2
-  //settings.includeHitsInExamine = true
+  Quest.settings.attackOutputLevel = 2
+  //Quest.settings.includeHitsInExamine = true
   player.currentWeatherDisabled = true
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
@@ -128,7 +128,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Armour")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'armourScaling' does not exist on type '{... Remove this comment to see the full error message
-  settings.armourScaling = 1
+  Quest.settings.armourScaling = 1
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(0, player.getArmour())
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -148,7 +148,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(30, player.getArmour())
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'armourScaling' does not exist on type '{... Remove this comment to see the full error message
-  settings.armourScaling = 10
+  Quest.settings.armourScaling = 10
 
 
 
@@ -241,7 +241,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'flail' does not exist on type '{}'.
   w.flail.equipped = true
 
-  //settings.attackOutputLevel = 5
+  //Quest.settings.attackOutputLevel = 5
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 2.
   attack = Attack.createAttack(player, w.orc)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -1009,7 +1009,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("weather")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'weatherReportsAssumeYes' does not exist ... Remove this comment to see the full error message
-  settings.weatherReportsAssumeYes = true
+  Quest.settings.weatherReportsAssumeYes = true
   player.currentWeatherDisabled = false
 
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message

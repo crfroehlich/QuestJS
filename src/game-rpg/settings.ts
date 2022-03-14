@@ -1,34 +1,34 @@
 "use strict";
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{ perform... Remove this comment to see the full error message
-settings.title = "A First RPG...";
+Quest.settings.title = "A First RPG...";
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'author' does not exist on type '{ perfor... Remove this comment to see the full error message
-settings.author = "The Pixie"
+Quest.settings.author = "The Pixie"
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'version' does not exist on type '{ perfo... Remove this comment to see the full error message
-settings.version = "1.1";
+Quest.settings.version = "1.1";
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'thanks' does not exist on type '{ perfor... Remove this comment to see the full error message
-settings.thanks = ["Kyle", "Lara"];
+Quest.settings.thanks = ["Kyle", "Lara"];
 
 // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'never'.
-settings.customLibraries.push({folder:'rpg', files:["lang-en", "rpg", "skill", "attack", "item_templates", "npc_templates", "commands", "spells", "weapons"]})
-settings.files.push('weather')
+Quest.settings.customLibraries.push({folder:'rpg', files:["lang-en", "rpg", "skill", "attack", "item_templates", "npc_templates", "commands", "spells", "weapons"]})
+Quest.settings.files.push('weather')
 
 // @ts-expect-error ts-migrate(2322) FIXME: Type 'boolean' is not assignable to type 'string'.
-settings.statusPane = false;
-settings.tests = true
+Quest.settings.statusPane = false;
+Quest.settings.tests = true
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
-settings.playMode = 'dev'
+Quest.settings.playMode = 'dev'
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'attackOutputLevel' does not exist on typ... Remove this comment to see the full error message
-settings.attackOutputLevel = 10
+Quest.settings.attackOutputLevel = 10
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'armourScaling' does not exist on type '{... Remove this comment to see the full error message
-settings.armourScaling = 10
+Quest.settings.armourScaling = 10
 // @ts-expect-error ts-migrate(2322) FIXME: Type 'boolean' is not assignable to type 'string'.
-settings.noTalkTo = false
+Quest.settings.noTalkTo = false
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'output' does not exist on type '{ perfor... Remove this comment to see the full error message
-settings.output = function(report: any) {
+Quest.settings.output = function(report: any) {
   for (let el of report) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'attackOutputLevel' does not exist on typ... Remove this comment to see the full error message
-    if (el.level <= settings.attackOutputLevel) {
+    if (el.level <= Quest.settings.attackOutputLevel) {
       if (el.level === 1) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg(el.t)
@@ -45,7 +45,7 @@ settings.output = function(report: any) {
 
 
 
-settings.dateTime = {
+Quest.settings.dateTime = {
   // @ts-expect-error ts-migrate(2322) FIXME: Type '{ startTime: number; data: { name: string; n... Remove this comment to see the full error message
   startTime:1000000000,
   data:[
@@ -77,12 +77,12 @@ settings.dateTime = {
   functions:{
     dayOfWeek:function(dict: any) { 
       // @ts-expect-error ts-migrate(2551) FIXME: Property 'days' does not exist on type '{ year: st... Remove this comment to see the full error message
-      return settings.dateTime.days[(dict.day + 365 * dict.year) % settings.dateTime.days.length] 
+      return Quest.settings.dateTime.days[(dict.day + 365 * dict.year) % Quest.settings.dateTime.days.length] 
     },
     dayOfYear:function(dict: any) {
       let day = dict.day
       // @ts-expect-error ts-migrate(2551) FIXME: Property 'months' does not exist on type '{ year: ... Remove this comment to see the full error message
-      for (let el of settings.dateTime.months) {
+      for (let el of Quest.settings.dateTime.months) {
         if (el.n > day) return (day + 1) + ' ' + el.name
         day -= el.n
       }
@@ -103,7 +103,7 @@ settings.dateTime = {
 // This function will be called at the start of the game, so can be used
 // to introduce your game.
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'setup' does not exist on type '{ perform... Remove this comment to see the full error message
-settings.setup = function() {
+Quest.settings.setup = function() {
   player.skillsLearnt = ["Double attack", "Fireball"]
   createAdditionalPane(1, "Spells", 'spells-known', function() {
     let html = ''
@@ -116,7 +116,7 @@ settings.setup = function() {
   player.hitpoints = 20
   player.status = "You are feeling fine"
   player.skillsLearnt = ["Double attack", "Fireball"]
-  //settings.updateCustomUI()
+  //Quest.settings.updateCustomUI()
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'rabbit' does not exist on type '{}'.
   w.rabbit.setLeader(player)
 }

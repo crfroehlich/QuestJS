@@ -147,7 +147,7 @@ const NPC = function(isFemale: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'doReactions' does not exist on type '{ c... Remove this comment to see the full error message
   res.doReactions = function() {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{ canRea... Remove this comment to see the full error message
-    if (this.isHere() || settings.npcReactionsAlways) {
+    if (this.isHere() || Quest.settings.npcReactionsAlways) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'reactionFlags' does not exist on type '{... Remove this comment to see the full error message
       if (!this.reactionFlags) this.reactionFlags = []
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'reactions' does not exist on type '{ can... Remove this comment to see the full error message
@@ -199,7 +199,7 @@ const NPC = function(isFemale: any) {
       metamsg(lang.topics_none_found, {item:this})
     }
     
-    return settings.lookCountsAsTurn ? world.SUCCESS : world.SUCCESS_NO_TURNSCRIPTS
+    return Quest.settings.lookCountsAsTurn ? world.SUCCESS : world.SUCCESS_NO_TURNSCRIPTS
   }
   
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'sayBonus' does not exist on type '{ canR... Remove this comment to see the full error message
@@ -237,7 +237,7 @@ const NPC = function(isFemale: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'sayQuestion' does not exist on type '{ c... Remove this comment to see the full error message
     this.sayQuestion = questionName
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'sayQuestionCountdown' does not exist on ... Remove this comment to see the full error message
-    this.sayQuestionCountdown = settings.turnsQuestionsLast
+    this.sayQuestionCountdown = Quest.settings.turnsQuestionsLast
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'sayBonus' does not exist on type '{ canR... Remove this comment to see the full error message
     this.sayBonus = 100
   };
@@ -278,9 +278,9 @@ const npc_utilities = {
   // @ts-expect-error ts-migrate(7023) FIXME: 'talkto' implicitly has return type 'any' because ... Remove this comment to see the full error message
   talkto:function() {
     // @ts-expect-error ts-migrate(2367) FIXME: This condition will always return 'true' since the... Remove this comment to see the full error message
-    if (settings.noTalkTo !== false) {
+    if (Quest.settings.noTalkTo !== false) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      metamsg(settings.noTalkTo);
+      metamsg(Quest.settings.noTalkTo);
       return false;
     }
     
@@ -314,7 +314,7 @@ const npc_utilities = {
     topics.push(lang.never_mind)
     
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    const fn = io.menuFunctions[settings.funcForDynamicConv]
+    const fn = io.menuFunctions[Quest.settings.funcForDynamicConv]
     fn(lang.speak_to_menu_title(this), topics, function(result: any) {
       if (result !== lang.never_mind) {
         result.runscript();
@@ -327,7 +327,7 @@ const npc_utilities = {
   askTopics:function(...topics: any[]) {
     const title = topics.shift()
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    const fn = io.menuFunctions[settings.funcForDynamicConv]
+    const fn = io.menuFunctions[Quest.settings.funcForDynamicConv]
     fn(title, topics, function(result: any) {
       result.runscript();
     })
@@ -447,11 +447,11 @@ const AGENDA_FOLLOWER = function() {
 const agenda = {
   debug:function(s: any, npc: any, arr: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'agendaDebugging' does not exist on type ... Remove this comment to see the full error message
-    if (settings.agendaDebugging && settings.playMode === 'dev') debugmsg('AGENDA for ' + npc.name + ': ' + s + '; ' + formatList(arr, {doNotSort:true}))
+    if (Quest.settings.agendaDebugging && Quest.settings.playMode === 'dev') debugmsg('AGENDA for ' + npc.name + ': ' + s + '; ' + formatList(arr, {doNotSort:true}))
   },
   debugS:function(s: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'agendaDebugging' does not exist on type ... Remove this comment to see the full error message
-    if (settings.agendaDebugging && settings.playMode === 'dev') debugmsg('AGENDA comment: ' + s)
+    if (Quest.settings.agendaDebugging && Quest.settings.playMode === 'dev') debugmsg('AGENDA comment: ' + s)
   },
 
   
@@ -873,9 +873,9 @@ const CONSULTABLE = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'asktellabout' does not exist on type '{}... Remove this comment to see the full error message
   res.asktellabout = function(text1: any, text2: any, intro: any, list: any, action: any) {
     // @ts-expect-error ts-migrate(2367) FIXME: This condition will always return 'true' since the... Remove this comment to see the full error message
-    if (settings.noAskTell !== false) {
+    if (Quest.settings.noAskTell !== false) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      metamsg(settings.noAskTell);
+      metamsg(Quest.settings.noAskTell);
       return false;
     }
 
@@ -885,12 +885,12 @@ const CONSULTABLE = function() {
 
     if (!list || list.length === 0) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      metamsg(settings.noAskTell);
+      metamsg(Quest.settings.noAskTell);
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       return errormsg("No " + action + "Options set for " + this.name + " and I think there should at least be default saying why.")
     }
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    if (settings.givePlayerAskTellMsg) msg(intro(this, text1, text2), {char:player});
+    if (Quest.settings.givePlayerAskTellMsg) msg(intro(this, text1, text2), {char:player});
     
     const params = {
       text:text1,

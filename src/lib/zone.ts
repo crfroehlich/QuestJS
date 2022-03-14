@@ -1,8 +1,8 @@
 "use strict";
 
 
-settings.saveLoadExcludedAtts.push("zoneExits")
-settings.saveLoadExcludedAtts.push("zoneDescs")
+Quest.settings.saveLoadExcludedAtts.push("zoneExits")
+Quest.settings.saveLoadExcludedAtts.push("zoneDescs")
 
 const zoneExit = function(this: any, char: any, exit: any) {
   if (!exit) exit = this

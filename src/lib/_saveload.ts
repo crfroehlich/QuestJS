@@ -27,7 +27,7 @@ const saveLoad = {
 
   getName:function(filename: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{ perform... Remove this comment to see the full error message
-    return "QJS:" + settings.title + ":" + filename
+    return "QJS:" + Quest.settings.title + ":" + filename
   },
 
   saveGame:function(filename: any, overwrite: any) {
@@ -43,19 +43,19 @@ const saveLoad = {
       return
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'saveComment' does not exist on type '{ p... Remove this comment to see the full error message
-    const comment = settings.saveComment ? settings.saveComment() : "-"
+    const comment = Quest.settings.saveComment ? Quest.settings.saveComment() : "-"
     const s = saveLoad.saveTheWorld(comment);
     //console.log(s)
     localStorage.setItem(this.getName(filename), s);
     metamsg(lang.sl_saved, {filename:filename});
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterSave' does not exist on type '{ per... Remove this comment to see the full error message
-    if (settings.afterSave) settings.afterSave(filename)
+    if (Quest.settings.afterSave) Quest.settings.afterSave(filename)
     return true;
   },
 
   saveGameAsFile:function(filename: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'saveComment' does not exist on type '{ p... Remove this comment to see the full error message
-    const comment = settings.saveComment ? settings.saveComment() : "-"
+    const comment = Quest.settings.saveComment ? Quest.settings.saveComment() : "-"
     const s = saveLoad.saveTheWorld(comment)
     const myFile = new File([s], filename+".q6save", {type: "text/plain;charset=utf-8"})
     saveAs(myFile)
@@ -76,9 +76,9 @@ const saveLoad = {
   getSaveHeader:function(comment: any) {
     const currentdate = new Date();
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{ perform... Remove this comment to see the full error message
-    let s = saveLoad.encodeString(settings.title) + "!";
+    let s = saveLoad.encodeString(Quest.settings.title) + "!";
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'version' does not exist on type '{ perfo... Remove this comment to see the full error message
-    s += saveLoad.encodeString(settings.version) + "!";
+    s += saveLoad.encodeString(Quest.settings.version) + "!";
     s += saveLoad.encodeString(comment) + "!";
     s += currentdate.toLocaleString() + "!";
     return s;
@@ -133,7 +133,7 @@ const saveLoad = {
       metamsg(lang.sl_file_not_found);
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{ perform... Remove this comment to see the full error message
-    else if (!contents.startsWith(settings.title + '!')) {
+    else if (!contents.startsWith(Quest.settings.title + '!')) {
       const encodedTitle = contents.substr(0, contents.indexOf('!')); 
       metamsg(lang.sl_bad_format, {title:saveLoad.decodeString(encodedTitle)})
     }
@@ -142,7 +142,7 @@ const saveLoad = {
       clearScreen()
       metamsg(lang.sl_file_loaded, {filename:filename})
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterLoad' does not exist on type '{ per... Remove this comment to see the full error message
-      if (settings.afterLoad) settings.afterLoad(filename)
+      if (Quest.settings.afterLoad) Quest.settings.afterLoad(filename)
       currentLocation.description()
     }
   },
@@ -398,7 +398,7 @@ const saveLoad = {
   dirGame:function() {
     const arr0 = lang.sl_dir_headings.map(el => '<th>' + el + '</th>')
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'saveComment' does not exist on type '{ p... Remove this comment to see the full error message
-    if (!settings.saveComment) arr0.pop()
+    if (!Quest.settings.saveComment) arr0.pop()
     let s = arr0.join('')
     for (let key in localStorage) {
       if (!key.startsWith('QJS:')) continue
@@ -411,7 +411,7 @@ const saveLoad = {
       s += "<td>" + arr2[1] + "</td>"
       s += "<td>" + arr2[3] + "</td>"
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'saveComment' does not exist on type '{ p... Remove this comment to see the full error message
-      if (settings.saveComment) s += "<td>" + arr2[2] + "</td>"
+      if (Quest.settings.saveComment) s += "<td>" + arr2[2] + "</td>"
       s += "</tr>"
     }  
     _msg(s, {}, {cssClass:"meta", tag:'table'})
@@ -451,7 +451,7 @@ const saveLoad = {
 
   transcript:false,  // Set to true when recording
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{ perform... Remove this comment to see the full error message
-  transcriptName:"QJST:" + settings.title + ":transcript",
+  transcriptName:"QJST:" + Quest.settings.title + ":transcript",
 
   transcriptStart:function() {
     this.transcript = true
@@ -520,7 +520,7 @@ const saveLoad = {
     html += s
     html += '</div></div></div>'
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{ perform... Remove this comment to see the full error message
-    io.showInTab(html, 'QuestJS Transcript: ' + settings.title)
+    io.showInTab(html, 'QuestJS Transcript: ' + Quest.settings.title)
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     metamsg(lang.done_msg)
   },
@@ -537,6 +537,6 @@ const saveLoad = {
     html += '\n  ],\n}</pre>'
     html += '</div></div></div>'
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{ perform... Remove this comment to see the full error message
-    io.showInTab(html, 'QuestJS Transcript: ' + settings.title)
+    io.showInTab(html, 'QuestJS Transcript: ' + Quest.settings.title)
   },
 }

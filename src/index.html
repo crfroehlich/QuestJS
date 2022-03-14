@@ -14,56 +14,78 @@
   
   <script src="lib/_util.js"></script>
   <script src="lib/_settings.js"></script>
+</head>
+
+<body>
+  <div id="quest">
+    <h1 id="loading">Story loading, please wait...</h1>
+    
+    <div id="main">
+      <div id="inner">
+        <div id="output"></div>
+        <div id="input"></div>
+      </div>
+    </div>
+    
+    <dialog id="dialog">
+      <form method="dialog">
+        <h4 id="dialog-title"></h4>
+        <hr />
+        <div id="dialog-content"></div>
+        <div id="dialog-footer" style="text-align:right">
+          <hr />
+          <button id="dialog-button" value="default">Confirm</button>
+        </div>
+      </form>
+    </dialog>
+    <div id="quest-map"></div>
+    <div id="quest-image"></div>
+    <form style="display:none" id="fileDialogForm">
+      <input type="file" id="fileDialog" accept=".q6save" />
+    </form>
+  </div>
+  <br><br>
+  <select id="quest-select" style="margin-top: 600px;">
+    <option>game-alt-map</option>
+    <option>game-banks</option>
+    <option>game-buttons</option>
+    <option>game-cloak</option>
+    <option>game-dir</option>
+    <option>game-eg</option>
+    <option>game-hex</option>
+    <option>game-house</option>
+    <option>game-rpg</option>
+    <option>game-map</option>
+    <option>game-starquest</option>
+    <option>game-timers</option>
+    <option>game-tut</option>
+    <option>game-tutorial</option>
+  </select>
   <script>
-    let folder = 'game-cloak'
-    let loaded = false
+    //loadGame('cloak');
+    let folder = window.location.hash.replace('#', '') || 'game-cloak';
+    let loaded = false;
     if (window.location.search)
-    folder += '-' + window.location.search.substring(1)
+      folder += '-' + window.location.search.substring(1)
 
 
     const myScript = document.createElement("script")
     myScript.setAttribute("src", folder + '/settings.js')
-    myScript.onload = function() {
-      settings.writeScript(folder)
+    myScript.onload = () => {
+      Quest.settings.writeScript(folder)
     }
-    myScript.onerror = function() {
+    myScript.onerror = function () {
       console.log("Failed to load file \"" + folder + "/settings.js\".")
       console.log("Check the file and folder actually exist.")
       console.log("This is probably because the folder \"" + folder + "\" does not exist, perhaps because it is wrongly specified in the address.")
     }
-    document.head.appendChild(myScript)
+    document.head.appendChild(myScript);
+    const select = document.getElementById('quest-select');
+    select.value = folder;
+    select.onchange = function () { 
+      window.location.hash = this.value;
+      window.location.reload();
+    };
   </script>
-  
-</head>
-
-
-
-<body>
-
-<h1 id="loading">Story loading, please wait...</h1>
-
-<div id="main">
-<div id="inner">
-<div id="output"></div>
-<div id="input"></div>
-</div>
-</div>
-
-<dialog id="dialog">
-  <form method="dialog">
-    <h4 id="dialog-title"></h4>
-    <hr/>
-    <div id="dialog-content"></div>
-    <div id="dialog-footer" style="text-align:right">
-    <hr/>
-    <button id="dialog-button" value="default">Confirm</button>
-    </div>
-  </form>
-</dialog>
-<div id="quest-map"></div>
-<div id="quest-image"></div>
-<form style="display:none" id="fileDialogForm">
-	<input type="file" id="fileDialog" accept=".q6save"/>
-</form>
 </body>
 </html>

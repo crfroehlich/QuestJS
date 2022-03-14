@@ -874,7 +874,7 @@ createItem("yellow_balloon", {
       msg(this.states[0])
       this.state++      
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      for (const s of settings.roomTemplate) msg(s)
+      for (const s of Quest.settings.roomTemplate) msg(s)
     }
   },
   reset:function() {

@@ -1,41 +1,34 @@
-"use strict"
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{ perform... Remove this comment to see the full error message
-settings.title = "The City of Halmuth"
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'author' does not exist on type '{ perfor... Remove this comment to see the full error message
-settings.author = "The Pixie"
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'version' does not exist on type '{ perfo... Remove this comment to see the full error message
-settings.version = "0.1"
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'thanks' does not exist on type '{ perfor... Remove this comment to see the full error message
-settings.thanks = []
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'warnings' does not exist on type '{ perf... Remove this comment to see the full error message
-settings.warnings = "No warnings have been set for this game."
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
-settings.playMode = "dev"
-//settings.reportAllSvg = true
-settings.symbolsForCompass = true
+Quest.settings.title = "The City of Halmuth"
+Quest.settings.author = "The Pixie"
+Quest.settings.version = "0.1"
+Quest.settings.thanks = []
+Quest.settings.warnings = "No warnings have been set for this game."
+Quest.settings.playMode = "dev"
+//Quest.settings.reportAllSvg = true
+Quest.settings.symbolsForCompass = true
 
-settings.libraries.push('image-map')
-settings.libraries.push('quest')
-settings.tests = true
+Quest.settings.libraries.push('image-map')
+Quest.settings.libraries.push('quest')
+Quest.settings.tests = true
 
-settings.status = [
+Quest.settings.status = [
   function() { return '<td>Health points:</td><td>' + player.hitpoints + '</td>' },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getDateTime' does not exist on type '{}'... Remove this comment to see the full error message
   function() { return '<td colspan="2">' + util.getDateTime() + '</td>' },
 ]
 
-settings.roomTemplate = [
+Quest.settings.roomTemplate = [
   "#{cap:{hereName}}",
   "{hereDesc}",
   "{npcStatus}",
   "{objectsHere:You can see {objects} here.}",
 ]
 
-settings.mapAndImageCollapseAt = 1000
+Quest.settings.mapAndImageCollapseAt = 1000
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapImages' does not exist on type '{ per... Remove this comment to see the full error message
-settings.mapImages = [
+Quest.settings.mapImages = [
   {
     name:'Halmuth',
     file:'game-alt-map/map.png',
@@ -51,8 +44,8 @@ settings.mapImages = [
 ]
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapScrollSpeed' does not exist on type '... Remove this comment to see the full error message
-settings.mapScrollSpeed = 1
-settings.mapStyle = {
+Quest.settings.mapScrollSpeed = 1
+Quest.settings.mapStyle = {
   right:'0',
   top:'0',
   width:'400px',
@@ -61,7 +54,7 @@ settings.mapStyle = {
   border:'3px black solid',
 }
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapMarker' does not exist on type '{ per... Remove this comment to see the full error message
-settings.mapMarker = function(loc: any) {
+Quest.settings.mapMarker = function(loc: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'polygon' does not exist on type '{ toggl... Remove this comment to see the full error message
   return map.polygon(loc, [
     [0,0], [-5,-25], [-7, -20], [-18, -45], [-20, -40], [-25, -42], [-10, -18], [-15, -20]
@@ -70,7 +63,7 @@ settings.mapMarker = function(loc: any) {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapPointsOfInterest' does not exist on t... Remove this comment to see the full error message
-settings.mapPointsOfInterest = [
+Quest.settings.mapPointsOfInterest = [
   {mapX:100, mapY:100, fill:'red', text:'Here is one thing'},
   {mapX:200, mapY:200, fill:'red', text:'Here is another thing'},
   {mapX:300, mapY:300, fill:'blue', text:'Here is something else', isActive:function() {return true }},
@@ -79,7 +72,7 @@ settings.mapPointsOfInterest = [
 
 
 
-settings.dateTime = {
+Quest.settings.dateTime = {
   // @ts-expect-error ts-migrate(2322) FIXME: Type '{ startTime: number; secondsPerTurn: number;... Remove this comment to see the full error message
   startTime:1000000000,
   secondsPerTurn:60,
@@ -109,12 +102,12 @@ settings.dateTime = {
   functions:{
     dayOfWeek:function(dict: any) { 
       // @ts-expect-error ts-migrate(2551) FIXME: Property 'days' does not exist on type '{ year: st... Remove this comment to see the full error message
-      return settings.dateTime.days[(dict.day + 365 * dict.year) % settings.dateTime.days.length] 
+      return Quest.settings.dateTime.days[(dict.day + 365 * dict.year) % Quest.settings.dateTime.days.length] 
     },
     dayOfYear:function(dict: any) {
       let day = dict.day
       // @ts-expect-error ts-migrate(2551) FIXME: Property 'months' does not exist on type '{ year: ... Remove this comment to see the full error message
-      for (let el of settings.dateTime.months) {
+      for (let el of Quest.settings.dateTime.months) {
         if (el.n > day) return (day + 1) + ' ' + el.name
         day -= el.n
       }

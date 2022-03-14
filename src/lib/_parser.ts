@@ -44,9 +44,9 @@ parser.parse = function(inputText: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'startCommand' does not exist on type '{ ... Remove this comment to see the full error message
   io.startCommand()
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'performanceLogStart' does not exist on t... Remove this comment to see the full error message
-  settings.performanceLogStart()
+  Quest.settings.performanceLogStart()
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
-  settings.performanceLog('Start command')
+  Quest.settings.performanceLog('Start command')
 
   // This allows the command system to be temporarily overriden,
   // say if the game asks a question
@@ -69,11 +69,11 @@ parser.parse = function(inputText: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'inputTexts' does not exist on type '{}'.
     const s = parser.inputTexts.shift()
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
-    settings.performanceLog('Start "' + s + '"')
+    Quest.settings.performanceLog('Start "' + s + '"')
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'parseSingle' does not exist on type '{}'... Remove this comment to see the full error message
     parser.parseSingle(s)
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
-    settings.performanceLog('Done')
+    Quest.settings.performanceLog('Done')
   }
 }
 
@@ -113,7 +113,7 @@ parser.parseSingle = function(inputText: any) {
     parser.currentCommand = res;
   }
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
-  settings.performanceLog('Command found')
+  Quest.settings.performanceLog('Command found')
   
   // Need to disambiguate, until each of the lowest level lists has exactly one member
   let needToDisAmbigFlag = false
@@ -137,7 +137,7 @@ parser.parseSingle = function(inputText: any) {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'currentCommand' does not exist on type '... Remove this comment to see the full error message
           parser.currentCommand.tmp.disambiguate2 = j;
           // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          const fn = io.menuFunctions[settings.funcForDisambigMenu]
+          const fn = io.menuFunctions[Quest.settings.funcForDisambigMenu]
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'currentCommand' does not exist on type '... Remove this comment to see the full error message
           fn(lang.disambig_msg, parser.currentCommand.tmp.objects[i][j], function(result: any) {
             // @ts-expect-error ts-migrate(2339) FIXME: Property 'currentCommand' does not exist on type '... Remove this comment to see the full error message
@@ -155,7 +155,7 @@ parser.parseSingle = function(inputText: any) {
   
   if (!needToDisAmbigFlag) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
-    settings.performanceLog('About to execute')
+    Quest.settings.performanceLog('About to execute')
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'execute' does not exist on type '{}'.
     parser.execute();
   }
@@ -190,14 +190,14 @@ parser.execute = function() {
       }
     }
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
-    settings.performanceLog('About to run command script')
+    Quest.settings.performanceLog('About to run command script')
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'currentCommand' does not exist on type '... Remove this comment to see the full error message
     const outcome = parser.currentCommand.script(parser.currentCommand.tmp.objects)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
-    if (outcome === undefined && settings.playMode === 'dev') log("WARNING: " + parser.currentCommand.name + " command did not return a result to indicate success or failure.")
+    if (outcome === undefined && Quest.settings.playMode === 'dev') log("WARNING: " + parser.currentCommand.name + " command did not return a result to indicate success or failure.")
     inEndTurnFlag = true
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
-    settings.performanceLog('About to run world.endTurn')
+    Quest.settings.performanceLog('About to run world.endTurn')
     world.endTurn(outcome)
   } catch (err) {
     if (inEndTurnFlag) {
@@ -210,7 +210,7 @@ parser.execute = function() {
     }
   }
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
-  settings.performanceLog('All done')
+  Quest.settings.performanceLog('All done')
 };   
 
 
@@ -229,12 +229,12 @@ parser.findCommand = function(inputText: any) {
   let cmdString = inputText.toLowerCase().trim().replace(/\s+/g, ' ');
   
   // convert numbers in words to digits
-  if (settings.convertNumbersInParser) {
+  if (Quest.settings.convertNumbersInParser) {
     cmdString = lang.convertNumbers(cmdString);
   }
   
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
-    settings.performanceLog('Numbers converted')
+    Quest.settings.performanceLog('Numbers converted')
 
 
   // We now want to match potential objects
@@ -262,7 +262,7 @@ parser.findCommand = function(inputText: any) {
     }
   }
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
-  settings.performanceLog('Best match found')
+  Quest.settings.performanceLog('Best match found')
 
   if (!bestMatch) {
     return lang.not_known_msg;
@@ -583,7 +583,7 @@ parser.specialText.text = {
 parser.specialText.fluid = {
   error:function(text: any) {
     // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'any' is not assignable to parame... Remove this comment to see the full error message
-    if (settings.fluids.includes(text)) return false
+    if (Quest.settings.fluids.includes(text)) return false
     return processText(lang.not_a_fluid_here, {text:text})
   },
   exec:function(text: any) {

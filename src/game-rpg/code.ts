@@ -3,7 +3,7 @@
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
 tp.addDirective("armour", function(arr: any, params: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'armourScaling' does not exist on type '{... Remove this comment to see the full error message
-  return (params[arr[0] ? arr[0] : 'item'].armour / settings.armourScaling).toFixed(1)
+  return (params[arr[0] ? arr[0] : 'item'].armour / Quest.settings.armourScaling).toFixed(1)
 })
 
 

@@ -313,7 +313,7 @@ class Attack {
 
   output() {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'output' does not exist on type '{ perfor... Remove this comment to see the full error message
-    settings.output(this.reportTexts)
+    Quest.settings.output(this.reportTexts)
     return this
   }
 

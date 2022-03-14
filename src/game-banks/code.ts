@@ -571,7 +571,7 @@ function probeLandsOkay() {
   
   
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'deckNames' does not exist on type '{ per... Remove this comment to see the full error message
-settings.deckNames = {layer1:'Deck 2', layer3:'Deck 1', layer4:'Deck 3'}
+Quest.settings.deckNames = {layer1:'Deck 2', layer3:'Deck 1', layer4:'Deck 3'}
 
 function updateMap() {
   if (!document.querySelector('#layer1')) return
@@ -584,7 +584,7 @@ function updateMap() {
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   const currentDeck = w[player.loc].deckName
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-  document.querySelector('#map').setAttribute('title', 'The Joseph Banks, ' + settings.deckNames[currentDeck]);
+  document.querySelector('#map').setAttribute('title', 'The Joseph Banks, ' + Quest.settings.deckNames[currentDeck]);
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   if (!currentDeck) return errormsg("No deckName for " + player.loc)
   let el = document.querySelector('#' + currentDeck)
@@ -614,10 +614,10 @@ function updateMap() {
     if (otherSvgId) document.querySelector('#' + otherSvgId).style.fill ='blue'
   }
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-  document.querySelector('#rect10').style.fill = settings.darkModeActive ? '#606' : '#bbb'
+  document.querySelector('#rect10').style.fill = Quest.settings.darkModeActive ? '#606' : '#bbb'
   for (let id of [3334, 2800, 2788, 3330]) {
     // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-    document.querySelector('#text' + id).style.fill = settings.darkModeActive ? 'white' : 'black'
+    document.querySelector('#text' + id).style.fill = Quest.settings.darkModeActive ? 'white' : 'black'
     // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
     document.querySelector('#text' + id).style.fontFamily = 'Orbitron, sans-serif'
   }
