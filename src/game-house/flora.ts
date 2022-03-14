@@ -1,13 +1,13 @@
 "use strict"
 
 register('flora', {
-  book:'A Midsummer Night\'s Dream',
-  uniform:'a green and purple school uniform that feels strangely comfortable, even if it looks appalling',
-  smell:'The room smells quite nice, full of blossoms and springtime.',
-  listen:'If she strains, Mandy can hear a quiet humming, like a bee maybe.',
-  floor:"The floor is a lattice of wrought iron, painted white, and flaking in a few places.",
-  walls:"The walls are windows, in white frames.",
-  ceiling:"The roof is way over Mandy\'s head, forming an arch of windows.",
+  book: 'A Midsummer Night\'s Dream',
+  uniform: 'a green and purple school uniform that feels strangely comfortable, even if it looks appalling',
+  smell: 'The room smells quite nice, full of blossoms and springtime.',
+  listen: 'If she strains, Mandy can hear a quiet humming, like a bee maybe.',
+  floor: "The floor is a lattice of wrought iron, painted white, and flaking in a few places.",
+  walls: "The walls are windows, in white frames.",
+  ceiling: "The roof is way over Mandy\'s head, forming an arch of windows.",
 })
 
 
@@ -22,21 +22,21 @@ register('flora', {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("greenhouse_west", {
-  windowsface:'north',
-  alias:'west end of the greenhouse',
-  headingAlias:'The Greenhouse (West)',
-  seenFlag:false,
-  desc:"{floraDesc}She is standing on an east-west path between two wide flowerbeds. All manner of plants are growing, but it seems the gardener has made some selections, as all the flowers are red. Mandy cannot identify many of them, but can see poppies, marigolds and chrysanthemums. No carnations, as far as she can see. {once:Mandy remembers the roses in the garden; odd that they never flower, and yet here nearly everything is in flower. }Even the trees have red flowers. She recognises a bottlebush tree, though much bigger than the one her father has and not currently in bloom.{floraFlowerBed} Nearby, bolted to the west wall, left of the doorway, is a huge metal box that stretches up about three storeys.",
+  windowsface: 'north',
+  alias: 'west end of the greenhouse',
+  headingAlias: 'The Greenhouse (West)',
+  seenFlag: false,
+  desc: "{floraDesc}She is standing on an east-west path between two wide flowerbeds. All manner of plants are growing, but it seems the gardener has made some selections, as all the flowers are red. Mandy cannot identify many of them, but can see poppies, marigolds and chrysanthemums. No carnations, as far as she can see. {once:Mandy remembers the roses in the garden; odd that they never flower, and yet here nearly everything is in flower. }Even the trees have red flowers. She recognises a bottlebush tree, though much bigger than the one her father has and not currently in bloom.{floraFlowerBed} Nearby, bolted to the west wall, left of the doorway, is a huge metal box that stretches up about three storeys.",
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  west:new Exit("steam_hall"),
+  west: new Exit("steam_hall"),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  east:new Exit("greenhouse_east"),
+  east: new Exit("greenhouse_east"),
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  up:new Exit("_", {
-    alsoDir:['climb'],
+  up: new Exit("_", {
+    alsoDir: ['climb'],
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'grown_tamarind_tree' does not exist on t... Remove this comment to see the full error message
     isHidden() { return (w.grown_tamarind_tree.growthTime < 9) },
-    simpleUse:function(char: any) {
+    simpleUse: function (char: any) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
       if (char === w.Patch) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'grown_tamarind_tree' does not exist on t... Remove this comment to see the full error message
@@ -51,7 +51,7 @@ createRoom("greenhouse_west", {
         else {
           s += "one of the tamarind trees"
         }
-          
+
         s += " , then steps closer, putting both arms round it. He pauses, and looks up, then down again, then up again. Apparently, climbing is not his thing."
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg(s)
@@ -61,13 +61,13 @@ createRoom("greenhouse_west", {
         w.Patch.goUpDirection = 'up'
         return true
       }
-      
+
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'grown_tamarind_tree' does not exist on t... Remove this comment to see the full error message
       if (w.grown_tamarind_tree.seedsPlanted === 0) return falsemsg("Mandy looks around, but there is nothing suitable to climb here.")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'hourglass' does not exist on type '{}'.
       if (w.hourglass.active) return falsemsg("Mandy looks at the rapidly grow tamarind plant thoughtfully. If she grabs on to it now, it will take her up with it as it grows! Steps closer, and her foot starts to blur, and feel numb. A moment later she is feeling nauseated. She steps back, trying to catch her breath. Perhaps not such a great idea...")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'grown_tamarind_tree' does not exist on t... Remove this comment to see the full error message
-      if (w.grown_tamarind_tree.growthTime < 9) return falsemsg("Mandy looks at the {nm:item:false:false:count_this} thoughtfully. If {nv:item:were} more substantial, she could climb {ob:item}.", {item:w.grown_tamarind_tree, count_this:'seedsPlanted'})
+      if (w.grown_tamarind_tree.growthTime < 9) return falsemsg("Mandy looks at the {nm:item:false:false:count_this} thoughtfully. If {nv:item:were} more substantial, she could climb {ob:item}.", { item: w.grown_tamarind_tree, count_this: 'seedsPlanted' })
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'grown_tamarind_tree' does not exist on t... Remove this comment to see the full error message
       if (w.grown_tamarind_tree.growthTime < 12) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -92,7 +92,7 @@ createRoom("greenhouse_west", {
         player.moveChar(new Exit('up_a_tall_tree', this))
         return true
       }
-      
+
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'grown_tamarind_tree' does not exist on t... Remove this comment to see the full error message
       if (w.grown_tamarind_tree.seedsPlanted > 1) return falsemsg("Mandy looks up at the trees; they are certainly high enough that if she could climb them, she could reach across to the top of the metal box, but they are too tall to climb. The lowest branches are way out of reach.")
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -100,33 +100,33 @@ createRoom("greenhouse_west", {
     },
 
   }),
-  scenery:[
-    { alias:'marigolds', examine:'There are at least three cultivars of marigolds: one has flowers that are red with a yellow centre; another has red petals fringed with yellow; and a third is plain red.' },
-    { alias:'chrysanthemums', examine:'As she looks closer, she wonders if these are actually carnations.' },
-    { alias:'carnations', examine:'She cannot decide if they are chrysanthemums or carnations.' },
-    { 
-      alias:'bottlebush tree', 
-      examine:'The bottlebush tree is about five metres tall; a straight trunk rising a metre or so to a mass of leaves and red flowers.',
-      goUpItem:'The bottlebush tree is too small to climb - the trunk would probably snap if Mandy tried.',
+  scenery: [
+    { alias: 'marigolds', examine: 'There are at least three cultivars of marigolds: one has flowers that are red with a yellow centre; another has red petals fringed with yellow; and a third is plain red.' },
+    { alias: 'chrysanthemums', examine: 'As she looks closer, she wonders if these are actually carnations.' },
+    { alias: 'carnations', examine: 'She cannot decide if they are chrysanthemums or carnations.' },
+    {
+      alias: 'bottlebush tree',
+      examine: 'The bottlebush tree is about five metres tall; a straight trunk rising a metre or so to a mass of leaves and red flowers.',
+      goUpItem: 'The bottlebush tree is too small to climb - the trunk would probably snap if Mandy tried.',
     },
-    { alias:['flower beds', 'flowerbeds', 'flowers'], examine:'Apart from one strangely bare patch, the flowerbeds are crammed with flowers and other plants, so much so that the edges are almost obscured.' },
-    { alias:'framework', examine:'The metal framework extends all the way to the roof, and Mandy suspects all the way to the floor, though it is hidden by the metal box. She guesses the lift runs inside it.' },
-    { alias:['catwalk'], examine:'The catwalk over Mandy\'s head follows the path she is on, east to west, and looks to be suspended from the roof. It is painted white.', },
-    { alias:['plants', 'bushes'], examine:'The plants fill out the entire flowerbeds on either side of the path, except for one patch. There must be dozens of varieties; all that are in bloom have red flowers, but many are not. It would be cool if when the red ones dies, the next ones to flower would be yellow, muses Mandy - it would be like a very slow traffic light. Except there are no green flowers.', },
-    { alias:['trees'], examine:'There are various species of tree, the only one she recognises is the bottlebush tree.'},
+    { alias: ['flower beds', 'flowerbeds', 'flowers'], examine: 'Apart from one strangely bare patch, the flowerbeds are crammed with flowers and other plants, so much so that the edges are almost obscured.' },
+    { alias: 'framework', examine: 'The metal framework extends all the way to the roof, and Mandy suspects all the way to the floor, though it is hidden by the metal box. She guesses the lift runs inside it.' },
+    { alias: ['catwalk'], examine: 'The catwalk over Mandy\'s head follows the path she is on, east to west, and looks to be suspended from the roof. It is painted white.', },
+    { alias: ['plants', 'bushes'], examine: 'The plants fill out the entire flowerbeds on either side of the path, except for one patch. There must be dozens of varieties; all that are in bloom have red flowers, but many are not. It would be cool if when the red ones dies, the next ones to flower would be yellow, muses Mandy - it would be like a very slow traffic light. Except there are no green flowers.', },
+    { alias: ['trees'], examine: 'There are various species of tree, the only one she recognises is the bottlebush tree.' },
   ],
 })
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("poppies", {
-  loc:"greenhouse_west",
-  synonyms:['poppy'],
-  scenery:true,
-  smell:"Mandy wonders how the poppies smell, and is about to take a sniff when she remembers that scene in the Wizard of Oz. Probably better not to risk it.",
-  pronouns:lang.pronouns.plural,
-  examine:'There is a large flowerbed with poppies growing. They look slightly past their prime; a little wilted.' ,
+  loc: "greenhouse_west",
+  synonyms: ['poppy'],
+  scenery: true,
+  smell: "Mandy wonders how the poppies smell, and is about to take a sniff when she remembers that scene in the Wizard of Oz. Probably better not to risk it.",
+  pronouns: lang.pronouns.plural,
+  examine: 'There is a large flowerbed with poppies growing. They look slightly past their prime; a little wilted.',
 })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
-tp.addDirective("floraFlowerBed", function(arr: any, params: any) {
+tp.addDirective("floraFlowerBed", function (arr: any, params: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'grown_tamarind_tree' does not exist on t... Remove this comment to see the full error message
   if (w.grown_tamarind_tree.growthTime === 0) {
     let s = " Mandy can see a patch of bare earth"
@@ -154,10 +154,10 @@ tp.addDirective("floraFlowerBed", function(arr: any, params: any) {
     }
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'grown_tamarind_tree' does not exist on t... Remove this comment to see the full error message
-  return processText(s, {item:w.grown_tamarind_tree, count_this:'seedsPlanted'}) 
+  return processText(s, { item: w.grown_tamarind_tree, count_this: 'seedsPlanted' })
 })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
-tp.addDirective("floraDesc", function(arr: any, params: any) {
+tp.addDirective("floraDesc", function (arr: any, params: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'greenhouse_west' does not exist on type ... Remove this comment to see the full error message
   if (w.greenhouse_west.seenFlag) return ''
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'greenhouse_west' does not exist on type ... Remove this comment to see the full error message
@@ -165,90 +165,90 @@ tp.addDirective("floraDesc", function(arr: any, params: any) {
   return 'Just for a moment, Mandy thinks she is outside -- all she can see is trees, bushes and plants. But no, above there is a roof, and walls can be seen all around her; this is a greenhouse. Or perhaps a conservatory or orangery, as it is attached to the house. Mandy looks around. In her mind, she will call it a greenhouse, she decides. '
 })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
-tp.addDirective("tamarind", function(arr: any, params: any) {
+tp.addDirective("tamarind", function (arr: any, params: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'bare_earth' does not exist on type '{}'.
-  return w.bare_earth.seedsPlanted > 1 ?  arr[1] : arr[0]
+  return w.bare_earth.seedsPlanted > 1 ? arr[1] : arr[0]
 })
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("metal_box", {
-  isLocatedAt:function(loc: any) { return loc === 'greenhouse_west' || loc === 'greenhouse_catwalk_west' },
-  alias:'metal box',
-  scenery:true,
-  examine:"Looking closer, Mandy can see that the metal box is brass plating around a mechanism or device of some sort. It is quite smooth for about four metres of its height, but above that she can see the open framework.{if:lift:getTransitDestLocation:steam_control_room: She can see some kind of platform, a lift maybe, inside it, way above her head.}"
+  isLocatedAt: function (loc: any) { return loc === 'greenhouse_west' || loc === 'greenhouse_catwalk_west' },
+  alias: 'metal box',
+  scenery: true,
+  examine: "Looking closer, Mandy can see that the metal box is brass plating around a mechanism or device of some sort. It is quite smooth for about four metres of its height, but above that she can see the open framework.{if:lift:getTransitDestLocation:steam_control_room: She can see some kind of platform, a lift maybe, inside it, way above her head.}"
 })
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("lift_fake_flora", {
-  alias:'lift',
-  synonyms:['elevator', 'platform', 'device', 'mechanism'],
-  isLocatedAt:function(loc: any) {
+  alias: 'lift',
+  synonyms: ['elevator', 'platform', 'device', 'mechanism'],
+  isLocatedAt: function (loc: any) {
     if (loc === "greenhouse_catwalk_west" || loc === "greenhouse_west") return true
     return false
   },
-  examine:'Mandy realises the metal box is a lift-shaft. The lift itself must be accessed from the room to the west.',
-  scenery:true,
-  calllift:function() {
+  examine: 'Mandy realises the metal box is a lift-shaft. The lift itself must be accessed from the room to the west.',
+  scenery: true,
+  calllift: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("Mandy can see no way to call the lift, but given the door in on the other side of the shaft, that is no surprise.")
   },
-  standon:'The lift is too far away for Mandy to stand on.',
+  standon: 'The lift is too far away for Mandy to stand on.',
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("pedestal", SURFACE(), {
-  loc:'greenhouse_west',
-  scenery:true,
-  examine:function() {
+  loc: 'greenhouse_west',
+  scenery: true,
+  examine: function () {
     let s = 'The pedestal is made of pale grey stone, and is about waist height.'
     const contents = this.getContents()
     if (contents.length !== 0) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(s + ' There {cj:item:be} {nm:item:a} on it.', {item:contents[0]})
+      msg(s + ' There {cj:item:be} {nm:item:a} on it.', { item: contents[0] })
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       msg(s)
     }
   },
-  testDropIn:function(options: any) {
+  testDropIn: function (options: any) {
     const contents = this.getContents()
     if (contents.length === 0) return true
-    return falsemsg("Mandy thought about putting {nm:o1:the} on the pedestal. Of course, she would have to take {nm:o2:the} off it first.", {o1:options.item, o2:contents[0]})
+    return falsemsg("Mandy thought about putting {nm:o1:the} on the pedestal. Of course, she would have to take {nm:o2:the} off it first.", { o1: options.item, o2: contents[0] })
   },
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("hourglass", SIZE_CHANGING(), {
-/*
-Can vary in size from 4 to 7; can be filled when 7 but not taken
-fillState can be from 1 to 5, how much sand in total is in there
-state can be from 0 to 100, how much sand is in the upper bulb
-max number of grow turns is 13
-*/
-  loc:'pedestal',
-  synonyms:['bulb'],
-  fillState:1,  // max is 5
-  state:0,
-  indefArticle:'an',
-  afterSizeChange:function() { this.indefArticle = this.alias.startsWith('hour') ? 'an' : 'a' },
-  getIncrement:function() { 
+  /*
+  Can vary in size from 4 to 7; can be filled when 7 but not taken
+  fillState can be from 1 to 5, how much sand in total is in there
+  state can be from 0 to 100, how much sand is in the upper bulb
+  max number of grow turns is 13
+  */
+  loc: 'pedestal',
+  synonyms: ['bulb'],
+  fillState: 1,  // max is 5
+  state: 0,
+  indefArticle: 'an',
+  afterSizeChange: function () { this.indefArticle = this.alias.startsWith('hour') ? 'an' : 'a' },
+  getIncrement: function () {
     if (this.size === 4) return 100
     if (this.size === 5) return 100 / (this.fillState / 3 + 1)
     if (this.size === 6) return 100 / (this.fillState * 2 + 2)
   },
-  
-  desc4:"The hourglass has two connected glass bulbs, with a small amount of sand in the lower one, inside a delicate wooden frame. It is about the size of a thimble.",
-  desc5:"The hourglass has two connected glass bulbs, with a small amount of sand in the lower one, inside a wooden frame, and is about as tall as her hand is long. There is a small protrusion on one bulb, near where they join. {hourglass}",
-  desc6:"The hourglass, which comes up to about her waist, has two connected glass bulbs, with a small amount of sand in the lower one, inside a sturdy wooden frame. One bulb has a small opening near where the bulbs join, with a tap. {hourglass}",
-  desc7:"The hourglass towers over Mandy; each bulb is as tall as she is. The lower bulbs has a large opening at the top, with a tap.{hourglass}",
-  desc8:"The hourglass is the size of a skyscraper! {hourglass}",
-  examine:function(options: any) {
+
+  desc4: "The hourglass has two connected glass bulbs, with a small amount of sand in the lower one, inside a delicate wooden frame. It is about the size of a thimble.",
+  desc5: "The hourglass has two connected glass bulbs, with a small amount of sand in the lower one, inside a wooden frame, and is about as tall as her hand is long. There is a small protrusion on one bulb, near where they join. {hourglass}",
+  desc6: "The hourglass, which comes up to about her waist, has two connected glass bulbs, with a small amount of sand in the lower one, inside a sturdy wooden frame. One bulb has a small opening near where the bulbs join, with a tap. {hourglass}",
+  desc7: "The hourglass towers over Mandy; each bulb is as tall as she is. The lower bulbs has a large opening at the top, with a tap.{hourglass}",
+  desc8: "The hourglass is the size of a skyscraper! {hourglass}",
+  examine: function (options: any) {
     if (this.size < 4) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg("{nv:item:be:true} too tiny to see properly!", {item:this})
+      msg("{nv:item:be:true} too tiny to see properly!", { item: this })
     }
     else if (this.size > 7) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg("{nv:item:be:true} of gigantic proportions!", {item:this})
+      msg("{nv:item:be:true} of gigantic proportions!", { item: this })
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -256,15 +256,15 @@ max number of grow turns is 13
     }
     return true
   },
-  protrusionDescriptions:[
-    '','','','',
+  protrusionDescriptions: [
+    '', '', '', '',
     'Mandy can just about feel there is something there; a slight point on the otherwise smooth surface of the tiny glass bulb.',
     'The protrusion on the hourglass bulb is a tiny tap.',
     'The protrusion on the hourglass bulb is a small opening with a simple tap.',
     'The protrusion is a large opening in the bulb of the hourglass. There is a simple tap to open and close it.{ifNot:protrusion:closed: The tap is open.}',
   ],
-  smash:"Feeling increasing frustrated, Mandy feels an urge to smash the stupid hourglass. She takes a deep breath. Best not to, she decides, just in case it is important.",
-  msgDropIn:function(options: any) {
+  smash: "Feeling increasing frustrated, Mandy feels an urge to smash the stupid hourglass. She takes a deep breath. Best not to, she decides, just in case it is important.",
+  msgDropIn: function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'pedestal' does not exist on type '{}'.
     if (options.container === w.pedestal) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -274,9 +274,9 @@ max number of grow turns is 13
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       msg(lang.done_msg)
     }
-    
+
   },
-  afterMove:function(options: any) {
+  afterMove: function (options: any) {
     if (options.fromLoc === "pedestal") {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'grown_tamarind_tree' does not exist on t... Remove this comment to see the full error message
       w.grown_tamarind_tree.magicGrowthEnd()
@@ -288,7 +288,7 @@ max number of grow turns is 13
       this.active = false
     }
   },
-  testFill:function(options: any) {
+  testFill: function (options: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     if (this.fillState > 4) return falsemsg("The lower chamber of the hourglass is already full.")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
@@ -297,22 +297,22 @@ max number of grow turns is 13
     if (w.chamber_pot.loc === player.name && w.chamber_pot.containedFluidName === 'water') return falsemsg("Mandy thinks about pouring water into the hourglass; that would probably stop it working altogether, and it would be impossible to get the water out again. She decides not to.")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     if (options.fluid === 'water') return falsemsg("Mandy thinks about pouring water into the hourglass; that would probably stop it working altogether, and it would be impossible to get the water out again. She decides not to.")
-      
-    
+
+
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'beach' does not exist on type '{}'.
     if (currentLocation === w.beach || currentLocation === w.rocky_beach) return falsemsg('Mandy considers filling the hourglass -- but she would need something to put the sand in first.')
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     return falsemsg("Mandy wonder how she can fill the hourglass.")
   },
-  fill:function(options: any) {
+  fill: function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'findSource' does not exist on type '{}'.
-    if (!util.findSource(options)) return falsemsg(lang.no_generic_fluid_here, {item:this})
+    if (!util.findSource(options)) return falsemsg(lang.no_generic_fluid_here, { item: this })
     options.item = this
     if (this.testFill && !this.testFill(options)) return false
     return this.sink(options.fluid, options.char, options.source)
   },
-  flip:function() { this.turn() },
-  turn:function() {
+  flip: function () { this.turn() },
+  turn: function () {
     if (this.size > 6) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       msg("Mandy looks at the giant hourglass. No way is she turning that over!")
@@ -355,7 +355,7 @@ max number of grow turns is 13
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'grown_tamarind_tree' does not exist on t... Remove this comment to see the full error message
       w.grown_tamarind_tree.growthTime = 0
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(s, {item:w.grown_tamarind_tree})
+      msg(s, { item: w.grown_tamarind_tree })
     }
     else {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'protrusion' does not exist on type '{}'.
@@ -374,7 +374,7 @@ max number of grow turns is 13
     if (this.loc === 'pedestal') this.activate()
     return true
   },
-  activate:function() {
+  activate: function () {
     this.active = true
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'grown_tamarind_tree' does not exist on t... Remove this comment to see the full error message
     w.grown_tamarind_tree.seedsPlanted = w.tamarind_seed.countAtLoc("bare_earth")
@@ -383,26 +383,26 @@ max number of grow turns is 13
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'tamarind_seed' does not exist on type '{... Remove this comment to see the full error message
     w.tamarind_seed.takeFrom("bare_earth", w.grown_tamarind_tree.seedsPlanted)
   },
-  reporting:function() {
+  reporting: function () {
     if (this.loc === player.loc) return true
     if (this.loc === player.name) return true
     if (this.loc === 'pedestal' && player.loc === 'greenhouse_west') return true
     return false
   },
-  eventPeriod:1,
-  eventIsActive:function() { return this.state > 0 },
-  eventScript:function() {
+  eventPeriod: 1,
+  eventIsActive: function () { return this.state > 0 },
+  eventScript: function () {
     this.state -= this.getIncrement()
     const roundedState = Math.round(this.state)
     if (roundedState > 0) {
       if (this.reporting()) {
         if (roundedState > 99) {
-           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-           msg("All the sand is in the upper bulb in the hourglass.")
+          // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+          msg("All the sand is in the upper bulb in the hourglass.")
         }
         else {
-           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-           msg("As time passes, sand falls from the upper bulb of the hourglass; it now has about " + roundedState + "% of the sand left in it.")
+          // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+          msg("As time passes, sand falls from the upper bulb of the hourglass; it now has about " + roundedState + "% of the sand left in it.")
         }
       }
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'grown_tamarind_tree' does not exist on t... Remove this comment to see the full error message
@@ -417,14 +417,14 @@ max number of grow turns is 13
     }
   },
   //vessel:true,
-  sink:function(fluid: any, char: any, vessel: any) {
+  sink: function (fluid: any, char: any, vessel: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'paper_funnel' does not exist on type '{}... Remove this comment to see the full error message
     if (this.size < 7 && w.paper_funnel.loc !== 'protrusion') return falsemsg("Mandy thinks about getting the sand into the hourglass... There is no way she is getting it though that narrow opening.")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'paper_funnel' does not exist on type '{}... Remove this comment to see the full error message
     if (this.size < 5 && w.paper_funnel.loc === 'protrusion') return falsemsg("Mandy thinks about getting the sand into the hourglass... There is no way she is getting it though that narrow opening, even with the paper funnel.")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     if (this.size < 5) return falsemsg("Mandy thinks about getting the sand into the hourglass... There is no way she is getting it though that narrow opening.")
-      
+
     delete vessel.containedFluidName
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
@@ -447,30 +447,30 @@ max number of grow turns is 13
       s += " The lower bulb looks to be about " + lang.toWords(this.fillState) + " fifths full to Mandy's eye."
     }
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg(s, {item:vessel} )
+    msg(s, { item: vessel })
     return true
   },
-  handleInOutContainer:function(options: any, objects: any) {
+  handleInOutContainer: function (options: any, objects: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'protrusion' does not exist on type '{}'.
     return handleInOutContainer(options.char, [objects, [w.protrusion]], "drop", handleSingleDropInContainer)
   },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'protrusion' does not exist on type '{}'.
-  open:function(options: any) { w.protrusion.open(options) },
+  open: function (options: any) { w.protrusion.open(options) },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'protrusion' does not exist on type '{}'.
-  close:function(options: any) { w.protrusion.close(options) },
+  close: function (options: any) { w.protrusion.close(options) },
 })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'hourglass' does not exist on type '{}'.
 w.hourglass.maxsize = 7
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
 createItem("protrusion", COMPONENT("hourglass"), CONTAINER(true), {
-  examine:"{select:hourglass:protrusionDescriptions:size}",
-  synonyms:['tap', 'opening'],
-  msgOpen:'Mandy opens the tap on the side of the hourglass bulb.',
-  msgClose:'Mandy closes the tap on the side of the hourglass bulb.',
-  containerIgnoreClosed:true,
-  switchon:function(options: any) { return this.open(options) },
-  switchoff:function(options: any) { return this.close(options) },
-  testDropIn:function(options: any) {
+  examine: "{select:hourglass:protrusionDescriptions:size}",
+  synonyms: ['tap', 'opening'],
+  msgOpen: 'Mandy opens the tap on the side of the hourglass bulb.',
+  msgClose: 'Mandy closes the tap on the side of the hourglass bulb.',
+  containerIgnoreClosed: true,
+  switchon: function (options: any) { return this.open(options) },
+  switchoff: function (options: any) { return this.close(options) },
+  testDropIn: function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'paper_funnel' does not exist on type '{}... Remove this comment to see the full error message
     if (options.item !== w.paper_funnel) return falsemsg("Mandy cannot put {nm:item:the} in the hourglass.", options)
     // okay if pf.s === hg.s + 1
@@ -480,14 +480,14 @@ createItem("protrusion", COMPONENT("hourglass"), CONTAINER(true), {
     if (w.paper_funnel.size < this.size + 1) return falsemsg("The paper funnel is too small to fit in the tap of the hourglass.")
     return true
   },
-  openMsg:function(options: any) {
+  openMsg: function (options: any) {
     options.list = this.listContents(world.LOOK)
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
     msg(this.msgOpen, options)
   },
 })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
-tp.addDirective("hourglass", function(arr: any, params: any) {
+tp.addDirective("hourglass", function (arr: any, params: any) {
   let s
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'hourglass' does not exist on type '{}'.
   if (w.hourglass.state > 0) {
@@ -513,39 +513,39 @@ tp.addDirective("hourglass", function(arr: any, params: any) {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("bare_earth", CONTAINER(), {
-  loc:'greenhouse_west',
-  scenery:true,
-  seedsPlanted:0,
-  synonyms:['ground', 'patch of bare earth'],
-  parserPriority:-10,
-  examine:"{floraFlowerBed}",
-  testDropIn:function(options: any) {
+  loc: 'greenhouse_west',
+  scenery: true,
+  seedsPlanted: 0,
+  synonyms: ['ground', 'patch of bare earth'],
+  parserPriority: -10,
+  examine: "{floraFlowerBed}",
+  testDropIn: function (options: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     if (options.item.alias === 'tamarind pod') return falsemsg('Mandy wonders if burying the tamarind pod is going to achieve anything. She has a feeling she really needs to get the seeds out first.')
-    if (options.item.name !== 'tamarind_seed') return falsemsg('Mandy wonders if burying {nm:item:the} is going to achieve anything. Probably not.', {item:options.item})
+    if (options.item.name !== 'tamarind_seed') return falsemsg('Mandy wonders if burying {nm:item:the} is going to achieve anything. Probably not.', { item: options.item })
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'hourglass' does not exist on type '{}'.
-    if (w.hourglass.active) return falsemsg('Mandy starts to put another {nm:item:} in the ground, but as her hands get near, they start to blur, and feel numb. Perhaps not such a good idea when the hourglass is running.', {item:options.item, item_count:options.count})
+    if (w.hourglass.active) return falsemsg('Mandy starts to put another {nm:item:} in the ground, but as her hands get near, they start to blur, and feel numb. Perhaps not such a good idea when the hourglass is running.', { item: options.item, item_count: options.count })
     return true
   },
-  testTakeOut:function(options: any) {
+  testTakeOut: function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'hourglass' does not exist on type '{}'.
-    if (w.hourglass.active) return falsemsg('Mandy starts to dig {nm:item:the} from the ground, but as her hands get near, they start to blur, and feel numb. Perhaps not such a good idea when the hourglass is running.', {item:options.item, item_count:options.count})
+    if (w.hourglass.active) return falsemsg('Mandy starts to dig {nm:item:the} from the ground, but as her hands get near, they start to blur, and feel numb. Perhaps not such a good idea when the hourglass is running.', { item: options.item, item_count: options.count })
     return true
   },
-  dig:"Mandy puts her fingers into the bare earth, feeling its moist texture on her fingers, and through it a strange, primordial connection to the entire world, the entire cosmos even. 'I, like, really dig this bare earth, Man!' she says.|She shakes her head. 'What the... Am I becoming a hippy? This place is really screwing with me.'",
+  dig: "Mandy puts her fingers into the bare earth, feeling its moist texture on her fingers, and through it a strange, primordial connection to the entire world, the entire cosmos even. 'I, like, really dig this bare earth, Man!' she says.|She shakes her head. 'What the... Am I becoming a hippy? This place is really screwing with me.'",
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("grown_tamarind_tree", {
-  alias:'tamarind tree',
-  isLocatedAt:function(loc: any) { return loc === 'greenhouse_west' && this.seedsPlanted > 0 && this.growthTime > 0 },
-  seedsPlanted:0,
-  growthTime:0,
-  synonyms:['tamarind plants', 'tamarind seedlings', 'tamarind trees'],
-  saveLoadExcludedAtts:['growDescs', 'examineDescs'],
-  parserPriority:50,
-  goUpDirection:'up',
-  examine:function() {
+  alias: 'tamarind tree',
+  isLocatedAt: function (loc: any) { return loc === 'greenhouse_west' && this.seedsPlanted > 0 && this.growthTime > 0 },
+  seedsPlanted: 0,
+  growthTime: 0,
+  synonyms: ['tamarind plants', 'tamarind seedlings', 'tamarind trees'],
+  saveLoadExcludedAtts: ['growDescs', 'examineDescs'],
+  parserPriority: 50,
+  goUpDirection: 'up',
+  examine: function () {
     let s = "Mandy can see {nm:item:count:false:count_this}."
     if (this.seedsPlanted > 5) {
       if (this.growthTime > 8) {
@@ -556,53 +556,53 @@ createItem("grown_tamarind_tree", {
       }
     }
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg(s, {item:w.grown_tamarind_tree, count_this:'seedsPlanted'}) 
+    msg(s, { item: w.grown_tamarind_tree, count_this: 'seedsPlanted' })
   },
-  countable:true,
-  getDescId:function() {
+  countable: true,
+  getDescId: function () {
     let n = this.seedsPlanted - 1
     if (this.seedsPlanted > 3) n = 2
     if (this.seedsPlanted > 5) n = 3
     return 4 * this.growthTime + n - 4
   },
-  getHeight:function() {
-    const n = Number(Math.pow(2, this.growthTime/1.3).toPrecision(1))
+  getHeight: function () {
+    const n = Number(Math.pow(2, this.growthTime / 1.3).toPrecision(1))
     let s = n >= 100 ? lang.toWords(n / 100) + ' metre' : lang.toWords(n) + ' centimetre'
     if (n !== 1 && n !== 100) s += 's'
     return s
   },
-  afterLoad:function() {
+  afterLoad: function () {
     this.update()
   },
-  update:function() {
-    this.pronouns = this.seedsPlanted === 1 ? lang.pronouns.thirdperson  : lang.pronouns.plural
+  update: function () {
+    this.pronouns = this.seedsPlanted === 1 ? lang.pronouns.thirdperson : lang.pronouns.plural
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'grown_tamarind_tree_from_catwalk' does n... Remove this comment to see the full error message
-    w.grown_tamarind_tree_from_catwalk.pronouns = this.seedsPlanted === 1 ? lang.pronouns.thirdperson  : lang.pronouns.plural
+    w.grown_tamarind_tree_from_catwalk.pronouns = this.seedsPlanted === 1 ? lang.pronouns.thirdperson : lang.pronouns.plural
     let alias = this.growthTime < 4 ? 'shoot' : (this.growthTime < 9 ? 'plant' : 'tree')
     this.setAlias(alias)
   },
-  magicGrowth:function() {
+  magicGrowth: function () {
     if (this.seedsPlanted === 0) return
     this.growthTime++
     this.update()
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    if (player.loc === 'greenhouse_west') msg("Mandy watches as {nv:item:grow:false:count_this}; {nv:item:be:false:suppressCount} now about {show:grown_tamarind_tree:getHeight} high.", {item:w.grown_tamarind_tree, count_this:'seedsPlanted', suppressCount:'seedsPlanted'})
+    if (player.loc === 'greenhouse_west') msg("Mandy watches as {nv:item:grow:false:count_this}; {nv:item:be:false:suppressCount} now about {show:grown_tamarind_tree:getHeight} high.", { item: w.grown_tamarind_tree, count_this: 'seedsPlanted', suppressCount: 'seedsPlanted' })
   },
-  magicGrowthEnd:function() {
+  magicGrowthEnd: function () {
     if (this.seedsPlanted === 0) return
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg("{nv:item:wither:true:suppressCount} away to nothing.", {item:w.grown_tamarind_tree, suppressCount:'seedsPlanted'})
+    msg("{nv:item:wither:true:suppressCount} away to nothing.", { item: w.grown_tamarind_tree, suppressCount: 'seedsPlanted' })
     this.seedsPlanted = 0
     this.growthTime = 0
   },
-  climbverb:function(options: any) {
+  climbverb: function (options: any) {
     return currentLocation.up.use(options.char)
   },
-  hug:function(options: any) {
+  hug: function (options: any) {
     if (options.char === player) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       msg("Mandy gives the tree a hug, because maybe showing it some love will encourage it to drop a pod.|It does not.")
-      return true  
+      return true
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
     if (options.char === w.Patch) {
@@ -612,50 +612,50 @@ createItem("grown_tamarind_tree", {
       w.Patch.huggingTree = true
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
       w.Patch.goUpDirection = 'up'
-      return true  
+      return true
     }
-    return falsemsg("{nv:char:be:true} not about to do that!", {char:options.char})
+    return falsemsg("{nv:char:be:true} not about to do that!", { char: options.char })
   },
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("up_a_tree", {
-  alias:'a tamarind tree',
-  headingAlias:'Up A Tamarind Tree',
-  properNoun:true,
-  noFollow:true,
-  windowsface:'none',
-  desc:"Mandy is up a tamarind tree. She is almost up as high as the catwalk... And well short of the top of the metal box.",
+  alias: 'a tamarind tree',
+  headingAlias: 'Up A Tamarind Tree',
+  properNoun: true,
+  noFollow: true,
+  windowsface: 'none',
+  desc: "Mandy is up a tamarind tree. She is almost up as high as the catwalk... And well short of the top of the metal box.",
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  down:new Exit("greenhouse_west", {msg:'Mandy carefully climbs back down.'}),
+  down: new Exit("greenhouse_west", { msg: 'Mandy carefully climbs back down.' }),
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("up_a_tree_item", {
-  alias:'tamarind tree',
-  loc:"up_a_tree",
-  examine:"The tree is a few metres tall, but the higher branches are too think to support Mandy.",
-  goDownDirection:'down',
+  alias: 'tamarind tree',
+  loc: "up_a_tree",
+  examine: "The tree is a few metres tall, but the higher branches are too think to support Mandy.",
+  goDownDirection: 'down',
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("up_a_tall_tree", {
-  alias:'a tall tamarind tree',
-  headingAlias:'Up A Tall Tamarind Tree',
-  properNoun:true,
-  noFollow:true,
-  windowsface:'none',
-  desc:"Mandy is up a tall tamarind tree. She is higher than the catwalk, to the north, and could probably reach the top of the metal box to the southwest.",
+  alias: 'a tall tamarind tree',
+  headingAlias: 'Up A Tall Tamarind Tree',
+  properNoun: true,
+  noFollow: true,
+  windowsface: 'none',
+  desc: "Mandy is up a tall tamarind tree. She is higher than the catwalk, to the north, and could probably reach the top of the metal box to the southwest.",
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  down:new Exit("greenhouse_west", {msg:'Mandy carefully climbs back down, dropping the last couple of metres to the ground.'}),
+  down: new Exit("greenhouse_west", { msg: 'Mandy carefully climbs back down, dropping the last couple of metres to the ground.' }),
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  north:new Exit("greenhouse_catwalk_west", {msg:'Mandy gingers edges along a stout branch. It starts to drop alarmingly, but she manages to grab the catwalk, and scramble onto the walkway.'}),
+  north: new Exit("greenhouse_catwalk_west", { msg: 'Mandy gingers edges along a stout branch. It starts to drop alarmingly, but she manages to grab the catwalk, and scramble onto the walkway.' }),
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  southwest:new Exit("lift", {
-    msg:'Mandy looks at the top of the metal box.. She can do this. She edges along a sturdy looking branch, and reaches out, triumphantly grabbing a metal bar that runs across the top of the box. The branch starts to sag alarmingly, and she quickly hauls herself onto the platform.',
+  southwest: new Exit("lift", {
+    msg: 'Mandy looks at the top of the metal box.. She can do this. She edges along a sturdy looking branch, and reaches out, triumphantly grabbing a metal bar that runs across the top of the box. The branch starts to sag alarmingly, and she quickly hauls herself onto the platform.',
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'lift' does not exist on type '{}'.
-    isHidden:function() { return w.lift.getTransitDestLocation() !== w.steam_control_room },
-    simpleUse:function(char: any) {
+    isHidden: function () { return w.lift.getTransitDestLocation() !== w.steam_control_room },
+    simpleUse: function (char: any) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'lift' does not exist on type '{}'.
       if (w.lift.getTransitDestLocation() !== w.steam_control_room) return falsemsg("Mandy looks at the top of the metal box, and realises the lift is not there. It would be a bad idea heading that way, she decides.")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSimpleExitUse' does not exist on ... Remove this comment to see the full error message
@@ -666,49 +666,49 @@ createRoom("up_a_tall_tree", {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("up_a_tall_tree_item", {
-  alias:'tamarind tree',
-  loc:"up_a_tree",
-  examine:"The substantial tree is several metres tall, strong enough to support Mandy even this far up.",
-  goDownDirection:'down',
+  alias: 'tamarind tree',
+  loc: "up_a_tree",
+  examine: "The substantial tree is several metres tall, strong enough to support Mandy even this far up.",
+  goDownDirection: 'down',
 })
 
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("greenhouse_catwalk_west", {
-  alias:'west end of the greenhouse catwalk',
-  headingAlias:'The Greenhouse (West, On Catwalk)',
-  windowsface:'none',
-  desc:"{floraDesc}She is standing on a catwalk, suspended from the ceiling by metal rods. From here she can reach out and touch the leaves of the trees, and look down on the beautiful red flowers below. The catwalk continues to the east; the only other direction is the door to the west.{floraFlowerBed:true} Against the west wall, there is a huge metal box, with some kind of framework above it.{ifMoreThan:grown_tamarind_tree:growthTime:8: Southwest of the catwalk there {tamarind:is a tall tamarind tree:are some tall tamarind trees}.}",
+  alias: 'west end of the greenhouse catwalk',
+  headingAlias: 'The Greenhouse (West, On Catwalk)',
+  windowsface: 'none',
+  desc: "{floraDesc}She is standing on a catwalk, suspended from the ceiling by metal rods. From here she can reach out and touch the leaves of the trees, and look down on the beautiful red flowers below. The catwalk continues to the east; the only other direction is the door to the west.{floraFlowerBed:true} Against the west wall, there is a huge metal box, with some kind of framework above it.{ifMoreThan:grown_tamarind_tree:growthTime:8: Southwest of the catwalk there {tamarind:is a tall tamarind tree:are some tall tamarind trees}.}",
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  west:new Exit("upper_steam_hall"),
+  west: new Exit("upper_steam_hall"),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  east:new Exit("greenhouse_catwalk_east"),
+  east: new Exit("greenhouse_catwalk_east"),
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  southwest:new Exit("up_a_tall_tree", {
+  southwest: new Exit("up_a_tall_tree", {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'grown_tamarind_tree' does not exist on t... Remove this comment to see the full error message
     isHidden() { return (w.grown_tamarind_tree.growthTime < 9) },
-    alsoDir:['climb'],
-    msg:"Mandy looks at the tall tamarind tree. {once:From below it looked like the catwalk was close. Now... not so much. She climbs over the balustrade, and looks down. 'Shit.' It is a long way to fall. She takes a moment to calm her nerves, then reaches across, grabbing a branch she hopes will be strong enough. She pulls it closer, and then grabs it with her other hand. She shrieks as the branch sags under her weight, but it does not break, and she can climb up, into the relative safety of the heart of the tree.:Wondering why she is risking her life doing this again, Mandy climbs over the balustrade, then reaches across, grabbing a branch she hopes will be strong enough. She pulls it closer, then closes her eyes as she grabs with the other hand, and for a moment is falling as the branch sags under her weight. She quickly climbs up into the heart of the tree.}",
+    alsoDir: ['climb'],
+    msg: "Mandy looks at the tall tamarind tree. {once:From below it looked like the catwalk was close. Now... not so much. She climbs over the balustrade, and looks down. 'Shit.' It is a long way to fall. She takes a moment to calm her nerves, then reaches across, grabbing a branch she hopes will be strong enough. She pulls it closer, and then grabs it with her other hand. She shrieks as the branch sags under her weight, but it does not break, and she can climb up, into the relative safety of the heart of the tree.:Wondering why she is risking her life doing this again, Mandy climbs over the balustrade, then reaches across, grabbing a branch she hopes will be strong enough. She pulls it closer, then closes her eyes as she grabs with the other hand, and for a moment is falling as the branch sags under her weight. She quickly climbs up into the heart of the tree.}",
   }),
-  scenery:[
-    { alias:['poppies', 'poppy'], examine:'Down below, there is a large flowerbed with poppies growing.' },
-    { alias:'marigolds', examine:'From this high up, the marigolds just looks like a sea of red. A very small sea, she thinks to herself.' },
-    { alias:['chrysanthemums', 'carnations'], examine:'The chrysanthemums, or perhaps carnations, look beautiful.' },
-    { alias:'bottlebush tree', examine:'From this vantage point, Mandy can see the blossoms of the bottlebush tree in detail, and appreciate why it is so called.' },
-    { alias:'blossoms', examine:'The blossoms on the bottlebrush resemble a bottlebrush.' },
-    { alias:['flower beds', 'flowerbeds', 'flowers', 'plants', 'bushes'], examine:'The flowerbeds below are crammed with flowers and other plants, so much so that the edges are almost obscured.' },
-    { alias:'framework', examine:'The metal framework extends all the way to the roof, and Mandy suspects all the way to the floor, though it is hidden by the metal box. She guesses the lift runs inside it.' },
+  scenery: [
+    { alias: ['poppies', 'poppy'], examine: 'Down below, there is a large flowerbed with poppies growing.' },
+    { alias: 'marigolds', examine: 'From this high up, the marigolds just looks like a sea of red. A very small sea, she thinks to herself.' },
+    { alias: ['chrysanthemums', 'carnations'], examine: 'The chrysanthemums, or perhaps carnations, look beautiful.' },
+    { alias: 'bottlebush tree', examine: 'From this vantage point, Mandy can see the blossoms of the bottlebush tree in detail, and appreciate why it is so called.' },
+    { alias: 'blossoms', examine: 'The blossoms on the bottlebrush resemble a bottlebrush.' },
+    { alias: ['flower beds', 'flowerbeds', 'flowers', 'plants', 'bushes'], examine: 'The flowerbeds below are crammed with flowers and other plants, so much so that the edges are almost obscured.' },
+    { alias: 'framework', examine: 'The metal framework extends all the way to the roof, and Mandy suspects all the way to the floor, though it is hidden by the metal box. She guesses the lift runs inside it.' },
   ],
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("pedestal_from_catwalk", SURFACE(), {
-  alias:'pedestal',
-  loc:"greenhouse_catwalk_west",
-  scenery:true,
-  examine:'From up here, Mandy cannot see much of the pedestal; perhaps if she was down below she could see it better.',
-  testDropIn:function(options: any) {
+  alias: 'pedestal',
+  loc: "greenhouse_catwalk_west",
+  scenery: true,
+  examine: 'From up here, Mandy cannot see much of the pedestal; perhaps if she was down below she could see it better.',
+  testDropIn: function (options: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     return falsemsg("Mandy cannot reach the pedastal from up here.")
   },
@@ -718,41 +718,41 @@ createItem("pedestal_from_catwalk", SURFACE(), {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("hourglass_from_catwalk", {
-  alias:'hourglass',
-  isLocatedAt:function(loc: any) {
+  alias: 'hourglass',
+  isLocatedAt: function (loc: any) {
     if (loc !== "greenhouse_catwalk_west") return false
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'hourglass' does not exist on type '{}'.
     if (w.hourglass.loc !== 'pedestal') return false
     return true
   },
-  scenery:true,
-  examine:"Besides the fact that it is an hourglass, Mandy cannot see much else about it from up here.",
-  take:'Mandy tries to reach down, but her arms would have to be about four metres long to get the hourglass from here.',
-  flip:'Mandy tries to reach down, but her arms would have to be about four metres long to get the hourglass from here.',
-  turn:'Mandy tries to reach down, but her arms would have to be about four metres long to get the hourglass from here.',
-  fill:'Mandy tries to reach down, but her arms would have to be about four metres long to get the hourglass from here.',
-  smash:'Mandy tries to reach down, but her arms would have to be about four metres long to get the hourglass from here.',
+  scenery: true,
+  examine: "Besides the fact that it is an hourglass, Mandy cannot see much else about it from up here.",
+  take: 'Mandy tries to reach down, but her arms would have to be about four metres long to get the hourglass from here.',
+  flip: 'Mandy tries to reach down, but her arms would have to be about four metres long to get the hourglass from here.',
+  turn: 'Mandy tries to reach down, but her arms would have to be about four metres long to get the hourglass from here.',
+  fill: 'Mandy tries to reach down, but her arms would have to be about four metres long to get the hourglass from here.',
+  smash: 'Mandy tries to reach down, but her arms would have to be about four metres long to get the hourglass from here.',
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("bare_earth_from_catwalk", {
-  alias:'bare earth',
-  loc:'greenhouse_catwalk_west',
-  scenery:true,
-  synonyms:['ground', 'patch of bare earth'],
-  parserPriority:-10,
-  examine:"{floraFlowerBed:yes}",
+  alias: 'bare earth',
+  loc: 'greenhouse_catwalk_west',
+  scenery: true,
+  synonyms: ['ground', 'patch of bare earth'],
+  parserPriority: -10,
+  examine: "{floraFlowerBed:yes}",
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("grown_tamarind_tree_from_catwalk", {
-  alias:'tamarind tree',
+  alias: 'tamarind tree',
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'grown_tamarind_tree' does not exist on t... Remove this comment to see the full error message
-  isLocatedAt:function(loc: any) { return loc === 'greenhouse_catwalk_west' && w.grown_tamarind_tree.growthTime > 8 },
-  scenery:true,
-  parserPriority:10,
-  goUpDirection:'southwest',
-  examine:"The brand new tamarind {tamarind:tree rises:trees rise} up towards the roof of the greenhouse. On the catwalk, Mandy is about level with the lower branches; she might be able to climb on to {tamarind:it:one of them} from here.",
+  isLocatedAt: function (loc: any) { return loc === 'greenhouse_catwalk_west' && w.grown_tamarind_tree.growthTime > 8 },
+  scenery: true,
+  parserPriority: 10,
+  goUpDirection: 'southwest',
+  examine: "The brand new tamarind {tamarind:tree rises:trees rise} up towards the roof of the greenhouse. On the catwalk, Mandy is about level with the lower branches; she might be able to climb on to {tamarind:it:one of them} from here.",
 })
 
 
@@ -767,19 +767,19 @@ createItem("grown_tamarind_tree_from_catwalk", {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("greenhouse_east", {
-  alias:'east end of the greenhouse',
-  desc:"{floraDesc}This is a large, circular room, the circumference is made up of flowerbeds, thick with vegetation. In the centre of the room there is a further flowerbed, the most prominent feature of which is a tamarind tree.{once: Her father has tried to grow tamarind, among other exotic bushes, and Mandy is a little surprised she was paying attention enough to recognise this one.} It is considerably larger than any of her father's, which are little more than bushes.{chamberPotUnderTree}{if:greenhouse_east:sandy: Sand is scattered across the floor.}|A catwalk circumnavigates the tree a few metres above Mandy's head, but there is no obvious way to access it. There is a door to the east, and the greenhouse extends westward.",
-  headingAlias:'The Greenhouse (East)',
-  windowsface:'north',
+  alias: 'east end of the greenhouse',
+  desc: "{floraDesc}This is a large, circular room, the circumference is made up of flowerbeds, thick with vegetation. In the centre of the room there is a further flowerbed, the most prominent feature of which is a tamarind tree.{once: Her father has tried to grow tamarind, among other exotic bushes, and Mandy is a little surprised she was paying attention enough to recognise this one.} It is considerably larger than any of her father's, which are little more than bushes.{chamberPotUnderTree}{if:greenhouse_east:sandy: Sand is scattered across the floor.}|A catwalk circumnavigates the tree a few metres above Mandy's head, but there is no obvious way to access it. There is a door to the east, and the greenhouse extends westward.",
+  headingAlias: 'The Greenhouse (East)',
+  windowsface: 'north',
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  west:new Exit("greenhouse_west"),
+  west: new Exit("greenhouse_west"),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  east:new Exit("great_hall"),
-  afterEnterIf:[
+  east: new Exit("great_hall"),
+  afterEnterIf: [
     {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'greenhouse_east' does not exist on type ... Remove this comment to see the full error message
-      test:function() { return w.greenhouse_east.visited === 3 },
-      action:function() {
+      test: function () { return w.greenhouse_east.visited === 3 },
+      action: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("Mandy sees movement up on the catwalk. A silver figure, running round it, and then down the section to the west, before disappearing from view.")
         player.silverSpotted++
@@ -787,9 +787,9 @@ createRoom("greenhouse_east", {
     },
   ],
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  up:new Exit("_", {
-    alsoDir:['climb'],
-    simpleUse:function(char: any) {
+  up: new Exit("_", {
+    alsoDir: ['climb'],
+    simpleUse: function (char: any) {
       log(char)
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
       if (char === w.Patch) {
@@ -803,7 +803,7 @@ createRoom("greenhouse_east", {
         w.Patch.goUpDirection = 'up'
         return true
       }
-      
+
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
       if (w.Patch.isHere() && w.Patch.huggingTree) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -816,17 +816,17 @@ createRoom("greenhouse_east", {
       return falsemsg("Mandy looks up at the tamarind tree; it is too tall to climb. The lowest branches are way out of reach.")
     },
   }),
-  scenery:[
-    { alias:['leaf', 'leaves'], examine:'The bright green tamarind leaves are composed of maybe a score or so long, thin leaflets in an alternating arrangement.' },
-    { alias:'branches', examine:'Mandy looks again. The branches are definitely too high to reach.' },
-    { alias:'pods', examine:'The pods are pale brown, knobbly and about as long as her hand.' },
-    { alias:'seeds', examine:'Mandy assumes there are seeds in the pods hanging from the tree.' },
-    { alias:['flower beds', 'flowerbeds', 'flowers', 'plants', 'bushes'], examine:'The flowerbeds are crammed with flowers and other plants, so much so that the edges are almost obscured.' },
+  scenery: [
+    { alias: ['leaf', 'leaves'], examine: 'The bright green tamarind leaves are composed of maybe a score or so long, thin leaflets in an alternating arrangement.' },
+    { alias: 'branches', examine: 'Mandy looks again. The branches are definitely too high to reach.' },
+    { alias: 'pods', examine: 'The pods are pale brown, knobbly and about as long as her hand.' },
+    { alias: 'seeds', examine: 'Mandy assumes there are seeds in the pods hanging from the tree.' },
+    { alias: ['flower beds', 'flowerbeds', 'flowers', 'plants', 'bushes'], examine: 'The flowerbeds are crammed with flowers and other plants, so much so that the edges are almost obscured.' },
   ],
 })
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
-tp.addDirective("chamberPotUnderTree", function(arr: any, params: any) {
+tp.addDirective("chamberPotUnderTree", function (arr: any, params: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
   if (!w.chamber_pot.underTree) return ''
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
@@ -837,38 +837,38 @@ tp.addDirective("chamberPotUnderTree", function(arr: any, params: any) {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("tamarind_tree_from_ground", {
-  alias:'tamarind tree',
-  loc:"greenhouse_east",
-  scenery:true,
-  parserPriority:-20,
-  examine:"The tamarind tree is tall, its thick trunk rises almost twice Mandy's height before branches spread out.",
-  goUpDirection:'up',
-  shake:function(options: any) {
+  alias: 'tamarind tree',
+  loc: "greenhouse_east",
+  scenery: true,
+  parserPriority: -20,
+  examine: "The tamarind tree is tall, its thick trunk rises almost twice Mandy's height before branches spread out.",
+  goUpDirection: 'up',
+  shake: function (options: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     if (options.char === player) return falsemsg("Mandy tries to shake the tree, but the trunk is too thick; it does not budge. If only she were higher up...")
-      
+
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("'Give that tree a good shake,' says Mandy.|Patch looks at it for a moment, then walks over to it. He puts two arms round it, and, with a grunt, gives it a good shake.|A tamarind pod falls to the ground, and Mandy grins in delight. 'At last!'")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
     cloneObject(w.tamarind_pod_prototype, "greenhouse_east")
-    return true    
+    return true
   },
-  kick:function(options: any) {
+  kick: function (options: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     if (options.char === player) return falsemsg("Mandy kicks the stupid tree in frustration.")
-      
+
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("'Give that tree a good kick,' says Mandy.|Patch looks at it for a moment, then walks over to it. He stands right next to it, and, with a grunt, gives it a good kick.|A tamarind pod falls to the ground, and Mandy grins in delight. 'At last!'")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
     cloneObject(w.tamarind_pod_prototype, "greenhouse_east")
-    return true    
+    return true
   },
-  take:'The tree is far too heavy for Mandy to pick up, and would probably be rather awkward to carry.',
-  hug:function(options: any) {
+  take: 'The tree is far too heavy for Mandy to pick up, and would probably be rather awkward to carry.',
+  hug: function (options: any) {
     if (options.char === player) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       msg("Mandy gives the tree a hug, because maybe showing it some love will encourage it to drop a pod.|It does not.")
-      return true  
+      return true
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
     if (options.char === w.Patch) {
@@ -878,18 +878,18 @@ createItem("tamarind_tree_from_ground", {
       w.Patch.huggingTree = true
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
       w.Patch.goUpDirection = 'up'
-      return true  
+      return true
     }
-    return falsemsg("{nv:char:be:true} not about to do that!", {char:options.char})
+    return falsemsg("{nv:char:be:true} not about to do that!", { char: options.char })
   },
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("sand_greenhouse", {
-  scenery:true,
-  alias:'sand',
-  examine:'The sand is scattered across the floor.',
-  take:function(options: any) {
+  scenery: true,
+  alias: 'sand',
+  examine: 'The sand is scattered across the floor.',
+  take: function (options: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg('Mandy tries to scoop up some of the sand, but it is spead too thinly to get more than a few grains.')
     return false
@@ -900,72 +900,72 @@ createItem("sand_greenhouse", {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("up_a_tall_tree_east", {
-  alias:'a tamarind tree',
-  headingAlias:'Up A Tamarind Tree',
-  properNoun:true,
-  windowsface:'none',
-  desc:"Mandy is up a tamarind tree, up higher than the catwalk, hopefully in easy reach of a tamarind pod.",
+  alias: 'a tamarind tree',
+  headingAlias: 'Up A Tamarind Tree',
+  properNoun: true,
+  windowsface: 'none',
+  desc: "Mandy is up a tamarind tree, up higher than the catwalk, hopefully in easy reach of a tamarind pod.",
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  down:new Exit("greenhouse_east", {msg:'Mandy carefully climbs back down.'}),
-  noFollow:true,
+  down: new Exit("greenhouse_east", { msg: 'Mandy carefully climbs back down.' }),
+  noFollow: true,
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("tamarind_pod_up_tree", {
-  loc:'up_a_tall_tree_east',
-  alias:'tamarind pod',
-  scenery:true,
-  parserPriority:-10,
-  examine:'The tree is all leaves and branches. And pods, she can actually get a pod from here.',
-  goDownDirection:'down',
-  take:function() {
+  loc: 'up_a_tall_tree_east',
+  alias: 'tamarind pod',
+  scenery: true,
+  parserPriority: -10,
+  examine: 'The tree is all leaves and branches. And pods, she can actually get a pod from here.',
+  goDownDirection: 'down',
+  take: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("Mandy reaches out and grabs a tamarind pod.")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
     cloneObject(w.tamarind_pod_prototype, player.name)
-    return true    
+    return true
   },
 })
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("greenhouse_catwalk_east", {
-  alias:'east end of the greenhouse catwalk',
-  headingAlias:'The Greenhouse (East, On Catwalk)',
-  windowsface:'north',
-  desc:"{floraDesc}She is standing on a catwalk that circumnavigates the east end of the greenhouse, and is suspended from the roof by steel struts. Looking down she has a wonderful view of the numerous plants and bushes, but especially the huge tamarind tree in the centre of the room, that rises up even higher than the catwalk. From here, Mandy can head west into the other section of the greenhouse or leave the greenhouse altogether by going east.",
+  alias: 'east end of the greenhouse catwalk',
+  headingAlias: 'The Greenhouse (East, On Catwalk)',
+  windowsface: 'north',
+  desc: "{floraDesc}She is standing on a catwalk that circumnavigates the east end of the greenhouse, and is suspended from the roof by steel struts. Looking down she has a wonderful view of the numerous plants and bushes, but especially the huge tamarind tree in the centre of the room, that rises up even higher than the catwalk. From here, Mandy can head west into the other section of the greenhouse or leave the greenhouse altogether by going east.",
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  west:new Exit("greenhouse_catwalk_west"),
+  west: new Exit("greenhouse_catwalk_west"),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  east:new Exit("great_gallery"),
-  afterFirstEnter:function() {
+  east: new Exit("great_gallery"),
+  afterFirstEnter: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("Is there someone down below? He -- or she for all Mandy can tell -- is wearing a silver shell-suit like it is 1996 or something. 'Hey!' calls Mandy. The figure looks up for a moment, and Mandy can see his face is silver too, before he darts off to the east.")
     player.silverSpotted++
   },
-  scenery:[
-    { 
-      alias:['leaf', 'leaves'],
-      examine:'The bring green tamarind leaves are composed of maybe a score or so long, thing leaflets in an alternating arrangement.',
+  scenery: [
+    {
+      alias: ['leaf', 'leaves'],
+      examine: 'The bring green tamarind leaves are composed of maybe a score or so long, thing leaflets in an alternating arrangement.',
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'tamarind_tree' does not exist on type '{... Remove this comment to see the full error message
-      take:function() { return w.tamarind_tree.take() },
+      take: function () { return w.tamarind_tree.take() },
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'tamarind_tree' does not exist on type '{... Remove this comment to see the full error message
-      pull:function() { return w.tamarind_tree.take() },
+      pull: function () { return w.tamarind_tree.take() },
     },
-    { alias:'pods', examine:'The pods are pale brown, knobbly and about as long as her hand.' },
-    { alias:'seeds', examine:'Mandy assumes there are seeds in the pods hanging from the tree.' },
-    { alias:['flower beds', 'flowerbeds', 'flowers', 'plants', 'bushes'], examine:'The flowerbeds down below are crammed with flowers and other plants, so much so that the edges are almost obscured.' },
+    { alias: 'pods', examine: 'The pods are pale brown, knobbly and about as long as her hand.' },
+    { alias: 'seeds', examine: 'Mandy assumes there are seeds in the pods hanging from the tree.' },
+    { alias: ['flower beds', 'flowerbeds', 'flowers', 'plants', 'bushes'], examine: 'The flowerbeds down below are crammed with flowers and other plants, so much so that the edges are almost obscured.' },
   ],
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("tamarind_tree", {
-  alias:'tamarind tree',
-  loc:"greenhouse_catwalk_east",
-  scenery:true,
-  parserPriority:-20,
-  examine:"The single tamarind tree is a big one, reaching almost to roof of the great greenhouse. From here, Mandy could reach out and touch the leaves of the tree, though the many seed pods are further away.",
-  take:function() {
+  alias: 'tamarind tree',
+  loc: "greenhouse_catwalk_east",
+  scenery: true,
+  parserPriority: -20,
+  examine: "The single tamarind tree is a big one, reaching almost to roof of the great greenhouse. From here, Mandy could reach out and touch the leaves of the tree, though the many seed pods are further away.",
+  take: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("Mandy leans over the rail, and grabs a solid-looking leaf on the tamarind tree. She gives it a good tug, then another and another, until a ripe pod is dislodged. The pod falls...")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
@@ -989,31 +989,31 @@ createItem("tamarind_tree", {
     if (w.Patch.loc === 'greenhouse_east' && w.Patch.hasPod()) return falsemsg("Patch looks very confused as he stares at the pod in his hand, then the pod on the ground, then the pod in his hand again. Then suddenly a silvery figure appears from the west, quickly scoops up the pod from the floor, and runs back west.")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
     if (w.Patch.loc !== 'greenhouse_east') return falsemsg("Suddenly a silvery figure appears from the west, quickly scoops up the pod from the floor, and runs back west.{once: 'Shit,' mutters Mandy.}")
-      
+
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg("... To be caught with surprising dexterity by {nm:npc:the}, who is standing below.", {npc:w.Patch})
+    msg("... To be caught with surprising dexterity by {nm:npc:the}, who is standing below.", { npc: w.Patch })
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
     cloneObject(w.tamarind_pod_prototype, 'Patch')
     return true
   },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'tamarind_tree' does not exist on type '{... Remove this comment to see the full error message
-  pull:function() { return w.tamarind_tree.take() },
-  goUpItem:'Mandy looks how far down the ground is, then how flimsy the reachable branches look. She decides climbing the tamarind tree would be a bad idea.',
-  shake:function(options: any) { this.take(options) },
+  pull: function () { return w.tamarind_tree.take() },
+  goUpItem: 'Mandy looks how far down the ground is, then how flimsy the reachable branches look. She decides climbing the tamarind tree would be a bad idea.',
+  shake: function (options: any) { this.take(options) },
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("tamarind_pod_on_tree", {
-  alias:'tamarind pod',
-  locList:['greenhouse_catwalk_east', 'greenhouse_east'],
-  isLocatedAt:function(room_name: any) { return this.locList.includes(room_name) },
+  alias: 'tamarind pod',
+  locList: ['greenhouse_catwalk_east', 'greenhouse_east'],
+  isLocatedAt: function (room_name: any) { return this.locList.includes(room_name) },
   // @ts-expect-error ts-migrate(1117) FIXME: An object literal cannot have multiple properties ... Remove this comment to see the full error message
-  alias:'tamarind pod',
-  scenery:true,
-  parserPriority:-10,
-  examine:'The pods are pale brown, knobbly and about as long as her hand. They hang high up, but while the leaves spread out, they are clustered close to the trunk{if:player:loc:greenhouse_catwalk_east:, so out of reach from the catwalk}.',
-  take:'The tamarind pods are out of reach.',
-  open:function(options: any) {
+  alias: 'tamarind pod',
+  scenery: true,
+  parserPriority: -10,
+  examine: 'The pods are pale brown, knobbly and about as long as her hand. They hang high up, but while the leaves spread out, they are clustered close to the trunk{if:player:loc:greenhouse_catwalk_east:, so out of reach from the catwalk}.',
+  take: 'The tamarind pods are out of reach.',
+  open: function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
     if (w.Patch.hasPod() && w.Patch.isHere()) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -1026,14 +1026,14 @@ createItem("tamarind_pod_on_tree", {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("tamarind_pod_prototype", SIZE_CHANGING(), {
-  alias:'tamarind pod',
-  openable:true,
-  desc5:'The pod is pale brown, knobbly and about as long as her hand.',
-  desc4:"The pod is tiny.",
-  desc6:'The pod is pale brown, knobbly and about as long as her arm.',
-  open:function(options: any) {
+  alias: 'tamarind pod',
+  openable: true,
+  desc5: 'The pod is pale brown, knobbly and about as long as her hand.',
+  desc4: "The pod is tiny.",
+  desc6: 'The pod is pale brown, knobbly and about as long as her arm.',
+  open: function (options: any) {
     let sharp
-    
+
     if (options.secondItem === undefined) {
       sharp = player.getSharp()
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -1045,11 +1045,11 @@ createItem("tamarind_pod_prototype", SIZE_CHANGING(), {
       if (!options.secondItem.sharp) return falsemsg("Mandy tries to open the pod with {nm:secondItem:the} for a few minutes before giving up in frustration.", options)
       sharp = options.secondItem
     }
-    
+
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'int' does not exist on type '{ buffer: n... Remove this comment to see the full error message
-    const count = random.int(3, 5)
+    const count = Quest.Random.rndm.int(3, 5)
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg("Using {nm:item:the}, Mandy cuts the pod open. Inside she finds " + lang.toWords(count) + " seeds, which she quickly extracts, throwing away the useless husk.", {item:sharp})
+    msg("Using {nm:item:the}, Mandy cuts the pod open. Inside she finds " + lang.toWords(count) + " seeds, which she quickly extracts, throwing away the useless husk.", { item: sharp })
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'tamarind_seed' does not exist on type '{... Remove this comment to see the full error message
     if (!w.tamarind_seed.countableLocs[player.name]) w.tamarind_seed.countableLocs[player.name] = 0
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'tamarind_seed' does not exist on type '{... Remove this comment to see the full error message
@@ -1057,21 +1057,21 @@ createItem("tamarind_pod_prototype", SIZE_CHANGING(), {
     delete this.loc
     return true
   },
-  openwith:function(options: any) { this.open(options) },
-  smash:function(options: any) { this.open(options) },
+  openwith: function (options: any) { this.open(options) },
+  smash: function (options: any) { this.open(options) },
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("tamarind_seed", COUNTABLE(), {
-  regex:/^(\d+ )?seeds?$/,
-  defaultToAll:false,
-  examine:'The tamarind seed is black and shiny; more like a pebble than a seed.',
-  testDrop:function(options: any) { 
+  regex: /^(\d+ )?seeds?$/,
+  defaultToAll: false,
+  examine: 'The tamarind seed is black and shiny; more like a pebble than a seed.',
+  testDrop: function (options: any) {
     if (options.container) return true
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    return falsemsg('Mandy decides it is best not to drop any seeds here -- they might grow into a tree!') 
+    return falsemsg('Mandy decides it is best not to drop any seeds here -- they might grow into a tree!')
   },
-  msgDropIn:"{ifNot:container:name:bare_earth:" + lang.drop_successful + ":Mandy carefully plants {nm:item:count} in the bare earth{ifIs:params:excess:true:, wishing she had a few more}.}",
+  msgDropIn: "{ifNot:container:name:bare_earth:" + lang.drop_successful + ":Mandy carefully plants {nm:item:count} in the bare earth{ifIs:params:excess:true:, wishing she had a few more}.}",
 })
 
 

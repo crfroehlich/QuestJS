@@ -5,8 +5,8 @@
 test.resetOnCompletion = false
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'tests' does not exist on type '{}'.
-test.tests = function() {
-  
+test.tests = function () {
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("parser.scoreObjectMatch");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -15,7 +15,7 @@ test.tests = function() {
   test.assertEqual(-1, parser.scoreObjectMatch("me fkh", w.Buddy, {}));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(-1, parser.scoreObjectMatch("xme", w.Buddy, {}));
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(60, parser.scoreObjectMatch("flashlight", w.flashlight, {}));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -26,15 +26,15 @@ test.tests = function() {
   test.assertEqual(55, parser.scoreObjectMatch("torch", w.flashlight, {}));
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual(75, parser.scoreObjectMatch("torch", w.flashlight, {attName:'lightSource'}));
+  test.assertEqual(75, parser.scoreObjectMatch("torch", w.flashlight, { attName: 'lightSource' }));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual(55, parser.scoreObjectMatch("torch", w.flashlight, {attName:'silly'}));
+  test.assertEqual(55, parser.scoreObjectMatch("torch", w.flashlight, { attName: 'silly' }));
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual(55, parser.scoreObjectMatch("torch", w.flashlight, {items:['glass_cabinet']}));
+  test.assertEqual(55, parser.scoreObjectMatch("torch", w.flashlight, { items: ['glass_cabinet'] }));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual(100, parser.scoreObjectMatch("torch", w.flashlight, {items:['glass_cabinet', 'flashlight']}));
-  
+  test.assertEqual(100, parser.scoreObjectMatch("torch", w.flashlight, { items: ['glass_cabinet', 'flashlight'] }));
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(60, parser.scoreObjectMatch("glass cabinet", w.glass_cabinet, {}));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -43,8 +43,8 @@ test.tests = function() {
   test.assertEqual(50, parser.scoreObjectMatch("cabinet", w.glass_cabinet, {}));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(3, parser.scoreObjectMatch("cab", w.glass_cabinet, {}));
-  
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Plurals")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -61,10 +61,10 @@ test.tests = function() {
   test.assertEqual('potatoes', lang.getPlural('potato'))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual('analyses', lang.getPlural('analysis'))
-  
-  
-  
-  
+
+
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("parser.itemSetup")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -79,7 +79,7 @@ test.tests = function() {
   test.assertEqual(['egg', 'mayo'], w.ham_and_cheese_sandwich.synonyms)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(["ham", "ham and", "ham and cheese", "ham and sandwich", "ham cheese", "ham cheese sandwich", "ham sandwich", "and", "and cheese", "and cheese sandwich", "and sandwich", "cheese", "cheese sandwich", "sandwich"], w.ham_and_cheese_sandwich.parserItemNameParts)
-  
+
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("parser.findInList")
@@ -90,7 +90,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual([w.Buddy, w.book, w.boots], parser.findInList('b', [w.ham_and_cheese_sandwich, w.Buddy, w.book, w.boots], {}))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual([w.book], parser.findInList('b', [w.ham_and_cheese_sandwich, w.Buddy, w.book], {attName:'read'}))
+  test.assertEqual([w.book], parser.findInList('b', [w.ham_and_cheese_sandwich, w.Buddy, w.book], { attName: 'read' }))
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("parser.findInScope")
@@ -102,7 +102,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(0, parserResult[1])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'findInScope' does not exist on type '{}'... Remove this comment to see the full error message
-  parserResult = parser.findInScope('b', [[], [w.ham_and_cheese_sandwich, w.Buddy, w.book]], {attName:'read'})
+  parserResult = parser.findInScope('b', [[], [w.ham_and_cheese_sandwich, w.Buddy, w.book]], { attName: 'read' })
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(1, parserResult[0].length)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -110,7 +110,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(1, parserResult[1])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'findInScope' does not exist on type '{}'... Remove this comment to see the full error message
-  parserResult = parser.findInScope('b', [[w.boots], [w.ham_and_cheese_sandwich, w.Buddy, w.book]], {attName:'read'})
+  parserResult = parser.findInScope('b', [[w.boots], [w.ham_and_cheese_sandwich, w.Buddy, w.book]], { attName: 'read' })
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(1, parserResult[0].length)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -122,9 +122,9 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("parser.findInScope with it")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'pronouns' does not exist on type '{}'.
-  parser.pronouns = {it:w.book, him:w.Buddy}
+  parser.pronouns = { it: w.book, him: w.Buddy }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'findInScope' does not exist on type '{}'... Remove this comment to see the full error message
-  parserResult = parser.findInScope('it', [[w.boots], [w.ham_and_cheese_sandwich, w.Buddy, w.book]], {attName:'read'})
+  parserResult = parser.findInScope('it', [[w.boots], [w.ham_and_cheese_sandwich, w.Buddy, w.book]], { attName: 'read' })
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(1, parserResult[0].length)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -132,32 +132,32 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(1, parserResult[1])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'findInScope' does not exist on type '{}'... Remove this comment to see the full error message
-  parserResult = parser.findInScope('him', [[w.boots], [w.ham_and_cheese_sandwich, w.Buddy, w.book]], {attName:'read'})
+  parserResult = parser.findInScope('him', [[w.boots], [w.ham_and_cheese_sandwich, w.Buddy, w.book]], { attName: 'read' })
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(1, parserResult[0].length)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual('Buddy', parserResult[0][0].name)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(1, parserResult[1])
-  
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("parser.matchToName 1")
   let parserObjs: any = []
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'matchToName' does not exist on type '{}'... Remove this comment to see the full error message
-  parserResult = parser.matchToName('book', [[w.boots], [w.ham_and_cheese_sandwich, w.Buddy, w.book]], {attName:'read'}, parserObjs)
+  parserResult = parser.matchToName('book', [[w.boots], [w.ham_and_cheese_sandwich, w.Buddy, w.book]], { attName: 'read' }, parserObjs)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(1, parserResult)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(1, parserObjs.length)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual([w.book], parserObjs[0])
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("parser.matchToName 2")
   parserObjs = []
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'matchToName' does not exist on type '{}'... Remove this comment to see the full error message
-  parserResult = parser.matchToName('boo', [[w.boots], [w.ham_and_cheese_sandwich, w.Buddy, w.book]], {attName:'read'}, parserObjs)
+  parserResult = parser.matchToName('boo', [[w.boots], [w.ham_and_cheese_sandwich, w.Buddy, w.book]], { attName: 'read' }, parserObjs)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(2, parserResult)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -181,7 +181,7 @@ test.tests = function() {
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("parser.matchToNames 1")
-  parserResult = {objects:[], score:0}
+  parserResult = { objects: [], score: 0 }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'matchToNames' does not exist on type '{}... Remove this comment to see the full error message
   parser.matchToNames('boo', [[], [w.boots, w.ham_and_cheese_sandwich, w.Buddy, w.book]], {}, parserResult)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -191,9 +191,9 @@ test.tests = function() {
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("parser.matchToNames 2")
-  parserResult = {objects:[], score:0}
+  parserResult = { objects: [], score: 0 }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'matchToNames' does not exist on type '{}... Remove this comment to see the full error message
-  parser.matchToNames('ham and cheese', [[], [w.boots, w.ham_and_cheese_sandwich, w.Buddy, w.book]], {multiple:true}, parserResult)
+  parser.matchToNames('ham and cheese', [[], [w.boots, w.ham_and_cheese_sandwich, w.Buddy, w.book]], { multiple: true }, parserResult)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(1, parserResult.score)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -201,27 +201,27 @@ test.tests = function() {
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("parser.matchToNames 3")
-  parserResult = {objects:[], score:0}
+  parserResult = { objects: [], score: 0 }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'matchToNames' does not exist on type '{}... Remove this comment to see the full error message
-  parser.matchToNames('book and coin', [[], [w.boots, w.ham_and_cheese_sandwich, w.Buddy, w.book, w.coin]], {multiple:true}, parserResult)
+  parser.matchToNames('book and coin', [[], [w.boots, w.ham_and_cheese_sandwich, w.Buddy, w.book, w.coin]], { multiple: true }, parserResult)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(1, parserResult.score)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual([w.book], parserResult.objects[0][0])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual([w.coin], parserResult.objects[0][1])
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("parser.matchToNames 4")
-  parserResult = {objects:[], score:0}
+  parserResult = { objects: [], score: 0 }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'matchToNames' does not exist on type '{}... Remove this comment to see the full error message
-  parser.matchToNames('book and coin', [[], [w.boots, w.ham_and_cheese_sandwich, w.Buddy, w.book]], {multiple:true}, parserResult)
+  parser.matchToNames('book and coin', [[], [w.boots, w.ham_and_cheese_sandwich, w.Buddy, w.book]], { multiple: true }, parserResult)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(parser.NO_OBJECT, parserResult.score)
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("parser.matchToNames 5")
-  parserResult = {objects:[], score:0}
+  parserResult = { objects: [], score: 0 }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'matchToNames' does not exist on type '{}... Remove this comment to see the full error message
   parser.matchToNames('book and coin', [[], [w.boots, w.ham_and_cheese_sandwich, w.Buddy, w.book, w.coin]], {}, parserResult)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -230,7 +230,7 @@ test.tests = function() {
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("parser.matchToNames 5")
-  parserResult = {objects:[], score:0}
+  parserResult = { objects: [], score: 0 }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'matchToNames' does not exist on type '{}... Remove this comment to see the full error message
   parser.matchToNames('ham and cheese', [[], [w.boots, w.ham_and_cheese_sandwich, w.Buddy, w.book]], {}, parserResult)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -254,102 +254,102 @@ test.tests = function() {
   test.assertEqual(0, util.clamp(0, 0, 10))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(10, util.clamp(10, 0, 10))
-  
- 
-  
-  
+
+
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("sentenceCase");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("Simple text", sentenceCase("simple text"));
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("titleCase");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("Simple Text", titleCase("simple text"));
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("getName");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("book", lang.getName(w.book));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("the book", lang.getName(w.book, {article:DEFINITE}));
+  test.assertEqual("the book", lang.getName(w.book, { article: DEFINITE }));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("A book", lang.getName(w.book, {article:INDEFINITE, capital:true}));
+  test.assertEqual("A book", lang.getName(w.book, { article: INDEFINITE, capital: true }));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'book' does not exist on type '{}'.
   w.book.owner = 'Buddy'
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("your book", lang.getName(w.book, {article:DEFINITE}));
+  test.assertEqual("your book", lang.getName(w.book, { article: DEFINITE }));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Your book", lang.getName(w.book, {article:INDEFINITE, capital:true}));
+  test.assertEqual("Your book", lang.getName(w.book, { article: INDEFINITE, capital: true }));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'book' does not exist on type '{}'.
   w.book.owner = 'Kyle'
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Kyle's book", lang.getName(w.book, {article:DEFINITE}));
+  test.assertEqual("Kyle's book", lang.getName(w.book, { article: DEFINITE }));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Kyle's book", lang.getName(w.book, {article:INDEFINITE, capital:true}));
+  test.assertEqual("Kyle's book", lang.getName(w.book, { article: INDEFINITE, capital: true }));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'book' does not exist on type '{}'.
-  delete w.book.owner  
-  
+  delete w.book.owner
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("you", lang.getName(w.Buddy));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("You", lang.getName(w.Buddy, {article:INDEFINITE, capital:true}));
+  test.assertEqual("You", lang.getName(w.Buddy, { article: INDEFINITE, capital: true }));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Five bricks", lang.getName(w.brick, {brick_count:5, capital:true, article:INDEFINITE}));
+  test.assertEqual("Five bricks", lang.getName(w.brick, { brick_count: 5, capital: true, article: INDEFINITE }));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("a brick", lang.getName(w.brick, {brick_count:1, article:INDEFINITE}));
+  test.assertEqual("a brick", lang.getName(w.brick, { brick_count: 1, article: INDEFINITE }));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("seven bricks", lang.getName(w.brick, {loc:'lounge', article:INDEFINITE}));
+  test.assertEqual("seven bricks", lang.getName(w.brick, { loc: 'lounge', article: INDEFINITE }));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("a lot of bricks", lang.getName(w.brick, {brick_count:'infinity', article:INDEFINITE}));
+  test.assertEqual("a lot of bricks", lang.getName(w.brick, { brick_count: 'infinity', article: INDEFINITE }));
 
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
-  test.title("random.fromArray");
+  test.title("Quest.Random.rndm.fromArray");
   const ary = ["one", "two", "three"];
   let ary2: any = [];
   for (let i = 0; i < 3; i++) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
-    const res = random.fromArray(ary, true);
+    const res = Quest.Random.rndm.fromArray(ary, true);
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'fail' does not exist on type '{}'.
     if (ary2.includes(res)) test.fail("ary2 already has that value");
     ary2.push(res);
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(0, ary.length);
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
-  test.title("random.int");
+  test.title("Quest.Random.rndm.int");
   for (let i = 0; i < 100; i++) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'int' does not exist on type '{ buffer: n... Remove this comment to see the full error message
-    const res = random.int(10);
+    const res = Quest.Random.rndm.int(10);
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
     test.assertEqual(true, res >= 0 && res <= 10);
   }
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
-  test.title("random.chance");
+  test.title("Quest.Random.rndm.chance");
   for (let i = 0; i < 100; i++) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-    test.assertEqual(true, random.chance(100));
+    test.assertEqual(true, Quest.Random.rndm.chance(100));
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-    test.assertEqual(false, random.chance(0));
+    test.assertEqual(false, Quest.Random.rndm.chance(0));
   }
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Random primed")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime(19)
+  Quest.Random.rndm.prime(19)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual(19, random.int())
+  test.assertEqual(19, Quest.Random.rndm.int())
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([3, 8])
+  Quest.Random.rndm.prime([3, 8])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual(11, random.dice('2d6'))
+  test.assertEqual(11, Quest.Random.rndm.dice('2d6'))
 
-  
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("array.compare");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -394,7 +394,7 @@ test.tests = function() {
   test.assertEqual(true, array.compareUnordered([w.ring, w.boots], [w.boots, w.ring]));
 
 
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("array.subtract");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -403,7 +403,7 @@ test.tests = function() {
   test.assertEqual(['4', '6', '7'], array.subtract(['1', '2', '4', '6', '7'], ['1', '2', '3']));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual([w.coin, w.boots], array.subtract([w.coin, w.boots, w.ring], [w.ring]));
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
   const testAry = [w.boots, w.book, w.cardboard_box]
 
@@ -436,9 +436,9 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(['boots', 'book', 'cardboard_box', 'boots'], array.clone(testAry2));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual(['boots', 'cardboard_box', 'book', 'boots'], array.clone(testAry2, {reverse:true}));
+  test.assertEqual(['boots', 'cardboard_box', 'book', 'boots'], array.clone(testAry2, { reverse: true }));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual(['boots', 'book', 'cardboard_box'], array.clone(testAry2, {compress:true}));
+  test.assertEqual(['boots', 'book', 'cardboard_box'], array.clone(testAry2, { compress: true }));
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("array.combos")
@@ -450,11 +450,11 @@ test.tests = function() {
   test.assertEqual(['one', 'one two', 'two'], array.combos(['one', 'two']))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual([
-    'boots','boots book','boots book cardboard_box','boots book shoes','boots cardboard_box','boots cardboard_box shoes','boots shoes',
-    'book','book cardboard_box','book cardboard_box shoes','book shoes',
-    'cardboard_box','cardboard_box shoes',
+    'boots', 'boots book', 'boots book cardboard_box', 'boots book shoes', 'boots cardboard_box', 'boots cardboard_box shoes', 'boots shoes',
+    'book', 'book cardboard_box', 'book cardboard_box shoes', 'book shoes',
+    'cardboard_box', 'cardboard_box shoes',
     'shoes'
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'combos' does not exist on type '{}'.
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'combos' does not exist on type '{}'.
   ], array.combos(['boots', 'book', 'cardboard_box', 'shoes']))
 
 
@@ -517,25 +517,25 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual('', formatList([]))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual('nothing', formatList([], {nothing:'nothing'}))
+  test.assertEqual('nothing', formatList([], { nothing: 'nothing' }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual('one', formatList(['one']))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual('one, two', formatList(['one', 'two']))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual('one and two', formatList(['one', 'two'], {lastJoiner:'and'}))
+  test.assertEqual('one and two', formatList(['one', 'two'], { lastJoiner: 'and' }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual('one, three, two', formatList(['one', 'two', 'three']))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual('one, three and two', formatList(['one', 'two', 'three'], {lastJoiner:'and'}))
+  test.assertEqual('one, three and two', formatList(['one', 'two', 'three'], { lastJoiner: 'and' }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'oxfordComma' does not exist on type '{ p... Remove this comment to see the full error message
   Quest.settings.oxfordComma = true
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual('one', formatList(['one']))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual('one and two', formatList(['one', 'two'], {lastJoiner:'and'}))
+  test.assertEqual('one and two', formatList(['one', 'two'], { lastJoiner: 'and' }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual('one, three, and two', formatList(['one', 'two', 'three'], {lastJoiner:'and'}))
+  test.assertEqual('one, three, and two', formatList(['one', 'two', 'three'], { lastJoiner: 'and' }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'oxfordComma' does not exist on type '{ p... Remove this comment to see the full error message
   Quest.settings.oxfordComma = false
 
@@ -587,7 +587,7 @@ test.tests = function() {
   test.assertEqual("Simple text: ", processText("Simple text: {if:player:someOddAtt:50:yes}"));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("Simple text: yes", processText("Simple text: {if:player:someOddAtt:67:yes}"));
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("Simple text: yes", processText("Simple text: {ifMoreThan:player:someOddAtt:66:yes:no}"));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -609,20 +609,20 @@ test.tests = function() {
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Text processor 2a");
-  player.tpTest1 = function(params: any) { return lang.toWords(2 * params.val) }
-  player.tpTest2 = function(params: any) { return 2 * params.val }
+  player.tpTest1 = function (params: any) { return lang.toWords(2 * params.val) }
+  player.tpTest2 = function (params: any) { return 2 * params.val }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Lara' does not exist on type '{}'.
-  player.tpTest3 = function(params: any) { return w.Lara }
+  player.tpTest3 = function (params: any) { return w.Lara }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: sixteen", processText("Simple text: {show:player:tpTest1}", {val:8}))
+  test.assertEqual("Simple text: sixteen", processText("Simple text: {show:player:tpTest1}", { val: 8 }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: yes", processText("Simple text: {if:player:tpTest2:16:yes:no}", {val:8}))
+  test.assertEqual("Simple text: yes", processText("Simple text: {if:player:tpTest2:16:yes:no}", { val: 8 }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: no", processText("Simple text: {if:player:tpTest2:15:yes:no}", {val:8}))
+  test.assertEqual("Simple text: no", processText("Simple text: {if:player:tpTest2:15:yes:no}", { val: 8 }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: yes", processText("Simple text: {if:player:tpTest3:Lara:yes:no}", {val:8}))
+  test.assertEqual("Simple text: yes", processText("Simple text: {if:player:tpTest3:Lara:yes:no}", { val: 8 }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: no", processText("Simple text: {if:player:tpTest3:Kyle:yes:no}", {val:8}))
+  test.assertEqual("Simple text: no", processText("Simple text: {if:player:tpTest3:Kyle:yes:no}", { val: 8 }))
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'tpTest' does not exist on type '{ perfor... Remove this comment to see the full error message
   Quest.settings.tpTest = 9
@@ -631,29 +631,29 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("Simple text: nine", processText("Simple text: {number:settings:tpTest}"))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: yes", processText("Simple text: {if:settings:tpTest:9:yes:no}", {val:8}))
+  test.assertEqual("Simple text: yes", processText("Simple text: {if:settings:tpTest:9:yes:no}", { val: 8 }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: no", processText("Simple text: {if:settings:tpTest:8:yes:no}", {val:8}))
+  test.assertEqual("Simple text: no", processText("Simple text: {if:settings:tpTest:8:yes:no}", { val: 8 }))
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Text processor 2b show");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: ", processText("Simple text: {show:item:att_does_not_exist}", {item:w.book}))
+  test.assertEqual("Simple text: ", processText("Simple text: {show:item:att_does_not_exist}", { item: w.book }))
   // Test using a function
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'book' does not exist on type '{}'.
-  w.book.tpStringTest = function() { return 'testy' }
+  w.book.tpStringTest = function () { return 'testy' }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: testy", processText("Simple text: {show:item:tpStringTest}", {item:w.book}))
+  test.assertEqual("Simple text: testy", processText("Simple text: {show:item:tpStringTest}", { item: w.book }))
   // Test using params in function
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'book' does not exist on type '{}'.
-  w.book.tpStringTest = function(options: any) { return 'testy=' + options.obj.name }
+  w.book.tpStringTest = function (options: any) { return 'testy=' + options.obj.name }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: testy=Lara", processText("Simple text: {show:item:tpStringTest}", {item:w.book, obj:w.Lara}))
+  test.assertEqual("Simple text: testy=Lara", processText("Simple text: {show:item:tpStringTest}", { item: w.book, obj: w.Lara }))
   // Test binding for this
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'book' does not exist on type '{}'.
-  w.book.tpStringTest = function(options: any) { return 'testy=' + this.name }
+  w.book.tpStringTest = function (options: any) { return 'testy=' + this.name }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: testy=book", processText("Simple text: {show:item:tpStringTest}", {item:w.book}))
+  test.assertEqual("Simple text: testy=book", processText("Simple text: {show:item:tpStringTest}", { item: w.book }))
   player.someOddAtt = true;
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("Simple text: true", processText("Simple text: {show:player:someOddAtt}"));
@@ -668,54 +668,54 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("Simple text: seen first time only", processText("Simple text: {once:seen first time only}{notOnce:other times}"));
 
-  const testObject = {someOddAtt:true, someOtherAttribute:5, falseAtt:false}
+  const testObject = { someOddAtt: true, someOtherAttribute: 5, falseAtt: false }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: yes", processText("Simple text: {if:obj:someOddAtt:yes:no}", {obj:testObject}))
+  test.assertEqual("Simple text: yes", processText("Simple text: {if:obj:someOddAtt:yes:no}", { obj: testObject }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: no", processText("Simple text: {if:obj:someUnknownAtt:yes:no}", {obj:testObject}))
+  test.assertEqual("Simple text: no", processText("Simple text: {if:obj:someUnknownAtt:yes:no}", { obj: testObject }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: yes", processText("Simple text: {if:obj:someOtherAttribute:5:yes:no}", {obj:testObject}))
+  test.assertEqual("Simple text: yes", processText("Simple text: {if:obj:someOtherAttribute:5:yes:no}", { obj: testObject }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: no", processText("Simple text: {if:obj:someOtherAttribute:3:yes:no}", {obj:testObject}))
+  test.assertEqual("Simple text: no", processText("Simple text: {if:obj:someOtherAttribute:3:yes:no}", { obj: testObject }))
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: no", processText("Simple text: {ifIs:obj:someUnknownAtt:5:yes:no}", {obj:testObject}))
+  test.assertEqual("Simple text: no", processText("Simple text: {ifIs:obj:someUnknownAtt:5:yes:no}", { obj: testObject }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: yes", processText("Simple text: {ifIs:obj:someOtherAttribute:5:yes:no}", {obj:testObject}))
+  test.assertEqual("Simple text: yes", processText("Simple text: {ifIs:obj:someOtherAttribute:5:yes:no}", { obj: testObject }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: no", processText("Simple text: {ifIs:obj:someOtherAttribute:3:yes:no}", {obj:testObject}))
+  test.assertEqual("Simple text: no", processText("Simple text: {ifIs:obj:someOtherAttribute:3:yes:no}", { obj: testObject }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: no", processText("Simple text: {ifIs:obj:someOtherAttribute:true:yes:no}", {obj:testObject}))
+  test.assertEqual("Simple text: no", processText("Simple text: {ifIs:obj:someOtherAttribute:true:yes:no}", { obj: testObject }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: yes", processText("Simple text: {ifIs:obj:someOddAtt:true:yes:no}", {obj:testObject}))
+  test.assertEqual("Simple text: yes", processText("Simple text: {ifIs:obj:someOddAtt:true:yes:no}", { obj: testObject }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: no", processText("Simple text: {ifIs:obj:someOddAtt:false:yes:no}", {obj:testObject}))
+  test.assertEqual("Simple text: no", processText("Simple text: {ifIs:obj:someOddAtt:false:yes:no}", { obj: testObject }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: no", processText("Simple text: {ifIs:obj:someOddAtt:undefined:yes:no}", {obj:testObject}))
+  test.assertEqual("Simple text: no", processText("Simple text: {ifIs:obj:someOddAtt:undefined:yes:no}", { obj: testObject }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: yes", processText("Simple text: {ifIs:obj:someOddThatDoesNotExistAtt:undefined:yes:no}", {obj:testObject}))
+  test.assertEqual("Simple text: yes", processText("Simple text: {ifIs:obj:someOddThatDoesNotExistAtt:undefined:yes:no}", { obj: testObject }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: yes", processText("Simple text: {ifIs:obj:falseAtt:false:yes:no}", {obj:testObject}))
+  test.assertEqual("Simple text: yes", processText("Simple text: {ifIs:obj:falseAtt:false:yes:no}", { obj: testObject }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: no", processText("Simple text: {ifIs:obj:falseAtt2:false:yes:no}", {obj:testObject}))
+  test.assertEqual("Simple text: no", processText("Simple text: {ifIs:obj:falseAtt2:false:yes:no}", { obj: testObject }))
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: yes", processText("Simple text: {ifNotIs:obj:someOddAtt:undefined:yes:no}", {obj:testObject}))
+  test.assertEqual("Simple text: yes", processText("Simple text: {ifNotIs:obj:someOddAtt:undefined:yes:no}", { obj: testObject }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: no", processText("Simple text: {ifNotIs:obj:someOddThatDoesNotExistAtt:undefined:yes:no}", {obj:testObject}))
+  test.assertEqual("Simple text: no", processText("Simple text: {ifNotIs:obj:someOddThatDoesNotExistAtt:undefined:yes:no}", { obj: testObject }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: no", processText("Simple text: {ifNotIs:obj:falseAtt:false:yes:no}", {obj:testObject}))
+  test.assertEqual("Simple text: no", processText("Simple text: {ifNotIs:obj:falseAtt:false:yes:no}", { obj: testObject }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: yes", processText("Simple text: {ifNotIs:obj:falseAtt2:false:yes:no}", {obj:testObject}))
+  test.assertEqual("Simple text: yes", processText("Simple text: {ifNotIs:obj:falseAtt2:false:yes:no}", { obj: testObject }))
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: yes", processText("Simple text: {ifPlayer:Buddy:yes:no}", {obj:testObject}))
+  test.assertEqual("Simple text: yes", processText("Simple text: {ifPlayer:Buddy:yes:no}", { obj: testObject }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: no", processText("Simple text: {ifPlayer:Lara:yes:no}", {obj:testObject}))
+  test.assertEqual("Simple text: no", processText("Simple text: {ifPlayer:Lara:yes:no}", { obj: testObject }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: yes", processText("Simple text: {ifPlayer:obj:yes:no}", {obj:w.Buddy}))
+  test.assertEqual("Simple text: yes", processText("Simple text: {ifPlayer:obj:yes:no}", { obj: w.Buddy }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: no", processText("Simple text: {ifPlayer:obj:yes:no}", {obj:w.Lara}))
+  test.assertEqual("Simple text: no", processText("Simple text: {ifPlayer:obj:yes:no}", { obj: w.Lara }))
 
 
 
@@ -727,7 +727,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("Simple text: other times", processText("Simple text: {once:seen first time only}{notOnce:other times}"));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Simple text: p2=red", processText("Simple text: p2={show:p2}", {p1:"yellow", p2:"red"}))
+  test.assertEqual("Simple text: p2=red", processText("Simple text: p2={show:p2}", { p1: "yellow", p2: "red" }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("Simple text2: seen first time only", processText("Simple text2: {once:seen first time only:other times}"));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -738,62 +738,62 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Text processor 5: nm, nv, etc.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Kyle is a bear.", processText("{nv:chr:be} a bear.", {chr:'Kyle'}));
+  test.assertEqual("Kyle is a bear.", processText("{nv:chr:be} a bear.", { chr: 'Kyle' }));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Kyle is a bear.", processText("{nv:chr:be} a bear.", {chr:w.Kyle}));
+  test.assertEqual("Kyle is a bear.", processText("{nv:chr:be} a bear.", { chr: w.Kyle }));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("Kyle is your bear.", processText("{nv:Kyle:be} {pa:Buddy} bear."));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("Kyle is her bear.", processText("{nv:Kyle:be} {pa:Lara} bear."));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("There is Kyle.", processText("There is {nm:chr:a}.", {chr:w.Kyle}));
+  test.assertEqual("There is Kyle.", processText("There is {nm:chr:a}.", { chr: w.Kyle }));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("There is a book.", processText("There is {nm:chr:a}.", {chr:w.book}));
+  test.assertEqual("There is a book.", processText("There is {nm:chr:a}.", { chr: w.book }));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Kyle is here.", processText("{nm:chr:the:true} is here.", {chr:w.Kyle}));
+  test.assertEqual("Kyle is here.", processText("{nm:chr:the:true} is here.", { chr: w.Kyle }));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("The book is here.", processText("{nm:chr:the:true} is here.", {chr:w.book}));
+  test.assertEqual("The book is here.", processText("{nm:chr:the:true} is here.", { chr: w.book }));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("It is your book.", processText("It is {nms:chr:the} book.", {chr:player}));
+  test.assertEqual("It is your book.", processText("It is {nms:chr:the} book.", { chr: player }));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("It is Kyle's book.", processText("It is {nms:chr:the} book.", {chr:w.Kyle}));
+  test.assertEqual("It is Kyle's book.", processText("It is {nms:chr:the} book.", { chr: w.Kyle }));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("There are seven bricks.", processText("There are {nm:item:count}.", {item:w.brick, brick_count:7}));
+  test.assertEqual("There are seven bricks.", processText("There are {nm:item:count}.", { item: w.brick, brick_count: 7 }));
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Text processor 5a: nm with COUNTABLE.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Five bricks", processText("{nm:item:count:true}", {item:w.brick, brick_count:5}))
+  test.assertEqual("Five bricks", processText("{nm:item:count:true}", { item: w.brick, brick_count: 5 }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Five bricks", processText("{nm:item:a:true}", {item:w.brick, brick_count:5}))
+  test.assertEqual("Five bricks", processText("{nm:item:a:true}", { item: w.brick, brick_count: 5 }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("five bricks", processText("{nm:item:a}", {item:w.brick, item_count:5}))
+  test.assertEqual("five bricks", processText("{nm:item:a}", { item: w.brick, item_count: 5 }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("a brick", processText("{nm:item:a}", {item:w.brick, brick_count:1}))
+  test.assertEqual("a brick", processText("{nm:item:a}", { item: w.brick, brick_count: 1 }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("one brick", processText("{nm:item:count}", {item:w.brick, brick_count:1}))
+  test.assertEqual("one brick", processText("{nm:item:count}", { item: w.brick, brick_count: 1 }))
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("five bricks", processText("{nm:item:a}", {item:w.brick, count:5}))
+  test.assertEqual("five bricks", processText("{nm:item:a}", { item: w.brick, count: 5 }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("five bricks and one book", processText("{nm:item:a} and {nm:item2:count}", {item:w.brick, count:5, item2:w.book}))
+  test.assertEqual("five bricks and one book", processText("{nm:item:a} and {nm:item2:count}", { item: w.brick, count: 5, item2: w.book }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'book' does not exist on type '{}'.
   w.book.specialCount = 4
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("five bricks and four books", processText("{nm:item:a} and {nm:item2:count:false:count_this}", {item:w.brick, count:5, item2:w.book, count_this:'specialCount'}))
+  test.assertEqual("five bricks and four books", processText("{nm:item:a} and {nm:item2:count:false:count_this}", { item: w.brick, count: 5, item2: w.book, count_this: 'specialCount' }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Lara looks at the four books thoughtfully.", processText("Lara looks at the {nm:item:false:false:count_this} thoughtfully.", {item:w.book, count_this:'specialCount'}))
+  test.assertEqual("Lara looks at the four books thoughtfully.", processText("Lara looks at the {nm:item:false:false:count_this} thoughtfully.", { item: w.book, count_this: 'specialCount' }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'book' does not exist on type '{}'.
   w.book.specialCount = 1
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Lara looks at the book thoughtfully.", processText("Lara looks at the {nm:item:false:false:count_this} thoughtfully.", {item:w.book, count_this:'specialCount'}))
-  
+  test.assertEqual("Lara looks at the book thoughtfully.", processText("Lara looks at the {nm:item:false:false:count_this} thoughtfully.", { item: w.book, count_this: 'specialCount' }))
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Text processor 5b: nm with COUNTABLE too.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'book' does not exist on type '{}'.
-  w.book.getDisplayName = function(options: any) { return 'a ' + options.adj + ' tomb' }
+  w.book.getDisplayName = function (options: any) { return 'a ' + options.adj + ' tomb' }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("You see a mighty tomb", processText("You see {nm:item:a:false:adj}", {item:w.book, adj:'mighty'}))
+  test.assertEqual("You see a mighty tomb", processText("You see {nm:item:a:false:adj}", { item: w.book, adj: 'mighty' }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'book' does not exist on type '{}'.
   delete w.book.getDisplayName
 
@@ -860,7 +860,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
   w.Kyle.dialogueStyle = 'color:magenta'
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Kyle says; <span style=\"color:magenta\">'Hello!'</span>", processText("Kyle says; {dialogue:char:Hello!}", {char:w.Kyle}))
+  test.assertEqual("Kyle says; <span style=\"color:magenta\">'Hello!'</span>", processText("Kyle says; {dialogue:char:Hello!}", { char: w.Kyle }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("Kyle says; <span style=\"color:cyan\">'Hello!'</span>", processText("Kyle says; {dialogue::cyan:Hello!}"))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -868,7 +868,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("Kyle says; <span style=\"font-style:italic;font-weight:bold;color:cyan\">'Hello!'</span>", processText("Kyle says; {dialogue:ib:cyan:Hello!}"))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Kyle says; <span class=\"nonsense\">'Hello!'</span>", processText("Kyle says; {dialogue:.nonsense:Hello!}", {char:w.Kyle}))
+  test.assertEqual("Kyle says; <span class=\"nonsense\">'Hello!'</span>", processText("Kyle says; {dialogue:.nonsense:Hello!}", { char: w.Kyle }))
 
 
 
@@ -877,11 +877,11 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("Kyle is here.", processText("{rndalt:Kyle} is here."));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Kyle is here.", processText("{rndalt:npc} is here.", {npc:w.Kyle}));
+  test.assertEqual("Kyle is here.", processText("{rndalt:npc} is here.", { npc: w.Kyle }));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
   w.Kyle.alt = ['red', 'green', 'blue']
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime(1)
+  Quest.Random.rndm.prime(1)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("green is here.", processText("{rndalt:Kyle} is here."));
 
@@ -955,38 +955,38 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Text processor 12: pa2");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("'Please stop!' exclaims Kyle when you rip his book to shred.", processText("'Please stop!' exclaims {nm:chr1:the} when {nv:chr2:rip} {pa2:chr1:chr2} book to shred.", {chr1:w.Kyle, chr2:player}))
+  test.assertEqual("'Please stop!' exclaims Kyle when you rip his book to shred.", processText("'Please stop!' exclaims {nm:chr1:the} when {nv:chr2:rip} {pa2:chr1:chr2} book to shred.", { chr1: w.Kyle, chr2: player }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("'Please stop!' exclaims Kyle when Boris rips Kyle's book to shred.", processText("'Please stop!' exclaims {nm:chr1:the} when {nv:chr2:rip} {pa2:chr1:chr2} book to shred.", {chr1:w.Kyle, chr2:w.Boris}))
+  test.assertEqual("'Please stop!' exclaims Kyle when Boris rips Kyle's book to shred.", processText("'Please stop!' exclaims {nm:chr1:the} when {nv:chr2:rip} {pa2:chr1:chr2} book to shred.", { chr1: w.Kyle, chr2: w.Boris }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("'Please stop!' exclaims Kyle when Kyle rips his book to shred.", processText("'Please stop!' exclaims {nm:chr1:the} when {nv:chr2:rip} {pa2:chr1:chr2} book to shred.", {chr1:w.Kyle, chr2:w.Kyle}))
+  test.assertEqual("'Please stop!' exclaims Kyle when Kyle rips his book to shred.", processText("'Please stop!' exclaims {nm:chr1:the} when {nv:chr2:rip} {pa2:chr1:chr2} book to shred.", { chr1: w.Kyle, chr2: w.Kyle }))
 
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Text processor 11: numbers");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Lara is sixteen.", processText("Lara is {number:age}.", {age:16}))
+  test.assertEqual("Lara is sixteen.", processText("Lara is {number:age}.", { age: 16 }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Lara' does not exist on type '{}'.
   w.Lara.age = 17
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("Lara is seventeen.", processText("Lara is {number:Lara:age}."))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Lara is seventeen.", processText("Lara is {number:npc:age}.", {npc:w.Lara}))
+  test.assertEqual("Lara is seventeen.", processText("Lara is {number:npc:age}.", { npc: w.Lara }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("Lara is seventeenth.", processText("Lara is {ordinal:Lara:age}."))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Buddy' does not exist on type '{}'.
   w.Buddy.age = 15
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("Buddy is fifteen.", processText("Buddy is {number:player:age}."))
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Text processor 12: contents")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("You see nothing.", processText("You see {contents:cardboard_box:,:and:nothing}."))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("You see nothing.", processText("You see {contents:item:,:and:nothing}.", {item:w.cardboard_box}))
+  test.assertEqual("You see nothing.", processText("You see {contents:item:,:and:nothing}.", { item: w.cardboard_box }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("You see nothing.", processText("You see {contents:item:,:and:nothing}.", {item:'cardboard_box'}))
+  test.assertEqual("You see nothing.", processText("You see {contents:item:,:and:nothing}.", { item: 'cardboard_box' }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'coin' does not exist on type '{}'.
   w.coin.loc = 'cardboard_box'
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'small_key' does not exist on type '{}'.
@@ -1028,7 +1028,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("ninetieth", lang.toOrdinal(90));
 
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Numbers 2");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -1052,7 +1052,7 @@ test.tests = function() {
   test.assertEqual("$12,34", displayMoney(1234));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("($12,34)", displayMoney(-1234));
-  
+
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("getDir");
@@ -1064,8 +1064,8 @@ test.tests = function() {
   test.assertEqual("out", getDir("exit"));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(false, getDir("bo"));
-  
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("date time")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -1102,21 +1102,21 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("msg function")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertOut' does not exist on type '{}'.
-  test.assertOut(["Kyle is red."], function() {
+  test.assertOut(["Kyle is red."], function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("Kyle is {select:Kyle:colours:colour}.")
   })
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertOut' does not exist on type '{}'.
-  test.assertOut(["Kyle is here.", "Lara is not"], function() {
+  test.assertOut(["Kyle is here.", "Lara is not"], function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("Kyle is here.|Lara is not")
   })
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertOut' does not exist on type '{}'.
-  test.assertOut(["Kyle is here.|Lara is not"], function() {
+  test.assertOut(["Kyle is here.|Lara is not"], function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("Kyle is here.@@@vert@@@Lara is not")
   })
-  
+
 
 
 
@@ -1126,16 +1126,16 @@ test.tests = function() {
   test.fullOutputData = true
   let res
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'function' does not exist on type '{}'.
-  res = test.function(function() { msg("Kyle is {select:Kyle:colours:colour}.") })
+  res = test.function(function () { msg("Kyle is {select:Kyle:colours:colour}.") })
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("default-p", res[0].cssClass)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("p", res[0].tag)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("Kyle is red.", res[0].text)
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'function' does not exist on type '{}'.
-  res = test.function(function() { msg("#Kyle is {select:Kyle:colours:colour}.") })
+  res = test.function(function () { msg("#Kyle is {select:Kyle:colours:colour}.") })
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("default-h default-h4", res[0].cssClass)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -1144,7 +1144,7 @@ test.tests = function() {
   test.assertEqual("Kyle is red.", res[0].text)
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'function' does not exist on type '{}'.
-  res = test.function(function() { msg("#Kyle is {select:Kyle:colours:colour}.", {}, 'test') })
+  res = test.function(function () { msg("#Kyle is {select:Kyle:colours:colour}.", {}, 'test') })
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("test", res[0].cssClass)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -1160,19 +1160,19 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Change listeners")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertOut' does not exist on type '{}'.
-  test.assertOut(["watchedStringAttribute changed from yellow to red"], function() {
+  test.assertOut(["watchedStringAttribute changed from yellow to red"], function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'book' does not exist on type '{}'.
     w.book.watchedStringAttribute = 'red'
     world.endTurn(world.FAILED)
   })
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertOut' does not exist on type '{}'.
-  test.assertOut([], function() {
+  test.assertOut([], function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'book' does not exist on type '{}'.
     w.book.watchedNumberAttribute = 9
     world.endTurn(world.FAILED)
   })
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertOut' does not exist on type '{}'.
-  test.assertOut(["watchedNumberAttribute changed from 9 to 11"], function() {
+  test.assertOut(["watchedNumberAttribute changed from 9 to 11"], function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'book' does not exist on type '{}'.
     w.book.watchedNumberAttribute = 11
     world.endTurn(world.FAILED)
@@ -1189,14 +1189,14 @@ test.tests = function() {
   test.assertEqual("cyan", util.changeListeners[0].oldValue)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(17, util.changeListeners[1].oldValue)
-  
+
 
 
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("tokenising")
-  let res2 
-  
+  let res2
+
   ary2 = ['ham', 'cheese']
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'oneFromTokens' does not exist on type '{... Remove this comment to see the full error message
   res2 = array.oneFromTokens(ary2, [w.book, w.boots, w.ham_and_cheese_sandwich, w.knife], {})
@@ -1204,7 +1204,7 @@ test.tests = function() {
   test.assertEqual(0, ary2.length)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(w.ham_and_cheese_sandwich, res2[0])
-  
+
   ary2 = ['ham', 'cheese', 'boots']
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'oneFromTokens' does not exist on type '{... Remove this comment to see the full error message
   res2 = array.oneFromTokens(ary2, [w.book, w.boots, w.ham_and_cheese_sandwich, w.knife], {})
@@ -1283,7 +1283,7 @@ test.tests = function() {
   test.assertCmd("look at tv", "It's just scenery.")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("look at rug", "It might have been blue at one time. Maybe.")
-  
+
 
 
 
@@ -1295,7 +1295,7 @@ test.tests = function() {
   w.jewellery_box.closed = false
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("look inside cabinet", "Inside the glass cabinet you can see a jewellery box (containing a ring) and an ornate doll.")
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("look inside box", "Inside the cardboard box you can see nothing.")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -1323,7 +1323,7 @@ test.tests = function() {
   test.assertCmd("switch off knife", "You can't turn it off.")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("exits", "You think you can go east, south, up or west.")
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Drop all")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -1334,20 +1334,20 @@ test.tests = function() {
   test.assertCmd("get knife", "You take the knife.");
 
 
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Concatenated commands")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("drop knife, and then get it", ["You drop the knife.", "You take the knife."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("get book.read it.drop book", ["You take the book.", "It is not in a language you understand.", "Abandoning later commands: drop book"]);
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("drop book.read it.drop book", ["You drop the book.", "You don't have it.", "You don't have it."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("*drop book.read it.drop book", ["Comment: drop book.read it.drop book"]);
-  
-  
+
+
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Simple object commands");
@@ -1404,7 +1404,7 @@ test.tests = function() {
   test.assertCmd("drink sandwich", "The ham and cheese sandwich is not something you can drink.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("ingest sandwich", ["You eat the ham and cheese sandwich.", "That was great!"]);
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Simple object commands (drink the sandwich?)")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'ham_and_cheese_sandwich' does not exist ... Remove this comment to see the full error message
@@ -1418,7 +1418,7 @@ test.tests = function() {
   test.assertCmd("drink sandwich", ["You eat the ham and cheese sandwich.", "That was great!"]);
 
 
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Simple object commands (boots)");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -1451,8 +1451,8 @@ test.tests = function() {
   test.assertCmd("drop boots", "You drop the boots.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(["Examine", "Take"], w.boots.getVerbs())
-  
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Simple object commands (book)");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -1469,7 +1469,7 @@ test.tests = function() {
   test.assertCmd("read the book", "It is not in a language you understand.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("give it to kyle", "'Oh!' says Kyle. 'Is this a book?'");
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("kyle, read the book", "It is not in a language he understands.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -1522,7 +1522,7 @@ test.tests = function() {
   test.assertCmd("look", ["The kitchen", "A clean room, a clock hanging on the wall. There is a sink in the corner.", "You can see a big kitchen table (with two bricks and a jug on it), a camera and a trapdoor here.", "You can go north or west."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("get the bricks", "You take two bricks.");
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("put 12 bricks on to the table", "Done.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -1531,10 +1531,10 @@ test.tests = function() {
   test.assertCmd("drop 2 bricks", "You don't have any.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("put 2 bricks on to the table", "You don't have any.");
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("get 90 bricks", "You take seven bricks, that is all there is.");
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("get clock", "You take the clock.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -1545,7 +1545,7 @@ test.tests = function() {
   test.assertCmd("look", ["The kitchen", "A clean room. There is a sink in the corner.", "You can see a big kitchen table (with a jug on it), a camera, a clock and a trapdoor here.", "You can go north or west."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("w", ["You head west.", "The lounge", "A smelly room with an old settee and a tv. There is a tatty rug on the floor.", "You can see a book, some boots, a canteen, a cardboard box, a coin, a flashlight, a garage key, a glass cabinet (containing a jewellery box (containing a ring) and an ornate doll), Kyle (wearing a straw boater) and a small key here.", "You can go east, south, up or west."]);
- 
+
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Simple object commands (bricks and a box)");
@@ -1555,11 +1555,11 @@ test.tests = function() {
   test.assertCmd("drop bricks in box", "Done.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(true, parser.isContained(w.brick));
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("get bricks", "You take seven bricks.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual(false, parser.isContained(w.brick));  
+  test.assertEqual(false, parser.isContained(w.brick));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("drop three bricks in box", "Done.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -1576,8 +1576,8 @@ test.tests = function() {
   test.assertCmd("get bricks", "You take three bricks.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(false, parser.isContained(w.brick));
-  
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Simple object commands (bricks and a held box)");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -1590,10 +1590,10 @@ test.tests = function() {
   test.assertCmd("drop three bricks in box", "Done.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("drop bricks", "You drop four bricks.");
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("get bricks", "You take four bricks.");
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("get bricks", "You take three bricks.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -1609,9 +1609,9 @@ test.tests = function() {
   test.assertCmd("unlock small key", "You can't unlock it.")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("lock small key", "You can't lock it.")
-  
-  
-  
+
+
+
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("open cabinet", "The glass cabinet is locked.")
@@ -1643,7 +1643,7 @@ test.tests = function() {
   test.assertCmd("use key to unlock cabinet", "You unlock the glass cabinet.")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("put cabinet in small key", "The small key is not a container.")
-  
+
 
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
@@ -1691,33 +1691,33 @@ test.tests = function() {
   test.menuResponseNumber = [0, 1]
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("talk to kyle", ["You talk to Kyle about the weather; he asks your opinion...", 'You tell Kyle the weather is bad; he shakes his head sadly.']);
-  
+
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Restricting");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(["Look at", "Talk to"], w.Kyle.getVerbs())
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  player.testTalk = function() { msg("You are gagged."); return false; }
+  player.testTalk = function () { msg("You are gagged."); return false; }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("talk to kyle", "You are gagged.");
-  player.testTalk = function() { return true; }
+  player.testTalk = function () { return true; }
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  player.testManipulate = function() { msg("You are handcuffed."); return false; }
+  player.testManipulate = function () { msg("You are handcuffed."); return false; }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("drop bricks", "You are handcuffed.");
-  player.testManipulate = function() { return true; }
+  player.testManipulate = function () { return true; }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
-  test.assertCmd("drop bricks", "You drop seven bricks.");  
-  
-  
+  test.assertCmd("drop bricks", "You drop seven bricks.");
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Wear/remove");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("u", ["You head up.", "The bedroom", "A large room, with a big bed and a wardrobe.", "You can see a coat, some jeans, a jumpsuit, a shirt, underwear and a wardrobe here.", "You can go down, in or west.",]);
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
-  test.assertCmd("get all", ["Wardrobe: You can't take it.", "You take the underwear.", "You take the jeans.", "You take the shirt.", "You take the coat.", "You take the jumpsuit.", ]);
+  test.assertCmd("get all", ["Wardrobe: You can't take it.", "You take the underwear.", "You take the jeans.", "You take the shirt.", "You take the coat.", "You take the jumpsuit.",]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("wear underwear", "You put on the underwear.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -1733,7 +1733,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("wear jumpsuit", "You can't put the jumpsuit on over your shirt.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
-  test.assertCmd("remove shirt", "You take the shirt off.");  
+  test.assertCmd("remove shirt", "You take the shirt off.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("wear jumpsuit", "You put on the jumpsuit.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -1741,14 +1741,14 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("wear underwear", "You can't put the underwear on over your jumpsuit.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
-  test.assertCmd("remove coat", "You take the coat off.");  
+  test.assertCmd("remove coat", "You take the coat off.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
-  test.assertCmd("drop all", ["You drop the knife.", "You drop the underwear.", "You drop the jeans.", "You drop the shirt.", "You drop the coat.", "Jumpsuit: You are already wearing it.", ]);
+  test.assertCmd("drop all", ["You drop the knife.", "You drop the underwear.", "You drop the jeans.", "You drop the shirt.", "You drop the coat.", "Jumpsuit: You are already wearing it.",]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
-  test.assertCmd("remove jumpsuit", "You take the jumpsuit off.");  
+  test.assertCmd("remove jumpsuit", "You take the jumpsuit off.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("get knife", "You take the knife.");
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Postures")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -1765,8 +1765,8 @@ test.tests = function() {
   test.assertCmd("lie on wardrobe", "The wardrobe is not something you can lie on.")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("sit on wardrobe", "The wardrobe is not something you can sit on.")
-  
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("use")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -1774,13 +1774,13 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("use knife", "No obvious way to use it.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'knife' does not exist on type '{}'.
-  w.knife.use = function(options: any) { msg("You juggle the knife.") }
+  w.knife.use = function (options: any) { msg("You juggle the knife.") }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("use knife", "You juggle the knife.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
-  test.assertCmd("remove jumpsuit", "You take the jumpsuit off.");  
+  test.assertCmd("remove jumpsuit", "You take the jumpsuit off.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
-  test.assertCmd("drop jumpsuit", "You drop the jumpsuit.");  
+  test.assertCmd("drop jumpsuit", "You drop the jumpsuit.");
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(["Examine", "Sit on", "Lie on"], w.bed.getVerbs())
@@ -1797,9 +1797,9 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("use bed", "You lie down on the bed.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
-  test.assertCmd("d", ["You get off the bed.", "You head down.", "The lounge", "A smelly room with an old settee and a tv. There is a tatty rug on the floor.", "You can see a book, some boots, seven bricks, a canteen, a cardboard box, a coin, a flashlight, a garage key, a glass cabinet (containing a jewellery box (containing a ring) and an ornate doll), Kyle (wearing a straw boater) and a small key here.", "You can go east, south, up or west.",]);  
+  test.assertCmd("d", ["You get off the bed.", "You head down.", "The lounge", "A smelly room with an old settee and a tv. There is a tatty rug on the floor.", "You can see a book, some boots, seven bricks, a canteen, a cardboard box, a coin, a flashlight, a garage key, a glass cabinet (containing a jewellery box (containing a ring) and an ornate doll), Kyle (wearing a straw boater) and a small key here.", "You can go east, south, up or west.",]);
 
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("say");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -1855,20 +1855,20 @@ test.tests = function() {
   test.assertCmd("talk to chair", 'You chat to the chair for a few moments, before releasing that it is not about to reply.')
 
 
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
   w.Kyle.loc = "lounge"
 
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("NPC topics");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertError' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertError(/Trying to find topic/, function() {w.Lara.findTopic("What's the deal with the garden?")})
+  test.assertError(/Trying to find topic/, function () { w.Lara.findTopic("What's the deal with the garden?") })
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(1, w.Kyle.findTopic("What's the deal with the garden?").nowShow.length)
-  
-  
-  
+
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("NPC commands 1");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -1889,24 +1889,24 @@ test.tests = function() {
   test.assertCmd("lara,stand up", "Lara gets off the chair.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("lara,sit on chair", ["Lara sits on the chair.", "The chair makes a strange noise when Lara sits on it."]);
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
-  test.assertCmd("l", ["The dining room", "An old-fashioned room.", "You can see a brick, a chair, a glass cabinet (containing a jewellery box (containing a ring) and an ornate doll) and Lara (sitting on the chair) here.", "You can go east, up or west.",]);  
-  
+  test.assertCmd("l", ["The dining room", "An old-fashioned room.", "You can see a brick, a chair, a glass cabinet (containing a jewellery box (containing a ring) and an ornate doll) and Lara (sitting on the chair) here.", "You can go east, up or west.",]);
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("NPC commands 1.1");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Lara' does not exist on type '{}'.
-  w.Lara.testPosture = function() { msg("She is turned to stone."); return false; }
+  w.Lara.testPosture = function () { msg("She is turned to stone."); return false; }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("lara, get off chair", "She is turned to stone.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Lara' does not exist on type '{}'.
-  w.Lara.testPosture = function() { return true; }
+  w.Lara.testPosture = function () { return true; }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("lara, get off chair", "Lara gets off the chair.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("lara,sit on chair", ["Lara sits on the chair.", "The chair makes a strange noise when Lara sits on it."]);
-  
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("lara,e", ["Lara gets off the chair.", "Lara leaves the dining room, heading east."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -1915,13 +1915,13 @@ test.tests = function() {
   test.assertCmd("lara,get boots", "Lara takes the boots.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("lara,wear boots", "'I'm not doing that!' says Lara indignantly.");
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("lara,drop boots", "Lara drops the boots.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("lara,w", "Lara leaves the lounge, heading west.");
-  
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("NPC commands 2");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -1994,7 +1994,7 @@ test.tests = function() {
   test.assertCmd("kyle, go e", "Kyle leaves the lounge, heading east.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("kyle, get torch", "There doesn't seem to be anything you might call 'kyle' here.")
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("get torch", "You take the flashlight.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -2005,9 +2005,9 @@ test.tests = function() {
   test.assertCmd("kyle,n", "Kyle tries the door to the garage, but it is locked.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("kyle,get all", ["Kyle takes the clock.", "Trapdoor: He can't take it.", "Kyle takes the camera.", "Big kitchen table: He can't take it.", "Kyle takes the jug."]);
- 
-  
-  
+
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("kyle, drop picture box", "Kyle drops the camera.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -2022,15 +2022,15 @@ test.tests = function() {
   test.assertCmd("open garage", ["You unlock the garage door.", "You open the garage door."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("n", ["The garage", "An empty garage.", /You can see/, "You can go south."]);
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("x charger", "A device bigger than a washing machine to charge a torch? It has a compartment and a button. The compartment is closed.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("push button", "You push the button, but nothing happens.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("put torch in compartment", "The compartment is closed.");
-  
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("x compartment", "The compartment is just the right size for the torch. It is closed.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -2045,7 +2045,7 @@ test.tests = function() {
   test.assertCmd("put key in compartment", "The compartment is full.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("x charger", "A device bigger than a washing machine to charge a torch? It has a compartment and a button. The compartment contains a flashlight.");
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("push button", "You push the button, but nothing happens.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -2056,7 +2056,7 @@ test.tests = function() {
   test.assertCmd("get torch", "There doesn't seem to be anything you might call 'torch' here.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("open compartment", "You open the compartment. Inside it you can see a flashlight.");
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("get torch", "You take the flashlight.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -2069,10 +2069,10 @@ test.tests = function() {
   test.assertCmd("push button", "There is a loud bang, and the knife is destroyed.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("open compartment", "You open the compartment. It is empty.");
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("x charger", "A device bigger than a washing machine to charge a torch? It has a compartment and a button. The compartment is empty.")
-  
+
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Clone");
@@ -2102,7 +2102,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(w.book.examine, clone2.examine);
 
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Save/Load 0");
 
@@ -2189,8 +2189,8 @@ test.tests = function() {
   test.assertEqual(undefined, w.boots.special_att_2)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual('three', w.boots.special_att_3)
-  
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Save/Load 2");
   // Set up some changes to be saved
@@ -2229,9 +2229,9 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'far_away' does not exist on type '{}'.
   w.far_away.north.locked = true
   saveLoad.loadTheWorld(s, 4)
-  
 
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(count + 2, Object.keys(w).length)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -2250,8 +2250,8 @@ test.tests = function() {
   test.assertEqual(0, w.Arthur.followers.length)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(29, w[clone.name].cloneCounter)
-  
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Save/Load 3")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'usedStrings' does not exist on type '{ t... Remove this comment to see the full error message
@@ -2262,9 +2262,9 @@ test.tests = function() {
   tp.setLoadString(tps)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(['One', 'Two'], tp.usedStrings)
- 
 
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Path finding");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -2281,16 +2281,16 @@ test.tests = function() {
   test.assertEqual("east", w.dining_room.findExit(w.lounge).dir);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("s", ["The kitchen", "A clean room. There is a sink in the corner.", /You can see/, "You can go down, north or west."])
-  
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("w", ["You head west.", "The lounge", "A smelly room with an old settee and a tv. There is a tatty rug on the floor.", /^You can see/, "You can go east, south, up or west."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("s", ["You head south.", "The conservatory", "A light airy room.", /You can see/, "You can go north or west."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("w", ["You head west.", "The garden", "Very overgrown. The garden opens onto a road to the west, whilst the conservatory is east. There is a hook on the wall.", "You can see Arthur here.", "You can go east or west."]);
-  
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Agendas");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -2311,41 +2311,41 @@ test.tests = function() {
   test.assertCmd("e", ["You head east.", "The conservatory", "A light airy room.", /You can see/, "You can go north or west."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(0, w.Arthur.followers.length);
-  
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("z", ["Time passes...", "Arthur enters the conservatory from the west."]);
-  
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("n", ["You head north.", "The lounge", "A smelly room with an old settee and a tv. There is a tatty rug on the floor.", /^You can see/, "You can go east, south, up or west.", "Arthur enters the lounge from the south."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
-  test.assertCmd("w", ["You head west.", "The dining room", "An old-fashioned room.", /^You can see/, "You can go east, up or west.", "Arthur enters the dining room from the east.", "'Hi, Lara,' says Arthur. 'Come look at the garden.'"]);  
+  test.assertCmd("w", ["You head west.", "The dining room", "An old-fashioned room.", /^You can see/, "You can go east, up or west.", "Arthur enters the dining room from the east.", "'Hi, Lara,' says Arthur. 'Come look at the garden.'"]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(0, w.Arthur.followers.length);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("z", ["Time passes...", "'Sure,' says Lara."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(1, w.Arthur.followers.length);
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("z", ["Time passes...", "Arthur and Lara leave the dining room, heading east."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("z", ["Time passes..."]);
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("z", ["Time passes...", "Through the window you can see Arthur and Lara enter the garden from the east.", "Through the window you see Arthur say something to Lara."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("z", ["Time passes...", "You notice Lara is smelling the flowers in the garden."]);
-  
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Transit");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("w", ["You head west.", "The lift", "A curious lift.", "You can go east."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("push button: g", ["You're already there mate!"]);
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("dining_room", w.lift.getTransitDestLocation().name)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -2361,7 +2361,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("w", ["You head west.", "The lift", "A curious lift.", "You can go east."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'lift' does not exist on type '{}'.
-  w.lift.afterTransitMove = function(toLoc: any, fromLoc: any) { msg("MOVING to " + toLoc + " from " + fromLoc); };
+  w.lift.afterTransitMove = function (toLoc: any, fromLoc: any) { msg("MOVING to " + toLoc + " from " + fromLoc); };
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("push 1", ["You press the button; nothing happens."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -2371,7 +2371,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("e", ["You head east.", "The dining room", "An old-fashioned room.", /^You can see/, "You can go east, up or west."])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'lift' does not exist on type '{}'.
-  w.lift.testTransit = function() {
+  w.lift.testTransit = function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("The lift is out of order");
     return false;
@@ -2382,8 +2382,8 @@ test.tests = function() {
   w.lift.afterEnter = w.lift.transitOfferMenu;
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("w", ["You head west.", "The lift", "A curious lift.", "You can go east.", "The lift is out of order", "The dining room", "An old-fashioned room.", "You can see a brick, a chair and a glass cabinet (containing a jewellery box (containing a ring) and an ornate doll) here.", "You can go east, up or west."]);
-  
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Push");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -2395,7 +2395,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("push chair s", "It is not something you can move around like that.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'broken_chair' does not exist on type '{}... Remove this comment to see the full error message
-  w.broken_chair.shift = function() { msg("You try to push chair, but it just breaks even more."); return false; }
+  w.broken_chair.shift = function () { msg("You try to push chair, but it just breaks even more."); return false; }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'broken_chair' does not exist on type '{}... Remove this comment to see the full error message
   w.broken_chair.shiftable = true;
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -2404,8 +2404,8 @@ test.tests = function() {
   test.assertCmd("push crate s", "You can't go south.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("push crate w", "You push the crate west.");
-  
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("ensemble");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'movePlayer' does not exist on type '{}'.
@@ -2420,7 +2420,7 @@ test.tests = function() {
   test.assertCmd("i", ["You are carrying a flashlight, a garage key and some suit trousers."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("get jacket, waistcoat", ["You take the jacket.", "You take the waistcoat."]);
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("i", ["You are carrying a flashlight, a garage key and a suit."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -2445,8 +2445,8 @@ test.tests = function() {
   test.assertCmd("wear jacket", ["You put on the jacket."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("i", ["You are carrying a flashlight, a garage key and a suit (worn)."]);
-  
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("pre-rope");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -2455,7 +2455,7 @@ test.tests = function() {
   test.assertCmd("d", ["You head down.", "The lounge", "A smelly room with an old settee and a tv. There is a tatty rug on the floor.", "You can see a book, a book, a book, seven bricks, a canteen, a cardboard box (containing some boots), a coin, a glass cabinet (containing a jewellery box (containing a ring) and an ornate doll) and a small key here.", "You can go east, south, up or west."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("s", ["You head south.", "The conservatory", "A light airy room.", "You can see a broken chair and a rope here.", "You can go north or west."]);
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("rope - room one");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -2472,12 +2472,12 @@ test.tests = function() {
   test.assertCmd("x rope", ['The rope is about 40\' long.'])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("tie rope to chair", ["You attach the rope to the broken chair."])
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(['conservatory', 'Buddy'], w.rope.locs)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("x rope", ["The rope is about 40' long. One end is tied to the broken chair. The other end is held by you."])
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("tie rope to chair", ["It already is."])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -2565,17 +2565,17 @@ test.tests = function() {
   test.assertCmd("drop rope", ["You drop the rope."])
 
 
-  
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Get all (nothing)");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("w", ["You head west.", "The road", "A road heading west over a bridge. You can see a shop to the north.", "You can go east, north or west."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("get all", "Nothing there to do that with.");
-  
-  
-  
+
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Buddy' does not exist on type '{}'.
   w.Buddy.money = 20
 
@@ -2594,7 +2594,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("You see $0,12", processText("You see {$:12}"))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("The carrot is $0,02", processText("{nm:item:the:true} is {$:item}", {item:w.carrot}))
+  test.assertEqual("The carrot is $0,02", processText("{nm:item:the:true} is {$:item}", { item: w.carrot }))
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("shop - buy");
@@ -2606,9 +2606,9 @@ test.tests = function() {
   test.assertEqual(undefined, parser.isForSale(w.flashlight))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("buy carrot", ["You buy the carrot for $0,02."]);
-  
 
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(false, parser.isForSale(w.carrot0))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -2634,10 +2634,10 @@ test.tests = function() {
   test.assertCmd("buy carrot", ["You can't afford the carrot (need $0,02)."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(1, w.Buddy.money)
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'carrot0' does not exist on type '{}'.
   w.carrot0.loc = false
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("shop - sell");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -2659,7 +2659,7 @@ test.tests = function() {
   w.shop.sellingDiscount = 20
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(12, w.trophy.getBuyingPrice(w.Buddy))
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("buy trophy", ["You buy the trophy for $0,12."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -2670,7 +2670,7 @@ test.tests = function() {
   test.assertCmd("sell trophy", ["You sell the trophy for $0,12."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(20, w.Buddy.money)
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("the zone - visible barrier and simple exit");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -2680,23 +2680,23 @@ test.tests = function() {
   // Takes us to 5,0
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("w", ["You head west.", "The desert", "You are standing on a road heading west through a desert, and east over a bridge. There is a deep canyon southeast of you, running from the southwest to the northeast.", "You can go east, north, northeast, northwest, southwest or west."]);
-   
-  
-    // Takes us to 4,0  
+
+
+  // Takes us to 4,0  
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("w", ["You head west.", "The desert", "You are standing on a road running east to west through a desert. There is a deep canyon southeast of you, running from the southwest to the northeast.", "You can go east, north, northeast, northwest, south, southwest or west."]);
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("drop carrot", ["You drop the carrot."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("look", ["The desert", "You are standing on a road running east to west through a desert. There is a deep canyon southeast of you, running from the southwest to the northeast.", "You can see a carrot here.", "You can go east, north, northeast, northwest, south, southwest or west."]);
-  
-  
+
+
   // Takes us to 4,-1
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("s", ["You head south.", "The desert", "You are standing in the desert, south of the road. There is a deep canyon southeast of you, running from the southwest to the northeast.", "You can go north, northeast, northwest, southwest or west."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
-  test.assertCmd("s", ["You can't go south."]);  
+  test.assertCmd("s", ["You can't go south."]);
   // Takes us to 4,0  
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("n", ["You head north.", "The desert", "You are standing on a road running east to west through a desert. There is a deep canyon southeast of you, running from the southwest to the northeast.", "You can see a carrot here.", "You can go east, north, northeast, northwest, south, southwest or west."]);
@@ -2708,8 +2708,8 @@ test.tests = function() {
   // Takes us to 5,0
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("w", ["You head west.", "The desert", "You are standing on a road heading west through a desert, and east over a bridge. There is a deep canyon southeast of you, running from the southwest to the northeast.", "You can go east, north, northeast, northwest, southwest or west."]);
-  
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("the zone - features");
   // 1. Takes us to 4,0  
@@ -2742,8 +2742,8 @@ test.tests = function() {
   // 10. Takes us to 1,6
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("n", ["You head north.", "The desert", "You are standing in the desert, north of the road. There is a tower to the southwest.", "You can go east, north, northeast, northwest, south, southeast, southwest or west."]);
-  
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("the zone - invisible border");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -2754,8 +2754,8 @@ test.tests = function() {
   test.assertCmd("n", ["You try to head north, but hit an invisible barrier."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("x barrier", ["It is invisible!"]);
-  
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("the zone - exits again");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -2770,7 +2770,7 @@ test.tests = function() {
   test.assertCmd("s", ["You head south.", "The desert", "You are standing in the desert, north of the road. There is a tall stone tower here.", "You can go east, in, north, northeast, northwest, south, southeast, southwest or west."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("in", ["You step inside the tower, and climb the step, spiral staircase to the top.", "Inside the tower", "A tower, looking out over the desert. To the south is the road, heading east back to your house. To the north is a magic portal, going who knows where.", "You can go down or north."]);
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("n", ["You head north.", "The shop", "A funny little shop.", "You can go south."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -2780,10 +2780,10 @@ test.tests = function() {
   // Takes us to 5,0
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("w", ["You head west.", "The desert", "You are standing on a road heading west through a desert, and east over a bridge. There is a deep canyon southeast of you, running from the southwest to the northeast.", "You can go east, north, northeast, northwest, southwest or west."]);
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("w", ["You head west.", "The desert", "You are standing on a road running east to west through a desert. There is a deep canyon southeast of you, running from the southwest to the northeast.", "You can see a carrot here.", "You can go east, north, northeast, northwest, south, southwest or west."]);
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("get carrot", ["You take the carrot."])
 
@@ -2798,15 +2798,15 @@ test.tests = function() {
   test.assertCmd("e", ["You head east.", "The road", "A road heading west over a bridge. You can see a shop to the north.", "You can go east, north or west."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("drop carrot", ["You drop the carrot."])
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("changing POV")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'changePOV' does not exist on type '{}'.
   util.changePOV(w.piggy_suu)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("l", ["The bridge", "From the bridge you can just how deep the canyon is.", "You can go east or west."])
-  
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("e", ["You head east.", "The road", "A road heading west over a bridge. You can see a shop to the north.", "You can see Buddy (holding a flashlight and a garage key; wearing a suit) and a carrot here.", "You can go east, north or west."])
 
@@ -2814,7 +2814,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("agenda follower")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'timetable' does not exist on type '{}'.
-  w.timetable.setAgenda(['wait', 'run:script','wait:2', 'run:script:2', 'waitFor:check', 'run:script:3', 'waitFor:check:script:5'])
+  w.timetable.setAgenda(['wait', 'run:script', 'wait:2', 'run:script:2', 'waitFor:check', 'run:script:3', 'waitFor:check:script:5'])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(0, w.timetable.counter)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -2898,7 +2898,7 @@ test.tests = function() {
   test.assertCmd("get jug", ["You take the jug."])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("get canteen", ["You take the canteen."])
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("fill jug with tears", ["I don't know of a liquid (or similar substance) called tears."])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -2931,17 +2931,17 @@ test.tests = function() {
   test.assertCmd("pour water into jug", ["You empty the canteen into the jug."])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("empty jug", ["You empty the jug onto the ground, and it soaks away."])
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'canteen' does not exist on type '{}'.
   w.canteen.containedFluidName = 'honey'
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("fill jug with honey", ["You empty the canteen into the jug."])
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("put jug in canteen", ["The canteen is not a container. It is a vessel, they are different, alright?"])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("put water in canteen", ["You fill the canteen."])
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'honey_pot' does not exist on type '{}'.
   w.honey_pot.loc = 'kitchen'
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'canteen' does not exist on type '{}'.
@@ -2955,7 +2955,7 @@ test.tests = function() {
   // the honey pot is NOT a source of honey, so this is right
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("put honey in canteen", ["There's no honey here."])
-  
+
 
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
@@ -3112,23 +3112,23 @@ test.tests = function() {
 
 
 
-/*
-  test.title("quests")
-  test.assertCmd("talk to buddy", ["'Hey, Buddy,' you say.", "'Hey yourself! Say, could you get me a carrot?'","Quest started: <i>A carrot for Buddy</i>", "Go find a carrot."])
-  let res = quest.getState('A carrot for Buddy', w.Buddy)
-  test.assertEqual(0, res.progress)
-  test.assertEqual(quest.ACTIVE, res.state)
-  
-*/  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  /*
+    test.title("quests")
+    test.assertCmd("talk to buddy", ["'Hey, Buddy,' you say.", "'Hey yourself! Say, could you get me a carrot?'","Quest started: <i>A carrot for Buddy</i>", "Go find a carrot."])
+    let res = quest.getState('A carrot for Buddy', w.Buddy)
+    test.assertEqual(0, res.progress)
+    test.assertEqual(quest.ACTIVE, res.state)
+    
+  */
+
+
+
+
+
+
+
+
+
   /* */
   //this.check_lang = true
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'check_lang' does not exist on type '{}'.
@@ -3204,9 +3204,9 @@ test.tests = function() {
       console.log(el)
       countOutstanding++
     }
-    console.log(countOutstanding + '/' + (countOutstanding+countDone))
+    console.log(countOutstanding + '/' + (countOutstanding + countDone))
   }
-  
-  
-  
+
+
+
 }

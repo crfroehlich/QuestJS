@@ -3,14 +3,14 @@
 
 
 register('medieval', {
-  book:'Hamlet',
-  uniform:'a startling blue and red uniform that is especially uncomfortable',
-  smell:'The room does not smell good; there is a definitely odour of dung.',
-  listen:'Mandy can hear nothing.',
-  floor:"The floor is rough wood.",
-  walls:"The walls are all rough-cut stone.",
-  door:"The door is wood; panelled and unpainted.",
-  ceiling:"The ceiling is wood, like the floor, supported by thick beams.",
+  book: 'Hamlet',
+  uniform: 'a startling blue and red uniform that is especially uncomfortable',
+  smell: 'The room does not smell good; there is a definitely odour of dung.',
+  listen: 'Mandy can hear nothing.',
+  floor: "The floor is rough wood.",
+  walls: "The walls are all rough-cut stone.",
+  door: "The door is wood; panelled and unpainted.",
+  ceiling: "The ceiling is wood, like the floor, supported by thick beams.",
 })
 
 
@@ -19,47 +19,49 @@ register('medieval', {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("great_gallery", {
-  windowsface:'north',
+  windowsface: 'north',
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  examine_ceiling:function() { msg("The stone bricks of the walls curve over to form a vaulted roof to the room.") },
-  desc:"The great gallery is a wooden platform that overlooks the great hall, running along the north and east sides of it. A wide flight of wooden stairs leads back down to the hall, while a narrow spiral staircase goes further upwards. The walls are of rough-cut stone. There is a rather low doorway north, and further exits east, south and west.{if:spike:alias:mangled metal: There is a black line running from the observatory, down to the Great Hall.}",
+  examine_ceiling: function () { msg("The stone bricks of the walls curve over to form a vaulted roof to the room.") },
+  desc: "The great gallery is a wooden platform that overlooks the great hall, running along the north and east sides of it. A wide flight of wooden stairs leads back down to the hall, while a narrow spiral staircase goes further upwards. The walls are of rough-cut stone. There is a rather low doorway north, and further exits east, south and west.{if:spike:alias:mangled metal: There is a black line running from the observatory, down to the Great Hall.}",
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  down:new Exit("great_hall"),
+  down: new Exit("great_hall"),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  south:new Exit("solar"),
+  south: new Exit("solar"),
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  north:new Exit("nursery", {msg:'Mandy has to stoop to get through the narrow door to the north.'}),
+  north: new Exit("nursery", { msg: 'Mandy has to stoop to get through the narrow door to the north.' }),
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  east:new Exit("brass_dining_room", {simpleUse:function(char: any) {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'brass_dining_room' does not exist on typ... Remove this comment to see the full error message
-    if (w.brass_dining_room.blocked()) return falsemsg("Mandy starts heading east, but the dining room is now so full of mannequins, she cannot get into it.")
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSimpleExitUse' does not exist on ... Remove this comment to see the full error message
-    return util.defaultSimpleExitUse(char, this)
-  }}),
+  east: new Exit("brass_dining_room", {
+    simpleUse: function (char: any) {
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'brass_dining_room' does not exist on typ... Remove this comment to see the full error message
+      if (w.brass_dining_room.blocked()) return falsemsg("Mandy starts heading east, but the dining room is now so full of mannequins, she cannot get into it.")
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSimpleExitUse' does not exist on ... Remove this comment to see the full error message
+      return util.defaultSimpleExitUse(char, this)
+    }
+  }),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  up:new Exit("observatory"),
+  up: new Exit("observatory"),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  west:new Exit("greenhouse_catwalk_east"),
-  afterEnter:function() {
+  west: new Exit("greenhouse_catwalk_east"),
+  afterEnter: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'uniform' does not exist on type '{}'.
-    if (w.uniform.wet === 4) { 
+    if (w.uniform.wet === 4) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'uniform' does not exist on type '{}'.
       w.uniform.wet = 2
     }
   },
-  scenery:[
-    { alias:['balustrade', 'banister', 'handrail'], examine:'A study, but rough-cut balustrade runs the length of the gallery.'},
-    { alias:'stairs', examine:'The stairs look old and well-used.'},
+  scenery: [
+    { alias: ['balustrade', 'banister', 'handrail'], examine: 'A study, but rough-cut balustrade runs the length of the gallery.' },
+    { alias: 'stairs', examine: 'The stairs look old and well-used.' },
   ],
-  silverSighting:{
-    8:'Mandy sees a silver figure in the great hall below her. It seems to be sniffing the floor, but then it looks up at Mandy, skitters away, heading west.',
-    14:'Mandy can see another silver figure on the floor below. Again it seems to be studying the floor, before running off.',
+  silverSighting: {
+    8: 'Mandy sees a silver figure in the great hall below her. It seems to be sniffing the floor, but then it looks up at Mandy, skitters away, heading west.',
+    14: 'Mandy can see another silver figure on the floor below. Again it seems to be studying the floor, before running off.',
   },
   // @ts-expect-error ts-migrate(1117) FIXME: An object literal cannot have multiple properties ... Remove this comment to see the full error message
   afterEnter() {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     if (this.silverSighting[this.visited % 15]) msg(this.silverSighting[this.visited % 15])
-  },   
+  },
 })
 
 
@@ -67,18 +69,18 @@ createRoom("great_gallery", {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("great_hall", {
-  windowsface:'north',
-  desc:"The great hall is an impressive size. It looks older than the rest of the house, a lot older, being built of rough-cut stone. There are large double doors to the west, and a wooden staircase leads up to a wooden gallery that runs along the west side of the hall. To the south, a doorway leads to a flight of steps heading downwards.{if:spike:alias:mangled metal: There is a black line running from the gallery, down to the lab.}",
+  windowsface: 'north',
+  desc: "The great hall is an impressive size. It looks older than the rest of the house, a lot older, being built of rough-cut stone. There are large double doors to the west, and a wooden staircase leads up to a wooden gallery that runs along the west side of the hall. To the south, a doorway leads to a flight of steps heading downwards.{if:spike:alias:mangled metal: There is a black line running from the gallery, down to the lab.}",
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  examine_ceiling:function() { msg("The stone bricks of the walls curve over to form a vaulted roof to the room, up above the gallery.") },
+  examine_ceiling: function () { msg("The stone bricks of the walls curve over to form a vaulted roof to the room, up above the gallery.") },
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  up:new Exit("great_gallery"),
+  up: new Exit("great_gallery"),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  down:new Exit("mad_science_lab"),
+  down: new Exit("mad_science_lab"),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  south:new Exit("mad_science_lab"),
+  south: new Exit("mad_science_lab"),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  west:new Exit("greenhouse_east"),
+  west: new Exit("greenhouse_east"),
   afterEnter(exit: any) {
     if (this.visited === 9) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'greenhouse_east' does not exist on type ... Remove this comment to see the full error message
@@ -91,25 +93,25 @@ createRoom("great_hall", {
         msg("Mandy sees a flash of silver as a figure darts out the doors at the other end of the room, heading into the greenhouse.")
       }
     }
-  },   
+  },
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("great_hall_floor", {
-  scenery:true,
-  alias:"floor",
-  loc:"great_hall",
-  synonyms:["ground",'flagstones'],
-  examine:function() { 
+  scenery: true,
+  alias: "floor",
+  loc: "great_hall",
+  synonyms: ["ground", 'flagstones'],
+  examine: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("The floor is composed of flagstones, of the same mid-grey as the walls. It looks a little uneven in places.") 
+    msg("The floor is composed of flagstones, of the same mid-grey as the walls. It looks a little uneven in places.")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'great_gallery' does not exist on type '{... Remove this comment to see the full error message
     if (w.great_gallery.visited > 7) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       msg("Remembering the interest the silver figure had in the floor, Mandy examines that patch of it especially well, but it looks as boring as the rest.")
     }
   },
-  smell:function() { 
+  smell: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'great_gallery' does not exist on type '{... Remove this comment to see the full error message
     if (w.great_gallery.visited > 7) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -127,32 +129,32 @@ createItem("great_hall_floor", {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("solar", {
-  windowsface:'south',
-  desc:"The solar. Mandy knows the name from history class; this is where the lord of the castle would sleep. None too comfortable to Mandy's eyes, but possibly the height of luxury a thousand years ago. A large bed, crudely built of wood; a tapestry hung from one wall{if:chamber_pot:scenery:; a chamber pot under the bed}.",
+  windowsface: 'south',
+  desc: "The solar. Mandy knows the name from history class; this is where the lord of the castle would sleep. None too comfortable to Mandy's eyes, but possibly the height of luxury a thousand years ago. A large bed, crudely built of wood; a tapestry hung from one wall{if:chamber_pot:scenery:; a chamber pot under the bed}.",
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  north:new Exit("great_gallery"),
-  scenery:[
-    {alias:'bed', examine:'The bed is a four-poster, but not ornate at all, and surprisingly small; probably a bit wider than her own bed, but not as long.'},
-    {alias:'tapestry', examine:'The tapestry has a rather impressive image of a knight fighting a dragon, though time has muted the colours.'},  
+  north: new Exit("great_gallery"),
+  scenery: [
+    { alias: 'bed', examine: 'The bed is a four-poster, but not ornate at all, and surprisingly small; probably a bit wider than her own bed, but not as long.' },
+    { alias: 'tapestry', examine: 'The tapestry has a rather impressive image of a knight fighting a dragon, though time has muted the colours.' },
   ],
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
 createItem("chamber_pot", SIZE_CHANGING(), VESSEL(), {
-  loc:"solar",
-  synonyms:['chamberpot'],
-  scenery:true,
-  underLeakState:0,
-  underLeak:false,
-  underTree:false,
-  flipped:false,
-  msgTake:"Mandy takes the chamber pot, trying desperately not to think about what it has been used for. At least it is empty...",
-  desc5:'A chamber pot, useful for... something?{chamber_pot}',
-  desc4:'A tiny chamber pot, probably not useful for anything.{chamber_pot}',
-  desc6:'A huge chamber pot, useful for... She decides she would rather not think about that!{chamber_pot}',
-  desc7:'An enormous chamber pot, almost big enough to use as a boat!{chamber_pot}',
-  desc8:'A gigantic chamber pot; it is probable as big as her bedroom inside.',
-  testFill:function(options: any) {
+  loc: "solar",
+  synonyms: ['chamberpot'],
+  scenery: true,
+  underLeakState: 0,
+  underLeak: false,
+  underTree: false,
+  flipped: false,
+  msgTake: "Mandy takes the chamber pot, trying desperately not to think about what it has been used for. At least it is empty...",
+  desc5: 'A chamber pot, useful for... something?{chamber_pot}',
+  desc4: 'A tiny chamber pot, probably not useful for anything.{chamber_pot}',
+  desc6: 'A huge chamber pot, useful for... She decides she would rather not think about that!{chamber_pot}',
+  desc7: 'An enormous chamber pot, almost big enough to use as a boat!{chamber_pot}',
+  desc8: 'A gigantic chamber pot; it is probable as big as her bedroom inside.',
+  testFill: function (options: any) {
     if (this.size > 5) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       msg("Mandy thinks about filling the chamber pot with " + options.fluid + ", but it is so big, she would never be able to lift it.")
@@ -172,34 +174,34 @@ createItem("chamber_pot", SIZE_CHANGING(), VESSEL(), {
     }
     return true
   },
-  nameModifierFunction:function(list: any) {
+  nameModifierFunction: function (list: any) {
     if (this.containedFluidName) list.push('full of ' + this.containedFluidName)
   },
-  testCarry:function() {
-    if (this.loc === player.name && this.size === 7 && this.containedFluidName) return falsemsg('Mandy starts to the door, but the weight of the enormous chamber pot full of {show:fluid} is just too much for her to lug around.', {fluid:this.containedFluidName})
+  testCarry: function () {
+    if (this.loc === player.name && this.size === 7 && this.containedFluidName) return falsemsg('Mandy starts to the door, but the weight of the enormous chamber pot full of {show:fluid} is just too much for her to lug around.', { fluid: this.containedFluidName })
     return true
   },
-  afterMove:function() {
+  afterMove: function () {
     this.msgTake = lang.take_successful
     this.underLeak = false
     this.underTree = false
     this.flipped = false
   },
-  use:function() {
+  use: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("Mandy looks at the chamber pot. She could actually do with a wee, but the thought of using that... No, she can wait.")
   },
-  eventPeriod:1,
-  eventIsActive:function() {
+  eventPeriod: 1,
+  eventIsActive: function () {
     return this.underLeak
   },
-  eventScript:function() { 
+  eventScript: function () {
     this.underLeakState++
     if (this.underLeakState > 20) this.containedFluidName = "water"
   }
 })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
-tp.addDirective("chamber_pot", function(arr: any, params: any) {
+tp.addDirective("chamber_pot", function (arr: any, params: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
   if (w.chamber_pot.underLeakState > 0) return ' It has a tiny bit of oily water in it.'
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
@@ -215,24 +217,24 @@ tp.addDirective("chamber_pot", function(arr: any, params: any) {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("mad_science_lab", {
-  windowsface:'none',
-  alias:"mad science laboratory",
-  smell:function() { 
+  windowsface: 'none',
+  alias: "mad science laboratory",
+  smell: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'spike' does not exist on type '{}'.
     if (w.spike.alias === 'mangled metal') {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("There is a strong smell burnt flesh -- disturbingly like barbecue -- and ozone.") 
+      msg("There is a strong smell burnt flesh -- disturbingly like barbecue -- and ozone.")
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy warily sniffs the air; it is not a pleasant smell. Acrid, a bit like vinegar, but not quite.") 
+      msg("Mandy warily sniffs the air; it is not a pleasant smell. Acrid, a bit like vinegar, but not quite.")
     }
   },
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  examine_floor:function() { msg("The floor is packed earth; there are patches that look darker, where something might have been spilt perhaps.") },
+  examine_floor: function () { msg("The floor is packed earth; there are patches that look darker, where something might have been spilt perhaps.") },
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  examine_ceiling:function() { msg("The stone bricks of the walls curve over to form a vaulted roof to the room.")},
-  desc:function() {
+  examine_ceiling: function () { msg("The stone bricks of the walls curve over to form a vaulted roof to the room.") },
+  desc: function () {
     let s = "This appears to be some kind of laboratory, though nothing like the ones at school. While they have their own distinctive smell, this room is "
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'spike' does not exist on type '{}'.
     s += w.spike.alias === 'mangled metal' ? 'altogether worse, with a strong smell of burnt rubber' : 'different, though Mandy is not sure what it is'
@@ -262,7 +264,7 @@ createRoom("mad_science_lab", {
     }
     return s
   },
-  afterEnter:function() {
+  afterEnter: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'wire' does not exist on type '{}'.
     if (w.wire.tiedTo2 === 'spike') {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -282,75 +284,75 @@ createRoom("mad_science_lab", {
     }
   },
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  up:new Exit("great_hall"),
+  up: new Exit("great_hall"),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  north:new Exit("great_hall"),
+  north: new Exit("great_hall"),
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
 createItem("stuffed_crocodile", TAKEABLE(), CONTAINER(true), { // cannot get taken to size change rooms
-  loc:"mad_science_lab",
-  scenery:true,
-  parserPriority:50,
-  examine:"The crocodile is a little over a metre long, and hanging from the ceiling on four wires. It looks like it is stuffed, and it is kind of creepy imagining that once it had been alive.{ifNot:stuffed_crocodile:closed: Its mouth is wide open, and one tooth {if:crocodile_tooth:loc:stuffed_crocodile:looks lose:is missing}.}",
-  testTake:function(options: any) {
+  loc: "mad_science_lab",
+  scenery: true,
+  parserPriority: 50,
+  examine: "The crocodile is a little over a metre long, and hanging from the ceiling on four wires. It looks like it is stuffed, and it is kind of creepy imagining that once it had been alive.{ifNot:stuffed_crocodile:closed: Its mouth is wide open, and one tooth {if:crocodile_tooth:loc:stuffed_crocodile:looks lose:is missing}.}",
+  testTake: function (options: any) {
     if (!this.scenery) return true
     if (options.char.postureFurniture === "mad_science_bench" && options.char.posture === "standing") {
       this.msgTake = 'Mandy can just about reach the crocodile from the bench. She reaches up, and gives it a good pull, yanking the fixing from the ceiling in a shower of dust.'
       return true
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
-    if (options.char !== w.Patch) return falsemsg('The crocodile is too high for {nm:char:the} to reach.', {char:options.char})
+    if (options.char !== w.Patch) return falsemsg('The crocodile is too high for {nm:char:the} to reach.', { char: options.char })
     return true
   },
-  msgTake:'Patch looks up at the crocodile for a moment. He reaches up, and gives it a good pull, yanking the fixing from the ceiling in a shower of dust.',
-  afterMove:function(options: any) {
+  msgTake: 'Patch looks up at the crocodile for a moment. He reaches up, and gives it a good pull, yanking the fixing from the ceiling in a shower of dust.',
+  afterMove: function (options: any) {
     this.msgTake = lang.take_successful
   },
-  testCarry:function(options: any) {
+  testCarry: function (options: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     if (options.char === player) return falsemsg("Mandy thinks about heading off... She hoists up the crocodile to get the better grip, but it is just too big! No way is she going anywhere whilst carrying this thing.")
   },
-  testDropIn:function(options: any) {
+  testDropIn: function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'crocodile_tooth' does not exist on type ... Remove this comment to see the full error message
     if (options.item === w.crocodile_tooth) return falsemsg("The tooth does not seem to want to go back into the crocodile's mouth. Mandy shrugs; no big deal.")
     falsemsg("Mandy contemplates putting {nm:item:the} in the mouth of the crocodile. People have handbags made out of crocodiles, right? It suddenly occurs to her that the crocodile will be skinned, and its leather used to make the bag, rather than putting things down the corpse's gullet.", options)
   },
-  testOpen:function(options: any) { return this.testTake(options) },
+  testOpen: function (options: any) { return this.testTake(options) },
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("crocodile_tooth", SIZE_CHANGING(), {
-  loc:"stuffed_crocodile",
-  sharp:true,
-  desc5:"The tooth is a couple of centimetres long, and very sharp.",
-  desc6:"The tooth is huge - about as long as Mandy's arm - and very sharp.",
-  testTake:function(options: any) {
+  loc: "stuffed_crocodile",
+  sharp: true,
+  desc5: "The tooth is a couple of centimetres long, and very sharp.",
+  desc6: "The tooth is huge - about as long as Mandy's arm - and very sharp.",
+  testTake: function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'stuffed_crocodile' does not exist on typ... Remove this comment to see the full error message
     if (this.loc !== "stuffed_crocodile" || !w.stuffed_crocodile.scenery) return true
     if (options.char.postureFurniture === "mad_science_bench" && options.char.posture === "standing") return true
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
-    if (options.char !== w.Patch && this.loc === "stuffed_crocodile" && w.stuffed_crocodile.scenery) return falsemsg('The crocodile is too high for {nm:char:the} to reach.', {char:options.char})
+    if (options.char !== w.Patch && this.loc === "stuffed_crocodile" && w.stuffed_crocodile.scenery) return falsemsg('The crocodile is too high for {nm:char:the} to reach.', { char: options.char })
     return true
   },
 })
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("mad_science_bench", FURNITURE({recline:true, sit:true, stand:true}), {
-  loc:"mad_science_lab",
-  synonyms:['table'],
-  scenery:true,
-  alias:"bench",
-  examine:"The wood of the bench has black rings and circles scorched into it, testament to years of use. Or perhaps a week of use by an inept experimenter, Mandy muses.",
-  take:'The bench is far to heavy for Mandy to pick up.',
-  testPostureOn:function(options: any) {
+createItem("mad_science_bench", FURNITURE({ recline: true, sit: true, stand: true }), {
+  loc: "mad_science_lab",
+  synonyms: ['table'],
+  scenery: true,
+  alias: "bench",
+  examine: "The wood of the bench has black rings and circles scorched into it, testament to years of use. Or perhaps a week of use by an inept experimenter, Mandy muses.",
+  take: 'The bench is far to heavy for Mandy to pick up.',
+  testPostureOn: function (options: any) {
     let phrase = ''
     if (options.posture === 'reclining') phrase = 'lying down'
     if (options.posture === 'sitting') phrase = 'sitting down'
     if (options.posture === 'standing') phrase = 'standing up on the bench'
     let s = "The thought of " + phrase + " next to a body assembled from numerous corpses makes Mandy feel sick."
-    
+
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'patchwork_body' does not exist on type '... Remove this comment to see the full error message
     if (w.patchwork_body.loc === "mad_science_lab") return falsemsg(s)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
@@ -361,38 +363,38 @@ createItem("mad_science_bench", FURNITURE({recline:true, sit:true, stand:true}),
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("patchwork_body", {
-  loc:"mad_science_lab",
-  alias:"patchwork body",
-  synonyms:['corpse'],
-  scenery:true,
-  state:0,
-  examine:function() {
+  loc: "mad_science_lab",
+  alias: "patchwork body",
+  synonyms: ['corpse'],
+  scenery: true,
+  state: 0,
+  examine: function () {
     this.state = 1
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("Mandy gingerly inspects the corpse on the table. It is naked, but nothing to suggest it is either male or female. Mandy decides she does not want to look too closely at {i:that} situation. As she looks closer, she can see stitch marks, and with a growing sense of nausea, she realises it is not a corpse, but the stitched together parts of {i:several} corpses.")
   },
-  take:'Mandy thinks about picking up the body... Not going to happen.',
-  shift:'Mandy thinks about shifting the body off the table. She would have to touch it to do that. And really, why would she want to?',
+  take: 'Mandy thinks about picking up the body... Not going to happen.',
+  shift: 'Mandy thinks about shifting the body off the table. She would have to touch it to do that. And really, why would she want to?',
 })
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("patchwork_body_stiches", COMPONENT("patchwork_body"), {
-  alias:"stitches",
-  synonyms:['marks', 'parts'],
-  examine:'Mandy looks closer at the stitching holding the patchwork body together. She has to acknowledge that the needlework is good quality - and presumably all done by hand. She remembers her own efforts at making oven gloves at school, and that was with a machine. Not good.',
+  alias: "stitches",
+  synonyms: ['marks', 'parts'],
+  examine: 'Mandy looks closer at the stitching holding the patchwork body together. She has to acknowledge that the needlework is good quality - and presumably all done by hand. She remembers her own efforts at making oven gloves at school, and that was with a machine. Not good.',
 })
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("Patch", NPC(false), {
-  alias:"animated corpse",
-  synonyms:['patch', 'patchwork body', 'animated corpse'],
-  state:0,
-  afterMove:function() { 
+  alias: "animated corpse",
+  synonyms: ['patch', 'patchwork body', 'animated corpse'],
+  state: 0,
+  afterMove: function () {
     this.huggingTree = false
     delete this.goUpDirection
   },
-  hug:"He might be made from a collection of disparate body parts, but there is something quite endearing about Patch. Mandy gives him a big hug, and he grins at her.",
-  examine:function() {
+  hug: "He might be made from a collection of disparate body parts, but there is something quite endearing about Patch. Mandy gives him a big hug, and he grins at her.",
+  examine: function () {
     let s
     if (this.state === 0) {
       s = "Mandy looks at the creature she bought to life. It is about two and a half metres tall, and very solidly built. Patches of it are hairy, other patches are dark skinned, some light skinned. Its face is not attractive, it too is a mishmash of parts. Mandy really does not want to know where all the parts came from. However, it needs a name... 'I'll call you Patch,' she says. It nods it head, possibly in acknowledgement."
@@ -412,81 +414,81 @@ createItem("Patch", NPC(false), {
     array.remove(held, w.boots)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'remove' does not exist on type '{}'.
     array.remove(held, w.boots_toe)
-    if (held.length > 0) s += ' He is holding ' + formatList(held, {article:INDEFINITE, lastJoiner:'and'}) + '.'
+    if (held.length > 0) s += ' He is holding ' + formatList(held, { article: INDEFINITE, lastJoiner: 'and' }) + '.'
     if (this.huggingTree) s += '|He is currently hugging a tree.'
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg(s)
   },
-  talktoOptions:[
+  talktoOptions: [
     "'So, do you come here often?' Mandy asks Patch. He gave no indication either way.",
     "'Tell me about yourself!' says Mandy to Patch. His silence suggested there is not much to tell. Or he is unable to talk.",
     "'Where now, do you think?' Mandy asks Patch. Patch seems as stumped as Mandy.",
   ],
-  kill:'Mandy contemplates killing Patch... Would it be murder, given he is made up of dead bodies anyway? And she game him life, so that must mean she has the right to take it away; she is sure she has heard people say that about God. On the other hand, if she did kill him, would that be considered a massacre, given he is made up all numerous bodies -- would she get blamed for killing all them? She decides it is not worth the legal nightmare that would ensue.',
-  talkto:function() {
+  kill: 'Mandy contemplates killing Patch... Would it be murder, given he is made up of dead bodies anyway? And she game him life, so that must mean she has the right to take it away; she is sure she has heard people say that about God. On the other hand, if she did kill him, would that be considered a massacre, given he is made up all numerous bodies -- would she get blamed for killing all them? She decides it is not worth the legal nightmare that would ensue.',
+  talkto: function () {
     if (this.state === 0) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg ("'I shall call you \"Patch\",' declares Mandy.")
+      msg("'I shall call you \"Patch\",' declares Mandy.")
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg ("The animated body seems to stand a little taller, Mandy thinks, proud to have a name.")
+      msg("The animated body seems to stand a little taller, Mandy thinks, proud to have a name.")
       this.setAlias("Patch")
       this.state = 1
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg(this.talktoOptions[random.int(2)])
+      msg(this.talktoOptions[Quest.Random.rndm.int(2)])
     }
     return true
   },
-  getAgreement:function() {
+  getAgreement: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
     if (w.boots.loc !== 'Patch') return falsemsg("Patch looks mournfully at his feet. His bare feet.")
     return true
   },
-  endFollow:function() {
+  endFollow: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg("'Wait here,' says Mandy to {nm:npc:the}.", {npc:this})
-    if (!this.leaderName) return falsemsg("{nv:npc:look:true} at Mandy in confusion.", {npc:this})
+    msg("'Wait here,' says Mandy to {nm:npc:the}.", { npc: this })
+    if (!this.leaderName) return falsemsg("{nv:npc:look:true} at Mandy in confusion.", { npc: this })
     this.setLeader()
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg("{nv:npc:nod:true} his head.", {npc:this})
+    msg("{nv:npc:nod:true} his head.", { npc: this })
     return true
   },
-  startFollow:function() {
+  startFollow: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg("'Follow me,' says Mandy to {nm:npc:the}.", {npc:this})
-    if (this.leaderName) return falsemsg("{nv:npc:look:true} at Mandy in confusion.", {npc:this})
+    msg("'Follow me,' says Mandy to {nm:npc:the}.", { npc: this })
+    if (this.leaderName) return falsemsg("{nv:npc:look:true} at Mandy in confusion.", { npc: this })
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
     if (w.boots.loc !== 'Patch') return falsemsg("Patch looks mournfully at his feet. His bare feet.")
-    
+
     this.setLeader(player)
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg("{nv:npc:nod:true} his head.", {npc:this})
+    msg("{nv:npc:nod:true} his head.", { npc: this })
     return true
   },
-  testFollowTo:function(room: any) {
+  testFollowTo: function (room: any) {
     if (room && !room.noFollow) return true
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("Mandy realises Patch is no longer following her.")
     this.setLeader()
     return false
   },
-  hasPod:function() {
+  hasPod: function () {
     const l = scopeHeldBy(this)
     for (const el of l) {
       if (el.name.startsWith('tamarind_pod_prototype')) return true
     }
     return false
   },
-  receiveItemsFailMsg:function(options: any) {
+  receiveItemsFailMsg: function (options: any) {
     options.item.loc = this.loc
     return falsemsg("Mandy gives {nm:item:the} to {nm:Patch:the}. {nv:Patch:look} at {sb:item} in confusion, before dropping {sb:item} to the floor.", options)
   },
-  receiveItems:[
+  receiveItems: [
     {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
-      item:w.boots,
-      f:function(options: any) {
+      item: w.boots,
+      f: function (options: any) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
         if (w.boots.size < 5) {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'loc' does not exist on type '{ item: any... Remove this comment to see the full error message
@@ -530,26 +532,26 @@ createItem("Patch", NPC(false), {
       },
     },
   ],
-  askOptions:[
+  askOptions: [
     { // boots
-      test:function(p: any) { return p.text.match(/boot/); },
-      script:function(p: any) {
+      test: function (p: any) { return p.text.match(/boot/); },
+      script: function (p: any) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'What's the big deal about the boots?' asks Mandy. Patch just stares at her.")
       }
     },
     {
-      test:function(p: any) { return true },
-      script:function(p: any) {
+      test: function (p: any) { return true },
+      script: function (p: any) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'Tell me about " + p.text + ",' says Mandy. Patch just stares at her")
       }
     },
   ],
-  tellOptions:[
+  tellOptions: [
     {
-      test:function(p: any) { return true },
-      script:function(p: any) {
+      test: function (p: any) { return true },
+      script: function (p: any) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("Mandy starts to tell Patch about " + p.text + ". He looks at her intensely, but she gets the feeling he has no idea what she is saying.")
       }
@@ -557,7 +559,7 @@ createItem("Patch", NPC(false), {
   ],
 })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
-w.Patch.nameModifierFunctions[0] = function(item: any, l: any) {
+w.Patch.nameModifierFunctions[0] = function (item: any, l: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
   if (w.boots.loc === 'Patch') l.push('wearing a pair of boots')
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
@@ -566,20 +568,20 @@ w.Patch.nameModifierFunctions[0] = function(item: any, l: any) {
   array.remove(held, w.boots)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'remove' does not exist on type '{}'.
   array.remove(held, w.boots_toe)
-  if (held.length > 0) l.push('holding ' + formatList(held, {article:INDEFINITE, lastJoiner:'and'}))
+  if (held.length > 0) l.push('holding ' + formatList(held, { article: INDEFINITE, lastJoiner: 'and' }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
   if (w.Patch.huggingTree) l.push('hugging a tree')
 }
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("strange_device", {
-  loc:"mad_science_lab",
-  alias:"strange device",
-  synonyms:['strange machine'],
-  scenery:true,
-  switchon:'Mandy tries to turn on the strange device, but there seems to be no power to it.',
-  switchoffn:'It is already off.',
-  examine:function() {
+  loc: "mad_science_lab",
+  alias: "strange device",
+  synonyms: ['strange machine'],
+  scenery: true,
+  switchon: 'Mandy tries to turn on the strange device, but there seems to be no power to it.',
+  switchoffn: 'It is already off.',
+  examine: function () {
     let s = "The machine at the head of the table is about a metre and a half tall; a wooden cabinet, with brass fittings. On the front are a series of dials and knobs. "
     let body
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'patchwork_body' does not exist on type '... Remove this comment to see the full error message
@@ -600,11 +602,11 @@ createItem("strange_device", {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'spike' does not exist on type '{}'.
     if (w.spike.alias === 'mangled metal') s += ' There is smoke coming from the back of it.'
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg(s, {item:body})
+    msg(s, { item: body })
   },
-  use:"Mandy gives the knobs on the strange device a twist, but nothing happens. She gives it a kick, but that is no more successful.",
-  attachable:true,
-  testAttach:function(options: any) {
+  use: "Mandy gives the knobs on the strange device a twist, but nothing happens. She gives it a kick, but that is no more successful.",
+  attachable: true,
+  testAttach: function (options: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     return falsemsg("Mandy thinks about attaching the wire to the the strange device... But the other end is already soldered to it, and she decides having one end fixed to it is enough.")
   },
@@ -612,36 +614,36 @@ createItem("strange_device", {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("device_controls", COMPONENT("strange_device"), {
-  scenery:true,
-  synonyms:['dials', 'knobs'],
-  examine:"There are three black knobs, each set to about half way between zero and ten. Each has a dial above, each reading exactly zero.",
-  parserPriority:-10,
-  use:function() {
+  scenery: true,
+  synonyms: ['dials', 'knobs'],
+  examine: "There are three black knobs, each set to about half way between zero and ten. Each has a dial above, each reading exactly zero.",
+  parserPriority: -10,
+  use: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("Mandy looks at the complicated controls on the strange device. She probably should not mess with them.")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("'Ah, what the hell...' She turns the knob on the left clockwise a bit, then a bit more. Then all of them as far as they can go, and then turns them all the other way as far as they can go. Nothing happens.")
     return false
   },
-  turn:function() { return this.use() },
-  attachable:true,
-  testAttach:function(options: any) {
+  turn: function () { return this.use() },
+  attachable: true,
+  testAttach: function (options: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     return falsemsg("Mandy thinks about attaching the wire to the the strange device... But the other end is already soldered to it, and she decides having one end fixed to it is enough.")
   },
 })
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("bolts", COMPONENT("strange_device"), {
-  synonyms:['pads', 'wires'],
-  examine:"There are twelve bolts on the strange device, in a row under the control panel. {ifExists:patchwork_body:loc:Each has a wire that runs to a pad on the patchwork body:Each has a wire dangling from it}.",
-  attachable:true,
-  rope:true,
-  parserPriority:15,
-  testAttach:function(options: any) {
+  synonyms: ['pads', 'wires'],
+  examine: "There are twelve bolts on the strange device, in a row under the control panel. {ifExists:patchwork_body:loc:Each has a wire that runs to a pad on the patchwork body:Each has a wire dangling from it}.",
+  attachable: true,
+  rope: true,
+  parserPriority: 15,
+  testAttach: function (options: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     return falsemsg("Mandy thinks about attaching the wire to the the strange device... But the other end is already soldered to it, and she decides having one end fixed to it is enough.")
   },
-  handleUntieFrom:function() {
+  handleUntieFrom: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     return failedmsg('Mandy thinks about detaching the wires, but decides to leave it alone. {ifExists:patchwork_body:loc:Just has a weird feeling it is important that they stay attached to the body:They are no use to her, and not doing any harm just dangling there}.')
   },
@@ -649,17 +651,17 @@ createItem("bolts", COMPONENT("strange_device"), {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("wire", ROPE(8, "strange_device"), {
-  loc:"mad_science_lab",
-  alias:"wire",
-  synonyms:['coil of wires', 'wires','cable'],
-  pronouns:lang.pronouns.massnoun,
-  indefArticle:'some',
-  scenery:true,
-  parserPriority:10,
-  msgUnwind:"The wire trails behind as Mandy unwinds it.",
-  msgWind:"Mandy coils up the wire.",
-  msgTake:"She takes the coil of wire.",
-  examine:function() {
+  loc: "mad_science_lab",
+  alias: "wire",
+  synonyms: ['coil of wires', 'wires', 'cable'],
+  pronouns: lang.pronouns.massnoun,
+  indefArticle: 'some',
+  scenery: true,
+  parserPriority: 10,
+  msgUnwind: "The wire trails behind as Mandy unwinds it.",
+  msgWind: "Mandy coils up the wire.",
+  msgTake: "She takes the coil of wire.",
+  examine: function () {
     let s = "The wire is about a millimetre thick, and "
     let length = this.locs.length
     if (this.isHeld()) length--
@@ -683,8 +685,8 @@ createItem("wire", ROPE(8, "strange_device"), {
     msg(s)
   },
 
-  suppessMsgs:true,
-  attachTo:function(char: any, item: any) {
+  suppessMsgs: true,
+  attachTo: function (char: any, item: any) {
     if (this.locs[this.locs.length - 1] === player.name) this.locs.pop()
     this.locs.push(item.name)
     this.tiedTo2 = item.name
@@ -693,7 +695,7 @@ createItem("wire", ROPE(8, "strange_device"), {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       msg("Mandy wraps the wire from the spindle around the letter E on the weather vane, then lets the spindle drop, happy that it is secure.")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'sky' does not exist on type '{}'.
-      if (w.sky.state < 5) { 
+      if (w.sky.state < 5) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'sky' does not exist on type '{}'.
         w.sky.state = 5
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -702,10 +704,10 @@ createItem("wire", ROPE(8, "strange_device"), {
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg("Mandy attaches the wire from the spindle to {nm:item:true}, then lets the spindle drop.", {item:item})
+      msg("Mandy attaches the wire from the spindle to {nm:item:true}, then lets the spindle drop.", { item: item })
     }
   },
-  detachFrom:function(char: any, item: any) {
+  detachFrom: function (char: any, item: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     if (!this.tiedTo2) return falsemsg("Mandy looks at where the wire is soldered to the strange device. That is not coming of there.")
 
@@ -719,11 +721,11 @@ createItem("wire", ROPE(8, "strange_device"), {
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg("Mandy detaches the wire from {nm:item:true}.", {item:item})
+      msg("Mandy detaches the wire from {nm:item:true}.", { item: item })
     }
-  },  
-  
-  afterMove:function() {
+  },
+
+  afterMove: function () {
     if (!this.examined) {
       this.examined = true
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -737,13 +739,13 @@ createItem("wire", ROPE(8, "strange_device"), {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("mad_science_journal", SIZE_CHANGING(), {
-  loc:"mad_science_lab",
-  scenery:true,
-  read:"Mandy leafs though the {if:mad_science_journal:size:4:tiny }{if:mad_science_journal:size:6:huge }journal, scanning the pages. Most of it makes as little sense as her \"Chemistry in Context\" text book, and the handwriting does not help. What the hell is a homunculus? The last third of the journal is empty, but the last entry says: \"I am so near, all I need is the vital spark. Weather vane on the Great Hall?\"",
+  loc: "mad_science_lab",
+  scenery: true,
+  read: "Mandy leafs though the {if:mad_science_journal:size:4:tiny }{if:mad_science_journal:size:6:huge }journal, scanning the pages. Most of it makes as little sense as her \"Chemistry in Context\" text book, and the handwriting does not help. What the hell is a homunculus? The last third of the journal is empty, but the last entry says: \"I am so near, all I need is the vital spark. Weather vane on the Great Hall?\"",
 
-  desc4:"The journal is about the size of a postage stamp; it looks like various things have been spilled on it, including acid, given the entire bottom right corner is missing. It looks old too -- or at least old-fashioned -- and is bound in leather.",
-  desc5:"The journal is in a bad condition; it looks like various things have been spilled on it, including acid, given the entire bottom right corner is missing. It looks old too -- or at least old-fashioned -- and is bound in leather.",
-  desc6:"The journal is as big as a table, and its bad condition is even more apparent; it looks like various things have been spilled on it, including acid, given the entire bottom right corner is missing. It looks old too -- or at least old-fashioned -- and is bound in leather.",
+  desc4: "The journal is about the size of a postage stamp; it looks like various things have been spilled on it, including acid, given the entire bottom right corner is missing. It looks old too -- or at least old-fashioned -- and is bound in leather.",
+  desc5: "The journal is in a bad condition; it looks like various things have been spilled on it, including acid, given the entire bottom right corner is missing. It looks old too -- or at least old-fashioned -- and is bound in leather.",
+  desc6: "The journal is as big as a table, and its bad condition is even more apparent; it looks like various things have been spilled on it, including acid, given the entire bottom right corner is missing. It looks old too -- or at least old-fashioned -- and is bound in leather.",
 
 })
 
@@ -781,86 +783,86 @@ get balloon, touch, move, knock, etc. heads it up,
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("nursery", {
-  windowsface:'north',
-  noFollow:true,
-  desc:"This seems to be a nursery, or at least what a nursery might have looked like a century ago. {if:china_doll:scenery:A china doll sits on a chair, and there is a doll's house near them:On the far side of the room, there is a chair and a doll's house}. Mandy can also see a cream-painted cot near the window{ifExists:yellow_balloon:loc:, and a balloon..}. The only way out is back south.",
-  afterEnter:function() {
+  windowsface: 'north',
+  noFollow: true,
+  desc: "This seems to be a nursery, or at least what a nursery might have looked like a century ago. {if:china_doll:scenery:A china doll sits on a chair, and there is a doll's house near them:On the far side of the room, there is a chair and a doll's house}. Mandy can also see a cream-painted cot near the window{ifExists:yellow_balloon:loc:, and a balloon..}. The only way out is back south.",
+  afterEnter: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'yellow_balloon' does not exist on type '... Remove this comment to see the full error message
     w.yellow_balloon.state = 0
   },
-  afterExit:function() {
+  afterExit: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'yellow_balloon' does not exist on type '... Remove this comment to see the full error message
     w.yellow_balloon.reset()
   },
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  south:new Exit("great_gallery", {msg:"Mandy ducks down to go out the door, and as she does a sudden flash of light momentarily disorientates her."}),
-  hereish:function(o: any) {
+  south: new Exit("great_gallery", { msg: "Mandy ducks down to go out the door, and as she does a sudden flash of light momentarily disorientates her." }),
+  hereish: function (o: any) {
     return ['nursery', 'dollshouse', 'tiny_man'].includes(o.loc)
   }
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("nursery_chair", FURNITURE({sit:true}), {
-  alias:'chair',
-  loc:"nursery",
-  scenery:true,
-  examine:'A simple wooden chair; small, as though for a child.',
+createItem("nursery_chair", FURNITURE({ sit: true }), {
+  alias: 'chair',
+  loc: "nursery",
+  scenery: true,
+  examine: 'A simple wooden chair; small, as though for a child.',
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("nursery_cot", FURNITURE({sit:true, recline:true}), {
-  alias:'cot',
-  loc:"nursery",
-  scenery:true,
-  examine:'A simple cot, of unpainted wood.',
+createItem("nursery_cot", FURNITURE({ sit: true, recline: true }), {
+  alias: 'cot',
+  loc: "nursery",
+  scenery: true,
+  examine: 'A simple cot, of unpainted wood.',
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  testPostureOn:function() { return falsemsg("Mandy looks at the cot, and decides it is too small for her.") },
+  testPostureOn: function () { return falsemsg("Mandy looks at the cot, and decides it is too small for her.") },
 })
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("china_doll", SIZE_CHANGING(), {
-  scenery:true,
-  loc:"nursery",
-  alive:true,
-  parserPriority:5,
-  testTake:function() {
+  scenery: true,
+  loc: "nursery",
+  alive: true,
+  parserPriority: 5,
+  testTake: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     if (this.alive) return falsemsg("Mandy tries to grab the china doll, but she is a bit more tricky to grab hold off now she is a live. There is also the moral question of whether Mandy should be picking up a living person too.")
     return true
   },
-  msgTake:"{if:china_doll:scenery:Mandy picks up the china doll because you never know when a creepy toy is going to come in useful. The body is soft and floppy, and the contrast with the head is a little disturbing.|'Help me!' says a tiny voice. Was that the doll speaking?:Mandy picks up the china doll.}",
-  desc5:"The doll is about forty centimetres tall, or would be if she was standing upright -- she clearly is supposed to be female. Her head and shoulders are glazed porcelain, including her dark hair and blue eyes; she has very rosy cheeks. She is wearing quite a fancy burnt umber dress, with belt and buttons. There is something creepy about her.",
-  desc4:"The doll is small enough to fit comfortably in Mandy's palm. Her head and shoulders are glazed porcelain, including her dark hair and blue eyes; she has very rosy cheeks. She is wearing quite a fancy burnt umber dress, with belt and buttons. She is decidedly less creepy this size.",
-  desc3:"The china doll is so small, Mandy can hardly see it.",
-  desc6:"The doll would be considerably taller than Mandy if she were standing upright. Her head and shoulders are glazed porcelain, including her dark hair and blue eyes; she has very rosy cheeks. She is wearing quite a fancy burnt umber dress, with belt and buttons. Definitely creepy.",
+  msgTake: "{if:china_doll:scenery:Mandy picks up the china doll because you never know when a creepy toy is going to come in useful. The body is soft and floppy, and the contrast with the head is a little disturbing.|'Help me!' says a tiny voice. Was that the doll speaking?:Mandy picks up the china doll.}",
+  desc5: "The doll is about forty centimetres tall, or would be if she was standing upright -- she clearly is supposed to be female. Her head and shoulders are glazed porcelain, including her dark hair and blue eyes; she has very rosy cheeks. She is wearing quite a fancy burnt umber dress, with belt and buttons. There is something creepy about her.",
+  desc4: "The doll is small enough to fit comfortably in Mandy's palm. Her head and shoulders are glazed porcelain, including her dark hair and blue eyes; she has very rosy cheeks. She is wearing quite a fancy burnt umber dress, with belt and buttons. She is decidedly less creepy this size.",
+  desc3: "The china doll is so small, Mandy can hardly see it.",
+  desc6: "The doll would be considerably taller than Mandy if she were standing upright. Her head and shoulders are glazed porcelain, including her dark hair and blue eyes; she has very rosy cheeks. She is wearing quite a fancy burnt umber dress, with belt and buttons. Definitely creepy.",
 })
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("china_doll_dress", COMPONENT("china_doll"), {
-  scenery:true,
-  alias:'dress',
-  examine:'The reddish brown dress is quite fancy, if old fashioned, and equipped with all the accessories of a proper dress albeit in miniature. {ifMoreThan:china_doll:size:5: Well, not in miniature now, but it was when she first saw it.} There seems to be no way to get the dress off the doll, in fact, Mandy suspects the doll\'s torso is just stuffing inside the dress.'
+  scenery: true,
+  alias: 'dress',
+  examine: 'The reddish brown dress is quite fancy, if old fashioned, and equipped with all the accessories of a proper dress albeit in miniature. {ifMoreThan:china_doll:size:5: Well, not in miniature now, but it was when she first saw it.} There seems to be no way to get the dress off the doll, in fact, Mandy suspects the doll\'s torso is just stuffing inside the dress.'
 })
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("yellow_balloon", {
-  loc:"nursery",
-  scenery:true,
-  alias:"yellow balloon",
-  states:[
+  loc: "nursery",
+  scenery: true,
+  alias: "yellow balloon",
+  states: [
     'The balloon is near the ceiling, but seems to be falling...',
     'The balloon, gently falling from the ceiling, is at about head height.',
     'The balloon has drifted down to about waist height.',
     'The balloon is at knee height, floating downwards.',
     'Mandy watches the balloon as it drifts down, to touch the floor...',
   ],
-  state:0,
-  eventPeriod:1,
-  eventIsActive:function() { return player.loc === 'nursery' && this.loc === 'nursery' },
-  eventScript:function() {
+  state: 0,
+  eventPeriod: 1,
+  eventIsActive: function () { return player.loc === 'nursery' && this.loc === 'nursery' },
+  eventScript: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg(this.states[this.state])
     this.state++
@@ -872,12 +874,12 @@ createItem("yellow_balloon", {
       this.reset()
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       msg(this.states[0])
-      this.state++      
+      this.state++
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       for (const s of Quest.settings.roomTemplate) msg(s)
     }
   },
-  reset:function() {
+  reset: function () {
     // balloon burst, so no reset
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'yellow_balloon_remains' does not exist o... Remove this comment to see the full error message
     if (w.yellow_balloon_remains.loc) return
@@ -930,7 +932,7 @@ createItem("yellow_balloon", {
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'tiny_man' does not exist on type '{}'.
     delete w.tiny_man.agenda
-    
+
     // boots not mended if in the room
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'nursery' does not exist on type '{}'.
     if (w.nursery.hereish(w.boots)) w.boots.mended = false
@@ -945,39 +947,39 @@ createItem("yellow_balloon", {
       if (w.nursery.hereish(o)) o.loc = player.name
     }
   },
-  examine:"The balloon is bright yellow, and pretty much spherical, except for the bit where it is blown up.",
-  take:function() {
+  examine: "The balloon is bright yellow, and pretty much spherical, except for the bit where it is blown up.",
+  take: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("Mandy tries to grab the balloon, but it bounces upwards, out of reach.")
     this.state = 0
   },
-  'catch':function() {
+  'catch': function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("Mandy tries to catch the balloon, but it bounces upwards, out of reach.")
     this.state = 0
   },
-  smash:function() {
+  smash: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("Mandy tries to burst the stupid balloon, but it bounces out of reach, rising up to the ceiling.")
     this.state = 0
   },
-  knockon:function() {
+  knockon: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("Mandy knocks the balloon, sending it up to the ceiling.")
     this.state = 0
   },
-  kick:function() {
+  kick: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("Mandy kicks the balloon, making it rise up to the ceiling.")
     this.state = 0
   },
-  burst:function() {
+  burst: function () {
     const sharp = player.getSharp()
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     if (!sharp) return falsemsg("Mandy jabs her finger at the balloon, and it just bounces off. She jabs again, and then again, but does no better. she needs something sharp.")
 
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg("Mandy jabs at the balloon with {nm:item:the}, and it just bounces off. She jabs again, and then again, and finally the balloon pops! The remains drop to the floor. She resists the urge to grind the limp yellow remnants under her heel.", {item:sharp})
+    msg("Mandy jabs at the balloon with {nm:item:the}, and it just bounces off. She jabs again, and then again, and finally the balloon pops! The remains drop to the floor. She resists the urge to grind the limp yellow remnants under her heel.", { item: sharp })
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'yellow_balloon_remains' does not exist o... Remove this comment to see the full error message
     this.transform(w.yellow_balloon_remains)
   },
@@ -986,25 +988,25 @@ createItem("yellow_balloon", {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("yellow_balloon_remains", {
-  pronouns:lang.pronouns.plural,
-  alias:"remains of a yellow balloon",
-  synonyms:['remnants'],
-  examine:"A ragged piece of yellow rubber.",
-  take:'Mandy wonders if the remains of a very annoying balloon are worth picking up. She decides they are not.',
-  grind:"'Fuck it,' said Mandy, 'I {i:am} going to do it.' She stands over the remains of the yellow balloon, puts her heel down on it, and {i:grinds}. It feels good!",
-  repair:'Realistically, the yellow balloon is beyond repair.',
+  pronouns: lang.pronouns.plural,
+  alias: "remains of a yellow balloon",
+  synonyms: ['remnants'],
+  examine: "A ragged piece of yellow rubber.",
+  take: 'Mandy wonders if the remains of a very annoying balloon are worth picking up. She decides they are not.',
+  grind: "'Fuck it,' said Mandy, 'I {i:am} going to do it.' She stands over the remains of the yellow balloon, puts her heel down on it, and {i:grinds}. It feels good!",
+  repair: 'Realistically, the yellow balloon is beyond repair.',
 })
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("dollshouse", CONTAINER(true), {
-  loc:"nursery",
-  scenery:true,
-  hasBeenOpened:false,
-  openCount:0,
-  alias:"doll's house",
-  synonyms:['dollshouse', 'dollhouse', 'dolls house', 'doll house', 'doll\'s house', 'back,'],
-  examine:function() {
+  loc: "nursery",
+  scenery: true,
+  hasBeenOpened: false,
+  openCount: 0,
+  alias: "doll's house",
+  synonyms: ['dollshouse', 'dollhouse', 'dolls house', 'doll house', 'doll\'s house', 'back,'],
+  examine: function () {
     let s = "Like the room, the doll's house is old fashioned. Made of wood, the roof looks like maybe it has been carved to look like it is thatched. The walls are white, the window frames are metal, and it stands on a base painted green. "
     if (this.closed) {
       s += "It looks like the back would open up."
@@ -1015,7 +1017,7 @@ createItem("dollshouse", CONTAINER(true), {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg(s)
   },
-  openMsg:function() {
+  openMsg: function () {
     if (this.hasBeenOpened) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       msg("She opens the doll's house. There is the little man; he looks at Mandy. 'You again, eh?'")
@@ -1037,7 +1039,7 @@ createItem("dollshouse", CONTAINER(true), {
       this.hasBeenOpened = true
     }
   },
-  testDropIn:function(options: any) {
+  testDropIn: function (options: any) {
     log(options)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'china_doll' does not exist on type '{}'.
     log(w.china_doll)
@@ -1048,7 +1050,7 @@ createItem("dollshouse", CONTAINER(true), {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     return falsemsg("Mandy thinks about putting {nm:item:the} in the doll's house, but maybe now is not the time to be playing in it.")
   },
-  afterDropIn:function(options: any) {
+  afterDropIn: function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'china_doll' does not exist on type '{}'.
     if (options.item === w.china_doll) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -1064,16 +1066,16 @@ createItem("dollshouse", CONTAINER(true), {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("tiny_man", NPC(false), {
-  loc:"dollshouse",
-  scenery:true,
-  alias:"tiny man",
-  synonyms:['little man', 'big bert', 'cuthbert'],
-  state:0,
-  inSight:function() {
+  loc: "dollshouse",
+  scenery: true,
+  alias: "tiny man",
+  synonyms: ['little man', 'big bert', 'cuthbert'],
+  state: 0,
+  inSight: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'dollshouse' does not exist on type '{}'.
     return player.loc === 'nursery' && !w.dollshouse.closed
   },
-  agendaBootsDone:function() {
+  agendaBootsDone: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("'Okay, there you go,' says the tiny man, putting the boots on the floor just outside the doll's house. 'Good as new! Well, nearly.'")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'tiny_man' does not exist on type '{}'.
@@ -1083,9 +1085,9 @@ createItem("tiny_man", NPC(false), {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
     w.boots.mended = true
   },
-  agendaPodDone:function() {
+  agendaPodDone: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'int' does not exist on type '{ buffer: n... Remove this comment to see the full error message
-    const count = random.int(3, 5)
+    const count = Quest.Random.rndm.int(3, 5)
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("'Nearly there,' says the tiny man with a cheerful grin. He gives the chisel another tap, and the pod splits open, to reveal " + count + " seeds.")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'tamarind_seed' does not exist on type '{... Remove this comment to see the full error message
@@ -1097,8 +1099,8 @@ createItem("tiny_man", NPC(false), {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'tiny_man' does not exist on type '{}'.
     delete w.tiny_man.breakingIntoPod
   },
-  kill:'Mandy contemplates killing the little man. The guy is only ten centimetres, no court in the land would consider him an actual person, would it. Admittedly he does seem like a normal person. And what if he is normal-sized, and it is she who is a giant? No court in the land would find a giant innocent for the cold-bloodied murder of a man just trying to make a living mending shoes. Probably best to let him live, annoying though he is.',
-  examine:function() {
+  kill: 'Mandy contemplates killing the little man. The guy is only ten centimetres, no court in the land would consider him an actual person, would it. Admittedly he does seem like a normal person. And what if he is normal-sized, and it is she who is a giant? No court in the land would find a giant innocent for the cold-bloodied murder of a man just trying to make a living mending shoes. Probably best to let him live, annoying though he is.',
+  examine: function () {
     let s = "The man is only about ten centimetres tall, but looks normally proportioned. He is dressed in blue overalls, and has dark hair, that is going grey. "
     if (this.state < 2) {
       s += "He seems to be making a pair of shoes."
@@ -1116,69 +1118,74 @@ createItem("tiny_man", NPC(false), {
     msg(s)
   },
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-  msg:function(s: any, params: any) { msg(s, params) },  // override default for NPCs so we see it when he is in house
-  endFollow:function() {
+  msg: function (s: any, params: any) { msg(s, params) },  // override default for NPCs so we see it when he is in house
+  endFollow: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg("'Wait here,' says Mandy to {nm:npc:the}.", {npc:obj})
+    msg("'Wait here,' says Mandy to {nm:npc:the}.", { npc: obj })
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     return falsemsg("'I wasn't going nowhere!'")
   },
-  startFollow:function() {
+  startFollow: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg("'Follow me,' says Mandy to {nm:npc:the}.", {npc:obj})
+    msg("'Follow me,' says Mandy to {nm:npc:the}.", { npc: obj })
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     return falsemsg("'If it's all the same to you, I'll stay here.'")
   },
-  getAgreement:function(verb: any, item: any) {
-   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-   if (verb !== 'Repair') return falsemsg("'Sorry, lady-giant, I've got to much to do here. In fact I best get on.'")
+  getAgreement: function (verb: any, item: any) {
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+    if (verb !== 'Repair') return falsemsg("'Sorry, lady-giant, I've got to much to do here. In fact I best get on.'")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
     if (item !== w.boots && item !== w.tiny_shoes) return falsemsg("'Sorry, lady-giant, I can do shoes, maybe boots at a push, but... No, not that.'")
     return true
   },
-  take:function() {
+  take: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     return falsemsg("Mandy tries to grab the tiny man, because a four inch high man has to score a few views on Youtube, but he dodges out of the way. 'Ere, wot you playin' at?' he demands. 'You keep yer 'ands off!'")
   },
-  askOptions:[
-    { name:'Himself',
-      test:function(p: any) { return p.text.match(/himself|who he|man/) || (p.text.match(/he is/) && p.text2 === 'who');}, 
-      msg:"'Who are you?' says Mandy.|He shrugs. 'Name's Cuthbert, but most call me Big Bert.'|'Why do they call you \"Big Bert\"?'|'It's short for Cuthbert, see?'",
+  askOptions: [
+    {
+      name: 'Himself',
+      test: function (p: any) { return p.text.match(/himself|who he|man/) || (p.text.match(/he is/) && p.text2 === 'who'); },
+      msg: "'Who are you?' says Mandy.|He shrugs. 'Name's Cuthbert, but most call me Big Bert.'|'Why do they call you \"Big Bert\"?'|'It's short for Cuthbert, see?'",
     },
-    { name:'House',
-      test:function(p: any) { return p.text.match(/doll\'?s?\'? ?house/); },
-      msg:"'Nice house,' says Mandy politely. 'Is it your?'|'I should be so lucky! I'm just here mending some shoes. They've got some great tools.'",
+    {
+      name: 'House',
+      test: function (p: any) { return p.text.match(/doll\'?s?\'? ?house/); },
+      msg: "'Nice house,' says Mandy politely. 'Is it your?'|'I should be so lucky! I'm just here mending some shoes. They've got some great tools.'",
     },
-    { name:'Escape',
-      test:function(p: any) { return p.text.match(/escape|way out|get out|house/); },
-      msg:"'I don't suppose you know how I can get out of this stupid house?'|The little man looks around him at the doll's house, then at Mandy. 'You're not in it, love.'|'No, not that house, this one!' She points vaguely around the nursery.|'Wait, I'm in a house inside another house? Stone the crows! If that don't beat all!' Clearly he was not going to be much use in that regard.",
+    {
+      name: 'Escape',
+      test: function (p: any) { return p.text.match(/escape|way out|get out|house/); },
+      msg: "'I don't suppose you know how I can get out of this stupid house?'|The little man looks around him at the doll's house, then at Mandy. 'You're not in it, love.'|'No, not that house, this one!' She points vaguely around the nursery.|'Wait, I'm in a house inside another house? Stone the crows! If that don't beat all!' Clearly he was not going to be much use in that regard.",
     },
-    { name:'Shoes',
-      test:function(p: any) { return p.text.match(/shoes/); },
-      msg:"'Are you making those shoes or mending them?'|'Mending 'em. Be good as new when I've done with 'em.'|'Whose are they?'|'Mine! You think I go around mending random shoes? Strange hobby that would be!'",
+    {
+      name: 'Shoes',
+      test: function (p: any) { return p.text.match(/shoes/); },
+      msg: "'Are you making those shoes or mending them?'|'Mending 'em. Be good as new when I've done with 'em.'|'Whose are they?'|'Mine! You think I go around mending random shoes? Strange hobby that would be!'",
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'tiny_man' does not exist on type '{}'.
-      script:function() { w.tiny_man.askedAboutShoes = true },
+      script: function () { w.tiny_man.askedAboutShoes = true },
     },
     { // Mannequins
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'brass_dining_room' does not exist on typ... Remove this comment to see the full error message
-      test:function(p: any) { return p.text.match(/mannequin/) && w.brass_dining_room.visited > 2; },
-      msg:"'What's the deal with the mannequins in the dining room?'|The little man look through a doorway, into the dining room of the doll's house. 'Don't see no mannequins in there, love.'",
-    },
-    { name:'Silvers',
-      test:function(p: any) { return p.text.match(/silver/) && player.silverSpotted > 0; },
-      msg:"'What's the deal with the Silvers - the guy in silver I saw?'|'I don't know. Something weird about them, if you ask me. I just keep me head down when they're around.'",
+      test: function (p: any) { return p.text.match(/mannequin/) && w.brass_dining_room.visited > 2; },
+      msg: "'What's the deal with the mannequins in the dining room?'|The little man look through a doorway, into the dining room of the doll's house. 'Don't see no mannequins in there, love.'",
     },
     {
-      name:'Boots',
-      test:function(p: any) { return p.text.match(/boot/); },
-      script:function() {
+      name: 'Silvers',
+      test: function (p: any) { return p.text.match(/silver/) && player.silverSpotted > 0; },
+      msg: "'What's the deal with the Silvers - the guy in silver I saw?'|'I don't know. Something weird about them, if you ask me. I just keep me head down when they're around.'",
+    },
+    {
+      name: 'Boots',
+      test: function (p: any) { return p.text.match(/boot/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
         w.boots.doRepair()
       },
     },
     {
-      test:function(p: any) { return p.text.match(/small|tiny/); },
-      script:function() {
+      test: function (p: any) { return p.text.match(/small|tiny/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'I can't help noticing...,' says Mandy wondering how she say this, 'that you quite... well, small.'");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -1191,12 +1198,12 @@ createItem("tiny_man", NPC(false), {
         msg("`How long ago was that?' asks Mandy")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'Only about ten minutes, maybe twenty.' Mandy thinks about the balloon, and wonders how many years it has really been.")
-        
+
       },
     },
     {
-      test:function(p: any) { return p.text.match(/doctor|winfield|malewicz|man/); },
-      script:function() {
+      test: function (p: any) { return p.text.match(/doctor|winfield|malewicz|man/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'Do you know a Dr Winfield Malewicz?' says Mandy. 'I've got a letter for him.'|He looks Mandy up and down. 'I swear postmen get younger ever day! And bigger too. Yeah, I know the doctor. Weird guy, 'as an 'house on me route.'")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -1206,8 +1213,8 @@ createItem("tiny_man", NPC(false), {
       }
     },
     {
-      test:function(p: any) { return p.text.match(/balloon/); },
-      script:function() {
+      test: function (p: any) { return p.text.match(/balloon/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'What's the deal with the balloon?' asks Mandy")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -1222,8 +1229,8 @@ createItem("tiny_man", NPC(false), {
       },
     },
     {
-      test:function(p: any) { return p.text.match(/hamlet/); },
-      script:function() {
+      test: function (p: any) { return p.text.match(/hamlet/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'I don't suppose you know any Shakespeare?' asks Mandy. 'Hamlet in particular.'")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -1231,8 +1238,8 @@ createItem("tiny_man", NPC(false), {
       },
     },
     {
-      test:function(p: any) { return p.text.match(/past|origin|career|job|deliver/); },
-      script:function() {
+      test: function (p: any) { return p.text.match(/past|origin|career|job|deliver/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'What did you do before you got trapped here?' asks Mandy")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -1240,8 +1247,8 @@ createItem("tiny_man", NPC(false), {
       },
     },
     {
-      test:function(p: any) { return p.text.match(/letter/); },
-      script:function() {
+      test: function (p: any) { return p.text.match(/letter/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'You know anything about this letter?' asks Mandy")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -1249,8 +1256,8 @@ createItem("tiny_man", NPC(false), {
       },
     },
     {
-      test:function(p: any) { return p.text.match(/telescope|observatory/); },
-      script:function() {
+      test: function (p: any) { return p.text.match(/telescope|observatory/); },
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'What's the deal with the telescope in the observatory?' asks Mandy")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -1262,9 +1269,9 @@ createItem("tiny_man", NPC(false), {
       },
     },
     {  // !!!
-      test:function(p: any) { return p.text.match(/live/) && p.text2 === 'where'; },
-      alias:"So where do you live?",
-      script:function() {
+      test: function (p: any) { return p.text.match(/live/) && p.text2 === 'where'; },
+      alias: "So where do you live?",
+      script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("'So where {i:do} you live?'");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -1276,7 +1283,7 @@ createItem("tiny_man", NPC(false), {
       },
     },
     {
-      script:function(p: any) {
+      script: function (p: any) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'tiny_man' does not exist on type '{}'.
         w.tiny_man.badTopicCount++
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -1288,11 +1295,11 @@ createItem("tiny_man", NPC(false), {
       }
     },
   ],
-  badTopicCount:0,
-  tellOptions:[
+  badTopicCount: 0,
+  tellOptions: [
     {
-      test:function(p: any) { return true },
-      script:function(p: any) {
+      test: function (p: any) { return true },
+      script: function (p: any) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("Mandy starts to tell the tiny man about " + p.text + ".")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -1300,12 +1307,12 @@ createItem("tiny_man", NPC(false), {
       }
     },
   ],
-  receiveItemsFailMsg:"Mandy gives {nm:item:the} to the tiny man. 'What'd I want something like that for?' he asks.",
-  receiveItems:[
+  receiveItemsFailMsg: "Mandy gives {nm:item:the} to the tiny man. 'What'd I want something like that for?' he asks.",
+  receiveItems: [
     {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
-      item:w.boots,
-      f:function(options: any) {
+      item: w.boots,
+      f: function (options: any) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
         if (w.boots.size !== 4) {
           return falsemsg("Mandy gives {nm:item:the} to the tiny man. 'What'd I want something like that for?' he asks.|'I thought you might be a cobbler elf.'|'A what? Are you taking the piss?'|'No! It's just you're quite... small.|'I'm normal size, I am. You're the freak, lady-giant. I can't fix no giant lady boots; I only do {i:normal-size} footwear.'", options)
@@ -1320,7 +1327,7 @@ createItem("tiny_man", NPC(false), {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           msg("Mandy gives the boots to the tiny man. 'I'll get on that as soon as I've done these,' he says.")
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("{ifExists:yellow_balloon:loc:Mandy glances at the balloon. }'I don't suppose you could do it now?' She smiles sweetly at him, making him jump back from his seat in horror.") 
+          msg("{ifExists:yellow_balloon:loc:Mandy glances at the balloon. }'I don't suppose you could do it now?' She smiles sweetly at him, making him jump back from his seat in horror.")
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           msg("'Okay, okay, giant-lady! Whatever you say!' He drops the shoes, and starts to examine the hole in the boot.")
         }
@@ -1333,8 +1340,8 @@ createItem("tiny_man", NPC(false), {
       }
     },
     {
-      test:function(options: any) { return options.item.name.startsWith('tamarind_pod_prototype') },
-      f:function(options: any) {
+      test: function (options: any) { return options.item.name.startsWith('tamarind_pod_prototype') },
+      f: function (options: any) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         msg("Mandy gives the tamarind pod to the tiny man. 'What'd I want something like that for?' he asks.|'I thought you might be able to cut it open,' says Mandy. 'You know, with your little tools.'|'My what?'|'Er, your normal-sized tools?'")
         if (options.item.size > 4) {
@@ -1347,7 +1354,7 @@ createItem("tiny_man", NPC(false), {
         }
         else {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'int' does not exist on type '{ buffer: n... Remove this comment to see the full error message
-          const count = random.int(3, 5)
+          const count = Quest.Random.rndm.int(3, 5)
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           msg("He shrugs. 'Should be easy enough.' He grabs and hammer and chisel, and sets the chisel to the pod. He gives it a gentle tap, and the pod splits open, to reveal " + count + " seeds.")
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'tamarind_seed' does not exist on type '{... Remove this comment to see the full error message
@@ -1359,7 +1366,7 @@ createItem("tiny_man", NPC(false), {
       },
     },
   ],
-  talkto:function() {
+  talkto: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("Mandy wonders what {i:topics} she could {i:ask the tiny man about}...")
     return false
@@ -1372,11 +1379,11 @@ createItem("tiny_man", NPC(false), {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("tiny_shoes", {
-  loc:"nursery",
-  scenery:true,
-  examine:"The tiny shoes are brown; they lace up and are rather pointed at the toe.",
-  take:"Mandy tries to grab the shoes, but the tiny man is too quick for her. 'They're not your!'",
-  repair:function(options: any) {
+  loc: "nursery",
+  scenery: true,
+  examine: "The tiny shoes are brown; they lace up and are rather pointed at the toe.",
+  take: "Mandy tries to grab the shoes, but the tiny man is too quick for her. 'They're not your!'",
+  repair: function (options: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     if (options.char === player) return falsemsg("With the best will in the world, Mandy is not going to be ablke to repair the shoes. Better leave it to the cobbler elf...")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'tiny_man' does not exist on type '{}'.

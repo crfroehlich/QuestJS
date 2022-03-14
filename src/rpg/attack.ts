@@ -42,13 +42,13 @@ class Attack {
   // The source is the magic item the spell was cast from
   static createAttack(attacker: any, target: any, skill: any, source: any) {
     const attack = new Attack()
-    
+
     attack.attacker = attacker
     attack.skill = skill
     attack.target = target
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'source' does not exist on type 'Attack'.
     attack.source = source
-    
+
     // Find the skill
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'getSkill' does not exist on type '{ list... Remove this comment to see the full error message
     if (attacker === player && skill === undefined && rpg.getSkill) {
@@ -71,12 +71,12 @@ class Attack {
       attack.primaryTargets = attack.skill.getPrimaryTargets ? attack.skill.getPrimaryTargets(target, attack) : [target]
     }
     attack.secondaryTargets = attack.skill.getSecondaryTargets ? attack.skill.getSecondaryTargets(target, attack) : []
-    
+
     if (attack.primaryTargets.length === 0) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'noTarget' does not exist on type '{ rege... Remove this comment to see the full error message
       return falsemsg(attack.skill.msgNoTarget ? attack.skill.msgNoTarget : lang.noTarget, attack)
     }
-    
+
 
     // Set some defaults first
     attack.attackNumber = 1
@@ -91,7 +91,7 @@ class Attack {
     //log(attack.reportText)
     //log({attacker:attacker, skill:attack.skill, target:attack.primaryTargets[0], source:source})
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg(attack.reportText, {attacker:attacker, skill:attack.skill, target:attack.primaryTargets[0], source:source})
+    msg(attack.reportText, { attacker: attacker, skill: attack.skill, target: attack.primaryTargets[0], source: source })
 
     // Get the weapon (for most monsters, the monster IS the weapon)
     // Base the attack on the weapon
@@ -112,28 +112,28 @@ class Attack {
       attack.element = attack.weapon.element
       attack.report('From weapon:', attack.offensiveBonus)
     }
-    
+
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'damage' does not exist on type 'Attack'.
     if (attack.damage) attack.setDamageAtts(attack.damage)
     if (attack.skill.secondaryDamage) attack.setDamageAtts(attack.skill.secondaryDamage, 'secondaryDamage')
-    
+
     // modify for the skill
     if (attack.skill.modifyOutgoingAttack) attack.skill.modifyOutgoingAttack(attack)
     attack.report('After skill:', attack.offensiveBonus)
-      
+
     // Now take into account the attacker's stats
     attack.offensiveBonus += attacker.getOffensiveBonus(attack.skill)
     attack.report('After attacker bonus:', attack.offensiveBonus)
     attacker.modifyOutgoingAttack(attack)
     attack.report('After attacker mods:', attack.offensiveBonus)
-    
+
     // Now take into account the attacker's weapon's active spell
     //if (!attack.skill.noWeapon) attack.applyActiveEffects(attack.weapon, true, 'Weapon')
-    
+
     // Now take into account the attacker's active spells
     attack.applyActiveEffects(attack.attacker, true)
     attack.report('After attacker effects:', attack.offensiveBonus)
-    
+
     // Anything the attacker is holding
     const items = scopeHeldBy(attack.attacker)
     for (let el of items) {
@@ -141,7 +141,7 @@ class Attack {
       attack.applyActiveEffects(el, true)
     }
     attack.report('After attacker items:', attack.offensiveBonus)
-  
+
     // Now take into account the target's room (count as incoming still)
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     const room = (target ? w[target.loc] : w[attacker.loc])
@@ -160,7 +160,7 @@ class Attack {
       this.skill.afterUse(this, -1)
       return this
     }
-    
+
 
     // Iterate through the targets and apply the attack
     // The attack may be modified by the target, so we send a clone
@@ -188,7 +188,7 @@ class Attack {
   // (reportTexts is the attribute of the parent attack, not this clone)
   resolve(target: any, isPrimary: any, count = 0) {
     this.target = target
-    
+
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'testAttribute' does not exist on type '{... Remove this comment to see the full error message
     if (isPrimary && !util.testAttribute(this.skill, "suppressAntagonise") && this.target.antagonise) {
       this.target.antagonise(this.attacker)
@@ -211,23 +211,23 @@ class Attack {
       if (this.element && target.element) this.modifyElementalAttack(target.element, this, isPrimary)
     }
 
-    this.msg(processText("---\nTargeting {nm:target:the}...", {skill:this.skill, attacker:this.attacker, target:target}), 3)
+    this.msg(processText("---\nTargeting {nm:target:the}...", { skill: this.skill, attacker: this.attacker, target: target }), 3)
     if (this.element) this.msg("Element: " + this.element, 3)
-  
+
     // Is the target affected (hit)?
     if (this.skill.automaticSuccess || !target.getDefensiveBonus) {
       this.msg("Automatic success", 4)
     }
     else {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'int' does not exist on type '{ buffer: n... Remove this comment to see the full error message
-      this.roll = random.int(1, 20)
+      this.roll = Quest.Random.rndm.int(1, 20)
       this.defensiveBonus = target.getDefensiveBonus(this.skill)
       this.result = this.offensiveBonus - this.defensiveBonus + this.roll
       this.report("Offensive bonus:", this.offensiveBonus)
       this.report("Defensive bonus:", this.defensiveBonus)
       this.report("Roll:", this.roll)
       this.report("Total:", this.result)
-      
+
       if (this.result < 10) {
         if (isPrimary && this.primaryFailure) {
           this.msg(processText(this.primaryFailure, this), 1)
@@ -282,14 +282,14 @@ class Attack {
     else {
       this.applyDamage(target, 'secondaryDamage')
     }
-    
+
     // handle death
     if (target.health <= 0) {
       if (target.afterDeath) target.afterDeath(this)
       this.msg(target.msgDeath, 1)
       target.terminate()
     }
-    
+
     if (target.afterAttack) target.afterAttack(this, true)
     return true
   }
@@ -308,7 +308,7 @@ class Attack {
   }
 
   msg(s: any, n: any) {
-    this.reportTexts.push({t:processText(s, this), level:n || 1})
+    this.reportTexts.push({ t: processText(s, this), level: n || 1 })
   }
 
   output() {
@@ -338,11 +338,11 @@ class Attack {
       return;
     }
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    this[prefix + 'Number'] = regexMatch[1] === ""  ? 1 : parseInt(regexMatch[1]);
+    this[prefix + 'Number'] = regexMatch[1] === "" ? 1 : parseInt(regexMatch[1]);
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     this[prefix + 'Sides'] = parseInt(regexMatch[2]);
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    this[prefix + 'Bonus'] = (regexMatch[3] === undefined  ? 0 : parseInt(regexMatch[3]));
+    this[prefix + 'Bonus'] = (regexMatch[3] === undefined ? 0 : parseInt(regexMatch[3]));
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     this[prefix + 'Multiplier'] = 1
   }
@@ -355,13 +355,13 @@ class Attack {
       this.msg(`Damage: ${this.damageNumber}d${this[prefix + 'Sides']}+${this[prefix + 'Bonus']}\n`, 3)
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       let damage = this[prefix + 'Bonus']
-      
+
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       for (let i = 0; i < this[prefix + 'Number']; i++) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'int' does not exist on type '{ buffer: n... Remove this comment to see the full error message
-        const roll = random.int(1, this[prefix + 'Sides'])
+        const roll = Quest.Random.rndm.int(1, this[prefix + 'Sides'])
         damage += roll
-        this.report('Damage roll ' + (i+1) + ':', roll)
+        this.report('Damage roll ' + (i + 1) + ':', roll)
       }
       this.report("Damage before armour:", damage)
       this.msg("Target's armour is " + target.getArmour(), 4)

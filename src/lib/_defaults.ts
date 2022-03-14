@@ -5,12 +5,12 @@
 
 
 const DEFAULT_OBJECT = {
-  pronouns:lang.pronouns.thirdperson,
-  
+  pronouns: lang.pronouns.thirdperson,
+
   // @ts-expect-error ts-migrate(7023) FIXME: 'isLocatedAt' implicitly has return type 'any' bec... Remove this comment to see the full error message
-  isLocatedAt:function(loc: any) { return loc === this.loc },
-  
-  isApparentTo:function(situation: any) {
+  isLocatedAt: function (loc: any) { return loc === this.loc },
+
+  isApparentTo: function (situation: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultIsApparentTo' does not exist on t... Remove this comment to see the full error message
     if (Quest.settings.defaultIsApparentTo) return Quest.settings.defaultIsApparentTo(situation)
 
@@ -22,8 +22,8 @@ const DEFAULT_OBJECT = {
     if (situation === world.SIDE_PANE && this.player) return false
     return true
   },
-  
-  isAtLoc:function(loc: any, situation: any) {
+
+  isAtLoc: function (loc: any, situation: any) {
     if (typeof loc !== "string") loc = loc.name
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     if (!w[loc]) errormsg("The location name `" + loc + "`, does not match anything in the game.")
@@ -31,18 +31,18 @@ const DEFAULT_OBJECT = {
     if (!this.isLocatedAt(loc, situation)) return false
     return this.isApparentTo(situation)
   },
-  
-  isHere:function() {
+
+  isHere: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     return this.isAtLoc(player.loc);
   },
-  
-  isHeld:function() {
+
+  isHeld: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     return this.isAtLoc(player.name);
   },
 
-  isUltimatelyHeldBy:function(obj: any) {
+  isUltimatelyHeldBy: function (obj: any) {
     let o = this
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'loc' does not exist on type '{ pronouns:... Remove this comment to see the full error message
     while (o.loc) {
@@ -57,37 +57,37 @@ const DEFAULT_OBJECT = {
     }
     return false
   },
-  
-  isHereOrHeld:function() {
+
+  isHereOrHeld: function () {
     return this.isHere() || this.isHeld();
   },
-  
-  countAtLoc:function(loc: any) {
+
+  countAtLoc: function (loc: any) {
     if (typeof loc !== "string") loc = loc.name;
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     return this.isAtLoc(loc) ? 1 : 0;
   },
-  
-  scopeSnapshot:function(mode: any) {
+
+  scopeSnapshot: function (mode: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'scopeStatus' does not exist on type '{ p... Remove this comment to see the full error message
     if (this.scopeStatus['done' + mode]) return  // already done this one
-    
+
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'scopeStatus' does not exist on type '{ p... Remove this comment to see the full error message
     if (Object.keys(this.scopeStatus).length === 0) world.scope.push(this)
-    
+
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'scopeStatus' does not exist on type '{ p... Remove this comment to see the full error message
     this.scopeStatus['can' + mode] = true  // set the value
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'scopeStatus' does not exist on type '{ p... Remove this comment to see the full error message
     this.scopeStatus['done' + mode] = true
-    
+
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'getContents' does not exist on type '{ p... Remove this comment to see the full error message
     if (!this.getContents && !this.componentHolder) return // no lower levels so done
 
-    let l    
+    let l
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'getContents' does not exist on type '{ p... Remove this comment to see the full error message
     if (this.getContents) {
       // this is a container, so get the contents
-      
+
       // cannot see or reach contents and not flagged is a visible room, and not the player, so abort
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       if (!this['can' + mode + 'ThroughThis']() && !this.scopeStatus['room' + mode] && this !== player) return
@@ -107,25 +107,25 @@ const DEFAULT_OBJECT = {
       el.scopeSnapshot(mode)
     }
   },
-  
-  canReachThroughThis:() => false,
-  canSeeThroughThis:() => false,
-  afterTakeOut:NULL_FUNC,
-  afterDropIn:NULL_FUNC,
-  testTalkPlayer:() => false,
-  getExits:function() { return []; },
-  hasExit:(dir: any) => false,
-  getWorn:() => false,
-  saveLoadExcludedAtts:[],
-  
-  
-  moveToFrom:function(options: any, toLoc: any, fromLoc: any) {
+
+  canReachThroughThis: () => false,
+  canSeeThroughThis: () => false,
+  afterTakeOut: NULL_FUNC,
+  afterDropIn: NULL_FUNC,
+  testTalkPlayer: () => false,
+  getExits: function () { return []; },
+  hasExit: (dir: any) => false,
+  getWorn: () => false,
+  saveLoadExcludedAtts: [],
+
+
+  moveToFrom: function (options: any, toLoc: any, fromLoc: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'setToFrom' does not exist on type '{}'.
     util.setToFrom(options, toLoc, fromLoc)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'loc' does not exist on type '{ pronouns:... Remove this comment to see the full error message
     if (options.fromLoc === undefined) options.fromLoc = this.loc
     if (options.fromLoc === options.toLoc) return
-    
+
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     if (!w[options.fromLoc]) errormsg("The location name `" + options.fromLoc + "`, does not match anything in the game.");
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
@@ -142,20 +142,20 @@ const DEFAULT_OBJECT = {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterTake' does not exist on type '{ pro... Remove this comment to see the full error message
     if (options.toLoc === player.name && this.afterTake !== undefined) this.afterTake(options)
   },
-    
-  afterLoad:NULL_FUNC,
 
-  afterLoadForTemplate:function() {
+  afterLoad: NULL_FUNC,
+
+  afterLoadForTemplate: function () {
     this.afterLoad();
   },
-  
-  beforeSave:NULL_FUNC,
 
-  beforeSaveForTemplate:function() {
+  beforeSave: NULL_FUNC,
+
+  beforeSaveForTemplate: function () {
     this.beforeSave();
   },
-  
-  getSaveString:function() {
+
+  getSaveString: function () {
     this.beforeSaveForTemplate()
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
     let s = this.getSaveStringPreamble()
@@ -170,12 +170,12 @@ const DEFAULT_OBJECT = {
     }
     return s
   },
-  
-  getSaveStringPreamble:function(item: any) {
+
+  getSaveStringPreamble: function (item: any) {
     return "Object="
   },
 
-  saveLoadExclude:function(att: any) {
+  saveLoadExclude: function (att: any) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     if (typeof this[att] === 'function') return true
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
@@ -188,9 +188,9 @@ const DEFAULT_OBJECT = {
     if (array.hasMatch(this.saveLoadExcludedAtts, att)) return true
     return false
   },
-  
 
-  setAlias:function(alias: any, options = {}) {
+
+  setAlias: function (alias: any, options = {}) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'alias' does not exist on type '{ pronoun... Remove this comment to see the full error message
     this.alias = alias
     // @ts-expect-error ts-migrate(2551) FIXME: Property 'listAlias' does not exist on type '{ pro... Remove this comment to see the full error message
@@ -204,13 +204,13 @@ const DEFAULT_OBJECT = {
     // @ts-expect-error ts-migrate(2551) FIXME: Property 'properNoun' does not exist on type '{ pr... Remove this comment to see the full error message
     this.properNoun = options.properNoun === undefined ? /^[A-Z]/.test(this.alias) : options.properNoun
   },
-    
 
-  eventActive:false,
-  eventCountdown:0,
-  eventIsActive:function() { return this.eventActive},
-  endTurn:function(turn: any) { this.doEvent(turn) },
-  doEvent:function(turn: any) {
+
+  eventActive: false,
+  eventCountdown: 0,
+  eventIsActive: function () { return this.eventActive },
+  endTurn: function (turn: any) { this.doEvent(turn) },
+  doEvent: function (turn: any) {
     //console.log("this=" + this.name);
     // Not active, so stop
     if (!this.eventIsActive()) return;
@@ -244,19 +244,19 @@ const DEFAULT_OBJECT = {
 
 
 const DEFAULT_ROOM = {
-  room:true,
-  beforeEnter:NULL_FUNC,
-  beforeFirstEnter:NULL_FUNC,
-  afterEnter:NULL_FUNC,
-  afterEnterIf:{},
-  afterEnterIfFlags:'',
-  afterFirstEnter:NULL_FUNC,
-  afterExit:NULL_FUNC,
-  visited:0,
-  
-  lightSource:() => world.LIGHT_FULL,
+  room: true,
+  beforeEnter: NULL_FUNC,
+  beforeFirstEnter: NULL_FUNC,
+  afterEnter: NULL_FUNC,
+  afterEnterIf: {},
+  afterEnterIfFlags: '',
+  afterFirstEnter: NULL_FUNC,
+  afterExit: NULL_FUNC,
+  visited: 0,
 
-  description:function() {
+  lightSource: () => world.LIGHT_FULL,
+
+  description: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'dark' does not exist on type '{ turnCoun... Remove this comment to see the full error message
     if (game.dark) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
@@ -269,8 +269,8 @@ const DEFAULT_ROOM = {
     }
     return true;
   },
-  
-  examine:function() {
+
+  examine: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'dark' does not exist on type '{ turnCoun... Remove this comment to see the full error message
     if (game.dark) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
@@ -281,19 +281,19 @@ const DEFAULT_ROOM = {
     msg(typeof this.desc === 'string' ? this.desc : this.desc())
     return true;
   },
-  
+
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  darkDescription:() => msg("It is dark."),
-  
+  darkDescription: () => msg("It is dark."),
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getContents' does not exist on type '{}'... Remove this comment to see the full error message
-  getContents:util.getContents,
-  
-  getExit:function(dir: any) {
+  getContents: util.getContents,
+
+  getExit: function (dir: any) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     return this[dir]
   },
-  
-  getExitObjs:function(options: any) {
+
+  getExitObjs: function (options: any) {
     if (options === undefined) options = {};
     const list = []
     if (options.excludeAlsoDir === undefined) options.excludeAlsoDir = true
@@ -304,21 +304,21 @@ const DEFAULT_ROOM = {
     }
     return list
   },
-  
-  getExits:function(options: any) {
+
+  getExits: function (options: any) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    return this.getExitObjs(options).map(el => this[el.name]) 
+    return this.getExitObjs(options).map(el => this[el.name])
   },
-  
-  getExitDirs:function(options: any) {
-    return this.getExits(options).map(el => el.dir) 
+
+  getExitDirs: function (options: any) {
+    return this.getExits(options).map(el => el.dir)
   },
-  
+
   // returns null if there are no exits
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
-  getRandomExit:function(options: any) { return random.fromArray(this.getExits(options)) },
-  
-  hasExit:function(dir: any, options: any) {
+  getRandomExit: function (options: any) { return Quest.Random.rndm.fromArray(this.getExits(options)) },
+
+  hasExit: function (dir: any, options: any) {
     if (options === undefined) options = {};
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     if (!this[dir]) return false;
@@ -331,8 +331,8 @@ const DEFAULT_ROOM = {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     return !this[dir].isHidden();
   },
-  
-  findExit:function(dest: any, options: any) {
+
+  findExit: function (dest: any, options: any) {
     if (typeof dest === "object") dest = dest.name;
     for (let exit of lang.exit_list) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
@@ -347,15 +347,15 @@ const DEFAULT_ROOM = {
   // Lock or unlock the exit indicated
   // Returns false if the exit does not exist or is not an Exit object
   // Returns true if successful
-  setExitLock:function(dir: any, locked: any) {
+  setExitLock: function (dir: any, locked: any) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     if (!this[dir]) return false
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     this['exit_locked_' + dir] = locked
     return true
   },
-  
-  isExitLocked:function(dir: any) {
+
+  isExitLocked: function (dir: any) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     return this['exit_locked_' + dir]
   },
@@ -363,22 +363,22 @@ const DEFAULT_ROOM = {
   // Hide or unhide the exit indicated
   // Returns false if the exit does not exist or is not an Exit object
   // Returns true if successful
-  setExitHide:function(dir: any, hidden: any) {
+  setExitHide: function (dir: any, hidden: any) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     if (!this[dir]) return false
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     this['exit_hidden_' + dir] = hidden
     return true
   },
-  
-  isExitHidden:function(dir: any) {
+
+  isExitHidden: function (dir: any) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     return this['exit_hidden_' + dir]
   },
 
   // Returns an exit going TO this room. If sent "west", it will return the exit from the room to the west, to this room
   // which will probably be east, but may not
-  getReverseExit:function(dir: any) {
+  getReverseExit: function (dir: any) {
     const reverseDir = lang.exit_list.find(el => el.name === dir)
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     const dest = this[dir]
@@ -388,31 +388,31 @@ const DEFAULT_ROOM = {
   // Used for GO IN HOUSE, CLIMB UP TREE, GO THROUGH PORTAL, etc.
   // dir should be one of 'In', 'Out', 'Up', 'Down', Through' - case sensitive
   // @ts-expect-error ts-migrate(7023) FIXME: 'goItem' implicitly has return type 'any' because ... Remove this comment to see the full error message
-  goItem:function(obj: any, dir: any, char: any) {
+  goItem: function (obj: any, dir: any, char: any) {
     const att = 'go' + dir + 'Direction'
     if (!char) char = player
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    if (!obj[att]) return failedmsg(lang['cannot_go_' + dir.toLowerCase()], {item:obj, char:char})
+    if (!obj[att]) return failedmsg(lang['cannot_go_' + dir.toLowerCase()], { item: obj, char: char })
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     if (!this[obj[att]]) return errormsg("Trying to 'go " + dir.toLowerCase() + "' using unknown exit '" + obj[att] + "' for " + this.name)
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     return this[obj[att]].use(char) ? world.SUCCESS : world.FAILED
-  }  
-  
-//    
+  }
+
+  //    
 
 
 };
 
 
 const DEFAULT_ITEM = {
-  lightSource:() => world.LIGHT_NONE,
-  icon:() => "",
-  testKeys:(char: any, toLock: any) => false,
+  lightSource: () => world.LIGHT_NONE,
+  icon: () => "",
+  testKeys: (char: any, toLock: any) => false,
   // @ts-expect-error ts-migrate(7023) FIXME: 'getListAlias' implicitly has return type 'any' be... Remove this comment to see the full error message
-  getListAlias:function(loc: any) { return this.listAlias },
+  getListAlias: function (loc: any) { return this.listAlias },
 
-  getVerbs:function() {
+  getVerbs: function () {
     const verbList: any = []
     //console.log('verbs for ' + this.name)
     //console.log('count ' + this.verbFunctions.length)
@@ -448,8 +448,8 @@ const DEFAULT_ITEM = {
     if (this.verbFunction) this.verbFunction(verbList)
     return verbList;
   },
-  
-  transform:function(item: any) {
+
+  transform: function (item: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'loc' does not exist on type '{ lightSour... Remove this comment to see the full error message
     item.loc = this.loc
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'loc' does not exist on type '{ lightSour... Remove this comment to see the full error message

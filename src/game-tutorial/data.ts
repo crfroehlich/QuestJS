@@ -2,26 +2,26 @@
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("me", PLAYER(), {
-  loc:"lounge",
-  regex:/^(me|myself|player)$/,
+  loc: "lounge",
+  regex: /^(me|myself|player)$/,
   examine: "Just a regular guy.",
-  hitpoints:100,
-  hintCounter:0,
+  hitpoints: 100,
+  hintCounter: 0,
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("usb_stick", {
-  alias:'USB stick',
-  examine:"A plain black USB stick; you can download the files on to this.",
-  loc:'me'
+  alias: 'USB stick',
+  examine: "A plain black USB stick; you can download the files on to this.",
+  loc: 'me'
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("fist", {
-  alias:'fist',
-  regex:/fist|hand|arm/,
-  examine:"That funny shaped thing on the end of your arm.",
-  isLocatedAt:function(loc: any, situation: any) {
+  alias: 'fist',
+  regex: /fist|hand|arm/,
+  examine: "That funny shaped thing on the end of your arm.",
+  isLocatedAt: function (loc: any, situation: any) {
     return situation === world.PARSER && loc === 'me'
   }
 })
@@ -30,10 +30,10 @@ createItem("fist", {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("lounge", {
-  desc:"The lounge is pleasant, if rather bare. There is a{if:kitchen_door:locked: locked} door to the north. A door to the west leads to the lift.",
-  afterFirstEnter:function() {
+  desc: "The lounge is pleasant, if rather bare. There is a{if:kitchen_door:locked: locked} door to the north. A door to the west leads to the lift.",
+  afterFirstEnter: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("The man you need to find is upstairs, but the lift does not work - it has no power. How can you get to him?") 
+    msg("The man you need to find is upstairs, but the lift does not work - it has no power. How can you get to him?")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     tmsg("This is the first room, and the text is telling you about it. If there were things here, you would probably be told about them in the room description, but we will come on to that later. You will also usually be told of any exits. This room has an exit north, but it is currently locked.")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -42,13 +42,13 @@ createRoom("lounge", {
     tmsg("Before going any further, we should look at what is on the screen. Below this text, you should see a cursor. In this game it is a > sign, but other games might use different symbols or have a box. You type commands in there. Try it now by typing WAIT (I am going to write commands for you to type in capitals to diffentiate them; you do not need to).")
   },
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  north:new Exit("kitchen"),
+  north: new Exit("kitchen"),
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  west:new Exit("lift", { isLocked:function() { return !w.reactor_room.reactorRunning }}),
-  eventPeriod:1,
-  eventActive:true,
-  eventCount:0,
-  eventScript:function() {
+  west: new Exit("lift", { isLocked: function () { return !w.reactor_room.reactorRunning } }),
+  eventPeriod: 1,
+  eventActive: true,
+  eventCount: 0,
+  eventScript: function () {
     this.eventCount++
     switch (this.eventCount) {
       case 1:
@@ -90,47 +90,47 @@ createRoom("lounge", {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("kitchen", {
-  desc:"The kitchen looks clean and well-equipped.",
-  afterFirstEnter:function() {
+  desc: "The kitchen looks clean and well-equipped.",
+  afterFirstEnter: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
     hint.now('neToGarden')
   },
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  south:new Exit("lounge"),
+  south: new Exit("lounge"),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  down:new Exit("basement"),
+  down: new Exit("basement"),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  in:new Exit("larder"),
+  in: new Exit("larder"),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  northeast:new Exit("garden"),
+  northeast: new Exit("garden"),
 })
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("kitchen_door", LOCKED_DOOR([], "lounge", "kitchen"), {
-  examine:"It is plain, wooden door, painted white.",
+  examine: "It is plain, wooden door, painted white.",
 })
 
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("basement", {
-  desc:"A dank room, with a whole load of crates piled {ifNot:crates:moved:against the west wall}{if:crates:moved:up in the middle of the room. There is a door to the west}. Cobwebs hang from every beam.",
-  darkDesc:"The basement is dark and full of cobwebs. The only way out is back up the ladder.",
+  desc: "A dank room, with a whole load of crates piled {ifNot:crates:moved:against the west wall}{if:crates:moved:up in the middle of the room. There is a door to the west}. Cobwebs hang from every beam.",
+  darkDesc: "The basement is dark and full of cobwebs. The only way out is back up the ladder.",
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  up:new Exit('kitchen', {isHidden:function() { return false; } }),
+  up: new Exit('kitchen', { isHidden: function () { return false; } }),
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  west:new Exit('secret_passage', {isHidden:function() { return !w.crates.moved || (!w.light_switch.switchedon && !w.flashlight.switchedon); } }),
-  lightSource:function() {
+  west: new Exit('secret_passage', { isHidden: function () { return !w.crates.moved || (!w.light_switch.switchedon && !w.flashlight.switchedon); } }),
+  lightSource: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'light_switch' does not exist on type '{}... Remove this comment to see the full error message
     return w.light_switch.switchedon ? world.LIGHT_FULL : world.LIGHT_NONE
   },
-  eventPeriod:1,
-  eventIsActive:function() {
+  eventPeriod: 1,
+  eventIsActive: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
     return (w.me.loc === this.name)
   },
-  eventScript:function() {
+  eventScript: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'flashlight' does not exist on type '{}'.
     if (w.flashlight.switchedon && !this.flag1) hint.now('turnOnLight')
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'flashlight' does not exist on type '{}'.
@@ -142,17 +142,17 @@ createRoom("basement", {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("light_switch", SWITCHABLE(false), {
-  loc:"basement",
-  examine:"A switch, presumably for the light.",
-  regex:/^light|switch/,
+  loc: "basement",
+  examine: "A switch, presumably for the light.",
+  regex: /^light|switch/,
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("crates", {
-  loc:"basement", 
-  examine:"A bunch of old crates.",
-  pronouns:lang.pronouns.plural,
-  move:function() {
+  loc: "basement",
+  examine: "A bunch of old crates.",
+  pronouns: lang.pronouns.plural,
+  move: function () {
     if (!this.moved) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       msg("You move the crates... And find a passage was hidden behind them.")
@@ -167,16 +167,16 @@ createItem("crates", {
       return false
     }
   },
-  take:function(options: any) {
+  take: function (options: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg('The crates are too heavy to pick... But you might be able to move them.')
     return false
-  },    
+  },
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("cobwebs", {
-  examine:function() {
+  examine: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("There are a lot! You wonder if it is worse if there are a thousand spiders down here... Or just one very big one.")
     if (!this.flag) {
@@ -185,32 +185,32 @@ createItem("cobwebs", {
       this.flag = true
     }
   },
-  take:function(options: any) {
+  take: function (options: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg('The cobwebs just disintegrate when you try to take them.')
     return false
-  },    
-  scenery:true,
+  },
+  scenery: true,
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
 createItem("old_newspaper", TAKEABLE(), READABLE(), {
-  examine:'A newspaper from the eighties; yellow with age.',
-  read:'You spend a few minutes reading about what happens on the day 14th June 1987 (or perhaps the day before). A somewhat mocking article about an archaeologist, Dr Ruudhorn, and Atlantis catches your eye.',
-  loc:'basement',
+  examine: 'A newspaper from the eighties; yellow with age.',
+  read: 'You spend a few minutes reading about what happens on the day 14th June 1987 (or perhaps the day before). A somewhat mocking article about an archaeologist, Dr Ruudhorn, and Atlantis catches your eye.',
+  loc: 'basement',
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("rope", ROPE(false), {
-  examine:'About 25 foot long; it looks old, but serviceable.',
-  loc:'basement',
-  ropeLength:5,
+  examine: 'About 25 foot long; it looks old, but serviceable.',
+  loc: 'basement',
+  ropeLength: 5,
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("apple", EDIBLE(), {
-  examine:'A rosy red apple.',
-  loc:'basement',
+  examine: 'A rosy red apple.',
+  loc: 'basement',
 });
 
 
@@ -222,25 +222,25 @@ createItem("apple", EDIBLE(), {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("larder", {
-  desc:"Oh, dear, the larder is empty!",
+  desc: "Oh, dear, the larder is empty!",
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  out:new Exit("kitchen"),
+  out: new Exit("kitchen"),
 })
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("garden", {
-  desc:"The garden is basically a few square feet of grass.",
+  desc: "The garden is basically a few square feet of grass.",
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  southwest:new Exit("kitchen"),
-  afterFirstEnter:function() {
+  southwest: new Exit("kitchen"),
+  afterFirstEnter: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
     hint.now('getHat')
   },
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  east:new Exit("shed", {
-    alsoDir:['in'],
-    use:function() {
+  east: new Exit("shed", {
+    alsoDir: ['in'],
+    use: function () {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'shed_door' does not exist on type '{}'.
       if (w.shed_door.locked) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -256,7 +256,7 @@ createRoom("garden", {
       }
     },
   }),
-  smell:function() {
+  smell: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("You can smell the freshly-cut grass!")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'before' does not exist on type '{}'.
@@ -277,13 +277,13 @@ createRoom("garden", {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("hat", WEARABLE(), {
-  examine:"It is straw boater, somewhat the worse for wear.",
-  loc:"garden",
-  afterMove:function(options: any) {
+  examine: "It is straw boater, somewhat the worse for wear.",
+  loc: "garden",
+  afterMove: function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
     if (!this.flag1 && options.toLoc === 'me') hint.now('wearHat')
   },
-  afterWear:function() {
+  afterWear: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
     if (!this.flag2) hint.now('xGrass')
   },
@@ -292,15 +292,15 @@ createItem("hat", WEARABLE(), {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("grass", {
-  examine:function() {
+  examine: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("The grass is green, and recently cut.")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
     hint.now('smell')
   },
-  loc:"garden",
-  scenery:true,
-  smell:function() {
+  loc: "garden",
+  scenery: true,
+  smell: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("You can smell the grass; it has just been cut!")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'before' does not exist on type '{}'.
@@ -328,8 +328,8 @@ createItem("grass", {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 5.
 createItem("box", READABLE(), CONTAINER(true), LOCKED_WITH([]), {
-  examine:function() {
-    const tpParams = {char:player, container:this}
+  examine: function () {
+    const tpParams = { char: player, container: this }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'list' does not exist on type '{ char: an... Remove this comment to see the full error message
     tpParams.list = this.listContents(world.LOOK)
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -339,16 +339,16 @@ createItem("box", READABLE(), CONTAINER(true), LOCKED_WITH([]), {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
     if (!this.flag2) hint.now('readBox')
   },
-  regex:/crate|label|lid/,
-  read:function() {
+  regex: /crate|label|lid/,
+  read: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("The label says: \"The Hat and Crowbar Company - exchanging hats for crowbars since 2020.\"")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
     hint.now('openBox')
     this.locked = false
   },
-  msgClose:"You close the lid.",
-  afterClose:function() {
+  msgClose: "You close the lid.",
+  afterClose: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'hat' does not exist on type '{}'.
     if (this.loc && w.hat.loc === 'box' && w.crowbar.loc !== 'box') {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -368,13 +368,13 @@ createItem("box", READABLE(), CONTAINER(true), LOCKED_WITH([]), {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("crowbar", TAKEABLE(), {
-  examine:"A cheap plastic crowbar; it is red, white, blue and yellow.",
-  loc:"box",
-  afterMove:function(options: any) {
+  examine: "A cheap plastic crowbar; it is red, white, blue and yellow.",
+  loc: "box",
+  afterMove: function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
     if (options.toLoc === 'me') hint.now("hatInBox")
   },
-  use:function(options: any) {
+  use: function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'lab_door' does not exist on type '{}'.
     if (options.char.loc === 'laboratory' && w.lab_door.locked) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -398,11 +398,11 @@ createItem("crowbar", TAKEABLE(), {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("shed_door", {
-  examine:"The shed is metal, a kind of beige colour{if:shed_door:locked:; the door is padlocked... but the padlock does not look that strong}.",
-  loc:"garden",
-  locked:true,
-  scenery:true,
-  crowbar:function() {
+  examine: "The shed is metal, a kind of beige colour{if:shed_door:locked:; the door is padlocked... but the padlock does not look that strong}.",
+  loc: "garden",
+  locked: true,
+  scenery: true,
+  crowbar: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     if (!this.locked) return falsemsg("The padlock is already off the lock.")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -421,27 +421,27 @@ createItem("shed_door", {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("shed", {
-  desc:"The shed is disappointingly empty{if:flashlight:scenery:, apart from a torch in the far corner}.",
-  afterFirstEnter:function() {
+  desc: "The shed is disappointingly empty{if:flashlight:scenery:, apart from a torch in the far corner}.",
+  afterFirstEnter: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
     hint.now("getTorch")
   },
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  west:new Exit("garden", { alsoDir:['out']}),
+  west: new Exit("garden", { alsoDir: ['out'] }),
 })
 
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
 createItem("flashlight", TAKEABLE(), SWITCHABLE(false, 'providing light'), {
-  loc:"shed",
-  scenery:true,
-  examine:"A small red torch.",
-  synonyms:['torch'],
-  lightSource:function() {
+  loc: "shed",
+  scenery: true,
+  examine: "A small red torch.",
+  synonyms: ['torch'],
+  lightSource: function () {
     return this.switchedon ? world.LIGHT_FULL : world.LIGHT_NONE;
   },
-  afterMove:function(options: any) {
+  afterMove: function (options: any) {
     if (!this.flag1 && options.toLoc === 'me') {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
       hint.now("torchOn")
@@ -459,8 +459,8 @@ createItem("flashlight", TAKEABLE(), SWITCHABLE(false, 'providing light'), {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("secret_passage", {
-  desc:"The passage heads west.",
-  afterFirstEnter:function() {
+  desc: "The passage heads west.",
+  afterFirstEnter: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
     if (w.me.alreadySaved) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -474,9 +474,9 @@ createRoom("secret_passage", {
     }
   },
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  east:new Exit("basement"),
+  east: new Exit("basement"),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  west:new Exit("laboratory"),
+  west: new Exit("laboratory"),
 })
 
 
@@ -488,53 +488,55 @@ createRoom("secret_passage", {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("laboratory", {
-  desc:"This is a laboratory of some sort. The room is full of screens and instruments, but you cannot tell what sort of science is being done here. There is a big steel door {ifNot:lab_door:closed:lying open }to the north{if:lab_door:closed:; you feel pretty sure it will be too heavy for you to open}.",
-  afterFirstEnter:function() {
+  desc: "This is a laboratory of some sort. The room is full of screens and instruments, but you cannot tell what sort of science is being done here. There is a big steel door {ifNot:lab_door:closed:lying open }to the north{if:lab_door:closed:; you feel pretty sure it will be too heavy for you to open}.",
+  afterFirstEnter: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'before' does not exist on type '{}'.
     if (hint.before('saveGame')) tmsg("Okay, so not bothering with saving...")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
     hint.now("robot")
   },
-  afterEnter:function() {
+  afterEnter: function () {
     //hint.now("rGoNorth")
   },
-  
-  lab_door_locked:true,
+
+  lab_door_locked: true,
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  east:new Exit("secret_passage"),
+  east: new Exit("secret_passage"),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  west:new Exit("lift"),
+  west: new Exit("lift"),
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  north:new Exit("reactor_room", {use:function(char: any) {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
-    if (char === w.me && w.lab_door.closed) return falsemsg("The door is too heavy for you to move.")
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'robot' does not exist on type '{}'.
-    if (char === w.robot) {
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'lab_door' does not exist on type '{}'.
-      if (w.lab_door.closed) {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("The robot opens the heavy door with ease.")
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'lab_door' does not exist on type '{}'.
-        w.lab_door.closed = false
-      }
+  north: new Exit("reactor_room", {
+    use: function (char: any) {
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
+      if (char === w.me && w.lab_door.closed) return falsemsg("The door is too heavy for you to move.")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'robot' does not exist on type '{}'.
-      w.robot.moveChar(this)
+      if (char === w.robot) {
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'lab_door' does not exist on type '{}'.
+        if (w.lab_door.closed) {
+          // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+          msg("The robot opens the heavy door with ease.")
+          // @ts-expect-error ts-migrate(2339) FIXME: Property 'lab_door' does not exist on type '{}'.
+          w.lab_door.closed = false
+        }
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'robot' does not exist on type '{}'.
+        w.robot.moveChar(this)
+        return true
+      }
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
+      w.me.moveChar(this)
       return true
     }
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
-    w.me.moveChar(this)
-    return true
-  }}),
+  }),
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("lab_door", OPENABLE(false), {
-  examine:"A very solid, steel door.",
-  loc:'laboratory',
-  open:function(options: any) {
+  examine: "A very solid, steel door.",
+  loc: 'laboratory',
+  open: function (options: any) {
     if (!this.closed) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(lang.already, {item:this})
+      msg(lang.already, { item: this })
       return false;
     }
     if (options.char.strong) {
@@ -555,21 +557,21 @@ createItem("lab_door", OPENABLE(false), {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("screens", {
-  examine:"There are six smaller screens attached to different instruments, each displaying graphs and numbers that are slowly evolving over time. A larger screen shows another room, with some huge device sitting in a sunked area in the middle of it. Pipes are cables seem to feed it.{if:robot:loc:reactor_room: You can see the robot in the room.}",
-  loc:'laboratory',
-  scenery:true,
+  examine: "There are six smaller screens attached to different instruments, each displaying graphs and numbers that are slowly evolving over time. A larger screen shows another room, with some huge device sitting in a sunked area in the middle of it. Pipes are cables seem to feed it.{if:robot:loc:reactor_room: You can see the robot in the room.}",
+  loc: 'laboratory',
+  scenery: true,
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("instruments", {
-  examine:"The instruments are essentially oddly-shaped boxes. They are a mix of pale grey, light brown and white, and have various pipe and cable connections at at various points. They all have a brand badge on the front, but no other markings.",
-  loc:'laboratory',
-  scenery:true,
+  examine: "The instruments are essentially oddly-shaped boxes. They are a mix of pale grey, light brown and white, and have various pipe and cable connections at at various points. They all have a brand badge on the front, but no other markings.",
+  loc: 'laboratory',
+  scenery: true,
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("brand_badges", COMPONENT("instruments"), {
-  examine:function() {
+  examine: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("The badges on the various instruments are all the same; \"Zeta Industries\". They appear to be hand-drawn.")
     if (!this.flag1) {
@@ -580,9 +582,9 @@ createItem("brand_badges", COMPONENT("instruments"), {
     }
     this.flag1 = true
   },
-  regex:/badge/,
-  loc:'laboratory',
-  scenery:true,
+  regex: /badge/,
+  loc: 'laboratory',
+  scenery: true,
 })
 
 
@@ -593,17 +595,17 @@ createItem("brand_badges", COMPONENT("instruments"), {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("reactor_room", {
-  desc:function() {
+  desc: function () {
     return "The reactor room is dominated by a huge zeta-reactor, extending from a sunken area some five foot below floor level, up to the ceiling. Pipes and cables of varying sizes are connected to it{if:reactor_room:reactorRunning:, and the reactor is humming with power}.{ifHere:vomit: There is vomit in the corner.}"
   },
-  reactorRunning:false,
+  reactorRunning: false,
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  south:new Exit("laboratory"),
-  eventPeriod:1,
+  south: new Exit("laboratory"),
+  eventPeriod: 1,
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
-  eventIsActive:function() { return w.me.loc === "reactor_room" },
-  countdown:6,
-  eventScript:function() {
+  eventIsActive: function () { return w.me.loc === "reactor_room" },
+  countdown: 6,
+  eventScript: function () {
     this.countdown--
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("A recorded voice echoes round the room: 'Warning: Zeta-particle levels above recommended safe threshold. Death expected after approximately {reactor_room.countdown} minutes of exposure.'")
@@ -638,25 +640,25 @@ createRoom("reactor_room", {
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
     hint.now("rGetRod")
-  }  
+  }
 })
 
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createRoom("reactor", CONTAINER(false), {
-  examine:function() {
+  examine: function () {
     return "The reactor is composed of a series of rings, hoops and cylinders arranged on a vertical axis. Some are shiny metal, other dull black, but you have no idea of the significant of any of them.{if:reactor_room:reactorRunning: An intense blue light spills out from various points up it length.}"
   },
-  loc:'reactor_room',
-  testDropIn:function(options: any) {
+  loc: 'reactor_room',
+  testDropIn: function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'control_rod' does not exist on type '{}'... Remove this comment to see the full error message
     if (options.item === w.control_rod) return true
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("That cannot go in there!")
     return false
   },
-  afterDropIn:function(options: any) {
+  afterDropIn: function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'control_rod' does not exist on type '{}'... Remove this comment to see the full error message
     if (w.control_rod.loc === this.name) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -671,16 +673,16 @@ createRoom("reactor", CONTAINER(false), {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("vomit", {
-  examine:"You decide against looking too closely at the vomit, but it occurs to you that perhaps you should tell the robot about it.",
-  scenery:true,
+  examine: "You decide against looking too closely at the vomit, but it occurs to you that perhaps you should tell the robot about it.",
+  scenery: true,
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("control_rod", TAKEABLE(), {
-  examine:"The control rod is about two foot long, and a dull black colour.",
-  take:function(options: any) {
+  examine: "The control rod is about two foot long, and a dull black colour.",
+  take: function (options: any) {
     // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'char'.
-    const tpParams = {char:char, item:this}
+    const tpParams = { char: char, item: this }
     // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'char'.
     if (this.isAtLoc(char.name)) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
@@ -689,14 +691,14 @@ createItem("control_rod", TAKEABLE(), {
     }
     // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'char'.
     if (!char.testManipulate(this, "take")) return false;
-    
+
     // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'char'.
     if (char === w.me) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       msg("As you go to grab the control rod, a recorded message says: 'Warning: Control rod is highly zeta-active. Handling will result in instant death.' You decide upon reflection that you do not want to pick it up that much.")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
       hint.now("backToRobot")
-      return false 
+      return false
     }
     let flag = (this.loc === "reactor")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
@@ -712,13 +714,13 @@ createItem("control_rod", TAKEABLE(), {
     hint.now("rRInR")
     return true
   },
-  loc:'control_rod_repository',
+  loc: 'control_rod_repository',
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("control_rod_repository", SURFACE(), {
-  examine:"The control rod repository is a cross between a shelf and a cradle; it is attached to the wall like a shelf, but shaped like a cradle to hold the control rod.",
-  loc:'reactor_room',
+  examine: "The control rod repository is a cross between a shelf and a cradle; it is attached to the wall like a shelf, but shaped like a cradle to hold the control rod.",
+  loc: 'reactor_room',
 })
 
 
@@ -727,21 +729,23 @@ createItem("control_rod_repository", SURFACE(), {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("office", {
-  desc:function() {
+  desc: function () {
     return "The office is a fair-size, dominated by a large desk. {ifNot:Professor_Kleinscope:flag:Sat behind the desk is Professor Kleinscope. }There is an elderly computer sat on the desk {once:- this must be the computer with the files on it; getting the files will not be possible while the Professor is sat there, however}. Behind the desk is a large window, and on the wall to the right is an odd painting."
   },
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  west:new Exit("lift", { use:function() {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'office' does not exist on type '{}'.
-    if (w.office.lift_exit_locked) return falsemsg("The lift door is closed. You suspect Professor Kleinscope is in he lift and on his way up right now.")
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("You walk back into the lift.")
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
-    w.me.moveChar(this)
-  }}),
+  west: new Exit("lift", {
+    use: function () {
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'office' does not exist on type '{}'.
+      if (w.office.lift_exit_locked) return falsemsg("The lift door is closed. You suspect Professor Kleinscope is in he lift and on his way up right now.")
+      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+      msg("You walk back into the lift.")
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
+      w.me.moveChar(this)
+    }
+  }),
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  out:new Exit("garden", {
-    use:function() {
+  out: new Exit("garden", {
+    use: function () {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'office_window' does not exist on type '{... Remove this comment to see the full error message
       if (!w.office_window.smashed) falsemsg("There is a pane of glass in the way.")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'rope' does not exist on type '{}'.
@@ -767,9 +771,9 @@ createRoom("office", {
       return true
     },
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'office_window' does not exist on type '{... Remove this comment to see the full error message
-    isHidden:function() { return !w.office_window.smashed },
+    isHidden: function () { return !w.office_window.smashed },
   }),
-  afterFirstEnter:function() {
+  afterFirstEnter: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
     hint.now("useComputer")
   },
@@ -777,7 +781,7 @@ createRoom("office", {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("office_window", {
-  examine:function() {
+  examine: function () {
     if (this.smashed) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       msg("The window is tall and wide... and smashed.")
@@ -792,16 +796,16 @@ createItem("office_window", {
       this.lookedout = true
     }
   },
-  loc:'office',
-  scenery:true,
-  outside:[],
-  lookout:function() {
+  loc: 'office',
+  scenery: true,
+  outside: [],
+  lookout: function () {
     let s = 'Out of the window you can see the street at the front of the house. Your black SUV is parked at the side on the road.'
-    if (this.outside.length > 0) s += ' On the street below the house you can see ' + formatList(this.outside, {article:DEFINITE, lastJoiner:lang.list_and}) + '.'
+    if (this.outside.length > 0) s += ' On the street below the house you can see ' + formatList(this.outside, { article: DEFINITE, lastJoiner: lang.list_and }) + '.'
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg(s)
   },
-  smash:function() {
+  smash: function () {
     if (this.smashed) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       return falsemsg("The window is already smashed.")
@@ -823,12 +827,12 @@ createItem("office_window", {
       return false
     }
   },
-  isThrowThroughable:function(item: any) {
+  isThrowThroughable: function (item: any) {
     if (this.smashed) return true
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     return falsemsg("You can't throw anything out of the window, it is closed.")
   },
-  throwThrough:function(item: any) {
+  throwThrough: function (item: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'rope' does not exist on type '{}'.
     if (item !== w.rope) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -841,7 +845,7 @@ createItem("office_window", {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     if (!item.tiedTo1 && !item.tiedTo2) return falsemsg("You are about to heave the rope out the window when it occurs to you that it might be useful to tie one end to something first.")
     // @ts-expect-error ts-migrate(2552) FIXME: Cannot find name 'falsedmsg'. Did you mean 'falsem... Remove this comment to see the full error message
-    if (item.tiedTo1 && item.tiedTo2) falsedmsg("The rope is tied to both {nm:obj1:the} and {nm:obj2:the}; which end were you hoping to throw out?", {obj1:w[rope.tiedTo1], obj2:w[rope.tiedTo2]})
+    if (item.tiedTo1 && item.tiedTo2) falsedmsg("The rope is tied to both {nm:obj1:the} and {nm:obj2:the}; which end were you hoping to throw out?", { obj1: w[rope.tiedTo1], obj2: w[rope.tiedTo2] })
 
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("You throw the end of the rope out the window.")
@@ -852,7 +856,7 @@ createItem("office_window", {
       item.locs.unshift("outside")
     }
   },
-  open:function() {
+  open: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     return falsemsg("The window does not open.")
   },
@@ -860,10 +864,10 @@ createItem("office_window", {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("painting", {
-  examine:"The painting at first glance is abstract, but after staring at it for a few minutes, you realise is is actually a portrait of a woman in a blue dress with a bizarre hat.",
-  loc:'office',
-  scenery:true,
-  lookbehind:function() {
+  examine: "The painting at first glance is abstract, but after staring at it for a few minutes, you realise is is actually a portrait of a woman in a blue dress with a bizarre hat.",
+  loc: 'office',
+  scenery: true,
+  lookbehind: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Professor_Kleinscope' does not exist on ... Remove this comment to see the full error message
     if (w.Professor_Kleinscope.loc === 'office') {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -879,28 +883,28 @@ createItem("painting", {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
 createItem("postit_note", TAKEABLE(), READABLE(), {
-  alias:'post-it note',
-  examine:"The sticky yellow note has something written on it; the number {show:computer:code}.",
-  read:"The post-it note just has six digits written on it: {show:computer:code}.",
-  loc:'office',
-  scenery:true,
+  alias: 'post-it note',
+  examine: "The sticky yellow note has something written on it; the number {show:computer:code}.",
+  read: "The post-it note just has six digits written on it: {show:computer:code}.",
+  loc: 'office',
+  scenery: true,
 })
 
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("chair", FURNITURE({sit:true, stand:true}), {
-  examine:"This is an elegant, white office chair in good condition.",
-  loc:'office',
-  scenery:true,
-  afterPostureOn:function(options: any) {
+createItem("chair", FURNITURE({ sit: true, stand: true }), {
+  examine: "This is an elegant, white office chair in good condition.",
+  loc: 'office',
+  scenery: true,
+  afterPostureOn: function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Professor_Kleinscope' does not exist on ... Remove this comment to see the full error message
     if (w.Professor_Kleinscope.loc === 'office' && options.posture === 'sit') {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       msg("'Making yourself at home, I see...' notes Professor Kleinscope.")
     }
   },
-  testPostureOn:function(options: any) {
+  testPostureOn: function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Professor_Kleinscope' does not exist on ... Remove this comment to see the full error message
     if (w.Professor_Kleinscope.flag && options.posture === 'sit') return true
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -909,7 +913,7 @@ createItem("chair", FURNITURE({sit:true, stand:true}), {
     if (w.Professor_Kleinscope.loc === 'office' && options.posture === 'stand') {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       msg("'I'd rather you kept your feet {i:off} the furniture,' says Professor Kleinscope crossly.")
-    }    
+    }
   },
 })
 
@@ -917,22 +921,22 @@ createItem("chair", FURNITURE({sit:true, stand:true}), {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("desk", {
-  examine:"The desk is artfully curved, and made of a pale wood.",
-  loc:'office',
-  scenery:true,
-  attachable:true,
+  examine: "The desk is artfully curved, and made of a pale wood.",
+  loc: 'office',
+  scenery: true,
+  attachable: true,
 })
 
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createItem("computer", {
-  examine:"The computer is so old it is beige.",
-  loc:'office',
-  scenery:true,
+  examine: "The computer is so old it is beige.",
+  loc: 'office',
+  scenery: true,
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'int' does not exist on type '{ buffer: n... Remove this comment to see the full error message
-  code:random.int(10000, 999999).toString(),
-  use:function() {
+  code: Quest.Random.rndm.int(10000, 999999).toString(),
+  use: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Professor_Kleinscope' does not exist on ... Remove this comment to see the full error message
     if (!w.Professor_Kleinscope.flag) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -950,7 +954,7 @@ createItem("computer", {
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       msg("You press a key on the keyboard, and a message appears on the screen: 'Please input your six digit PIN.'")
-      askText("PIN?", function(result: any) {
+      askText("PIN?", function (result: any) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'computer' does not exist on type '{}'.
         if (result === w.computer.code) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -997,7 +1001,7 @@ createItem("computer", {
             // @ts-expect-error ts-migrate(2339) FIXME: Property 'rope' does not exist on type '{}'.
             w.rope.tiedTo2 = false
           }
-          
+
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
           hint.now('smashWindow')
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'office' does not exist on type '{}'.
@@ -1018,17 +1022,17 @@ createItem("computer", {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createRoom("lift", TRANSIT("east"), {
-  regex:/elevator/,
-  desc:function() {
+  regex: /elevator/,
+  desc: function () {
     return "The lift is small; according the plaque it is limited to just three people. There are three buttons, labelled one to three. A label above indicates the lift is at \"{transitDest}\"."
   },
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  east:new Exit("laboratory"),
-  afterFirstEnter:function() {
+  east: new Exit("laboratory"),
+  afterFirstEnter: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
     hint.now("press3")
   },
-  testTransit:function() {
+  testTransit: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'reactor_room' does not exist on type '{}... Remove this comment to see the full error message
     if (!w.reactor_room.reactorRunning) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -1050,7 +1054,7 @@ createRoom("lift", TRANSIT("east"), {
     }
     return true;
   },
-  afterTransitMove:function(transitDest: any, exitName: any) {
+  afterTransitMove: function (transitDest: any, exitName: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
     if (transitDest === 'office') hint.now("eastOffice")
   }
@@ -1058,31 +1062,31 @@ createRoom("lift", TRANSIT("east"), {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("button_3", TRANSIT_BUTTON("lift"), {
-  alias:"Button: 3",
-  examine:"A button with the letter 3 on it.",
-  transitDest:"office",
-  title:'Level 3: Office',
-  transitAlreadyHere:"You press the button; nothing happens.",
-  transitGoToDest:"You press the button; the door closes and the lift ascends.",
+  alias: "Button: 3",
+  examine: "A button with the letter 3 on it.",
+  transitDest: "office",
+  title: 'Level 3: Office',
+  transitAlreadyHere: "You press the button; nothing happens.",
+  transitGoToDest: "You press the button; the door closes and the lift ascends.",
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("button_2", TRANSIT_BUTTON("lift"), {
-  alias:"Button: 2",
-  examine:"A button with the letter 2 on it.",
-  title:'Level 2: Lounge',
-  transitDest:"lounge",
-  transitAlreadyHere:"You press the button; nothing happens.",
-  transitGoToDest:"You press the button; the door closes and the lift moves.",
+  alias: "Button: 2",
+  examine: "A button with the letter 2 on it.",
+  title: 'Level 2: Lounge',
+  transitDest: "lounge",
+  transitAlreadyHere: "You press the button; nothing happens.",
+  transitGoToDest: "You press the button; the door closes and the lift moves.",
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("button_1", TRANSIT_BUTTON("lift"), {
-  alias:"Button: 1",
-  examine:"A button with the letter 1 on it.",
-  title:'Level 1: Laboratory',
-  transitDest:"laboratory",
-  transitAlreadyHere:"You press the button; nothing happens.",
-  transitGoToDest:"You press the button; the door closes and the lift descends.",
+  alias: "Button: 1",
+  examine: "A button with the letter 1 on it.",
+  title: 'Level 1: Laboratory',
+  transitDest: "laboratory",
+  transitAlreadyHere: "You press the button; nothing happens.",
+  transitGoToDest: "You press the button; the door closes and the lift descends.",
 })
 

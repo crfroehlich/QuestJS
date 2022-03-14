@@ -5,8 +5,8 @@ test.resetOnCompletion = false
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'tests' does not exist on type '{}'.
-test.tests = function() {
-  
+test.tests = function () {
+
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'suppressAntagonise' does not exist on ty... Remove this comment to see the full error message
   for (const skill of rpg.list) skill.suppressAntagonise = true
@@ -33,7 +33,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Finding foes")
   let l
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'orc' does not exist on type '{}'.
   l = rpg.getAll(w.orc)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -46,7 +46,7 @@ test.tests = function() {
   test.assertEqual(3, l.length)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(false, l.includes(w.orc))
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'orc' does not exist on type '{}'.
   l = rpg.getFoes(w.orc)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -123,7 +123,7 @@ test.tests = function() {
   test.assertCmd("equip knife", "You draw the knife.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("unequip knife", "You put away the knife.");
-  
+
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Armour")
@@ -159,7 +159,7 @@ test.tests = function() {
 
   // non-corporeal
   // death, afterDeath, corpseDescription
-  
+
   // pickpocket
 
 
@@ -178,7 +178,7 @@ test.tests = function() {
   test.assertEqual(1, attack.offensiveBonus)
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime(3)
+  Quest.Random.rndm.prime(3)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'resolve' does not exist on type 'boolean... Remove this comment to see the full error message
   attack.resolve(w.goblin, true, 0)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -193,11 +193,11 @@ test.tests = function() {
 
   // Turn off getting aggressive
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'goblin' does not exist on type '{}'.
-  w.goblin.antagonise = function() {}
+  w.goblin.antagonise = function () { }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'goblin' does not exist on type '{}'.
-  w.goblin.afterAttack = function() {}
+  w.goblin.afterAttack = function () { }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'orc' does not exist on type '{}'.
-  w.orc.antagonise = function() {}
+  w.orc.antagonise = function () { }
 
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
@@ -214,7 +214,7 @@ test.tests = function() {
   test.assertEqual(1, attack.offensiveBonus)
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([19, 4])
+  Quest.Random.rndm.prime([19, 4])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'resolve' does not exist on type 'boolean... Remove this comment to see the full error message
   attack.resolve(w.goblin, true, 0)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -223,7 +223,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'goblin' does not exist on type '{}'.
   w.goblin.armour = 2
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([19, 4])
+  Quest.Random.rndm.prime([19, 4])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'resolve' does not exist on type 'boolean... Remove this comment to see the full error message
   attack.resolve(w.goblin, true, 0)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -232,12 +232,12 @@ test.tests = function() {
   w.goblin.armour = 0
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'goblin' does not exist on type '{}'.
   w.goblin.health = 40
-  
+
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Attack.createAttack (flail)")
   const oldProcessAttack = player.modifyOutgoingAttack
-  player.modifyOutgoingAttack = function(attack: any) { attack.offensiveBonus += 2 }
+  player.modifyOutgoingAttack = function (attack: any) { attack.offensiveBonus += 2 }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'flail' does not exist on type '{}'.
   w.flail.equipped = true
 
@@ -250,10 +250,10 @@ test.tests = function() {
   test.assertEqual('2d10+4', attack.damage)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(5, attack.offensiveBonus)  // player has + 3 plus 2 from l07 above
-  
+
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([19, 4, 7])
+  Quest.Random.rndm.prime([19, 4, 7])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'resolve' does not exist on type 'boolean... Remove this comment to see the full error message
   attack.resolve(w.goblin, true, 0)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -262,7 +262,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'goblin' does not exist on type '{}'.
   w.goblin.armour = 2
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([19, 4, 7])
+  Quest.Random.rndm.prime([19, 4, 7])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'resolve' does not exist on type 'boolean... Remove this comment to see the full error message
   attack.resolve(w.goblin, true, 0)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -271,7 +271,7 @@ test.tests = function() {
   w.goblin.armour = 0
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'goblin' does not exist on type '{}'.
   w.goblin.health = 40
-  
+
   player.modifyOutgoingAttack = oldProcessAttack
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'flail' does not exist on type '{}'.
   w.flail.equipped = false
@@ -288,7 +288,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
   attack = Attack.createAttack(player, w.goblin, rpg.findSkill("Defensive attack"))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([19, 4, 7])
+  Quest.Random.rndm.prime([19, 4, 7])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'apply' does not exist on type 'boolean |... Remove this comment to see the full error message
   attack.apply()
   //attack.resolve(w.goblin, true, 0)
@@ -301,7 +301,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual([], player.activeEffects)
 
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'goblin' does not exist on type '{}'.
   w.goblin.health = 40
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'flail' does not exist on type '{}'.
@@ -324,7 +324,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'long_bow' does not exist on type '{}'.
   w.long_bow.equipped = false
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'long_bow' does not exist on type '{}'.
-  w.long_bow.activeEffects =  bowTmp
+  w.long_bow.activeEffects = bowTmp
 
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
@@ -340,14 +340,14 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(0, attack.offensiveBonus)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([19, 5])
+  Quest.Random.rndm.prime([19, 5])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'resolve' does not exist on type 'boolean... Remove this comment to see the full error message
   attack.resolve(w.me, true, 0)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(98, w.me.health)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
   w.me.health = 100
-  
+
 
 
 
@@ -361,7 +361,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("attack command, success");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([19, 4, 7])
+  Quest.Random.rndm.prime([19, 4, 7])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'flail' does not exist on type '{}'.
   w.flail.equipped = true
 
@@ -380,7 +380,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("attack command, fails");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime(4)
+  Quest.Random.rndm.prime(4)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'flail' does not exist on type '{}'.
   w.flail.equipped = true
 
@@ -397,11 +397,11 @@ test.tests = function() {
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("learn fireball")
-  
+
   const spell = rpg.find('fireball')
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(true, spell.spell)
-  
+
   player.skillsLearnt = ["Double attack"]
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd('cast nonsense', ['There is no spell called nonsense.'])
@@ -416,11 +416,11 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd('learn fireball', ['You learn <i>Fireball</i> from the spellbook.'])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual(["Double attack", "Fireball"], player.skillsLearnt) 
+  test.assertEqual(["Double attack", "Fireball"], player.skillsLearnt)
   //goblin, orc, snotling, rabbit
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([19, 4, 4, 19, 2, 2, 4, 4])
+  Quest.Random.rndm.prime([19, 4, 4, 19, 2, 2, 4, 4])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd('cast fireball', ['You cast the <i>Fireball</i> spell.', 'The room is momentarily filled with fire.', 'The goblin reels from the explosion.', "The attack does 8 hits, the goblin's health is now 32.", 'The orc reels from the explosion.', "The attack does 4 hits, the orc's health is now 56.", 'The snotling ignores it.', 'The rabbit ignores it.'])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'goblin' does not exist on type '{}'.
@@ -442,7 +442,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd('drop spellbook', ['You drop the spellbook.'])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([19, 4, 7, 9])
+  Quest.Random.rndm.prime([19, 4, 7, 9])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd('cast Ice shard at goblin', ['You cast the <i>Ice shard</i> spell.', 'A shard of ice jumps from your finger to the goblin!', "The attack does 20 hits, the goblin's health is now 20."])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'goblin' does not exist on type '{}'.
@@ -457,12 +457,12 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd('cast lightning bolt', ['You need a target for the spell <i>Lightning bolt</i>.'])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([
+  Quest.Random.rndm.prime([
     19, 4, 7, 9,
 
     // For the orc
     2,
-   
+
     // For the snotling
     19, 4, 7,
   ])
@@ -472,12 +472,12 @@ test.tests = function() {
   w.goblin.health = 40
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'snotling' does not exist on type '{}'.
   w.snotling.health = 20
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime(4)
+  Quest.Random.rndm.prime(4)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd('cast lightning bolt at goblin', ['You cast the <i>Lightning bolt</i> spell.', 'A lightning bolt jumps from your out-reached hand to the goblin, fizzling out before it can actually do anything.'])
-  
+
 
 
 
@@ -485,7 +485,7 @@ test.tests = function() {
   test.title("Attack.createAttack  (goblin, spells)")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'goblin' does not exist on type '{}'.
   w.goblin.spellCasting = 3
-  
+
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
   attack = Attack.createAttack(w.goblin, player, rpg.findSkill('Ice shard'))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -497,7 +497,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(3, attack.offensiveBonus)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([19, 5, 5, 5])
+  Quest.Random.rndm.prime([19, 5, 5, 5])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'resolve' does not exist on type 'boolean... Remove this comment to see the full error message
   attack.resolve(w.me, true, 0)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -509,34 +509,34 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual('goblin', attack.attacker.name)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([19, 5, 5, 5])
+  Quest.Random.rndm.prime([19, 5, 5, 5])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'resolve' does not exist on type 'boolean... Remove this comment to see the full error message
   attack.resolve(w.me, true, 0)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(79, w.me.health)
-  
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'ice_amulet' does not exist on type '{}'.
   w.ice_amulet.worn = true
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
   attack = Attack.createAttack(w.goblin, player, rpg.findSkill('Ice shard'))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime(19)
+  Quest.Random.rndm.prime(19)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'resolve' does not exist on type 'boolean... Remove this comment to see the full error message
   attack.resolve(w.me, true, 0)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(79, w.me.health)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("A shard of ice jumps from the goblin's finger to you, but the ice amulet protects you, and you take no damage.", attack.reportTexts[14].t)
-  
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
   w.me.health = 100
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'goblin' does not exist on type '{}'.
   w.goblin.spellCasting = false
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'ice_amulet' does not exist on type '{}'.
   w.ice_amulet.worn = false
-  
+
 
 
 
@@ -550,9 +550,9 @@ test.tests = function() {
   test.assertCmd('learn stoneskin', ['You learn <i>Stoneskin</i> from the spellbook.'])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd('drop spellbook', ['You drop the spellbook.'])
-  
-  
-  
+
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("cast ongoing spells")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -591,7 +591,7 @@ test.tests = function() {
   test.assertEqual([], player.activeEffects)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd('z', ['Time passes...'])
-  
+
 
 
 
@@ -628,10 +628,10 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("cast Commune with animal restricted")
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  rpg.defaultSpellTestUseable = function(char) { return falsemsg("You have no mana.") }
+  rpg.defaultSpellTestUseable = function (char) { return falsemsg("You have no mana.") }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd('cast commune on rabbit', ['You have no mana.'])
-  rpg.defaultSpellTestUseable = function(char) { return true }
+  rpg.defaultSpellTestUseable = function (char) { return true }
 
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
@@ -644,7 +644,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
   let attack4 = Attack.createAttack(w.goblin, player, rpg.findSkill('Ice shard'))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([19,6, 6, 6])
+  Quest.Random.rndm.prime([19, 6, 6, 6])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'resolve' does not exist on type 'boolean... Remove this comment to see the full error message
   attack4.resolve(w.me, true, 0)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -657,7 +657,7 @@ test.tests = function() {
   test.title("cast Vuln to Frost")
   player.skillsLearnt = ["Double attack", "Fireball", "Vulnerability To Frost"]
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([19])
+  Quest.Random.rndm.prime([19])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd('cast Vulnerability To Frost on me', ['You cast the <i>Vulnerability To Frost</i> spell.', 'Target takes triple damage from frost-based attacks for six turns.', 'The <i>Protection From Frost</i> effect on you expires.'])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
@@ -665,7 +665,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
   attack4 = Attack.createAttack(w.goblin, player, rpg.findSkill('Ice shard'))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([19,6, 6, 6])
+  Quest.Random.rndm.prime([19, 6, 6, 6])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'resolve' does not exist on type 'boolean... Remove this comment to see the full error message
   attack4.resolve(w.me, true, 0)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -684,7 +684,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
   attack4 = Attack.createAttack(w.goblin, player, rpg.findSkill('Ice shard'))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([19,6, 6, 6])
+  Quest.Random.rndm.prime([19, 6, 6, 6])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'resolve' does not exist on type 'boolean... Remove this comment to see the full error message
   attack4.resolve(w.me, true, 0)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -707,9 +707,9 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(['Flaming Blade'], w.knife.activeEffects)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
-  test.assertCmd('equip knife', ['You draw the knife.', ])
+  test.assertCmd('equip knife', ['You draw the knife.',])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([19, 3, 4])
+  Quest.Random.rndm.prime([19, 3, 4])
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd('attack goblin', ['You attack the goblin.', 'A hit!', "The attack does 9 hits, the goblin's health is now 31."])
@@ -727,7 +727,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd('cast Summon Lesser Frost Elemental', ['You cast the <i>Summon Lesser Frost Elemental</i> spell.', 'The lesser frost elemental appears before you.'])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([19, 3, 4])
+  Quest.Random.rndm.prime([19, 3, 4])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd('attack elemental', ['You attack the lesser frost elemental.', 'A hit!', "The attack does 18 hits, the lesser frost elemental's health is now 17."])
 
@@ -795,15 +795,15 @@ test.tests = function() {
   test.assertCmd('cast Returning', ['You cast the <i>Returning</i> spell.', 'The air swirls around you, and everything blurs...', 'The yard', 'A large open area in front of the Great Hall, which is to the south. There is a lake to the north, and you can see an island in the lake.', 'You can see fourteen arrows and Stone of Returning here.', 'You can go north or south.'])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd('cast Teleport', ['You cast the <i>Teleport</i> spell.', 'The air swirls around you, and everything blurs...', 'The practice room', 'A large room with straw scattered across the floor. The only exit is west', 'You can see some boots, a chest, a goblin, an orc (holding a huge shield), a rabbit, a shotgun, a small key, a snotling and a spellbook here.', 'You can go east, south or west.'])
-  
-  
+
+
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd('w', ['You open the door to the great hall and walk through.', 'The great hall', 'An imposing - and rather cold - room with a high, vaulted roof, and an impressive tapestry hanging from the wall.', 'You can go east or north.'])
-  
-  
 
-  
+
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("cast Walk On Water")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -837,7 +837,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("get 3 arrow", "You take three arrows.")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([4])
+  Quest.Random.rndm.prime([4])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("attack goblin", ["You attack the goblin.", "A miss!"])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -850,7 +850,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("equip shotgun", "You put away the long bow, and equip the shotgun.")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime(2)
+  Quest.Random.rndm.prime(2)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("attack goblin", ["You attack the goblin.", "A miss!"])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -890,7 +890,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'goblin' does not exist on type '{}'.
   w.goblin.skillOptions = ["Double attack", "Fireball", "Returning", "Teleport", "Mark"]
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([1])
+  Quest.Random.rndm.prime([1])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual('Fireball', w.goblin.selectSkill().name)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'goblin' does not exist on type '{}'.
@@ -902,7 +902,7 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'goblin' does not exist on type '{}'.
   w.goblin.loc = 'great_hall'
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([0, 19, 5])
+  Quest.Random.rndm.prime([0, 19, 5])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'goblin' does not exist on type '{}'.
   attack = w.goblin.performAttack(player)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -921,12 +921,12 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("performAttack  (goblin, fireball)")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([1, 19, 5, 5, 5])
+  Quest.Random.rndm.prime([1, 19, 5, 5, 5])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'goblin' does not exist on type '{}'.
   w.goblin.attackPattern = ["Double attack", "Ice shard", "Returning", "Teleport", "Mark"]
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'goblin' does not exist on type '{}'.
   attack = w.goblin.performAttack(player)
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual('goblin', attack.attacker.name)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -945,8 +945,8 @@ test.tests = function() {
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd('e', ['The practice room', 'A large room with straw scattered across the floor. The only exit is west', 'You can see some boots, a chest, an orc (holding a huge shield), a rabbit, a small key, a snotling and a spellbook here.', 'You can go east, south or west.'])
-  
-  
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("scrolls")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'pink_scroll' does not exist on type '{}'... Remove this comment to see the full error message
@@ -956,14 +956,14 @@ test.tests = function() {
   world.update()
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([19, 4, 4, 4, 19, 3, 3, 3, 18, 5, 2, 3])
+  Quest.Random.rndm.prime([19, 4, 4, 4, 19, 3, 3, 3, 18, 5, 2, 3])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd('use pink on orc', ["You should not specify a target when using this item."])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd('use pink', ["You cast the <i>Fireball</i> spell from the pink scroll.", "The room is momentarily filled with fire.", "The orc reels from the explosion.", "The attack does 12 hits, the orc's health is now 48.", "The snotling reels from the explosion.", "The attack does 9 hits, the snotling's health is now 11.", "The rabbit reels from the explosion.", "The attack does 10 hits, the rabbit's health is now 10.", "The scroll crumbles to dust."])
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([3])
+  Quest.Random.rndm.prime([3])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd('use blue', ["You need to specify a target when using this item."])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -989,11 +989,11 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd('equip knife', 'You draw the knife.')
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([18, 3, 3])
+  Quest.Random.rndm.prime([18, 3, 3])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd('attack snotling', ['You attack the snotling.', 'A hit!', 'The attack does 8 hits, the snotling\'s health is now 3.'])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([18, 3, 3])
+  Quest.Random.rndm.prime([18, 3, 3])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd('attack snotling', ['You attack the snotling.', 'A hit!', 'The attack does 8 hits, the snotling\'s health is now -5.', 'The snotling falls down, dead.'])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -1015,10 +1015,10 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   const hotWeather = weatherTypes['hot']
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime(0)
+  Quest.Random.rndm.prime(0)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual('hot', hotWeather.getNext())
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd('wait', ['Time passes...'])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -1032,12 +1032,12 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual('hot', player.currentWeatherName)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime(1)
+  Quest.Random.rndm.prime(1)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd('wait', ['Time passes...', "It is starting to get cloudy."])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual('cloudingOver', player.currentWeatherName)
-  
+
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("weather II")
@@ -1096,14 +1096,14 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd('z', ['Time passes...'])  // takes a turn for guarding to get applied
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual('east', w.orc.guardingDir)  
+  test.assertEqual('east', w.orc.guardingDir)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual(['orc'], w.practice_room.east.guardedBy)  
+  test.assertEqual(['orc'], w.practice_room.east.guardedBy)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual([w.orc], w.practice_room.east.isGuarded())  
+  test.assertEqual([w.orc], w.practice_room.east.isGuarded())
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual(['orc'], w.practice_room.east.guardedBy)  
-  
+  test.assertEqual(['orc'], w.practice_room.east.guardedBy)
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd('e', ["The way east is guarded!", "The orc looks at you suspiciously."])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'orc' does not exist on type '{}'.
@@ -1112,11 +1112,11 @@ test.tests = function() {
   test.assertCmd('e', ["You head east.", "The passage", "A long passage.", "You can go west."])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd('w', ["You head west.", "The practice room", "A large room with straw scattered across the floor. The only exit is west", "You can see some boots, a chest, a rabbit, a small key, a snotling (dead) and a spellbook here.", "You can go east, south or west."])
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'orc' does not exist on type '{}'.
   w.orc.unsetGuard()
-  
-  
+
+
   //w.orc.attitude = rpg.BELLIGERENT
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'orc' does not exist on type '{}'.
@@ -1129,19 +1129,19 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'tapestry' does not exist on type '{}'.
   w.tapestry.oldLoc = w.tapestry.loc
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
-  test.assertCmd('w', ['The great hall', 'An imposing - and rather cold - room with a high, vaulted roof, and an impressive tapestry hanging from the wall.', 'You can see an orc (holding a huge shield) here.', 'You can go east or north.', ])
+  test.assertCmd('w', ['The great hall', 'An imposing - and rather cold - room with a high, vaulted roof, and an impressive tapestry hanging from the wall.', 'You can see an orc (holding a huge shield) here.', 'You can go east or north.',])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("z", "Time passes...")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("get tap", ["You take the tapestry.", "The orc draws his sword."])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([0, 16, 7, 4])
-  
+  Quest.Random.rndm.prime([0, 16, 7, 4])
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
-  test.assertCmd("z", ["Time passes...","The orc attacks you.","A hit!", "The attack does 9 hits, your health is now 91."])
+  test.assertCmd("z", ["Time passes...", "The orc attacks you.", "A hit!", "The attack does 9 hits, your health is now 91."])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(91, w.me.health)
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'tapestry' does not exist on type '{}'.
   w.tapestry.scenery = true
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'tapestry' does not exist on type '{}'.
@@ -1164,9 +1164,9 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(['antagonise'], w.orc.agenda)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([0, 16, 7, 4])
+  Quest.Random.rndm.prime([0, 16, 7, 4])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
-  test.assertCmd("z", ["Time passes...","The orc attacks you.","A hit!", "The attack does 9 hits, your health is now 82."])
+  test.assertCmd("z", ["Time passes...", "The orc attacks you.", "A hit!", "The attack does 9 hits, your health is now 82."])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual([], w.orc.agenda)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -1181,16 +1181,16 @@ test.tests = function() {
   w.orc.aggressive = false
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'orc' does not exist on type '{}'.
   delete w.orc.target
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Guarding item with waitUntilNow")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'orc' does not exist on type '{}'.
   w.orc.agenda = ['waitUntilNow:tapestry:scenery:false:The orc draws his sword.', 'antagonise']
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([0, 16, 7, 4])
+  Quest.Random.rndm.prime([0, 16, 7, 4])
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
-  test.assertCmd("get tap", ["You take the tapestry.", "The orc draws his sword.","The orc attacks you.","A hit!", "The attack does 9 hits, your health is now 73."])
+  test.assertCmd("get tap", ["You take the tapestry.", "The orc draws his sword.", "The orc attacks you.", "A hit!", "The attack does 9 hits, your health is now 73."])
 
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -1202,55 +1202,55 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
   w.me.health = 100
 
-  
- 
+
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Attack agendas")
-  
+
   new Spell("Test attack 1", {
-    primarySuccess:"Test attack one was performed",
+    primarySuccess: "Test attack one was performed",
   })
   new Spell("Test attack 2", {
-    primarySuccess:"Test attack two was performed",
-  })  
+    primarySuccess: "Test attack two was performed",
+  })
   new Spell("Test attack 3A", {
-    primarySuccess:"Test attack three was prepared",
-    afterUse:function(attack: any) {
+    primarySuccess: "Test attack three was prepared",
+    afterUse: function (attack: any) {
       attack.attacker.nextAttack = "Test attack 3B"
     }
-  })  
+  })
   new Spell("Test attack 3B", {
-    primarySuccess:"Test attack three was performed",
-  })  
-  
+    primarySuccess: "Test attack three was performed",
+  })
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'orc' does not exist on type '{}'.
   w.orc.attackPattern = ['Test attack 1', 'Test attack 2', "Test attack 3A"]
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([1, 19])
+  Quest.Random.rndm.prime([1, 19])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
-  test.assertCmd("z", ["Time passes...","The orc casts the <i>Test attack 2</i> spell.","Test attack two was performed"])
-  
+  test.assertCmd("z", ["Time passes...", "The orc casts the <i>Test attack 2</i> spell.", "Test attack two was performed"])
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([1, 19])
+  Quest.Random.rndm.prime([1, 19])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
-  test.assertCmd("z", ["Time passes...","The orc casts the <i>Test attack 2</i> spell.","Test attack two was performed"])
+  test.assertCmd("z", ["Time passes...", "The orc casts the <i>Test attack 2</i> spell.", "Test attack two was performed"])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([1, 19])
+  Quest.Random.rndm.prime([1, 19])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
-  test.assertCmd("z", ["Time passes...","The orc casts the <i>Test attack 2</i> spell.","Test attack two was performed"])
+  test.assertCmd("z", ["Time passes...", "The orc casts the <i>Test attack 2</i> spell.", "Test attack two was performed"])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([0, 19])
+  Quest.Random.rndm.prime([0, 19])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
-  test.assertCmd("z", ["Time passes...","The orc casts the <i>Test attack 1</i> spell.","Test attack one was performed"])
-  
+  test.assertCmd("z", ["Time passes...", "The orc casts the <i>Test attack 1</i> spell.", "Test attack one was performed"])
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([2, 19])
+  Quest.Random.rndm.prime([2, 19])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
-  test.assertCmd("z", ["Time passes...","The orc casts the <i>Test attack 3A</i> spell.","Test attack three was prepared"])
+  test.assertCmd("z", ["Time passes...", "The orc casts the <i>Test attack 3A</i> spell.", "Test attack three was prepared"])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([19])
+  Quest.Random.rndm.prime([19])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
-  test.assertCmd("z", ["Time passes...","The orc casts the <i>Test attack 3B</i> spell.","Test attack three was performed"])
+  test.assertCmd("z", ["Time passes...", "The orc casts the <i>Test attack 3B</i> spell.", "Test attack three was performed"])
 
 
 
@@ -1259,13 +1259,13 @@ test.tests = function() {
   test.title("pursueToAttack")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'orc' does not exist on type '{}'.
   w.orc.pursueToAttack = rpg.pursueToAttack
- 
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd('n', ['You head north.', 'The yard', 'A large open area in front of the Great Hall, which is to the south. There is a lake to the north, and you can see an island in the lake.', 'You can see eleven arrows, a goblin, a shotgun and Stone of Returning here.', 'You can go north or south.', 'The orc enters the yard from the south.'])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-  random.prime([1, 19])
+  Quest.Random.rndm.prime([1, 19])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
-  test.assertCmd("z", ["Time passes...","The orc casts the <i>Test attack 2</i> spell.","Test attack two was performed"])
+  test.assertCmd("z", ["Time passes...", "The orc casts the <i>Test attack 2</i> spell.", "Test attack two was performed"])
 
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
@@ -1273,7 +1273,7 @@ test.tests = function() {
   player.skillsLearnt = ["Double attack", "Fireball", "Befriend"]
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd('cast befriend at orc', ['You cast the <i>Befriend</i> spell.', 'The orc will now regard you as a friend.'])
-  
+
 
 
 

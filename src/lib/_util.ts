@@ -12,7 +12,7 @@ const INDEFINITE = 1
 const DEFINITE = 2
 const COUNT = 3
 
-const NULL_FUNC = function() {}
+const NULL_FUNC = function () { }
 
 
 const test = {};
@@ -28,9 +28,9 @@ test.testing = false;
 // If we try to do anything fancy with log we get this line number not the calling line
 const log = console.log
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
-const debuglog = (s: any) => { if(Quest.settings.playMode === 'dev' || Quest.settings.playMode === 'beta'){ log(s)} }
+const debuglog = (s: any) => { if (Quest.settings.playMode === 'dev' || Quest.settings.playMode === 'beta') { log(s) } }
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'debug' does not exist on type '{}'.
-const parserlog = (s: any) => { if(parser.debug){ log(s)} }
+const parserlog = (s: any) => { if (parser.debug) { log(s) } }
 
 
 //@DOC
@@ -69,10 +69,10 @@ function printOrRun(char: any, item: any, attname: any, options: any) {
     let s = item[attname]
     if (item[attname + 'Addendum']) s += item[attname + 'Addendum'](char)
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg(s, {char:char, item:item});
+    msg(s, { char: char, item: item });
     return true;
   }
-  else if (typeof item[attname] === "function"){
+  else if (typeof item[attname] === "function") {
     // The attribute is a function
     const res = item[attname](options);
     return res;
@@ -88,140 +88,6 @@ function printOrRun(char: any, item: any, attname: any, options: any) {
 
 
 function verbify(s: any) { return s.toLowerCase().replace(/[^a-zA-Z0-9_]/g, ''); }
-
-
-
-// ============  Random Utilities  =======================================
-//@DOC
-// ## Random Functions
-//@UNDOC
-
-const random = {
-  buffer:[],
-}
-
-//@DOC
-// Returns a random number from 0 to n1, or n1 to n2, inclusive.
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'int' does not exist on type '{ buffer: n... Remove this comment to see the full error message
-random.int = function(n1: any, n2: any) {
-  if (this.buffer.length > 0) return this.buffer.shift()
-  if (n2 === undefined) {
-    n2 = n1;
-    n1 = 0;
-  }
-  return Math.floor(Math.random() * (n2 - n1 + 1)) + n1;
-}
-
-
-
-//@DOC
-// Returns true 'percentile' times out of 100, false otherwise.
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'chance' does not exist on type '{ buffer... Remove this comment to see the full error message
-random.chance = function(percentile: any) {
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'int' does not exist on type '{ buffer: n... Remove this comment to see the full error message
-  return random.int(99) < percentile;
-}
-
-
-
-//@DOC
-// Returns a random element from the array, or null if it is empty
-// If the second parameter is true, then the selected value is also deleted from the array,
-// preventing it from being selected a second time.
-// If sent a string instead of an array, the string will be broken into an array on |.
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
-random.fromArray = function(arr: any, deleteEntry: any) {
-  if (typeof arr === 'string') arr.split('|')
-  if (arr.length === 0) return null;
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'int' does not exist on type '{ buffer: n... Remove this comment to see the full error message
-  const index = random.int(arr.length - 1);
-  const res = arr[index];
-  if (deleteEntry) arr.splice(index, 1)
-  return res;
-}
-
-
-
-//@DOC
-// Returns the given array, in random order using the Fisher-Yates algorithm
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'shuffle' does not exist on type '{ buffe... Remove this comment to see the full error message
-random.shuffle = function(arr: any) {
-  if (typeof arr === "number") arr = [...Array(arr).keys()]
-  const res = []
-  while (arr.length > 0) {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
-    res.push(random.fromArray(arr, true))
-  }
-  return res;
-}
-
-
-//@DOC
-// Returns a random number based on the standard RPG dice notation.
-// For example 2d6+3 means roll two six sided dice and add three.
-// Returns he number if sent a number.
-// It can cope with complex strings such as 2d8-3d6
-// You can also specify unusual dice, i.e., not a sequence from one to n, by separating each value with a colon,
-// so d1:5:6 rolls a three sided die, with 1, 5 and 6 on the sides.
-// It will cope with any number of parts, so -19+2d1:5:6-d4 will be fine.
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'dice' does not exist on type '{ buffer: ... Remove this comment to see the full error message
-random.dice = function(s: any) {
-  if (typeof s === 'number') return s
-  s = s.replace(/ /g, '').replace(/\-/g, '+-')
-  let total = 0
-
-  for (let dice of s.split("+")) {
-    if (dice === '') continue
-    let negative = 1
-    if (/^\-/.test(dice)) {
-      dice = dice.substring(1)
-      negative = -1
-    }
-    if (/^\d+$/.test(dice)) {
-      total += parseInt(dice)
-    }
-    else {
-      if (/^d/.test(dice)) {
-        dice = "1" + dice
-      }
-      const parts = dice.split("d")
-      if (parts.length === 2 && /^\d+$/.test(parts[0]) && /^[0-9\:]+$/.test(parts[1])) {
-        const number = parseInt(parts[0]) 
-        for (let i = 0; i < number; i++) {
-          if (/^\d+$/.test(parts[1])) {
-            // @ts-expect-error ts-migrate(2339) FIXME: Property 'int' does not exist on type '{ buffer: n... Remove this comment to see the full error message
-            total += negative * random.int(1, parseInt(parts[1]))
-          }
-          else {
-            // @ts-expect-error ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
-            total += negative * parseInt(random.fromArray(parts[1].split(':')))
-          
-          }
-        }
-      }
-      else {
-        console.log("Can't parse dice type (but will attempt to use what I can): " + dice)
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        errormsg ("Can't parse dice type (but will attempt to use what I can): " + dice)
-      }
-    }
-  }
-  return total
-}
-
-//@DOC
-// Loads up a buffer with the given number or array of numbers.
-// The random.int function will grab the first number from the buffer and return that instead of a random
-// number, if there is anything in the buffer. Note that the other random functions all use random.int,
-// so you can use random.prime to force any of them to return a certain value. Note that there is no
-// checking, so random.int(4) could return 7 or even "seven". It is up to you to ensure the numbers you
-// prime the buffer with make sense.
-// This is most useful when testing, as you know in advance what the random number will be.
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
-random.prime = function(ary: any) {
-  if (typeof ary === 'number') ary = [ary]
-  this.buffer = ary
-}
 
 
 
@@ -250,7 +116,7 @@ function titleCase(str: any) {
 function spaces(n: any) {
   return "&nbsp;".repeat(n)
 }
-  
+
 
 
 //@DOC
@@ -297,8 +163,8 @@ function formatList(itemArray: any, options: any) {
   }
 
   if (!options.sep) options.sep = ","
-  
-  
+
+
   if (!options.separateEnsembles) {
     const toRemove = [];
     const toAdd: any = [];
@@ -312,22 +178,22 @@ function formatList(itemArray: any, options: any) {
     itemArray = array.subtract(itemArray, toRemove);
     itemArray = itemArray.concat(toAdd);
   }
-  
+
   // sort the list alphabetically on name
   if (!options.doNotSort) {
-    itemArray.sort(function(a: any, b: any){
+    itemArray.sort(function (a: any, b: any) {
       if (a.name) a = a.name;
       if (b.name) b = b.name;
       return a.localeCompare(b)
     });
   }
-  
+
   const l = itemArray.map((el: any) => {
     //if (el === undefined) return "[undefined]";
     return typeof el === "string" ? el : lang.getName(el, options)
   })
-  
-  
+
+
   let s = "";
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'oxfordComma' does not exist on type '{ p... Remove this comment to see the full error message
   if (Quest.settings.oxfordComma && l.length === 2 && options.lastJoiner) return l[0] + ' ' + options.lastJoiner + ' ' + l[1]
@@ -339,7 +205,7 @@ function formatList(itemArray: any, options: any) {
       s += ' ' + options.lastJoiner + ' '
     } else if (l.length > 0) s += options.sep + ' '
   } while (l.length > 0);
-  
+
   return s;
 }
 
@@ -354,7 +220,7 @@ function listProperties(obj: any) {
 
 
 
-const arabic = [1000,900,500,400,100,90,50,40,10,9,5,4,1];
+const arabic = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
 const roman = "M;CM;D;CD;C;XC;L;XL;X;IX;V;IV;I".split(";");
 
 
@@ -363,7 +229,7 @@ const roman = "M;CM;D;CD;C;XC;L;XL;X;IX;V;IV;I".split(";");
 function toRoman(number: any) {
   if (typeof number !== "number") {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    errormsg ("toRoman can only handle numbers");
+    errormsg("toRoman can only handle numbers");
     return number;
   }
 
@@ -387,7 +253,7 @@ function toRoman(number: any) {
 function displayMoney(n: any) {
   if (typeof Quest.settings.moneyFormat === "undefined") {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    errormsg ("No format for money set (set Quest.settings.moneyFormat in Quest.settings.js).");
+    errormsg("No format for money set (set Quest.settings.moneyFormat in Quest.settings.js).");
     return "" + n;
   }
   const ary = Quest.settings.moneyFormat.split("!");
@@ -417,7 +283,7 @@ function displayMoney(n: any) {
   }
   else {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    errormsg ("Quest.settings.moneyFormat in Quest.settings.js expected to have either 1, 2 or 3 exclamation marks.")
+    errormsg("Quest.settings.moneyFormat in Quest.settings.js expected to have either 1, 2 or 3 exclamation marks.")
     return "" + n;
   }
 }
@@ -437,7 +303,7 @@ function displayNumber(n: any, control: any) {
   const regex = /^(\D*)(\d+)(\D)(\d*)(\D*)$/;
   if (!regex.test(control)) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    errormsg ("Unexpected format in displayNumber (" + control + "). Should be a number, followed by a single character separator, followed by a number.");
+    errormsg("Unexpected format in displayNumber (" + control + "). Should be a number, followed by a single character separator, followed by a number.");
     return "" + n;
   }
   const options = regex.exec(control);
@@ -449,7 +315,7 @@ function displayNumber(n: any, control: any) {
     // We want a decimal point, so the padding, the total length, needs that plus the places
     padding = padding + 1 + places;               // eg 6
   }
-  const factor = Math.pow (10, places)            // eg 100
+  const factor = Math.pow(10, places)            // eg 100
   const base = (n / factor).toFixed(places);      // eg "12.34"
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
   const decimal = base.replace(".", options[3])   // eg "12,34"
@@ -490,7 +356,7 @@ const array = {}
 // If b is not an array, then b itself will be removed.
 // Unit tested.
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'subtract' does not exist on type '{}'.
-array.subtract = function(a: any, b: any) {
+array.subtract = function (a: any, b: any) {
   if (!Array.isArray(b)) b = [b]
   const res = []
   for (let i = 0; i < a.length; i++) {
@@ -507,7 +373,7 @@ array.subtract = function(a: any, b: any) {
 // Assumes a is an array, but not b.
 // Unit tested
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'compare' does not exist on type '{}'.
-array.compare = function(a: any, b: any) {
+array.compare = function (a: any, b: any) {
   if (!Array.isArray(b)) return false;
   if (a.length !== b.length) return false;
   for (let i = 0; i < a.length; i++) {
@@ -524,7 +390,7 @@ array.compare = function(a: any, b: any) {
 // Assumes a is an array, but not b.
 // Unit tested
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'compareUnordered' does not exist on type... Remove this comment to see the full error message
-array.compareUnordered = function(a: any, b: any) {
+array.compareUnordered = function (a: any, b: any) {
   if (!Array.isArray(b)) return false;
   if (a.length !== b.length) return false;
   for (let el of a) {
@@ -539,7 +405,7 @@ array.compareUnordered = function(a: any, b: any) {
 // Removes the element el from the array, ary.
 // Unlike array.subtract, no new array is created; the original array is modified, and nothing is returned.
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'remove' does not exist on type '{}'.
-array.remove = function(ary: any, el: any) {
+array.remove = function (ary: any, el: any) {
   let index = ary.indexOf(el)
   if (index !== -1) {
     ary.splice(index, 1)
@@ -552,10 +418,10 @@ array.remove = function(ary: any, el: any) {
 // Returns a new array containing all the elements that are in both the given arrays.
 // Assumes no duplicates in the arrays
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'intersection' does not exist on type '{}... Remove this comment to see the full error message
-array.intersection = function(ary1: any, ary2: any) {
-  return ary1.filter(function(x: any) {
+array.intersection = function (ary1: any, ary2: any) {
+  return ary1.filter(function (x: any) {
     // checking second array contains the element "x"
-    if(ary2.indexOf(x) != -1)
+    if (ary2.indexOf(x) != -1)
       return true;
     else
       return false;
@@ -569,7 +435,7 @@ array.intersection = function(ary1: any, ary2: any) {
 // Returns a new array based on ary, but including only those objects for which the attribute attName is equal to value.
 // To filter for objects that do not have the attribute you can filter for the value undefined.
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'filterByAttribute' does not exist on typ... Remove this comment to see the full error message
-array.filterByAttribute = function(ary: any, attName: any, value: any) {
+array.filterByAttribute = function (ary: any, attName: any, value: any) {
   return ary.filter((el: any) => el[attName] === value);
 }
 
@@ -583,7 +449,7 @@ array.filterByAttribute = function(ary: any, attName: any, value: any) {
 // If el is present more than once, it goes with the first.
 // If el is the last element, and circular is true it return the fist element and false otherwise.
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'next' does not exist on type '{}'.
-array.next = function(ary: any, el: any, circular: any) {
+array.next = function (ary: any, el: any, circular: any) {
   let index = ary.indexOf(el) + 1
   if (index === 0) return false
   if (index === ary.length) return circular ? ary[0] : false
@@ -597,7 +463,7 @@ array.next = function(ary: any, el: any, circular: any) {
 // If el is present more than once, it goes with the first.
 // If el is the last element, and circular is true it return the fist element and false otherwise.
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'nextFlagged' does not exist on type '{}'... Remove this comment to see the full error message
-array.nextFlagged = function(ary: any, el: any, att: any, circular: any) {
+array.nextFlagged = function (ary: any, el: any, att: any, circular: any) {
   let o = el
   let count = ary.length
   while (o && !o[att] && count > 0) {
@@ -613,7 +479,7 @@ array.nextFlagged = function(ary: any, el: any, att: any, circular: any) {
 //@DOC
 // Returns a copy of the given array. Members of the array are not cloned.
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'clone' does not exist on type '{}'.
-array.clone = function(ary: any, options: any) {
+array.clone = function (ary: any, options: any) {
   if (!options) options = {}
   let newary = options.compress ? [...new Set(ary)] : [...ary]
   if (options.value) newary = newary.map(el => el[options.value])
@@ -629,7 +495,7 @@ array.clone = function(ary: any, options: any) {
 // It is a match if the element is also a string and they are the same or
 // if the elem,ent is a regex and the pattern matches
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'hasMatch' does not exist on type '{}'.
-array.hasMatch = function(ary: any, s: any) {
+array.hasMatch = function (ary: any, s: any) {
   for (let e of ary) {
     if (typeof e === 'string' && e === s) return true
     if (e instanceof RegExp && s.match(e)) return true
@@ -645,7 +511,7 @@ array.hasMatch = function(ary: any, s: any) {
 // Each combination is a string with the elements separated with a space.
 // Used by the parser (in case it seems obscure and pointless!)
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'combos' does not exist on type '{}'.
-array.combos = function(ary: any, sep=' ') {
+array.combos = function (ary: any, sep = ' ') {
   const res = []
   for (let i = 0; i < ary.length; i++) {
     res.push(ary[i])
@@ -655,14 +521,14 @@ array.combos = function(ary: any, sep=' ') {
         res.push(ary[i] + sep + ary[j] + sep + ary[k])
       }
     }
-  }    
+  }
   return res
 }
 
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'fromTokens' does not exist on type '{}'.
-array.fromTokens = function(ary: any, scope: any, cmdParams: any) {
+array.fromTokens = function (ary: any, scope: any, cmdParams: any) {
   const items = []
   while (ary.length > 0) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'oneFromTokens' does not exist on type '{... Remove this comment to see the full error message
@@ -674,7 +540,7 @@ array.fromTokens = function(ary: any, scope: any, cmdParams: any) {
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'oneFromTokens' does not exist on type '{... Remove this comment to see the full error message
-array.oneFromTokens = function(ary: any, scope: any, cmdParams = {}) {
+array.oneFromTokens = function (ary: any, scope: any, cmdParams = {}) {
   for (let i = ary.length; i > 0; i--) {
     const s = ary.slice(0, i).join(' ')
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'findInList' does not exist on type '{}'.
@@ -689,7 +555,7 @@ array.oneFromTokens = function(ary: any, scope: any, cmdParams = {}) {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'value' does not exist on type '{}'.
-array.value = function(ary: any, index: any, opt: any) {
+array.value = function (ary: any, index: any, opt: any) {
   if (index >= ary.length || index < 0) {
     if (opt === 'none') return ''
     if (opt === 'wrap') return ary[index % ary.length]
@@ -813,7 +679,7 @@ const util = {}
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'getContents' does not exist on type '{}'... Remove this comment to see the full error message
-util.getContents = function(situation: any) {
+util.getContents = function (situation: any) {
   const list = [];
   for (let key in w) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
@@ -828,13 +694,13 @@ util.getContents = function(situation: any) {
 // Is this container already inside the given object, and hence
 // putting the object in the container will destroy the universe
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'testForRecursion' does not exist on type... Remove this comment to see the full error message
-util.testForRecursion = function(char: any, item: any) {
+util.testForRecursion = function (char: any, item: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'name' does not exist on type '{}'.
   let contName = this.name;
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   while (w[contName]) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    if (w[contName].loc === item.name) return falsemsg(lang.container_recursion, {char:char, container:this, item:item})
+    if (w[contName].loc === item.name) return falsemsg(lang.container_recursion, { char: char, container: this, item: item })
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     contName = w[contName].loc
   }
@@ -842,7 +708,7 @@ util.testForRecursion = function(char: any, item: any) {
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'nameModifierFunctionForContainer' does n... Remove this comment to see the full error message
-util.nameModifierFunctionForContainer = function(o: any, list: any) {
+util.nameModifierFunctionForContainer = function (o: any, list: any) {
   //console.log("here")
   const contents = o.getContents(world.LOOK);
   //console.log(contents)
@@ -862,15 +728,15 @@ util.nameModifierFunctionForContainer = function(o: any, list: any) {
 // between min and max; i.e., if number is less than min,
 // then min will be returned instead.
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'clamp' does not exist on type '{}'.
-util.clamp = function(num: any, min: any, max: any) {
-  return num <= min ? min : (num >= max  ? max : num)
+util.clamp = function (num: any, min: any, max: any) {
+  return num <= min ? min : (num >= max ? max : num)
 }
 
 
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'registerTimerFunction' does not exist on... Remove this comment to see the full error message
-util.registerTimerFunction = function(eventName: any, func: any) {
+util.registerTimerFunction = function (eventName: any, func: any) {
   if (world.isCreated && !Quest.settings.saveDisabled) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     errormsg("Attempting to use registerEvent after set up.")
@@ -880,7 +746,7 @@ util.registerTimerFunction = function(eventName: any, func: any) {
   Quest.settings.eventFunctions[eventName] = func;
 }
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'registerTimerEvent' does not exist on ty... Remove this comment to see the full error message
-util.registerTimerEvent = function(eventName: any, triggerTime: any, interval: any) {
+util.registerTimerEvent = function (eventName: any, triggerTime: any, interval: any) {
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   if (!Quest.settings.eventFunctions[eventName]) errormsg("A timer is trying to call event '" + eventName + "' but no such function is registered.")
   // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'any' is not assignable to parame... Remove this comment to see the full error message
@@ -895,7 +761,7 @@ util.registerTimerEvent = function(eventName: any, triggerTime: any, interval: a
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'findTopic' does not exist on type '{}'.
-util.findTopic = function(alias: any, char: any, n = 1) {
+util.findTopic = function (alias: any, char: any, n = 1) {
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   if (w[alias]) return w[alias]
   for (const key in w) {
@@ -925,7 +791,7 @@ util.changeListeners = []
 
 // This is used in world.endTurn, before turn events are run, and after too (just once if no turn events). Also after timer events if one fired
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'handleChangeListeners' does not exist on... Remove this comment to see the full error message
-util.handleChangeListeners = function() {
+util.handleChangeListeners = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'changeListeners' does not exist on type ... Remove this comment to see the full error message
   for (let el of util.changeListeners) {
     if (el.test(el.object, el.object[el.attName], el.oldValue, el.attName)) {
@@ -936,23 +802,23 @@ util.handleChangeListeners = function() {
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultChangeListenerTest' does not exis... Remove this comment to see the full error message
-util.defaultChangeListenerTest = function(object: any, currentValue: any, oldValue: any, attName: any) {
+util.defaultChangeListenerTest = function (object: any, currentValue: any, oldValue: any, attName: any) {
   return currentValue !== oldValue
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addChangeListener' does not exist on typ... Remove this comment to see the full error message
-util.addChangeListener = function(object: any, attName: any, func: any, test = util.defaultChangeListenerTest) {
+util.addChangeListener = function (object: any, attName: any, func: any, test = util.defaultChangeListenerTest) {
   if (world.isCreated && !Quest.settings.saveDisabled) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     errormsg("Attempting to use addChangeListener after set up.")
     return
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'changeListeners' does not exist on type ... Remove this comment to see the full error message
-  util.changeListeners.push({object:object, attName:attName, func:func, test:test, oldValue:object[attName]})
+  util.changeListeners.push({ object: object, attName: attName, func: func, test: test, oldValue: object[attName] })
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'getChangeListenersSaveString' does not e... Remove this comment to see the full error message
-util.getChangeListenersSaveString = function() {
+util.getChangeListenersSaveString = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'changeListeners' does not exist on type ... Remove this comment to see the full error message
   if (util.changeListeners.length === 0) return "NoChangeListeners"
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'changeListeners' does not exist on type ... Remove this comment to see the full error message
@@ -962,7 +828,7 @@ util.getChangeListenersSaveString = function() {
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'setChangeListenersLoadString' does not e... Remove this comment to see the full error message
-util.setChangeListenersLoadString = function(s: any) {
+util.setChangeListenersLoadString = function (s: any) {
   if (s === "NoChangeListeners") return
   const parts = s.split("=");
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -1052,7 +918,7 @@ function getResponseList(params: any, list: any, result: any) {
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'findResponse' does not exist on type '{}... Remove this comment to see the full error message
-util.findResponse = function(params: any, list: any) {
+util.findResponse = function (params: any, list: any) {
   for (let item of list) {
     if (item.test && !item.test(params)) continue
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'findResponse' does not exist on type '{}... Remove this comment to see the full error message
@@ -1061,22 +927,22 @@ util.findResponse = function(params: any, list: any) {
   }
   return false
 }
-  
+
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addResponse' does not exist on type '{}'... Remove this comment to see the full error message
-util.addResponse = function(route: any, data: any, list: any) {
+util.addResponse = function (route: any, data: any, list: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'addResponseToList' does not exist on typ... Remove this comment to see the full error message
   util.addResponseToList(route, data, list)
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addResponseToList' does not exist on typ... Remove this comment to see the full error message
-util.addResponseToList = function(route: any, data: any, list: any) {
+util.addResponseToList = function (route: any, data: any, list: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getResponseSubList' does not exist on ty... Remove this comment to see the full error message
   const sublist = util.getResponseSubList(route, list)
   sublist.unshift(data)
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'getResponseSubList' does not exist on ty... Remove this comment to see the full error message
-util.getResponseSubList = function(route: any, list: any) {
+util.getResponseSubList = function (route: any, list: any) {
   const s = route.shift()
   if (s) {
     const sublist = list.find((el: any) => el.name === s)
@@ -1090,7 +956,7 @@ util.getResponseSubList = function(route: any, list: any) {
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'verifyResponses' does not exist on type ... Remove this comment to see the full error message
-util.verifyResponses = function(list: any, level: any) {
+util.verifyResponses = function (list: any, level: any) {
   //  console.log(list)
   if (level === undefined) level = 1
   if (list[list.length - 1].test) {
@@ -1114,9 +980,9 @@ util.verifyResponses = function(list: any, level: any) {
 
 // This should be assigned to an object, and then used from there
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'listContents' does not exist on type '{}... Remove this comment to see the full error message
-util.listContents = function(situation: any, modified = true) {
+util.listContents = function (situation: any, modified = true) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getContents' does not exist on type '{}'... Remove this comment to see the full error message
-  return formatList(this.getContents(situation), {article:INDEFINITE, lastJoiner:lang.list_and, modified:modified, nothing:lang.list_nothing, loc:this.name})
+  return formatList(this.getContents(situation), { article: INDEFINITE, lastJoiner: lang.list_and, modified: modified, nothing: lang.list_nothing, loc: this.name })
 }
 
 
@@ -1126,7 +992,7 @@ util.listContents = function(situation: any, modified = true) {
 // For example, if intervals
 // Unit tested.
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'getByInterval' does not exist on type '{... Remove this comment to see the full error message
-util.getByInterval = function(intervals: any, n: any) {
+util.getByInterval = function (intervals: any, n: any) {
   let count = 0
   while (count < intervals.length) {
     if (n < intervals[count]) return count
@@ -1140,7 +1006,7 @@ util.getByInterval = function(intervals: any, n: any) {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'guessMyType' does not exist on type '{}'... Remove this comment to see the full error message
-util.guessMyType = function(value: any) {
+util.guessMyType = function (value: any) {
   if (value.match(/^\d+$/)) value = parseInt(value)
   if (value === 'true') value = true
   if (value === 'false') value = false
@@ -1155,7 +1021,7 @@ util.guessMyType = function(value: any) {
 // Returns a string formatted in CSS from the given dictionary.
 // If includeCurlyBraces is true, you get curly braces too.
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'dictionaryToCss' does not exist on type ... Remove this comment to see the full error message
-util.dictionaryToCss = function(d: any, includeCurlyBraces: any) {
+util.dictionaryToCss = function (d: any, includeCurlyBraces: any) {
   const ary = []
   for (let key in d) ary.push(key + ':' + d[key])
   return includeCurlyBraces ? '{' + ary.join(';') + '}' : ary.join(';')
@@ -1163,7 +1029,7 @@ util.dictionaryToCss = function(d: any, includeCurlyBraces: any) {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'getNameModifiers' does not exist on type... Remove this comment to see the full error message
-util.getNameModifiers = function(item: any, options: any) {
+util.getNameModifiers = function (item: any, options: any) {
   if (!options.modified) return ''
   const list: any = []
   for (let f of item.nameModifierFunctions) f(item, list, options)
@@ -1178,27 +1044,27 @@ util.getNameModifiers = function(item: any, options: any) {
 //@DOC
 // Returns the game time as a string. The game time is game.elapsedTime seconds after game.startTime.
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'getDateTime' does not exist on type '{}'... Remove this comment to see the full error message
-util.getDateTime = function(options: any) {
+util.getDateTime = function (options: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'formats' does not exist on type '{ year:... Remove this comment to see the full error message
   if (!Quest.settings.dateTime.formats) {
     const time = new Date(game.elapsedTime * 1000 + game.startTime.getTime())
     // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '{ year: string; month: string; d... Remove this comment to see the full error message
     return time.toLocaleString(Quest.settings.dateTime.locale, Quest.settings.dateTime)
   }
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getCustomDateTime' does not exist on typ... Remove this comment to see the full error message
   return util.getCustomDateTime(options)
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'getDateTimeDict' does not exist on type ... Remove this comment to see the full error message
-util.getDateTimeDict = function(options: any) {
+util.getDateTimeDict = function (options: any) {
   if (!options) options = {}
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'formats' does not exist on type '{ year:... Remove this comment to see the full error message
   return Quest.settings.dateTime.formats ? util.getCustomDateTimeDict(options) : util.getStdDateTimeDict(options)
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'getStdDateTimeDict' does not exist on ty... Remove this comment to see the full error message
-util.getStdDateTimeDict = function(options: any) {
+util.getStdDateTimeDict = function (options: any) {
   const dict = {}
   let timeInSeconds = game.elapsedTime
   if (options.add) timeInSeconds += options.add
@@ -1219,10 +1085,10 @@ util.getStdDateTimeDict = function(options: any) {
   dict.year = time.getFullYear()
 
   return dict
-}  
+}
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'getCustomDateTimeDict' does not exist on... Remove this comment to see the full error message
-util.getCustomDateTimeDict = function(options: any) {
+util.getCustomDateTimeDict = function (options: any) {
   const dict = {}
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'startTime' does not exist on type '{ yea... Remove this comment to see the full error message
   let time = Quest.settings.dateTime.startTime + game.elapsedTime
@@ -1236,10 +1102,10 @@ util.getCustomDateTimeDict = function(options: any) {
     time = Math.floor(time / el.number)
   }
   return dict
-}  
+}
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'getCustomDateTime' does not exist on typ... Remove this comment to see the full error message
-util.getCustomDateTime = function(options: any) {
+util.getCustomDateTime = function (options: any) {
   if (!options) options = {}
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getCustomDateTimeDict' does not exist on... Remove this comment to see the full error message
   const dict = util.getCustomDateTimeDict(options)
@@ -1254,27 +1120,27 @@ util.getCustomDateTime = function(options: any) {
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'seconds' does not exist on type '{}'.
-util.seconds = function(seconds: any, minutes = 0, hours = 0, days = 0) {
+util.seconds = function (seconds: any, minutes = 0, hours = 0, days = 0) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'convertSeconds' does not exist on type '... Remove this comment to see the full error message
   if (Quest.settings.dateTime.convertSeconds) return Quest.settings.dateTime.convertSeconds(seconds, minutes, hours, days)
   return ((((days * 24) + hours) * 60) + minutes) * 60 + seconds
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'elapsed' does not exist on type '{}'.
-util.elapsed = function(seconds: any, minutes = 0, hours = 0, days = 0) {
+util.elapsed = function (seconds: any, minutes = 0, hours = 0, days = 0) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'seconds' does not exist on type '{}'.
   return util.seconds(seconds, minutes, hours, days) >= game.elapsedTime
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'isAfter' does not exist on type '{}'.
-util.isAfter = function(timeString: any) {
+util.isAfter = function (timeString: any) {
   if (typeof timeString === 'number') return game.elapsedTime > timeString
 
   if (timeString.match(/^\d\d\d\d$/)) {
     // This is a 24h clock time, so a daily
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'getDateTimeDict' does not exist on type ... Remove this comment to see the full error message
     const dict = util.getDateTimeDict()
-    
+
     const hour = parseInt(timeString.substring(0, 2))
     const minute = parseInt(timeString.substring(2, 4))
     if (hour < dict.hour) return true
@@ -1292,7 +1158,7 @@ util.isAfter = function(timeString: any) {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'changePOV' does not exist on type '{}'.
-util.changePOV = function(char: any, pronouns: any) {
+util.changePOV = function (char: any, pronouns: any) {
   if (typeof char === 'string') {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     if (!w[char]) return errormsg("Failed to change POV, no object called '" + char + "'")
@@ -1318,7 +1184,7 @@ util.changePOV = function(char: any, pronouns: any) {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'getObj' does not exist on type '{}'.
-util.getObj = function(name: any) {
+util.getObj = function (name: any) {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   if (!name) return errormsg("Trying to find an object in util.getObj, but name is " + name)
   if (typeof name === 'string') {
@@ -1338,7 +1204,7 @@ util.getObj = function(name: any) {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'findUniqueName' does not exist on type '... Remove this comment to see the full error message
-util.findUniqueName = function(s: any) {
+util.findUniqueName = function (s: any) {
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   if (!w[s]) {
     return (s);
@@ -1354,13 +1220,13 @@ util.findUniqueName = function(s: any) {
     return util.findUniqueName(s.replace(/(\d+)$/, "" + n));
   }
 }
-  
+
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'findSource' does not exist on type '{}'.
-util.findSource = function(options: any) {
+util.findSource = function (options: any) {
   const fluids = options.fluid ? [options.fluid] : Quest.settings.fluids
   const chr = options.char ? options.char : player
-  
+
   // Is character a source?
   if (chr.isSourceOf) {
     for (const s of fluids) {
@@ -1371,7 +1237,7 @@ util.findSource = function(options: any) {
       }
     }
   }
-  
+
   // Is the room a source?
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   if (w[chr.loc].isSourceOf) {
@@ -1408,7 +1274,7 @@ util.findSource = function(options: any) {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'multiIsUltimatelyHeldBy' does not exist ... Remove this comment to see the full error message
-util.multiIsUltimatelyHeldBy = function(obj: any, objNames: any) {
+util.multiIsUltimatelyHeldBy = function (obj: any, objNames: any) {
   for (const objName of objNames) {
     if (!objName) continue
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
@@ -1425,7 +1291,7 @@ util.multiIsUltimatelyHeldBy = function(obj: any, objNames: any) {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'testAttribute' does not exist on type '{... Remove this comment to see the full error message
-util.testAttribute = function(o: any, attName: any) {
+util.testAttribute = function (o: any, attName: any) {
   if (typeof o[attName] === 'function') {
     return o[attName]()
   }
@@ -1435,7 +1301,7 @@ util.testAttribute = function(o: any, attName: any) {
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'getLoc' does not exist on type '{}'.
-util.getLoc = function(options: any, loc: any, name: any) {
+util.getLoc = function (options: any, loc: any, name: any) {
   if (!loc) return
   if (typeof loc === 'object') {
     options[name] = loc.name
@@ -1464,7 +1330,7 @@ util.getLoc = function(options: any, loc: any, name: any) {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'setToFrom' does not exist on type '{}'.
-util.setToFrom = function(options: any, toLoc: any, fromLoc: any) {
+util.setToFrom = function (options: any, toLoc: any, fromLoc: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getLoc' does not exist on type '{}'.
   util.getLoc(options, toLoc, "toLoc")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getLoc' does not exist on type '{}'.
@@ -1474,15 +1340,15 @@ util.setToFrom = function(options: any, toLoc: any, fromLoc: any) {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultExitUse' does not exist on type '... Remove this comment to see the full error message
-util.defaultExitUse = function(char: any, exit: any) {
+util.defaultExitUse = function (char: any, exit: any) {
   if (!exit) exit = this
   if (char.testMove && !char.testMove(exit)) return false
   if (exit.isLocked()) {
-    return falsemsg(exit.lockedmsg ? exit.lockedmsg : lang.locked_exit, {char:char, exit:exit})
+    return falsemsg(exit.lockedmsg ? exit.lockedmsg : lang.locked_exit, { char: char, exit: exit })
   }
   if (exit.testExit && !exit.testExit(char, exit)) return false
   for (const el of char.getCarrying()) {
-    if (el.testCarry && !el.testCarry({char:char, item:el, exit:exit})) return false
+    if (el.testCarry && !el.testCarry({ char: char, item: el, exit: exit })) return false
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'simpleUse' does not exist on type '{}'.
   return this.simpleUse ? this.simpleUse(char) : util.defaultSimpleExitUse(char, exit)
@@ -1491,22 +1357,22 @@ util.defaultExitUse = function(char: any, exit: any) {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSimpleExitUse' does not exist on ... Remove this comment to see the full error message
-util.defaultSimpleExitUse = function(char: any, exit: any) {
+util.defaultSimpleExitUse = function (char: any, exit: any) {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   if (exit.name === '_') return errormsg("Trying to move character to location \"_\" from room " + exit.origin.name + ". This is probably a bug, as \"_\" is used to flag a destination that cannot be reached.")
   if (exit === undefined) exit = this
 
   char.msg(lang.stop_posture(char))
-  char.movingMsg(exit) 
+  char.movingMsg(exit)
   char.moveChar(exit)
-  return true  
+  return true
 }
 
 
 // Helper function for exits.
 // You must set "door" and can optionally set "doorName" in the exit attributes
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'useWithDoor' does not exist on type '{}'... Remove this comment to see the full error message
-util.useWithDoor = function(char: any) {
+util.useWithDoor = function (char: any) {
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   const obj = w[this.door];
   if (obj === undefined) {
@@ -1514,7 +1380,7 @@ util.useWithDoor = function(char: any) {
     errormsg("Not found an object called '" + this.door + "'. Any exit that uses the 'util.useWithDoor' function must also set a 'door' attribute.");
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'doorName' does not exist on type '{}'.
-  const tpParams = {char:char, doorName:this.doorName ? this.doorName : "door"}
+  const tpParams = { char: char, doorName: this.doorName ? this.doorName : "door" }
   if (!obj.closed) {
     char.moveChar(this)
     return true
@@ -1533,7 +1399,7 @@ util.useWithDoor = function(char: any) {
     msg(lang.unlock_and_enter, tpParams)
     char.moveChar(this)
     return true
-  }        
+  }
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
   msg(lang.try_but_locked, tpParams)
   return false
@@ -1543,8 +1409,8 @@ util.useWithDoor = function(char: any) {
 // Helper function for exits.
 // You can optionally set "msg" in the exit attributes
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'cannotUse' does not exist on type '{}'.
-util.cannotUse = function(char: any, dir: any) {
-  const tpParams = {char:char}
+util.cannotUse = function (char: any, dir: any) {
+  const tpParams = { char: char }
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
   msg(this.msg ? this.msg : lang.try_but_locked, tpParams)
   return false

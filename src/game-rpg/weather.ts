@@ -34,7 +34,7 @@ currentWeatherTotal
 
 
 // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '() => void' is not assignable to... Remove this comment to see the full error message
-Quest.settings.afterTurn.push(function() {
+Quest.settings.afterTurn.push(function () {
   if (player.currentWeatherDisabled) return
   if (player.currentWeatherName) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
@@ -45,7 +45,7 @@ Quest.settings.afterTurn.push(function() {
     player.currentWeatherCount = 0
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     player.currentWeatherTotal = weatherTypes[player.currentWeatherName].getNumberOfTurns()
-  }  
+  }
 })
 
 const weatherTypes = {}
@@ -111,74 +111,74 @@ class Weather {
 
 
 new Weather("hot", {
-  getNumberOfTurns:function() { return 3 },
+  getNumberOfTurns: function () { return 3 },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
-  getNext:function() { return random.fromArray(['hot', 'cloudingOver', 'stormPrelude']) },
-  getDescription:function() { return "It is hot!" },
-  getCloudCover:function() { return 0 },
-  wetness:-1,
+  getNext: function () { return Quest.Random.rndm.fromArray(['hot', 'cloudingOver', 'stormPrelude']) },
+  getDescription: function () { return "It is hot!" },
+  getCloudCover: function () { return 0 },
+  wetness: -1,
 })
 new Weather("cloudingOver", {
-  getNumberOfTurns:function() { return 3 },
+  getNumberOfTurns: function () { return 3 },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
-  getNext:function() { return random.fromArray(['rain', 'clearing', 'drizzle', 'cloudy']) },
-  getDescription:function() { return "It is getting cloudy." },
-  getCloudCover:function() { return Math.round(player.currentWeatherCount / player.currentWeatherTotal * 100) },
-  start:function() { this.report("It is starting to get cloudy.") },
+  getNext: function () { return Quest.Random.rndm.fromArray(['rain', 'clearing', 'drizzle', 'cloudy']) },
+  getDescription: function () { return "It is getting cloudy." },
+  getCloudCover: function () { return Math.round(player.currentWeatherCount / player.currentWeatherTotal * 100) },
+  start: function () { this.report("It is starting to get cloudy.") },
 })
 new Weather("rain", {
-  getNumberOfTurns:function() { return 3 },
+  getNumberOfTurns: function () { return 3 },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
-  getNext:function() { return random.fromArray(['rain', 'clearing', 'cloudy']) },
-  getDescription:function() { return "It is raining." },
-  start:function() { this.report("It is starting to rain.") },
-  wetness:2,
+  getNext: function () { return Quest.Random.rndm.fromArray(['rain', 'clearing', 'cloudy']) },
+  getDescription: function () { return "It is raining." },
+  start: function () { this.report("It is starting to rain.") },
+  wetness: 2,
 })
 new Weather("cloudy", {
-  getNumberOfTurns:function() { return 3 },
+  getNumberOfTurns: function () { return 3 },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
-  getNext:function() { return random.fromArray(['rain', 'clearing', 'cloudy']) },
-  getDescription:function() { return "It is raining." },
-  start:function() { this.report("It is starting to rain.") },
-  wetness:2,
+  getNext: function () { return Quest.Random.rndm.fromArray(['rain', 'clearing', 'cloudy']) },
+  getDescription: function () { return "It is raining." },
+  start: function () { this.report("It is starting to rain.") },
+  wetness: 2,
 })
 new Weather("drizzle", {
-  getNumberOfTurns:function() { return 3 },
+  getNumberOfTurns: function () { return 3 },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
-  getNext:function() { return random.fromArray(['rain', 'clearing', 'drizzle', 'cloudy']) },
-  getDescription:function() { return "There is a very light fall of rain; nt much more than mist really." },
-  start:function() { this.report("It is starting to drizzle.") },
-  wetness:1,
+  getNext: function () { return Quest.Random.rndm.fromArray(['rain', 'clearing', 'drizzle', 'cloudy']) },
+  getDescription: function () { return "There is a very light fall of rain; nt much more than mist really." },
+  start: function () { this.report("It is starting to drizzle.") },
+  wetness: 1,
 })
 new Weather("clearing", {
-  getNumberOfTurns:function() { return 3 },
+  getNumberOfTurns: function () { return 3 },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
-  getNext:function() { return random.fromArray(['hot', 'cloudingOver']) },
-  getDescription:function() { return "The sky is clearing." },
-  getCloudCover:function() { return 100 - Math.round(player.currentWeatherCount / player.currentWeatherTotal * 100) },
-  start:function(previous: any) { if (previous === "rain") this.report("The rain stops.") },
+  getNext: function () { return Quest.Random.rndm.fromArray(['hot', 'cloudingOver']) },
+  getDescription: function () { return "The sky is clearing." },
+  getCloudCover: function () { return 100 - Math.round(player.currentWeatherCount / player.currentWeatherTotal * 100) },
+  start: function (previous: any) { if (previous === "rain") this.report("The rain stops.") },
 })
 new Weather("clearingToHot", {
-  getNumberOfTurns:function() { return 3 },
-  getNext:function() { return 'hot' },
-  getDescription:function() { return "The sky is clearing." },
-  start:function(previous: any) { this.report(previous === "rain" ? "The rain stops, and the clouds are clearing." : "The clouds are clearing, it is going to get warm.") },
+  getNumberOfTurns: function () { return 3 },
+  getNext: function () { return 'hot' },
+  getDescription: function () { return "The sky is clearing." },
+  start: function (previous: any) { this.report(previous === "rain" ? "The rain stops, and the clouds are clearing." : "The clouds are clearing, it is going to get warm.") },
 })
 new Weather("stormPrelude", {
-  getNumberOfTurns:function() { return 3 },
+  getNumberOfTurns: function () { return 3 },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
-  getNext:function() { return random.fromArray(['storm']) },
-  getDescription:function() { return "It is getting cloudy, and the wind is picking up. A storm is coming." },
-  start:function() { this.report("It is starting to get cloudy.") },
+  getNext: function () { return Quest.Random.rndm.fromArray(['storm']) },
+  getDescription: function () { return "It is getting cloudy, and the wind is picking up. A storm is coming." },
+  start: function () { this.report("It is starting to get cloudy.") },
 })
 new Weather("storm", {
-  getNumberOfTurns:function() { return 3 },
+  getNumberOfTurns: function () { return 3 },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
-  getNext:function() { return random.fromArray(['rain', 'clearing']) },
-  getDescription:function() { return "It is raining hard; the wind is howling." },
-  start:function() { this.report("Suddenly the heavens open, and the rain is coming down hard.") },
+  getNext: function () { return Quest.Random.rndm.fromArray(['rain', 'clearing']) },
+  getDescription: function () { return "It is raining hard; the wind is howling." },
+  start: function () { this.report("Suddenly the heavens open, and the rain is coming down hard.") },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'chance' does not exist on type '{ buffer... Remove this comment to see the full error message
-  ongoing:function() { if (random.chance(10)) this.report("A flash of lightning illuminates the landscape, and a moment later you hear the crack of thunder.") },
-  wetness:4,
+  ongoing: function () { if (Quest.Random.rndm.chance(10)) this.report("A flash of lightning illuminates the landscape, and a moment later you hear the crack of thunder.") },
+  wetness: 4,
 })
 

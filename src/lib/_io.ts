@@ -1,12 +1,12 @@
 "use strict"
 
 // This is at the top of the file so authors know to ignore stack trace enties for lines 1 to 15 in _io.js
-const printError = function(msg: any, err: any, suppressTrace: any) {
+const printError = function (msg: any, err: any, suppressTrace: any) {
   console.error("ERROR: " + msg)
   if (world.isCreated) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'print' does not exist on type '{ nextid:... Remove this comment to see the full error message
-    io.print({tag:'p', cssClass:"error", text:lang.error})
-    saveLoad.transcriptAppend({ cssClass:'error', text:msg, stack:err.stack, })
+    io.print({ tag: 'p', cssClass: "error", text: lang.error })
+    saveLoad.transcriptAppend({ cssClass: 'error', text: msg, stack: err.stack, })
   }
   if (suppressTrace) return false
   console.log('Look through the trace below to find the offending code. The first entry in the list may be "errormsg" in the file "_io.js", which is me so can be ignored. The next will the code that detected the error and called the "errormsg" message. You may need to look further down to find the root cause, especially for a text process issue.')
@@ -26,8 +26,8 @@ const printError = function(msg: any, err: any, suppressTrace: any) {
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
 if (Quest.settings.playMode !== 'dev') {
-  window.onbeforeunload = function(event: any) { 
-    event.returnValue = "Are you sure?"; 
+  window.onbeforeunload = function (event: any) {
+    event.returnValue = "Are you sure?";
   }
 }
 
@@ -44,7 +44,7 @@ Quest.settings.autoscroll = !Quest.settings.mediaQuery.matches
 
 
 // ============  Output  =======================================
- 
+
 
 //@DOC
 // ##Output functions
@@ -79,7 +79,7 @@ function _msg(s: any, params: any, options: any) {
   if (options.cssClass === undefined) options.cssClass = 'default-' + options.tag.toLowerCase();
   let processed = params ? processText(s, params).trim() : s.trim();
   if (processed === "" && !options.printBlank) return;
-  
+
   for (let line of processed.split('|')) {
     for (const el in io.escapeCodes) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
@@ -93,7 +93,7 @@ function _msg(s: any, params: any, options: any) {
     data.text = line
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'action' does not exist on type '{}'.
     if (!data.action) data.action = 'output'
-    
+
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'testing' does not exist on type '{}'.
     if (test.testing) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'ignoreHTML' does not exist on type '{}'.
@@ -145,10 +145,10 @@ function msg(s: any, params: any, cssClass: any) {
 
   if (/^#/.test(s) && !cssClass) {
     s = s.replace(/^#/, '')
-    _msg(s, params, {cssClass:'default-h default-h4', tag:'h4'})
+    _msg(s, params, { cssClass: 'default-h default-h4', tag: 'h4' })
   }
   else {
-    _msg(s, params, {cssClass:cssClass, tag:'p'})
+    _msg(s, params, { cssClass: cssClass, tag: 'p' })
   }
 }
 
@@ -166,22 +166,22 @@ function msgPre(s: any, params: any, cssClass: any) {
     console.trace()
     throw "Bad string for msgPre()"
   }
-  _msg(s, params, {cssClass:cssClass, tag:'pre'})
+  _msg(s, params, { cssClass: cssClass, tag: 'pre' })
 }
 
 //@DOC 
 //Output a standard message, but it makes the NEXT message appear on the same line as the current message. Note that the next message will not have its own params or cssClass. 
 function OutputTextNoBr(s: any, params: any, cssClass: any) {
-    if(s.startsWith(' ')) {
-        s = "&nbsp;" + s.substring(1, s.length);
-    }
-    if(s.endsWith(' ')) {
-        s = s.substring(0, (s.length - 1)) + "&nbsp;"
-    }
-   msg("@@OUTPUTTEXTNOBR@@" + s, params, cssClass);
+  if (s.startsWith(' ')) {
+    s = "&nbsp;" + s.substring(1, s.length);
+  }
+  if (s.endsWith(' ')) {
+    s = s.substring(0, (s.length - 1)) + "&nbsp;"
+  }
+  msg("@@OUTPUTTEXTNOBR@@" + s, params, cssClass);
 }
 function msgBlankLine() {
-  _msg('', false, {tag:'p', printBlank:true})
+  _msg('', false, { tag: 'p', printBlank: true })
 }
 
 
@@ -193,7 +193,7 @@ function msgDiv(arr: any, params: any, cssClass: any) {
   for (let item of arr) {
     s += '  <p>' + item + "</p>\n"
   }
-  _msg(s, params || {}, {cssClass:cssClass, tag:'div'})
+  _msg(s, params || {}, { cssClass: cssClass, tag: 'div' })
 }
 
 
@@ -206,7 +206,7 @@ function msgList(arr: any, ordered: any, params: any, cssClass: any) {
   for (let item of arr) {
     s += '  <li>' + item + "</li>\n"
   }
-  _msg(s, params || {}, {cssClass:cssClass, tag:ordered ? 'ol' : 'ul'})
+  _msg(s, params || {}, { cssClass: cssClass, tag: ordered ? 'ol' : 'ul' })
 }
 
 
@@ -230,7 +230,7 @@ function msgTable(arr: any, headings: any, params: any, cssClass: any) {
     }
     s += "  </tr>\n"
   }
-  _msg(s, params || {}, {cssClass:cssClass, tag:'table'})
+  _msg(s, params || {}, { cssClass: cssClass, tag: 'table' })
 }
 
 
@@ -240,7 +240,7 @@ function msgTable(arr: any, headings: any, params: any, cssClass: any) {
 // The level of the heading is determined by `level`, with 1 being the top, and 6 the bottom.
 // Headings are ignored during unit testing.
 function msgHeading(s: any, level: any, params: any) {
-  _msg(s, params || {}, {tag:'h' + level, cssClass:'default-h default-h' + level})
+  _msg(s, params || {}, { tag: 'h' + level, cssClass: 'default-h default-h' + level })
 }
 
 
@@ -255,14 +255,14 @@ function msgHeading(s: any, level: any, params: any) {
 // but it could be the web address of an image hosted elsewhere.
 function picture(filename: any, width: any, height: any) {
   const src = filename.includes('/') ? filename : Quest.settings.imagesFolder + filename
-  _msg('', {}, {action:'output', width:width, height:height, tag:'img', src:src, printBlank:true})
+  _msg('', {}, { action: 'output', width: width, height: height, tag: 'img', src: src, printBlank: true })
 }
 
 
 
 function image(filename: any, width: any, height: any) {
   const src = filename.includes('/') ? filename : Quest.settings.imagesFolder + filename
-  _msg('', {}, {action:'output', width:width, height:height, tag:'img', src:src, cssClass:'centred', printBlank:true, destination:'quest-image'})
+  _msg('', {}, { action: 'output', width: width, height: height, tag: 'img', src: src, cssClass: 'centred', printBlank: true, destination: 'quest-image' })
 }
 
 
@@ -273,11 +273,11 @@ function image(filename: any, width: any, height: any) {
 // Plays a sound. The filename must include the extension, and the file should be in the folder specified by audioFolder (defaults to the game folder).
 function sound(filename: any) {
   //console.log(Quest.settings.ssFolder)
-  _msg('Your browser does not support the <code>audio</code> element.', {}, {action:'sound', name:filename})
+  _msg('Your browser does not support the <code>audio</code> element.', {}, { action: 'sound', name: filename })
 }
 function ambient(filename: any, volume: any) {
   //console.log(Quest.settings.ssFolder)
-  _msg('Your browser does not support the <code>audio</code> element.', {}, {action:'ambient', name:filename, volume:volume})
+  _msg('Your browser does not support the <code>audio</code> element.', {}, { action: 'ambient', name: filename, volume: volume })
 }
 
 
@@ -287,7 +287,7 @@ function ambient(filename: any, volume: any) {
 function video(filename: any) {
   //console.log(Quest.settings.ssFolder)
   // @ts-expect-error ts-migrate(2551) FIXME: Property 'videoFolder' does not exist on type '{ p... Remove this comment to see the full error message
-  _msg('Your browser does not support the <code>video</code> element.', {}, {action:'output', autoplay:true, tag:'video', src:Quest.settings.videoFolder + '/' + filename})
+  _msg('Your browser does not support the <code>video</code> element.', {}, { action: 'output', autoplay: true, tag: 'video', src: Quest.settings.videoFolder + '/' + filename })
 }
 
 
@@ -311,7 +311,7 @@ function draw(width: any, height: any, data: any, options: any) {
   if (options.destination) {
     // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
     document.querySelector('#' + options.destination).innerHTML = s
-  } 
+  }
   else {
     rawPrint(s)
   }
@@ -325,7 +325,7 @@ function draw(width: any, height: any, data: any, options: any) {
 // Returns the value FAILED, allowing commands to give a message and give up
 //     if (notAllowed) return failedmsg("That is not allowed.")
 function failedmsg(s: any, params: any) {
-  _msg(s, params || {}, {cssClass:"default-p failed", tag:'p'});
+  _msg(s, params || {}, { cssClass: "default-p failed", tag: 'p' });
   return world.FAILED;
 }
 
@@ -336,7 +336,7 @@ function failedmsg(s: any, params: any) {
 // Returns the value false, allowing commands to give a message and give up
 //     if (notAllowed) return falsemsg("That is not allowed.")
 function falsemsg(s: any, params: any) {
-  _msg(s, params || {}, {cssClass:"default-p failed", tag:'p'});
+  _msg(s, params || {}, { cssClass: "default-p failed", tag: 'p' });
   return false;
 }
 
@@ -349,7 +349,7 @@ function falsemsg(s: any, params: any) {
 // Additional data can be put in the optional params dictionary.
 // During unit testing, messages will be saved and tested
 function metamsg(s: any, params: any) {
-  _msg(s, params || {}, {cssClass:"meta", tag:'p'});
+  _msg(s, params || {}, { cssClass: "meta", tag: 'p' });
 }
 
 //@DOC
@@ -357,7 +357,7 @@ function metamsg(s: any, params: any) {
 // During unit testing, messages will be saved and tested.
 // Does not use the text processor.
 function parsermsg(s: any) {
-  _msg(s, false, {cssClass:"parser", tag:'p'});
+  _msg(s, false, { cssClass: "parser", tag: 'p' });
   return false;
 }
 
@@ -365,7 +365,7 @@ function parsermsg(s: any) {
 // Output a message from the user
 // Does not use the text processor.
 function commentmsg(s: any) {
-  _msg(s, false, {cssClass:"comment", tag:'p'});
+  _msg(s, false, { cssClass: "comment", tag: 'p' });
   return false;
 }
 
@@ -389,7 +389,7 @@ function errormsg(s: any, suppressTrace: any) {
     test.errorOutput.push(s)
     return false
   }
-  
+
   printError(s, new Error('error state caught by QuestJS runtime'), suppressTrace)
 
 }
@@ -411,7 +411,7 @@ function debugmsg(s: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
   if (Quest.settings.playMode === 'dev' || Quest.settings.playMode === 'meta') {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'print' does not exist on type '{ nextid:... Remove this comment to see the full error message
-    io.print({tag:'pre', cssClass:"debug", text:s, id:io.nextid})
+    io.print({ tag: 'pre', cssClass: "debug", text: s, id: io.nextid })
     io.nextid++
   }
 }
@@ -439,7 +439,7 @@ function hr() {
 // Clears the screen.
 function clearScreen() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'addToOutputQueue' does not exist on type... Remove this comment to see the full error message
-  io.addToOutputQueue({action:'clear'})
+  io.addToOutputQueue({ action: 'clear' })
 }
 
 //@DOC
@@ -449,11 +449,11 @@ function wait(delay: any, text: any, func: any) {
   if (test.testing || Quest.settings.walkthroughInProgress) return
   if (delay === undefined) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'addToOutputQueue' does not exist on type... Remove this comment to see the full error message
-    io.addToOutputQueue({action:'wait', text:text, cssClass:'continue', func:func})
+    io.addToOutputQueue({ action: 'wait', text: text, cssClass: 'continue', func: func })
   }
   else {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'addToOutputQueue' does not exist on type... Remove this comment to see the full error message
-    io.addToOutputQueue({action:'delay', delay:delay, text:text, cssClass:'continue', func:func})
+    io.addToOutputQueue({ action: 'delay', delay: delay, text: text, cssClass: 'continue', func: func })
   }
 }
 
@@ -463,7 +463,7 @@ function wait(delay: any, text: any, func: any) {
 // Clears the screen.
 function trigger(func: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'addToOutputQueue' does not exist on type... Remove this comment to see the full error message
-  io.addToOutputQueue({action:'func', func:func})
+  io.addToOutputQueue({ action: 'func', func: func })
 }
 
 
@@ -475,9 +475,9 @@ function trigger(func: any) {
 //        msg("You picked " + result + ".");
 //      });
 function showMenu(title: any, options: any, fn: any) {
-  const opts = {article:DEFINITE, capital:true, noLinks:true}
+  const opts = { article: DEFINITE, capital: true, noLinks: true }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'input' does not exist on type '{ nextid:... Remove this comment to see the full error message
-  io.input(title, options, false, fn, function(options: any) {
+  io.input(title, options, false, fn, function (options: any) {
     for (let i = 0; i < options.length; i++) {
       let s = '<a class="menu-option" onclick="io.menuResponse(' + i + ')">';
       s += (typeof options[i] === 'string' ? options[i] : lang.getName(options[i], opts))
@@ -491,16 +491,16 @@ function showMenu(title: any, options: any, fn: any) {
 
 
 function showMenuNumbersOnly(title: any, options: any, fn: any) {
-  const opts = {article:DEFINITE, capital:true, noLinks:true}
+  const opts = { article: DEFINITE, capital: true, noLinks: true }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'overrideWith' does not exist on type '{}... Remove this comment to see the full error message
-  parser.overrideWith(function(s: any) {io.menuResponse(s)})
-  const disableTextFunction = function(disable: any) {
+  parser.overrideWith(function (s: any) { io.menuResponse(s) })
+  const disableTextFunction = function (disable: any) {
     if (disable) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'disable' does not exist on type '{ nexti... Remove this comment to see the full error message
       io.disable(3)
       // add a keypress event handler to capture keypresses directly
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'keydownFunction' does not exist on type ... Remove this comment to see the full error message
-      io.keydownFunction = function(e: any) {
+      io.keydownFunction = function (e: any) {
         const n = parseInt(e.key)
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'menuOptions' does not exist on type '{ n... Remove this comment to see the full error message
         if (!isNaN(n) && n <= io.menuOptions.length && n !== 0) parser.parse('' + n)
@@ -508,11 +508,11 @@ function showMenuNumbersOnly(title: any, options: any, fn: any) {
         // stopPropagation and stopImmediatePropagation did not do it,
         // even though it seems to happen after this
         // so just delete it!
-        setTimeout(function() { 
+        setTimeout(function () {
           // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
           document.querySelector('#textbox').value = ''
           // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-          document.querySelector('#textbox').focus() 
+          document.querySelector('#textbox').focus()
         }, 10)
       }
     }
@@ -525,7 +525,7 @@ function showMenuNumbersOnly(title: any, options: any, fn: any) {
     }
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'input' does not exist on type '{ nextid:... Remove this comment to see the full error message
-  io.input(title, options, disableTextFunction, fn, function(options: any) {
+  io.input(title, options, disableTextFunction, fn, function (options: any) {
     for (let i = 0; i < options.length; i++) {
       let s = (i + 1) + '. <a class="menu-option" onclick="io.menuResponse(' + i + ')">';
       s += (typeof options[i] === 'string' ? options[i] : lang.getName(options[i], opts))
@@ -538,10 +538,10 @@ function showMenuNumbersOnly(title: any, options: any, fn: any) {
 
 
 function showMenuWithNumbers(title: any, options: any, fn: any) {
-  const opts = {article:DEFINITE, capital:true, noLinks:true}
+  const opts = { article: DEFINITE, capital: true, noLinks: true }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'overrideWith' does not exist on type '{}... Remove this comment to see the full error message
-  parser.overrideWith(function(s: any) {io.menuResponse(s)})
-  const disableTextFunction = function(disable: any) {
+  parser.overrideWith(function (s: any) { io.menuResponse(s) })
+  const disableTextFunction = function (disable: any) {
     if (disable) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'disable' does not exist on type '{ nexti... Remove this comment to see the full error message
       io.disable(2)
@@ -553,7 +553,7 @@ function showMenuWithNumbers(title: any, options: any, fn: any) {
       io.doNotSaveInput = false
     }
   }
-  const failFunction = function(input: any) {
+  const failFunction = function (input: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("I do not understand: " + input)
     runCmd(input)
@@ -563,7 +563,7 @@ function showMenuWithNumbers(title: any, options: any, fn: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'doNotSaveInput' does not exist on type '... Remove this comment to see the full error message
   io.doNotSaveInput = true
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'input' does not exist on type '{ nextid:... Remove this comment to see the full error message
-  io.input(title, options, disableTextFunction, fn, function(options: any) {
+  io.input(title, options, disableTextFunction, fn, function (options: any) {
     for (let i = 0; i < options.length; i++) {
       let s = (i + 1) + '. <a class="menu-option" onclick="io.menuResponse(' + i + ')">';
       s += (typeof options[i] === 'string' ? options[i] : lang.getName(options[i], opts))
@@ -578,14 +578,14 @@ function showMenuWithNumbers(title: any, options: any, fn: any) {
 
 
 function showDropDown(title: any, options: any, fn: any) {
-  const opts = {article:DEFINITE, capital:true, noLinks:true}
+  const opts = { article: DEFINITE, capital: true, noLinks: true }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'input' does not exist on type '{ nextid:... Remove this comment to see the full error message
-  io.input(title, options, false, fn, function(options: any) {
+  io.input(title, options, false, fn, function (options: any) {
     let s = '<select id="menu-select" class="custom-select" style="width:400px;" ';
     s += 'onchange=\"io.menuResponse(io.getDropDownText(\'menu-select\'))\">';
     s += '<option value="-1">-- Select one --</option>';
     for (let i = 0; i < options.length; i++) {
-      s += '<option value="' + (i+1) + '">';
+      s += '<option value="' + (i + 1) + '">';
       s += (typeof options[i] === 'string' ? options[i] : lang.getName(options[i], opts))
       s += '</option>';
     }
@@ -601,8 +601,8 @@ function showDropDown(title: any, options: any, fn: any) {
 function showMenuDiag(title: any, options: any, fn: any, cssClass: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'showMenuDiagTitle' does not exist on typ... Remove this comment to see the full error message
   io.showMenuDiagTitle = title
-  const opts = {article:DEFINITE, capital:true, noLinks:true}
-  const disableTextFunction = function(disable: any) {
+  const opts = { article: DEFINITE, capital: true, noLinks: true }
+  const disableTextFunction = function (disable: any) {
     if (disable) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'disable' does not exist on type '{ nexti... Remove this comment to see the full error message
       io.disable(3)
@@ -618,7 +618,7 @@ function showMenuDiag(title: any, options: any, fn: any, cssClass: any) {
     }
   }
 
-  const displayFunction = function(options: any) {
+  const displayFunction = function (options: any) {
     let s = '<div id="sidepane-menu"'
     if (cssClass) s += ' class="' + cssClass + '"'
     s += '>'
@@ -673,7 +673,7 @@ function askText(title: any, fn: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'disable' does not exist on type '{ nexti... Remove this comment to see the full error message
   io.disable(2)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'overrideWith' does not exist on type '{}... Remove this comment to see the full error message
-  parser.overrideWith(function(result: any) {
+  parser.overrideWith(function (result: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'enable' does not exist on type '{ nextid... Remove this comment to see the full error message
     io.enable()
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'savedCommands' does not exist on type '{... Remove this comment to see the full error message
@@ -688,7 +688,7 @@ function askText(title: any, fn: any) {
 function showDiag(title: any, text: any, submitButton: any) {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   if (!submitButton) return errormsg("Trying to use showDiag with no button")
-  askDiag({title:title, text:text, width:800, height:600}, null, submitButton)
+  askDiag({ title: title, text: text, width: 800, height: 600 }, null, submitButton)
 }
 
 
@@ -700,7 +700,7 @@ function askDiag(title: any, fn: any, submitButton: any) {
   io.showMenuDiagTitle = title
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'showMenuDiagSubmit' does not exist on ty... Remove this comment to see the full error message
   io.showMenuDiagSubmit = submitButton
-  const disableTextFunction = function(disable: any) {
+  const disableTextFunction = function (disable: any) {
     if (disable) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'disable' does not exist on type '{ nexti... Remove this comment to see the full error message
       io.disable(3)
@@ -713,7 +713,7 @@ function askDiag(title: any, fn: any, submitButton: any) {
     }
   }
 
-  const displayFunction = function() {
+  const displayFunction = function () {
     let s = '<div id="sidepane-menu"'
     if (title.width) s += ' style="width:' + title.width + 'px;top:100px;"'
     s += '>'
@@ -739,13 +739,13 @@ function askDiag(title: any, fn: any, submitButton: any) {
     s += '</div>'
     // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
     document.querySelector('body').innerHTML += s
-    
+
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'menuFn' does not exist on type '{ nextid... Remove this comment to see the full error message
     if (io.menuFn) {
       const el = document.getElementById("text-dialog")
       // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-      el.addEventListener("keydown", function(event) {
+      el.addEventListener("keydown", function (event) {
         if (event.keyCode === 13) {
           event.preventDefault();
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'textResponse' does not exist on type '{ ... Remove this comment to see the full error message
@@ -775,7 +775,7 @@ function endTurnUI(update: any) {
     for (let exit of lang.exit_list) {
       const el = document.querySelector('#exit-' + exit.name)
       if (!el) continue
-      if (currentLocation.hasExit(exit.name, {excludeScenery:true}) || exit.type === 'nocmd') {
+      if (currentLocation.hasExit(exit.name, { excludeScenery: true }) || exit.type === 'nocmd') {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'style' does not exist on type 'Element'.
         el.style.display = 'block'
       }
@@ -807,7 +807,7 @@ function endTurnUI(update: any) {
 
 function createAdditionalPane(position: any, title: any, id: any, func: any) {
   const el = document.querySelector("#panes")
- 
+
   const div = document.createElement('div');
   div.classList.add("pane-div");
   div.innerHTML = '<h4 class="side-pane-heading">' + title + '</h4><div id="' + id + '">' + func() + '</div>'
@@ -832,38 +832,38 @@ function createAdditionalPane(position: any, title: any, id: any, func: any) {
 const io = {
 
   // Each line that is output is given an id, n plus an id number.
-  nextid:0,
+  nextid: 0,
   // A list of names for items currently world. in the inventory panes
-  currentItemList:[],
+  currentItemList: [],
 
-  modulesToUpdate:[],
-  modulesToInit:[],
-  spoken:false,
+  modulesToUpdate: [],
+  modulesToInit: [],
+  spoken: false,
   //False for normal function, true if things should be printed to the same paragraph 
-  otnb:false, 
-  sameLine:false,
-  slID:"output",
-  
-  
-  escapeCodes:{
-    colon:':',
-    lcurly:'{',
-    rcurly:'}',
-    lsquare:'[',
-    rsquare:']',
-    vert:'|',
-    hash:'#',
-  },  
-  
-  menuFunctions:{
-    showMenu:showMenu,
-    showDropDown:showDropDown,
-    showMenuNumbersOnly:showMenuNumbersOnly,
-    showMenuWithNumbers:showMenuWithNumbers,
-    showMenuDiag:showMenuDiag,
+  otnb: false,
+  sameLine: false,
+  slID: "output",
+
+
+  escapeCodes: {
+    colon: ':',
+    lcurly: '{',
+    rcurly: '}',
+    lsquare: '[',
+    rsquare: ']',
+    vert: '|',
+    hash: '#',
   },
 
-  showInTab:function(html: any, title = "Quest JS Tab") {
+  menuFunctions: {
+    showMenu: showMenu,
+    showDropDown: showDropDown,
+    showMenuNumbersOnly: showMenuNumbersOnly,
+    showMenuWithNumbers: showMenuWithNumbers,
+    showMenuDiag: showMenuDiag,
+  },
+
+  showInTab: function (html: any, title = "Quest JS Tab") {
     const path = location.protocol + '//' + location.pathname.replace('index.html', '')
     const tab = window.open('about:blank', '_blank')
     if (!tab) {
@@ -871,9 +871,9 @@ const io = {
       metamsg(lang.new_tab_failed)
       return false
     }
-    
+
     Quest.settings.loadCssFiles(tab.document, path)
-    
+
     const myScript = tab.document.createElement("script")
     myScript.setAttribute("src", path + 'lib/_transcript.js')
     tab.document.head.appendChild(myScript)
@@ -899,7 +899,7 @@ const io = {
 
 // This is used by the various menu functions (not showMenuDiag).
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'input' does not exist on type '{ nextid:... Remove this comment to see the full error message
-io.input = function(title: any, options: any, disableTextFunction: any, reactFunction: any, displayFunction: any, failFunction: any) {
+io.input = function (title: any, options: any, disableTextFunction: any, reactFunction: any, displayFunction: any, failFunction: any) {
   // Store the values so we can use them later in io.menuResponse
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'menuStartId' does not exist on type '{ n... Remove this comment to see the full error message
   io.menuStartId = io.nextid;
@@ -910,13 +910,13 @@ io.input = function(title: any, options: any, disableTextFunction: any, reactFun
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'menuOptions' does not exist on type '{ n... Remove this comment to see the full error message
   io.menuOptions = options;
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'disableTextFunction' does not exist on t... Remove this comment to see the full error message
-  io.disableTextFunction = disableTextFunction ? disableTextFunction : function(disable: any) {
+  io.disableTextFunction = disableTextFunction ? disableTextFunction : function (disable: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'disable' does not exist on type '{ nexti... Remove this comment to see the full error message
     if (disable) io.disable(3)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'enable' does not exist on type '{ nextid... Remove this comment to see the full error message
     if (!disable) io.enable()
   }
-  
+
   // Skip if unit-testing
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'testing' does not exist on type '{}'.
   if (test.testing) {
@@ -948,17 +948,17 @@ io.input = function(title: any, options: any, disableTextFunction: any, reactFun
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'menuResponse' does not exist on type '{ ... Remove this comment to see the full error message
       io.menuResponse(n)
     }
-    return; 
+    return;
   }
-  
+
   // Skip if walk-through
   if (Quest.settings.walkthroughMenuResponses.length > 0) {
     const response = Quest.settings.walkthroughMenuResponses.shift()
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'menuResponse' does not exist on type '{ ... Remove this comment to see the full error message
     io.menuResponse(response);
-    return; 
+    return;
   }
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'disableTextFunction' does not exist on t... Remove this comment to see the full error message
   io.disableTextFunction(true)
   if (title) msg(title, {}, 'menu-title');
@@ -982,7 +982,7 @@ io.outputSuspended = false
 
 // Stops the current pause immediately (no effect if not paused)
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'unpause' does not exist on type '{ nexti... Remove this comment to see the full error message
-io.unpause = function() {
+io.unpause = function () {
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
   document.querySelector('.continue').remove()
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'outputSuspended' does not exist on type ... Remove this comment to see the full error message
@@ -994,7 +994,7 @@ io.unpause = function() {
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addToOutputQueue' does not exist on type... Remove this comment to see the full error message
-io.addToOutputQueue = function(data: any) {
+io.addToOutputQueue = function (data: any) {
   data.id = io.nextid
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'outputQueue' does not exist on type '{ n... Remove this comment to see the full error message
   io.outputQueue.push(data)
@@ -1004,7 +1004,7 @@ io.addToOutputQueue = function(data: any) {
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'forceOutputFromQueue' does not exist on ... Remove this comment to see the full error message
-io.forceOutputFromQueue = function() {
+io.forceOutputFromQueue = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'outputSuspended' does not exist on type ... Remove this comment to see the full error message
   io.outputSuspended = false
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'outputFromQueue' does not exist on type ... Remove this comment to see the full error message
@@ -1013,7 +1013,7 @@ io.forceOutputFromQueue = function() {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'outputFromQueue' does not exist on type ... Remove this comment to see the full error message
-io.outputFromQueue = function() {
+io.outputFromQueue = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'outputSuspended' does not exist on type ... Remove this comment to see the full error message
   if (io.outputSuspended) return
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'outputQueue' does not exist on type '{ n... Remove this comment to see the full error message
@@ -1022,7 +1022,7 @@ io.outputFromQueue = function() {
     if (!io.disableTextFunction) io.enable()
     return
   }
-  
+
   //if (Quest.settings.textInput) document.querySelector('#input').style.display = 'block'
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'outputQueue' does not exist on type '{ n... Remove this comment to see the full error message
   const data = io.outputQueue.shift()
@@ -1033,7 +1033,7 @@ io.outputFromQueue = function() {
     io.outputSuspended = true
     //if (Quest.settings.textInput) document.querySelector('#input').style.display = 'none'
     data.tag = 'p'
-    data.onclick="io.unpause()"
+    data.onclick = "io.unpause()"
     if (!data.text) data.text = lang.click_to_continue
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'print' does not exist on type '{ nextid:... Remove this comment to see the full error message
     io.print(data)
@@ -1099,7 +1099,7 @@ io.outputFromQueue = function() {
       if (data.volume) el.volume = data.volume / 10
     }
   }
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'scrollToEnd' does not exist on type '{ n... Remove this comment to see the full error message
   io.scrollToEnd()
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
@@ -1108,21 +1108,21 @@ io.outputFromQueue = function() {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'allowedHtmlAttrs' does not exist on type... Remove this comment to see the full error message
-io.allowedHtmlAttrs = ['width', 'height', 'onclick', 'src', 'autoplay' ]
+io.allowedHtmlAttrs = ['width', 'height', 'onclick', 'src', 'autoplay']
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'print' does not exist on type '{ nextid:... Remove this comment to see the full error message
-io.print = function(data: any) {
+io.print = function (data: any) {
   let html
-  let keepSL 
-  let slID 
+  let keepSL
+  let slID
   if (typeof data === 'string') {
     html = data
   }
-  
+
   if (data.html) {
     html = data.html
-  } 
-  else if (io.sameLine == false){
+  }
+  else if (io.sameLine == false) {
     html = '<' + data.tag + ' id="n' + data.id + '"'
     if (data.cssClass) html += ' class="' + data.cssClass + '"'
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'allowedHtmlAttrs' does not exist on type... Remove this comment to see the full error message
@@ -1130,38 +1130,38 @@ io.print = function(data: any) {
     html += '>' + data.text + "</" + data.tag + '>'
   }
   else {
-      html = data.text 
+    html = data.text
   }
   if (data.destination) {
     // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
     document.querySelector("#" + data.destination).innerHTML = html
   }
   else {
-      
-      let keepSL = (html.indexOf("@@OUTPUTTEXTNOBR@@") > -1)
-      let slID = "n" + (data.id-1) 
-      if(keepSL == true) {
-          html = html.replace("@@OUTPUTTEXTNOBR@@", "");
-      }
-      if(io.sameLine == true) { 
-        let last = document.getElementById(slID)
-        // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-        last.innerHTML = last.innerHTML + html
-        io.sameLine = false 
-      }
-      else {
-        // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-        document.querySelector("#output").innerHTML += html
-      }
-      io.sameLine = keepSL; 
-      
+
+    let keepSL = (html.indexOf("@@OUTPUTTEXTNOBR@@") > -1)
+    let slID = "n" + (data.id - 1)
+    if (keepSL == true) {
+      html = html.replace("@@OUTPUTTEXTNOBR@@", "");
+    }
+    if (io.sameLine == true) {
+      let last = document.getElementById(slID)
+      // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
+      last.innerHTML = last.innerHTML + html
+      io.sameLine = false
+    }
+    else {
+      // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
+      document.querySelector("#output").innerHTML += html
+    }
+    io.sameLine = keepSL;
+
   }
   return html
 }
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'typewriterEffect' does not exist on type... Remove this comment to see the full error message
-io.typewriterEffect = function(data: any) {
+io.typewriterEffect = function (data: any) {
   if (!data.position) {
     // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
     document.querySelector("#output").innerHTML += '<' + data.tag + ' id="n' + data.id + '" class=\"typewriter\"></' + data.tag + '>'
@@ -1183,7 +1183,7 @@ io.typewriterEffect = function(data: any) {
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'unscrambleEffect' does not exist on type... Remove this comment to see the full error message
-io.unscrambleEffect = function(data: any) {
+io.unscrambleEffect = function (data: any) {
   // Set up the system
   if (!data.count) {
     // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
@@ -1206,10 +1206,10 @@ io.unscrambleEffect = function(data: any) {
       }
     }
   }
-  
+
   if (data.randomPlacing) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'int' does not exist on type '{ buffer: n... Remove this comment to see the full error message
-    let pos = random.int(0, data.count - 1)
+    let pos = Quest.Random.rndm.int(0, data.count - 1)
     let newMask = ''
     for (let i = 0; i < data.mask.length; i++) {
       if (data.mask.charAt(i) === ' ') {
@@ -1243,14 +1243,14 @@ io.unscrambleEffect = function(data: any) {
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'unscamblePick' does not exist on type '{... Remove this comment to see the full error message
-io.unscamblePick = function() {
+io.unscamblePick = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'int' does not exist on type '{ buffer: n... Remove this comment to see the full error message
-  let c = String.fromCharCode(random.int(33, 125))
+  let c = String.fromCharCode(Quest.Random.rndm.int(33, 125))
   return c === '<' ? '~' : c
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'unscambleScramble' does not exist on typ... Remove this comment to see the full error message
-io.unscambleScramble = function(data: any) {
+io.unscambleScramble = function (data: any) {
   let s = ''
   for (let i = 0; i < data.text.length; i++) {
     s += (data.mask.charAt(i) === ' ' ? data.text.charAt(i) : data.pick(i))
@@ -1261,7 +1261,7 @@ io.unscambleScramble = function(data: any) {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'cmdlink' does not exist on type '{ nexti... Remove this comment to see the full error message
-io.cmdlink = function(command: any, str: any) {
+io.cmdlink = function (command: any, str: any) {
   return `<a class="cmd-link" onclick="runCmd('${command}')">${str}</a>`;
 }
 
@@ -1273,7 +1273,7 @@ io.cmdlink = function(command: any, str: any) {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'setTitleAndInit' does not exist on type ... Remove this comment to see the full error message
-io.setTitleAndInit = function(s: any) {
+io.setTitleAndInit = function (s: any) {
   document.title = s
   for (let o of io.modulesToInit) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'init' does not exist on type 'never'.
@@ -1284,7 +1284,7 @@ io.setTitleAndInit = function(s: any) {
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'calcMargins' does not exist on type '{ n... Remove this comment to see the full error message
-io.calcMargins = function() {
+io.calcMargins = function () {
   //How much space do we need for images and map?
   let mapImageWidth = 0
   if (typeof map !== 'undefined') {
@@ -1318,7 +1318,7 @@ io.calcMargins = function() {
       document.querySelector('#panes').style.display = 'block'
     }
   }
-  
+
   // Note: As of Jan/22 this takes account of Quest.settings.hideMap - but not of whether
   // the image should be hidden
   let margin = Quest.settings.panes === 'right' ? 'margin-left' : 'margin-right'
@@ -1359,7 +1359,7 @@ io.resizeMapImageListener.addListener(io.calcMargins) // Attach listener functio
 
 
 
-  
+
 // 0: not disabled at all
 // 1: disable until output is done
 // 2: awaiting special input, eg from menu, including text
@@ -1368,7 +1368,7 @@ io.resizeMapImageListener.addListener(io.calcMargins) // Attach listener functio
 io.disableLevel = 0
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'disable' does not exist on type '{ nexti... Remove this comment to see the full error message
-io.disable = function(level: any) {
+io.disable = function (level: any) {
   //log('disable ' + level + ' (' + io.disableLevel + ')')
   if (!level) level = 1
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'disableLevel' does not exist on type '{ ... Remove this comment to see the full error message
@@ -1386,7 +1386,7 @@ io.disable = function(level: any) {
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'enable' does not exist on type '{ nextid... Remove this comment to see the full error message
-io.enable = function(level: any) {
+io.enable = function (level: any) {
   //log('enable ' + level + ' (' + io.disableLevel + ')')
   if (!level) level = 1
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'disableLevel' does not exist on type '{ ... Remove this comment to see the full error message
@@ -1406,7 +1406,7 @@ io.enable = function(level: any) {
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'startCommand' does not exist on type '{ ... Remove this comment to see the full error message
-io.startCommand = function() {
+io.startCommand = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'addClassForClass' does not exist on type... Remove this comment to see the full error message
   io.addClassForClass("default-p", 'old-text')
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'addClassForClass' does not exist on type... Remove this comment to see the full error message
@@ -1421,14 +1421,14 @@ io.startCommand = function() {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addClassForClass' does not exist on type... Remove this comment to see the full error message
-io.addClassForClass = function(oldClass: any, newClass: any) {
+io.addClassForClass = function (oldClass: any, newClass: any) {
   const collection = document.getElementsByClassName(oldClass)
   for (const el of collection) el.classList.add(newClass)
 }
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'updateUIItems' does not exist on type '{... Remove this comment to see the full error message
-io.updateUIItems = function() {
+io.updateUIItems = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'inventoryPane' does not exist on type '{... Remove this comment to see the full error message
   if (Quest.settings.panes === 'none' || !Quest.settings.inventoryPane) { return; }
 
@@ -1438,7 +1438,7 @@ io.updateUIItems = function() {
     document.querySelector('#' + inv.alt).textContent = ""
     inv.hasContent = false
   }
-  
+
   io.currentItemList = [];
   for (let key in w) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
@@ -1477,7 +1477,7 @@ io.updateUIItems = function() {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'updateStatus' does not exist on type '{ ... Remove this comment to see the full error message
-io.updateStatus = function() {
+io.updateStatus = function () {
   if (Quest.settings.statusPane) {
     // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
     document.querySelector("#status-pane").textContent = "";
@@ -1498,7 +1498,7 @@ io.updateStatus = function() {
   }
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'toolbar' does not exist on type '{ perfo... Remove this comment to see the full error message
-  if (Quest.settings.toolbar) { 
+  if (Quest.settings.toolbar) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'createToolbar' does not exist on type '{... Remove this comment to see the full error message
     io.createToolbar()
   }
@@ -1510,12 +1510,12 @@ io.updateStatus = function() {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'menuResponse' does not exist on type '{ ... Remove this comment to see the full error message
-io.menuResponse = function(n: any) {
+io.menuResponse = function (n: any) {
   let input = n
   if (typeof n === 'string' && n.match(/^\d+$/)) n = parseInt(n) - 1
   if (typeof n === 'string') {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'menuOptions' does not exist on type '{ n... Remove this comment to see the full error message
-    n = io.menuOptions.findIndex((el: any) => typeof el === 'string' ? el.includes(n) : el.alias.includes(n) )
+    n = io.menuOptions.findIndex((el: any) => typeof el === 'string' ? el.includes(n) : el.alias.includes(n))
   }
 
   // stop disabling input
@@ -1538,11 +1538,11 @@ io.menuResponse = function(n: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'menuFailFn' does not exist on type '{ ne... Remove this comment to see the full error message
     io.menuFailFn(input)
   }
-  
+
   // handle good number
   else {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'menuOptions' does not exist on type '{ n... Remove this comment to see the full error message
-    saveLoad.transcriptAppend({cssClass:'menu', text:(io.menuOptions[n].alias ? io.menuOptions[n].alias : io.menuOptions[n]), n:n});
+    saveLoad.transcriptAppend({ cssClass: 'menu', text: (io.menuOptions[n].alias ? io.menuOptions[n].alias : io.menuOptions[n]), n: n });
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'menuFn' does not exist on type '{ nextid... Remove this comment to see the full error message
     io.menuFn(io.menuOptions[n]);
   }
@@ -1554,7 +1554,7 @@ io.menuResponse = function(n: any) {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'textResponse' does not exist on type '{ ... Remove this comment to see the full error message
-io.textResponse = function(s: any) {
+io.textResponse = function (s: any) {
   if (s === undefined) {
     const el = document.querySelector('#text-dialog')
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'value' does not exist on type 'Element'.
@@ -1567,7 +1567,7 @@ io.textResponse = function(s: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'enable' does not exist on type '{ nextid... Remove this comment to see the full error message
   io.enable()
 
-  saveLoad.transcriptAppend({cssClass:'menu', text:s})
+  saveLoad.transcriptAppend({ cssClass: 'menu', text: s })
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'menuFn' does not exist on type '{ nextid... Remove this comment to see the full error message
   if (io.menuFn) io.menuFn(s);
   endTurnUI(true);
@@ -1579,7 +1579,7 @@ io.textResponse = function(s: any) {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'clickExit' does not exist on type '{ nex... Remove this comment to see the full error message
-io.clickExit = function(dir: any) {
+io.clickExit = function (dir: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'disableLevel' does not exist on type '{ ... Remove this comment to see the full error message
   if (io.disableLevel) return
   let failed = false
@@ -1587,7 +1587,7 @@ io.clickExit = function(dir: any) {
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'clickItem' does not exist on type '{ nex... Remove this comment to see the full error message
-io.clickItem = function(itemName: any) {
+io.clickItem = function (itemName: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'disableLevel' does not exist on type '{ ... Remove this comment to see the full error message
   if (io.disableLevel) return;
   // duplicated items would toggle twice
@@ -1608,7 +1608,7 @@ io.clickItem = function(itemName: any) {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'clickItemAction' does not exist on type ... Remove this comment to see the full error message
-io.clickItemAction = function(itemName: any, action: any) {
+io.clickItemAction = function (itemName: any, action: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'disableLevel' does not exist on type '{ ... Remove this comment to see the full error message
   if (io.disableLevel) return
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
@@ -1621,7 +1621,7 @@ io.clickItemAction = function(itemName: any, action: any) {
 // Add the item to the DIV named htmlDiv
 // The item will be given verbs from its attName attribute
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'appendItem' does not exist on type '{ ne... Remove this comment to see the full error message
-io.appendItem = function(item: any, htmlDiv: any, loc: any, isSubItem: any, highlight: any) {
+io.appendItem = function (item: any, htmlDiv: any, loc: any, isSubItem: any, highlight: any) {
   const el = document.querySelector('#' + htmlDiv)
   // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'any' is not assignable to parame... Remove this comment to see the full error message
   io.currentItemList.push(item.name)
@@ -1644,7 +1644,7 @@ io.appendItem = function(item: any, htmlDiv: any, loc: any, isSubItem: any, high
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'getItemHtml' does not exist on type '{ n... Remove this comment to see the full error message
-io.getItemHtml = function(item: any, loc: any, isSubItem: any, highlight: any) {
+io.getItemHtml = function (item: any, loc: any, isSubItem: any, highlight: any) {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   if (typeof item.getVerbs !== 'function') return errormsg("Item with bad getVerbs: " + item.name)
   const verbList = item.getVerbs(loc)
@@ -1654,7 +1654,7 @@ io.getItemHtml = function(item: any, loc: any, isSubItem: any, highlight: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getIcon' does not exist on type '{ nexti... Remove this comment to see the full error message
   let s = '<div id="' + item.name + '-item"><p class="item' + (isSubItem ? ' sub-item' : '') + (highlight ? ' highlight-item' + highlight : '') + '" onclick="io.clickItem(\'' + item.name + '\')">' + io.getIcon(item) + item.getListAlias(loc) + "</p></div>"
   for (let verb of verbList) {
-    if (typeof verb === 'string') verb = {name:verb, action:verb}
+    if (typeof verb === 'string') verb = { name: verb, action: verb }
     s += '<div class="' + item.name + '-actions item-action'
     if (verb.style) s += ' ' + verb.style
     s += '" onclick="io.clickItemAction(\'' + item.name + '\', \'' + verb.action + '\')">';
@@ -1667,7 +1667,7 @@ io.getItemHtml = function(item: any, loc: any, isSubItem: any, highlight: any) {
 // Creates the panes on the left or right
 // Should only be called once, when the page is first built
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'createPanes' does not exist on type '{ n... Remove this comment to see the full error message
-io.createPanes = function() {
+io.createPanes = function () {
   if (!['right', 'left', 'none'].includes(Quest.settings.panes)) {
     console.error('ERROR: Your Quest.settings.panes value is "' + Quest.settings.panes + '". It must be one of "right", "left" or "none" (all lower-case). It is probably set in the file setiings.js.')
     return
@@ -1679,7 +1679,7 @@ io.createPanes = function() {
   if (!Quest.settings.textInput) document.querySelector('#input').style.display = 'none'
 
   if (Quest.settings.panes === 'none') return
-  
+
   let html = ''
 
   if (Quest.settings.compassPane) {
@@ -1711,7 +1711,7 @@ io.createPanes = function() {
     html += '</table>'
     html += '</div>'
   }
-  
+
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'inventoryPane' does not exist on type '{... Remove this comment to see the full error message
   if (Quest.settings.inventoryPane) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'inventoryPane' does not exist on type '{... Remove this comment to see the full error message
@@ -1728,14 +1728,14 @@ io.createPanes = function() {
   html += lang.game_over_html
   html += '</div>'
   html += '</div>'
-  
+
   const el = document.createElement("div")
   el.innerHTML = html
   el.setAttribute("id", "panes")
   el.classList.add('side-panes')
   el.classList.add('side-panes-' + Quest.settings.panes)
   el.classList.add('panes-narrow')
-  
+
   const referenceNode = document.querySelector('#main')
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
   referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling)
@@ -1751,7 +1751,7 @@ io.createPanes = function() {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'writeExit' does not exist on type '{ nex... Remove this comment to see the full error message
-io.writeExit = function(n: any) {
+io.writeExit = function (n: any) {
   let html = '<td class="compass-button" title="' + lang.exit_list[n].name + '">'
   html += '<span class="compass-button" id="exit-' + lang.exit_list[n].name
   html += '" onclick="io.clickExit(\'' + lang.exit_list[n].name + '\')">'
@@ -1765,8 +1765,8 @@ io.writeExit = function(n: any) {
 
 // Gets the command with the given name
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'getCommand' does not exist on type '{ ne... Remove this comment to see the full error message
-io.getCommand = function(name: any) {
-  const found = commands.find(function(el) {
+io.getCommand = function (name: any) {
+  const found = commands.find(function (el) {
     return el.name === name;
   });
   return found;
@@ -1774,7 +1774,7 @@ io.getCommand = function(name: any) {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'msgInputText' does not exist on type '{ ... Remove this comment to see the full error message
-io.msgInputText = function(s: any) {
+io.msgInputText = function (s: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'transcriptWalkthrough' does not exist on... Remove this comment to see the full error message
   if (saveLoad.transcript) saveLoad.transcriptWalkthrough.push('    "' + s + '",')
   if (!Quest.settings.cmdEcho || s === '') return
@@ -1793,7 +1793,7 @@ io.savedCommandsPos = 0;
 
 // Called from scriptOnLoad in _settings.js, if there are no more scripts to load
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'init' does not exist on type '{ nextid: ... Remove this comment to see the full error message
-io.init = function() {
+io.init = function () {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
   Quest.settings.performanceLog('Start io.onload')
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'createPanes' does not exist on type '{ n... Remove this comment to see the full error message
@@ -1802,8 +1802,8 @@ io.init = function() {
   if (Quest.settings.playMode === 'play') window.oncontextmenu = function () { return false }
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
   document.querySelector("#fileDialog").onchange = saveLoad.loadGameAsFile
-  
-  document.addEventListener('keydown', function(event){
+
+  document.addEventListener('keydown', function (event) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'keydownFunction' does not exist on type ... Remove this comment to see the full error message
     if (io.keydownFunction) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'keydownFunction' does not exist on type ... Remove this comment to see the full error message
@@ -1837,7 +1837,7 @@ io.init = function() {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
     if (event.ctrlKey && event.shiftKey && keycode == 74 && Quest.settings.playMode === 'play') return false
 
-    if (keycode === 13){
+    if (keycode === 13) {
       // enter
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
       if (event.ctrlKey && (Quest.settings.playMode === 'dev' || Quest.settings.playMode === 'beta')) {
@@ -1871,7 +1871,7 @@ io.init = function() {
         }
       }
     }
-    if (keycode === 38){
+    if (keycode === 38) {
       // up arrow
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'savedCommandsPos' does not exist on type... Remove this comment to see the full error message
       io.savedCommandsPos -= 1;
@@ -1884,7 +1884,7 @@ io.init = function() {
       // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
       if (el.setSelectionRange) {
         // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-        setTimeout(function() {el.setSelectionRange(9999, 9999); }, 0);  
+        setTimeout(function () { el.setSelectionRange(9999, 9999); }, 0);
       }
       // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
       else if (typeof el.selectionStart == "number") {
@@ -1901,7 +1901,7 @@ io.init = function() {
         range.select();
       }
     }
-    if (keycode === 40){
+    if (keycode === 40) {
       // down arrow
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'savedCommandsPos' does not exist on type... Remove this comment to see the full error message
       io.savedCommandsPos += 1;
@@ -1910,13 +1910,13 @@ io.init = function() {
       // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
       document.querySelector('#textbox').value = io.savedCommands[io.savedCommandsPos]
     }
-    if (keycode === 27){
+    if (keycode === 27) {
       // ESC
       // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
       document.querySelector('#textbox').value = ''
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
-    if (keycode === 96 && (Quest.settings.playMode === 'dev' || Quest.settings.playMode === 'beta')){
+    if (keycode === 96 && (Quest.settings.playMode === 'dev' || Quest.settings.playMode === 'beta')) {
       if (event.ctrlKey && event.altKey) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'parse' does not exist on type '{}'.
         parser.parse("wt b")
@@ -1934,9 +1934,9 @@ io.init = function() {
         parser.parse("test")
       }
       // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-      setTimeout(function() { document.querySelector('#textbox').value = '' }, 1);
+      setTimeout(function () { document.querySelector('#textbox').value = '' }, 1);
     }
-    if(keycode === 90 && event.ctrlKey) {
+    if (keycode === 90 && event.ctrlKey) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'parse' does not exist on type '{}'.
       parser.parse("undo")
     }
@@ -1967,11 +1967,11 @@ io.init = function() {
   if (Quest.settings.playMode === 'beta') lang.betaTestIntro()
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
   Quest.settings.performanceLog('Title/intro printed')
-  
+
   if (Quest.settings.startingDialogEnabled) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'setUpDialog' does not exist on type '{ p... Remove this comment to see the full error message
     Quest.settings.setUpDialog()
-    setTimeout(function() {
+    setTimeout(function () {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogInit' does not exist on ty... Remove this comment to see the full error message
       if (Quest.settings.startingDialogInit) Quest.settings.startingDialogInit()
     }, 10)
@@ -1994,14 +1994,14 @@ io.synth = window.speechSynthesis;
 io.voice = null;
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'voice2' does not exist on type '{ nextid... Remove this comment to see the full error message
 io.voice2 = null;
- 
+
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'speak' does not exist on type '{ nextid:... Remove this comment to see the full error message
-io.speak = function(str: any, altVoice: any){
+io.speak = function (str: any, altVoice: any) {
   if (!io.spoken) return
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'voice' does not exist on type '{ nextid:... Remove this comment to see the full error message
   if (!io.voice) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'voice' does not exist on type '{ nextid:... Remove this comment to see the full error message
-    io.voice = io.synth.getVoices().find(function(el: any) {
+    io.voice = io.synth.getVoices().find(function (el: any) {
       return /UK/.test(el.name) && /Female/.test(el.name);
     });
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'voice' does not exist on type '{ nextid:... Remove this comment to see the full error message
@@ -2010,13 +2010,13 @@ io.speak = function(str: any, altVoice: any){
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'voice2' does not exist on type '{ nextid... Remove this comment to see the full error message
   if (!io.voice2) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'voice2' does not exist on type '{ nextid... Remove this comment to see the full error message
-    io.voice2 = io.synth.getVoices().find(function(el: any) {
+    io.voice2 = io.synth.getVoices().find(function (el: any) {
       return /UK/.test(el.name) && /Male/.test(el.name);
     });
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'voice2' does not exist on type '{ nextid... Remove this comment to see the full error message
     if (!io.voice2) io.voice2 = io.synth.getVoices()[0];
   }
-  
+
   const utterThis = new SpeechSynthesisUtterance(str);
   utterThis.onend = function (event) {
     //console.log('SpeechSynthesisUtterance.onend');
@@ -2041,7 +2041,7 @@ io.dialogShowing = false;
 // and shows it as a dialog. Used by the transcript
 // (and really only useful for displaying data).
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'showHtml' does not exist on type '{ next... Remove this comment to see the full error message
-io.showHtml = function(title: any, html: any) {
+io.showHtml = function (title: any, html: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'dialogShowing' does not exist on type '{... Remove this comment to see the full error message
   if (io.dialogShowing) return false;
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
@@ -2052,14 +2052,14 @@ io.showHtml = function(title: any, html: any) {
   document.querySelector("#showHtml").dialog({
     width: 860,
     // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-    close:function() { document.querySelector("#showHtml").remove(); io.dialogShowing = false; },
+    close: function () { document.querySelector("#showHtml").remove(); io.dialogShowing = false; },
   });
   return true;
 }
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'finish' does not exist on type '{ nextid... Remove this comment to see the full error message
-io.finish = function() {
+io.finish = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'finished' does not exist on type '{ next... Remove this comment to see the full error message
   io.finished = true
   Quest.settings.textInput = false
@@ -2082,7 +2082,7 @@ io.finish = function() {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'toggleDarkMode' does not exist on type '... Remove this comment to see the full error message
-io.toggleDarkMode = function() {
+io.toggleDarkMode = function () {
   Quest.settings.darkModeActive = !Quest.settings.darkModeActive
   if (Quest.settings.darkModeActive) {
     // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
@@ -2103,7 +2103,7 @@ io.toggleDarkMode = function() {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'toggleAutoScrollMode' does not exist on ... Remove this comment to see the full error message
-io.toggleAutoScrollMode = function() {
+io.toggleAutoScrollMode = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'autoscroll' does not exist on type '{ pe... Remove this comment to see the full error message
   Quest.settings.autoscroll = !Quest.settings.autoscroll
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterAutoScrollToggle' does not exist on... Remove this comment to see the full error message
@@ -2117,7 +2117,7 @@ io.toggleAutoScrollMode = function() {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'toggleNarrowMode' does not exist on type... Remove this comment to see the full error message
-io.toggleNarrowMode = function() {
+io.toggleNarrowMode = function () {
   Quest.settings.narrowMode = (Quest.settings.narrowMode + 1) % 3
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
   document.querySelector('body').classList.remove("narrow-body")
@@ -2136,7 +2136,7 @@ io.toggleNarrowMode = function() {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'togglePlainFontMode' does not exist on t... Remove this comment to see the full error message
-io.togglePlainFontMode = function() {
+io.togglePlainFontMode = function () {
   Quest.settings.plainFontModeActive = !Quest.settings.plainFontModeActive
   if (Quest.settings.plainFontModeActive) {
     // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
@@ -2158,7 +2158,7 @@ io.togglePlainFontMode = function() {
 // If the element starts off displayed, you will probably needs to explicitly set display to block for it
 // otherwise this will assume it is not
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'toggleDisplay' does not exist on type '{... Remove this comment to see the full error message
-io.toggleDisplay = function(el: any) {
+io.toggleDisplay = function (el: any) {
   if (typeof el === 'string') el = document.querySelector(el)
   el.style.display = el.style.display === 'block' ? 'none' : 'block'
 }
@@ -2166,7 +2166,7 @@ io.toggleDisplay = function(el: any) {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'copyTextToClipboard' does not exist on t... Remove this comment to see the full error message
-io.copyTextToClipboard = function(text: any) {
+io.copyTextToClipboard = function (text: any) {
   // from: https://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript
   const textArea = document.createElement("textarea")
   // Place in top-left corner of screen regardless of scroll position.
@@ -2206,7 +2206,7 @@ io.copyTextToClipboard = function(text: any) {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'getIcon' does not exist on type '{ nexti... Remove this comment to see the full error message
-io.getIcon = function(item: any) {
+io.getIcon = function (item: any) {
   // @ts-expect-error ts-migrate(2367) FIXME: This condition will always return 'false' since th... Remove this comment to see the full error message
   if (Quest.settings.iconsFolder === false) return ''
   if (!item.icon) return ''
@@ -2216,7 +2216,7 @@ io.getIcon = function(item: any) {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'againOrOops' does not exist on type '{ n... Remove this comment to see the full error message
-io.againOrOops = function(isAgain: any) {
+io.againOrOops = function (isAgain: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'savedCommands' does not exist on type '{... Remove this comment to see the full error message
   if (io.savedCommands.length === 0) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -2241,7 +2241,7 @@ io.againOrOops = function(isAgain: any) {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'setCssByClass' does not exist on type '{... Remove this comment to see the full error message
-io.setCssByClass = function(name: any, prop: any, val: any) {
+io.setCssByClass = function (name: any, prop: any, val: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'style' does not exist on type 'Element'.
   for (const el of document.querySelectorAll('.' + name)) el.style[prop] = val
 }
@@ -2250,7 +2250,7 @@ io.setCssByClass = function(name: any, prop: any, val: any) {
 
 // Display Icons for compas
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'displayIconsCompass' does not exist on t... Remove this comment to see the full error message
-io.displayIconsCompass = function(exit: any) {
+io.displayIconsCompass = function (exit: any) {
   const datatransform = exit.rotate ? ' style="transform: rotate(40deg)"' : ''
   return '<i class="fas ' + exit.symbol + '"' + datatransform + '></i>';
 }
@@ -2258,14 +2258,14 @@ io.displayIconsCompass = function(exit: any) {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'scrollToEnd' does not exist on type '{ n... Remove this comment to see the full error message
-io.scrollToEnd = function() {
+io.scrollToEnd = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'autoscroll' does not exist on type '{ pe... Remove this comment to see the full error message
-  if (Quest.settings.autoscroll) window.scrollTo(0,document.getElementById('main').scrollHeight);  
+  if (Quest.settings.autoscroll) window.scrollTo(0, document.getElementById('main').scrollHeight);
 }
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'getDropDownText' does not exist on type ... Remove this comment to see the full error message
-io.getDropDownText = function(name: any) {
+io.getDropDownText = function (name: any) {
   const el = document.querySelector('#' + name)
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
   const val = el.options[el.selectedIndex].text
@@ -2275,7 +2275,7 @@ io.getDropDownText = function(name: any) {
 
 // Create Toolbar
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'createToolbar' does not exist on type '{... Remove this comment to see the full error message
-io.createToolbar = function() {
+io.createToolbar = function () {
   let el = document.querySelector("#toolbar")
   if (!el) {
     const div = document.createElement('div')
@@ -2304,9 +2304,9 @@ io.createToolbar = function() {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'getToolbarHTML' does not exist on type '... Remove this comment to see the full error message
-io.getToolbarHTML = function(data = {}) {
+io.getToolbarHTML = function (data = {}) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'room' does not exist on type '{}'.
-  if (data.room) return sentenceCase(lang.getName(w[player.loc], { article:DEFINITE }))
+  if (data.room) return sentenceCase(lang.getName(w[player.loc], { article: DEFINITE }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   if (data.title) return '<b><i>' + Quest.settings.title + '</i></b>'
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'content' does not exist on type '{}'.
@@ -2325,7 +2325,7 @@ io.getToolbarHTML = function(data = {}) {
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'focus' does not exist on type '{ nextid:... Remove this comment to see the full error message
-io.focus = function(el: any) {
+io.focus = function (el: any) {
   if (typeof el === 'string') el = document.querySelector('#' + el)
   if (el !== document.activeElement) el.focus()
 }
