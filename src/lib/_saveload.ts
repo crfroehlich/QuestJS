@@ -58,7 +58,7 @@ const saveLoad = {
     const comment = Quest.Settings.settings.saveComment ? Quest.Settings.settings.saveComment() : "-"
     const s = saveLoad.saveTheWorld(comment)
     const myFile = new File([s], filename + ".q6save", { type: "text/plain;charset=utf-8" })
-    saveAs(myFile)
+    Quest.FileSaver.saveAs(myFile)
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     msg("Your entry " + filename + ".q6save should now download.")
     return true
