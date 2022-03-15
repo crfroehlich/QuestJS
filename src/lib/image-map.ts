@@ -53,9 +53,9 @@ const map = {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultStyle' does not exist on type '{ ... Remove this comment to see the full error message
 map.defaultStyle = { position: 'fixed', display: 'block' }
 // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '{ toggle: boolean; defaults: { m... Remove this comment to see the full error message
-io.modulesToUpdate.push(map)
+Quest.IO.io.modulesToUpdate.push(map)
 // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '{ toggle: boolean; defaults: { m... Remove this comment to see the full error message
-io.modulesToInit.push(map)
+Quest.IO.io.modulesToInit.push(map)
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'init' does not exist on type '{ toggle: ... Remove this comment to see the full error message
 map.init = function () {
@@ -160,7 +160,7 @@ map.redraw = function (offX: any, offY: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapImages' does not exist on type '{ per... Remove this comment to see the full error message
   const mapImage = Quest.Settings.settings.mapImages.find((el: any) => el.name === player.mapRegion)
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  if (!mapImage) return errormsg("Failed to find a map region called '" + player.mapRegion + "'")
+  if (!mapImage) return Quest.IO.errormsg("Failed to find a map region called '" + player.mapRegion + "'")
 
   const result = []
   result.push('<g id="map-top">')
@@ -190,7 +190,7 @@ map.redraw = function (offX: any, offY: any) {
   const x = player.mapX + offsetX
   const y = player.mapY + offsetY
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapWidth' does not exist on type '{ perf... Remove this comment to see the full error message
-  draw(Quest.Settings.settings.mapWidth, Quest.Settings.settings.mapHeight, result, { destination: 'quest-map', x: x, y: y, background: 'black' })
+  Quest.IO.draw(Quest.Settings.settings.mapWidth, Quest.Settings.settings.mapHeight, result, { destination: 'quest-map', x: x, y: y, background: 'black' })
 }
 
 
@@ -228,8 +228,8 @@ Quest.Command.findCmd('Map').script = function () {
     Quest.Settings.settings.hideMap = true
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'calcMargins' does not exist on type '{ n... Remove this comment to see the full error message
-  io.calcMargins()
+  Quest.IO.io.calcMargins()
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  msg(Quest.lang.done_msg)
+  Quest.IO.msg(Quest.lang.done_msg)
   return world.SUCCESS_NO_TURNSCRIPTS
 }

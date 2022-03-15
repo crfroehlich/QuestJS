@@ -128,11 +128,11 @@ namespace Quest {
           for (let i = 0; i < arr.length; i++) {
             const cmdParams = this.objects[i]
             if (!cmdParams) {
-              errormsg("The command \"" + this.name + "\" seems to have an error. It has more capture groups than there are elements in the 'objects' attribute.", true)
+              Quest.IO.errormsg("The command \"" + this.name + "\" seems to have an error. It has more capture groups than there are elements in the 'objects' attribute.", true)
               return false
             }
             if (arr[i] === undefined) {
-              errormsg("The command \"" + this.name + "\" seems to have an error. It has captured undefined. This is probably an issue with the command's regular expression.", true)
+              Quest.IO.errormsg("The command \"" + this.name + "\" seems to have an error. It has captured undefined. This is probably an issue with the command's regular expression.", true)
               return false
             }
             let score = 0;
@@ -257,7 +257,7 @@ namespace Quest {
           const multiple = objects[0] && (objects[0].length > 1 || parser.currentCommand.all)
           if (objects[0].length === 0) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-            metamsg(Quest.lang.nothing_msg)
+            Quest.IO.metamsg(Quest.lang.nothing_msg)
             return world.FAILED;
           }
           for (let i = 0; i < objects[0].length; i++) {
@@ -296,7 +296,7 @@ namespace Quest {
           const multiple = objects[0] && (objects[0].length > 1 || parser.currentCommand.all)
           if (objects[0].length === 0) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-            metamsg(Quest.lang.nothing_msg)
+            Quest.IO.metamsg(Quest.lang.nothing_msg)
             return world.FAILED;
           }
           for (let i = 0; i < objects[0].length; i++) {
@@ -325,7 +325,7 @@ namespace Quest {
           for (let rule of this.rules) {
             if (typeof rule !== "function") {
               // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-              errormsg("Failed to process command '" + this.name + "' as one of its rules is not a function.")
+              Quest.IO.errormsg("Failed to process command '" + this.name + "' as one of its rules is not a function.")
               console.log(this)
               console.log(rule)
             }
@@ -381,13 +381,13 @@ namespace Quest {
       this.script = function (objects: any) {
         const npc = objects[0][0];
         if (!npc.npc) {
-          failedmsg(Quest.lang.not_npc, { char: player, item: npc });
+          Quest.IO.failedmsg(Quest.lang.not_npc, { char: player, item: npc });
           return world.FAILED;
         }
         let success = false, handled;
         if (objects.length !== 2) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-          errormsg("The command " + name + " is trying to use a facility for NPCs to do it, but there is no object list; this facility is only for commands in the form verb-object.");
+          Quest.IO.errormsg("The command " + name + " is trying to use a facility for NPCs to do it, but there is no object list; this facility is only for commands in the form verb-object.");
           return world.FAILED;
         }
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'currentCommand' does not exist on type '... Remove this comment to see the full error message
@@ -427,10 +427,10 @@ namespace Quest {
           if (!currentLocation.hasExit(this.dir)) {
             const exitObj = Quest.lang.exit_list.find(el => el.name === this.dir)
             // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
-            if (exitObj.not_that_way) return failedmsg(exitObj.not_that_way, { char: player, dir: this.dir })
+            if (exitObj.not_that_way) return Quest.IO.failedmsg(exitObj.not_that_way, { char: player, dir: this.dir })
             // @ts-expect-error ts-migrate(2339) FIXME: Property 'customNoExitMsg' does not exist on type ... Remove this comment to see the full error message
-            if (Quest.Settings.settings.customNoExitMsg) return failedmsg(Quest.Settings.settings.customNoExitMsg(player, dir))
-            return failedmsg(Quest.lang.not_that_way, { char: player, dir: this.dir })
+            if (Quest.Settings.settings.customNoExitMsg) return Quest.IO.failedmsg(Quest.Settings.settings.customNoExitMsg(player, dir))
+            return Quest.IO.failedmsg(Quest.lang.not_that_way, { char: player, dir: this.dir })
           }
           else {
             const ex = currentLocation.getExit(this.dir);
@@ -440,7 +440,7 @@ namespace Quest {
               }
               if (typeof ex.use !== 'function') {
                 // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-                errormsg("Exit's 'use' attribute is not a function (or does not exist).");
+                Quest.IO.errormsg("Exit's 'use' attribute is not a function (or does not exist).");
                 console.log("Bad exit:")
                 console.log(ex)
                 return world.FAILED;
@@ -455,7 +455,7 @@ namespace Quest {
             }
             else {
               // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-              errormsg("Unsupported type for direction");
+              Quest.IO.errormsg("Unsupported type for direction");
               return world.FAILED;
             }
           }
@@ -472,18 +472,18 @@ namespace Quest {
       this.objects = [{ scope: parser.isHere, attName: "npc" }, { special: 'ignore' }, { special: 'ignore' },],
         this.script = function (objects: any) {
           const npc = objects[0][0]
-          if (!npc.npc) return failedmsg(Quest.lang.not_npc, { char: player, item: npc })
+          if (!npc.npc) return Quest.IO.failedmsg(Quest.lang.not_npc, { char: player, item: npc })
           if (!currentLocation.hasExit(this.dir)) {
             const exitObj = Quest.lang.exit_list.find(el => el.name === this.dir)
             // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
-            if (exitObj.not_that_way) return failedmsg(exitObj.not_that_way, { char: npc, dir: this.dir })
-            return failedmsg(Quest.lang.not_that_way, { char: npc, dir: this.dir })
+            if (exitObj.not_that_way) return Quest.IO.failedmsg(exitObj.not_that_way, { char: npc, dir: this.dir })
+            return Quest.IO.failedmsg(Quest.lang.not_that_way, { char: npc, dir: this.dir })
           }
 
           const ex = currentLocation.getExit(this.dir)
           if (typeof ex !== "object") {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-            errormsg("Unsupported type for direction")
+            Quest.IO.errormsg("Unsupported type for direction")
             return world.FAILED
           }
 
@@ -568,7 +568,7 @@ namespace Quest {
       if (cmd.forNpc) {
         char = objects[0][0];
         if (!char.npc) {
-          failedmsg(Quest.lang.not_npc, { char: player, item: char });
+          Quest.IO.failedmsg(Quest.lang.not_npc, { char: player, item: char });
           return world.FAILED;
         }
         objects.shift();
@@ -588,7 +588,7 @@ namespace Quest {
       cmd.matchItems(s)
       console.log(cmd.tmp)
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      metamsg("See results in console (F12)")
+      Quest.IO.metamsg("See results in console (F12)")
     }
 
     export const cmdRules = {

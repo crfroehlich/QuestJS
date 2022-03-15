@@ -21,7 +21,7 @@ register('medieval', {
 createRoom("great_gallery", {
   windowsface: 'north',
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  examine_ceiling: function () { msg("The stone bricks of the walls curve over to form a vaulted roof to the room.") },
+  examine_ceiling: function () { Quest.IO.msg("The stone bricks of the walls curve over to form a vaulted roof to the room.") },
   desc: "The great gallery is a wooden platform that overlooks the great hall, running along the north and east sides of it. A wide flight of wooden stairs leads back down to the hall, while a narrow spiral staircase goes further upwards. The walls are of rough-cut stone. There is a rather low doorway north, and further exits east, south and west.{if:spike:alias:mangled metal: There is a black line running from the observatory, down to the Great Hall.}",
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   down: new Exit("great_hall"),
@@ -60,7 +60,7 @@ createRoom("great_gallery", {
   // @ts-expect-error ts-migrate(1117) FIXME: An object literal cannot have multiple properties ... Remove this comment to see the full error message
   afterEnter() {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    if (this.silverSighting[this.visited % 15]) msg(this.silverSighting[this.visited % 15])
+    if (this.silverSighting[this.visited % 15]) Quest.IO.msg(this.silverSighting[this.visited % 15])
   },
 })
 
@@ -72,7 +72,7 @@ createRoom("great_hall", {
   windowsface: 'north',
   desc: "The great hall is an impressive size. It looks older than the rest of the house, a lot older, being built of rough-cut stone. There are large double doors to the west, and a wooden staircase leads up to a wooden gallery that runs along the west side of the hall. To the south, a doorway leads to a flight of steps heading downwards.{if:spike:alias:mangled metal: There is a black line running from the gallery, down to the lab.}",
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  examine_ceiling: function () { msg("The stone bricks of the walls curve over to form a vaulted roof to the room, up above the gallery.") },
+  examine_ceiling: function () { Quest.IO.msg("The stone bricks of the walls curve over to form a vaulted roof to the room, up above the gallery.") },
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   up: new Exit("great_gallery"),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -86,11 +86,11 @@ createRoom("great_hall", {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'greenhouse_east' does not exist on type ... Remove this comment to see the full error message
       if (exit.origin === w.greenhouse_east) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("Mandy sees a flash of silver as a figure darts up the stairs at the other end of the room.")
+        Quest.IO.msg("Mandy sees a flash of silver as a figure darts up the stairs at the other end of the room.")
       }
       else {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("Mandy sees a flash of silver as a figure darts out the doors at the other end of the room, heading into the greenhouse.")
+        Quest.IO.msg("Mandy sees a flash of silver as a figure darts out the doors at the other end of the room, heading into the greenhouse.")
       }
     }
   },
@@ -104,22 +104,22 @@ createItem("great_hall_floor", {
   synonyms: ["ground", 'flagstones'],
   examine: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("The floor is composed of flagstones, of the same mid-grey as the walls. It looks a little uneven in places.")
+    Quest.IO.msg("The floor is composed of flagstones, of the same mid-grey as the walls. It looks a little uneven in places.")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'great_gallery' does not exist on type '{... Remove this comment to see the full error message
     if (w.great_gallery.visited > 7) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Remembering the interest the silver figure had in the floor, Mandy examines that patch of it especially well, but it looks as boring as the rest.")
+      Quest.IO.msg("Remembering the interest the silver figure had in the floor, Mandy examines that patch of it especially well, but it looks as boring as the rest.")
     }
   },
   smell: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'great_gallery' does not exist on type '{... Remove this comment to see the full error message
     if (w.great_gallery.visited > 7) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy thinks about the silver figure sniffing the floor. Most of the flagstones just smell somewhat musty, but there is one - more or less when the silver was sniffing - that smells distinctly of lavender.")
+      Quest.IO.msg("Mandy thinks about the silver figure sniffing the floor. Most of the flagstones just smell somewhat musty, but there is one - more or less when the silver was sniffing - that smells distinctly of lavender.")
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("The floor smells vaguely unpleasant; kind of musty.")
+      Quest.IO.msg("The floor smells vaguely unpleasant; kind of musty.")
     }
   },
 })
@@ -157,18 +157,18 @@ createItem("chamber_pot", SIZE_CHANGING(), VESSEL(), {
   testFill: function (options: any) {
     if (this.size > 5) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy thinks about filling the chamber pot with " + options.fluid + ", but it is so big, she would never be able to lift it.")
+      Quest.IO.msg("Mandy thinks about filling the chamber pot with " + options.fluid + ", but it is so big, she would never be able to lift it.")
       return false
     }
     if (options.fluid === 'water' && player.loc === 'beach') {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy thinks about filling the chamber pot with water from the sea, but just the sight of those bodies in it is making her feel nauseous. No way is she going near that water.")
+      Quest.IO.msg("Mandy thinks about filling the chamber pot with water from the sea, but just the sight of those bodies in it is making her feel nauseous. No way is she going near that water.")
       return false
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
     if (w.chamber_pot.underLeakState > 0) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg('Mandy empties the tiny bit of oily water out of the chamber pot.')
+      Quest.IO.msg('Mandy empties the tiny bit of oily water out of the chamber pot.')
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
       w.chamber_pot.underLeakState = 0
     }
@@ -189,7 +189,7 @@ createItem("chamber_pot", SIZE_CHANGING(), VESSEL(), {
   },
   use: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Mandy looks at the chamber pot. She could actually do with a wee, but the thought of using that... No, she can wait.")
+    Quest.IO.msg("Mandy looks at the chamber pot. She could actually do with a wee, but the thought of using that... No, she can wait.")
   },
   eventPeriod: 1,
   eventIsActive: function () {
@@ -223,17 +223,17 @@ createRoom("mad_science_lab", {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'spike' does not exist on type '{}'.
     if (w.spike.alias === 'mangled metal') {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("There is a strong smell burnt flesh -- disturbingly like barbecue -- and ozone.")
+      Quest.IO.msg("There is a strong smell burnt flesh -- disturbingly like barbecue -- and ozone.")
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy warily sniffs the air; it is not a pleasant smell. Acrid, a bit like vinegar, but not quite.")
+      Quest.IO.msg("Mandy warily sniffs the air; it is not a pleasant smell. Acrid, a bit like vinegar, but not quite.")
     }
   },
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  examine_floor: function () { msg("The floor is packed earth; there are patches that look darker, where something might have been spilt perhaps.") },
+  examine_floor: function () { Quest.IO.msg("The floor is packed earth; there are patches that look darker, where something might have been spilt perhaps.") },
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  examine_ceiling: function () { msg("The stone bricks of the walls curve over to form a vaulted roof to the room.") },
+  examine_ceiling: function () { Quest.IO.msg("The stone bricks of the walls curve over to form a vaulted roof to the room.") },
   desc: function () {
     let s = "This appears to be some kind of laboratory, though nothing like the ones at school. While they have their own distinctive smell, this room is "
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'spike' does not exist on type '{}'.
@@ -268,11 +268,11 @@ createRoom("mad_science_lab", {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'wire' does not exist on type '{}'.
     if (w.wire.tiedTo2 === 'spike') {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Suddenly there is a crack of thunder, so loud Mandy can hear it even down here. Mandy shrieks in shock at a bright flash that she thinks at first is the lightning, but then realises is the wire suddenly, and very briefly, glowing white-hot.")
+      Quest.IO.msg("Suddenly there is a crack of thunder, so loud Mandy can hear it even down here. Mandy shrieks in shock at a bright flash that she thinks at first is the lightning, but then realises is the wire suddenly, and very briefly, glowing white-hot.")
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("There is a smell of ozone and burnt flesh and, as her pounding heart slows again, she sees that smoke is coming from the strange device.")
+      Quest.IO.msg("There is a smell of ozone and burnt flesh and, as her pounding heart slows again, she sees that smoke is coming from the strange device.")
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Then she notices the body on the bench twitching. It raises its right arm, and looks at it. 'It's alive!' Mandy cackles, because, really, what else is one supposed to do after animating a body with lightning?")
+      Quest.IO.msg("Then she notices the body on the bench twitching. It raises its right arm, and looks at it. 'It's alive!' Mandy cackles, because, really, what else is one supposed to do after animating a body with lightning?")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'spike' does not exist on type '{}'.
       w.spike.setAlias('mangled metal')
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'wire' does not exist on type '{}'.
@@ -371,7 +371,7 @@ createItem("patchwork_body", {
   examine: function () {
     this.state = 1
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Mandy gingerly inspects the corpse on the table. It is naked, but nothing to suggest it is either male or female. Mandy decides she does not want to look too closely at {i:that} situation. As she looks closer, she can see stitch marks, and with a growing sense of nausea, she realises it is not a corpse, but the stitched together parts of {i:several} corpses.")
+    Quest.IO.msg("Mandy gingerly inspects the corpse on the table. It is naked, but nothing to suggest it is either male or female. Mandy decides she does not want to look too closely at {i:that} situation. As she looks closer, she can see stitch marks, and with a growing sense of nausea, she realises it is not a corpse, but the stitched together parts of {i:several} corpses.")
   },
   take: 'Mandy thinks about picking up the body... Not going to happen.',
   shift: 'Mandy thinks about shifting the body off the table. She would have to touch it to do that. And really, why would she want to?',
@@ -417,7 +417,7 @@ createItem("Patch", NPC(false), {
     if (held.length > 0) s += ' He is holding ' + Quest.Utilities.formatList(held, { article: Quest.Utilities.INDEFINITE, lastJoiner: 'and' }) + '.'
     if (this.huggingTree) s += '|He is currently hugging a tree.'
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg(s)
+    Quest.IO.msg(s)
   },
   talktoOptions: [
     "'So, do you come here often?' Mandy asks Patch. He gave no indication either way.",
@@ -428,15 +428,15 @@ createItem("Patch", NPC(false), {
   talkto: function () {
     if (this.state === 0) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'I shall call you \"Patch\",' declares Mandy.")
+      Quest.IO.msg("'I shall call you \"Patch\",' declares Mandy.")
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("The animated body seems to stand a little taller, Mandy thinks, proud to have a name.")
+      Quest.IO.msg("The animated body seems to stand a little taller, Mandy thinks, proud to have a name.")
       this.setAlias("Patch")
       this.state = 1
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg(this.talktoOptions[Quest.Random.rndm.int(2)])
+      Quest.IO.msg(this.talktoOptions[Quest.Random.rndm.int(2)])
     }
     return true
   },
@@ -447,29 +447,29 @@ createItem("Patch", NPC(false), {
   },
   endFollow: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg("'Wait here,' says Mandy to {nm:npc:the}.", { npc: this })
+    Quest.IO.msg("'Wait here,' says Mandy to {nm:npc:the}.", { npc: this })
     if (!this.leaderName) return falsemsg("{nv:npc:look:true} at Mandy in confusion.", { npc: this })
     this.setLeader()
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg("{nv:npc:nod:true} his head.", { npc: this })
+    Quest.IO.msg("{nv:npc:nod:true} his head.", { npc: this })
     return true
   },
   startFollow: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg("'Follow me,' says Mandy to {nm:npc:the}.", { npc: this })
+    Quest.IO.msg("'Follow me,' says Mandy to {nm:npc:the}.", { npc: this })
     if (this.leaderName) return falsemsg("{nv:npc:look:true} at Mandy in confusion.", { npc: this })
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
     if (w.boots.loc !== 'Patch') return falsemsg("Patch looks mournfully at his feet. His bare feet.")
 
     this.setLeader(player)
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg("{nv:npc:nod:true} his head.", { npc: this })
+    Quest.IO.msg("{nv:npc:nod:true} his head.", { npc: this })
     return true
   },
   testFollowTo: function (room: any) {
     if (room && !room.noFollow) return true
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Mandy realises Patch is no longer following her.")
+    Quest.IO.msg("Mandy realises Patch is no longer following her.")
     this.setLeader()
     return false
   },
@@ -508,15 +508,15 @@ createItem("Patch", NPC(false), {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'loc' does not exist on type '{ item: any... Remove this comment to see the full error message
           options.item.loc = this.loc
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-          msg("Mandy gives the boots to {nm:npc:the}. He looks at the footwear with a big smile, then proceeds to pull on the left boot... Suddenly his grin turns to a frown, and he pulls off the boot, dropping both on the floor.", options)
+          Quest.IO.msg("Mandy gives the boots to {nm:npc:the}. He looks at the footwear with a big smile, then proceeds to pull on the left boot... Suddenly his grin turns to a frown, and he pulls off the boot, dropping both on the floor.", options)
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
           if (w.boots.rejectedForHole = true) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            msg("'For fuck's sake,' mutters Mandy, 'now what? Is there a stone in it or something?'")
+            Quest.IO.msg("'For fuck's sake,' mutters Mandy, 'now what? Is there a stone in it or something?'")
           }
           else {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            msg("'What the...' mutters Mandy, 'Is there a stone in it or something?'")
+            Quest.IO.msg("'What the...' mutters Mandy, 'Is there a stone in it or something?'")
           }
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
           w.boots.rejectedForStone = true
@@ -528,7 +528,7 @@ createItem("Patch", NPC(false), {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'animated' does not exist on type '{ item... Remove this comment to see the full error message
         this.animated = true
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        msg("Mandy gives the boots to {nm:npc:the}. He looks at the footwear with a big smile, then proceeds to pull on the left boot... Then the right. He looks at them, now on his feet, for a moment, before getting off the bench, and standing upright, ripping of all the wires connecting him to the strange device.", options)
+        Quest.IO.msg("Mandy gives the boots to {nm:npc:the}. He looks at the footwear with a big smile, then proceeds to pull on the left boot... Then the right. He looks at them, now on his feet, for a moment, before getting off the bench, and standing upright, ripping of all the wires connecting him to the strange device.", options)
       },
     },
   ],
@@ -537,14 +537,14 @@ createItem("Patch", NPC(false), {
       test: function (p: any) { return p.text.match(/boot/); },
       script: function (p: any) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'What's the big deal about the boots?' asks Mandy. Patch just stares at her.")
+        Quest.IO.msg("'What's the big deal about the boots?' asks Mandy. Patch just stares at her.")
       }
     },
     {
       test: function (p: any) { return true },
       script: function (p: any) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Tell me about " + p.text + ",' says Mandy. Patch just stares at her")
+        Quest.IO.msg("'Tell me about " + p.text + ",' says Mandy. Patch just stares at her")
       }
     },
   ],
@@ -553,7 +553,7 @@ createItem("Patch", NPC(false), {
       test: function (p: any) { return true },
       script: function (p: any) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("Mandy starts to tell Patch about " + p.text + ". He looks at her intensely, but she gets the feeling he has no idea what she is saying.")
+        Quest.IO.msg("Mandy starts to tell Patch about " + p.text + ". He looks at her intensely, but she gets the feeling he has no idea what she is saying.")
       }
     },
   ],
@@ -602,7 +602,7 @@ createItem("strange_device", {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'spike' does not exist on type '{}'.
     if (w.spike.alias === 'mangled metal') s += ' There is smoke coming from the back of it.'
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg(s, { item: body })
+    Quest.IO.msg(s, { item: body })
   },
   use: "Mandy gives the knobs on the strange device a twist, but nothing happens. She gives it a kick, but that is no more successful.",
   attachable: true,
@@ -620,9 +620,9 @@ createItem("device_controls", COMPONENT("strange_device"), {
   parserPriority: -10,
   use: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Mandy looks at the complicated controls on the strange device. She probably should not mess with them.")
+    Quest.IO.msg("Mandy looks at the complicated controls on the strange device. She probably should not mess with them.")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'Ah, what the hell...' She turns the knob on the left clockwise a bit, then a bit more. Then all of them as far as they can go, and then turns them all the other way as far as they can go. Nothing happens.")
+    Quest.IO.msg("'Ah, what the hell...' She turns the knob on the left clockwise a bit, then a bit more. Then all of them as far as they can go, and then turns them all the other way as far as they can go. Nothing happens.")
     return false
   },
   turn: function () { return this.use() },
@@ -645,7 +645,7 @@ createItem("bolts", COMPONENT("strange_device"), {
   },
   handleUntieFrom: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    return failedmsg('Mandy thinks about detaching the wires, but decides to leave it alone. {ifExists:patchwork_body:loc:Just has a weird feeling it is important that they stay attached to the body:They are no use to her, and not doing any harm just dangling there}.')
+    return Quest.IO.failedmsg('Mandy thinks about detaching the wires, but decides to leave it alone. {ifExists:patchwork_body:loc:Just has a weird feeling it is important that they stay attached to the body:They are no use to her, and not doing any harm just dangling there}.')
   },
 })
 
@@ -682,7 +682,7 @@ createItem("wire", ROPE(8, "strange_device"), {
     }
     this.examined = true
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg(s)
+    Quest.IO.msg(s)
   },
 
   suppessMsgs: true,
@@ -693,18 +693,18 @@ createItem("wire", ROPE(8, "strange_device"), {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'spike' does not exist on type '{}'.
     if (item === w.spike) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy wraps the wire from the spindle around the letter E on the weather vane, then lets the spindle drop, happy that it is secure.")
+      Quest.IO.msg("Mandy wraps the wire from the spindle around the letter E on the weather vane, then lets the spindle drop, happy that it is secure.")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'sky' does not exist on type '{}'.
       if (w.sky.state < 5) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'sky' does not exist on type '{}'.
         w.sky.state = 5
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("A brief flash of lightning lights up the weather vane, and a few seconds later Mandy hears the thunder.")
+        Quest.IO.msg("A brief flash of lightning lights up the weather vane, and a few seconds later Mandy hears the thunder.")
       }
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg("Mandy attaches the wire from the spindle to {nm:item:true}, then lets the spindle drop.", { item: item })
+      Quest.IO.msg("Mandy attaches the wire from the spindle to {nm:item:true}, then lets the spindle drop.", { item: item })
     }
   },
   detachFrom: function (char: any, item: any) {
@@ -717,11 +717,11 @@ createItem("wire", ROPE(8, "strange_device"), {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'spike' does not exist on type '{}'.
     if (item === w.spike) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy unwraps the wire from the spindle around the letter E on the weather vane.")
+      Quest.IO.msg("Mandy unwraps the wire from the spindle around the letter E on the weather vane.")
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg("Mandy detaches the wire from {nm:item:true}.", { item: item })
+      Quest.IO.msg("Mandy detaches the wire from {nm:item:true}.", { item: item })
     }
   },
 
@@ -729,7 +729,7 @@ createItem("wire", ROPE(8, "strange_device"), {
     if (!this.examined) {
       this.examined = true
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy realises one end of the wire on the spindle is soldered to the strange machine.")
+      Quest.IO.msg("Mandy realises one end of the wire on the spindle is soldered to the strange machine.")
     }
     if (!this.moved) this.moved = true
   },
@@ -864,19 +864,19 @@ createItem("yellow_balloon", {
   eventIsActive: function () { return player.loc === 'nursery' && this.loc === 'nursery' },
   eventScript: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg(this.states[this.state])
+    Quest.IO.msg(this.states[this.state])
     this.state++
     if (this.state === this.states.length) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Suddenly everything goes white...")
+      Quest.IO.msg("Suddenly everything goes white...")
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg(w.great_gallery.north.msg)
+      Quest.IO.msg(w.great_gallery.north.msg)
       this.reset()
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg(this.states[0])
+      Quest.IO.msg(this.states[0])
       this.state++
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      for (const s of Quest.Settings.settings.roomTemplate) msg(s)
+      for (const s of Quest.Settings.settings.roomTemplate) Quest.IO.msg(s)
     }
   },
   reset: function () {
@@ -950,27 +950,27 @@ createItem("yellow_balloon", {
   examine: "The balloon is bright yellow, and pretty much spherical, except for the bit where it is blown up.",
   take: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Mandy tries to grab the balloon, but it bounces upwards, out of reach.")
+    Quest.IO.msg("Mandy tries to grab the balloon, but it bounces upwards, out of reach.")
     this.state = 0
   },
   'catch': function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Mandy tries to catch the balloon, but it bounces upwards, out of reach.")
+    Quest.IO.msg("Mandy tries to catch the balloon, but it bounces upwards, out of reach.")
     this.state = 0
   },
   smash: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Mandy tries to burst the stupid balloon, but it bounces out of reach, rising up to the ceiling.")
+    Quest.IO.msg("Mandy tries to burst the stupid balloon, but it bounces out of reach, rising up to the ceiling.")
     this.state = 0
   },
   knockon: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Mandy knocks the balloon, sending it up to the ceiling.")
+    Quest.IO.msg("Mandy knocks the balloon, sending it up to the ceiling.")
     this.state = 0
   },
   kick: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Mandy kicks the balloon, making it rise up to the ceiling.")
+    Quest.IO.msg("Mandy kicks the balloon, making it rise up to the ceiling.")
     this.state = 0
   },
   burst: function () {
@@ -979,7 +979,7 @@ createItem("yellow_balloon", {
     if (!sharp) return falsemsg("Mandy jabs her finger at the balloon, and it just bounces off. She jabs again, and then again, but does no better. she needs something sharp.")
 
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg("Mandy jabs at the balloon with {nm:item:the}, and it just bounces off. She jabs again, and then again, and finally the balloon pops! The remains drop to the floor. She resists the urge to grind the limp yellow remnants under her heel.", { item: sharp })
+    Quest.IO.msg("Mandy jabs at the balloon with {nm:item:the}, and it just bounces off. She jabs again, and then again, and finally the balloon pops! The remains drop to the floor. She resists the urge to grind the limp yellow remnants under her heel.", { item: sharp })
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'yellow_balloon_remains' does not exist o... Remove this comment to see the full error message
     this.transform(w.yellow_balloon_remains)
   },
@@ -1015,16 +1015,16 @@ createItem("dollshouse", CONTAINER(true), {
       s += "The back is opened up, and inside Mandy can see a tiny man."
     }
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg(s)
+    Quest.IO.msg(s)
   },
   openMsg: function () {
     if (this.hasBeenOpened) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("She opens the doll's house. There is the little man; he looks at Mandy. 'You again, eh?'")
+      Quest.IO.msg("She opens the doll's house. There is the little man; he looks at Mandy. 'You again, eh?'")
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("She opens the doll's house. Inside, the house is perfectly furnished, complete with a little man, sat on a chair.")
+      Quest.IO.msg("She opens the doll's house. Inside, the house is perfectly furnished, complete with a little man, sat on a chair.")
       let s = "The little man looks at Mandy, a look of surprise on his face. 'Cor blimey, you're a big 'un!' "
       switch (this.openCount) {
         case 0: s += " Apparently he is alive!"; break;
@@ -1034,7 +1034,7 @@ createItem("dollshouse", CONTAINER(true), {
         default: s += " He is alive, just as she expected."; break;
       }
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg(s)
+      Quest.IO.msg(s)
       this.openCount++
       this.hasBeenOpened = true
     }
@@ -1054,9 +1054,9 @@ createItem("dollshouse", CONTAINER(true), {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'china_doll' does not exist on type '{}'.
     if (options.item === w.china_doll) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("After a moment, the china doll suddenly comes to life! She sits up, and looks around, then gets to her feet.")
+      Quest.IO.msg("After a moment, the china doll suddenly comes to life! She sits up, and looks around, then gets to her feet.")
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'Blow me,' says the tiny man, 'you found me a friend, lady-giant! Mind, if you could get me one a bit less creepy next time, that would be even better.'")
+      Quest.IO.msg("'Blow me,' says the tiny man, 'you found me a friend, lady-giant! Mind, if you could get me one a bit less creepy next time, that would be even better.'")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'china_doll' does not exist on type '{}'.
       w.china_doll.alive = true
     }
@@ -1077,7 +1077,7 @@ createItem("tiny_man", NPC(false), {
   },
   agendaBootsDone: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'Okay, there you go,' says the tiny man, putting the boots on the floor just outside the doll's house. 'Good as new! Well, nearly.'")
+    Quest.IO.msg("'Okay, there you go,' says the tiny man, putting the boots on the floor just outside the doll's house. 'Good as new! Well, nearly.'")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'tiny_man' does not exist on type '{}'.
     w.tiny_man.state = 3
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
@@ -1089,7 +1089,7 @@ createItem("tiny_man", NPC(false), {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'int' does not exist on type '{ buffer: n... Remove this comment to see the full error message
     const count = Quest.Random.rndm.int(3, 5)
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'Nearly there,' says the tiny man with a cheerful grin. He gives the chisel another tap, and the pod splits open, to reveal " + count + " seeds.")
+    Quest.IO.msg("'Nearly there,' says the tiny man with a cheerful grin. He gives the chisel another tap, and the pod splits open, to reveal " + count + " seeds.")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'tamarind_seed' does not exist on type '{... Remove this comment to see the full error message
     if (!w.tamarind_seed.countableLocs[player.name]) w.tamarind_seed.countableLocs[player.name] = 0
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'tamarind_seed' does not exist on type '{... Remove this comment to see the full error message
@@ -1115,19 +1115,19 @@ createItem("tiny_man", NPC(false), {
       s += "He is once again making a pair of shoes."
     }
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg(s)
+    Quest.IO.msg(s)
   },
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-  msg: function (s: any, params: any) { msg(s, params) },  // override default for NPCs so we see it when he is in house
+  msg: function (s: any, params: any) { Quest.IO.msg(s, params) },  // override default for NPCs so we see it when he is in house
   endFollow: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg("'Wait here,' says Mandy to {nm:npc:the}.", { npc: obj })
+    Quest.IO.msg("'Wait here,' says Mandy to {nm:npc:the}.", { npc: obj })
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     return falsemsg("'I wasn't going nowhere!'")
   },
   startFollow: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg("'Follow me,' says Mandy to {nm:npc:the}.", { npc: obj })
+    Quest.IO.msg("'Follow me,' says Mandy to {nm:npc:the}.", { npc: obj })
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     return falsemsg("'If it's all the same to you, I'll stay here.'")
   },
@@ -1187,17 +1187,17 @@ createItem("tiny_man", NPC(false), {
       test: function (p: any) { return p.text.match(/small|tiny/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'I can't help noticing...,' says Mandy wondering how she say this, 'that you quite... well, small.'");
+        Quest.IO.msg("'I can't help noticing...,' says Mandy wondering how she say this, 'that you quite... well, small.'");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Or maybe you're freakishly tall.'");
+        Quest.IO.msg("'Or maybe you're freakishly tall.'");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Well, maybe. But this room looks to me like a nursery for people my  size, and you're in a toy house.'");
+        Quest.IO.msg("'Well, maybe. But this room looks to me like a nursery for people my  size, and you're in a toy house.'");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Ah, that coz this 'ouse went big. Never used to be. I got trapped 'ere, see? In this 'ouse when it was normal-sized. Went exploring, trying to find a way out, like, walked in this room with all the signs of the zodiac on the rub. As I looked at, the whole house grew! Suddenly I `ad to walk miles to get anywhere. Eventually I found this place, what's a bit more my size, what with the {class:riddle:little things} in it.'");
+        Quest.IO.msg("'Ah, that coz this 'ouse went big. Never used to be. I got trapped 'ere, see? In this 'ouse when it was normal-sized. Went exploring, trying to find a way out, like, walked in this room with all the signs of the zodiac on the rub. As I looked at, the whole house grew! Suddenly I `ad to walk miles to get anywhere. Eventually I found this place, what's a bit more my size, what with the {class:riddle:little things} in it.'");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("`How long ago was that?' asks Mandy")
+        Quest.IO.msg("`How long ago was that?' asks Mandy")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Only about ten minutes, maybe twenty.' Mandy thinks about the balloon, and wonders how many years it has really been.")
+        Quest.IO.msg("'Only about ten minutes, maybe twenty.' Mandy thinks about the balloon, and wonders how many years it has really been.")
 
       },
     },
@@ -1205,26 +1205,26 @@ createItem("tiny_man", NPC(false), {
       test: function (p: any) { return p.text.match(/doctor|winfield|malewicz|man/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Do you know a Dr Winfield Malewicz?' says Mandy. 'I've got a letter for him.'|He looks Mandy up and down. 'I swear postmen get younger ever day! And bigger too. Yeah, I know the doctor. Weird guy, 'as an 'house on me route.'")
+        Quest.IO.msg("'Do you know a Dr Winfield Malewicz?' says Mandy. 'I've got a letter for him.'|He looks Mandy up and down. 'I swear postmen get younger ever day! And bigger too. Yeah, I know the doctor. Weird guy, 'as an 'house on me route.'")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Your route?'")
+        Quest.IO.msg("'Your route?'")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Yeah, me route, when I'm deliverin' coal. Up Highfield Lane as I recalls. God knows what me customers are doing with no coal! Must be days now.'")
+        Quest.IO.msg("'Yeah, me route, when I'm deliverin' coal. Up Highfield Lane as I recalls. God knows what me customers are doing with no coal! Must be days now.'")
       }
     },
     {
       test: function (p: any) { return p.text.match(/balloon/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'What's the deal with the balloon?' asks Mandy")
+        Quest.IO.msg("'What's the deal with the balloon?' asks Mandy")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("The tiny man looks out the window. 'Yeah, I saw that floating up there when I got here, like some great floaty yellow thing. Big ain't it?'")
+        Quest.IO.msg("The tiny man looks out the window. 'Yeah, I saw that floating up there when I got here, like some great floaty yellow thing. Big ain't it?'")
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'dollshouse' does not exist on type '{}'.
         if (w.dollshouse.openCount > 3) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'I was more concerned with the way it seems to rewind time when it hits the floor.'")
+          Quest.IO.msg("'I was more concerned with the way it seems to rewind time when it hits the floor.'")
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'You what? You on drugs on summit?' Being in the middle of it, he may not realise anything odd is happening, it occurs to Mandy.")
+          Quest.IO.msg("'You what? You on drugs on summit?' Being in the middle of it, he may not realise anything odd is happening, it occurs to Mandy.")
         }
       },
     },
@@ -1232,40 +1232,40 @@ createItem("tiny_man", NPC(false), {
       test: function (p: any) { return p.text.match(/hamlet/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'I don't suppose you know any Shakespeare?' asks Mandy. 'Hamlet in particular.'")
+        Quest.IO.msg("'I don't suppose you know any Shakespeare?' asks Mandy. 'Hamlet in particular.'")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Do I look like a toff?'")
+        Quest.IO.msg("'Do I look like a toff?'")
       },
     },
     {
       test: function (p: any) { return p.text.match(/past|origin|career|job|deliver/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'What did you do before you got trapped here?' asks Mandy")
+        Quest.IO.msg("'What did you do before you got trapped here?' asks Mandy")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'I'm a coal merchant. I was just 'ere bring round a sack of coal, when I kind of got sucked inside. {class:riddle:Drag me down,} it did! That was weeks ago. What's happened to my business?' Mandy decides not to tell him the entire coal industry is dead in England, and no one has coal fires any more.")
+        Quest.IO.msg("'I'm a coal merchant. I was just 'ere bring round a sack of coal, when I kind of got sucked inside. {class:riddle:Drag me down,} it did! That was weeks ago. What's happened to my business?' Mandy decides not to tell him the entire coal industry is dead in England, and no one has coal fires any more.")
       },
     },
     {
       test: function (p: any) { return p.text.match(/letter/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'You know anything about this letter?' asks Mandy")
+        Quest.IO.msg("'You know anything about this letter?' asks Mandy")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'What am I, a postman?'")
+        Quest.IO.msg("'What am I, a postman?'")
       },
     },
     {
       test: function (p: any) { return p.text.match(/telescope|observatory/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'What's the deal with the telescope in the observatory?' asks Mandy")
+        Quest.IO.msg("'What's the deal with the telescope in the observatory?' asks Mandy")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Observatory? You 'aving a laugh! I bin delivering round here for years; and ?I can tell you, this is a 'ouse, ain't got no observatory. '")
+        Quest.IO.msg("'Observatory? You 'aving a laugh! I bin delivering round here for years; and ?I can tell you, this is a 'ouse, ain't got no observatory. '")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'You must've noticed it's a lot bigger than it should be from the outside.'")
+        Quest.IO.msg("'You must've noticed it's a lot bigger than it should be from the outside.'")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Lot of 'ouses look big 'un there are. Clever use of furniture, that's the trick.'")
+        Quest.IO.msg("'Lot of 'ouses look big 'un there are. Clever use of furniture, that's the trick.'")
       },
     },
     {  // !!!
@@ -1273,13 +1273,13 @@ createItem("tiny_man", NPC(false), {
       alias: "So where do you live?",
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'So where {i:do} you live?'");
+        Quest.IO.msg("'So where {i:do} you live?'");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'14 Clarence Street. Least, that's where I lived before I come in 'ere.'");
+        Quest.IO.msg("'14 Clarence Street. Least, that's where I lived before I come in 'ere.'");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Clarence Street? I know that road, Charlene Porter lives there.' It is a terrace house, built in the later nineteenth century, near the centre of town.");
+        Quest.IO.msg("'Clarence Street? I know that road, Charlene Porter lives there.' It is a terrace house, built in the later nineteenth century, near the centre of town.");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'I don't know no Charlene. French is she?'");
+        Quest.IO.msg("'I don't know no Charlene. French is she?'");
       },
     },
     {
@@ -1287,11 +1287,11 @@ createItem("tiny_man", NPC(false), {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'tiny_man' does not exist on type '{}'.
         w.tiny_man.badTopicCount++
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("Mandy asks the little man about " + p.text + ".")
+        Quest.IO.msg("Mandy asks the little man about " + p.text + ".")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'What the..?' he replies, 'Ask me about a topic what I know about.'")
+        Quest.IO.msg("'What the..?' he replies, 'Ask me about a topic what I know about.'")
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'tiny_man' does not exist on type '{}'.
-        if (w.tiny_man.badTopicCount > 7) msg("'Do you know about anything?' asks Mandy getting increasingly frustrated.|'Not a lot, no.'")
+        if (w.tiny_man.badTopicCount > 7) Quest.IO.msg("'Do you know about anything?' asks Mandy getting increasingly frustrated.|'Not a lot, no.'")
       }
     },
   ],
@@ -1301,9 +1301,9 @@ createItem("tiny_man", NPC(false), {
       test: function (p: any) { return true },
       script: function (p: any) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("Mandy starts to tell the tiny man about " + p.text + ".")
+        Quest.IO.msg("Mandy starts to tell the tiny man about " + p.text + ".")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("He looks at her, 'Listen giant-lady, I don't really care.{once: Maybe these things are important in the giant world, but not in mine.}'")
+        Quest.IO.msg("He looks at her, 'Listen giant-lady, I don't really care.{once: Maybe these things are important in the giant world, but not in mine.}'")
       }
     },
   ],
@@ -1321,15 +1321,15 @@ createItem("tiny_man", NPC(false), {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'tiny_man' does not exist on type '{}'.
         if (w.tiny_man.state !== 1 || w.boots.size !== 4) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("Mandy gives the small boots to the tiny man. 'What'd I want something like that for?' he asks.|'I thought you might be a cobbler elf.'|'A what? Are you taking the piss?'|'No! It's just you're quite... small.|'I'm normal size, I am. You're the freak, lady-giant. Though I suppose I {i:could} fix them.' He starts to examine the hole in the boot.")
+          Quest.IO.msg("Mandy gives the small boots to the tiny man. 'What'd I want something like that for?' he asks.|'I thought you might be a cobbler elf.'|'A what? Are you taking the piss?'|'No! It's just you're quite... small.|'I'm normal size, I am. You're the freak, lady-giant. Though I suppose I {i:could} fix them.' He starts to examine the hole in the boot.")
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("Mandy gives the boots to the tiny man. 'I'll get on that as soon as I've done these,' he says.")
+          Quest.IO.msg("Mandy gives the boots to the tiny man. 'I'll get on that as soon as I've done these,' he says.")
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("{ifExists:yellow_balloon:loc:Mandy glances at the balloon. }'I don't suppose you could do it now?' She smiles sweetly at him, making him jump back from his seat in horror.")
+          Quest.IO.msg("{ifExists:yellow_balloon:loc:Mandy glances at the balloon. }'I don't suppose you could do it now?' She smiles sweetly at him, making him jump back from his seat in horror.")
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'Okay, okay, giant-lady! Whatever you say!' He drops the shoes, and starts to examine the hole in the boot.")
+          Quest.IO.msg("'Okay, okay, giant-lady! Whatever you say!' He drops the shoes, and starts to examine the hole in the boot.")
         }
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
         w.boots.loc = 'tiny_man'
@@ -1343,10 +1343,10 @@ createItem("tiny_man", NPC(false), {
       test: function (options: any) { return options.item.name.startsWith('tamarind_pod_prototype') },
       f: function (options: any) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("Mandy gives the tamarind pod to the tiny man. 'What'd I want something like that for?' he asks.|'I thought you might be able to cut it open,' says Mandy. 'You know, with your little tools.'|'My what?'|'Er, your normal-sized tools?'")
+        Quest.IO.msg("Mandy gives the tamarind pod to the tiny man. 'What'd I want something like that for?' he asks.|'I thought you might be able to cut it open,' says Mandy. 'You know, with your little tools.'|'My what?'|'Er, your normal-sized tools?'")
         if (options.item.size > 4) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("He shrugs. 'Give it a go.' He grabs and hammer and chisel, and sets about trying to break into the pod.")
+          Quest.IO.msg("He shrugs. 'Give it a go.' He grabs and hammer and chisel, and sets about trying to break into the pod.")
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'tiny_man' does not exist on type '{}'.
           w.tiny_man.breakingIntoPod = options.item.name
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'tiny_man' does not exist on type '{}'.
@@ -1356,7 +1356,7 @@ createItem("tiny_man", NPC(false), {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'int' does not exist on type '{ buffer: n... Remove this comment to see the full error message
           const count = Quest.Random.rndm.int(3, 5)
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("He shrugs. 'Should be easy enough.' He grabs and hammer and chisel, and sets the chisel to the pod. He gives it a gentle tap, and the pod splits open, to reveal " + count + " seeds.")
+          Quest.IO.msg("He shrugs. 'Should be easy enough.' He grabs and hammer and chisel, and sets the chisel to the pod. He gives it a gentle tap, and the pod splits open, to reveal " + count + " seeds.")
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'tamarind_seed' does not exist on type '{... Remove this comment to see the full error message
           if (!w.tamarind_seed.countableLocs[player.name]) w.tamarind_seed.countableLocs[player.name] = 0
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'tamarind_seed' does not exist on type '{... Remove this comment to see the full error message
@@ -1368,7 +1368,7 @@ createItem("tiny_man", NPC(false), {
   ],
   talkto: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Mandy wonders what {i:topics} she could {i:ask the tiny man about}...")
+    Quest.IO.msg("Mandy wonders what {i:topics} she could {i:ask the tiny man about}...")
     return false
   }
 })
@@ -1389,7 +1389,7 @@ createItem("tiny_shoes", {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'tiny_man' does not exist on type '{}'.
     if (w.tiny_man.bootsState === 2) return falsemsg("'So can you fox those shoes?' asks Mandy.|'Not while I'm doin' this I can't.'")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'So can you fox those shoes?' asks Mandy.|'Reckon so!'")
+    Quest.IO.msg("'So can you fox those shoes?' asks Mandy.|'Reckon so!'")
     return true
   }
 })

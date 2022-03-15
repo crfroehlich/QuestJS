@@ -54,7 +54,7 @@ createRoom("greenhouse_west", {
 
         s += " , then steps closer, putting both arms round it. He pauses, and looks up, then down again, then up again. Apparently, climbing is not his thing."
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg(s)
+        Quest.IO.msg(s)
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
         w.Patch.huggingTree = true
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
@@ -71,7 +71,7 @@ createRoom("greenhouse_west", {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'grown_tamarind_tree' does not exist on t... Remove this comment to see the full error message
       if (w.grown_tamarind_tree.growthTime < 12) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("Mandy appraises the tree. It has been a while, but she can climb that. She grabs a lower branch, and hauls herself up.")
+        Quest.IO.msg("Mandy appraises the tree. It has been a while, but she can climb that. She grabs a lower branch, and hauls herself up.")
         // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
         player.moveChar(new Exit('up_a_tree', this))
         return true
@@ -79,7 +79,7 @@ createRoom("greenhouse_west", {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
       if (w.Patch.isHere() && w.Patch.huggingTree) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("Mandy appraises the tree, with Patch still hugging it. She could use Patch to get up it. 'Er, just, hold still,' she tells him, as she grabs his solid arm, and starts to haul herself up. 'And keep looking downwards!' She pulls herself up onto his shoulder, and from there she grabs a lower branch, and hauls herself up.")
+        Quest.IO.msg("Mandy appraises the tree, with Patch still hugging it. She could use Patch to get up it. 'Er, just, hold still,' she tells him, as she grabs his solid arm, and starts to haul herself up. 'And keep looking downwards!' She pulls herself up onto his shoulder, and from there she grabs a lower branch, and hauls herself up.")
         // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
         player.moveChar(new Exit('up_a_tall_tree', this))
         return true
@@ -87,7 +87,7 @@ createRoom("greenhouse_west", {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'grown_tamarind_tree' does not exist on t... Remove this comment to see the full error message
       if (w.grown_tamarind_tree.seedsPlanted > 5) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("Mandy appraises the tangle of trees... The way they have knotted together should make climbing them, well, not exactly easy, but possible. She grabs a trunk that has bend almost horizontal, and pulls herself up. From there, she can reach another, not quite so flat, and up further into the trees.")
+        Quest.IO.msg("Mandy appraises the tangle of trees... The way they have knotted together should make climbing them, well, not exactly easy, but possible. She grabs a trunk that has bend almost horizontal, and pulls herself up. From there, she can reach another, not quite so flat, and up further into the trees.")
         // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
         player.moveChar(new Exit('up_a_tall_tree', this))
         return true
@@ -188,7 +188,7 @@ createItem("lift_fake_flora", {
   scenery: true,
   calllift: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Mandy can see no way to call the lift, but given the door in on the other side of the shaft, that is no surprise.")
+    Quest.IO.msg("Mandy can see no way to call the lift, but given the door in on the other side of the shaft, that is no surprise.")
   },
   standon: 'The lift is too far away for Mandy to stand on.',
 })
@@ -202,11 +202,11 @@ createItem("pedestal", SURFACE(), {
     const contents = this.getContents()
     if (contents.length !== 0) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(s + ' There {cj:item:be} {nm:item:a} on it.', { item: contents[0] })
+      Quest.IO.msg(s + ' There {cj:item:be} {nm:item:a} on it.', { item: contents[0] })
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg(s)
+      Quest.IO.msg(s)
     }
   },
   testDropIn: function (options: any) {
@@ -244,15 +244,15 @@ createItem("hourglass", SIZE_CHANGING(), {
   examine: function (options: any) {
     if (this.size < 4) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg("{nv:item:be:true} too tiny to see properly!", { item: this })
+      Quest.IO.msg("{nv:item:be:true} too tiny to see properly!", { item: this })
     }
     else if (this.size > 7) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg("{nv:item:be:true} of gigantic proportions!", { item: this })
+      Quest.IO.msg("{nv:item:be:true} of gigantic proportions!", { item: this })
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg(this['desc' + this.size])
+      Quest.IO.msg(this['desc' + this.size])
     }
     return true
   },
@@ -268,11 +268,11 @@ createItem("hourglass", SIZE_CHANGING(), {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'pedestal' does not exist on type '{}'.
     if (options.container === w.pedestal) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy feels a slight jolt, like static electricity, as she places the hourglass on the pedestal.")
+      Quest.IO.msg("Mandy feels a slight jolt, like static electricity, as she places the hourglass on the pedestal.")
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg(Quest.lang.done_msg)
+      Quest.IO.msg(Quest.lang.done_msg)
     }
 
   },
@@ -315,13 +315,13 @@ createItem("hourglass", SIZE_CHANGING(), {
   turn: function () {
     if (this.size > 6) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy looks at the giant hourglass. No way is she turning that over!")
+      Quest.IO.msg("Mandy looks at the giant hourglass. No way is she turning that over!")
       return false
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
     if (w.Patch.huggingTree) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Patch steps away from the tree, perhaps sensing something is about to happen.")
+      Quest.IO.msg("Patch steps away from the tree, perhaps sensing something is about to happen.")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
       w.Patch.huggingTree = false
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
@@ -355,19 +355,19 @@ createItem("hourglass", SIZE_CHANGING(), {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'grown_tamarind_tree' does not exist on t... Remove this comment to see the full error message
       w.grown_tamarind_tree.growthTime = 0
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(s, { item: w.grown_tamarind_tree })
+      Quest.IO.msg(s, { item: w.grown_tamarind_tree })
     }
     else {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'protrusion' does not exist on type '{}'.
       if (w.protrusion.closed) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("Mandy turns the hourglass over.")
+        Quest.IO.msg("Mandy turns the hourglass over.")
       }
       else {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'protrusion' does not exist on type '{}'.
         w.protrusion.closed = true
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("Mandy closes the tap of the hourglass, then turns it over.")
+        Quest.IO.msg("Mandy closes the tap of the hourglass, then turns it over.")
       }
     }
     this.state = 100 - this.state + this.getIncrement()
@@ -398,11 +398,11 @@ createItem("hourglass", SIZE_CHANGING(), {
       if (this.reporting()) {
         if (roundedState > 99) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("All the sand is in the upper bulb in the hourglass.")
+          Quest.IO.msg("All the sand is in the upper bulb in the hourglass.")
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("As time passes, sand falls from the upper bulb of the hourglass; it now has about " + roundedState + "% of the sand left in it.")
+          Quest.IO.msg("As time passes, sand falls from the upper bulb of the hourglass; it now has about " + roundedState + "% of the sand left in it.")
         }
       }
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'grown_tamarind_tree' does not exist on t... Remove this comment to see the full error message
@@ -410,7 +410,7 @@ createItem("hourglass", SIZE_CHANGING(), {
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      if (this.reporting()) msg("As time passes, sand falls from the upper bulb of the hourglass; it is now empty.")
+      if (this.reporting()) Quest.IO.msg("As time passes, sand falls from the upper bulb of the hourglass; it is now empty.")
       this.active = false
       if (this.state < 0) this.state = 0
       //w.grown_tamarind_tree.magicGrowthEnd()
@@ -447,7 +447,7 @@ createItem("hourglass", SIZE_CHANGING(), {
       s += " The lower bulb looks to be about " + Quest.lang.toWords(this.fillState) + " fifths full to Mandy's eye."
     }
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg(s, { item: vessel })
+    Quest.IO.msg(s, { item: vessel })
     return true
   },
   handleInOutContainer: function (options: any, objects: any) {
@@ -483,7 +483,7 @@ createItem("protrusion", COMPONENT("hourglass"), CONTAINER(true), {
   openMsg: function (options: any) {
     options.list = this.listContents(world.LOOK)
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg(this.msgOpen, options)
+    Quest.IO.msg(this.msgOpen, options)
   },
 })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
@@ -556,7 +556,7 @@ createItem("grown_tamarind_tree", {
       }
     }
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg(s, { item: w.grown_tamarind_tree, count_this: 'seedsPlanted' })
+    Quest.IO.msg(s, { item: w.grown_tamarind_tree, count_this: 'seedsPlanted' })
   },
   countable: true,
   getDescId: function () {
@@ -586,12 +586,12 @@ createItem("grown_tamarind_tree", {
     this.growthTime++
     this.update()
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    if (player.loc === 'greenhouse_west') msg("Mandy watches as {nv:item:grow:false:count_this}; {nv:item:be:false:suppressCount} now about {show:grown_tamarind_tree:getHeight} high.", { item: w.grown_tamarind_tree, count_this: 'seedsPlanted', suppressCount: 'seedsPlanted' })
+    if (player.loc === 'greenhouse_west') Quest.IO.msg("Mandy watches as {nv:item:grow:false:count_this}; {nv:item:be:false:suppressCount} now about {show:grown_tamarind_tree:getHeight} high.", { item: w.grown_tamarind_tree, count_this: 'seedsPlanted', suppressCount: 'seedsPlanted' })
   },
   magicGrowthEnd: function () {
     if (this.seedsPlanted === 0) return
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg("{nv:item:wither:true:suppressCount} away to nothing.", { item: w.grown_tamarind_tree, suppressCount: 'seedsPlanted' })
+    Quest.IO.msg("{nv:item:wither:true:suppressCount} away to nothing.", { item: w.grown_tamarind_tree, suppressCount: 'seedsPlanted' })
     this.seedsPlanted = 0
     this.growthTime = 0
   },
@@ -601,13 +601,13 @@ createItem("grown_tamarind_tree", {
   hug: function (options: any) {
     if (options.char === player) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy gives the tree a hug, because maybe showing it some love will encourage it to drop a pod.|It does not.")
+      Quest.IO.msg("Mandy gives the tree a hug, because maybe showing it some love will encourage it to drop a pod.|It does not.")
       return true
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
     if (options.char === w.Patch) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Patch gives Mandy a quizzical look, but then goes to the tamarind tree, and gives it a big hug.")
+      Quest.IO.msg("Patch gives Mandy a quizzical look, but then goes to the tamarind tree, and gives it a big hug.")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
       w.Patch.huggingTree = true
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
@@ -781,7 +781,7 @@ createRoom("greenhouse_east", {
       test: function () { return w.greenhouse_east.visited === 3 },
       action: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("Mandy sees movement up on the catwalk. A silver figure, running round it, and then down the section to the west, before disappearing from view.")
+        Quest.IO.msg("Mandy sees movement up on the catwalk. A silver figure, running round it, and then down the section to the west, before disappearing from view.")
         player.silverSpotted++
       },
     },
@@ -796,7 +796,7 @@ createRoom("greenhouse_east", {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
         if (w.Patch.huggingTree) return falsemsg("'Climb the stupid tree,' says Mandy. Patch looks forlornly up the tree he is hugging.")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Climb the tree, Patch,' says Mandy. Patch eyes up the tamarind tree , then steps closer, putting both arms round it. He pauses, and looks up, then down again, then up again. Apparently, climbing is not his thing.")
+        Quest.IO.msg("'Climb the tree, Patch,' says Mandy. Patch eyes up the tamarind tree , then steps closer, putting both arms round it. He pauses, and looks up, then down again, then up again. Apparently, climbing is not his thing.")
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
         w.Patch.huggingTree = true
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
@@ -807,7 +807,7 @@ createRoom("greenhouse_east", {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
       if (w.Patch.isHere() && w.Patch.huggingTree) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("Mandy appraises the tree, with Patch still hugging it. She could use Patch to get up it. 'Er, just, hold still,' she tells him, as she grabs his solid arm, and starts to haul herself up. 'And keep looking downwards!' She pulls herself up onto his shoulder, and from there she grabs a lower branch, and hauls herself up.")
+        Quest.IO.msg("Mandy appraises the tree, with Patch still hugging it. She could use Patch to get up it. 'Er, just, hold still,' she tells him, as she grabs his solid arm, and starts to haul herself up. 'And keep looking downwards!' She pulls herself up onto his shoulder, and from there she grabs a lower branch, and hauls herself up.")
         // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
         player.moveChar(new Exit('up_a_tall_tree_east', this))
         return true
@@ -848,7 +848,7 @@ createItem("tamarind_tree_from_ground", {
     if (options.char === player) return falsemsg("Mandy tries to shake the tree, but the trunk is too thick; it does not budge. If only she were higher up...")
 
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'Give that tree a good shake,' says Mandy.|Patch looks at it for a moment, then walks over to it. He puts two arms round it, and, with a grunt, gives it a good shake.|A tamarind pod falls to the ground, and Mandy grins in delight. 'At last!'")
+    Quest.IO.msg("'Give that tree a good shake,' says Mandy.|Patch looks at it for a moment, then walks over to it. He puts two arms round it, and, with a grunt, gives it a good shake.|A tamarind pod falls to the ground, and Mandy grins in delight. 'At last!'")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
     cloneObject(w.tamarind_pod_prototype, "greenhouse_east")
     return true
@@ -858,7 +858,7 @@ createItem("tamarind_tree_from_ground", {
     if (options.char === player) return falsemsg("Mandy kicks the stupid tree in frustration.")
 
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'Give that tree a good kick,' says Mandy.|Patch looks at it for a moment, then walks over to it. He stands right next to it, and, with a grunt, gives it a good kick.|A tamarind pod falls to the ground, and Mandy grins in delight. 'At last!'")
+    Quest.IO.msg("'Give that tree a good kick,' says Mandy.|Patch looks at it for a moment, then walks over to it. He stands right next to it, and, with a grunt, gives it a good kick.|A tamarind pod falls to the ground, and Mandy grins in delight. 'At last!'")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
     cloneObject(w.tamarind_pod_prototype, "greenhouse_east")
     return true
@@ -867,13 +867,13 @@ createItem("tamarind_tree_from_ground", {
   hug: function (options: any) {
     if (options.char === player) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy gives the tree a hug, because maybe showing it some love will encourage it to drop a pod.|It does not.")
+      Quest.IO.msg("Mandy gives the tree a hug, because maybe showing it some love will encourage it to drop a pod.|It does not.")
       return true
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
     if (options.char === w.Patch) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Patch gives Mandy a quizzical look, but then goes to the tamarind tree, and gives it a big hug.")
+      Quest.IO.msg("Patch gives Mandy a quizzical look, but then goes to the tamarind tree, and gives it a big hug.")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
       w.Patch.huggingTree = true
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
@@ -891,7 +891,7 @@ createItem("sand_greenhouse", {
   examine: 'The sand is scattered across the floor.',
   take: function (options: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg('Mandy tries to scoop up some of the sand, but it is spead too thinly to get more than a few grains.')
+    Quest.IO.msg('Mandy tries to scoop up some of the sand, but it is spead too thinly to get more than a few grains.')
     return false
   },
 })
@@ -920,7 +920,7 @@ createItem("tamarind_pod_up_tree", {
   goDownDirection: 'down',
   take: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Mandy reaches out and grabs a tamarind pod.")
+    Quest.IO.msg("Mandy reaches out and grabs a tamarind pod.")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
     cloneObject(w.tamarind_pod_prototype, player.name)
     return true
@@ -940,7 +940,7 @@ createRoom("greenhouse_catwalk_east", {
   east: new Exit("great_gallery"),
   afterFirstEnter: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Is there someone down below? He -- or she for all Mandy can tell -- is wearing a silver shell-suit like it is 1996 or something. 'Hey!' calls Mandy. The figure looks up for a moment, and Mandy can see his face is silver too, before he darts off to the east.")
+    Quest.IO.msg("Is there someone down below? He -- or she for all Mandy can tell -- is wearing a silver shell-suit like it is 1996 or something. 'Hey!' calls Mandy. The figure looks up for a moment, and Mandy can see his face is silver too, before he darts off to the east.")
     player.silverSpotted++
   },
   scenery: [
@@ -967,11 +967,11 @@ createItem("tamarind_tree", {
   examine: "The single tamarind tree is a big one, reaching almost to roof of the great greenhouse. From here, Mandy could reach out and touch the leaves of the tree, though the many seed pods are further away.",
   take: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Mandy leans over the rail, and grabs a solid-looking leaf on the tamarind tree. She gives it a good tug, then another and another, until a ripe pod is dislodged. The pod falls...")
+    Quest.IO.msg("Mandy leans over the rail, and grabs a solid-looking leaf on the tamarind tree. She gives it a good tug, then another and another, until a ripe pod is dislodged. The pod falls...")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
     if (w.chamber_pot.underTree) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("|...And lands neatly in the chamber pot. Mandy smiles in satisfaction.|Suddenly a silvery figure appears from the west, kicks over the chamber pot{ifExists:chamber_pot:containedFluidName: spilling the {show:chamber_pot:containedFluidName} everywhere}, scoops up the pod from the floor, and runs back west.|'Oh, for crying out loud!' Mandy exclaims.")
+      Quest.IO.msg("|...And lands neatly in the chamber pot. Mandy smiles in satisfaction.|Suddenly a silvery figure appears from the west, kicks over the chamber pot{ifExists:chamber_pot:containedFluidName: spilling the {show:chamber_pot:containedFluidName} everywhere}, scoops up the pod from the floor, and runs back west.|'Oh, for crying out loud!' Mandy exclaims.")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
       if (w.chamber_pot.containedFluidName === 'sand') {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'greenhouse_east' does not exist on type ... Remove this comment to see the full error message
@@ -991,7 +991,7 @@ createItem("tamarind_tree", {
     if (w.Patch.loc !== 'greenhouse_east') return falsemsg("Suddenly a silvery figure appears from the west, quickly scoops up the pod from the floor, and runs back west.{once: 'Shit,' mutters Mandy.}")
 
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg("... To be caught with surprising dexterity by {nm:npc:the}, who is standing below.", { npc: w.Patch })
+    Quest.IO.msg("... To be caught with surprising dexterity by {nm:npc:the}, who is standing below.", { npc: w.Patch })
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
     cloneObject(w.tamarind_pod_prototype, 'Patch')
     return true
@@ -1049,7 +1049,7 @@ createItem("tamarind_pod_prototype", SIZE_CHANGING(), {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'int' does not exist on type '{ buffer: n... Remove this comment to see the full error message
     const count = Quest.Random.rndm.int(3, 5)
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg("Using {nm:item:the}, Mandy cuts the pod open. Inside she finds " + Quest.lang.toWords(count) + " seeds, which she quickly extracts, throwing away the useless husk.", { item: sharp })
+    Quest.IO.msg("Using {nm:item:the}, Mandy cuts the pod open. Inside she finds " + Quest.lang.toWords(count) + " seeds, which she quickly extracts, throwing away the useless husk.", { item: sharp })
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'tamarind_seed' does not exist on type '{... Remove this comment to see the full error message
     if (!w.tamarind_seed.countableLocs[player.name]) w.tamarind_seed.countableLocs[player.name] = 0
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'tamarind_seed' does not exist on type '{... Remove this comment to see the full error message

@@ -165,14 +165,10 @@ board.handleCell = function(x: any, y: any) {
       }
     }
     else if (feature.text) {
-      const s = '<text x="' + x2 + '" y="' + (y2+(feature.y ? feature.y : 0)) + '" style="text-anchor:middle;'
-      // @ts-expect-error ts-migrate(2588) FIXME: Cannot assign to 's' because it is a constant.
+      let s = '<text x="' + x2 + '" y="' + (y2+(feature.y ? feature.y : 0)) + '" style="text-anchor:middle;'
       if (feature.style) s += feature.style
-      // @ts-expect-error ts-migrate(2588) FIXME: Cannot assign to 's' because it is a constant.
       s += '" '
-      // @ts-expect-error ts-migrate(2588) FIXME: Cannot assign to 's' because it is a constant.
       if (feature.colour) s+= 'fill="' + feature.colour + '"'      
-      // @ts-expect-error ts-migrate(2588) FIXME: Cannot assign to 's' because it is a constant.
       s += '>' + feature.text + '</text>'
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'labels' does not exist on type '{}'.
       this.labels.push(s)

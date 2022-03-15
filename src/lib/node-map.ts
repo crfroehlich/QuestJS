@@ -19,9 +19,9 @@ const map = {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultStyle' does not exist on type '{ ... Remove this comment to see the full error message
 map.defaultStyle = { position: 'fixed', display: 'block' }  // !!!!!!!!!!!!!!
 // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '{ toggle: boolean; defaults: { m... Remove this comment to see the full error message
-io.modulesToUpdate.push(map)
+Quest.IO.io.modulesToUpdate.push(map)
 // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '{ toggle: boolean; defaults: { m... Remove this comment to see the full error message
-io.modulesToInit.push(map)
+Quest.IO.io.modulesToInit.push(map)
 
 // Authors can override this so there are several starting locations if there are isolated regions
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'getStartingLocations' does not exist on ... Remove this comment to see the full error message
@@ -46,7 +46,7 @@ map.transitUpdate = function (location: any, transitButton: any, callEvent: any)
   location.mapCurrentConnection = location.locations.findIndex((el: any) => el.connectedRoom.name === transitButton.transitDest)
   if (location.mapCurrentConnection === -1) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    errormsg('Failed to find a location called "' + transitButton.transitDest + '"')
+    Quest.IO.errormsg('Failed to find a location called "' + transitButton.transitDest + '"')
     console.log(location.locations)
     return
   }
@@ -274,7 +274,7 @@ map.update = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapHeight' does not exist on type '{ per... Remove this comment to see the full error message
   const y = -Quest.Settings.settings.mapHeight / 2 + w[player.loc].mapY
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapWidth' does not exist on type '{ perf... Remove this comment to see the full error message
-  draw(Quest.Settings.settings.mapWidth, Quest.Settings.settings.mapHeight, result, { destination: 'quest-map', x: x, y: y })
+  Quest.IO.draw(Quest.Settings.settings.mapWidth, Quest.Settings.settings.mapHeight, result, { destination: 'quest-map', x: x, y: y })
 }
 
 
@@ -573,7 +573,7 @@ if (Quest.Settings.settings.playMode === 'dev') {
         // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         if (w[key].mapZ == undefined) continue
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg(w[key].name + ': ' + w[key].mapX + ', ' + w[key].mapY + ', ' + w[key].mapZ + ' Region=' + w[key].mapRegion)
+        Quest.IO.metamsg(w[key].name + ': ' + w[key].mapX + ', ' + w[key].mapY + ', ' + w[key].mapZ + ' Region=' + w[key].mapRegion)
       }
       return world.SUCCESS_NO_TURNSCRIPTS
     },
@@ -597,8 +597,8 @@ Quest.Command.findCmd('Map').script = function () {
     Quest.Settings.settings.hideMap = true
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'calcMargins' does not exist on type '{ n... Remove this comment to see the full error message
-  io.calcMargins()
+  Quest.IO.io.calcMargins()
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  msg(Quest.lang.done_msg)
+  Quest.IO.msg(Quest.lang.done_msg)
   return world.SUCCESS_NO_TURNSCRIPTS
 }

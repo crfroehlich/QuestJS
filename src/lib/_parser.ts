@@ -42,7 +42,7 @@ parser.NO_MATCH = -100
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'parse' does not exist on type '{}'.
 parser.parse = function (inputText: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'startCommand' does not exist on type '{ ... Remove this comment to see the full error message
-  io.startCommand()
+  Quest.IO.io.startCommand()
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'performanceLogStart' does not exist on t... Remove this comment to see the full error message
   Quest.Settings.settings.performanceLogStart()
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
@@ -82,7 +82,7 @@ parser.abort = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'inputTexts' does not exist on type '{}'.
   if (parser.inputTexts.length === 0) return
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'inputTexts' does not exist on type '{}'.
-  parsermsg("Abandoning later commands: " + parser.inputTexts.join('; '))
+  Quest.IO.parsermsg("Abandoning later commands: " + parser.inputTexts.join('; '))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'inputTexts' does not exist on type '{}'.
   parser.inputTexts = []
 }
@@ -96,14 +96,14 @@ parser.parseSingle = function (inputText: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'findCommand' does not exist on type '{}'... Remove this comment to see the full error message
     const res = parser.findCommand(inputText)
     if (typeof res === "string") {
-      parsermsg(res)
+      Quest.IO.parsermsg(res)
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'abort' does not exist on type '{}'.
       parser.abort()
       world.endTurn(world.PARSER_FAILURE)
       return
     }
     if (res.tmp.score < 0) {
-      parsermsg(res.tmp.error)
+      Quest.IO.parsermsg(res.tmp.error)
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'abort' does not exist on type '{}'.
       parser.abort()
       world.endTurn(world.PARSER_FAILURE)
@@ -137,7 +137,7 @@ parser.parseSingle = function (inputText: any) {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'currentCommand' does not exist on type '... Remove this comment to see the full error message
           parser.currentCommand.tmp.disambiguate2 = j;
           // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          const fn = io.menuFunctions[Quest.Settings.settings.funcForDisambigMenu]
+          const fn = Quest.IO.io.menuFunctions[Quest.Settings.settings.funcForDisambigMenu]
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'currentCommand' does not exist on type '... Remove this comment to see the full error message
           fn(Quest.lang.disambig_msg, parser.currentCommand.tmp.objects[i][j], function (result: any) {
             // @ts-expect-error ts-migrate(2339) FIXME: Property 'currentCommand' does not exist on type '... Remove this comment to see the full error message
@@ -165,7 +165,7 @@ parser.parseSingle = function (inputText: any) {
 // You can use this to bypass the parser altogether, for the next input the player types.
 // Instead, the given function will be used, sent the text the player typed.
 //
-// Used by askQuestion in io.
+// Used by askQuestion in Quest.IO.io.
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'overrideWith' does not exist on type '{}... Remove this comment to see the full error message
 parser.overrideWith = function (fn: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'override' does not exist on type '{}'.
@@ -202,11 +202,11 @@ parser.execute = function () {
   } catch (err) {
     if (inEndTurnFlag) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      printError("Hit a coding error trying to process world.endTurn after that command.", err)
+      Quest.IO.printError("Hit a coding error trying to process world.endTurn after that command.", err)
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      printError("Hit a coding error trying to process the command `" + parser.currentCommand.cmdString + "'.", err)
+      Quest.IO.printError("Hit a coding error trying to process the command `" + parser.currentCommand.cmdString + "'.", err)
     }
   }
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
@@ -556,7 +556,7 @@ parser.inspect = function () {
       s += "&nbsp;&nbsp;&nbsp;&nbsp;Something else:" + obj + "<br/>";
     }
   }
-  debugmsg(s);
+  Quest.IO.debugmsg(s);
 };
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'specialText' does not exist on type '{}'... Remove this comment to see the full error message
@@ -608,7 +608,7 @@ parser.specialText.number = {
 parser.msg = function (...ary: any[]) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'debug' does not exist on type '{}'.
   if (parser.debug) {
-    for (let s of ary) debugmsg("P&gt; " + s)
+    for (let s of ary) Quest.IO.debugmsg("P&gt; " + s)
   }
 }
 

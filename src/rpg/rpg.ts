@@ -14,15 +14,15 @@ Quest.Settings.settings.output = function (reportTexts: any) {
     if (el.level <= Quest.Settings.settings.attackOutputLevel) {
       if (el.level === 1) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg(el.t)
+        Quest.IO.msg(el.t)
       }
       else if (el.level === 2) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg(el.t)
+        Quest.IO.metamsg(el.t)
       }
       else {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msgPre(el.t)
+        Quest.IO.msgPre(el.t)
       }
     }
   }
@@ -45,7 +45,7 @@ Quest.Settings.settings.afterTurn.push(function () {
           obj['countdown_' + name]--
           if (obj['countdown_' + name] <= 0) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            msg(rpg.findEffect(name).terminate(obj))
+            Quest.IO.msg(rpg.findEffect(name).terminate(obj))
           }
         }
       }
@@ -56,7 +56,7 @@ Quest.Settings.settings.afterTurn.push(function () {
       obj.summonedCountdown--
       if (obj.summonedCountdown <= 0) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        if (obj.isHere()) msg("{nv:item:disappear:true}.", { item: obj })
+        if (obj.isHere()) Quest.IO.msg("{nv:item:disappear:true}.", { item: obj })
         rpg.destroy(obj)
       }
     }
@@ -120,7 +120,7 @@ class Effect {
   }
 
   apply(attack: any, target: any, duration: any) {
-    if (this.start) attack.msg(this.start(target), 1)
+    if (this.start) attack.Quest.IO.msg(this.start(target), 1)
     if (duration) target['countdown_' + this.name] = duration
     if (!target.activeEffects.includes(this.name)) target.activeEffects.push(this.name)
   }
@@ -160,7 +160,7 @@ const rpg = {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'name' does not exist on type 'never'.
     const skill = this.list.find(el => skillName === el.name)
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (!skill && !suppressErrorMsg) return errormsg("Failed to find skill/spell: '" + skillName + "'")
+    if (!skill && !suppressErrorMsg) return Quest.IO.errormsg("Failed to find skill/spell: '" + skillName + "'")
     return skill
   },
 
@@ -213,7 +213,7 @@ const rpg = {
   },
 
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-  signalResponse_test: function (source: any) { msg("{nv:npc:receive:true} a message from {show:source}.", { npc: this, source: source }) },
+  signalResponse_test: function (source: any) { Quest.IO.msg("{nv:npc:receive:true} a message from {show:source}.", { npc: this, source: source }) },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'alert' does not exist on type '{ list: n... Remove this comment to see the full error message
   signalResponse_alert: function () { this.alert = true },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'asleep' does not exist on type '{ list: ... Remove this comment to see the full error message
@@ -331,12 +331,12 @@ const rpg = {
 
     opposed: function (s: any) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      if (!s) errormsg("elements.opposed was sent something that evaluates to false (type is " + (typeof s) + ")")
+      if (!s) Quest.IO.errormsg("elements.opposed was sent something that evaluates to false (type is " + (typeof s) + ")")
       for (let el of this.list) {
         if (el.name === s) return el.opposed
       }
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      errormsg("elements.opposed was sent an unrecognised element: " + s)
+      Quest.IO.errormsg("elements.opposed was sent an unrecognised element: " + s)
       return null
     },
   },
@@ -363,12 +363,12 @@ Quest.Utilities.util.defaultExitUse = function (char: any, exit: any) {
   const guards = exit.isGuarded()
   if (guards && guards.length > 0) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg(Quest.lang.wayGuarded, { exit: exit })
+    Quest.IO.msg(Quest.lang.wayGuarded, { exit: exit })
     for (const guard of guards) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      if (guard.guardingComment) msg(guard.guardingComment, { char: char })
+      if (guard.guardingComment) Quest.IO.msg(guard.guardingComment, { char: char })
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      if (guard.guardingReaction) msg(guard.guardingReaction(char, this))
+      if (guard.guardingReaction) Quest.IO.msg(guard.guardingReaction(char, this))
     }
     return false
   }
@@ -408,7 +408,7 @@ agenda.guardScenery = function (npc: any, arr: any) {
   const item = w[arr.shift()]
   if (item.scenery) return false
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  msg(arr.join(':'))
+  Quest.IO.msg(arr.join(':'))
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   if (item.loc && w[item.loc] && (w[item.loc].npc || w[item.loc].player)) npc.target = item.loc
   npc.antagonise(player)
@@ -421,7 +421,7 @@ agenda.guardSceneryNow = function (npc: any, arr: any) {
   const item = w[arr.shift()]
   if (item.scenery) return false
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  msg(arr.join(':'))
+  Quest.IO.msg(arr.join(':'))
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   if (item.loc && w[item.loc] && (w[item.loc].npc || w[item.loc].player)) npc.target = item.loc
   npc.antagonise(player)
@@ -444,7 +444,7 @@ agenda.antagonise = function (npc: any, arr: any) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     const target = w[arr[0]]
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (!target) return errormsg("Unknown target set for `antagonise` agenda item: " + arr[0])
+    if (!target) return Quest.IO.errormsg("Unknown target set for `antagonise` agenda item: " + arr[0])
     npc.antagonise(target)
   }
   return true

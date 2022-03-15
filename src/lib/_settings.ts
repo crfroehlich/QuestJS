@@ -6,6 +6,7 @@ namespace Quest {
     export const noop: TGetVoid = () => { };
 
     export interface ICustomPaneFunctions {
+      matches: any;
     }
 
     export interface IDateTime {
@@ -24,6 +25,8 @@ namespace Quest {
       alt?: string;
       test: TGetBool;
       getLoc: TGetString;
+      hasContent?: boolean;
+      noContent?: any;
     }
 
     interface IMapStyle {
@@ -247,7 +250,7 @@ namespace Quest {
         return item.isAtLoc(player.name, world.SIDE_PANE) && world.ifNotDark(item) && item.getWorn();
       }
 
-      // This is split out for io.showInTab to use
+      // This is split out for Quest.IO.io.showInTab to use
       loadCssFiles(doc = document, path = '') {
         this.loadCssFile(this.cssFolder + 'default.css', doc, path)
         for (let file of this.themes) {
@@ -312,8 +315,8 @@ namespace Quest {
           world.init()
           this.performanceLog('World initiated')
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'init' does not exist on type '{ nextid: ... Remove this comment to see the full error message
-          io.init()
-          this.performanceLog('io.init completed')
+          Quest.IO.io.init()
+          this.performanceLog('Quest.IO.io.init completed')
           return
         }
         this.scriptLoading = this.scriptToLoad?.shift()
@@ -383,7 +386,7 @@ namespace Quest {
         document.querySelector("#dialog-button").addEventListener('click', () => {
           this.startingDialogEnabled = false
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'enable' does not exist on type '{ nextid... Remove this comment to see the full error message
-          io.enable()
+          Quest.IO.io.enable()
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogOnClick' does not exist on... Remove this comment to see the full error message
           this.startingDialogOnClick()
           world.begin()
@@ -394,7 +397,7 @@ namespace Quest {
         })
 
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'disable' does not exist on type '{ nexti... Remove this comment to see the full error message
-        io.disable()
+        Quest.IO.io.disable()
         // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
         diag.show()
         // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
@@ -450,8 +453,8 @@ namespace Quest {
       silent: false,
       walkthroughMenuResponses: [],
       startingDialogEnabled: false,
-      darkModeActive: false,   // setting to true is a bad idea (use io.toggleDarkMode)
-      plainFontModeActive: false,   // setting to true is a bad idea (use io.togglePlainFontMode)
+      darkModeActive: false,   // setting to true is a bad idea (use Quest.IO.io.toggleDarkMode)
+      plainFontModeActive: false,   // setting to true is a bad idea (use Quest.IO.io.togglePlainFontMode)
       narrowMode: 0,
       mapAndImageCollapseAt: 1200,
       funcForDisambigMenu: 'showMenuWithNumbers',

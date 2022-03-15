@@ -5,22 +5,22 @@ const hintSystem = {}
 hintSystem.toWiki = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'hints' does not exist on type '{}'.
   for (const el of hintSystem.hints) {
-    blankLine()
+    Quest.IO.blankLine()
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg('***')
-    blankLine()
+    Quest.IO.msg('***')
+    Quest.IO.blankLine()
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("#### " + el.name)
+    Quest.IO.msg("#### " + el.name)
     for (const [i, value] of el.hints.entries()) {
-      blankLine()
+      Quest.IO.blankLine()
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("&lt;details>")
+      Quest.IO.msg("&lt;details>")
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg(" &lt;summary>Clue " + Quest.lang.toWords(i + 1) + "&lt;/summary>")
+      Quest.IO.msg(" &lt;summary>Clue " + Quest.lang.toWords(i + 1) + "&lt;/summary>")
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg(" " + value)
+      Quest.IO.msg(" " + value)
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("&lt;/details>")
+      Quest.IO.msg("&lt;/details>")
     }
   }
 }

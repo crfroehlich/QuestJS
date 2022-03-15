@@ -20,7 +20,7 @@ createItem("me", PLAYER(), {
   },
   examine: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("You feel fine...")
+    Quest.IO.msg("You feel fine...")
   },
   testMove: function (ex: any) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
@@ -39,12 +39,12 @@ createItem("me", PLAYER(), {
     if (room2.name === 'space') return falsemsg("The external airlock door cannot be opened while the airlock is pressurised.")
 
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("The door to " + Quest.lang.getName(room2, { article: Quest.Utilities.DEFINITE }) + " will not open while it is " + (room1.vacuum ? 'pressurised' : 'depressurised') + " and " + Quest.lang.getName(room1, { article: Quest.Utilities.DEFINITE }) + " is not.")
+    Quest.IO.msg("The door to " + Quest.lang.getName(room2, { article: Quest.Utilities.DEFINITE }) + " will not open while it is " + (room1.vacuum ? 'pressurised' : 'depressurised') + " and " + Quest.lang.getName(room1, { article: Quest.Utilities.DEFINITE }) + " is not.")
     return false
   },
   spray: function (char: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("You spray sealant on yourself.")
+    Quest.IO.msg("You spray sealant on yourself.")
   },
 })
 
@@ -62,13 +62,13 @@ createItem("your_jumpsuit", WEARABLE(2, ["body"]), {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'stasis_pod_drawer' does not exist on typ... Remove this comment to see the full error message
       w.stasis_pod_drawer.closed = true
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("The stasis pod drawer slides shut.");
+      Quest.IO.msg("The stasis pod drawer slides shut.");
     }
   },
   sprayCount: 2,
   spray: function (char: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("")
+    Quest.IO.msg("")
   },
 });
 
@@ -82,7 +82,7 @@ createItem("your_underwear", WEARABLE(1, ["body"]), {
   examine: "Your underwear is standard issue; white and functional.",
   spray: function (char: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("")
+    Quest.IO.msg("")
   },
 });
 
@@ -128,7 +128,7 @@ createItem("pile_of_vomit", {
   examine: "A large splat of vomit, it stinks. You decide not to look too closely. You already know what you ate last, so what is the point?",
   spray: function (char: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("")
+    Quest.IO.msg("")
   },
 });
 
@@ -141,7 +141,7 @@ createItem("stasis_pod", {
   examine: "Externally, the pods are rather less like coffins, as the sides are thick with the stasis equipment, and flared towards the floor. Each stasis pod is about waist height. {stasis_pod_status}{ifHere:pile_of_vomit: One has a slight splattering of vomit.}",
   spray: function (char: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("")
+    Quest.IO.msg("")
   },
 });
 
@@ -162,16 +162,16 @@ createItem("stasis_locker", CONTAINER(true), {
   examine: function () {
     if (this.closed) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("This metal locker is taller than you, and just as wide; it is where spacesuits are stored{once: - if there is an emergency, you want the spacesuits by the stasis pods}.");
+      Quest.IO.msg("This metal locker is taller than you, and just as wide; it is where spacesuits are stored{once: - if there is an emergency, you want the spacesuits by the stasis pods}.");
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("This metal locker is taller than you, and just as wide; it is where spacesuits are stored. You can see {contents:stasis_locker:,:and:nothing} stored in it.")
+      Quest.IO.msg("This metal locker is taller than you, and just as wide; it is where spacesuits are stored. You can see {contents:stasis_locker:,:and:nothing} stored in it.")
     }
   },
   spray: function (char: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("")
+    Quest.IO.msg("")
   },
 });
 
@@ -185,13 +185,13 @@ createItem("your_spacesuit", WEARABLE(2, ["body"]), {
   examine: "Your spacesuit is a pale grey colour, with bright yellow flashes on the arms and legs for visibility. It says \"{show:player:alias}\" on the back.",
   spray: function (char: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("")
+    Quest.IO.msg("")
   },
   testRemove: function (char: any) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     if (isRoomPressured(w[char.loc])) return true
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("{nv:char:start:true} to unseal {pa:char} spacesuit... There is a hissing sound, and suddenly {nv:char:be} struggling for breath. Quickly, {nv:char:seal:true} it up again. Perhaps taking a spacesuit off in a vacuum is not such a good idea?")
+    Quest.IO.msg("{nv:char:start:true} to unseal {pa:char} spacesuit... There is a hissing sound, and suddenly {nv:char:be} struggling for breath. Quickly, {nv:char:seal:true} it up again. Perhaps taking a spacesuit off in a vacuum is not such a good idea?")
     return false
   }
 })
@@ -204,7 +204,7 @@ createItem("other_spacesuit", WEARABLE(2, ["body"]), {
   examine: "The other spacesuit is identical to your own, except it does not have your name on the back.",
   spray: function (char: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("")
+    Quest.IO.msg("")
   },
 });
 
@@ -217,7 +217,7 @@ createItem("spray_sealant", TAKEABLE(), {
   read: "You read the label on the can: \"No-Leak Sealant is a high performance foam sealant suitable for emergency use in space. It can be used to seal holes up to 30 mm side and 200 mm long, and is designed to maintain integrity for up to 24 hours. Typically one can is sufficient for five holes. WARNING: Highly flammable. Do not ingest. Do not breath fumes.\"",
   spray: function (char: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    metamsg("Spray the spray with the spray? Not going to happen.")
+    Quest.IO.metamsg("Spray the spray with the spray? Not going to happen.")
     this.uses++
     return world.FAILED
   },
@@ -241,14 +241,14 @@ createRoom("stasis_pod_room", {
   out: new Exit('stasis_bay', {
     use: function () {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("You climb out of the stasis pod.");
+      Quest.IO.msg("You climb out of the stasis pod.");
       player.moveChar(this);
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'your_jumpsuit' does not exist on type '{... Remove this comment to see the full error message
       if (w.your_jumpsuit.loc === "stasis_pod_drawer") {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'stasis_pod_drawer' does not exist on typ... Remove this comment to see the full error message
         w.stasis_pod_drawer.loc = "stasis_bay";
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("A drawer under the pod slides open to reveal your jumpsuit.");
+        Quest.IO.msg("A drawer under the pod slides open to reveal your jumpsuit.");
       }
       return true;
     }
@@ -273,13 +273,13 @@ createItem("stasis_pod_interior",
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
       if (w.Kyle.deployProbeAction < 5) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("You give pod lid a pull, and it starts to descend for a moment, before stopping. 'Commander,' says Xsensi, 'closing the lid of a stasis pod will put you back in stasis. That is not permitted until the satellite is deployed, and not advised until probes have been deployed and data collected.' The lid rises to its fully open position.");
+        Quest.IO.msg("You give pod lid a pull, and it starts to descend for a moment, before stopping. 'Commander,' says Xsensi, 'closing the lid of a stasis pod will put you back in stasis. That is not permitted until the satellite is deployed, and not advised until probes have been deployed and data collected.' The lid rises to its fully open position.");
         return false;
       }
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'your_jumpsuit' does not exist on type '{... Remove this comment to see the full error message
       if (w.your_jumpsuit.loc === player.name) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("You give pod lid a pull, and it starts to descend for a moment, before stopping. 'Commander,' says Xsensi, 'your jumpsuit should be left outside the pod when going into stasis.' The lid rises to its fully open position.");
+        Quest.IO.msg("You give pod lid a pull, and it starts to descend for a moment, before stopping. 'Commander,' says Xsensi, 'your jumpsuit should be left outside the pod when going into stasis.' The lid rises to its fully open position.");
         return false;
       }
 
@@ -288,8 +288,8 @@ createItem("stasis_pod_interior",
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'stasis_pod_drawer' does not exist on typ... Remove this comment to see the full error message
       w.stasis_pod_drawer.scenery = true;
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("You give pod lid a pull, and it starts to descend, sealing you in. You feel a sharp pain in your shoulder, and almost immediately you start to feel sleepy... so sleepy you cannot keep your eyes open.")
-      hr()
+      Quest.IO.msg("You give pod lid a pull, and it starts to descend, sealing you in. You feel a sharp pain in your shoulder, and almost immediately you start to feel sleepy... so sleepy you cannot keep your eyes open.")
+      Quest.IO.hr()
       arrival()
       // MORE STUFF HERE ???
       return true
@@ -717,7 +717,7 @@ createRoom("space", {
   starboard: new Exit("_", {
     alsoDir: ["out"], use: function () {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("You feel a sudden urge to be free, and push away from the ship... No! That would be a bad idea! You would drift forever. You cling desperately to the handle. What were you thinking?")
+      Quest.IO.msg("You feel a sudden urge to be free, and push away from the ship... No! That would be a bad idea! You would drift forever. You cling desperately to the handle. What were you thinking?")
       return false
     }
   }),
@@ -807,11 +807,11 @@ createItem("probe_prototype", COUNTABLE([]), {
 
     if (number === 1) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'Launch a " + char.probeType + ",' you say to " + Quest.lang.getName(char, { article: Quest.Utilities.DEFINITE }) + ".")
+      Quest.IO.msg("'Launch a " + char.probeType + ",' you say to " + Quest.lang.getName(char, { article: Quest.Utilities.DEFINITE }) + ".")
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'Launch " + number + " " + char.probeType + "s,' you say to " + Quest.lang.getName(char, { article: Quest.Utilities.DEFINITE }) + ".")
+      Quest.IO.msg("'Launch " + number + " " + char.probeType + "s,' you say to " + Quest.lang.getName(char, { article: Quest.Utilities.DEFINITE }) + ".")
     }
     if (number > char.probesRemaining) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -821,21 +821,21 @@ createItem("probe_prototype", COUNTABLE([]), {
     if (char.probeType === 'satellite') {
       if (number > (2 - char.deployProbeTotal)) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Are you sure? Protocol says we should deploy no more than two around a single planet.'");
+        Quest.IO.msg("'Are you sure? Protocol says we should deploy no more than two around a single planet.'");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Hey, I'm the captain. It's my bonus on the line here. Get those satellites deployed.'");
+        Quest.IO.msg("'Hey, I'm the captain. It's my bonus on the line here. Get those satellites deployed.'");
       }
     }
     else if (number > (5 - char.deployProbeTotal)) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'Are you sure? Protocol says we should deploy no more than five on a single planet.'");
+      Quest.IO.msg("'Are you sure? Protocol says we should deploy no more than five on a single planet.'");
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'Hey, I'm the captain. It's my bonus on the line here. Get those probes deployed.'");
+      Quest.IO.msg("'Hey, I'm the captain. It's my bonus on the line here. Get those probes deployed.'");
     }
 
     if (char.deployProbeAction === 0 || char.deployProbeAction === 4) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'Okay captain.'");
+      Quest.IO.msg("'Okay captain.'");
       char.setAgenda(["walkTo:probes_aft:" + Quest.lang.getName(char, { article: Quest.Utilities.DEFINITE }) + " goes to the probe deployment console.", "text:deployProbe:" + number])
       char.deployProbeAction = 0;
       char.deployProbeCount = 0;
@@ -845,7 +845,7 @@ createItem("probe_prototype", COUNTABLE([]), {
       // skip walking there, skip first deploy action
       // the old number should be replaced
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'Okay captain.'");
+      Quest.IO.msg("'Okay captain.'");
       char.setAgenda(["text:deployProbe:" + number])
       char.deployProbeAction = 1;
     }

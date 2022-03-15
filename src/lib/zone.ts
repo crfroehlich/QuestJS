@@ -17,7 +17,7 @@ const zoneExit = function (this: any, char: any, exit: any) {
       if (el.blocking) return falsemsg(el.blockedmsg || Quest.lang.not_that_way, tpParams)
       if (el.isLocked) return falsemsg(el.lockedmsg || Quest.lang.locked_exit, tpParams)
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(el.msg || Quest.lang.go_successful, tpParams)
+      Quest.IO.msg(el.msg || Quest.lang.go_successful, tpParams)
       this.origin.afterZoneEixit(dir)
       // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
       char.moveChar(new Exit(el.dest, exit))
@@ -26,7 +26,7 @@ const zoneExit = function (this: any, char: any, exit: any) {
   }
 
   // If the direction is "in", "up", or "down", just say no
-  if (this.origin.defaultToBlocked || this.data.type !== 'compass') return failedmsg(Quest.lang.not_that_way, { char: char, dir: this.dir })
+  if (this.origin.defaultToBlocked || this.data.type !== 'compass') return Quest.IO.failedmsg(Quest.lang.not_that_way, { char: char, dir: this.dir })
 
 
   // Check if a feature blocks the way
@@ -50,9 +50,9 @@ const zoneExit = function (this: any, char: any, exit: any) {
   char.positionX = newX
   char.positionY = newY
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  msg(Quest.lang.stop_posture(char));
+  Quest.IO.msg(Quest.lang.stop_posture(char));
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-  msg(Quest.lang.go_successful, { char: char, dir: dir });
+  Quest.IO.msg(Quest.lang.go_successful, { char: char, dir: dir });
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
   char.moveChar(new Exit(this.origin.name, exit))
 
@@ -322,7 +322,7 @@ const ZONE = function (defaultToBlocked: any) {
     const svgSize = (this.size * 2 + 1) * this.cellSize
     if (this.mapBorder) map.push('<rect x="0" y="0" width="' + svgSize + '" height="' + svgSize + '" stroke="black" fill="none"/>')
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
-    draw(svgSize, svgSize, map)
+    Quest.IO.draw(svgSize, svgSize, map)
     return true
   }
 

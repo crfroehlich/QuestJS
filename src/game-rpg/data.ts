@@ -14,7 +14,7 @@ createItem("me", RPG_PLAYER(), {
     offensiveBonus: 3,
     examine: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("A " + (this.isFemale ? "chick" : "guy") + " called " + this.alias);
+        Quest.IO.msg("A " + (this.isFemale ? "chick" : "guy") + " called " + this.alias);
     },
 })
 
@@ -202,7 +202,7 @@ createItem("orc", RPG_NPC(false), {
     signalResponses: {
         wake: function () {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            msg("He rolls over and goes back to sleep.")
+            Quest.IO.msg("He rolls over and goes back to sleep.")
         },
     },
 });
@@ -232,12 +232,12 @@ createItem("rabbit", RPG_BEAST(false), {
         switch (this.talkto_count) {
             case 0:
                 // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-                msg("You say 'Hello,' to the rabbit, 'how is it going?'");
+                Quest.IO.msg("You say 'Hello,' to the rabbit, 'how is it going?'");
                 // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-                msg("The rabbit looks at you. 'Need carrots.' It looks plaintively at it round tummy. 'Fading away bunny!");
+                Quest.IO.msg("The rabbit looks at you. 'Need carrots.' It looks plaintively at it round tummy. 'Fading away bunny!");
                 break;
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            default: msg("You wonder what you can talk to the rabbit about."); break;
+            default: Quest.IO.msg("You wonder what you can talk to the rabbit about."); break;
         }
         return true
     },

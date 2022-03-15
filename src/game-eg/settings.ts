@@ -61,7 +61,7 @@ Quest.Settings.settings.setup = function () {
   player.hitpoints = 20;
   player.status = "You are feeling fine";
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'updateStatus' does not exist on type '{ ... Remove this comment to see the full error message
-  io.updateStatus()
+  Quest.IO.io.updateStatus()
 }
 
 //Quest.Settings.settings.libraries.push('item_links')

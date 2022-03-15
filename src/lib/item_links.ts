@@ -80,7 +80,7 @@ This means if the item changes its alias, the text could get changed.
 //@UNDOC
 const itemLinks = {}
 // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '{}' is not assignable to paramet... Remove this comment to see the full error message
-io.modulesToUpdate.push(itemLinks)
+Quest.IO.io.modulesToUpdate.push(itemLinks)
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'update' does not exist on type '{}'.
 itemLinks.update = function () {
@@ -149,7 +149,7 @@ itemLinks.itemClick = function (el) {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'itemLinkClick' does not exist on type '{... Remove this comment to see the full error message
 itemLinks.itemLinkClick = function (el) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'toggleDisplay' does not exist on type '{... Remove this comment to see the full error message
-  io.toggleDisplay(el.parentNode.parentNode)
+  Quest.IO.io.toggleDisplay(el.parentNode.parentNode)
   Quest.Utilities.runCmd(el.dataset.linkverb + ' ' + el.dataset.objalias)
 }
 

@@ -91,12 +91,12 @@ class Attack {
     //log(attack.reportText)
     //log({attacker:attacker, skill:attack.skill, target:attack.primaryTargets[0], source:source})
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg(attack.reportText, { attacker: attacker, skill: attack.skill, target: attack.primaryTargets[0], source: source })
+    Quest.IO.msg(attack.reportText, { attacker: attacker, skill: attack.skill, target: attack.primaryTargets[0], source: source })
 
     // Get the weapon (for most monsters, the monster IS the weapon)
     // Base the attack on the weapon
     // Some skills use no weapon
-    attack.msg('Offensive bonus', 4)
+    attack.Quest.IO.msg('Offensive bonus', 4)
     if (attack.skill.noWeapon) {
       attack.offensiveBonus = attack.skill.offensiveBonus
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'damage' does not exist on type 'Attack'.
@@ -219,7 +219,6 @@ class Attack {
       this.msg("Automatic success", 4)
     }
     else {
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'int' does not exist on type '{ buffer: n... Remove this comment to see the full error message
       this.roll = Quest.Random.rndm.int(1, 20)
       this.defensiveBonus = target.getDefensiveBonus(this.skill)
       this.result = this.offensiveBonus - this.defensiveBonus + this.roll
@@ -318,7 +317,6 @@ class Attack {
   }
 
   report(s: any, n: any) {
-    // @ts-expect-error ts-migrate(2550) FIXME: Property 'padStart' does not exist on type 'string... Remove this comment to see the full error message
     this.msg(s.padEnd(25) + ('' + n).padStart(3), 4)
   }
 
@@ -334,7 +332,7 @@ class Attack {
     const regexMatch = /^(\d*)d(\d+)([\+|\-]\d+)?$/i.exec(string);
     if (regexMatch === null) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      errormsg('Weapon ' + this.weapon.name + ' has a bad damage attribute: ' + string)
+      Quest.IO.errormsg('Weapon ' + this.weapon.name + ' has a bad damage attribute: ' + string)
       return;
     }
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
@@ -385,7 +383,7 @@ class Attack {
     for (let el of source.activeEffects) {
       const effect = rpg.findEffect(el)
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      if (!effect) return errormsg("applyActiveEffects: Failed to find skill [" + el + "]")
+      if (!effect) return Quest.IO.errormsg("applyActiveEffects: Failed to find skill [" + el + "]")
       if (outgoing) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'modifyOutgoingAttack' does not exist on ... Remove this comment to see the full error message
         if (effect.modifyOutgoingAttack) effect.modifyOutgoingAttack(this, source)

@@ -81,14 +81,14 @@ createItem("encyclopedia", {
     if (s.length === 0) return
     if (s.length < 3) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("On your PAGE you search for \"" + s + "\", but get over a billion hits. Perhaps search for something a few more characters long?")
+      Quest.IO.msg("On your PAGE you search for \"" + s + "\", but get over a billion hits. Perhaps search for something a few more characters long?")
       return
     }
     const regex = RegExp(s, 'i')
     for (const key in encyclopedia) {
       if (regex.test(key)) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        if (!fromLink) msg("On your PAGE you search for \"" + s + "\".")
+        if (!fromLink) Quest.IO.msg("On your PAGE you search for \"" + s + "\".")
         let strs = []
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'encyclopedia' does not exist on type '{}... Remove this comment to see the full error message
         if (Quest.Utilities.doOnce(w.encyclopedia, 'Encyclopaedia')) {
@@ -110,17 +110,17 @@ createItem("encyclopedia", {
             strs.push(w.encyclopedia.expandRefs(s))
           }
         }
-        msgDiv(strs, {}, 'encyclopedia')
+        Quest.IO.msgDiv(strs, {}, 'encyclopedia')
         return true
       }
     }
     if (fromLink) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("The link seems to be broken; you wondeer if you should report it to someone....")
+      Quest.IO.msg("The link seems to be broken; you wondeer if you should report it to someone....")
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("On your PAGE you search for \"" + s + "\", but find nothing of interest.")
+      Quest.IO.msg("On your PAGE you search for \"" + s + "\", but find nothing of interest.")
     }
     return false
   },

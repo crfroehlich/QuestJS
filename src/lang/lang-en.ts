@@ -543,7 +543,7 @@ namespace Quest {
       let s = typeof flag === 'string' ? flag + " {nv:npc:leave}" : "{nv:npc:leave:true}"
       s += " {nm:room:the}, heading {show:dir}."
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(s, { room: exit.origin, npc: npc, dir: exit.dir })
+      Quest.IO.msg(s, { room: exit.origin, npc: npc, dir: exit.dir })
     },
 
     // the NPC has already been moved, so npc.loc is the destination
@@ -555,7 +555,7 @@ namespace Quest {
       let s = typeof flag === 'string' ? flag + " {nv:npc:enter}" : "{nv:npc:enter:true}"
       s += " {nm:room:the} from {show:dir}."
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(s, { room: w[exit.name], npc: npc, dir: exit.reverseNice() })
+      Quest.IO.msg(s, { room: w[exit.name], npc: npc, dir: exit.reverseNice() })
     },
 
     //----------------------------------------------------------------------------------------------
@@ -606,80 +606,80 @@ namespace Quest {
     helpScript: function () {
       if (Quest.Settings.settings.textInput) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg("Type commands in the command bar to interact with the world.");
+        Quest.IO.metamsg("Type commands in the command bar to interact with the world.");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg("{b:Movement:} To move, use the eight compass directions (or just {class:help-eg:N}, {class:help-eg:NE}, etc.). When \"Num Lock\" is on, you can use the number pad for all eight compass directions. Also try - and + for {class:help-eg:UP} and {class:help-eg:DOWN}, / and * for {class:help-eg:IN} and {class:help-eg:OUT}.");
+        Quest.IO.metamsg("{b:Movement:} To move, use the eight compass directions (or just {class:help-eg:N}, {class:help-eg:NE}, etc.). When \"Num Lock\" is on, you can use the number pad for all eight compass directions. Also try - and + for {class:help-eg:UP} and {class:help-eg:DOWN}, / and * for {class:help-eg:IN} and {class:help-eg:OUT}.");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg("{b:Other commands:} You can also {class:help-eg:LOOK} (or just {class:help-eg:L} or 5 on the number pad), {class:help-eg:HELP} (or {class:help-eg:?}) or {class:help-eg:WAIT} (or {class:help-eg:Z} or the dot on the number pad). Other commands are generally of the form {class:help-eg:GET HAT} or {class:help-eg:PUT THE BLUE TEAPOT IN THE ANCIENT CHEST}. Experiment and see what you can do!");
+        Quest.IO.metamsg("{b:Other commands:} You can also {class:help-eg:LOOK} (or just {class:help-eg:L} or 5 on the number pad), {class:help-eg:HELP} (or {class:help-eg:?}) or {class:help-eg:WAIT} (or {class:help-eg:Z} or the dot on the number pad). Other commands are generally of the form {class:help-eg:GET HAT} or {class:help-eg:PUT THE BLUE TEAPOT IN THE ANCIENT CHEST}. Experiment and see what you can do!");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg("{b:Using items: }You can use {class:help-eg:ALL} and {class:help-eg:ALL BUT} with some commands, for example {class:help-eg:TAKE ALL}, and {class:help-eg:PUT ALL BUT SWORD IN SACK}. You can also use pronouns, so {class:help-eg:LOOK AT MARY}, then {class:help-eg:TALK TO HER}. The pronoun will refer to the last subject in the last successful command, so after {class:help-eg:PUT HAT AND FUNNY STICK IN THE DRAWER}, '{class:help-eg:IT}' will refer to the funny stick (the hat and the stick are subjects of the sentence, the drawer was the object).");
+        Quest.IO.metamsg("{b:Using items: }You can use {class:help-eg:ALL} and {class:help-eg:ALL BUT} with some commands, for example {class:help-eg:TAKE ALL}, and {class:help-eg:PUT ALL BUT SWORD IN SACK}. You can also use pronouns, so {class:help-eg:LOOK AT MARY}, then {class:help-eg:TALK TO HER}. The pronoun will refer to the last subject in the last successful command, so after {class:help-eg:PUT HAT AND FUNNY STICK IN THE DRAWER}, '{class:help-eg:IT}' will refer to the funny stick (the hat and the stick are subjects of the sentence, the drawer was the object).");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg("{b:Characters: }If you come across another character, you can ask him or her to do something. Try things like {class:help-eg:MARY,PUT THE HAT IN THE BOX}, or {class:help-eg:TELL MARY TO GET ALL BUT THE KNIFE}. Depending on the game you may be able to {class:help-eg:TALK TO} a character, to {class:help-eg:ASK} or {class:help-eg:TELL} a character {class:help-eg:ABOUT} a topic, or just {class:help-eg:SAY} something and they will respond..");
+        Quest.IO.metamsg("{b:Characters: }If you come across another character, you can ask him or her to do something. Try things like {class:help-eg:MARY,PUT THE HAT IN THE BOX}, or {class:help-eg:TELL MARY TO GET ALL BUT THE KNIFE}. Depending on the game you may be able to {class:help-eg:TALK TO} a character, to {class:help-eg:ASK} or {class:help-eg:TELL} a character {class:help-eg:ABOUT} a topic, or just {class:help-eg:SAY} something and they will respond..");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg("{b:Meta-commands:} Type {class:help-eg:ABOUT} to find out about the author, {class:help-eg:SCRIPT} to learn about transcripts or {class:help-eg:SAVE} to learn about saving games. Use {class:help-eg:WARNINGS} to see any applicable sex, violence or trigger warnings.")
+        Quest.IO.metamsg("{b:Meta-commands:} Type {class:help-eg:ABOUT} to find out about the author, {class:help-eg:SCRIPT} to learn about transcripts or {class:help-eg:SAVE} to learn about saving games. Use {class:help-eg:WARNINGS} to see any applicable sex, violence or trigger warnings.")
         let s = "You can also use {class:help-eg:BRIEF/TERSE/VERBOSE} to control room descriptions. Use {class:help-eg:SILENT} to toggle sounds and music (if implemented)."
         if (typeof map !== "undefined") s += " Use {class:help-eg:MAP} to toggle/show the map."
         if (typeof imagePane !== "undefined") s += " Use {class:help-eg:IMAGES} to toggle/show the image pane."
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg(s)
+        Quest.IO.metamsg(s)
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg("{b:Accessibility:} Type {class:help-eg:DARK} to toggle dark mode or {class:help-eg:SPOKEN} to toggle the text being read out. Use {class:help-eg:FONT} to toggle replacing all the fonts the author carefully chose to a standard sans-serif font. Use {class:help-eg:SCROLL} to toggle whether the text automatically scrolling.")
+        Quest.IO.metamsg("{b:Accessibility:} Type {class:help-eg:DARK} to toggle dark mode or {class:help-eg:SPOKEN} to toggle the text being read out. Use {class:help-eg:FONT} to toggle replacing all the fonts the author carefully chose to a standard sans-serif font. Use {class:help-eg:SCROLL} to toggle whether the text automatically scrolling.")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg("{b:Mobile:} If you are on a mobile phone, type {class:help-eg:NARROW} to reduce the width of the text. Type it again to reduce it even more, and a third time to go back to standard width.")
+        Quest.IO.metamsg("{b:Mobile:} If you are on a mobile phone, type {class:help-eg:NARROW} to reduce the width of the text. Type it again to reduce it even more, and a third time to go back to standard width.")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg("{b:Shortcuts:} You can often just type the first few characters of an item's name and Quest will guess what you mean.  If fact, if you are in a room with Brian, who is holding a ball, and a box, Quest should be able to work out that {class:help-eg:B,PUT B IN B} mean you want Brian to put the ball in the box.")
+        Quest.IO.metamsg("{b:Shortcuts:} You can often just type the first few characters of an item's name and Quest will guess what you mean.  If fact, if you are in a room with Brian, who is holding a ball, and a box, Quest should be able to work out that {class:help-eg:B,PUT B IN B} mean you want Brian to put the ball in the box.")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg("You can use the up and down arrows to scroll back though your previous typed commands - especially useful if you realise you spelled something wrong. If you do not have arrow keys, use {class:help-eg:OOPS} to retrieve the last typed command so you can edit it. Use {class:help-eg:AGAIN} or just {class:help-eg:G} to repeat the last typed command.")
+        Quest.IO.metamsg("You can use the up and down arrows to scroll back though your previous typed commands - especially useful if you realise you spelled something wrong. If you do not have arrow keys, use {class:help-eg:OOPS} to retrieve the last typed command so you can edit it. Use {class:help-eg:AGAIN} or just {class:help-eg:G} to repeat the last typed command.")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg("See also {link:here:https://github.com/ThePix/QuestJS/wiki/How-To-Play} for more details, which will open in a new tab.")
+        Quest.IO.metamsg("See also {link:here:https://github.com/ThePix/QuestJS/wiki/How-To-Play} for more details, which will open in a new tab.")
       }
       if (Quest.Settings.settings.panes !== "none") {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'inventoryPane' does not exist on type '{... Remove this comment to see the full error message
         if (Quest.Settings.settings.inventoryPane) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-          metamsg("{b:User Interface:} To interact with an object, click on its name in the side pane, and a set of possible actions will appear under it. Click on the appropriate action.")
+          Quest.IO.metamsg("{b:User Interface:} To interact with an object, click on its name in the side pane, and a set of possible actions will appear under it. Click on the appropriate action.")
         }
         if (Quest.Settings.settings.compassPane) {
           if (Quest.Settings.settings.symbolsForCompass) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-            metamsg("You can also use the compass rose at the top to move around. Click the eye symbol, &#128065;, to look at you current location, the clock symbol to wait or &#128712; for help.")
+            Quest.IO.metamsg("You can also use the compass rose at the top to move around. Click the eye symbol, &#128065;, to look at you current location, the clock symbol to wait or &#128712; for help.")
           }
           else {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-            metamsg("You can also use the compass rose at the top to move around. Click 'Lk' to look at you current location, 'Z' to wait or '?' for help.")
+            Quest.IO.metamsg("You can also use the compass rose at the top to move around. Click 'Lk' to look at you current location, 'Z' to wait or '?' for help.")
           }
         }
       }
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'additionalHelp' does not exist on type '... Remove this comment to see the full error message
       if (Quest.Settings.settings.additionalHelp !== undefined) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'additionalHelp' does not exist on type '... Remove this comment to see the full error message
-        for (const s of Quest.Settings.settings.additionalHelp) metamsg(s)
+        for (const s of Quest.Settings.settings.additionalHelp) Quest.IO.metamsg(s)
       }
       return world.SUCCESS_NO_TURNSCRIPTS
     },
 
     hintScript: function () {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      metamsg("Sorry, no hints available.")
+      Quest.IO.metamsg("Sorry, no hints available.")
       return world.SUCCESS_NO_TURNSCRIPTS
     },
 
     aboutScript: function () {
-      metamsg("{i:{show:settings:title} version {show:settings:version}} was written by {show:settings:author} using QuestJS (Quest 6) version {show:settings:questVersion}.", { settings: settings })
+      Quest.IO.metamsg("{i:{show:settings:title} version {show:settings:version}} was written by {show:settings:author} using QuestJS (Quest 6) version {show:settings:questVersion}.", { settings: settings })
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'ifdb' does not exist on type '{ performa... Remove this comment to see the full error message
-      if (Quest.Settings.settings.ifdb) metamsg("IFDB number: " + Quest.Settings.settings.ifdb)
+      if (Quest.Settings.settings.ifdb) Quest.IO.metamsg("IFDB number: " + Quest.Settings.settings.ifdb)
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'thanks' does not exist on type '{ perfor... Remove this comment to see the full error message
       if (Quest.Settings.settings.thanks && Quest.Settings.settings.thanks.length > 0) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg("{i:Thanks to:} " + Quest.Utilities.formatList(Quest.Settings.settings.thanks, { lastJoiner: lang.list_and }) + ".")
+        Quest.IO.metamsg("{i:Thanks to:} " + Quest.Utilities.formatList(Quest.Settings.settings.thanks, { lastJoiner: lang.list_and }) + ".")
       }
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'additionalAbout' does not exist on type ... Remove this comment to see the full error message
       if (Quest.Settings.settings.additionalAbout !== undefined) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'additionalAbout' does not exist on type ... Remove this comment to see the full error message
-        for (const key in Quest.Settings.settings.additionalAbout) metamsg('{i:' + key + ':} ' + Quest.Settings.settings.additionalAbout[key])
+        for (const key in Quest.Settings.settings.additionalAbout) Quest.IO.metamsg('{i:' + key + ':} ' + Quest.Settings.settings.additionalAbout[key])
       }
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'ifid' does not exist on type '{ performa... Remove this comment to see the full error message
-      if (Quest.Settings.settings.ifid) metamsg("{i:IFDB number:} " + Quest.Settings.settings.ifid)
+      if (Quest.Settings.settings.ifid) Quest.IO.metamsg("{i:IFDB number:} " + Quest.Settings.settings.ifid)
       return world.SUCCESS_NO_TURNSCRIPTS
     },
 
@@ -687,11 +687,11 @@ namespace Quest {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'warnings' does not exist on type '{ perf... Remove this comment to see the full error message
       switch (typeof Quest.Settings.settings.warnings) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        case 'undefined': metamsg('No warning have been set for this game.'); break;
+        case 'undefined': Quest.IO.metamsg('No warning have been set for this game.'); break;
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        case 'string': metamsg(Quest.Settings.settings.warnings); break;
+        case 'string': Quest.IO.metamsg(Quest.Settings.settings.warnings); break;
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'warnings' does not exist on type '{ perf... Remove this comment to see the full error message
-        default: for (const el of Quest.Settings.settings.warnings) metamsg(el)
+        default: for (const el of Quest.Settings.settings.warnings) Quest.IO.metamsg(el)
       }
       return world.SUCCESS_NO_TURNSCRIPTS;
     },
@@ -700,32 +700,32 @@ namespace Quest {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'localStorageDisabled' does not exist on ... Remove this comment to see the full error message
       if (!Quest.Settings.settings.localStorageDisabled) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg("QuestJS offers players two ways to save your progress - to LocalStorage or to file.")
+        Quest.IO.metamsg("QuestJS offers players two ways to save your progress - to LocalStorage or to file.")
 
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg("{b:Saving To LocalStorage}")
+        Quest.IO.metamsg("{b:Saving To LocalStorage}")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg("LocalStorage is a part of your computer the browser has set aside; this is the easier way to save.")
+        Quest.IO.metamsg("LocalStorage is a part of your computer the browser has set aside; this is the easier way to save.")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg("Note, however, that if you clear your browsing data (or have your browser set to do so automatically when the browser is closed) you will lose your saved games. There is also a limit to how much can be saved to LocalStorage, and if this is a big game, you may not be allowed to save to LocalStorage.")
+        Quest.IO.metamsg("Note, however, that if you clear your browsing data (or have your browser set to do so automatically when the browser is closed) you will lose your saved games. There is also a limit to how much can be saved to LocalStorage, and if this is a big game, you may not be allowed to save to LocalStorage.")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg("To save your progress to LocalStorage, type {class:help-eg:SAVE [filename]}. By default, if you have already saved the game, you will not be permitted to save with the same filename, to prevent you accidentally saving when you meant to load. However, you can overwrite a file with the same name by using {class:help-eg:SAVE [filename] OVERWRITE} or just {class:help-eg:SAVE [filename] OW}.");
+        Quest.IO.metamsg("To save your progress to LocalStorage, type {class:help-eg:SAVE [filename]}. By default, if you have already saved the game, you will not be permitted to save with the same filename, to prevent you accidentally saving when you meant to load. However, you can overwrite a file with the same name by using {class:help-eg:SAVE [filename] OVERWRITE} or just {class:help-eg:SAVE [filename] OW}.");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg("To load your game, refresh/reload this page in your browser, then type {class:help-eg:LOAD [filename]}.");
+        Quest.IO.metamsg("To load your game, refresh/reload this page in your browser, then type {class:help-eg:LOAD [filename]}.");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg("To see a list of all your QuestJS save games, type {class:help-eg:DIR} or {class:help-eg:LS}. You can delete a saved file with {class:help-eg:DELETE [filename]} or {class:help-eg:DEL [filename]}.")
+        Quest.IO.metamsg("To see a list of all your QuestJS save games, type {class:help-eg:DIR} or {class:help-eg:LS}. You can delete a saved file with {class:help-eg:DELETE [filename]} or {class:help-eg:DEL [filename]}.")
 
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg("{b:Saving To File}")
+        Quest.IO.metamsg("{b:Saving To File}")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg("Alternatively you can save the game as a file on your computer. It is a little more hassle, but probably more reliable.")
+        Quest.IO.metamsg("Alternatively you can save the game as a file on your computer. It is a little more hassle, but probably more reliable.")
       }
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      metamsg("To save your progress to file, type {class:help-eg:FSAVE [filename]}. The file will be saved to wherever downloaded files get saved on your computer. If there is already a file with that name, the browser will probably append a number to the name.");
+      Quest.IO.metamsg("To save your progress to file, type {class:help-eg:FSAVE [filename]}. The file will be saved to wherever downloaded files get saved on your computer. If there is already a file with that name, the browser will probably append a number to the name.");
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      metamsg("To load your game, refresh/reload this page in your browser, then type {class:help-eg:FLOAD}. A dialog will open up, allowing you to navigate to the downloads folder and select your file.")
+      Quest.IO.metamsg("To load your game, refresh/reload this page in your browser, then type {class:help-eg:FLOAD}. A dialog will open up, allowing you to navigate to the downloads folder and select your file.")
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      metamsg("There is no built-in facility to list or delete games saved as files, though you can delete through your normal file manager.")
+      Quest.IO.metamsg("There is no built-in facility to list or delete games saved as files, though you can delete through your normal file manager.")
 
       return world.SUCCESS_NO_TURNSCRIPTS;
     },
@@ -734,17 +734,17 @@ namespace Quest {
 
     transcriptScript: function () {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      metamsg("The TRANSCRIPT or SCRIPT commands can be used to handle recording the input and output. This can be very useful when testing a game, as the author can go back through it and see exactly what happened, and how the user got there.")
+      Quest.IO.metamsg("The TRANSCRIPT or SCRIPT commands can be used to handle recording the input and output. This can be very useful when testing a game, as the author can go back through it and see exactly what happened, and how the user got there.")
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      metamsg("Use SCRIPT ON to turn on recording and SCRIPT OFF to turn it off. To clear the stored data, use SCRIPT CLEAR. To clear the old data and turn recording on in one step, use SCRIPT START.")
+      Quest.IO.metamsg("Use SCRIPT ON to turn on recording and SCRIPT OFF to turn it off. To clear the stored data, use SCRIPT CLEAR. To clear the old data and turn recording on in one step, use SCRIPT START.")
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      metamsg("Use SCRIPT SHOW to display it - it will appear in a new tab; you will not lose your place in the game. Some browsers (Firefox especially) may block the new tab, but will probably give the option to allow it in a banner at the top. You will probably need to do the command again.")
+      Quest.IO.metamsg("Use SCRIPT SHOW to display it - it will appear in a new tab; you will not lose your place in the game. Some browsers (Firefox especially) may block the new tab, but will probably give the option to allow it in a banner at the top. You will probably need to do the command again.")
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      metamsg("You can add a comment to the transcript by starting your text with an asterisk, {code:*}, or semi-colon, {code:;}, - Quest will record it, but otherwise just ignore it.")
+      Quest.IO.metamsg("You can add a comment to the transcript by starting your text with an asterisk, {code:*}, or semi-colon, {code:;}, - Quest will record it, but otherwise just ignore it.")
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      metamsg("Everything gets saved to \"LocalStorage\", so will be saved between sessions. If you complete the game the text input will disappear, however if you have a transcript recording, a link will be available to access it.");
+      Quest.IO.metamsg("Everything gets saved to \"LocalStorage\", so will be saved between sessions. If you complete the game the text input will disappear, however if you have a transcript recording, a link will be available to access it.");
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      metamsg("Transcript is currently: " + (io.transcript ? 'on' : 'off'))
+      Quest.IO.metamsg("Transcript is currently: " + (Quest.IO.io.transcript ? 'on' : 'off'))
       return world.SUCCESS_NO_TURNSCRIPTS;
     },
 
@@ -770,27 +770,27 @@ namespace Quest {
 
     topicsScript: function () {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      metamsg("Use TOPICS FOR [name] to see a list of topic suggestions to ask a character about (if implemented in this game).");
+      Quest.IO.metamsg("Use TOPICS FOR [name] to see a list of topic suggestions to ask a character about (if implemented in this game).");
       return world.SUCCESS_NO_TURNSCRIPTS;
     },
 
     betaTestIntro: function () {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      metamsg("This version is for beta-testing (" + Quest.Settings.settings.version + "); the browser reports that it is running on: " + navigator.userAgent)
+      Quest.IO.metamsg("This version is for beta-testing (" + Quest.Settings.settings.version + "); the browser reports that it is running on: " + navigator.userAgent)
       if (Quest.Settings.settings.textInput) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg("A transcript will be automatically recorded. When you finish, do Ctrl-Enter or type SCRIPT SHOW to open the transcript in a new tab, or click the link if you reach the end of the game; it can then be saved (you should see a save button at the top) and attached to an e-mail. Alternatively, copy-and-pasted into an e-mail.")
+        Quest.IO.metamsg("A transcript will be automatically recorded. When you finish, do Ctrl-Enter or type SCRIPT SHOW to open the transcript in a new tab, or click the link if you reach the end of the game; it can then be saved (you should see a save button at the top) and attached to an e-mail. Alternatively, copy-and-pasted into an e-mail.")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg("You can add your own comments to the transcript by starting a command with *.")
+        Quest.IO.metamsg("You can add your own comments to the transcript by starting a command with *.")
       }
       else {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg("A transcript will be automatically recorded. As this game has no text input, you will need to access the transcript through the developer tools. Press F12 to show the tools, and click on the \"Console\" tab. Type <code>io.scriptShow()</code> and press return. the transcript should appear in a new tab.")
+        Quest.IO.metamsg("A transcript will be automatically recorded. As this game has no text input, you will need to access the transcript through the developer tools. Press F12 to show the tools, and click on the \"Console\" tab. Type <code>Quest.IO.io.scriptShow()</code> and press return. the transcript should appear in a new tab.")
       }
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      metamsg("If you have not already done so, I recommend checking to ensure you can see the transcript before progressing too far though the game.")
+      Quest.IO.metamsg("If you have not already done so, I recommend checking to ensure you can see the transcript before progressing too far though the game.")
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      metamsg("PLEASE NOTE: Transcripts and save games are saved in LocalStorage; if you have this set to be deleted when you close your browser, you will lose all progress!")
+      Quest.IO.metamsg("PLEASE NOTE: Transcripts and save games are saved in LocalStorage; if you have this set to be deleted when you close your browser, you will lose all progress!")
       saveLoad.transcriptStart()
     },
 
@@ -1101,7 +1101,7 @@ namespace Quest {
     toWords: function (number: any) {
       if (typeof number !== "number") {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        errormsg("toWords can only handle numbers");
+        Quest.IO.errormsg("toWords can only handle numbers");
         return number;
       }
 
@@ -1147,7 +1147,7 @@ namespace Quest {
     toOrdinal: function (number: any) {
       if (typeof number !== "number") {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        errormsg("toOrdinal can only handle numbers");
+        Quest.IO.errormsg("toOrdinal can only handle numbers");
         return number;
       }
 
@@ -1209,7 +1209,7 @@ namespace Quest {
 
       if (!arr) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        errormsg("No conjugations found: conjugations_" + gender.toLowerCase());
+        Quest.IO.errormsg("No conjugations found: conjugations_" + gender.toLowerCase());
         return verb;
       }
       for (let conj of arr) {

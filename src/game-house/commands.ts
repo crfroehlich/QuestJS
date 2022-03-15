@@ -4,22 +4,22 @@
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-const showMap = function () { return failedmsg(Quest.lang.no_map) }
+const showMap = function () { return Quest.IO.failedmsg(Quest.lang.no_map) }
 
 
 Quest.Command.findCmd('MetaHint').script = function () {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  metamsg("Hints can be found on {link:this page:" + folder + "/hints.html}, in the form of InvisiClues, so you can avoid seeing spoilers you do want to see. The page will open in a new tab, so will not affect your playing of the game.")
+  Quest.IO.metamsg("Hints can be found on {link:this page:" + folder + "/hints.html}, in the form of InvisiClues, so you can avoid seeing spoilers you do want to see. The page will open in a new tab, so will not affect your playing of the game.")
   return world.SUCCESS_NO_TURNSCRIPTS
 },
 
   /*
   Quest.Command.findCmd('MetaHelp').script = function() {
-    metamsg("Enter commands to navigate the world. Use the compass directions, plus {colour:blue:UP}, {colour:blue:DOWN}, {colour:blue:IN}, {colour:blue:OUT} to move around. Use commands like {colour:blue:GET LETTER} and {colour:blue:DROP PEN} to pick things up and drop them. Use {colour:blue:INVENTORY} (or just {colour:blue:I}) to see what you are carrying.")
-    metamsg("It is often important to examine items; use {colour:blue:LOOK AT LETTER} or {colour:blue:EXAMINE BAG} or just {colour:blue:X HOUSE}. Look at descriptions carefully to see what items are there - sometimes it may not be obvious.")
-    metamsg("Should you encounter people, you can try commands like {colour:blue:TALK TO LARA} or {colour:blue:ASK KYLE ABOUT GARDEN}. You can also tell people to do something, by using the standard command, but with the person's name followed by a comma at the start, for example, {colour:blue:LARA, EAST} or {colour:blue:KYLE, GET HAT}. Also useful; {colour:blue:LARA, FOLLOW ME} and {colour:blue:KYLE, WAIT}. Of course, they will often decide not to...")
-    metamsg("For more details go to {link:this page:https://github.com/ThePix/QuestJS/wiki/How-To-Play-Interactive-Fiction}, which will open in a new tab.")
-    metamsg("If you are stuck, use {colour:blue:HINTS}.")
+    Quest.IO.metamsg("Enter commands to navigate the world. Use the compass directions, plus {colour:blue:UP}, {colour:blue:DOWN}, {colour:blue:IN}, {colour:blue:OUT} to move around. Use commands like {colour:blue:GET LETTER} and {colour:blue:DROP PEN} to pick things up and drop them. Use {colour:blue:INVENTORY} (or just {colour:blue:I}) to see what you are carrying.")
+    Quest.IO.metamsg("It is often important to examine items; use {colour:blue:LOOK AT LETTER} or {colour:blue:EXAMINE BAG} or just {colour:blue:X HOUSE}. Look at descriptions carefully to see what items are there - sometimes it may not be obvious.")
+    Quest.IO.metamsg("Should you encounter people, you can try commands like {colour:blue:TALK TO LARA} or {colour:blue:ASK KYLE ABOUT GARDEN}. You can also tell people to do something, by using the standard command, but with the person's name followed by a comma at the start, for example, {colour:blue:LARA, EAST} or {colour:blue:KYLE, GET HAT}. Also useful; {colour:blue:LARA, FOLLOW ME} and {colour:blue:KYLE, WAIT}. Of course, they will often decide not to...")
+    Quest.IO.metamsg("For more details go to {link:this page:https://github.com/ThePix/QuestJS/wiki/How-To-Play-Interactive-Fiction}, which will open in a new tab.")
+    Quest.IO.metamsg("If you are stuck, use {colour:blue:HINTS}.")
     return world.SUCCESS_NO_TURNSCRIPTS
   },
   */
@@ -98,7 +98,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Rude', {
   regex: /^(?:fuck|shag|shit|crap|damn|wank|frig)/,
   objects: [],
   script: function () {
-    parsermsg("Well, I <i>certainly</i> don't even know where to begin with <i>that</i>. Honestly, what were you thinking!")
+    Quest.IO.parsermsg("Well, I <i>certainly</i> don't even know where to begin with <i>that</i>. Honestly, what were you thinking!")
     return world.FAILED
   },
 }))
@@ -110,7 +110,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Xyzzy', {
   objects: [],
   script: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Mandy starts to hum \"Story of life\" while you try to work out what to do. Odd to think it is five years when that came out, she muses. She was just starting at Kyderbrook High, and she when she heard Marcy Dillons singing it, and found she was a fellow Directioner, they had become good friends.")
+    Quest.IO.msg("Mandy starts to hum \"Story of life\" while you try to work out what to do. Odd to think it is five years when that came out, she muses. She was just starting at Kyderbrook High, and she when she heard Marcy Dillons singing it, and found she was a fellow Directioner, they had become good friends.")
     return world.FAILED
   },
 }))
@@ -121,25 +121,25 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Dance', {
   script: function () {
     if (player.loc === 'stage') {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy dances across the stage for a few minutes, wondering what it would be like to be a professional dancer, watched by hundreds as you perform.")
+      Quest.IO.msg("Mandy dances across the stage for a few minutes, wondering what it would be like to be a professional dancer, watched by hundreds as you perform.")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
       if (w.clockwork_thespian.state > 0) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Not bad,' notes the clockwork thespian. 'Needs some practice, not to say some music of course, but I see the potential.'")
+        Quest.IO.msg("'Not bad,' notes the clockwork thespian. 'Needs some practice, not to say some music of course, but I see the potential.'")
       }
       return world.SUCCESS
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy starts to dance... Why is she dancing? It is like something -- or someone -- is controlling her! With a great effort of will power, she stops. She has to stand for a moment while she catches her breath. It was scary losing control of her body like that.")
+      Quest.IO.msg("Mandy starts to dance... Why is she dancing? It is like something -- or someone -- is controlling her! With a great effort of will power, she stops. She has to stand for a moment while she catches her breath. It was scary losing control of her body like that.")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
-      if (w.Patch.isHere()) msg("Patch gives her a strange look.")
+      if (w.Patch.isHere()) Quest.IO.msg("Patch gives her a strange look.")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'tiny_man' does not exist on type '{}'.
-      if (w.tiny_man.isHere()) msg("'You're a rum 'un, and no mistake,' says the tiny man.")
+      if (w.tiny_man.isHere()) Quest.IO.msg("'You're a rum 'un, and no mistake,' says the tiny man.")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Winfield_Malewicz' does not exist on typ... Remove this comment to see the full error message
-      if (w.Winfield_Malewicz.isHere()) msg("'The ways of young people were decidedly odd in my day,' says Malewicz. 'I see the situation has only deteriorated.'")
+      if (w.Winfield_Malewicz.isHere()) Quest.IO.msg("'The ways of young people were decidedly odd in my day,' says Malewicz. 'I see the situation has only deteriorated.'")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
-      if (w.clockwork_thespian.isHere()) msg("'Ah, the artistic soul,' muses the clockwork thespian.")
+      if (w.clockwork_thespian.isHere()) Quest.IO.msg("'Ah, the artistic soul,' muses the clockwork thespian.")
     }
     return world.FAILED
   },
@@ -152,19 +152,19 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Sing', {
   script: function () {
     if (player.loc === 'stage') {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy looks around the stage thoughtfully. An ideal place to make her singing debut! She grabs an imaginary microphone, and starts singing {i:Give Me All Your Love}, tentatively at first, but then with gusto.")
+      Quest.IO.msg("Mandy looks around the stage thoughtfully. An ideal place to make her singing debut! She grabs an imaginary microphone, and starts singing {i:Give Me All Your Love}, tentatively at first, but then with gusto.")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
       if (w.clockwork_thespian.state > 0) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'I am not familiar with that work,' says the clockwork thespian. 'Is it supposed to sound like that?'")
+        Quest.IO.msg("'I am not familiar with that work,' says the clockwork thespian. 'Is it supposed to sound like that?'")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Of course!'")
+        Quest.IO.msg("'Of course!'")
       }
       return world.SUCCESS
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy starts to sing \"Steal my girl.\" She has not heard that for years, she muses, why did it pop into her head now?")
+      Quest.IO.msg("Mandy starts to sing \"Steal my girl.\" She has not heard that for years, she muses, why did it pop into her head now?")
     }
     return world.FAILED
   },
@@ -189,15 +189,15 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Act', {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
       if (w.clockwork_thespian.state > 0) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'It means Orsino wants to be rid for his appetite for love,' says the clockwork thespian, 'and he hopes music will allay it if he has a excess of it.'")
+        Quest.IO.msg("'It means Orsino wants to be rid for his appetite for love,' says the clockwork thespian, 'and he hopes music will allay it if he has a excess of it.'")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Right...' Mandy quietly puts the book back in her bag.")
+        Quest.IO.msg("'Right...' Mandy quietly puts the book back in her bag.")
       }
       return world.SUCCESS
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy has a sudden urge to act. She successfully resists it.")
+      Quest.IO.msg("Mandy has a sudden urge to act. She successfully resists it.")
     }
     return world.FAILED
   },
@@ -213,12 +213,12 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Jump', {
   script: function () {
     if (player.loc.startsWith('greenhouse_catwalk')) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy looks over the side of the catwalk, and has a sudden urge to jump down. She shudders. That would not end well.")
+      Quest.IO.msg("Mandy looks over the side of the catwalk, and has a sudden urge to jump down. She shudders. That would not end well.")
       return world.FAILED
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      return failedmsg("Mandy jumps into the air... and quickly returns to the ground. Had to be worth a try. It would be annoying to discover this was a dream and she could have just flown everywhere.")
+      return Quest.IO.failedmsg("Mandy jumps into the air... and quickly returns to the ground. Had to be worth a try. It would be annoying to discover this was a dream and she could have just flown everywhere.")
     }
     return world.FAILED
   },
@@ -230,7 +230,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Shout', {
   ],
   script: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'Hey!' shouts Mandy. 'Any one here?'")
+    Quest.IO.msg("'Hey!' shouts Mandy. 'Any one here?'")
 
     return world.FAILED
   },
@@ -268,28 +268,28 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('ThrowAtPod', {
   },
   script(objects: any) {
     // @ts-expect-error ts-migrate(2448) FIXME: Block-scoped variable 'obj' used before its declar... Remove this comment to see the full error message
-    if (player.loc !== 'greenhouse_east' && player.loc !== 'greenhouse_catwalk_east') return failedmsg('Mandy would have to be holding {nm:item:the} to do that.', { item: obj })
+    if (player.loc !== 'greenhouse_east' && player.loc !== 'greenhouse_catwalk_east') return Quest.IO.failedmsg('Mandy would have to be holding {nm:item:the} to do that.', { item: obj })
 
     const obj = objects[0][0]
-    if (!obj.isHeld) return failedmsg('Mandy would have to be holding {nm:item:the} to do that.', { item: obj })
+    if (!obj.isHeld) return Quest.IO.failedmsg('Mandy would have to be holding {nm:item:the} to do that.', { item: obj })
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'mobile_phone' does not exist on type '{}... Remove this comment to see the full error message
-    if (obj === w.mobile_phone) return failedmsg('Mandy thinks about chucking her crappy phone at the pod, but if she does ever get out of here, she want a phone that is {i:not} smashed.')
+    if (obj === w.mobile_phone) return Quest.IO.failedmsg('Mandy thinks about chucking her crappy phone at the pod, but if she does ever get out of here, she want a phone that is {i:not} smashed.')
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'school_bag' does not exist on type '{}'.
-    if (obj === w.school_bag) return failedmsg('Mandy thinks about throwing her bag at the pod, but decides she should hang on to it.')
+    if (obj === w.school_bag) return Quest.IO.failedmsg('Mandy thinks about throwing her bag at the pod, but decides she should hang on to it.')
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'hourglass' does not exist on type '{}'.
-    if (obj === w.hourglass) return failedmsg('Mandy thinks about throwing the hourglass at the pod... She has a feeling it might be important, and is unlikely to survive its arboreal journey.')
+    if (obj === w.hourglass) return Quest.IO.failedmsg('Mandy thinks about throwing the hourglass at the pod... She has a feeling it might be important, and is unlikely to survive its arboreal journey.')
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'china_doll' does not exist on type '{}'.
-    if (obj === w.china_doll) return failedmsg('Mandy thinks about throwing the china doll at the pod... Somehow she cannot bring herself to do it - seeing her smash would be too awful')
-    if (obj.size && obj.size > 5) return failedmsg('Mandy thinks about hurling {nm:item:the} at the tree. Perhaps if {pv:item:was} not so big...', { item: obj })
+    if (obj === w.china_doll) return Quest.IO.failedmsg('Mandy thinks about throwing the china doll at the pod... Somehow she cannot bring herself to do it - seeing her smash would be too awful')
+    if (obj.size && obj.size > 5) return Quest.IO.failedmsg('Mandy thinks about hurling {nm:item:the} at the tree. Perhaps if {pv:item:was} not so big...', { item: obj })
 
     const s = this.responses[obj.name]
-    if (!s) return failedmsg('Mandy thinks about throwing {nm:item:the} at the pod, but decides she should hang on to {sb:item}.', { item: obj })
+    if (!s) return Quest.IO.failedmsg('Mandy thinks about throwing {nm:item:the} at the pod, but decides she should hang on to {sb:item}.', { item: obj })
 
     player.throwAtPodTries++
     obj.moveToFrom({ item: obj, char: player }, "greenhouse_east")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    return failedmsg(s + '{ifMoreThan:player:throwAtPodTries:2:She starts to wonder if chucking things at the pod is going to work. Perhaps she needs another idea.}')
+    return Quest.IO.failedmsg(s + '{ifMoreThan:player:throwAtPodTries:2:She starts to wonder if chucking things at the pod is going to work. Perhaps she needs another idea.}')
   }
 }))
 
@@ -372,11 +372,11 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('NpcHelp', {
     if (obj !== w.Patch) return falsemsg("'Give me a hand, here,' says Mandy to {nm:item:the}.|'What do you think I can do?' {pv:item:say:true}. Mandy shrugs, not sure herself.", { item: obj })
 
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'Give me a hand, here,' says Mandy to Patch. He looks at her in confusion.")
+    Quest.IO.msg("'Give me a hand, here,' says Mandy to Patch. He looks at her in confusion.")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'grown_tamarind_tree' does not exist on t... Remove this comment to see the full error message
     if (currentLocation.name === "greenhouse_east" || (currentLocation.name === "greenhouse_west" && w.grown_tamarind_tree.growthTime > 8))
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Okay, so he is not so bright, but if she was more specific... She cannot just climb up him, but what if he was hugging the tree? Could she then climb the tree?")
+      Quest.IO.msg("Okay, so he is not so bright, but if she was more specific... She cannot just climb up him, but what if he was hugging the tree? Could she then climb the tree?")
   },
 }))
 
@@ -401,12 +401,12 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Plant', {
   ],
   script: function (objects: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (player.loc !== "greenhouse_west") return failedmsg("There is no where for Mandy to plant anything here.")
+    if (player.loc !== "greenhouse_west") return Quest.IO.failedmsg("There is no where for Mandy to plant anything here.")
     const obj = objects[0][0]
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (obj.name.startsWith('tamarind_pod_prototype')) return failedmsg("Mandy thinks about burying the pod, but she is pretty sure her dad would take the seeds out first, and plant them, rather than the pods.")
+    if (obj.name.startsWith('tamarind_pod_prototype')) return Quest.IO.failedmsg("Mandy thinks about burying the pod, but she is pretty sure her dad would take the seeds out first, and plant them, rather than the pods.")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'tamarind_seed' does not exist on type '{... Remove this comment to see the full error message
-    if (obj !== w.tamarind_seed) return failedmsg("{pv:item:'be:true} not something Mandy really wants to bury.", { item: obj })
+    if (obj !== w.tamarind_seed) return Quest.IO.failedmsg("{pv:item:'be:true} not something Mandy really wants to bury.", { item: obj })
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'bare_earth' does not exist on type '{}'.
     objects.push([w.bare_earth])
@@ -426,8 +426,8 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Shift', {
     const obj = objects[0][0]
     const tpParams = { item: obj, char: player }
 
-    if (!obj.shiftable && obj.takeable) return failedmsg(Quest.lang.take_not_push, tpParams)
-    if (!obj.shiftable) return failedmsg(Quest.lang.cannot_push, tpParams)
+    if (!obj.shiftable && obj.takeable) return Quest.IO.failedmsg(Quest.lang.take_not_push, tpParams)
+    if (!obj.shiftable) return Quest.IO.failedmsg(Quest.lang.cannot_push, tpParams)
 
     return obj.shift() ? world.SUCCESS : world.FAILED
   },
@@ -446,7 +446,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Invert', {
   // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'objects' implicitly has an 'any' type.
   script: function (objects) {
     const obj = objects[0][0]
-    if (!obj.turn) return failedmsg("Mandy thinks about turning {nm:item:the} upside-down, but decides it is fine the way it is.", { item: obj })
+    if (!obj.turn) return Quest.IO.failedmsg("Mandy thinks about turning {nm:item:the} upside-down, but decides it is fine the way it is.", { item: obj })
     return obj.turn() ? world.SUCCESS : world.FAILED
   },
 }))
@@ -468,13 +468,13 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('BurstBalloon', {
   // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'objects' implicitly has an 'any' type.
   script: function (objects) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (!objects[0][0].sharp) return failedmsg("Mandy's not going to pierce anything with that!")
+    if (!objects[0][0].sharp) return Quest.IO.failedmsg("Mandy's not going to pierce anything with that!")
     if (objects[1][0].name.startsWith('tamarind_pod_prototype')) return objects[1][0].open(false, player)
     // any other objects that are cuttable???
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'yellow_balloon' does not exist on type '... Remove this comment to see the full error message
     if (objects[1][0] === w.yellow_balloon) return w.yellow_balloon.burst() ? world.SUCCESS : world.FAILED
 
-    return failedmsg("Mandy takes a few stabs at {nm:item:the} with {nm:item2:the}, but does not achieve anything", { item: objects[1][0], item2: objects[0][0] })
+    return Quest.IO.failedmsg("Mandy takes a few stabs at {nm:item:the} with {nm:item2:the}, but does not achieve anything", { item: objects[1][0], item2: objects[0][0] })
   },
 }))
 
@@ -493,7 +493,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('BurstBalloonOnly', {
     if (obj === w.yellow_balloon) return w.yellow_balloon.burst() ? world.SUCCESS : world.FAILED
     if (obj.smash) return objects[0][0].smash({ item: obj, char: player }) ? world.SUCCESS : world.FAILED
 
-    return failedmsg("Mandy takes a few stabs at {nm:item:the}, but does not achieve anything", { item: obj })
+    return Quest.IO.failedmsg("Mandy takes a few stabs at {nm:item:the}, but does not achieve anything", { item: obj })
   },
 }))
 
@@ -505,7 +505,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('WakeUp', {
   // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'objects' implicitly has an 'any' type.
   script: function (objects) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    return failedmsg("This must be a dream, thinks Mandy. Like Alice in Wonderland, she will wake up in a shower of playing cards or something; she cannot quite remember how that ended. She pinches herself, but nothing happens, other than a painful sensation in her arm. Damn.")
+    return Quest.IO.failedmsg("This must be a dream, thinks Mandy. Like Alice in Wonderland, she will wake up in a shower of playing cards or something; she cannot quite remember how that ended. She pinches herself, but nothing happens, other than a painful sensation in her arm. Damn.")
   },
 }))
 
@@ -518,7 +518,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Fly', {
   // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'objects' implicitly has an 'any' type.
   script: function (objects) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    return failedmsg("Mandy jumps into the air... and quickly returns to the ground. Had to be worth a try. It would be annoying to discover this was a dream and she could have just flown everywhere.")
+    return Quest.IO.failedmsg("Mandy jumps into the air... and quickly returns to the ground. Had to be worth a try. It would be annoying to discover this was a dream and she could have just flown everywhere.")
   },
 }))
 
@@ -532,15 +532,15 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('ConfrontFears', {
   script: function (objects) {
     if (currentLocation.zone === 'external') {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("{i:Right,} thinks Mandy, {i:I can do this. All I have to do is go in the house, and hand over the letter.} She looks at the house again, trying to convince herself it is not laughing at her.")
+      Quest.IO.msg("{i:Right,} thinks Mandy, {i:I can do this. All I have to do is go in the house, and hand over the letter.} She looks at the house again, trying to convince herself it is not laughing at her.")
     }
     else if (currentLocation.name === 'lounge') {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("{i:I did it,} thinks Mandy, {i:I confronted my fears, and solved a mystery over a century old.}.")
+      Quest.IO.msg("{i:I did it,} thinks Mandy, {i:I confronted my fears, and solved a mystery over a century old.}.")
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy takes a deep calming breath. She must not let the horror of this place get to her. It is not even {i:that} horrid, if she is honest. It is not like it is full of spiders or even werewolves. It is not even that dirty.")
+      Quest.IO.msg("Mandy takes a deep calming breath. She must not let the horror of this place get to her. It is not even {i:that} horrid, if she is honest. It is not like it is full of spiders or even werewolves. It is not even that dirty.")
     }
     return world.SUCCESS;
   },
@@ -585,7 +585,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('PutUnder', {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
       if (w.chamber_pot.containedFluidName) return falsemsg("The chamber pot is already full of " + w.chamber_pot.containedFluidName + " - there is not much point using it to catch drips.")
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy puts the chamber pot under the leaking pipe, when it will catch the drips.|Drip... drip... drip... It will take a while before the pot is full!")
+      Quest.IO.msg("Mandy puts the chamber pot under the leaking pipe, when it will catch the drips.|Drip... drip... drip... It will take a while before the pot is full!")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
       w.chamber_pot.loc = player.loc
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
@@ -604,7 +604,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('PutUnder', {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
       if (objects[0][0] !== w.chamber_pot) return falsemsg("Mandy thinks about putting {nm:item:the} under the tamarind tree... but decides that is not going to achieve anything.", { item: objects[0][0] })
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy puts the chamber pot under the tamarind tree - hopefully any falling pods will end up in there.")
+      Quest.IO.msg("Mandy puts the chamber pot under the tamarind tree - hopefully any falling pods will end up in there.")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
       w.chamber_pot.loc = player.loc
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
@@ -634,7 +634,7 @@ Quest.Command.findCmd('Smell').script = function () {
   }
   else {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg(zones[currentLocation.zone].smell)
+    Quest.IO.msg(zones[currentLocation.zone].smell)
   }
   return world.SUCCESS;
 }
@@ -646,7 +646,7 @@ Quest.Command.findCmd('Listen').script = function () {
   }
   else {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg(zones[currentLocation.zone].listen)
+    Quest.IO.msg(zones[currentLocation.zone].listen)
   }
   return world.SUCCESS;
 }
@@ -657,7 +657,7 @@ Quest.Command.findCmd('Say').script = function (objects) {
   if (currentLocation.name === 'theatre_stage') {
     if (text.match(/\bto be\b/)) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'To be or not to be,' says Mandy in a grand voice. She always wanted to be an actor... Well, not enough to take drama at school, but she liked the idea of being one. It was a shame she could not remember any more of the quote. Something about a question?")
+      Quest.IO.msg("'To be or not to be,' says Mandy in a grand voice. She always wanted to be an actor... Well, not enough to take drama at school, but she liked the idea of being one. It was a shame she could not remember any more of the quote. Something about a question?")
     }
     else if (text.match(/\bbrevity\b/)) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
@@ -669,30 +669,30 @@ Quest.Command.findCmd('Say').script = function (objects) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
       if (w.clockwork_thespian.state > 101) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'It's brevity,' says Mandy triumphantly. 'The answer to your riddle is \"Brevity\"!'")
+        Quest.IO.msg("'It's brevity,' says Mandy triumphantly. 'The answer to your riddle is \"Brevity\"!'")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Indeed it is, but I'm afraid I cannot help you every time you say the word.'")
+        Quest.IO.msg("'Indeed it is, but I'm afraid I cannot help you every time you say the word.'")
       }
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
       if (w.clockwork_thespian.state < 101 && w.clockwork_thespian.state > 0) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("Mandy mutters under her breath.")
+        Quest.IO.msg("Mandy mutters under her breath.")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'What was that?' asks the clockwork thespian.")
+        Quest.IO.msg("'What was that?' asks the clockwork thespian.")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Oh, nothing, just thinking to myself.' {i:I really need to find that book,} she thinks, {i:and solve his stupid riddle for myself.}")
+        Quest.IO.msg("'Oh, nothing, just thinking to myself.' {i:I really need to find that book,} she thinks, {i:and solve his stupid riddle for myself.}")
       }
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
     else if (w.clockwork_thespian.state > 0) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy says '" + text + "' out loud.")
+      Quest.IO.msg("Mandy says '" + text + "' out loud.")
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'Is that from a play?' asks the clockwork thespian. 'I am not immediately familiar with it, but have at it, darling, have at it!'")
+      Quest.IO.msg("'Is that from a play?' asks the clockwork thespian. 'I am not immediately familiar with it, but have at it, darling, have at it!'")
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy says '" + text + "' out loud, then wonders why she is talking to herself.")
+      Quest.IO.msg("Mandy says '" + text + "' out loud, then wonders why she is talking to herself.")
     }
     return world.FAILED
   }
@@ -700,11 +700,11 @@ Quest.Command.findCmd('Say').script = function (objects) {
   if (currentLocation.name === 'nursery') {
     if (text.match(/hello|hi/)) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy says '" + text + ".'|'Alright?' says the tiny man in reply. She wonders if she should ask the man about something if she wants to get anywhere.")
+      Quest.IO.msg("Mandy says '" + text + ".'|'Alright?' says the tiny man in reply. She wonders if she should ask the man about something if she wants to get anywhere.")
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy says '" + text + ".' The tiny man looks at her in confusion. She wonders if she should ask the man about something if she wants to get anywhere.")
+      Quest.IO.msg("Mandy says '" + text + ".' The tiny man looks at her in confusion. She wonders if she should ask the man about something if she wants to get anywhere.")
     }
     return world.FAILED
   }
@@ -712,11 +712,11 @@ Quest.Command.findCmd('Say').script = function (objects) {
   if (currentLocation.name === 'steam_control_room') {
     if (text.match(/hello|hi/)) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy says '" + text + ".'|'Hello to you, miss' says Dr Malewicz. She wonders if she should ask him about something if she wants to get anywhere.")
+      Quest.IO.msg("Mandy says '" + text + ".'|'Hello to you, miss' says Dr Malewicz. She wonders if she should ask him about something if she wants to get anywhere.")
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy says '" + text + ".'|'I'm not sure I follow,' says Dr Malewicz. She wonders if she should ask him about something if she wants to get anywhere.")
+      Quest.IO.msg("Mandy says '" + text + ".'|'I'm not sure I follow,' says Dr Malewicz. She wonders if she should ask him about something if she wants to get anywhere.")
     }
     return world.FAILED
   }
@@ -726,7 +726,7 @@ Quest.Command.findCmd('Say').script = function (objects) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Winfield_Malewicz' does not exist on typ... Remove this comment to see the full error message
       if (w.Winfield_Malewicz.songlist.length === 0) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("Mandy thinks about what makes her special. Then looks at her bag. Her {i:One Direction} bag. 'One Direction?' she says, tentatively.")
+        Quest.IO.msg("Mandy thinks about what makes her special. Then looks at her bag. Her {i:One Direction} bag. 'One Direction?' she says, tentatively.")
       }
       else {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Winfield_Malewicz' does not exist on typ... Remove this comment to see the full error message
@@ -735,16 +735,16 @@ Quest.Command.findCmd('Say').script = function (objects) {
         s += Quest.Utilities.formatList(uniq.map(el => "{class:riddle:" + el + "}"), { lastJoiner: 'and' })
         s += ". Had he been channelling the answer in some way?|'One Direction?' she says, tentatively."
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg(s)
+        Quest.IO.msg(s)
       }
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("The scornful face of the man-house darkens in anger for a moment, before he collapses before her eyes in a shower of tiny bricks. For a moment nothing happens, but then the bricks start swirling around, rebuilding the figure. 'Oh, God, not again,' mutters Mandy. But the man-house thing looks different. He is no longer laughing at her.")
+      Quest.IO.msg("The scornful face of the man-house darkens in anger for a moment, before he collapses before her eyes in a shower of tiny bricks. For a moment nothing happens, but then the bricks start swirling around, rebuilding the figure. 'Oh, God, not again,' mutters Mandy. But the man-house thing looks different. He is no longer laughing at her.")
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'{smallcaps:Thank you,}' he says, even as he slowly fades away. '{smallcaps:You saved me. I must apologise for my earlier behaviour; I was not quite myself.}'")
+      Quest.IO.msg("'{smallcaps:Thank you,}' he says, even as he slowly fades away. '{smallcaps:You saved me. I must apologise for my earlier behaviour; I was not quite myself.}'")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Winfield_Malewicz' does not exist on typ... Remove this comment to see the full error message
       if (w.Winfield_Malewicz.loc) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'What..?' says Mandy, feeling utterly bewildered...")
+        Quest.IO.msg("'What..?' says Mandy, feeling utterly bewildered...")
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Winfield_Malewicz' does not exist on typ... Remove this comment to see the full error message
         w.Winfield_Malewicz.loc = 'lounge'
       }
@@ -756,51 +756,51 @@ Quest.Command.findCmd('Say').script = function (objects) {
     }
     else if (text.match(/north|south|east|west/)) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy says '" + text + ".'|'{smallcaps:Wrong!}' says the house, gleefully.")
+      Quest.IO.msg("Mandy says '" + text + ".'|'{smallcaps:Wrong!}' says the house, gleefully.")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Winfield_Malewicz' does not exist on typ... Remove this comment to see the full error message
       if (w.Winfield_Malewicz.compassTried && w.Winfield_Malewicz.loc) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'You think I somehow forgot that one?' says Dr Malewicz testily.")
+        Quest.IO.msg("'You think I somehow forgot that one?' says Dr Malewicz testily.")
       }
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Winfield_Malewicz' does not exist on typ... Remove this comment to see the full error message
       else if (w.Winfield_Malewicz.nonCompassTried && w.Winfield_Malewicz.loc) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Yes, and I've tried all the compass directions too,' says Dr Malewicz.")
+        Quest.IO.msg("'Yes, and I've tried all the compass directions too,' says Dr Malewicz.")
       }
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Winfield_Malewicz' does not exist on typ... Remove this comment to see the full error message
       else if (w.Winfield_Malewicz.loc) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Yes, yes, I've tried all the compass directions,' says Dr Malewicz. 'It's nothing as obvious as that I'm afraid.'")
+        Quest.IO.msg("'Yes, yes, I've tried all the compass directions,' says Dr Malewicz. 'It's nothing as obvious as that I'm afraid.'")
       }
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Winfield_Malewicz' does not exist on typ... Remove this comment to see the full error message
       w.Winfield_Malewicz.compassTried = true
     }
     else if (text.match(/in|out|up|down|exit|enter|left|right|forward|back/)) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy says '" + text + ".'|'{smallcaps:Wrong!}' says the house, gleefully.")
+      Quest.IO.msg("Mandy says '" + text + ".'|'{smallcaps:Wrong!}' says the house, gleefully.")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Winfield_Malewicz' does not exist on typ... Remove this comment to see the full error message
       if (w.Winfield_Malewicz.nonCompassTried && w.Winfield_Malewicz.loc) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'You think I somehow forgot that one?' says Dr Malewicz testily.")
+        Quest.IO.msg("'You think I somehow forgot that one?' says Dr Malewicz testily.")
       }
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Winfield_Malewicz' does not exist on typ... Remove this comment to see the full error message
       else if (w.Winfield_Malewicz.compassTried && w.Winfield_Malewicz.loc) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Yes, and I've tried all the non-compass directions too,' says Dr Malewicz.")
+        Quest.IO.msg("'Yes, and I've tried all the non-compass directions too,' says Dr Malewicz.")
       }
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Winfield_Malewicz' does not exist on typ... Remove this comment to see the full error message
       else if (w.Winfield_Malewicz.loc) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Yes, yes, I've tried all the up-and-down, and in-and-out directions,' says Dr Malewicz. 'It's nothing as obvious as that I'm afraid.'")
+        Quest.IO.msg("'Yes, yes, I've tried all the up-and-down, and in-and-out directions,' says Dr Malewicz. 'It's nothing as obvious as that I'm afraid.'")
       }
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Winfield_Malewicz' does not exist on typ... Remove this comment to see the full error message
       w.Winfield_Malewicz.nonCompassTried = true
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy says '" + text + ".'|'{smallcaps:Wrong!}' says the house, gleefully.")
+      Quest.IO.msg("Mandy says '" + text + ".'|'{smallcaps:Wrong!}' says the house, gleefully.")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Winfield_Malewicz' does not exist on typ... Remove this comment to see the full error message
-      if (w.Winfield_Malewicz.loc) msg("'I'm not sure I follow your reasoning,' says Dr Malewicz. 'Is that a direction?'")
+      if (w.Winfield_Malewicz.loc) Quest.IO.msg("'I'm not sure I follow your reasoning,' says Dr Malewicz. 'Is that a direction?'")
     }
     return world.SUCCESS
   }
@@ -809,21 +809,21 @@ Quest.Command.findCmd('Say').script = function (objects) {
   if (w.Patch.loc === player.loc) {
     if (text.match(/hello|hi/)) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg("Mandy says '" + text + ".' {nv:npc:nod:true} at her. Clearly he is not much of a conversationalist; she might do better to tell him to do something useful.", { npc: w.Patch })
+      Quest.IO.msg("Mandy says '" + text + ".' {nv:npc:nod:true} at her. Clearly he is not much of a conversationalist; she might do better to tell him to do something useful.", { npc: w.Patch })
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg("Mandy says '" + text + ".' {nv:npc:look:true} at her in confusion. Clearly he is not much of a conversationalist; she might do better to tell him to do something useful.", { npc: w.Patch })
+      Quest.IO.msg("Mandy says '" + text + ".' {nv:npc:look:true} at her in confusion. Clearly he is not much of a conversationalist; she might do better to tell him to do something useful.", { npc: w.Patch })
     }
     return world.FAILED
   }
 
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  msg("Mandy says '" + text + "' out loud, then wonders why she is talking to herself.")
+  Quest.IO.msg("Mandy says '" + text + "' out loud, then wonders why she is talking to herself.")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'tiny_man' does not exist on type '{}'.
-  if (w.tiny_man.isHere()) msg("'You're a rum 'un, and no mistake,' says the tiny man.")
+  if (w.tiny_man.isHere()) Quest.IO.msg("'You're a rum 'un, and no mistake,' says the tiny man.")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Winfield_Malewicz' does not exist on typ... Remove this comment to see the full error message
-  if (w.Winfield_Malewicz.isHere()) msg("'The ways of young people were decidedly odd in my day,' says Malewicz. 'I see the situation has only deteriorated.'")
+  if (w.Winfield_Malewicz.isHere()) Quest.IO.msg("'The ways of young people were decidedly odd in my day,' says Malewicz. 'I see the situation has only deteriorated.'")
   return world.FAILED
 }
 

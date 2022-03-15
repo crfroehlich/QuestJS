@@ -29,11 +29,11 @@ createRoom("highfield_lane", {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'letter' does not exist on type '{}'.
       if (w.letter.loc === player.name) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("With the letter is her hand, Mandy nervously steps though the garden gate...")
+        Quest.IO.msg("With the letter is her hand, Mandy nervously steps though the garden gate...")
       }
       else {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("Not quite sure why she is doing so, Mandy nervously steps though the garden gate...")
+        Quest.IO.msg("Not quite sure why she is doing so, Mandy nervously steps though the garden gate...")
       }
     }
   }),
@@ -104,19 +104,19 @@ createItem("letter", TAKEABLE(), {  // cannot get dropped in size change rooms
   examine: function () {
     if (this.scenery) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("The letter is face-down; Mandy would have to pick it up to see the address.")
+      Quest.IO.msg("The letter is face-down; Mandy would have to pick it up to see the address.")
     }
     else if (currentLocation.zone === 'external') {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy turns the letter over. It is addressed to \"Dr Winfield Malewicz, 23 Highfield Lane, Westleigh\". {i:That must be who lives in The House,} she thinks. Perhaps she should deliver it. She feels a little terrified at the prospect, but that is ridiculous -- it is only a house. Mrs Kennedy is always saying you should confront your fears head-on in Personal Development lessons.")
+      Quest.IO.msg("Mandy turns the letter over. It is addressed to \"Dr Winfield Malewicz, 23 Highfield Lane, Westleigh\". {i:That must be who lives in The House,} she thinks. Perhaps she should deliver it. She feels a little terrified at the prospect, but that is ridiculous -- it is only a house. Mrs Kennedy is always saying you should confront your fears head-on in Personal Development lessons.")
     }
     else if (this.addressread) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy looks at the address on the letter again:  \"Dr Winfield Malewicz, 23 Highfield Lane, Westleigh\".")
+      Quest.IO.msg("Mandy looks at the address on the letter again:  \"Dr Winfield Malewicz, 23 Highfield Lane, Westleigh\".")
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy turns the letter over. It is addressed to \"Dr Winfield Malewicz, 23 Highfield Lane, Westleigh\". {i:That must be who lives in The House,} she thinks.")
+      Quest.IO.msg("Mandy turns the letter over. It is addressed to \"Dr Winfield Malewicz, 23 Highfield Lane, Westleigh\". {i:That must be who lives in The House,} she thinks.")
     }
     this.addressread = true
   },
@@ -130,24 +130,24 @@ createItem("letter", TAKEABLE(), {  // cannot get dropped in size change rooms
     if (player.loc === w.winfield_malovich.loc) {
       if (player.loc === 'lounge') {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("Mandy takes the letter from her bag, and hands it to the old man.")
+        Quest.IO.msg("Mandy takes the letter from her bag, and hands it to the old man.")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("Winfield looks confused. 'This is for Amanda Kettleton.'")
+        Quest.IO.msg("Winfield looks confused. 'This is for Amanda Kettleton.'")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'What? That's me!' She takes the letter back, and looks at the address. It is indeed addressed to her, but at 23 Highfield Lane. She opens it. \"Thank You\" is all it said, in large, scrawling handwriting.")
+        Quest.IO.msg("'What? That's me!' She takes the letter back, and looks at the address. It is indeed addressed to her, but at 23 Highfield Lane. She opens it. \"Thank You\" is all it said, in large, scrawling handwriting.")
       }
       else {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'This letter's for you,' said Mandy, offing Winfield the letter she had picked up outside the house.")
+        Quest.IO.msg("'This letter's for you,' said Mandy, offing Winfield the letter she had picked up outside the house.")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Keep it for now,' he said. 'If there's {class:riddle:one thing} I hate {class:riddle:more than this} its {class:riddle:little things} distracting us from the big picture.'")
+        Quest.IO.msg("'Keep it for now,' he said. 'If there's {class:riddle:one thing} I hate {class:riddle:more than this} its {class:riddle:little things} distracting us from the big picture.'")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("{i:What is he talking about,} wonders Mandy.")
+        Quest.IO.msg("{i:What is he talking about,} wonders Mandy.")
       }
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy considers giving the letter, but perhaps she should keep it in case she came across this Winfield Malewicz guy.")
+      Quest.IO.msg("Mandy considers giving the letter, but perhaps she should keep it in case she came across this Winfield Malewicz guy.")
     }
   },
 })
@@ -179,7 +179,7 @@ createRoom("garden_location", {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'letter' does not exist on type '{}'.
       if (w.letter.scenery) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("Mandy looks at the door to the house. Can she really just walk in? She tries the handle -- it is locked. So, no, she cannot just walk in.")
+        Quest.IO.msg("Mandy looks at the door to the house. Can she really just walk in? She tries the handle -- it is locked. So, no, she cannot just walk in.")
         return false
       }
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultExitUse' does not exist on type '... Remove this comment to see the full error message
@@ -249,7 +249,7 @@ createItem("front_door", CONTAINER(), {
       this.checked = true
     }
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg(s)
+    Quest.IO.msg(s)
   },
   testDropIn: function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'letter' does not exist on type '{}'.
@@ -260,9 +260,9 @@ createItem("front_door", CONTAINER(), {
   },
   open: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'letter' does not exist on type '{}'.
-    if (!w.letter.scenery) return failedmsg("It already is. ")
+    if (!w.letter.scenery) return Quest.IO.failedmsg("It already is. ")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Mandy tries the door, but it is locked.")
+    Quest.IO.msg("Mandy tries the door, but it is locked.")
     this.checked = true
     return world.SUCCESS
   },
@@ -271,28 +271,28 @@ createItem("front_door", CONTAINER(), {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'letter' does not exist on type '{}'.
     if (!w.letter.scenery) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy looks through the open door, into the house. It is dark, but she can see a hallway with a tiled floor and wood panelled walls; are there painting on the far wall? ")
+      Quest.IO.msg("Mandy looks through the open door, into the house. It is dark, but she can see a hallway with a tiled floor and wood panelled walls; are there painting on the far wall? ")
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy spends a few moments trying to look through a solid door. If she was eight foot tall she might be able to see through the small window above it, but not otherwise.")
+      Quest.IO.msg("Mandy spends a few moments trying to look through a solid door. If she was eight foot tall she might be able to see through the small window above it, but not otherwise.")
     }
     return world.SUCCESS
   },
   knockon: function () {
     if (this.knocked) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy knocks on the door again, but still no signs of life in the house.")
+      Quest.IO.msg("Mandy knocks on the door again, but still no signs of life in the house.")
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'letter' does not exist on type '{}'.
     else if (!w.letter.scenery) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy knocks gingerly on the open door, not sure she really wants to disturb anyone. Then again, a bit harder, but still no reply.")
+      Quest.IO.msg("Mandy knocks gingerly on the open door, not sure she really wants to disturb anyone. Then again, a bit harder, but still no reply.")
       this.knocked = true
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy knocks gingerly on the open door, not sure she really wants to disturb anyone. Then again, a bit harder, but still no reply.")
+      Quest.IO.msg("Mandy knocks gingerly on the open door, not sure she really wants to disturb anyone. Then again, a bit harder, but still no reply.")
       this.knocked = true
       this.checked = true
     }
@@ -310,12 +310,12 @@ createItem("windows", {
   lookthrough: function () {
     if (!this.flag) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy tries to look through one of the windows, but it is too dark to see anything. After a moment's thought about getting caught spying on people, she puts her face right up to the glass, and shades her face with her hands. It is still difficult to make much out, but there is a figure in there, silvery-grey against the general darkness. He or she looks towards Mandy, then darts off. She gets the feeling whoever it is is more worried about getting caught than she is.")
+      Quest.IO.msg("Mandy tries to look through one of the windows, but it is too dark to see anything. After a moment's thought about getting caught spying on people, she puts her face right up to the glass, and shades her face with her hands. It is still difficult to make much out, but there is a figure in there, silvery-grey against the general darkness. He or she looks towards Mandy, then darts off. She gets the feeling whoever it is is more worried about getting caught than she is.")
       this.flag = true
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy tries another window, but it is too dark to make out anything besides vague impressions of furniture.")
+      Quest.IO.msg("Mandy tries another window, but it is too dark to make out anything besides vague impressions of furniture.")
     }
     return world.SUCCESS
   },

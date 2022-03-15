@@ -12,16 +12,16 @@ createItem("knife",
     examine: function (options: any) {
       if (this.sharp) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("A really sharp knife.");
+        Quest.IO.msg("A really sharp knife.");
       }
       else {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("A blunt knife.");
+        Quest.IO.msg("A blunt knife.");
       }
     },
     chargeResponse: function (options: any) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("There is a loud bang, and the knife is destroyed.")
+      Quest.IO.msg("There is a loud bang, and the knife is destroyed.")
       this.loc = false
       return false
     },
@@ -67,17 +67,17 @@ createItem("Buddy", NPC(false), {
     console.log(res)
     if (!res.status) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'Hey, Buddy,' you say.")
+      Quest.IO.msg("'Hey, Buddy,' you say.")
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'Hey yourself! Say, could you get me a carrot?'")
+      Quest.IO.msg("'Hey yourself! Say, could you get me a carrot?'")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'start' does not exist on type '{ INITIAL... Remove this comment to see the full error message
       quest.start('A carrot for Buddy')
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'Hey, Buddy,' you say.")
+      Quest.IO.msg("'Hey, Buddy,' you say.")
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'Hey yourself! Where is that carrot?'")
+      Quest.IO.msg("'Hey yourself! Where is that carrot?'")
     }
   },
   receiveItems: [
@@ -85,7 +85,7 @@ createItem("Buddy", NPC(false), {
       test: function () { return true },
       f: function (options: any) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        msg("{multi}Done.", options)
+        Quest.IO.msg("{multi}Done.", options)
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'name' does not exist on type '{ test: ()... Remove this comment to see the full error message
         options.item.loc = this.name
       }
@@ -130,19 +130,19 @@ createItem("book", TAKEABLE(), READABLE(true), {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Lara' does not exist on type '{}'.
       if (options.char === w.Lara) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Okay.' Lara spends a few minutes reading the book.");
+        Quest.IO.msg("'Okay.' Lara spends a few minutes reading the book.");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'I meant, read it to me.'");
+        Quest.IO.msg("'I meant, read it to me.'");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'All of it?'");
+        Quest.IO.msg("'All of it?'");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Quick summary.'");
+        Quest.IO.msg("'Quick summary.'");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'It is all about carrots. The basic gist is that all carrots should be given to me.' You are not entirely sure you believe her.")
+        Quest.IO.msg("'It is all about carrots. The basic gist is that all carrots should be given to me.' You are not entirely sure you believe her.")
       }
       else {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        msg("It is not in a language {pv:char:understand}.", options)
+        Quest.IO.msg("It is not in a language {pv:char:understand}.", options)
       }
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'abort' does not exist on type '{}'.
       parser.abort()
@@ -160,12 +160,12 @@ createItem("book", TAKEABLE(), READABLE(true), {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addChangeListener' does not exist on typ... Remove this comment to see the full error message
 Quest.Utilities.util.addChangeListener(w.book, "watchedStringAttribute", function (o: any, current: any, previous: any) {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  msg("watchedStringAttribute changed from " + previous + " to " + current)
+  Quest.IO.msg("watchedStringAttribute changed from " + previous + " to " + current)
 })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addChangeListener' does not exist on typ... Remove this comment to see the full error message
 Quest.Utilities.util.addChangeListener(w.book, "watchedNumberAttribute", function (o: any, current: any, previous: any) {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  msg("watchedNumberAttribute changed from " + previous + " to " + current)
+  Quest.IO.msg("watchedNumberAttribute changed from " + previous + " to " + current)
 }, function (o: any, current: any, previous: any) {
   return current > 10 && current !== previous
 })
@@ -242,7 +242,7 @@ createItem("ham_and_cheese_sandwich", EDIBLE(false), {
   pattern: 'egg|mayo',
   loc: "lounge",
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  afterIngest: function () { msg("That was great!"); },
+  afterIngest: function () { Quest.IO.msg("That was great!"); },
 })
 
 
@@ -289,18 +289,18 @@ createItem("flashlight", TAKEABLE(), SWITCHABLE(false, 'providing light'), {
     this.power--;
     if (this.power === 2) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("The torch flickers.")
+      Quest.IO.msg("The torch flickers.")
     }
     if (this.power < 0) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("The torch flickers and dies.{once: Perhaps there is a charger in the garage?}");
+      Quest.IO.msg("The torch flickers and dies.{once: Perhaps there is a charger in the garage?}");
       this.doSwitchoff()
     }
   },
   testSwitchOn() {
     if (this.power < 0) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("The torch is dead.")
+      Quest.IO.msg("The torch is dead.")
       return false
     }
     return true
@@ -308,7 +308,7 @@ createItem("flashlight", TAKEABLE(), SWITCHABLE(false, 'providing light'), {
   power: 2,
   chargeResponse: function (options: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg("{nv:char:push:true} the button. There is a brief hum of power, and a flash.", options)
+    Quest.IO.msg("{nv:char:push:true} the button. There is a brief hum of power, and a flash.", options)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'flashlight' does not exist on type '{}'.
     w.flashlight.power = 20
     return true
@@ -348,7 +348,7 @@ createItem("chair", FURNITURE({ sit: true }), {
   loc: "dining_room", examine: "A wooden chair.",
   afterPostureOn: function (options: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg("The chair makes a strange noise when {nv:char:sit} on it.", options)
+    Quest.IO.msg("The chair makes a strange noise when {nv:char:sit} on it.", options)
   },
 })
 
@@ -440,18 +440,18 @@ createRoom("kitchen", {
     msg: "You go through the trapdoor, and down the ladder.",
     npcLeaveMsg: function (char: any) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg("{nv:char:disappear:true} through the trapdoor.", { char: char });
+      Quest.IO.msg("{nv:char:disappear:true} through the trapdoor.", { char: char });
     },
     npcEnterMsg: function (char: any) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg("{nv:char:come:true} through the trapdoor, and {cj:char:climb} down the ladder to join you in the basement.", { char: char });
+      Quest.IO.msg("{nv:char:come:true} through the trapdoor, and {cj:char:climb} down the ladder to join you in the basement.", { char: char });
     },
   }),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   north: new Exit("garage"),
   afterFirstEnter: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("A fresh smell here!");
+    Quest.IO.msg("A fresh smell here!");
   },
   hint: "This room features two doors that open and close. The garage door needs a key.",
   source: "water",
@@ -506,7 +506,7 @@ createItem("kitchen_sink", {
   },
   sink: function (fluid: any, char: any, vessel: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg("{nv:char:empty:true} {nm:item:the} into the dirty sink.", { char: char, item: vessel })
+    Quest.IO.msg("{nv:char:empty:true} {nm:item:the} into the dirty sink.", { char: char, item: vessel })
   },
 })
 
@@ -539,7 +539,7 @@ createItem("light_switch", SWITCHABLE(false), {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'crates' does not exist on type '{}'.
     if (!w.crates.moved) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("You cannot reach the light switch, without first moving the crates.");
+      Quest.IO.msg("You cannot reach the light switch, without first moving the crates.");
       return false;
     }
     else {
@@ -561,7 +561,7 @@ createItem("crates", {
   examine: "A bunch of old crates.",
   move: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("You move the crates, so the light switch is accessible.");
+    Quest.IO.msg("You move the crates, so the light switch is accessible.");
     this.moved = true;
     return true;
   }
@@ -598,7 +598,7 @@ createItem("charger", {
   mended: false,
   use: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    metamsg("To use the charge, you need to put the torch in the compartment and press the button.");
+    Quest.IO.metamsg("To use the charge, you need to put the torch in the compartment and press the button.");
   }
 })
 
@@ -612,7 +612,7 @@ createItem("charger_compartment", COMPONENT("charger"), CONTAINER(true), {
     const contents = w.charger_compartment.getContents(world.LOOK)
     if (contents.length > 0) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("The compartment is full.")
+      Quest.IO.msg("The compartment is full.")
       return false
     }
     return true
@@ -801,11 +801,11 @@ createItem("Arthur",
     examine: function () {
       if (this.suspended) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("Arthur is asleep.");
+        Quest.IO.msg("Arthur is asleep.");
       }
       else {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("Arthur is awake.");
+        Quest.IO.msg("Arthur is awake.");
       }
     },
     suspended: true,
@@ -823,16 +823,16 @@ createItem("Arthur",
     inTheGardenWithLara: function (arr: any) {
       if (this.isHere()) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg(arr[0]);
+        Quest.IO.msg(arr[0]);
       }
       if (player.loc === "dining_room") {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg(arr[1]);
+        Quest.IO.msg(arr[1]);
       }
     },
     talkto: function () {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'Hey, wake up,' you say to Arthur.");
+      Quest.IO.msg("'Hey, wake up,' you say to Arthur.");
       this.suspended = false;
       this.pause();
       this.multiMsg([
@@ -870,7 +870,7 @@ createItem("Kyle", NPC(false),
         item: w.book,
         f: function () {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'Oh!' says Kyle. 'Is this a book?'")
+          Quest.IO.msg("'Oh!' says Kyle. 'Is this a book?'")
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'book' does not exist on type '{}'.
           w.book.loc = this.name
           return true
@@ -880,7 +880,7 @@ createItem("Kyle", NPC(false),
         test: function () { return true },
         f: function (options: any) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-          msg("{multi}Done.", options)
+          Quest.IO.msg("{multi}Done.", options)
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'name' does not exist on type '{ test: ()... Remove this comment to see the full error message
           options.item.loc = this.name
           return true
@@ -891,7 +891,7 @@ createItem("Kyle", NPC(false),
       {
         test: function (p: any) { return p.text.match(/kyle|himself/); },
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        script: function () { msg("'Oh!' says Kyle. 'I suppose I would say: " + this.examine + "'") },
+        script: function () { Quest.IO.msg("'Oh!' says Kyle. 'I suppose I would say: " + this.examine + "'") },
       },
       {
         name: 'House',
@@ -949,13 +949,13 @@ createItem("Kyle", NPC(false),
     talkto2: function () {
       switch (this.talkto_count) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        case 0: msg("You say 'Hello,' to Kyle, and he replies in kind."); break;
+        case 0: Quest.IO.msg("You say 'Hello,' to Kyle, and he replies in kind."); break;
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        case 1: msg("You ask Kyle how to get upstairs. 'You know,' he replies, 'I have no idea.'"); break;
+        case 1: Quest.IO.msg("You ask Kyle how to get upstairs. 'You know,' he replies, 'I have no idea.'"); break;
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        case 2: msg("'Where do you sleep?' you ask Kyle."); msg("'What's \"sleep\"?'"); break;
+        case 2: Quest.IO.msg("'Where do you sleep?' you ask Kyle."); Quest.IO.msg("'What's \"sleep\"?'"); break;
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        default: msg("You wonder what you can talk to Kyle about."); break;
+        default: Quest.IO.msg("You wonder what you can talk to Kyle about."); break;
       }
       this.pause();
       return true;
@@ -968,7 +968,7 @@ createItem("Kyle", NPC(false),
         nowShow: ["Seriously, what's the deal with the garden?"],
         script: function () {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("You ask Kyle about the garden, but he's not talking.")
+          Quest.IO.msg("You ask Kyle about the garden, but he's not talking.")
         },
       },
       {
@@ -980,7 +980,7 @@ createItem("Kyle", NPC(false),
         alias: "The weather",
         script: function () {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("You talk to " + this.alias + " about the weather; he asks your opinion...")
+          Quest.IO.msg("You talk to " + this.alias + " about the weather; he asks your opinion...")
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'askTopics' does not exist on type '{ sho... Remove this comment to see the full error message
           this.askTopics("Tell Kyle your view on the weather...", w.kyle_response_good, w.kyle_response_bad)
         },
@@ -990,7 +990,7 @@ createItem("Kyle", NPC(false),
         name: 'kyle_response_good',
         script: function () {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("You tell Kyle you think the weather is good.")
+          Quest.IO.msg("You tell Kyle you think the weather is good.")
         },
       },
       {
@@ -998,7 +998,7 @@ createItem("Kyle", NPC(false),
         name: 'kyle_response_bad',
         script: function () {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("You tell " + this.alias + " the weather is bad; he shakes his head sadly.")
+          Quest.IO.msg("You tell " + this.alias + " the weather is bad; he shakes his head sadly.")
         },
       },
       {
@@ -1007,9 +1007,9 @@ createItem("Kyle", NPC(false),
         name: 'kyle_to_garden',
         script: function () {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'Can you show me where the garden is?'")
+          Quest.IO.msg("'Can you show me where the garden is?'")
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'No problem,' says Kyle.")
+          Quest.IO.msg("'No problem,' says Kyle.")
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
           w.Kyle.agenda = [
             "leadTo:garden",
@@ -1030,20 +1030,20 @@ createItem("kyle_question", QUESTION(), {
       regex: /^(yes)$/,
       response: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Oh, cool,' says Kyle.");
+        Quest.IO.msg("'Oh, cool,' says Kyle.");
       }
     },
     {
       regex: /^(no)$/,
       response: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Oh, well, Lara, this is Tester, he or she is testing Quest 6,' says Kyle.");
+        Quest.IO.msg("'Oh, well, Lara, this is Tester, he or she is testing Quest 6,' says Kyle.");
       }
     },
     {
       response: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'I don't know what that means,' says Kyle. 'It's a simple yes-no question.'");
+        Quest.IO.msg("'I don't know what that means,' says Kyle. 'It's a simple yes-no question.'");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
         w.Kyle.askQuestion("kyle_question");
       }
@@ -1078,7 +1078,7 @@ createItem("Lara", NPC(true), {
       item: w.knife,
       f: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'A knife?' says Lara. 'I guess I could use that... for something?'")
+        Quest.IO.msg("'A knife?' says Lara. 'I guess I could use that... for something?'")
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'knife' does not exist on type '{}'.
         w.knife.loc = this.name
       }
@@ -1089,7 +1089,7 @@ createItem("Lara", NPC(true), {
       },
       f: function (options: any) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'A carrot!' says Lara with delight, before stuffing it in her mouth. 'So, do you have any more?'")
+        Quest.IO.msg("'A carrot!' says Lara with delight, before stuffing it in her mouth. 'So, do you have any more?'")
         delete options.item.loc
       }
     },
@@ -1098,7 +1098,7 @@ createItem("Lara", NPC(true), {
       item: w.ring,
       f: function (options: any) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Oh, my,' says Lara. 'How delightful.' She slips the ring on her finger, then hands you a key.")
+        Quest.IO.msg("'Oh, my,' says Lara. 'How delightful.' She slips the ring on her finger, then hands you a key.")
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'ring' does not exist on type '{}'.
         w.ring.loc = "Lara"
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'ring' does not exist on type '{}'.
@@ -1112,7 +1112,7 @@ createItem("Lara", NPC(true), {
       item: w.book,
       f: function (options: any) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Hmm, a book about carrots,' says Lara. 'Thanks.'")
+        Quest.IO.msg("'Hmm, a book about carrots,' says Lara. 'Thanks.'")
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'book' does not exist on type '{}'.
         w.book.loc = "Lara"
       }
@@ -1122,7 +1122,7 @@ createItem("Lara", NPC(true), {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'brick' does not exist on type '{}'.
     if (item === w.brick) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'I'm not picking up any bricks,' says Lara indignantly.")
+      Quest.IO.msg("'I'm not picking up any bricks,' says Lara indignantly.")
       return false
     }
     return true
@@ -1130,7 +1130,7 @@ createItem("Lara", NPC(true), {
   getAgreementGo: function (ex: any) {
     if (!this.happy) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'I'm not going " + ex.dir + ",' says Lara indignantly. 'I don't like that room.'")
+      Quest.IO.msg("'I'm not going " + ex.dir + ",' says Lara indignantly. 'I don't like that room.'")
       return false
     }
     return true
@@ -1144,14 +1144,14 @@ createItem("Lara", NPC(true), {
   getAgreementPosture: function () {
     if (!this.happy) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'I don't think so!' says Lara indignantly.")
+      Quest.IO.msg("'I don't think so!' says Lara indignantly.")
       return false
     }
     return true
   },
   getAgreementDefault() {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'I'm not doing that!' says Lara indignantly.")
+    Quest.IO.msg("'I'm not doing that!' says Lara indignantly.")
     return false
   },
   testTalkPlayer: function () { return true; },
@@ -1163,11 +1163,11 @@ createItem("Lara", NPC(true), {
       id: "hello",
       response: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Oh, hello there,' replies Lara.")
+        Quest.IO.msg("'Oh, hello there,' replies Lara.")
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
         if (w.Kyle.isHere()) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'Have you two met before?' asks Kyle.")
+          Quest.IO.msg("'Have you two met before?' asks Kyle.")
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
           w.Kyle.askQuestion("kyle_question")
         }
@@ -1177,10 +1177,10 @@ createItem("Lara", NPC(true), {
   greeting: function () {
     if (this.talkto_count === 0) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'Hello,' says Lara.");
+      Quest.IO.msg("'Hello,' says Lara.");
     } else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'You again?' says Lara.");
+      Quest.IO.msg("'You again?' says Lara.");
     }
   }
 })
@@ -1192,7 +1192,7 @@ createItem("Lara_garage_key",
     loc: "Lara", alias: "Can I have the garden key?",
     script: function () {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("You ask Lara about the garage key; she agrees to give it to you if you give her a ring. Perhaps there is one in the glass cabinet?");
+      Quest.IO.msg("You ask Lara about the garage key; she agrees to give it to you if you give her a ring. Perhaps there is one in the glass cabinet?");
     },
   }
 );
@@ -1205,7 +1205,7 @@ createItem("Lara_very_attractive",
     loc: "Lara", alias: "You're very attractive",
     script: function () {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("You tell Lara she looks very attractive. 'Why thank you!' she replies, smiling at last.");
+      Quest.IO.msg("You tell Lara she looks very attractive. 'Why thank you!' she replies, smiling at last.");
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Lara' does not exist on type '{}'.
       w.Lara.happy = true;
     },
@@ -1219,7 +1219,7 @@ createItem("Lara_carrots",
     loc: "Lara", alias: "I hear you like carrots",
     script: function () {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'Need carrots!' she says with feeling. 'Fading away bunny!' She looks mournfully at her ample tummy.");
+      Quest.IO.msg("'Need carrots!' she says with feeling. 'Fading away bunny!' She looks mournfully at her ample tummy.");
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Lara' does not exist on type '{}'.
       w.Lara.happy = true;
     },
@@ -1284,7 +1284,7 @@ createItem("carrot", TAKEABLE(), MERCH(2, ["shop"]), {
     }
     // do stuff
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg('Done.')
+    Quest.IO.msg('Done.')
     return true
   },
 })
@@ -1437,7 +1437,7 @@ createItem("piggy_suu", NPC(true), {
       test: function () { return true },
       f: function (options: any) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        msg(Quest.lang.done_msg, options)
+        Quest.IO.msg(Quest.lang.done_msg, options)
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'name' does not exist on type '{ test: ()... Remove this comment to see the full error message
         options.item.loc = this.name
         return true

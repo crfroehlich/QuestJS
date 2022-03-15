@@ -57,9 +57,9 @@ quest.getState = function (name: any, char: any) {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'comment' does not exist on type '{ INITI... Remove this comment to see the full error message
 quest.comment = function (q: any, n: any, s: any) {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  metamsg(s + ": {i:" + q.name + "}")
+  Quest.IO.metamsg(s + ": {i:" + q.name + "}")
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  if (n !== false) metamsg(q.stages[n].text)
+  if (n !== false) Quest.IO.metamsg(q.stages[n].text)
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'start' does not exist on type '{ INITIAL... Remove this comment to see the full error message
@@ -178,9 +178,9 @@ quest.progress = function (name: any, all: any) {
   // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'result'.
   if (result.progress !== quest.ACTIVE && all) return false
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  metamsg(data.name + ', {i:' + quest.progressNames[result.progress] + '}')
+  Quest.IO.metamsg(data.name + ', {i:' + quest.progressNames[result.progress] + '}')
   // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'result'.
-  if (result.progress === quest.ACTIVE) metamsg(data.quest.stages[result.stateName].text)
+  if (result.progress === quest.ACTIVE) Quest.IO.metamsg(data.quest.stages[result.stateName].text)
   return true
 }
 
@@ -196,16 +196,16 @@ quest.progress = function (name: any, all: any) {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'list' does not exist on type '{ INITIAL:... Remove this comment to see the full error message
 quest.list = function (all: any) {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  metamsg(all ? 'Active Quests' : 'All Quests')
+  Quest.IO.metamsg(all ? 'Active Quests' : 'All Quests')
   let flag = false
   for (let q of quest.data) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'getStatus' does not exist on type '{ INI... Remove this comment to see the full error message
     flag = flag || quest.getStatus(q, all)
   }
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  if (!flag) metamsg("None")
+  if (!flag) Quest.IO.metamsg("None")
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  if (!all) metamsg("[Do QUESTS ALL to include completed and failed quests]")
+  if (!all) Quest.IO.metamsg("[Do QUESTS ALL to include completed and failed quests]")
 }
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message

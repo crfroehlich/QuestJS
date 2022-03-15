@@ -18,14 +18,14 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('GoToDest', {
   script: function (objects: any) {
     const room = objects[0][0]
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (room === currentLocation) return failedmsg("As if by magic, you are suddenly... where you already were.")
-    if (!room.room) return failedmsg("{pv:item:be:true} not a destination.", { item: room })
+    if (room === currentLocation) return Quest.IO.failedmsg("As if by magic, you are suddenly... where you already were.")
+    if (!room.room) return Quest.IO.failedmsg("{pv:item:be:true} not a destination.", { item: room })
     for (const ex of currentLocation.dests) {
       if (room.name === ex.name) {
         return ex.use(player, ex) ? world.SUCCESS : world.FAILED
       }
     }
-    return failedmsg("{pv:item:be:true} not a destination you can get to from here.", { item: room })
+    return Quest.IO.failedmsg("{pv:item:be:true} not a destination you can get to from here.", { item: room })
   },
 }))
 
@@ -35,15 +35,15 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('GoToDest', {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'msgInputText' does not exist on type '{ ... Remove this comment to see the full error message
-io.msgInputText = function (s: any) {
+Quest.IO.io.msgInputText = function (s: any) {
   if (!Quest.Settings.settings.cmdEcho || s === '') return
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-  document.querySelector("#output").innerHTML += '<p id="n' + io.nextid + '" class="input-text">&gt; ' + s.toUpperCase() + "</p>"
-  io.nextid++
+  document.querySelector("#output").innerHTML += '<p id="n' + Quest.IO.io.nextid + '" class="input-text">&gt; ' + s.toUpperCase() + "</p>"
+  Quest.IO.io.nextid++
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'speak' does not exist on type '{ nextid:... Remove this comment to see the full error message
-  if (io.spoken) io.speak(s, true)
+  if (Quest.IO.io.spoken) Quest.IO.io.speak(s, true)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'transcript' does not exist on type '{ ne... Remove this comment to see the full error message
-  if (io.transcript) io.scriptAppend({ cssClass: 'input', text: s })
+  if (Quest.IO.io.transcript) Quest.IO.io.scriptAppend({ cssClass: 'input', text: s })
 }
 
 
@@ -107,7 +107,7 @@ tp.addDirective("role", function (arr: any, params: any) {
   const npc = roster.getOfficer(pos)
   if (!npc) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    errormsg("TP Failed for role :" + arr.join(':'))
+    Quest.IO.errormsg("TP Failed for role :" + arr.join(':'))
     return ''
   }
   const s = npc[arr[1]]
@@ -154,17 +154,17 @@ for (let el of newVerbs) {
 const newCmds = [
   {
     name: 'Intro1',
-    script: function () { showDiag('Welcome to your new ship, captain!', '<br/>' + this.text.replace(/\|/g, '<br/><br/>'), 'Okay'); return world.SUCCESS },
+    script: function () { Quest.IO.showDiag('Welcome to your new ship, captain!', '<br/>' + this.text.replace(/\|/g, '<br/><br/>'), 'Okay'); return world.SUCCESS },
     text: "All interactions in this game (except some explanatory links like this) are through the panel to the left. You can select different areas of the ship to visit, and from the shuttle bay may also be able to go off ship, depending on whether there is anything near by. You can also talk to people - giving your crew instructions is a big part of the game.|Your PAGE is also there; this gives you access to the ship computer. Use this is check the missions, organise your bridge crew or view the encyclopedia.",
   },
   {
     name: 'Intro2',
-    script: function () { showDiag('Getting started', '<br/>' + this.text.replace(/\|/g, '<br/><br/>'), 'Okay'); return world.SUCCESS },
+    script: function () { Quest.IO.showDiag('Getting started', '<br/>' + this.text.replace(/\|/g, '<br/><br/>'), 'Okay'); return world.SUCCESS },
     text: "Your first task is to assemble your crew by assigning candidates to posts on the bridge using your PAGE. Look at the mission on your PAGE for the current assignments and a quick overview of the candidates. You will need a helmsman, but other posts can be left empty if you wish. You can assign officers to multiple roles, but they will tend to be less effective in both roles. Some candidates are better suited to a certain roles than others, but it is up to you; if you want to appoint people to posts that will be poor at, go for it! If you change your mind - perhaps after talking to the candidate - you can unassign the role for the current officer, and then assign it to your new choice.|Once you are happy with your crew, ask the helmsman to lay in a course for sector 7 Iota. Note that once you set off for Sector 7 Iota you cannot change assignments.|Once you arrive there, you will get a new list of missions - you will need to prioritize. It may not be possible to  do everything, and the situation could change as time passes. In most cases it takes about a day to travel between star systems in the sector, but some systems are further out and will take longer; this will be noted in the mission. Obviously it will take a similar time to get back to a star system in the central cluster.",
   },
   {
     name: 'Intro3',
-    script: function () { showDiag('Additional notes', '<br/>' + this.text.replace(/\|/g, '<br/><br/>'), 'Okay'); return world.SUCCESS },
+    script: function () { Quest.IO.showDiag('Additional notes', '<br/>' + this.text.replace(/\|/g, '<br/><br/>'), 'Okay'); return world.SUCCESS },
     text: "If your screen is wide enough, you will see a star map on the right, but you do not need it to play the game. When you arrive in sector 7 Iota you will be able to toggle between  map of the stars in the sector and the star system you are currently at.|It is possible to die; bad decisions or just bad luck may lead to a bad ending; you may want to save often, and think about how you could do better next time.|Any similarity to a certain series from the sixties... and several other decades... is entirely coincidental. Honest.",
   },
 ]

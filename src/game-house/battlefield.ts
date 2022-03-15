@@ -21,18 +21,18 @@ createRoom("battlefield", {
   desc: 'Mandy is standing on a small rise overlooking a battlefield, next to a dead horse. All around her there are corpses, some in red uniforms, some in blue uniforms; all are covered in blood and mud and flies. To the south is a beach, and beyond that a sea that looks strangely peaceful after the horrors all around here.',
   afterFirstEnter: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'Shit,' mutters Mandy. This is certainly outside the house, but she has no idea where she is. Or even when; how long is it since horses were used in a war, or uniforms like that?")
+    Quest.IO.msg("'Shit,' mutters Mandy. This is certainly outside the house, but she has no idea where she is. Or even when; how long is it since horses were used in a war, or uniforms like that?")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
     w.clockwork_thespian.state = 201
   },
   afterEnter: function () {
     if (this.visited === 2) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Chess is supposed to be based on warfare or a metaphor or something, thinks Mandy. Perhaps that was why moving the horse on the chessboard brought her here.")
+      Quest.IO.msg("Chess is supposed to be based on warfare or a metaphor or something, thinks Mandy. Perhaps that was why moving the horse on the chessboard brought her here.")
     }
     if (this.visited === 4) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("If the chessboard is a metaphor for this battle, and there is some kind of mystical link between then two, it occurs to Mandy that the knight she turned back in the house might be similarly linked to this dead horse.")
+      Quest.IO.msg("If the chessboard is a metaphor for this battle, and there is some kind of mystical link between then two, it occurs to Mandy that the knight she turned back in the house might be similarly linked to this dead horse.")
     }
   },
   scenery: [
@@ -63,16 +63,16 @@ createItem("dead_horse", {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'oar' does not exist on type '{}'.
     if (!w.oar.isHeld()) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("{i:This can't be right,} thinks Mandy, as she tries to push the rump of the dead horse, to get it to turn. 'Shit!' It is too heavy to move. If she had a lever...")
+      Quest.IO.msg("{i:This can't be right,} thinks Mandy, as she tries to push the rump of the dead horse, to get it to turn. 'Shit!' It is too heavy to move. If she had a lever...")
       return false
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("{once:{i:This can't be right,} thinks Mandy. }She puts the oar under the rump of the dead horse. With a grunt, she jerks it up, and the hindquarters of the horse move a bit. With a shrug, she does it again, and again, slowly inching the back end of the horse round the front end...")
+      Quest.IO.msg("{once:{i:This can't be right,} thinks Mandy. }She puts the oar under the rump of the dead horse. With a grunt, she jerks it up, and the hindquarters of the horse move a bit. With a shrug, she does it again, and again, slowly inching the back end of the horse round the front end...")
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("She lets go of the oar, and stands to take a breath, and suddenly the world dissolves around here.")
+      Quest.IO.msg("She lets go of the oar, and stands to take a breath, and suddenly the world dissolves around here.")
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("She is back in the house.")
+      Quest.IO.msg("She is back in the house.")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'oar' does not exist on type '{}'.
       w.oar.loc = "battlefield"
       player.loc = 'gallery'
@@ -102,7 +102,7 @@ createRoom("beach", {
   south: new Exit("_", {
     alsoDir: ['swim'], use: function (char: any) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg('Mandy is about to paddle in the sea, when she sees a corpse floating nearby, surrounded by clouds of red. And another over there. And... lots of corpses. Perhaps the sea is not so inviting.')
+      Quest.IO.msg('Mandy is about to paddle in the sea, when she sees a corpse floating nearby, surrounded by clouds of red. And another over there. And... lots of corpses. Perhaps the sea is not so inviting.')
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'beach' does not exist on type '{}'.
       w.beach.paddleFlag = true
       return false
@@ -112,7 +112,7 @@ createRoom("beach", {
   in: new Exit("_", {
     isHidden: function () { return w.chamber_pot.loc !== 'sea' }, use: function (char: any) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy carefully steps into her chamber pot boat... Which promptly capsizes! 'Shit,' she screams, now drenched in the filthy water. 'Well that was a fucking stupid idea,' she mutters to herself, as she steps back on dry land, dragging the chamber-pot-that-is-definitely-not-a-boat behind her.")
+      Quest.IO.msg("Mandy carefully steps into her chamber pot boat... Which promptly capsizes! 'Shit,' she screams, now drenched in the filthy water. 'Well that was a fucking stupid idea,' she mutters to herself, as she steps back on dry land, dragging the chamber-pot-that-is-definitely-not-a-boat behind her.")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
       w.chamber_pot.loc = 'beach'
       return false
@@ -138,7 +138,7 @@ createItem("sea", CONTAINER(), {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
     if (w.chamber_pot.containedFluidName) return falsemsg("Mandy wonders if the chamber pot would make a boat. Not while it is full of {show:fluid} of course.", { fluid: w.chamber_pot.containedFluidName })
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Mandy carefully puts the enormous chamber pot into the water; it floats!")
+    Quest.IO.msg("Mandy carefully puts the enormous chamber pot into the water; it floats!")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
     w.chamber_pot.loc = "sea"
   },
@@ -155,7 +155,7 @@ createItem("sand_item", {
   dig: function (options: any) { return this.play(options) },
   smash: function (options: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Mandy spends a few minutes kicking sand. It does not achieve anything, but she feels better for it.")
+    Quest.IO.msg("Mandy spends a few minutes kicking sand. It does not achieve anything, but she feels better for it.")
     return true
   },
   play: function (options: any) {
@@ -173,7 +173,7 @@ createItem("sand_item", {
     if (w.chamber_pot.containedFluidName) return falsemsg('Mandy thinks about getting some sand, but the chamber pot is already full; she would need to empty it first.')
 
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg('Mandy scoops up a load of sand into the chamber pot.')
+    Quest.IO.msg('Mandy scoops up a load of sand into the chamber pot.')
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
     w.chamber_pot.containedFluidName = 'sand'
     return true
@@ -196,7 +196,7 @@ createItem("sandcastle", CONSTRUCTION(), {
   },
   smash: function (options: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("With a big grin, Mandy kicks the sandcastle, again and again, until no trace is left.")
+    Quest.IO.msg("With a big grin, Mandy kicks the sandcastle, again and again, until no trace is left.")
     delete this.loc
     return true
   },
@@ -240,7 +240,7 @@ createItem("oar", TAKEABLE(), {  // cannot get taken to size change rooms
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy wonders how she can use the oar... Perhaps she can find a boat?")
+      Quest.IO.msg("Mandy wonders how she can use the oar... Perhaps she can find a boat?")
       return false
     }
   },

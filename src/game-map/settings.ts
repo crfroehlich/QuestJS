@@ -38,7 +38,7 @@ Quest.Settings.settings.mapStyle = { right: '0', top: '200px', width: '400px', h
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapClick' does not exist on type '{ perf... Remove this comment to see the full error message
 Quest.Settings.settings.mapClick = function (name: any) {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  metamsg("You clicked on " + w[name].alias)
+  Quest.IO.metamsg("You clicked on " + w[name].alias)
 }
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapAutomapFrom' does not exist on type '... Remove this comment to see the full error message
 Quest.Settings.settings.mapAutomapFrom = ['street_middle', 'glade']

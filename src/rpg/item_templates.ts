@@ -41,7 +41,7 @@ const EQUIPPABLE = function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'equipped' does not exist on type '{ afte... Remove this comment to see the full error message
     if (this.equipped) this.equipped = false
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg(Quest.lang.drop_successful, options);
+    Quest.IO.msg(Quest.lang.drop_successful, options);
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'moveToFrom' does not exist on type '{ af... Remove this comment to see the full error message
     this.moveToFrom(options, "loc", "name");
     return true;
@@ -54,12 +54,12 @@ const EQUIPPABLE = function () {
     if (equipped.includes(this)) return falsemsg(Quest.lang.already, options)
     if (equipped.length === 0) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(Quest.lang.equip, options)
+      Quest.IO.msg(Quest.lang.equip, options)
     }
     else {
       options.list = Quest.Utilities.formatList(equipped, { article: Quest.Utilities.DEFINITE, joiner: Quest.lang.list_and })
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(Quest.lang.unequipAndEquip, options)
+      Quest.IO.msg(Quest.lang.unequipAndEquip, options)
       for (let el of equipped) el.equipped = false
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'equipped' does not exist on type '{ afte... Remove this comment to see the full error message
@@ -74,7 +74,7 @@ const EQUIPPABLE = function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'equipped' does not exist on type '{ afte... Remove this comment to see the full error message
     this.equipped = false
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg(Quest.lang.unequip, options)
+    Quest.IO.msg(Quest.lang.unequip, options)
     return true;
   }
 
@@ -119,9 +119,9 @@ new Effect("Ammo consumer", {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     const item = w[source.ammo]
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (!item) return errormsg("The weapon " + source.name + " has an unknown ammo set: " + source.ammo)
+    if (!item) return Quest.IO.errormsg("The weapon " + source.name + " has an unknown ammo set: " + source.ammo)
     if (item.countAtLoc(player.name) < 1) {
-      attack.msg("Out of ammo!", 1)
+      attack.Quest.IO.msg("Out of ammo!", 1)
       attack.abort = true
     }
     else {
@@ -136,7 +136,7 @@ new Effect("Ammo tracker", {
   modifyOutgoingAttack: function (attack: any, source: any) {
     if (!source.equipped) return
     if (attack.weapon.ammo === 0) {
-      attack.msg("Out of ammo!", 1)
+      attack.Quest.IO.msg("Out of ammo!", 1)
       attack.abort = true
     }
     else {
@@ -151,7 +151,7 @@ rpg.add(new Effect("Deteriorating", {
   // really needs to be on success only
   modifyOutgoingAttack:function(attack) {
     if (attack.weapon.ammo === 0) {
-      attack.msg("Out of ammo!")
+      attack.Quest.IO.msg("Out of ammo!")
       attack.abort = true
     }
     else {
@@ -193,7 +193,7 @@ const SPELLBOOK = function (list: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'examine' does not exist on type '{ after... Remove this comment to see the full error message
   res.examine = function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg(this.examineX + ' It contains the spells ' + Quest.Utilities.formatList(this.spellsAvailableToLearn.map((el: any) => '<i>' + el + '</i>'), { lastJoiner: Quest.lang.list_and }) + '.')
+    Quest.IO.msg(this.examineX + ' It contains the spells ' + Quest.Utilities.formatList(this.spellsAvailableToLearn.map((el: any) => '<i>' + el + '</i>'), { lastJoiner: Quest.lang.list_and }) + '.')
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'icon' does not exist on type '{ afterCre... Remove this comment to see the full error message
   res.icon = () => 'spell12'
@@ -221,7 +221,7 @@ const ONE_USE_ITEM = function (spellName: any, requiresTarget: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'apply' does not exist on type 'boolean |... Remove this comment to see the full error message
     attack.apply().output()
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'msgDestroy' does not exist on type '{ af... Remove this comment to see the full error message
-    if (this.msgDestroy) msg(this.msgDestroy)
+    if (this.msgDestroy) Quest.IO.msg(this.msgDestroy)
     rpg.destroy(this)
     return true
   }
@@ -237,7 +237,7 @@ const ONE_USE_ITEM = function (spellName: any, requiresTarget: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'apply' does not exist on type 'boolean |... Remove this comment to see the full error message
     attack.apply().output()
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'msgDestroy' does not exist on type '{ af... Remove this comment to see the full error message
-    if (this.msgDestroy) msg(this.msgDestroy)
+    if (this.msgDestroy) Quest.IO.msg(this.msgDestroy)
     rpg.destroy(this)
     return true
   }

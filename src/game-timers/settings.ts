@@ -19,25 +19,25 @@ Quest.Settings.settings.themes = ['sans-serif']
 Quest.Settings.settings.eventFunctions = {
   sayNow: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Now!")
+    Quest.IO.msg("Now!")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'scrollToEnd' does not exist on type '{ n... Remove this comment to see the full error message
-    io.scrollToEnd()
+    Quest.IO.io.scrollToEnd()
   },
 
   sayThen: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Then!")
+    Quest.IO.msg("Then!")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'scrollToEnd' does not exist on type '{ n... Remove this comment to see the full error message
-    io.scrollToEnd()
+    Quest.IO.io.scrollToEnd()
   },
 
   sayOften: function () {
     if (!player.count) player.count = 0
     player.count++
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Often! " + player.count)
+    Quest.IO.msg("Often! " + player.count)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'scrollToEnd' does not exist on type '{ n... Remove this comment to see the full error message
-    io.scrollToEnd()
+    Quest.IO.io.scrollToEnd()
     if (player.count > 3) return true
   },
 }

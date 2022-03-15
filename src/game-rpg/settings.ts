@@ -31,11 +31,11 @@ Quest.Settings.settings.output = function (report: any) {
     if (el.level <= Quest.Settings.settings.attackOutputLevel) {
       if (el.level === 1) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg(el.t)
+        Quest.IO.msg(el.t)
       }
       else {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg(el.t)
+        Quest.IO.metamsg(el.t)
       }
     }
   }
@@ -105,7 +105,7 @@ Quest.Settings.settings.dateTime = {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'setup' does not exist on type '{ perform... Remove this comment to see the full error message
 Quest.Settings.settings.setup = function () {
   player.skillsLearnt = ["Double attack", "Fireball"]
-  createAdditionalPane(1, "Spells", 'spells-known', function () {
+  Quest.IO.createAdditionalPane(1, "Spells", 'spells-known', function () {
     let html = ''
     for (const name of player.skillsLearnt) {
       html += '<p class="item" onclick="Quest.Utilities.runCmd(\'cast ' + name + '\')" >' + name + '</p><br/>'

@@ -1104,17 +1104,17 @@ test.tests = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertOut' does not exist on type '{}'.
   test.assertOut(["Kyle is red."], function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Kyle is {select:Kyle:colours:colour}.")
+    Quest.IO.msg("Kyle is {select:Kyle:colours:colour}.")
   })
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertOut' does not exist on type '{}'.
   test.assertOut(["Kyle is here.", "Lara is not"], function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Kyle is here.|Lara is not")
+    Quest.IO.msg("Kyle is here.|Lara is not")
   })
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertOut' does not exist on type '{}'.
   test.assertOut(["Kyle is here.|Lara is not"], function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Kyle is here.@@@vert@@@Lara is not")
+    Quest.IO.msg("Kyle is here.@@@vert@@@Lara is not")
   })
 
 
@@ -1126,7 +1126,7 @@ test.tests = function () {
   test.fullOutputData = true
   let res
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'function' does not exist on type '{}'.
-  res = test.function(function () { msg("Kyle is {select:Kyle:colours:colour}.") })
+  res = test.function(function () { Quest.IO.msg("Kyle is {select:Kyle:colours:colour}.") })
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("default-p", res[0].cssClass)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -1135,7 +1135,7 @@ test.tests = function () {
   test.assertEqual("Kyle is red.", res[0].text)
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'function' does not exist on type '{}'.
-  res = test.function(function () { msg("#Kyle is {select:Kyle:colours:colour}.") })
+  res = test.function(function () { Quest.IO.msg("#Kyle is {select:Kyle:colours:colour}.") })
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("default-h default-h4", res[0].cssClass)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -1144,7 +1144,7 @@ test.tests = function () {
   test.assertEqual("Kyle is red.", res[0].text)
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'function' does not exist on type '{}'.
-  res = test.function(function () { msg("#Kyle is {select:Kyle:colours:colour}.", {}, 'test') })
+  res = test.function(function () { Quest.IO.msg("#Kyle is {select:Kyle:colours:colour}.", {}, 'test') })
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("test", res[0].cssClass)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -1698,12 +1698,12 @@ test.tests = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(["Look at", "Talk to"], w.Kyle.getVerbs())
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  player.testTalk = function () { msg("You are gagged."); return false; }
+  player.testTalk = function () { Quest.IO.msg("You are gagged."); return false; }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("talk to kyle", "You are gagged.");
   player.testTalk = function () { return true; }
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  player.testManipulate = function () { msg("You are handcuffed."); return false; }
+  player.testManipulate = function () { Quest.IO.msg("You are handcuffed."); return false; }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("drop bricks", "You are handcuffed.");
   player.testManipulate = function () { return true; }
@@ -1774,7 +1774,7 @@ test.tests = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("use knife", "No obvious way to use it.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'knife' does not exist on type '{}'.
-  w.knife.use = function (options: any) { msg("You juggle the knife.") }
+  w.knife.use = function (options: any) { Quest.IO.msg("You juggle the knife.") }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("use knife", "You juggle the knife.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -1896,7 +1896,7 @@ test.tests = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("NPC commands 1.1");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Lara' does not exist on type '{}'.
-  w.Lara.testPosture = function () { msg("She is turned to stone."); return false; }
+  w.Lara.testPosture = function () { Quest.IO.msg("She is turned to stone."); return false; }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("lara, get off chair", "She is turned to stone.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Lara' does not exist on type '{}'.
@@ -2361,7 +2361,7 @@ test.tests = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("w", ["You head west.", "The lift", "A curious lift.", "You can go east."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'lift' does not exist on type '{}'.
-  w.lift.afterTransitMove = function (toLoc: any, fromLoc: any) { msg("MOVING to " + toLoc + " from " + fromLoc); };
+  w.lift.afterTransitMove = function (toLoc: any, fromLoc: any) { Quest.IO.msg("MOVING to " + toLoc + " from " + fromLoc); };
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("push 1", ["You press the button; nothing happens."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -2373,7 +2373,7 @@ test.tests = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'lift' does not exist on type '{}'.
   w.lift.testTransit = function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("The lift is out of order");
+    Quest.IO.msg("The lift is out of order");
     return false;
   };
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'lift' does not exist on type '{}'.
@@ -2395,7 +2395,7 @@ test.tests = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("push chair s", "It is not something you can move around like that.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'broken_chair' does not exist on type '{}... Remove this comment to see the full error message
-  w.broken_chair.shift = function () { msg("You try to push chair, but it just breaks even more."); return false; }
+  w.broken_chair.shift = function () { Quest.IO.msg("You try to push chair, but it just breaks even more."); return false; }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'broken_chair' does not exist on type '{}... Remove this comment to see the full error message
   w.broken_chair.shiftable = true;
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.

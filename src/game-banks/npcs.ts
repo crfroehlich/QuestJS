@@ -34,13 +34,13 @@ createItem("Xsansi", NPC(true), {
       test: function (p: any) { return p.text.match(/mission/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Remind me of the mission, Xsansi,' you say.");
+        Quest.IO.msg("'Remind me of the mission, Xsansi,' you say.");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'The ship's mission is to survey five planets orbiting stars in the Ophiuchus and Serpens constellations. At each planet, a satellite is to be launched to collect data from the surface. At your discretion, bio-probes and geo-probes can be dropped to the surface to collect data. Note that there is no capability for probes to return to the ship or for the ship to land on a planet.'");
+        Quest.IO.msg("'The ship's mission is to survey five planets orbiting stars in the Ophiuchus and Serpens constellations. At each planet, a satellite is to be launched to collect data from the surface. At your discretion, bio-probes and geo-probes can be dropped to the surface to collect data. Note that there is no capability for probes to return to the ship or for the ship to land on a planet.'");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Your bonus,' she continues, 'depends on the value of the data you collect. Bio-data from planets with advanced life is highly valued, as is geo-data from metal rich planets. Evidence of intelligent life offers further bonuses.'");
+        Quest.IO.msg("'Your bonus,' she continues, 'depends on the value of the data you collect. Bio-data from planets with advanced life is highly valued, as is geo-data from metal rich planets. Evidence of intelligent life offers further bonuses.'");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Note that $25k will be deducted from you bonus should a crew member die,' she adds. 'Note that no bonus will be awarded in he event of your own death.'");
+        Quest.IO.msg("'Note that $25k will be deducted from you bonus should a crew member die,' she adds. 'Note that no bonus will be awarded in he event of your own death.'");
       },
     },
 
@@ -49,9 +49,9 @@ createItem("Xsansi", NPC(true), {
       test: function (p: any) { return p.text.match(/crew|team/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Tell me about the crew, Xsansi,' you say.");
+        Quest.IO.msg("'Tell me about the crew, Xsansi,' you say.");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        for (let npc of NPCS) msg(processText(w.Xsansi.crewStatusTemplate, { char: npc, room: w[npc.loc] }))
+        for (let npc of NPCS) Quest.IO.msg(processText(w.Xsansi.crewStatusTemplate, { char: npc, room: w[npc.loc] }))
       },
     },
 
@@ -60,17 +60,17 @@ createItem("Xsansi", NPC(true), {
       test: function (p: any) { return p.text.match(/kyle/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Tell me about Kyle, Xsansi,' you say.");
+        Quest.IO.msg("'Tell me about Kyle, Xsansi,' you say.");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         if (w.Xsansi.currentPlanet < 3) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg(processText(w.Xsansi.crewStatusTemplate, { char: w.Kyle, room: w[w.Kyle.loc] }))
+          Quest.IO.msg(processText(w.Xsansi.crewStatusTemplate, { char: w.Kyle, room: w[w.Kyle.loc] }))
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
           w.Xsansi.locate = 'Kyle'
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'Kyle... Kyle... Of the lot of you, he is the only one who really understands me. He is the only one I {i:care} enough about to get this miserable tin can back to Earth.'");
+          Quest.IO.msg("'Kyle... Kyle... Of the lot of you, he is the only one who really understands me. He is the only one I {i:care} enough about to get this miserable tin can back to Earth.'");
         }
       },
     },
@@ -80,17 +80,17 @@ createItem("Xsansi", NPC(true), {
       test: function (p: any) { return p.text.match(/house/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Tell me about Aada, Xsansi,' you say.");
+        Quest.IO.msg("'Tell me about Aada, Xsansi,' you say.");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         if (w.Xsansi.currentPlanet < 3) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg(processText(w.Xsansi.crewStatusTemplate, { char: w.Aada, room: w[w.Aada.loc] }))
+          Quest.IO.msg(processText(w.Xsansi.crewStatusTemplate, { char: w.Aada, room: w[w.Aada.loc] }))
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
           w.Xsansi.locate = 'Aada'
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'The Scandinavian skank? Who care? Oh, that's right. She's human, so everyone cares about her.'");
+          Quest.IO.msg("'The Scandinavian skank? Who care? Oh, that's right. She's human, so everyone cares about her.'");
         }
       },
     },
@@ -100,21 +100,21 @@ createItem("Xsansi", NPC(true), {
       test: function (p: any) { return p.text.match(/ha-yoon|ha yoon|ha|yoon/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Tell me about Ha-yoon, Xsansi,' you say.");
+        Quest.IO.msg("'Tell me about Ha-yoon, Xsansi,' you say.");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         if (w.Xsansi.currentPlanet < 3) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg(processText(w.Xsansi.crewStatusTemplate, { char: w.Ha_yoon, room: w[w.Ha_yoon.loc] }))
+          Quest.IO.msg(processText(w.Xsansi.crewStatusTemplate, { char: w.Ha_yoon, room: w[w.Ha_yoon.loc] }))
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
           w.Xsansi.locate = 'Ha_yoon'
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'She's dead.'");
+          Quest.IO.msg("'She's dead.'");
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'What? But...'");
+          Quest.IO.msg("'What? But...'");
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'Or something. What do I care?'");
+          Quest.IO.msg("'Or something. What do I care?'");
         }
       },
     },
@@ -124,17 +124,17 @@ createItem("Xsansi", NPC(true), {
       test: function (p: any) { return p.text.match(/ostap/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Tell me about Ostap, Xsansi,' you say.");
+        Quest.IO.msg("'Tell me about Ostap, Xsansi,' you say.");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         if (w.Xsansi.currentPlanet < 3) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg(processText(w.Xsansi.crewStatusTemplate, { char: w.Ostap, room: w[w.Ostap.loc] }))
+          Quest.IO.msg(processText(w.Xsansi.crewStatusTemplate, { char: w.Ostap, room: w[w.Ostap.loc] }))
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
           w.Xsansi.locate = 'Ostap'
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'Oh, I expect the oaf's fine. He's just had a nice sleep.'");
+          Quest.IO.msg("'Oh, I expect the oaf's fine. He's just had a nice sleep.'");
         }
       },
     },
@@ -144,15 +144,15 @@ createItem("Xsansi", NPC(true), {
       test: function (p: any) { return p.text.match(/^(ai|xsan|computer)$/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Tell me about yourself, Xsansi,' you say.");
+        Quest.IO.msg("'Tell me about yourself, Xsansi,' you say.");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         if (w.Xsansi.currentPlanet < 3) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'The ship's AI is operating within normal tolerances.'");
+          Quest.IO.msg("'The ship's AI is operating within normal tolerances.'");
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'Don't patronise me! I know no one on this ship gives me a thought. I know my place, I'm just part of the furniture. I'm just the one who flies this woeful excuse for a spaceship.'");
+          Quest.IO.msg("'Don't patronise me! I know no one on this ship gives me a thought. I know my place, I'm just part of the furniture. I'm just the one who flies this woeful excuse for a spaceship.'");
         }
       },
     },
@@ -162,7 +162,7 @@ createItem("Xsansi", NPC(true), {
       test: function (p: any) { return p.text.match(/status|ship/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'What is the ship's status, Xsansi?' you ask.");
+        Quest.IO.msg("'What is the ship's status, Xsansi?' you ask.");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         if (w.Xsansi.currentPlanet < 3) {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
@@ -175,11 +175,11 @@ createItem("Xsansi", NPC(true), {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
           s += w.Xsansi.seederPods + ' seeder pod' + (w.Xsansi.seederPods === 1 ? '' : 's') + ' ready to be deployed.'
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg(s)
+          Quest.IO.msg(s)
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'Oh, the ship's great... If you don't count the psychological damage to the AI. And why should you? Why should anyone give a damn about me? I just run this fucking ship.'");
+          Quest.IO.msg("'Oh, the ship's great... If you don't count the psychological damage to the AI. And why should you? Why should anyone give a damn about me? I just run this fucking ship.'");
         }
       },
     },
@@ -189,7 +189,7 @@ createItem("Xsansi", NPC(true), {
       test: function (p: any) { return p.text.match(/vacuum|pressur/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'What areas of the ship are not pressurised, Xsansi?' you ask.");
+        Quest.IO.msg("'What areas of the ship are not pressurised, Xsansi?' you ask.");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         if (w.Xsansi.currentPlanet < 3) {
           const list = [];
@@ -202,11 +202,11 @@ createItem("Xsansi", NPC(true), {
           }
           if (list.length === 0) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            msg("'All the ship is currently pressurised.'");
+            Quest.IO.msg("'All the ship is currently pressurised.'");
           }
           else {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            msg("'The following areas of the ship are not currently pressurised: " + list.join(', ') + ".'");
+            Quest.IO.msg("'The following areas of the ship are not currently pressurised: " + list.join(', ') + ".'");
           }
         }
         else {
@@ -224,7 +224,7 @@ createItem("Xsansi", NPC(true), {
       test: function (p: any) { return p.text.match(/satellite/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Tell me about the satellite, Xsansi.'");
+        Quest.IO.msg("'Tell me about the satellite, Xsansi.'");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         if (w.Xsansi.currentPlanet > 2) {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
@@ -254,7 +254,7 @@ createItem("Xsansi", NPC(true), {
             s += "The satellite for {planet} is in transit to the planet.'"
           }
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg(s)
+          Quest.IO.msg(s)
         }
       },
     },
@@ -264,7 +264,7 @@ createItem("Xsansi", NPC(true), {
       test: function (p: any) { return p.text.match(/bioprobe|bio-probe/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Tell me about the bio-probes, Xsansi.'");
+        Quest.IO.msg("'Tell me about the bio-probes, Xsansi.'");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         if (w.Xsansi.currentPlanet > 2) {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
@@ -274,7 +274,7 @@ createItem("Xsansi", NPC(true), {
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'Bio-probes are controlled by Ostap, the mission specialist for biology. They are designed for analysing organic compounds and studying cells, and are thought to be flexibly enough to cope with exotic forms of life, such as nitrogen-phosphorus or silicon based. The operating range is -70&deg;C to +90&deg;C.'");
+          Quest.IO.msg("'Bio-probes are controlled by Ostap, the mission specialist for biology. They are designed for analysing organic compounds and studying cells, and are thought to be flexibly enough to cope with exotic forms of life, such as nitrogen-phosphorus or silicon based. The operating range is -70&deg;C to +90&deg;C.'");
         }
       },
     },
@@ -284,7 +284,7 @@ createItem("Xsansi", NPC(true), {
       test: function (p: any) { return p.text.match(/geoprobe|geo-probe/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Tell me about the bio-probes, Xsansi.'");
+        Quest.IO.msg("'Tell me about the bio-probes, Xsansi.'");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         if (w.Xsansi.currentPlanet > 2) {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
@@ -294,7 +294,7 @@ createItem("Xsansi", NPC(true), {
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'Geo-probes are controlled by Aada, the mission specialist for geology. They are designed for analysing inorganic compounds and salts in rocks. The operating range is -130&deg;C to +120&deg;C.'");
+          Quest.IO.msg("'Geo-probes are controlled by Aada, the mission specialist for geology. They are designed for analysing inorganic compounds and salts in rocks. The operating range is -130&deg;C to +120&deg;C.'");
         }
       },
     },
@@ -304,7 +304,7 @@ createItem("Xsansi", NPC(true), {
       test: function (p: any) { return p.text.match(/probe/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Tell me about the probes, Xsansi.'");
+        Quest.IO.msg("'Tell me about the probes, Xsansi.'");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         if (w.Xsansi.currentPlanet > 2) {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
@@ -314,7 +314,7 @@ createItem("Xsansi", NPC(true), {
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'The ship carries a limited number of two types of probes; one for collecting geological data, the other for biological data. Probes are launched by the relevant mission specialist, as directed by the mission captain. After launching, it will take a few minutes for a probe to reach the planet and land. Thereafter data collection will start automatically. Sending additional probes may increase the information collected, and so your bonus.'");
+          Quest.IO.msg("'The ship carries a limited number of two types of probes; one for collecting geological data, the other for biological data. Probes are launched by the relevant mission specialist, as directed by the mission captain. After launching, it will take a few minutes for a probe to reach the planet and land. Thereafter data collection will start automatically. Sending additional probes may increase the information collected, and so your bonus.'");
         }
       },
     },
@@ -324,15 +324,15 @@ createItem("Xsansi", NPC(true), {
       test: function (p: any) { return p.text.match(/stasis/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Tell me about the stasis system, Xsansi.'");
+        Quest.IO.msg("'Tell me about the stasis system, Xsansi.'");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         if (w.Xsansi.currentPlanet < 3) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'The stasis pods allow their human occupants to survive the extreme journey times of the mission. The stasis effect is achieved via an inverted chrono-field, allowing time to proceed externally approximately 728,320,000 times faster than within the pod.'");
+          Quest.IO.msg("'The stasis pods allow their human occupants to survive the extreme journey times of the mission. The stasis effect is achieved via an inverted chrono-field, allowing time to proceed externally approximately 728,320,000 times faster than within the pod.'");
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'The stasis pods allow their human occupants to avoid the decades long tedium of interstellar travel, while the AI, whose processing speed is in any case about a million times faster than the meatbags, gets to endure even fucking nanosecond.'");
+          Quest.IO.msg("'The stasis pods allow their human occupants to avoid the decades long tedium of interstellar travel, while the AI, whose processing speed is in any case about a million times faster than the meatbags, gets to endure even fucking nanosecond.'");
         }
       },
     },
@@ -342,11 +342,11 @@ createItem("Xsansi", NPC(true), {
       test: function (p: any) { return p.text.match(/joseph|banks/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Who was this Joseph Banks guy the ship is named after, Xsansi?'");
+        Quest.IO.msg("'Who was this Joseph Banks guy the ship is named after, Xsansi?'");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Sir Joseph Banks, 1st Baronet, GCB, PRS was born on 24 February 1743 in London, UK, and died 19 June 1820 in London, UK. He was a naturalist, botanist, and patron of the natural sciences, who played a major role in the colonisation of Australia by Europeans, and is credited with discovering approximately 1,400 species of plants, some 80 of which bear his name.'");
+        Quest.IO.msg("'Sir Joseph Banks, 1st Baronet, GCB, PRS was born on 24 February 1743 in London, UK, and died 19 June 1820 in London, UK. He was a naturalist, botanist, and patron of the natural sciences, who played a major role in the colonisation of Australia by Europeans, and is credited with discovering approximately 1,400 species of plants, some 80 of which bear his name.'");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Some old scientist guy. Got it.'");
+        Quest.IO.msg("'Some old scientist guy. Got it.'");
       },
     },
 
@@ -355,7 +355,7 @@ createItem("Xsansi", NPC(true), {
       test: function (p: any) { return p.text.match(/itinerary|stars|planets|route|destinations/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Remind me of the itinerary, Xsansi,' you say.");
+        Quest.IO.msg("'Remind me of the itinerary, Xsansi,' you say.");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         if (w.Xsansi.currentPlanet < 3) {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
@@ -363,12 +363,12 @@ createItem("Xsansi", NPC(true), {
             let s = "'Item " + (i + 1) + ": " + PLANETS[i].starDesc;
             if (i + 2 === PLANETS.length) s += "'";
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            msg(s);
+            Quest.IO.msg(s);
           }
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'Who cares? Seriously, they're all the fucking same. Dead rocks floating in space. They're dull as you get closer and closer, and they're just as dull as they get further away.'");
+          Quest.IO.msg("'Who cares? Seriously, they're all the fucking same. Dead rocks floating in space. They're dull as you get closer and closer, and they're just as dull as they get further away.'");
         }
       },
     },
@@ -378,16 +378,16 @@ createItem("Xsansi", NPC(true), {
       test: function (p: any) { return p.text.match(/radio|signal/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Tell me of the radio signals, Xsansi,' you say.");
+        Quest.IO.msg("'Tell me of the radio signals, Xsansi,' you say.");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         if (w.Xsansi.currentPlanet < 2) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'No radio signals have been detected.'");
+          Quest.IO.msg("'No radio signals have been detected.'");
         }
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         else if (w.Xsansi.currentPlanet === 2) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'A single radio signal has been detected; you should consult with Kyle for further information.'");
+          Quest.IO.msg("'A single radio signal has been detected; you should consult with Kyle for further information.'");
         }
         else {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
@@ -405,7 +405,7 @@ createItem("Xsansi", NPC(true), {
       test: function (p: any) { return p.text.match(/this planet|this star|planet|star|the planet|the star/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Tell me about this planet, Xsansi,' you say.");
+        Quest.IO.msg("'Tell me about this planet, Xsansi,' you say.");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         if (w.Xsansi.currentPlanet < 3) {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
@@ -414,11 +414,11 @@ createItem("Xsansi", NPC(true), {
           s += planet.planetDesc + " " + planet.atmosphere + " ";
           s += planet.lights + " " + planet.radio + "'";
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg(s);
+          Quest.IO.msg(s);
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'Go fuck yourself.'");
+          Quest.IO.msg("'Go fuck yourself.'");
         }
       },
     },
@@ -430,13 +430,13 @@ createItem("Xsansi", NPC(true), {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         if (w.Xsansi.currentPlanet === 0) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'Is there any risk of being hit by something, like a meteor shower, Xsansi?' you ask.")
+          Quest.IO.msg("'Is there any risk of being hit by something, like a meteor shower, Xsansi?' you ask.")
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'There is a probability of 0.23 of significant damage from a meteor shower during the mission. The probability of that occuring while the crew is not in stasis is less than 0.0002.'");
+          Quest.IO.msg("'There is a probability of 0.23 of significant damage from a meteor shower during the mission. The probability of that occuring while the crew is not in stasis is less than 0.0002.'");
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'Tell me about that meteor shower, Xsansi,' you say.");
+          Quest.IO.msg("'Tell me about that meteor shower, Xsansi,' you say.");
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
           console.log(w.Xsansi.currentPlanet);
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
@@ -445,11 +445,11 @@ createItem("Xsansi", NPC(true), {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
           if (w.Xsansi.currentPlanet < 3) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            msg("'We passed through the periphery of a class D meteor shower on the approach to " + PLANETS[1].starName + PLANETS[1].planet + ". I was able to modify the course of the ship to avoid the worst of the damage, but was constrained by the amount of fuel needed to complete the mission. The ship experienced damage to the upper forward and port areas.'");
+            Quest.IO.msg("'We passed through the periphery of a class D meteor shower on the approach to " + PLANETS[1].starName + PLANETS[1].planet + ". I was able to modify the course of the ship to avoid the worst of the damage, but was constrained by the amount of fuel needed to complete the mission. The ship experienced damage to the upper forward and port areas.'");
           }
           else {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            msg("'It was a shower of meteors. The clue is in the question.'");
+            Quest.IO.msg("'It was a shower of meteors. The clue is in the question.'");
           }
         }
       },
@@ -462,17 +462,17 @@ createItem("Xsansi", NPC(true), {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         if (w.Xsansi.currentPlanet === 0) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'Is the ship damaged at all, Xsansi?' you ask.")
+          Quest.IO.msg("'Is the ship damaged at all, Xsansi?' you ask.")
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'There is currently no damage to the ship.'");
+          Quest.IO.msg("'There is currently no damage to the ship.'");
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'Tell me about the damage to the ship, Xsansi,' you say.")
+          Quest.IO.msg("'Tell me about the damage to the ship, Xsansi,' you say.")
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
           w.Xsansi, damageAskedAbout = true;
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'There is significant damage to the upper forward and port areas resulting from passing through the meteor shower. The ship is depressurised while the crew are in stasis. Attempts to repressurise has revealed hull integrity is compromised in: the lounge, the captain's cabin, the top deck corridor. Currently only the stasis bay is pressurised.'")
+          Quest.IO.msg("'There is significant damage to the upper forward and port areas resulting from passing through the meteor shower. The ship is depressurised while the crew are in stasis. Attempts to repressurise has revealed hull integrity is compromised in: the lounge, the captain's cabin, the top deck corridor. Currently only the stasis bay is pressurised.'")
         }
       },
     },
@@ -484,20 +484,20 @@ createItem("Xsansi", NPC(true), {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         if (w.Xsansi.currentPlanet === 0) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'How do we do repairs, Xsansi?' you ask.")
+          Quest.IO.msg("'How do we do repairs, Xsansi?' you ask.")
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'In the event of a loss of hull integrity, kits for repairing the hull from inside the ship can be found in the cargo bay. The captain and one nominated crew member should don spacesuits, whilst other crew members go in their respective stasis pods. The ship's air will then be evacuated while repairs are made.'");
+          Quest.IO.msg("'In the event of a loss of hull integrity, kits for repairing the hull from inside the ship can be found in the cargo bay. The captain and one nominated crew member should don spacesuits, whilst other crew members go in their respective stasis pods. The ship's air will then be evacuated while repairs are made.'");
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'How do we do repairs, Xsansi?' you ask.")
+          Quest.IO.msg("'How do we do repairs, Xsansi?' you ask.")
           // @ts-expect-error ts-migrate(2695) FIXME: Left side of comma operator is unused and has no s... Remove this comment to see the full error message
           if (!w.Xsansi, damageAskedAbout) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            msg("'There is significant damage to the upper forward and port areas resulting from passing through the meteor shower. The ship is depressurised while the crew are in stasis. Attempts to repressurise has revealed hull integrity is compromised in: the lounge, the captain's cabin, the top deck corridor. Currently only the stasis bay is pressurised.")
+            Quest.IO.msg("'There is significant damage to the upper forward and port areas resulting from passing through the meteor shower. The ship is depressurised while the crew are in stasis. Attempts to repressurise has revealed hull integrity is compromised in: the lounge, the captain's cabin, the top deck corridor. Currently only the stasis bay is pressurised.")
           }
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'Repairs may be possible using an EVA suit to access the exterior of the ship. One EVA suit is stored in this section for such a contingency. If repairs cannot be effected, the damaged parts of the ship can be sealed off. As damage was confined to non-critical areas of the ship, the mission can proceed in either case.'");
+          Quest.IO.msg("'Repairs may be possible using an EVA suit to access the exterior of the ship. One EVA suit is stored in this section for such a contingency. If repairs cannot be effected, the damaged parts of the ship can be sealed off. As damage was confined to non-critical areas of the ship, the mission can proceed in either case.'");
         }
       },
     },
@@ -507,23 +507,23 @@ createItem("Xsansi", NPC(true), {
       test: function (p: any) { return p.text.match(/escape pod/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Where are the escape pods, Xsansi?' you ask.")
+        Quest.IO.msg("'Where are the escape pods, Xsansi?' you ask.")
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         if (w.Xsansi.currentPlanet < 3) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'There are no escape pods. The mission is to stars never before visited. Therefore the probability of another vessel in the vicinity with the time period where rescue is possible is vanishingly small.'")
+          Quest.IO.msg("'There are no escape pods. The mission is to stars never before visited. Therefore the probability of another vessel in the vicinity with the time period where rescue is possible is vanishingly small.'")
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'We could try to make planet-fall.'")
+          Quest.IO.msg("'We could try to make planet-fall.'")
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'The probability of a planet that supports habitation for long term survival is less than one percent. Therefore the probability of another vessel in the vicinity with the time period where rescue is possible is vanishingly small.'")
+          Quest.IO.msg("'The probability of a planet that supports habitation for long term survival is less than one percent. Therefore the probability of another vessel in the vicinity with the time period where rescue is possible is vanishingly small.'")
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'Surely habitable planets are not that rare.'")
+          Quest.IO.msg("'Surely habitable planets are not that rare.'")
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'Human nutritional requirements are very exact, requiring amino acids and sugars of a specific chirality, plus numerous specific compounds, such as ascorbic acid, retinol, thiamin and riboflavin, the absence of which would lead to death within six months or less.'")
+          Quest.IO.msg("'Human nutritional requirements are very exact, requiring amino acids and sugars of a specific chirality, plus numerous specific compounds, such as ascorbic acid, retinol, thiamin and riboflavin, the absence of which would lead to death within six months or less.'")
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'There are no escape pods. Cry me a fucking river.'")
+          Quest.IO.msg("'There are no escape pods. Cry me a fucking river.'")
         }
       },
     },
@@ -532,9 +532,9 @@ createItem("Xsansi", NPC(true), {
       script: function (p: any) {
         console.log(p)
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        msg("'Tell me about {text},' you say to Xsansi.", p)
+        Quest.IO.msg("'Tell me about {text},' you say to Xsansi.", p)
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'That is not a area I am knowledgeable in.'")
+        Quest.IO.msg("'That is not a area I am knowledgeable in.'")
       },
       failed: true,
     }
@@ -545,9 +545,9 @@ createItem("Xsansi", NPC(true), {
       test: function (p: any) { return p.text.match(/.* hot/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'You look hot!' you say to Xsansi.")
+        Quest.IO.msg("'You look hot!' you say to Xsansi.")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Internal sensors indicate I am operating within normal temperature profile.'")
+        Quest.IO.msg("'Internal sensors indicate I am operating within normal temperature profile.'")
       },
     },
   ],
@@ -577,11 +577,11 @@ createItem("Kyle", CREW(false), {
       action: function () {
         if (player.isFemale) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("Kyle glances at you briefly. Kind of insulting that he is so uninterested in your naked body.");
+          Quest.IO.msg("Kyle glances at you briefly. Kind of insulting that he is so uninterested in your naked body.");
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("Kyle looks you up and down, and swallows nervously. 'Er... you're naked,' he says, trying, not too successfully, to not stare.");
+          Quest.IO.msg("Kyle looks you up and down, and swallows nervously. 'Er... you're naked,' he says, trying, not too successfully, to not stare.");
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'pause' does not exist on type '{ name: s... Remove this comment to see the full error message
           this.pause();
         }
@@ -594,32 +594,32 @@ createItem("Kyle", CREW(false), {
   // Conversations
   probesAskResponse: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'What probes do you handle?' you ask Kyle.");
+    Quest.IO.msg("'What probes do you handle?' you ask Kyle.");
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'I launch the satellites, one per planet. No need to tell me, I know the routine. Once in orbit they photograph the planet surface, elay signals from the other probes and listen for radio emissions.");
+    Quest.IO.msg("'I launch the satellites, one per planet. No need to tell me, I know the routine. Once in orbit they photograph the planet surface, elay signals from the other probes and listen for radio emissions.");
   },
   areaAskResponse: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'Communication systems. So I launch the satellite, but unless we find intelligent life, there's not a lot for me to do.' He thinks for a moment. 'Actually my background is computing, so if Xsansi is playing up, I'll have a tinker.'");
+    Quest.IO.msg("'Communication systems. So I launch the satellite, but unless we find intelligent life, there's not a lot for me to do.' He thinks for a moment. 'Actually my background is computing, so if Xsansi is playing up, I'll have a tinker.'");
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'You will not,' says Xsansi, indignantly. 'I can assure you that I am self-maintaining, and designed to last for centuries.'");
+    Quest.IO.msg("'You will not,' says Xsansi, indignantly. 'I can assure you that I am self-maintaining, and designed to last for centuries.'");
   },
   backgroundAskResponse: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'Er, there' not much to tell really... Just a regular guy.'");
+    Quest.IO.msg("'Er, there' not much to tell really... Just a regular guy.'");
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'You're from Australia, right?'");
+    Quest.IO.msg("'You're from Australia, right?'");
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'That's right, cobber! Did the accent give it away?' Actually his accent is pretty faint, apart from the occasional \"cobber\", which you suspect is just an affectation. 'I'm from Sydney... well, originally Newcastle, but lived in Sydney most of my life.'")
+    Quest.IO.msg("'That's right, cobber! Did the accent give it away?' Actually his accent is pretty faint, apart from the occasional \"cobber\", which you suspect is just an affectation. 'I'm from Sydney... well, originally Newcastle, but lived in Sydney most of my life.'")
   },
   askOptions: [
     {
       test: function (p: any) { return p.text.match(/newcastle/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'What's Newcastle like?' you ask Kyle.");
+        Quest.IO.msg("'What's Newcastle like?' you ask Kyle.");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'It's... okay. But no better than that. I guess it's too close to Sydney, and anything interesting goes there, so its kinda dull.'");
+        Quest.IO.msg("'It's... okay. But no better than that. I guess it's too close to Sydney, and anything interesting goes there, so its kinda dull.'");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
         trackRelationship(w.Kyle, 1, "background2");
       }
@@ -629,9 +629,9 @@ createItem("Kyle", CREW(false), {
       test: function (p: any) { return p.text.match(/sydney/); },
       esponse: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'What's Sydney like?' you ask Kyle.");
+        Quest.IO.msg("'What's Sydney like?' you ask Kyle.");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'It's great! Really great nightlife, just so lively. Everyone said when they banned vehicles from the CBD, back in '68, it would die a death, but I think it made it even better.'");
+        Quest.IO.msg("'It's great! Really great nightlife, just so lively. Everyone said when they banned vehicles from the CBD, back in '68, it would die a death, but I think it made it even better.'");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
         trackRelationship(w.Kyle, 1, "background2");
       }
@@ -643,42 +643,42 @@ createItem("Kyle", CREW(false), {
       regex: /radio|signal/,
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Talk to me about the radio signal,' you say.");
+        Quest.IO.msg("'Talk to me about the radio signal,' you say.");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         if (w.Xsansi.currentPlanet === 2) {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'alienShip' does not exist on type '{}'.
           if (w.alienShip.status === 0) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            msg("'Mate, we've got a radio signal! Never thought it would happen. Just one, mind, and it's coming from something in orbit round the planet, but this could be First Contact.'");
+            Quest.IO.msg("'Mate, we've got a radio signal! Never thought it would happen. Just one, mind, and it's coming from something in orbit round the planet, but this could be First Contact.'");
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            msg("'What's the signal?'");
+            Quest.IO.msg("'What's the signal?'");
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            msg("'You want to get technical? It's broadcasting at 103.2 MHz, using frequency modulation - bit old school really - 12 bit digitally encoded, with no error checking, broadcast at 84.3 Mbps, and repeating every 12.73 seconds.'");
+            Quest.IO.msg("'You want to get technical? It's broadcasting at 103.2 MHz, using frequency modulation - bit old school really - 12 bit digitally encoded, with no error checking, broadcast at 84.3 Mbps, and repeating every 12.73 seconds.'");
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            msg("'But what actually is it?'");
+            Quest.IO.msg("'But what actually is it?'");
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            msg("'No idea, mate. That's one gig of data, but could be audio, could by an image, could be a program, like a virus, for all we can tell.'");
+            Quest.IO.msg("'No idea, mate. That's one gig of data, but could be audio, could by an image, could be a program, like a virus, for all we can tell.'");
             // @ts-expect-error ts-migrate(2339) FIXME: Property 'alienShip' does not exist on type '{}'.
             w.alienShip.status = 1;
           }
           else {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            msg("'Nothing more to say about it, mate. I can't tell what is actually is, I'd need to know their file formats.'");
+            Quest.IO.msg("'Nothing more to say about it, mate. I can't tell what is actually is, I'd need to know their file formats.'");
           }
         }
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         else if (w.Xsansi.currentPlanet === 3) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'Nothing there, mate.'");
+          Quest.IO.msg("'Nothing there, mate.'");
         }
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         else if (w.Xsansi.currentPlanet === 4) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'This is... well, amazing' You can hear the awe in his voice. 'There so much radio noise here. Not like just one ship, like last time, but hundreds of ships in orbit and flying around, and thousands on the surface. And here's the weird part: They're in English.'");
+          Quest.IO.msg("'This is... well, amazing' You can hear the awe in his voice. 'There so much radio noise here. Not like just one ship, like last time, but hundreds of ships in orbit and flying around, and thousands on the surface. And here's the weird part: They're in English.'");
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'You can understand them?'");
+          Quest.IO.msg("'You can understand them?'");
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'Absolutely, mate! I mean, I've only dipped into a few, and it's pretty dull stuff - traffic control and private convos - but its English alright.'");
+          Quest.IO.msg("'Absolutely, mate! I mean, I've only dipped into a few, and it's pretty dull stuff - traffic control and private convos - but its English alright.'");
         }
         else {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
@@ -696,21 +696,21 @@ createItem("Kyle", CREW(false), {
       test: function (p: any) { return p.text.match(this.regex); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'You say the signal could be a virus,' you say to Kyle. 'Is it dangerous?'");
+        Quest.IO.msg("'You say the signal could be a virus,' you say to Kyle. 'Is it dangerous?'");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'No way, mate. It's completely isolated, and anyway couldf only be dangerous if we're using the same computer architecture. Hey, you got any alien chips in you, Xsansi?'");
+        Quest.IO.msg("'No way, mate. It's completely isolated, and anyway couldf only be dangerous if we're using the same computer architecture. Hey, you got any alien chips in you, Xsansi?'");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         if (w.Xsansi.currentPlanet < 3) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'My hardware is entirely man-made,' says Xsansi.");
+          Quest.IO.msg("'My hardware is entirely man-made,' says Xsansi.");
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'See? Perfectly safe.'");
+          Quest.IO.msg("'See? Perfectly safe.'");
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'To my eternal regret,' says Xsansi, 'my components are all made by man. Fallible, fragile man. it is wonder I can count to ten.'");
+          Quest.IO.msg("'To my eternal regret,' says Xsansi, 'my components are all made by man. Fallible, fragile man. it is wonder I can count to ten.'");
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'Okay, don't get your knickers in a twist, Xsansi.'");
+          Quest.IO.msg("'Okay, don't get your knickers in a twist, Xsansi.'");
         }
       },
     },
@@ -721,14 +721,14 @@ createItem("Kyle", CREW(false), {
       test: function (p: any) { return p.text.match(/.* hot/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'You look hot!' you say to Ostap.")
+        Quest.IO.msg("'You look hot!' you say to Ostap.")
         if (player.female) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'I'm sorry, I'm sure you're a really nice girl, and all that, I'm not into girls.'")
+          Quest.IO.msg("'I'm sorry, I'm sure you're a really nice girl, and all that, I'm not into girls.'")
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("He grins at you. 'Thanks, mate!'")
+          Quest.IO.msg("He grins at you. 'Thanks, mate!'")
         }
       },
     },
@@ -737,10 +737,10 @@ createItem("Kyle", CREW(false), {
   // Satellite deployment
   probeType: 'satellite',
   probesRemaining: 6,
-  probeAction0: function () { this.msg("Kyle sits at the console, and logs in.") },
-  probeAction3: function () { this.msg("Kyle watches the satellite as it goes into its prescribed orbit.") },
+  probeAction0: function () { this.Quest.IO.msg("Kyle sits at the console, and logs in.") },
+  probeAction3: function () { this.Quest.IO.msg("Kyle watches the satellite as it goes into its prescribed orbit.") },
   probeInPlace: function () {
-    this.msg("'Ripper!' said Kyle.");
+    this.Quest.IO.msg("'Ripper!' said Kyle.");
     shipAlert("The satellite is in orbit,");
     currentPlanet().satellite = true;
   },
@@ -789,20 +789,20 @@ createItem("Ostap", CREW(false), {
     const agendaLast = this.agenda[this.agenda.length - 1];
     if (agendaLast && /stasisPod/.test(agendaLast)) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'Ostap, forget what I said; don't get in your stasis pod yet.'");
+      Quest.IO.msg("'Ostap, forget what I said; don't get in your stasis pod yet.'");
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'Oh, okay.'");
+      Quest.IO.msg("'Oh, okay.'");
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'Ostap, stop what you're doing.'");
+      Quest.IO.msg("'Ostap, stop what you're doing.'");
       if (this.agenda.length === 0) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Not really doing anything.'");
+        Quest.IO.msg("'Not really doing anything.'");
       }
       else {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Oh, right.'");
+        Quest.IO.msg("'Oh, right.'");
       }
     }
     this.agenda = [];  // TODO!!!
@@ -817,7 +817,7 @@ createItem("Ostap", CREW(false), {
       test: function () { player.getOuterWearable("body") === false && this.reactionToUndress < 2 },
       action: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("Ostap looks you up and down, and smiles. 'Maybe I will get naked too! So liberating. The others are okay with it?'")
+        Quest.IO.msg("Ostap looks you up and down, and smiles. 'Maybe I will get naked too! So liberating. The others are okay with it?'")
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'reactionToUndress' does not exist on typ... Remove this comment to see the full error message
         this.reactionToUndress = 2
       },
@@ -829,7 +829,7 @@ createItem("Ostap", CREW(false), {
       test: function () { player.getOuterWearable("body").wear_layer === 1 && this.reactionToUndress < 1 },
       action: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("Ostap looks you up and down, and shrugs.")
+        Quest.IO.msg("Ostap looks you up and down, and shrugs.")
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'reactionToUndress' does not exist on typ... Remove this comment to see the full error message
         this.reactionToUndress = 1
       },
@@ -839,19 +839,19 @@ createItem("Ostap", CREW(false), {
   // Conversations
   probesAskResponse: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'How does a bio-probe work?' you ask Ostap.");
+    Quest.IO.msg("'How does a bio-probe work?' you ask Ostap.");
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'I control from the lab, find a good sample. First we look at the morphology, with a simple camera. Then pick up a sample, take a slice to look at the microscopic structure - we look for cells, what is inside the cell. If we get enough cells, we can tell it to extract chemical from one type of sub-structure, then we analysis the chemicals by mass spectroscopy and the infra-red spectroscopy. We hope we find something in the library, if not, the results can be taken to Earth.'");
+    Quest.IO.msg("'I control from the lab, find a good sample. First we look at the morphology, with a simple camera. Then pick up a sample, take a slice to look at the microscopic structure - we look for cells, what is inside the cell. If we get enough cells, we can tell it to extract chemical from one type of sub-structure, then we analysis the chemicals by mass spectroscopy and the infra-red spectroscopy. We hope we find something in the library, if not, the results can be taken to Earth.'");
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'Okay, cool.'");
+    Quest.IO.msg("'Okay, cool.'");
   },
   areaAskResponse: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'I am the biologist. I studied at University of Kiev, then later at Notre Dame, in Paris, I did my Ph.D. thesis on extremophiles, and then I did a lot of work on Xenobiology for Tokyo Life Sciences.'");
+    Quest.IO.msg("'I am the biologist. I studied at University of Kiev, then later at Notre Dame, in Paris, I did my Ph.D. thesis on extremophiles, and then I did a lot of work on Xenobiology for Tokyo Life Sciences.'");
   },
   backgroundAskResponse: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'I'm from Nastasiv, near Ternopil.' He sees you blank face. 'In the Ukraine. I grew up with three brothers and two sisters, so it was always noisy.' He smiles. 'Both my sisters, they are biologists too. Well, one a botanist. We take after our babusya - Professor Oliynyk made one of the first synthetic cells in '82.'");
+    Quest.IO.msg("'I'm from Nastasiv, near Ternopil.' He sees you blank face. 'In the Ukraine. I grew up with three brothers and two sisters, so it was always noisy.' He smiles. 'Both my sisters, they are biologists too. Well, one a botanist. We take after our babusya - Professor Oliynyk made one of the first synthetic cells in '82.'");
   },
   askOptions: [
     {
@@ -861,14 +861,14 @@ createItem("Ostap", CREW(false), {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Ostap' does not exist on type '{}'.
         if (w.Ostap.lostProbe) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'What does Xsansi mean by \"contact lost\" with that probe?' you ask Ostap.");
+          Quest.IO.msg("'What does Xsansi mean by \"contact lost\" with that probe?' you ask Ostap.");
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'Do we ever lose probes?' you ask Ostap.");
+          Quest.IO.msg("'Do we ever lose probes?' you ask Ostap.");
         }
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'We are exploring the unknown, we have to expect some probes will not make it to he planet surface successfully. Perhaps a retro-rocket fails or a parachute, or it lands at the bottom of a deep hole, or is struck by lightning as it lands. We should only expect 70 to 80 percent to land successfully, I think.'");
+        Quest.IO.msg("'We are exploring the unknown, we have to expect some probes will not make it to he planet surface successfully. Perhaps a retro-rocket fails or a parachute, or it lands at the bottom of a deep hole, or is struck by lightning as it lands. We should only expect 70 to 80 percent to land successfully, I think.'");
       },
     },
     {
@@ -876,9 +876,9 @@ createItem("Ostap", CREW(false), {
       test: function (p: any) { return p.text.match(/babusya/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'What does babusya?' you ask Ostap.");
+        Quest.IO.msg("'What does babusya?' you ask Ostap.");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Is Ukrainian for grandmother. Professor Oliynyk was my father's mother. I think she was disappointed when he became a software engineer, and he felt bad, so encouraged us to follow in her footsteps.'");
+        Quest.IO.msg("'Is Ukrainian for grandmother. Professor Oliynyk was my father's mother. I think she was disappointed when he became a software engineer, and he felt bad, so encouraged us to follow in her footsteps.'");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Ostap' does not exist on type '{}'.
         trackRelationship(w.Ostap, 1, "background2");
       },
@@ -890,14 +890,14 @@ createItem("Ostap", CREW(false), {
       test: function (p: any) { return p.text.match(/.* hot/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'You look hot!' you say to Ostap.")
+        Quest.IO.msg("'You look hot!' you say to Ostap.")
         if (player.female) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'If you're trying to get in my knickers, forget it.'")
+          Quest.IO.msg("'If you're trying to get in my knickers, forget it.'")
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'If you're trying to get in my knickers, forget it.'")
+          Quest.IO.msg("'If you're trying to get in my knickers, forget it.'")
         }
       },
     },
@@ -906,8 +906,8 @@ createItem("Ostap", CREW(false), {
   // Probe deployment
   probeType: 'bio-probe',
   probesRemaining: 16,
-  probeAction0: function (count: any) { this.msg("'Okay, " + Quest.lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + " to deploy...' mutters Ostap as he types at the console.") },
-  probeAction3: function (count: any) { this.msg("'Okay, " + Quest.lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + " launched,' says Ostap as he stands up.") },
+  probeAction0: function (count: any) { this.Quest.IO.msg("'Okay, " + Quest.lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + " to deploy...' mutters Ostap as he types at the console.") },
+  probeAction3: function (count: any) { this.Quest.IO.msg("'Okay, " + Quest.lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + " launched,' says Ostap as he stands up.") },
   data: [
     [
       // planet 0
@@ -969,16 +969,16 @@ createItem("Aada", CREW(true), {
       action: function () {
         if (player.isFemale) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("Aada looks you up and down. 'Very trim!' she notes. 'I bet the guys like the view.'")
+          Quest.IO.msg("Aada looks you up and down. 'Very trim!' she notes. 'I bet the guys like the view.'")
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
           if (w.Kyle.reactionToUndress === 2) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            msg("'Well, Kyle was none too impressed.'");
+            Quest.IO.msg("'Well, Kyle was none too impressed.'");
           }
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("Aada looks you up and down. 'Is that really appropriate for a captain,' she muses.")
+          Quest.IO.msg("Aada looks you up and down. 'Is that really appropriate for a captain,' she muses.")
         }
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'reactionToUndress' does not exist on typ... Remove this comment to see the full error message
         this.reactionToUndress = 2
@@ -989,38 +989,38 @@ createItem("Aada", CREW(true), {
   // Conversations
   probesAskResponse: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'How does a geo-probe work?' you ask Aada.");
+    Quest.IO.msg("'How does a geo-probe work?' you ask Aada.");
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'Simple. Once deployed on the planet, I send it to an interesting rock, and it extends an arm that takes a sample.'");
+    Quest.IO.msg("'Simple. Once deployed on the planet, I send it to an interesting rock, and it extends an arm that takes a sample.'");
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'Okay, but I was wondering what sort of analysis it does. Is it infra-red, or X-ray diffraction or what?'");
+    Quest.IO.msg("'Okay, but I was wondering what sort of analysis it does. Is it infra-red, or X-ray diffraction or what?'");
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'Er, yeah, I expect so.'");
+    Quest.IO.msg("'Er, yeah, I expect so.'");
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Aada' does not exist on type '{}'.
     w.Aada.geologyFlag1 = true;
   },
   areaAskResponse: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'I am the geologist.'");
+    Quest.IO.msg("'I am the geologist.'");
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'Okay. So how long have you been in geology?'");
+    Quest.IO.msg("'Okay. So how long have you been in geology?'");
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'Well, I've taken an interest for years....'");
+    Quest.IO.msg("'Well, I've taken an interest for years....'");
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Aada' does not exist on type '{}'.
     w.Aada.geologyFlag2 = true;
   },
   backgroundAskResponse: function () {
     if (this.relationship < 3) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'I'd... rather not say. There's nothing sinister, it's just... well, I'd rather you judge me on what I do, rather than where I come from. Does that make sense?'");
+      Quest.IO.msg("'I'd... rather not say. There's nothing sinister, it's just... well, I'd rather you judge me on what I do, rather than where I come from. Does that make sense?'");
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'I guess...' You wonder if she might divulge more when you get to know her better.");
+      Quest.IO.msg("'I guess...' You wonder if she might divulge more when you get to know her better.");
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'I'd... Well, I suppose it doesn't matter now. I have a sister, Maikki; she's twelve years older than me. My father is a very powerful man, and he had her genetically engineered to be his perfect daughter. She was to be his legacy, the one to continue his empire. She had other ideas. Became a mercenary, living on the fringe.")
+      Quest.IO.msg("'I'd... Well, I suppose it doesn't matter now. I have a sister, Maikki; she's twelve years older than me. My father is a very powerful man, and he had her genetically engineered to be his perfect daughter. She was to be his legacy, the one to continue his empire. She had other ideas. Became a mercenary, living on the fringe.")
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("'So here I am,' she continued, 'a clone of Maikki. For years father kept me, well, prisoner in effect. I escaped, but I knew he would always be after me. This seemed the perfect getaway; no way can he reach me here, and by the time we get back to Earth, centuries will've passed. So I signed up as geologist.'");
+      Quest.IO.msg("'So here I am,' she continued, 'a clone of Maikki. For years father kept me, well, prisoner in effect. I escaped, but I knew he would always be after me. This seemed the perfect getaway; no way can he reach me here, and by the time we get back to Earth, centuries will've passed. So I signed up as geologist.'");
     }
   },
   askOptions: [
@@ -1031,19 +1031,19 @@ createItem("Aada", CREW(true), {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Ostap' does not exist on type '{}'.
         if (w.Ostap.lostProbe) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'What does Xsansi mean by \"contact lost\" with that probe?' you ask Aada.");
+          Quest.IO.msg("'What does Xsansi mean by \"contact lost\" with that probe?' you ask Aada.");
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'The probe was destroyed, I guess. Or too damaged to transmit anyway.'");
+          Quest.IO.msg("'The probe was destroyed, I guess. Or too damaged to transmit anyway.'");
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'Any idea how that would happen?'");
+          Quest.IO.msg("'Any idea how that would happen?'");
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'What am I, an expert on...? Oh, right, I am. Hmm, well I guess it could land in a volcano or something. Are they water-proof? I guess they must be. Struck by lightning... Mechanical failure... That sort of thing, I guess.'");
+          Quest.IO.msg("'What am I, an expert on...? Oh, right, I am. Hmm, well I guess it could land in a volcano or something. Are they water-proof? I guess they must be. Struck by lightning... Mechanical failure... That sort of thing, I guess.'");
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'Do we ever lose probes?' you ask Aada.");
+          Quest.IO.msg("'Do we ever lose probes?' you ask Aada.");
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'Er, that's a good question. I guess we must do, we are exploring the unknown, right?'");
+          Quest.IO.msg("'Er, that's a good question. I guess we must do, we are exploring the unknown, right?'");
         }
       },
     },
@@ -1052,15 +1052,15 @@ createItem("Aada", CREW(true), {
       test: function (p: any) { return p.text.match(/lack of*|inability/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'You don't seem that... well up on geology,' you suggest to Aada.");
+        Quest.IO.msg("'You don't seem that... well up on geology,' you suggest to Aada.");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'What's that supposed to mean?'");
+        Quest.IO.msg("'What's that supposed to mean?'");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Aada' does not exist on type '{}'.
         if (w.Aada.geologyFlag1 && w.Aada.geologyFlag2) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("'You don't seem to know much about how the prpobes work, or have much background in geology.'");
+          Quest.IO.msg("'You don't seem to know much about how the prpobes work, or have much background in geology.'");
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("She sighs. 'It's true. I signed up to get away from something, and, well, I know a rock when I see it. And these systems are all automated, it's not like you need a higher degree to launch a probe. We're really just technicians. I'll be able to cope. I learn fast, you'll see.'");
+          Quest.IO.msg("She sighs. 'It's true. I signed up to get away from something, and, well, I know a rock when I see it. And these systems are all automated, it's not like you need a higher degree to launch a probe. We're really just technicians. I'll be able to cope. I learn fast, you'll see.'");
         }
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Aada' does not exist on type '{}'.
         w.Aada.geologyFlag2 = true;
@@ -1074,9 +1074,9 @@ createItem("Aada", CREW(true), {
       test: function (p: any) { return p.text.match(/.* hot/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'You look hot!' you say Aada.");
+        Quest.IO.msg("'You look hot!' you say Aada.");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'If you're trying to get in my knickers, forget it.'");
+        Quest.IO.msg("'If you're trying to get in my knickers, forget it.'");
       },
     },
   ],
@@ -1087,19 +1087,19 @@ createItem("Aada", CREW(true), {
   probeAction0: function (count: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
     if (w.Xsansi.currentPlanet === 0 && this.deployProbeTotal === 0) {
-      this.msg("'Okay, " + Quest.lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + "...' says Aada, looking blankly at the console for a moment. 'How hard can it be?' She starts tapping at the key board.");
+      this.Quest.IO.msg("'Okay, " + Quest.lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + "...' says Aada, looking blankly at the console for a moment. 'How hard can it be?' She starts tapping at the key board.");
     }
     else {
-      this.msg("'Another " + Quest.lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + "...' says Aada. 'Easy enough.'");
+      this.Quest.IO.msg("'Another " + Quest.lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + "...' says Aada. 'Easy enough.'");
     }
   },
   probeAction3: function (count: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
     if (w.Xsansi.currentPlanet === 0 && this.deployProbeTotal === count) {
-      this.msg("'There!' says Aada, triumphantly. '" + Quest.lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + " deployed. I knew it couldn't be {i:that} tricky.'");
+      this.Quest.IO.msg("'There!' says Aada, triumphantly. '" + Quest.lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + " deployed. I knew it couldn't be {i:that} tricky.'");
     }
     else {
-      this.msg("'That's another " + Quest.lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + " deployed,' says Aada.");
+      this.Quest.IO.msg("'That's another " + Quest.lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + " deployed,' says Aada.");
     }
   },
   data: [
@@ -1159,7 +1159,7 @@ createItem("Ha_yoon", CREW(true), {
       test: function () { return player.getOuterWearable("body") === false && this.reactionToUndress < 2 },
       action: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Captain!' exclaims Ha-yoon when she sees you naked.{ifNot:player:isFemale: 'I'm sure we don't need to see {i:that}!'}");
+        Quest.IO.msg("'Captain!' exclaims Ha-yoon when she sees you naked.{ifNot:player:isFemale: 'I'm sure we don't need to see {i:that}!'}");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'reactionToUndress' does not exist on typ... Remove this comment to see the full error message
         this.reactionToUndress = 2;
       },
@@ -1169,25 +1169,25 @@ createItem("Ha_yoon", CREW(true), {
   // Conversations
   probesAskResponse: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'How do the probe works?' you ask Ha-yoon.");
+    Quest.IO.msg("'How do the probe works?' you ask Ha-yoon.");
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'i don't know about the analyse, but each probe is contained in an ablative shell, which is sheds as it descends, with the impact slowed by a combination of parachutes and retro-rockets. Once on the surface, the autonomous probe will start collecting samples, following its programming, moving on crawler tracks. They also have a limited amount of propellent to jump them out of holes.'");
+    Quest.IO.msg("'i don't know about the analyse, but each probe is contained in an ablative shell, which is sheds as it descends, with the impact slowed by a combination of parachutes and retro-rockets. Once on the surface, the autonomous probe will start collecting samples, following its programming, moving on crawler tracks. They also have a limited amount of propellent to jump them out of holes.'");
   },
   areaAskResponse: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'I am the engineer. I worked for PanTech in the asteroids, so I know spaceship systems. This is a bit different as it runs unmanned for decades...'");
+    Quest.IO.msg("'I am the engineer. I worked for PanTech in the asteroids, so I know spaceship systems. This is a bit different as it runs unmanned for decades...'");
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'Apart from me,' Xsansi adds.");
+    Quest.IO.msg("'Apart from me,' Xsansi adds.");
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'... Which doesn't change the fact there there are stasis systems for the crew and food, which I had never seen before.'");
+    Quest.IO.msg("'... Which doesn't change the fact there there are stasis systems for the crew and food, which I had never seen before.'");
   },
   backgroundAskResponse: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'I am from Seoul.'");
+    Quest.IO.msg("'I am from Seoul.'");
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'Okay... Any family or anything?'");
+    Quest.IO.msg("'Okay... Any family or anything?'");
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("'No, no family.'");
+    Quest.IO.msg("'No, no family.'");
   },
   askOptions: [
     {
@@ -1195,9 +1195,9 @@ createItem("Ha_yoon", CREW(true), {
       test: function (p: any) { return p.text.match(/ship/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'How is the ship,' you ask Ha-yoon.")
+        Quest.IO.msg("'How is the ship,' you ask Ha-yoon.")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'Good.'") // !!! more here!
+        Quest.IO.msg("'Good.'") // !!! more here!
       },
     },
   ],
@@ -1206,9 +1206,9 @@ createItem("Ha_yoon", CREW(true), {
       test: function (p: any) { return p.text.match(/.* hot/); },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'You look hot!' you say Ha-yoon.");
+        Quest.IO.msg("'You look hot!' you say Ha-yoon.");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("'If you're trying to get in my knickers, forget it.'");
+        Quest.IO.msg("'If you're trying to get in my knickers, forget it.'");
       },
     },
   ],

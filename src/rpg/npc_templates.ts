@@ -110,7 +110,7 @@ const RPG_TEMPLATE = {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'apply' does not exist on type 'true | At... Remove this comment to see the full error message
     attack.apply().output()
 
-    //msg(attack.result.join(''))
+    //Quest.IO.msg(attack.result.join(''))
     return true;
   },
 
@@ -209,7 +209,7 @@ const RPG_NPC = function (female: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'target' does not exist on type '{ canRea... Remove this comment to see the full error message
     if (this.target === chr.name) return true
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'target' does not exist on type '{ canRea... Remove this comment to see the full error message
-    if (!this.target) return errormsg("Oh dear, no target set for this NPC")
+    if (!this.target) return Quest.IO.errormsg("Oh dear, no target set for this NPC")
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     if (chr.allegiance && w[this.target].allegiance === chr.allegiance) return true
     return false
@@ -271,7 +271,7 @@ const RPG_NPC = function (female: any) {
       s += ' {class:tactical:Hits: ' + this.health + '/' + this.maxHealth + '.}'
     }
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg(s, options)
+    Quest.IO.msg(s, options)
   }
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'search' does not exist on type '{ canRea... Remove this comment to see the full error message
@@ -451,7 +451,7 @@ const RPG_PHANTOM = function () {
   res.unillusionable = true
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'unillusion' does not exist on type '{ ca... Remove this comment to see the full error message
   res.unillusion = function (attack: any) {
-    attack.msg("{nv:target:disappear:true}.", 1)
+    attack.Quest.IO.msg("{nv:target:disappear:true}.", 1)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'clonePrototype' does not exist on type '... Remove this comment to see the full error message
     if (this.clonePrototype) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message

@@ -28,22 +28,22 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('TestInput', {
   regex: /^inp/,
   script: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("First some preamble...")
+    Quest.IO.msg("First some preamble...")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'book' does not exist on type '{}'.
-    showMenu("What colour?", [w.book, w.coin, w.Kyle, 'None of them'], function (result: any) {
+    Quest.IO.showMenu("What colour?", [w.book, w.coin, w.Kyle, 'None of them'], function (result: any) {
       if (typeof result === 'string') {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("You picked " + result + ".");
+        Quest.IO.msg("You picked " + result + ".");
       }
       else {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("You picked " + Quest.lang.getName(result, { article: Quest.Utilities.DEFINITE }) + ".");
+        Quest.IO.msg("You picked " + Quest.lang.getName(result, { article: Quest.Utilities.DEFINITE }) + ".");
       }
     })
-    /*    askText("What colour?", function(result) {
-          msg("You picked " + result + ".");
-          showYesNoMenu("Are you sure?", function(result) {
-            msg("You said " + result + ".")
+    /*    Quest.IO.askText("What colour?", function(result) {
+          Quest.IO.msg("You picked " + result + ".");
+          Quest.IO.showYesNoMenu("Are you sure?", function(result) {
+            Quest.IO.msg("You said " + result + ".")
           })
         })*/
   }
@@ -56,26 +56,26 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('TextReveal', {
   regex: /^reveal$/,
   script: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Some text")
+    Quest.IO.msg("Some text")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("More")
+    Quest.IO.msg("More")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'unscrambleEffect' does not exist on type... Remove this comment to see the full error message
-    _msg("The characters will appear randomly from dots.", {}, { action: 'effect', tag: 'p', effect: io.unscrambleEffect, randomPlacing: true, pick: function () { return '.' } })
+    Quest.IO.msg("The characters will appear randomly from dots.", {}, { action: 'effect', tag: 'p', effect: Quest.IO.io.unscrambleEffect, randomPlacing: true, pick: function () { return '.' } })
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 0.
-    wait()
+    Quest.IO.wait()
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'typewriterEffect' does not exist on type... Remove this comment to see the full error message
-    _msg("Or appears as though typed.", {}, { action: 'effect', tag: 'p', effect: io.typewriterEffect })
+    Quest.IO.msg("Or appears as though typed.", {}, { action: 'effect', tag: 'p', effect: Quest.IO.io.typewriterEffect })
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'unscrambleEffect' does not exist on type... Remove this comment to see the full error message
-    _msg("The real message is revealed!!", {}, { action: 'effect', tag: 'pre', effect: io.unscrambleEffect, randomPlacing: true, incSpaces: true, pick: function (i: any) { return 'At first this message is shown'.charAt(i) } })
+    Quest.IO.msg("The real message is revealed!!", {}, { action: 'effect', tag: 'pre', effect: Quest.IO.io.unscrambleEffect, randomPlacing: true, incSpaces: true, pick: function (i: any) { return 'At first this message is shown'.charAt(i) } })
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 0.
-    wait()
-    clearScreen()
+    Quest.IO.wait()
+    Quest.IO.clearScreen()
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Some more text.")
+    Quest.IO.msg("Some more text.")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    wait(3, "Wait three seconds...")
+    Quest.IO.wait(3, "Wait three seconds...")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("... and done!")/**/
+    Quest.IO.msg("... and done!")/**/
   },
 }));
 
@@ -84,9 +84,9 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Image', {
   regex: /^img$/,
   script: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Some more text.")
+    Quest.IO.msg("Some more text.")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    picture('favicon.png')
+    Quest.IO.picture('favicon.png')
   },
 }));
 
@@ -95,8 +95,8 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Audio', {
   regex: /^beep$/,
   script: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Can you hear this?")
-    sound('hrn06.wav')
+    Quest.IO.msg("Can you hear this?")
+    Quest.IO.sound('hrn06.wav')
   },
 }));
 
@@ -108,24 +108,24 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Alpha', {
   regex: /^alpha$/,
   script: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Some text in Greek: {encode:391:3AC:The quick brown fox jumped over the lazy dog}.")
+    Quest.IO.msg("Some text in Greek: {encode:391:3AC:The quick brown fox jumped over the lazy dog}.")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Some text in Cyrillic: {encode:402:431:The quick brown fox jumped over the lazy dog}.")
+    Quest.IO.msg("Some text in Cyrillic: {encode:402:431:The quick brown fox jumped over the lazy dog}.")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Some text in Armenian {encode:531:561:The quick brown fox jumped over the lazy dog}.")
+    Quest.IO.msg("Some text in Armenian {encode:531:561:The quick brown fox jumped over the lazy dog}.")
 
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Some text in Devanagari: {encode:904:904:The quick brown fox jumped over the lazy dog}.")
+    Quest.IO.msg("Some text in Devanagari: {encode:904:904:The quick brown fox jumped over the lazy dog}.")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Some text in Thai {encode:E01:E01:The quick brown fox jumped over the lazy dog}.")
+    Quest.IO.msg("Some text in Thai {encode:E01:E01:The quick brown fox jumped over the lazy dog}.")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Some text in Tibetan {encode:F20:F20:The quick brown fox jumped over the lazy dog}.")
+    Quest.IO.msg("Some text in Tibetan {encode:F20:F20:The quick brown fox jumped over the lazy dog}.")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Some text in Khmer {encode:1780:1780:The quick brown fox jumped over the lazy dog}.")
+    Quest.IO.msg("Some text in Khmer {encode:1780:1780:The quick brown fox jumped over the lazy dog}.")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Some text in Javan {encode:A985:A985:The quick brown fox jumped over the lazy dog}.")
+    Quest.IO.msg("Some text in Javan {encode:A985:A985:The quick brown fox jumped over the lazy dog}.")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Some text in Nko {encode:7C1:7C1:The quick brown fox jumped over the lazy dog}.")
+    Quest.IO.msg("Some text in Nko {encode:7C1:7C1:The quick brown fox jumped over the lazy dog}.")
   },
 }));
 
@@ -145,9 +145,9 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('DialogTest', {
     console.log("Testing dialog: " + funcName)
     const choices = ['red', 'yellow', 'blue']
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    io.menuFunctions[funcName]('Pick a colour?', choices, function (result: any) {
+    Quest.IO.io.menuFunctions[funcName]('Pick a colour?', choices, function (result: any) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("You picked " + result)
+      Quest.IO.msg("You picked " + result)
     })
     return world.SUCCESS_NO_TURNSCRIPTS
   },
@@ -162,9 +162,9 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('TextTest', {
   objects: [
   ],
   script: function (objects: any) {
-    askDiag("What colour?", function (result: any) {
+    Quest.IO.askDiag("What colour?", function (result: any) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("You picked " + result + ".");
+      Quest.IO.msg("You picked " + result + ".");
     }, "Go")
     return world.SUCCESS_NO_TURNSCRIPTS
   },
@@ -221,7 +221,7 @@ Quest.Command.findCmd('MetaHint').script = function () {
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   if (w[player.loc].hint) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    metamsg(w[player.loc].hint);
+    Quest.IO.metamsg(w[player.loc].hint);
   }
   else {
     return Quest.lang.hintScript()
@@ -254,17 +254,17 @@ Quest.Command.findCmd('MetaHint').script = function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'count' does not exist on type '{ questio... Remove this comment to see the full error message
     if (clue.count === undefined) clue.count = 0
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    metamsg(clue.question)
+    Quest.IO.metamsg(clue.question)
     for (let i = 0; i < clue.clues.length; i++) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'count' does not exist on type '{ questio... Remove this comment to see the full error message
       if (i < clue.count) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg(clue.clues[i])
+        Quest.IO.metamsg(clue.clues[i])
       }
       else {
         // hidden!!!
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg(clue.clues[i])
+        Quest.IO.metamsg(clue.clues[i])
       }
     }
   }
@@ -305,7 +305,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('SliceCarrot', {
     {scope:parser.isPresent},
   ],
   script:function(objects) {
-    msg("You slice {nm:ob1:the} with {nm:ob2:the}.", {ob1:objects[1][0], ob2:objects[0][0]})
+    Quest.IO.msg("You slice {nm:ob1:the} with {nm:ob2:the}.", {ob1:objects[1][0], ob2:objects[0][0]})
     return world.SUCCESS
   },
   defmsg:"Not going to happen.",

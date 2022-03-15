@@ -22,7 +22,7 @@ const imagePane = {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultStyle' does not exist on type '{ ... Remove this comment to see the full error message
 imagePane.defaultStyle = { position: 'fixed', display: 'block' }
 // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '{ toggle: boolean; defaults: { i... Remove this comment to see the full error message
-io.modulesToInit.push(imagePane)
+Quest.IO.io.modulesToInit.push(imagePane)
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'init' does not exist on type '{ toggle: ... Remove this comment to see the full error message
 imagePane.init = function () {
@@ -66,9 +66,9 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('MetaImages', {
       Quest.Settings.settings.hideImagePane = true
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'calcMargins' does not exist on type '{ n... Remove this comment to see the full error message
-    io.calcMargins()
+    Quest.IO.io.calcMargins()
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg(Quest.lang.done_msg)
+    Quest.IO.msg(Quest.lang.done_msg)
   },
 }))
 

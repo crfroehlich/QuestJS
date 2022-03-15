@@ -26,135 +26,135 @@ namespace Quest {
 
       // Cannot just set the script to helpScript as we need to allow the
       // author to change it in code.js, which is loaded after this.
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaHelp', {
         script: Quest.lang.helpScript,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaHint', {
         script: Quest.lang.hintScript,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaCredits', {
         script: Quest.lang.aboutScript,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaDarkMode', {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'toggleDarkMode' does not exist on type '... Remove this comment to see the full error message
-        script: io.toggleDarkMode,
+        script: Quest.IO.io.toggleDarkMode,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaNarrowMode', {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'toggleNarrowMode' does not exist on type... Remove this comment to see the full error message
-        script: io.toggleNarrowMode,
+        script: Quest.IO.io.toggleNarrowMode,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaAutoScrollMode', {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'toggleAutoScrollMode' does not exist on ... Remove this comment to see the full error message
-        script: io.toggleAutoScrollMode,
+        script: Quest.IO.io.toggleAutoScrollMode,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaPlainFontMode', {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'togglePlainFontMode' does not exist on t... Remove this comment to see the full error message
-        script: io.togglePlainFontMode,
+        script: Quest.IO.io.togglePlainFontMode,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaSilent', {
         script: function () {
           if (Quest.Settings.settings.silent) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-            metamsg(Quest.lang.mode_silent_off)
+            Quest.IO.metamsg(Quest.lang.mode_silent_off)
             Quest.Settings.settings.silent = false
           }
           else {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-            metamsg(Quest.lang.mode_silent_on)
+            Quest.IO.metamsg(Quest.lang.mode_silent_on)
             Quest.Settings.settings.silent = true
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 0.
-            ambient()
+            Quest.IO.ambient()
           }
           return world.SUCCESS_NO_TURNSCRIPTS
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaWarnings', {
         script: Quest.lang.warningsScript,
       }),
 
 
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaSpoken', {
         script: function () {
-          if (io.spoken) {
-            io.spoken = false
+          if (Quest.IO.io.spoken) {
+            Quest.IO.io.spoken = false
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-            metamsg(Quest.lang.spoken_off)
+            Quest.IO.metamsg(Quest.lang.spoken_off)
           }
           else {
-            io.spoken = true
+            Quest.IO.io.spoken = true
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-            metamsg(Quest.lang.spoken_on)
+            Quest.IO.metamsg(Quest.lang.spoken_on)
           }
           return world.SUCCESS_NO_TURNSCRIPTS
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaIntro', {
         script: function () {
-          io.spoken = true;
+          Quest.IO.io.spoken = true;
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'intro' does not exist on type '{ perform... Remove this comment to see the full error message
           if (typeof Quest.Settings.settings.intro === "string") {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            msg(Quest.Settings.settings.intro)
+            Quest.IO.msg(Quest.Settings.settings.intro)
           }
           else {
             // @ts-expect-error ts-migrate(2339) FIXME: Property 'intro' does not exist on type '{ perform... Remove this comment to see the full error message
-            for (let el of Quest.Settings.settings.intro) msg(el)
+            for (let el of Quest.Settings.settings.intro) Quest.IO.msg(el)
           }
           return world.SUCCESS_NO_TURNSCRIPTS
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaBrief', {
         script: function () {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'verbosity' does not exist on type '{ per... Remove this comment to see the full error message
           Quest.Settings.settings.verbosity = world.BRIEF
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-          metamsg(Quest.lang.mode_brief)
+          Quest.IO.metamsg(Quest.lang.mode_brief)
           return world.SUCCESS_NO_TURNSCRIPTS
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaTerse', {
         script: function () {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'verbosity' does not exist on type '{ per... Remove this comment to see the full error message
           Quest.Settings.settings.verbosity = world.TERSE
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-          metamsg(Quest.lang.mode_terse)
+          Quest.IO.metamsg(Quest.lang.mode_terse)
           return world.SUCCESS_NO_TURNSCRIPTS
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaVerbose', {
         script: function () {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'verbosity' does not exist on type '{ per... Remove this comment to see the full error message
           Quest.Settings.settings.verbosity = world.VERBOSE
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-          metamsg(llang.mode_verbose)
+          Quest.IO.metamsg(llang.mode_verbose)
           return world.SUCCESS_NO_TURNSCRIPTS
         },
       }),
 
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaTranscript', {
         script: Quest.lang.transcriptScript,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaTranscriptStart', {
         script: function () {
           if (saveLoad.transcript) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-            metamsg(Quest.lang.transcript_already_on)
+            Quest.IO.metamsg(Quest.lang.transcript_already_on)
             return world.FAILED
           }
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
@@ -163,31 +163,31 @@ namespace Quest {
           return world.SUCCESS_NO_TURNSCRIPTS
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaTranscriptOn', {
         script: function () {
           if (saveLoad.transcript) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-            metamsg(Quest.lang.transcript_already_on)
+            Quest.IO.metamsg(Quest.lang.transcript_already_on)
             return world.FAILED
           }
           saveLoad.transcriptStart()
           return world.SUCCESS_NO_TURNSCRIPTS
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaTranscriptOff', {
         script: function () {
           if (!saveLoad.transcript) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-            metamsg(Quest.lang.transcript_already_off)
+            Quest.IO.metamsg(Quest.lang.transcript_already_off)
             return world.FAILED
           }
           saveLoad.transcriptEnd()
           return world.SUCCESS_NO_TURNSCRIPTS
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaTranscriptClear', {
         script: function () {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
@@ -195,17 +195,17 @@ namespace Quest {
           return world.SUCCESS_NO_TURNSCRIPTS
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaTranscriptShow', {
         script: function () {
           saveLoad.transcriptShow()
           return world.SUCCESS_NO_TURNSCRIPTS
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaUserComment', {
         script: function (arr: any) {
-          commentmsg("Comment: " + arr[0])
+          Quest.IO.commentmsg("Comment: " + arr[0])
           return world.SUCCESS_NO_TURNSCRIPTS
         },
         objects: [
@@ -215,11 +215,11 @@ namespace Quest {
 
       // ----------------------------------
       // File system commands
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaSave', {
         script: Quest.lang.saveLoadScript,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaSaveOverwriteGame', {
         script: function (arr: any) {
           saveLoad.saveGame(arr[0], true)
@@ -229,7 +229,7 @@ namespace Quest {
           { special: 'text' },
         ]
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaSaveGame', {
         script: function (arr: any) {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'localStorageDisabled' does not exist on ... Remove this comment to see the full error message
@@ -246,7 +246,7 @@ namespace Quest {
           { special: 'text' },
         ]
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaFileSaveGame', {
         script: function (arr: any) {
           saveLoad.saveGameAsFile(arr[0])
@@ -256,7 +256,7 @@ namespace Quest {
           { special: 'text' },
         ]
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaLoad', {
         script: function (arr: any) {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'localStorageDisabled' does not exist on ... Remove this comment to see the full error message
@@ -272,7 +272,7 @@ namespace Quest {
         objects: [
         ]
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaLoadGame', {
         script: function (arr: any) {
           saveLoad.loadGameFromLS(arr[0])
@@ -282,7 +282,7 @@ namespace Quest {
           { special: 'text' },
         ]
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaFileLoadGame', {
         script: function (arr: any) {
           // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
@@ -293,14 +293,14 @@ namespace Quest {
           { special: 'text' },
         ]
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaDir', {
         script: function () {
           saveLoad.dirGame()
           return world.SUCCESS_NO_TURNSCRIPTS
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaDeleteGame', {
         script: function (arr: any) {
           saveLoad.deleteGame(arr[0])
@@ -312,23 +312,23 @@ namespace Quest {
       }),
 
 
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaUndo', {
         script: function () {
           if (Quest.Settings.settings.maxUndo === 0) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-            metamsg(Quest.lang.undo_disabled)
+            Quest.IO.metamsg(Quest.lang.undo_disabled)
             return world.FAILED
           }
           if (world.gameState.length < 2) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-            metamsg(Quest.lang.undo_not_available)
+            Quest.IO.metamsg(Quest.lang.undo_not_available)
             return world.FAILED
           }
           world.gameState.pop()
           const gameState = world.gameState[world.gameState.length - 1]
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-          metamsg(Quest.lang.undo_done)
+          Quest.IO.metamsg(Quest.lang.undo_done)
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           saveLoad.loadTheWorld(gameState)
           // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
@@ -336,52 +336,52 @@ namespace Quest {
           return world.SUCCESS_NO_TURNSCRIPTS
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaAgain', {
         script: function () {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'againOrOops' does not exist on type '{ n... Remove this comment to see the full error message
-          return io.againOrOops(true)
+          return Quest.IO.io.againOrOops(true)
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaOops', {
         script: function () {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'againOrOops' does not exist on type '{ n... Remove this comment to see the full error message
-          return io.againOrOops(false)
+          return Quest.IO.io.againOrOops(false)
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaRestart', {
         script: function () {
-          askText(Quest.lang.restart_are_you_sure, function (result: any) {
+          Quest.IO.askText(Quest.lang.restart_are_you_sure, function (result: any) {
             if (result.match(Quest.lang.yes_regex)) {
               location.reload()
             }
             else {
               // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-              metamsg(Quest.lang.restart_no)
+              Quest.IO.metamsg(Quest.lang.restart_no)
             }
           });
           return world.SUCCESS_NO_TURNSCRIPTS
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaPronouns', {
         script: function () {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-          metamsg('See the developer console (F12) for the current pronouns')
+          Quest.IO.metamsg('See the developer console (F12) for the current pronouns')
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'pronouns' does not exist on type '{}'.
           console.log(parser.pronouns)
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaScore', {
         script: function () {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-          metamsg(Quest.lang.scores_not_implemented)
+          Quest.IO.metamsg(Quest.lang.scores_not_implemented)
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MetaTopicsNote', {
         script: Quest.lang.topicsScript,
       }),
@@ -393,31 +393,31 @@ namespace Quest {
       // doing something in the game world, so by default
       // no ttime passes.
       // Set Quest.Settings.settings.lookCountsAsTurn to true if you disagree!
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Look', {
         script: function () {
           currentLocation.description();
           return Quest.Settings.settings.lookCountsAsTurn ? world.SUCCESS : world.SUCCESS_NO_TURNSCRIPTS;
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Exits', {
         script: function () {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-          msg(Quest.lang.can_go, { char: player });
+          Quest.IO.msg(Quest.lang.can_go, { char: player });
           return Quest.Settings.settings.lookCountsAsTurn ? world.SUCCESS : world.SUCCESS_NO_TURNSCRIPTS;
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Inv', {
         script: function () {
           const listOfOjects = player.getContents(world.INVENTORY);
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-          msg(Quest.lang.inventory_prefix + " " + Quest.Utilities.formatList(listOfOjects, { article: Quest.Utilities.INDEFINITE, lastJoiner: Quest.lang.list_and, modified: true, nothing: Quest.lang.list_nothing, loc: player.name }) + ".", { char: player });
+          Quest.IO.msg(Quest.lang.inventory_prefix + " " + Quest.Utilities.formatList(listOfOjects, { article: Quest.Utilities.INDEFINITE, lastJoiner: Quest.lang.list_and, modified: true, nothing: Quest.lang.list_nothing, loc: player.name }) + ".", { char: player });
           return Quest.Settings.settings.lookCountsAsTurn ? world.SUCCESS : world.SUCCESS_NO_TURNSCRIPTS;
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Map', {
         script: function () {
           if (typeof showMap !== 'undefined') {
@@ -429,18 +429,18 @@ namespace Quest {
             const zone = w[player.loc]
             if (!zone.zone) {
               // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-              return failedmsg(Quest.lang.no_map);
+              return Quest.IO.failedmsg(Quest.lang.no_map);
             }
             else {
               const flag = zone.drawMap()
               // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-              if (!flag) return failedmsg(Quest.lang.no_map);
+              if (!flag) return Quest.IO.failedmsg(Quest.lang.no_map);
               return world.SUCCESS_NO_TURNSCRIPTS
             }
           }
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Topics', {
         attName: "topics",
         objects: [
@@ -452,15 +452,15 @@ namespace Quest {
 
 
 
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Wait', {
         script: function () {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg(Quest.lang.wait_msg);
+          Quest.IO.msg(Quest.lang.wait_msg);
           return world.SUCCESS;
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Smell', {
         script: function () {
           if (currentLocation.smell) {
@@ -469,12 +469,12 @@ namespace Quest {
           }
           else {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-            msg(Quest.lang.no_smell, { char: player });
+            Quest.IO.msg(Quest.lang.no_smell, { char: player });
           }
           return world.SUCCESS;
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Listen', {
         script: function () {
           if (currentLocation.listen) {
@@ -483,12 +483,12 @@ namespace Quest {
           }
           else {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-            msg(Quest.lang.no_listen, { char: player });
+            Quest.IO.msg(Quest.lang.no_listen, { char: player });
           }
           return world.SUCCESS;
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('PurchaseFromList', {
         script: function () {
           const l = [];
@@ -506,19 +506,19 @@ namespace Quest {
           }
           if (l.length === 0) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-            return failedmsg(Quest.lang.nothing_for_sale);
+            return Quest.IO.failedmsg(Quest.lang.nothing_for_sale);
           }
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg(current_money + ": " + world.Money(player.money));
+          Quest.IO.msg(current_money + ": " + world.Money(player.money));
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 2.
-          msgTable(l, buy_headings)
+          Quest.IO.msgTable(l, buy_headings)
           return world.SUCCESS_NO_TURNSCRIPTS;
         },
       }),
 
 
       // Out of convenient order as it needs to be before TAKE
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('GetFluid', {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
@@ -530,9 +530,9 @@ namespace Quest {
           console.log('here')
           const options = { char: player, fluid: objects[0] }
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'findSource' does not exist on type '{}'.
-          if (!Quest.Utilities.util.findSource(options)) return failedmsg(Quest.lang.no_fluid_here, options)
+          if (!Quest.Utilities.util.findSource(options)) return Quest.IO.failedmsg(Quest.lang.no_fluid_here, options)
           console.log('here')
-          return failedmsg(Quest.lang.cannot_get_fluid, options)
+          return Quest.IO.failedmsg(Quest.lang.cannot_get_fluid, options)
         },
       }),
 
@@ -540,7 +540,7 @@ namespace Quest {
 
       // ----------------------------------
       // Verb-object commands
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Examine', {
         npcCmd: true,
         objects: [
@@ -549,7 +549,7 @@ namespace Quest {
         ],
         defmsg: Quest.lang.default_examine,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('LookAt', {  // used for NPCs
         npcCmd: true,
         attName: 'examine',
@@ -559,7 +559,7 @@ namespace Quest {
         ],
         defmsg: Quest.lang.default_examine,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('LookOut', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
@@ -571,7 +571,7 @@ namespace Quest {
         attName: "lookout",
         defmsg: Quest.lang.cannot_look_out,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('LookBehind', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
@@ -583,7 +583,7 @@ namespace Quest {
         ],
         defmsg: Quest.lang.nothing_there,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('LookUnder', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
@@ -595,7 +595,7 @@ namespace Quest {
         ],
         defmsg: Quest.lang.nothing_there,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('LookThrough', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
@@ -607,7 +607,7 @@ namespace Quest {
         ],
         defmsg: Quest.lang.nothing_there,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('LookInside', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
@@ -619,7 +619,7 @@ namespace Quest {
         ],
         defmsg: Quest.lang.nothing_inside,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Search', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
@@ -632,7 +632,7 @@ namespace Quest {
         defmsg: Quest.lang.nothing_there,
       }),
 
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Take', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHereAlready' does not exist on type '{... Remove this comment to see the full error message
@@ -643,7 +643,7 @@ namespace Quest {
         ],
         defmsg: Quest.lang.cannot_take,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Drop', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeldNotWorn' does not exist on type '{... Remove this comment to see the full error message
@@ -654,7 +654,7 @@ namespace Quest {
         ],
         default: function (options: any) { falsemsg(options.item.isAtLoc(options.char) ? Quest.lang.cannot_drop : Quest.lang.not_carrying, options) },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Wear2', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeldNotWorn' does not exist on type '{... Remove this comment to see the full error message
@@ -666,7 +666,7 @@ namespace Quest {
         ],
         default: function (options: any) { falsemsg(options.item.ensemble ? Quest.lang.cannot_wear_ensemble : Quest.lang.cannot_wear, options) },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Wear', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeldNotWorn' does not exist on type '{... Remove this comment to see the full error message
@@ -677,7 +677,7 @@ namespace Quest {
         ],
         default: function (options: any) { falsemsg(options.item.ensemble ? Quest.lang.cannot_wear_ensemble : Quest.lang.cannot_wear, options) },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Remove', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'isWorn' does not exist on type '{}'.
@@ -688,7 +688,7 @@ namespace Quest {
         ],
         default: function (options: any) { falsemsg(options.item.ensemble ? Quest.lang.cannot_wear_ensemble : Quest.lang.not_wearing, options) },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Remove2', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'isWorn' does not exist on type '{}'.
@@ -700,7 +700,7 @@ namespace Quest {
         ],
         default: function (options: any) { falsemsg(options.item.ensemble ? Quest.lang.cannot_wear_ensemble : Quest.lang.not_wearing, options) },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Read', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
@@ -711,7 +711,7 @@ namespace Quest {
         ],
         defmsg: Quest.lang.cannot_read,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Purchase', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
@@ -722,7 +722,7 @@ namespace Quest {
         ],
         defmsg: Quest.lang.cannot_purchase_here,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Sell', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeldNotWorn' does not exist on type '{... Remove this comment to see the full error message
@@ -733,7 +733,7 @@ namespace Quest {
         ],
         defmsg: Quest.lang.cannot_sell_here,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Smash', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
@@ -744,7 +744,7 @@ namespace Quest {
         ],
         defmsg: Quest.lang.cannot_smash,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Turn', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
@@ -755,7 +755,7 @@ namespace Quest {
         ],
         defmsg: Quest.lang.cannot_turn,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('TurnLeft', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
@@ -766,7 +766,7 @@ namespace Quest {
         ],
         defmsg: Quest.lang.cannot_turn,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('TurnRight', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
@@ -777,7 +777,7 @@ namespace Quest {
         ],
         defmsg: Quest.lang.cannot_turn,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('SwitchOn', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
@@ -790,7 +790,7 @@ namespace Quest {
         ],
         defmsg: Quest.lang.cannot_switch_on,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('SwitchOn2', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
@@ -804,7 +804,7 @@ namespace Quest {
         defmsg: Quest.lang.cannot_switch_on,
       }),
 
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('SwitchOff2', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
@@ -817,7 +817,7 @@ namespace Quest {
         ],
         defmsg: Quest.lang.cannot_switch_off,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('SwitchOff', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
@@ -831,7 +831,7 @@ namespace Quest {
         defmsg: Quest.lang.cannot_switch_off,
       }),
 
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Open', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
@@ -842,7 +842,7 @@ namespace Quest {
         ],
         defmsg: Quest.lang.cannot_open,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('OpenWith', {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
@@ -855,7 +855,7 @@ namespace Quest {
         defmsg: Quest.lang.cannot_open_with,
       }),
 
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Close', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
@@ -867,7 +867,7 @@ namespace Quest {
         defmsg: Quest.lang.cannot_close,
       }),
 
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Lock', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
@@ -878,7 +878,7 @@ namespace Quest {
         ],
         defmsg: Quest.lang.cannot_lock,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('LockWith', {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
@@ -891,7 +891,7 @@ namespace Quest {
         defmsg: Quest.lang.cannot_lock_with,
       }),
 
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Unlock', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
@@ -902,7 +902,7 @@ namespace Quest {
         ],
         defmsg: Quest.lang.cannot_unlock,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('UnlockWith', {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
@@ -915,7 +915,7 @@ namespace Quest {
         defmsg: Quest.lang.cannot_unlock_with,
       }),
 
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Push', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
@@ -927,7 +927,7 @@ namespace Quest {
         defmsg: Quest.lang.nothing_useful,
       }),
 
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Pull', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
@@ -938,7 +938,7 @@ namespace Quest {
         ],
         defmsg: Quest.lang.nothing_useful,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Fill', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
@@ -949,7 +949,7 @@ namespace Quest {
         ],
         defmsg: Quest.lang.cannot_fill,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Empty', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
@@ -961,7 +961,7 @@ namespace Quest {
         defmsg: Quest.lang.cannot_empty,
       }),
 
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('SmellItem', {
         npcCmd: true,
         attName: "smell",
@@ -971,7 +971,7 @@ namespace Quest {
         ],
         defmsg: Quest.lang.cannot_smell,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('ListenToItem', {
         npcCmd: true,
         attName: "listen",
@@ -982,7 +982,7 @@ namespace Quest {
         defmsg: Quest.lang.cannot_listen,
       }),
 
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Eat', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeldNotWorn' does not exist on type '{... Remove this comment to see the full error message
@@ -994,7 +994,7 @@ namespace Quest {
         ],
         defmsg: Quest.lang.cannot_eat,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Drink', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
@@ -1006,7 +1006,7 @@ namespace Quest {
         ],
         defmsg: Quest.lang.cannot_drink,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Ingest', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
@@ -1019,11 +1019,11 @@ namespace Quest {
         defmsg: Quest.lang.cannot_ingest,
       }),
 
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Sit', {
         npcCmd: true,
         cmdCategory: "Posture",
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testPosture' does not exist on type '{}'... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testPosture],
         attName: "siton",
         objects: [],
@@ -1031,15 +1031,15 @@ namespace Quest {
           const objs = Quest.Utilities.scopeBy((el: any) => el.siton && el.isAtLoc(player.loc))
           console.log(objs)
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-          if (objs.length === 0) return failedmsg(Quest.lang.no_sit_object)
+          if (objs.length === 0) return Quest.IO.failedmsg(Quest.lang.no_sit_object)
           return objs[0].siton({ char: player, item: objs[0] }) ? world.SUCCESS : world.FAILED
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Recline', {
         npcCmd: true,
         cmdCategory: "Posture",
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testPosture' does not exist on type '{}'... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testPosture],
         attName: "reclineon",
         objects: [],
@@ -1047,15 +1047,15 @@ namespace Quest {
           const objs = Quest.Utilities.scopeBy((el: any) => el.reclineon && el.isAtLoc(player.loc))
           console.log(objs)
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-          if (objs.length === 0) return failedmsg(Quest.lang.no_recline_object)
+          if (objs.length === 0) return Quest.IO.failedmsg(Quest.lang.no_recline_object)
           return objs[0].reclineon({ char: player, item: objs[0] }) ? world.SUCCESS : world.FAILED
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('SitOn', {
         npcCmd: true,
         cmdCategory: "Posture",
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testPosture' does not exist on type '{}'... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testPosture, Quest.Command.cmdRules.isHere],
         attName: "siton",
         objects: [
@@ -1064,11 +1064,11 @@ namespace Quest {
         ],
         defmsg: Quest.lang.cannot_sit_on,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('StandOn', {
         npcCmd: true,
         cmdCategory: "Posture",
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testPosture' does not exist on type '{}'... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testPosture, Quest.Command.cmdRules.isHere],
         attName: "standon",
         objects: [
@@ -1077,11 +1077,10 @@ namespace Quest {
         ],
         defmsg: Quest.lang.cannot_stand_on,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('ReclineOn', {
         npcCmd: true,
         cmdCategory: "Posture",
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testPosture' does not exist on type '{}'... Remove this comment to see the full error message
         rules: [Quest.Command.cmdRules.testPosture, Quest.Command.cmdRules.isHere],
         attName: "reclineon",
         objects: [
@@ -1090,16 +1089,13 @@ namespace Quest {
         ],
         defmsg: Quest.lang.cannot_recline_on,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('GetOff', {
         npcCmd: true,
         cmdCategory: "Posture",
         score: 5, // to give priority over TAKE
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testPosture' does not exist on type '{}'... Remove this comment to see the full error message
         rules: [Quest.Command.cmdRules.testPosture, Quest.Command.cmdRules.isHere],
         attName: "getoff",
-        // @ts-expect-error ts-migrate(1117) FIXME: An object literal cannot have multiple properties ... Remove this comment to see the full error message
-        cmdCategory: "Posture",
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { scope: parser.isHere, attName: "assumePosture" },
@@ -1107,7 +1103,6 @@ namespace Quest {
         defmsg: Quest.lang.already,
       }),
 
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
       new Quest.Command.Cmd('Use', {
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
@@ -1148,7 +1143,7 @@ namespace Quest {
         defmsg: Quest.lang.cannot_use,
       }),
 
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('TalkTo', {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'canTalkTo' does not exist on type '{}'.
         rules: [Quest.Command.cmdRules.canTalkTo],
@@ -1170,7 +1165,7 @@ namespace Quest {
 
 
 
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Say', {
         script: function (arr: any) {
           const l = [];
@@ -1181,13 +1176,13 @@ namespace Quest {
           l.sort(function (a, b) { return (b.sayPriority + b.sayBonus) - (a.sayPriority + b.sayBonus); });
           if (l.length === 0) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            msg(Quest.lang.say_no_one_here(player, arr[0], arr[1]));
+            Quest.IO.msg(Quest.lang.say_no_one_here(player, arr[0], arr[1]));
             return world.SUCCESS;
           }
 
           const options = { char: player, text: Quest.Utilities.sentenceCase(arr[1]) }
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-          if (Quest.Settings.settings.givePlayerSayMsg) msg(Quest.lang.say_something, options)
+          if (Quest.Settings.settings.givePlayerSayMsg) Quest.IO.msg(Quest.lang.say_something, options)
           for (let chr of l) {
             // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
             if (chr.sayQuestion && w[chr.sayQuestion].sayResponse(chr, arr[1])) return world.SUCCESS;
@@ -1195,11 +1190,11 @@ namespace Quest {
           }
           if (Quest.Settings.settings.givePlayerSayMsg) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-            msg(Quest.lang.say_no_response, options);
+            Quest.IO.msg(Quest.lang.say_no_response, options);
           }
           else {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-            msg(Quest.lang.say_no_response_full, options);
+            Quest.IO.msg(Quest.lang.say_no_response_full, options);
           }
           return world.SUCCESS;
         },
@@ -1209,16 +1204,12 @@ namespace Quest {
         ]
       }),
 
-
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
       new Quest.Command.Cmd('Stand', {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testPosture' does not exist on type '{}'... Remove this comment to see the full error message
         rules: [Quest.Command.cmdRules.testPosture],
         script: handleStandUp,
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+
       new Quest.Command.Cmd('NpcStand', {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testPosture' does not exist on type '{}'... Remove this comment to see the full error message
         rules: [Quest.Command.cmdRules.testPosture],
         cmdCategory: "Posture",
         objects: [
@@ -1228,11 +1219,6 @@ namespace Quest {
         script: handleStandUp,
       }),
 
-
-
-
-
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
       new Quest.Command.Cmd('Make', {
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isUnconstructed' does not exist on type ... Remove this comment to see the full error message
@@ -1243,7 +1229,7 @@ namespace Quest {
           return obj.build({ char: player, item: obj }) ? world.SUCCESS : world.FAILED
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('MakeWith', {
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isUnconstructed' does not exist on type ... Remove this comment to see the full error message
@@ -1258,7 +1244,7 @@ namespace Quest {
           return obj.build(options) ? world.SUCCESS : world.FAILED
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('NpcMake', {
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isUnconstructed' does not exist on type ... Remove this comment to see the full error message
@@ -1266,13 +1252,13 @@ namespace Quest {
         ],
         script: function (objects: any) {
           const npc = objects[0][0]
-          if (!npc.npc) return failedmsg(Quest.lang.not_npc, { char: player, item: npc })
+          if (!npc.npc) return Quest.IO.failedmsg(Quest.lang.not_npc, { char: player, item: npc })
           objects.shift()
           const obj = objects[0][0]
           return obj.build({ char: npc, item: obj }) ? world.SUCCESS : world.FAILED
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('NpcMakeWith', {
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isUnconstructed' does not exist on type ... Remove this comment to see the full error message
@@ -1282,7 +1268,7 @@ namespace Quest {
         ],
         script: function (objects: any) {
           const npc = objects[0][0]
-          if (!npc.npc) return failedmsg(Quest.lang.not_npc, { char: player, item: npc })
+          if (!npc.npc) return Quest.IO.failedmsg(Quest.lang.not_npc, { char: player, item: npc })
           objects.shift()
           const obj = objects[0][0]
           const options = { char: npc, item: obj }
@@ -1291,11 +1277,7 @@ namespace Quest {
         },
       }),
 
-
-
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
       new Quest.Command.Cmd('FillWith', {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
@@ -1306,9 +1288,8 @@ namespace Quest {
           return handleFillFromUnknown(player, objects[0][0], objects[1]);
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('NpcFillWith', {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
         cmdCategory: "Fill",
         objects: [
@@ -1320,14 +1301,13 @@ namespace Quest {
         ],
         script: function (objects: any) {
           const npc = objects[0][0]
-          if (!npc.npc) return failedmsg(Quest.lang.not_npc, { char: player, item: npc })
+          if (!npc.npc) return Quest.IO.failedmsg(Quest.lang.not_npc, { char: player, item: npc })
           objects.shift()
           return handleFillFromUnknown(npc, objects[0][0], objects[1])
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('EmptyInto', {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
@@ -1339,9 +1319,8 @@ namespace Quest {
           return handleFillFromVessel(player, objects[0][0], objects[1][0], undefined);
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('NpcEmptyInto', {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
         cmdCategory: "Fill",
         objects: [
@@ -1354,14 +1333,13 @@ namespace Quest {
         ],
         script: function (objects: any) {
           const npc = objects[0][0]
-          if (!npc.npc) return failedmsg(Quest.lang.not_npc, { char: player, item: npc })
+          if (!npc.npc) return Quest.IO.failedmsg(Quest.lang.not_npc, { char: player, item: npc })
           objects.shift()
           return handleFillFromVessel(npc, objects[0][0], objects[1][0], undefined)
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('EmptyFluidInto', {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
         objects: [
           { special: 'fluid' },
@@ -1372,9 +1350,8 @@ namespace Quest {
           return handleEmptyFluidInto(player, objects[1][0], objects[0]);
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('NpcEmptyFluidInto', {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
         cmdCategory: "Fill",
         objects: [
@@ -1386,14 +1363,13 @@ namespace Quest {
         ],
         script: function (objects: any) {
           const npc = objects[0][0]
-          if (!npc.npc) return failedmsg(Quest.lang.not_npc, { char: player, item: npc })
+          if (!npc.npc) return Quest.IO.failedmsg(Quest.lang.not_npc, { char: player, item: npc })
           objects.shift()
           return handleEmptyFluidInto(npc, objects[1][0], objects[0])
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('PutFluidIn', {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
         objects: [
           { special: 'fluid' },
@@ -1405,11 +1381,7 @@ namespace Quest {
         },
       }),
 
-
-
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
       new Quest.Command.Cmd('PutIn', {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
@@ -1422,9 +1394,7 @@ namespace Quest {
         },
       }),
 
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
       new Quest.Command.Cmd('NpcPutIn', {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
         cmdCategory: "Drop/in",
         objects: [
@@ -1437,15 +1407,13 @@ namespace Quest {
         ],
         script: function (objects: any) {
           const npc = objects[0][0]
-          if (!npc.npc) return failedmsg(Quest.lang.not_npc, { char: player, item: npc })
+          if (!npc.npc) return Quest.IO.failedmsg(Quest.lang.not_npc, { char: player, item: npc })
           objects.shift()
           return handleInOutContainer(npc, objects, "drop", handleSingleDropInContainer)
         },
       }),
 
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
       new Quest.Command.Cmd('TakeOut', {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresent],
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isContained' does not exist on type '{}'... Remove this comment to see the full error message
@@ -1458,9 +1426,7 @@ namespace Quest {
         },
       }),
 
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
       new Quest.Command.Cmd('NpcTakeOut', {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
         cmdCategory: "Take",
         objects: [
@@ -1473,15 +1439,13 @@ namespace Quest {
         ],
         script: function (objects: any) {
           const npc = objects[0][0]
-          if (!npc.npc) return failedmsg(Quest.lang.not_npc, { char: player, item: npc })
+          if (!npc.npc) return Quest.IO.failedmsg(Quest.lang.not_npc, { char: player, item: npc })
           objects.shift()
           return handleInOutContainer(npc, objects, "take", handleSingleTakeOutContainer)
         },
       }),
 
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
       new Quest.Command.Cmd('GiveTo', {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
@@ -1493,9 +1457,8 @@ namespace Quest {
           return handleGiveToNpc(player, objects)
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('NpcGiveTo', {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
         cmdCategory: "Give",
         objects: [
@@ -1508,13 +1471,13 @@ namespace Quest {
         ],
         script: function (objects: any) {
           const npc = objects[0][0];
-          if (!npc.npc) return failedmsg(Quest.lang.not_npc, { char: player, item: npc })
+          if (!npc.npc) return Quest.IO.failedmsg(Quest.lang.not_npc, { char: player, item: npc })
           objects.shift()
           return handleGiveToNpc(npc, objects)
         },
       }),
 
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Give', {
         antiRegexes: [Quest.lang.regex.GiveTo],
         matchItems: function (s: any) {
@@ -1610,7 +1573,7 @@ namespace Quest {
         },
       }),
 
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('NpcGive', {
         antiRegexes: Quest.lang.regex.NpcGiveTo,
         matchItems: function (s: any) {
@@ -1738,7 +1701,7 @@ namespace Quest {
 
 
 
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('PushExit', {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHere],
@@ -1753,14 +1716,14 @@ namespace Quest {
           { special: 'text' },
         ]
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('NpcPushExit', {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHere],
         cmdCategory: "Push",
         script: function (objects: any) {
           const npc = objects[0][0];
-          if (!npc.npc) return failedmsg(Quest.lang.not_npc, { char: player, item: npc })
+          if (!npc.npc) return Quest.IO.failedmsg(Quest.lang.not_npc, { char: player, item: npc })
           objects.shift();
           return handlePushExit(npc, objects);
         },
@@ -1778,7 +1741,7 @@ namespace Quest {
 
 
 
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('TieUp', {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
@@ -1789,11 +1752,11 @@ namespace Quest {
         ],
         script: function (objects: any) {
           const rope = objects[0][0]
-          if (!rope.rope) return failedmsg(Quest.lang.rope_not_attachable, { rope: rope })
+          if (!rope.rope) return Quest.IO.failedmsg(Quest.lang.rope_not_attachable, { rope: rope })
           return rope.handleTieTo(player)
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('TieTo', {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
@@ -1806,21 +1769,21 @@ namespace Quest {
         ],
         script: function (objects: any) {
           const rope = objects[0][0]
-          if (!rope.rope) return failedmsg(Quest.lang.rope_not_attachable, { rope: rope })
+          if (!rope.rope) return Quest.IO.failedmsg(Quest.lang.rope_not_attachable, { rope: rope })
           return rope.handleTieTo(player, objects[1][0])
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('NpcTieUp', {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
         cmdCategory: "Tie",
         script: function (objects: any) {
           const npc = objects[0][0];
-          if (!npc.npc) return failedmsg(Quest.lang.not_npc, { char: player, item: npc })
+          if (!npc.npc) return Quest.IO.failedmsg(Quest.lang.not_npc, { char: player, item: npc })
           objects.shift();
           const rope = objects[0][0]
-          if (!rope.rope) return failedmsg(Quest.lang.rope_not_attachable, { rope: rope })
+          if (!rope.rope) return Quest.IO.failedmsg(Quest.lang.rope_not_attachable, { rope: rope })
           return rope.handleTieTo(npc)
         },
         objects: [
@@ -1830,17 +1793,17 @@ namespace Quest {
           { scope: parser.isHeld, attName: "rope" },
         ]
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('NpcTieTo', {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
         cmdCategory: "Tie",
         script: function (objects: any) {
           const npc = objects[0][0];
-          if (!npc.npc) return failedmsg(Quest.lang.not_npc, { char: player, item: npc })
+          if (!npc.npc) return Quest.IO.failedmsg(Quest.lang.not_npc, { char: player, item: npc })
           objects.shift();
           const rope = objects[0][0]
-          if (!rope.rope) return failedmsg(Quest.lang.rope_not_attachable, { rope: rope })
+          if (!rope.rope) return Quest.IO.failedmsg(Quest.lang.rope_not_attachable, { rope: rope })
           return rope.handleTieTo(npc, objects[1][0])
         },
         objects: [
@@ -1853,7 +1816,7 @@ namespace Quest {
         ]
       }),
 
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('Untie', {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresent],
@@ -1864,21 +1827,21 @@ namespace Quest {
         ],
         script: function (objects: any) {
           const rope = objects[0][0]
-          if (!rope.rope) return failedmsg(Quest.lang.rope_not_attachable, { rope: rope })
+          if (!rope.rope) return Quest.IO.failedmsg(Quest.lang.rope_not_attachable, { rope: rope })
           return rope.handleUntieFrom(player)
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('NpcUntie', {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresent],
         cmdCategory: "Tie",
         script: function (objects: any) {
           const npc = objects[0][0];
-          if (!npc.npc) return failedmsg(Quest.lang.not_npc, { char: player, item: npc })
+          if (!npc.npc) return Quest.IO.failedmsg(Quest.lang.not_npc, { char: player, item: npc })
           objects.shift();
           const rope = objects[0][0]
-          if (!rope.rope) return failedmsg(Quest.lang.rope_not_attachable, { rope: rope })
+          if (!rope.rope) return Quest.IO.failedmsg(Quest.lang.rope_not_attachable, { rope: rope })
           return rope.handleUntieFrom(npc)
         },
         objects: [
@@ -1889,7 +1852,7 @@ namespace Quest {
         ]
       }),
 
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('UntieFrom', {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresent],
@@ -1902,21 +1865,21 @@ namespace Quest {
         ],
         script: function (objects: any) {
           const rope = objects[0][0]
-          if (!rope.rope) return failedmsg(Quest.lang.rope_not_attachable, { rope: rope })
+          if (!rope.rope) return Quest.IO.failedmsg(Quest.lang.rope_not_attachable, { rope: rope })
           return rope.handleUntieFrom(player, objects[1][0])
         },
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('NpcUntieFrom', {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresent],
         cmdCategory: "Tie",
         script: function (objects: any) {
           const npc = objects[0][0];
-          if (!npc.npc) return failedmsg(Quest.lang.not_npc, { char: player, item: npc })
+          if (!npc.npc) return Quest.IO.failedmsg(Quest.lang.not_npc, { char: player, item: npc })
           objects.shift();
           const rope = objects[0][0]
-          if (!rope.rope) return failedmsg(Quest.lang.rope_not_attachable, { rope: rope })
+          if (!rope.rope) return Quest.IO.failedmsg(Quest.lang.rope_not_attachable, { rope: rope })
           return rope.handleUntieFrom(npc, objects[1][0])
         },
         objects: [
@@ -1930,7 +1893,7 @@ namespace Quest {
       }),
 
 
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('UseWith', {
         //npcCmd:true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
@@ -1986,7 +1949,7 @@ namespace Quest {
 
 
 
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('FollowMe', {
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
@@ -1995,13 +1958,13 @@ namespace Quest {
         script: function (objects: any) {
           const obj = objects[0][0]
           const tpParams = { char: player, npc: obj }
-          if (!obj.npc) return failedmsg(Quest.lang.cannot_follow, tpParams)
+          if (!obj.npc) return Quest.IO.failedmsg(Quest.lang.cannot_follow, tpParams)
           if (!obj.getAgreement("Follow")) return world.FAILED
           return obj.startFollow() ? world.SUCCESS : world.FAILED
         },
       }),
 
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('WaitHere', {
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
@@ -2017,13 +1980,13 @@ namespace Quest {
       }),
 
 
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('AskAbout', {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'canTalkTo' does not exist on type '{}'.
         rules: [Quest.Command.cmdRules.canTalkTo],
         script: function (arr: any) {
           if (!player.testTalk()) return false
-          if (!arr[0][0].askabout) return failedmsg(Quest.lang.cannot_ask_about, { char: player, item: arr[0][0], text: arr[2] })
+          if (!arr[0][0].askabout) return Quest.IO.failedmsg(Quest.lang.cannot_ask_about, { char: player, item: arr[0][0], text: arr[2] })
 
           return arr[0][0].askabout(arr[2], arr[1]) ? world.SUCCESS : world.FAILED
         },
@@ -2034,14 +1997,14 @@ namespace Quest {
           { special: 'text' },
         ]
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('TellAbout', {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'canTalkTo' does not exist on type '{}'.
         rules: [Quest.Command.cmdRules.canTalkTo],
         script: function (arr: any) {
           if (!player.testTalk()) return false
           // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'cannot_tell_about'.
-          if (!arr[0][0].tellabout) return failedmsg(cannot_tell_about, { char: player, item: arr[0][0], text: arr[1] })
+          if (!arr[0][0].tellabout) return Quest.IO.failedmsg(cannot_tell_about, { char: player, item: arr[0][0], text: arr[1] })
 
           return arr[0][0].tellabout(arr[2], arr[1]) ? world.SUCCESS : world.FAILED
         },
@@ -2052,7 +2015,7 @@ namespace Quest {
           { special: 'text' },
         ]
       }),
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       new Quest.Command.Cmd('TalkAbout', {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'canTalkTo' does not exist on type '{}'.
         rules: [Quest.Command.cmdRules.canTalkTo],
@@ -2060,7 +2023,7 @@ namespace Quest {
         script: function (arr: any) {
           if (!player.testTalk()) return false
           // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'cannot_tell_about'.
-          if (!arr[0][0].tellabout && !arr[0][0].askabout) return failedmsg(cannot_tell_about, { char: player, item: arr[0][0], text: arr[1] })
+          if (!arr[0][0].tellabout && !arr[0][0].askabout) return Quest.IO.failedmsg(cannot_tell_about, { char: player, item: arr[0][0], text: arr[1] })
 
           return arr[0][0].talkabout(arr[2], arr[1]) ? world.SUCCESS : world.FAILED
         },
@@ -2077,19 +2040,19 @@ namespace Quest {
 
 
     for (const s of ['In', 'Out', 'Up', 'Down', 'Through']) {
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       commands.push(new Quest.Command.Cmd('Go' + s + 'Item', {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
         objects: [{ scope: parser.isHere, attName: "go" + s + "Direction" }],
         dirType: s,
         script: function (objects: any) {
           if (typeof objects[0][0]["go" + this.dirType + "Item"] === 'string') {
-            return failedmsg(objects[0][0]["go" + this.dirType + "Item"], { char: player, item: objects[0][0] })
+            return Quest.IO.failedmsg(objects[0][0]["go" + this.dirType + "Item"], { char: player, item: objects[0][0] })
           }
           return currentLocation.goItem(objects[0][0], this.dirType)
         },
       }))
-      // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+      
       commands.push(new Quest.Command.Cmd('NpcGo' + s + 'Item', {
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
@@ -2100,7 +2063,7 @@ namespace Quest {
         dirType: s,
         script: function (objects: any) {
           if (typeof objects[1][0]["go" + this.dirType + "Item"] === 'string') {
-            return failedmsg(objects[1][0]["go" + this.dirType + "Item"], { char: objects[0][0], item: objects[1][0] })
+            return Quest.IO.failedmsg(objects[1][0]["go" + this.dirType + "Item"], { char: objects[0][0], item: objects[1][0] })
           }
           return currentLocation.goItem(objects[1][0], this.dirType, objects[0][0])
         },
@@ -2109,259 +2072,259 @@ namespace Quest {
 
 
 
-// DEBUG commands
+    // DEBUG commands
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
-if (Quest.Settings.settings.playMode === 'dev') {
-  // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  commands.push(new Quest.Command.Cmd('DebugWalkThrough', {
-    objects: [
-      { special: 'text' },
-    ],
-    script: function (objects: any) {
-      if (typeof walkthroughs === "undefined") {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg("No walkthroughs set")
-        return world.FAILED
-      }
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      const wt = walkthroughs[objects[0]]
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      if (wt === undefined) return failedmsg("No walkthrough found called " + objects[0])
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'walkthroughInProgress' does not exist on... Remove this comment to see the full error message
-      Quest.Settings.settings.walkthroughInProgress = true
-      for (let el of wt) {
-        if (typeof el === "string") {
-          Quest.Utilities.runCmd(el)
-        }
-        else {
-          Quest.Settings.settings.walkthroughMenuResponses = Array.isArray(el.menu) ? el.menu : [el.menu]
-          Quest.Utilities.runCmd(el.cmd)
-          Quest.Settings.settings.walkthroughMenuResponses = []
-        }
-      }
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'walkthroughInProgress' does not exist on... Remove this comment to see the full error message
-      Quest.Settings.settings.walkthroughInProgress = false
-      return world.SUCCESS_NO_TURNSCRIPTS
-    },
-  }))
-
-  // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  commands.push(new Quest.Command.Cmd('DebugInspect', {
-    script: function (arr: any) {
-      const item = arr[0][0];
-      debugmsg("See the console for details on the object " + item.name + " (press F12 to world. the console)");
-      console.log(item);
-      return world.SUCCESS_NO_TURNSCRIPTS;
-    },
-    objects: [
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'isInWorld' does not exist on type '{}'.
-      { scope: parser.isInWorld },
-    ],
-  }))
-
-  // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  commands.push(new Quest.Command.Cmd('DebugInspectByName', {
-    script: function (arr: any) {
-      const item_name = arr[0]
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      if (!w[item_name]) {
-        debugmsg("No object called " + item_name);
-        return world.FAILED;
-      }
-
-      debugmsg("See the console for details on the object " + item_name + " (press F12 to world. the console)");
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      console.log(w[item_name]);
-      return world.SUCCESS_NO_TURNSCRIPTS;
-    },
-    objects: [
-      { special: 'text' },
-    ],
-  }))
-
-  // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  commands.push(new Quest.Command.Cmd('DebugTest', {
-    script: function () {
-      if (!Quest.Settings.settings.tests) {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        metamsg('The TEST command is for unit testing during game development, and is not activated (F12 for more).')
-        console.log('To activate testing in your game, set Quest.Settings.settings.tests to true. More details here: https://github.com/ThePix/QuestJS/wiki/Unit-testing')
-        return world.SUCCESS_NO_TURNSCRIPTS;
-      }
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'runTests' does not exist on type '{}'.
-      if (typeof test.runTests !== 'function') {
-        console.log(test)
-        return world.FAILED
-      }
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'runTests' does not exist on type '{}'.
-      test.runTests();
-      return world.SUCCESS_NO_TURNSCRIPTS;
-    },
-  }))
-
-  // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  commands.push(new Quest.Command.Cmd('DebugInspectCommand', {
-    script: function (arr: any) {
-      debugmsg("Looking for " + arr[0]);
-      for (let cmd of commands) {
-        if (cmd.name.toLowerCase() === arr[0] || (cmd.cmdCategory && cmd.cmdCategory.toLowerCase() === arr[0])) {
-          debugmsg("Name: " + cmd.name);
-          for (let key in cmd) {
-            if (cmd.hasOwnProperty(key)) {
-              debugmsg("--" + key + ": " + cmd[key]);
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
+    if (Quest.Settings.settings.playMode === 'dev') {
+      
+      commands.push(new Quest.Command.Cmd('DebugWalkThrough', {
+        objects: [
+          { special: 'text' },
+        ],
+        script: function (objects: any) {
+          if (typeof walkthroughs === "undefined") {
+            // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+            Quest.IO.metamsg("No walkthroughs set")
+            return world.FAILED
+          }
+          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          const wt = walkthroughs[objects[0]]
+          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+          if (wt === undefined) return Quest.IO.failedmsg("No walkthrough found called " + objects[0])
+          // @ts-expect-error ts-migrate(2339) FIXME: Property 'walkthroughInProgress' does not exist on... Remove this comment to see the full error message
+          Quest.Settings.settings.walkthroughInProgress = true
+          for (let el of wt) {
+            if (typeof el === "string") {
+              Quest.Utilities.runCmd(el)
+            }
+            else {
+              Quest.Settings.settings.walkthroughMenuResponses = Array.isArray(el.menu) ? el.menu : [el.menu]
+              Quest.Utilities.runCmd(el.cmd)
+              Quest.Settings.settings.walkthroughMenuResponses = []
             }
           }
-        }
-      }
-      return world.SUCCESS_NO_TURNSCRIPTS;
-    },
-    objects: [
-      { special: 'text' },
-    ],
-  }))
+          // @ts-expect-error ts-migrate(2339) FIXME: Property 'walkthroughInProgress' does not exist on... Remove this comment to see the full error message
+          Quest.Settings.settings.walkthroughInProgress = false
+          return world.SUCCESS_NO_TURNSCRIPTS
+        },
+      }))
 
-  // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  commands.push(new Quest.Command.Cmd('DebugListCommands', {
-    script: function (arr: any) {
-      let count = 0;
-      for (let cmd of commands) {
-        if (!cmd.name.match(/\d$/)) {
-          let s = cmd.name + " (" + cmd.regex
+      
+      commands.push(new Quest.Command.Cmd('DebugInspect', {
+        script: function (arr: any) {
+          const item = arr[0][0];
+          Quest.IO.debugmsg("See the console for details on the object " + item.name + " (press F12 to world. the console)");
+          console.log(item);
+          return world.SUCCESS_NO_TURNSCRIPTS;
+        },
+        objects: [
+          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isInWorld' does not exist on type '{}'.
+          { scope: parser.isInWorld },
+        ],
+      }))
 
-          let altCmd
-          let n = 2
-          do {
-            altCmd = commands.find(el => el.name === cmd.name + n)
-            if (altCmd) s += " or " + altCmd.regex
-            n++
-          } while (altCmd)
-          s += ")"
-
-          const npcCmd = commands.find(el => el.name === "Npc" + cmd.name + "2")
-          if (npcCmd) s += " - NPC too"
-          debugmsg(s);
-          count++;
-        }
-      }
-      debugmsg("... Found " + count + " commands.");
-      return world.SUCCESS_NO_TURNSCRIPTS;
-    },
-    objects: [
-    ],
-  }))
-
-  // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  commands.push(new Quest.Command.Cmd('DebugListCommands2', {
-    script: function (arr: any) {
-      let count = 0;
-      for (let cmd of commands) {
-        let s = cmd.name + " (" + cmd.regex + ")"
-        debugmsg(s);
-        count++;
-      }
-      debugmsg("... Found " + count + " commands.");
-      return world.SUCCESS_NO_TURNSCRIPTS;
-    },
-    objects: [
-    ],
-  }))
-
-  // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  commands.push(new Quest.Command.Cmd('DebugParserToggle', {
-    script: function (arr: any) {
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'debug' does not exist on type '{}'.
-      if (parser.debug) {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'debug' does not exist on type '{}'.
-        parser.debug = false
-        debugmsg("Parser debugging messages are off.");
-      }
-      else {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'debug' does not exist on type '{}'.
-        parser.debug = true
-        debugmsg("Parser debugging messages are on.");
-      }
-      return world.SUCCESS_NO_TURNSCRIPTS;
-    },
-    objects: [
-    ],
-  }))
-
-  // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  commands.push(new Quest.Command.Cmd('DebugStats', {
-    script: function (arr: any) {
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'count' does not exist on type '{ name: s... Remove this comment to see the full error message
-      for (const el of Quest.Settings.settings.statsData) el.count = 0
-      for (const key in w) {
-        for (const el of Quest.Settings.settings.statsData) {
+      
+      commands.push(new Quest.Command.Cmd('DebugInspectByName', {
+        script: function (arr: any) {
+          const item_name = arr[0]
           // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          const res = el.test(w[key])
+          if (!w[item_name]) {
+            Quest.IO.debugmsg("No object called " + item_name);
+            return world.FAILED;
+          }
+
+          Quest.IO.debugmsg("See the console for details on the object " + item_name + " (press F12 to world. the console)");
+          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          console.log(w[item_name]);
+          return world.SUCCESS_NO_TURNSCRIPTS;
+        },
+        objects: [
+          { special: 'text' },
+        ],
+      }))
+
+      
+      commands.push(new Quest.Command.Cmd('DebugTest', {
+        script: function () {
+          if (!Quest.Settings.settings.tests) {
+            // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+            Quest.IO.metamsg('The TEST command is for unit testing during game development, and is not activated (F12 for more).')
+            console.log('To activate testing in your game, set Quest.Settings.settings.tests to true. More details here: https://github.com/ThePix/QuestJS/wiki/Unit-testing')
+            return world.SUCCESS_NO_TURNSCRIPTS;
+          }
+          // @ts-expect-error ts-migrate(2339) FIXME: Property 'runTests' does not exist on type '{}'.
+          if (typeof test.runTests !== 'function') {
+            console.log(test)
+            return world.FAILED
+          }
+          // @ts-expect-error ts-migrate(2339) FIXME: Property 'runTests' does not exist on type '{}'.
+          test.runTests();
+          return world.SUCCESS_NO_TURNSCRIPTS;
+        },
+      }))
+
+      
+      commands.push(new Quest.Command.Cmd('DebugInspectCommand', {
+        script: function (arr: any) {
+          Quest.IO.debugmsg("Looking for " + arr[0]);
+          for (let cmd of commands) {
+            if (cmd.name.toLowerCase() === arr[0] || (cmd.cmdCategory && cmd.cmdCategory.toLowerCase() === arr[0])) {
+              Quest.IO.debugmsg("Name: " + cmd.name);
+              for (let key in cmd) {
+                if (cmd.hasOwnProperty(key)) {
+                  Quest.IO.debugmsg("--" + key + ": " + cmd[key]);
+                }
+              }
+            }
+          }
+          return world.SUCCESS_NO_TURNSCRIPTS;
+        },
+        objects: [
+          { special: 'text' },
+        ],
+      }))
+
+      
+      commands.push(new Quest.Command.Cmd('DebugListCommands', {
+        script: function (arr: any) {
+          let count = 0;
+          for (let cmd of commands) {
+            if (!cmd.name.match(/\d$/)) {
+              let s = cmd.name + " (" + cmd.regex
+
+              let altCmd
+              let n = 2
+              do {
+                altCmd = commands.find(el => el.name === cmd.name + n)
+                if (altCmd) s += " or " + altCmd.regex
+                n++
+              } while (altCmd)
+              s += ")"
+
+              const npcCmd = commands.find(el => el.name === "Npc" + cmd.name + "2")
+              if (npcCmd) s += " - NPC too"
+              Quest.IO.debugmsg(s);
+              count++;
+            }
+          }
+          Quest.IO.debugmsg("... Found " + count + " commands.");
+          return world.SUCCESS_NO_TURNSCRIPTS;
+        },
+        objects: [
+        ],
+      }))
+
+      
+      commands.push(new Quest.Command.Cmd('DebugListCommands2', {
+        script: function (arr: any) {
+          let count = 0;
+          for (let cmd of commands) {
+            let s = cmd.name + " (" + cmd.regex + ")"
+            Quest.IO.debugmsg(s);
+            count++;
+          }
+          Quest.IO.debugmsg("... Found " + count + " commands.");
+          return world.SUCCESS_NO_TURNSCRIPTS;
+        },
+        objects: [
+        ],
+      }))
+
+      
+      commands.push(new Quest.Command.Cmd('DebugParserToggle', {
+        script: function (arr: any) {
+          // @ts-expect-error ts-migrate(2339) FIXME: Property 'debug' does not exist on type '{}'.
+          if (parser.debug) {
+            // @ts-expect-error ts-migrate(2339) FIXME: Property 'debug' does not exist on type '{}'.
+            parser.debug = false
+            Quest.IO.debugmsg("Parser debugging messages are off.");
+          }
+          else {
+            // @ts-expect-error ts-migrate(2339) FIXME: Property 'debug' does not exist on type '{}'.
+            parser.debug = true
+            Quest.IO.debugmsg("Parser debugging messages are on.");
+          }
+          return world.SUCCESS_NO_TURNSCRIPTS;
+        },
+        objects: [
+        ],
+      }))
+
+      
+      commands.push(new Quest.Command.Cmd('DebugStats', {
+        script: function (arr: any) {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'count' does not exist on type '{ name: s... Remove this comment to see the full error message
-          if (res === true) el.count++
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'count' does not exist on type '{ name: s... Remove this comment to see the full error message
-          if (typeof res === 'number') el.count += res
-        }
-      }
-      for (const el of Quest.Settings.settings.statsData) {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'count' does not exist on type '{ name: s... Remove this comment to see the full error message
-        debugmsg(el.name + ": " + el.count)
-      }
-      return world.SUCCESS_NO_TURNSCRIPTS;
-    },
-    objects: [
-    ],
-  }))
+          for (const el of Quest.Settings.settings.statsData) el.count = 0
+          for (const key in w) {
+            for (const el of Quest.Settings.settings.statsData) {
+              // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+              const res = el.test(w[key])
+              // @ts-expect-error ts-migrate(2339) FIXME: Property 'count' does not exist on type '{ name: s... Remove this comment to see the full error message
+              if (res === true) el.count++
+              // @ts-expect-error ts-migrate(2339) FIXME: Property 'count' does not exist on type '{ name: s... Remove this comment to see the full error message
+              if (typeof res === 'number') el.count += res
+            }
+          }
+          for (const el of Quest.Settings.settings.statsData) {
+            // @ts-expect-error ts-migrate(2339) FIXME: Property 'count' does not exist on type '{ name: s... Remove this comment to see the full error message
+            Quest.IO.debugmsg(el.name + ": " + el.count)
+          }
+          return world.SUCCESS_NO_TURNSCRIPTS;
+        },
+        objects: [
+        ],
+      }))
 
 
-  // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  commands.push(new Quest.Command.Cmd('DebugHighlight', {
-    script: function (arr: any) {
-      for (const el of document.querySelectorAll('.parser')) {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'style' does not exist on type 'Element'.
-        el.style.color = 'black'
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'style' does not exist on type 'Element'.
-        el.style.backgroundColor = 'yellow'
-      }
-      for (const el of document.querySelectorAll('.error')) {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'style' does not exist on type 'Element'.
-        el.style.backgroundColor = 'yellow'
-      }
-      for (const el of document.querySelectorAll('.meta')) {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'style' does not exist on type 'Element'.
-        el.style.color = 'black'
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'style' does not exist on type 'Element'.
-        el.style.backgroundColor = '#8f8'
-      }
-      debugmsg("Previous parser and error messages are now highlighted.");
-      return world.SUCCESS_NO_TURNSCRIPTS;
-    },
-    objects: [
-    ],
-  }))
+      
+      commands.push(new Quest.Command.Cmd('DebugHighlight', {
+        script: function (arr: any) {
+          for (const el of document.querySelectorAll('.parser')) {
+            // @ts-expect-error ts-migrate(2339) FIXME: Property 'style' does not exist on type 'Element'.
+            el.style.color = 'black'
+            // @ts-expect-error ts-migrate(2339) FIXME: Property 'style' does not exist on type 'Element'.
+            el.style.backgroundColor = 'yellow'
+          }
+          for (const el of document.querySelectorAll('.error')) {
+            // @ts-expect-error ts-migrate(2339) FIXME: Property 'style' does not exist on type 'Element'.
+            el.style.backgroundColor = 'yellow'
+          }
+          for (const el of document.querySelectorAll('.meta')) {
+            // @ts-expect-error ts-migrate(2339) FIXME: Property 'style' does not exist on type 'Element'.
+            el.style.color = 'black'
+            // @ts-expect-error ts-migrate(2339) FIXME: Property 'style' does not exist on type 'Element'.
+            el.style.backgroundColor = '#8f8'
+          }
+          Quest.IO.debugmsg("Previous parser and error messages are now highlighted.");
+          return world.SUCCESS_NO_TURNSCRIPTS;
+        },
+        objects: [
+        ],
+      }))
 
 
-  // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  commands.push(new Quest.Command.Cmd('MetaTranscriptWalkthrough', {
-    script: function () {
-      saveLoad.transcriptWalk()
-      return world.SUCCESS_NO_TURNSCRIPTS
-    },
-  }))
+      
+      commands.push(new Quest.Command.Cmd('MetaTranscriptWalkthrough', {
+        script: function () {
+          saveLoad.transcriptWalk()
+          return world.SUCCESS_NO_TURNSCRIPTS
+        },
+      }))
 
-}
+    }
 
-// Functions used by commands 
-// (but not in the commands array)
+    // Functions used by commands 
+    // (but not in the commands array)
 
 
-// Cannot handle multiple vessels
-// want to transfer a fluid from a source to a sink
+    // Cannot handle multiple vessels
+    // want to transfer a fluid from a source to a sink
 
     function handleFillFromUnknown(char: any, sink: any, fluid: any) {
       // fluid can be undefined
       const options = { fluid: fluid }
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'findSource' does not exist on type '{}'.
-      if (!Quest.Utilities.util.findSource(options)) return failedmsg(fluid ? Quest.lang.no_fluid_here : Quest.lang.no_fluid_here_at_all, options)
+      if (!Quest.Utilities.util.findSource(options)) return Quest.IO.failedmsg(fluid ? Quest.lang.no_fluid_here : Quest.lang.no_fluid_here_at_all, options)
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'source' does not exist on type '{ fluid:... Remove this comment to see the full error message
       if (options.source.vessel) return handleFillFromVessel(char, options.source, sink, options.fluid)
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'source' does not exist on type '{ fluid:... Remove this comment to see the full error message
@@ -2373,30 +2336,30 @@ if (Quest.Settings.settings.playMode === 'dev') {
       if (!fluid) fluid = source.containedFluidName
       const options = { char: char, source: source, fluid: fluid, item: sink }
 
-      if (!source.vessel) return failedmsg(Quest.lang.not_vessel, options)
-      if (source.closed) return failedmsg(Quest.lang.container_closed, options)
-      if (!source.containedFluidName) return failedmsg(Quest.lang.already_empty, options)
-      if (!sink.vessel && !sink.sink) return failedmsg(Quest.lang.not_sink, options)
-      if (sink.vessel && sink.containedFluidName) return failedmsg(Quest.lang.already_full, options)
+      if (!source.vessel) return Quest.IO.failedmsg(Quest.lang.not_vessel, options)
+      if (source.closed) return Quest.IO.failedmsg(Quest.lang.container_closed, options)
+      if (!source.containedFluidName) return Quest.IO.failedmsg(Quest.lang.already_empty, options)
+      if (!sink.vessel && !sink.sink) return Quest.IO.failedmsg(Quest.lang.not_sink, options)
+      if (sink.vessel && sink.containedFluidName) return Quest.IO.failedmsg(Quest.lang.already_full, options)
       if (!char.testManipulate(source, "fill")) return world.FAILED
       if (!char.getAgreement("Fill", source, sink, fluid)) return world.FAILED
-      if (!source.isAtLoc(char.name)) return failedmsg(Quest.lang.not_carrying, options)
-      if (source.containedFluidName !== fluid) return failedmsg(Quest.lang.no_fluid_here, options);
+      if (!source.isAtLoc(char.name)) return Quest.IO.failedmsg(Quest.lang.not_carrying, options)
+      if (source.containedFluidName !== fluid) return Quest.IO.failedmsg(Quest.lang.no_fluid_here, options);
       return source.doEmpty(options) ? world.SUCCESS : world.FAILED;
     }
 
     function handleFillFromSource(char: any, source: any, sink: any, fluid: any) {
       const options = { char: char, source: source, fluid: fluid, item: sink }
 
-      if (!source.isSourceOf) return failedmsg(Quest.lang.not_source, options)
-      if (source.closed) return failedmsg(Quest.lang.container_closed, options)
-      if (!sink.vessel) return failedmsg(Quest.lang.not_vessel, options)
-      if (sink.containedFluidName) return failedmsg(Quest.lang.already_full, options)
+      if (!source.isSourceOf) return Quest.IO.failedmsg(Quest.lang.not_source, options)
+      if (source.closed) return Quest.IO.failedmsg(Quest.lang.container_closed, options)
+      if (!sink.vessel) return Quest.IO.failedmsg(Quest.lang.not_vessel, options)
+      if (sink.containedFluidName) return Quest.IO.failedmsg(Quest.lang.already_full, options)
       if (!char.testManipulate(sink, "fill")) return world.FAILED
       if (!char.getAgreement("Fill", source, sink, fluid)) return world.FAILED
       // if the source is the room itself, we assume it is here
-      if (!source.room && !source.isAtLoc(char.loc)) return failedmsg(Quest.lang.not_here, options)
-      if (!source.isSourceOf(fluid)) return failedmsg(Quest.lang.no_fluid_here, options)
+      if (!source.room && !source.isAtLoc(char.loc)) return Quest.IO.failedmsg(Quest.lang.not_here, options)
+      if (!source.isSourceOf(fluid)) return Quest.IO.failedmsg(Quest.lang.no_fluid_here, options)
       return sink.doFill(options) ? world.SUCCESS : world.FAILED;
     }
 
@@ -2408,7 +2371,7 @@ if (Quest.Settings.settings.playMode === 'dev') {
           return handleFillFromVessel(char, o, sink, fluid)
         }
       }
-      return failedmsg(Quest.lang.not_carrying_fluid, { char: char, fluid: fluid });
+      return Quest.IO.failedmsg(Quest.lang.not_carrying_fluid, { char: char, fluid: fluid });
     }
 
     export function handleInOutContainer(char: any, objects: any, verb: any, func: any) {
@@ -2419,13 +2382,13 @@ if (Quest.Settings.settings.playMode === 'dev') {
 
       if (container.handleInOutContainer) return container.handleInOutContainer(options, objects[0])
 
-      if (!container.container) return failedmsg(Quest.lang.not_container, options)
+      if (!container.container) return Quest.IO.failedmsg(Quest.lang.not_container, options)
       if (container.closed) {
         if (container.containerAutoOpen) {
           if (!container.open({ char: char, item: container })) return false
         }
         else if (!container.containerIgnoreClosed) {
-          return failedmsg(Quest.lang.container_closed, options)
+          return Quest.IO.failedmsg(Quest.lang.container_closed, options)
         }
       }
 
@@ -2452,7 +2415,7 @@ if (Quest.Settings.settings.playMode === 'dev') {
       if (obj.testDrop && !obj.testDrop(options)) return false
       if (!obj.msgDropIn) return falsemsg(Quest.lang.cannot_drop, options)
       if (container.testDropIn && !container.testDropIn(options)) return false
-      if (!obj.isAtLoc(char.name)) return failedmsg(Quest.lang.not_carrying, { char: char, item: obj })
+      if (!obj.isAtLoc(char.name)) return Quest.IO.failedmsg(Quest.lang.not_carrying, { char: char, item: obj })
       if (obj.getTakeDropCount) obj.getTakeDropCount(options, char.name)
 
       if (typeof obj.msgDropIn === 'function') {
@@ -2460,7 +2423,7 @@ if (Quest.Settings.settings.playMode === 'dev') {
       }
       else {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        msg(obj.msgDropIn, options)
+        Quest.IO.msg(obj.msgDropIn, options)
       }
       obj.moveToFrom(options)
       return true;
@@ -2470,13 +2433,13 @@ if (Quest.Settings.settings.playMode === 'dev') {
       options.toLoc = char.name
       options.fromLoc = container.name
       if (!char.getAgreement("Take", obj)) return false
-      if (!obj.isAtLoc(container.name)) return failedmsg(Quest.lang.not_inside, { container: container, item: obj })
+      if (!obj.isAtLoc(container.name)) return Quest.IO.failedmsg(Quest.lang.not_inside, { container: container, item: obj })
       if (obj.getTakeDropCount) obj.getTakeDropCount(options, container.name)
       if (obj.testTake && !obj.testTake(options)) return false
       if (container.testTakeOut && !container.testTakeOut(options)) return false
 
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(obj.msgTakeOut, options)
+      Quest.IO.msg(obj.msgTakeOut, options)
       obj.moveToFrom(options)
       return true
     }
@@ -2486,7 +2449,7 @@ if (Quest.Settings.settings.playMode === 'dev') {
       const npc = objects[1][0];
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'currentCommand' does not exist on type '... Remove this comment to see the full error message
       const multiple = objects[0].length > 1 || parser.currentCommand.all;
-      if (!npc.npc && npc !== player) return failedmsg(Quest.lang.not_npc_for_give, { char: char, item: npc })
+      if (!npc.npc && npc !== player) return Quest.IO.failedmsg(Quest.lang.not_npc_for_give, { char: char, item: npc })
       if (!npc.handleGiveTo) log(npc)
 
       for (const obj of objects[0]) {
@@ -2506,11 +2469,11 @@ if (Quest.Settings.settings.playMode === 'dev') {
       else {
         const npc = objects[0][0]
         if (!npc.npc) {
-          failedmsg(Quest.lang.not_npc, { char: player, item: npc });
+          Quest.IO.failedmsg(Quest.lang.not_npc, { char: player, item: npc });
           return world.FAILED;
         }
         if (!npc.posture) {
-          failedmsg(Quest.lang.already, { item: npc });
+          Quest.IO.failedmsg(Quest.lang.already, { item: npc });
           return world.FAILED;
         }
         if (!npc.getAgreement("Posture", "stand")) {
@@ -2525,7 +2488,7 @@ if (Quest.Settings.settings.playMode === 'dev') {
       }
       if (char.posture) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg(Quest.lang.stop_posture(char))
+        Quest.IO.msg(Quest.lang.stop_posture(char))
         char.pause();
         return world.SUCCESS;
       }
@@ -2540,15 +2503,15 @@ if (Quest.Settings.settings.playMode === 'dev') {
       const room = w[char.loc]
       const tpParams = { char: char, item: obj, dir: dir }
 
-      if (!obj.shiftable && obj.takeable) return failedmsg(Quest.lang.take_not_push, tpParams)
-      if (!obj.shiftable) return failedmsg(Quest.lang.cannot_push, tpParams)
-      if (!room[dir] || room[dir].isHidden()) return failedmsg(Quest.lang.not_that_way, tpParams)
+      if (!obj.shiftable && obj.takeable) return Quest.IO.failedmsg(Quest.lang.take_not_push, tpParams)
+      if (!obj.shiftable) return Quest.IO.failedmsg(Quest.lang.cannot_push, tpParams)
+      if (!room[dir] || room[dir].isHidden()) return Quest.IO.failedmsg(Quest.lang.not_that_way, tpParams)
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      if (room[dir].isLocked()) return failedmsg(Quest.lang.locked_exit(char, room[dir]))
+      if (room[dir].isLocked()) return Quest.IO.failedmsg(Quest.lang.locked_exit(char, room[dir]))
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      if (typeof room[dir].noShiftingMsg === "function") return failedmsg(room[dir].noShiftingMsg(char, item))
+      if (typeof room[dir].noShiftingMsg === "function") return Quest.IO.failedmsg(room[dir].noShiftingMsg(char, item))
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      if (typeof room[dir].noShiftingMsg === "string") return failedmsg(room[dir].noShiftingMsg)
+      if (typeof room[dir].noShiftingMsg === "string") return Quest.IO.failedmsg(room[dir].noShiftingMsg)
       if (!char.getAgreement("Push", obj, dir)) return false
 
       if (typeof obj.shift === "function") {
@@ -2559,7 +2522,7 @@ if (Quest.Settings.settings.playMode === 'dev') {
       // by default, objects cannot be pushed up
       if (dir === "up") {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        msg(Quest.lang.cannot_push_up, tpParams);
+        Quest.IO.msg(Quest.lang.cannot_push_up, tpParams);
         return world.FAILED;
       }
 
@@ -2570,7 +2533,7 @@ if (Quest.Settings.settings.playMode === 'dev') {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'dest' does not exist on type '{ char: an... Remove this comment to see the full error message
       tpParams.dest = w[dest]
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(Quest.lang.push_exit_successful, tpParams);
+      Quest.IO.msg(Quest.lang.push_exit_successful, tpParams);
       return world.SUCCESS;
     }
 

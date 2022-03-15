@@ -68,16 +68,16 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('LearnSpell', {
   script: function (objects: any) {
     const spell = rpg.find(objects[0])
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'spell' does not exist on type 'never'.
-    if (!spell || !spell.spell) return failedmsg("There is no spell called " + objects[0] + ".")
+    if (!spell || !spell.spell) return Quest.IO.failedmsg("There is no spell called " + objects[0] + ".")
 
     const source = rpg.isSpellAvailable(player, spell)
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (!source) return failedmsg("You do not have anything you can learn {i:" + spell.name + "} from.")
+    if (!source) return Quest.IO.failedmsg("You do not have anything you can learn {i:" + spell.name + "} from.")
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'name' does not exist on type 'never'.
     player.skillsLearnt.push(spell.name)
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("You learn {i:" + spell.name + "} from " + Quest.lang.getName(source, { article: Quest.Utilities.DEFINITE }) + ".")
+    Quest.IO.msg("You learn {i:" + spell.name + "} from " + Quest.lang.getName(source, { article: Quest.Utilities.DEFINITE }) + ".")
     return world.SUCCESS
   },
 }))
@@ -95,13 +95,13 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('CastSpell', {
   script: function (objects: any) {
     const spell = rpg.find(objects[0])
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'spell' does not exist on type 'never'.
-    if (!spell || !spell.spell) return failedmsg("There is no spell called " + objects[0] + ".")
+    if (!spell || !spell.spell) return Quest.IO.failedmsg("There is no spell called " + objects[0] + ".")
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'name' does not exist on type 'never'.
-    if (!player.skillsLearnt.includes(spell.name)) return failedmsg("You do not know the spell {i:" + spell.name + "}.")
+    if (!player.skillsLearnt.includes(spell.name)) return Quest.IO.failedmsg("You do not know the spell {i:" + spell.name + "}.")
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'noTarget' does not exist on type 'never'... Remove this comment to see the full error message
-    if (!spell.noTarget) return failedmsg("You need a target for the spell {i:" + spell.name + "}.")
+    if (!spell.noTarget) return Quest.IO.failedmsg("You need a target for the spell {i:" + spell.name + "}.")
 
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
     const attack = Attack.createAttack(player, player, spell)
@@ -129,17 +129,17 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('CastSpellAt', {
   script: function (objects: any) {
     const spell = rpg.find(objects[0])
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'spell' does not exist on type 'never'.
-    if (!spell || !spell.spell) return failedmsg("There is no spell called " + objects[0] + ".")
+    if (!spell || !spell.spell) return Quest.IO.failedmsg("There is no spell called " + objects[0] + ".")
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'name' does not exist on type 'never'.
-    if (!player.skillsLearnt.includes(spell.name)) return failedmsg("You do not know the spell {i:" + spell.name + "}.")
+    if (!player.skillsLearnt.includes(spell.name)) return Quest.IO.failedmsg("You do not know the spell {i:" + spell.name + "}.")
 
     const target = objects[1][0]
 
     // check target
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'damage' does not exist on type 'never'.
-    if (spell.damage && target.health === undefined) return failedmsg("You can't attack that.")
+    if (spell.damage && target.health === undefined) return Quest.IO.failedmsg("You can't attack that.")
 
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
     const attack = Attack.createAttack(player, target, spell)
@@ -160,7 +160,7 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('DebugRPG', {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'attackOutputLevel' does not exist on typ... Remove this comment to see the full error message
     Quest.Settings.settings.attackOutputLevel = 10
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    metamsg("All output from attacks will now be seen.");
+    Quest.IO.metamsg("All output from attacks will now be seen.");
     return world.SUCCESS_NO_TURNSCRIPTS
   },
 }))

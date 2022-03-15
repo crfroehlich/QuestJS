@@ -111,7 +111,7 @@ Quest.Settings.settings.finishMetaComment = "Congratulations on completing \"The
 Quest.Settings.settings.setup = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'shakespeare_book' does not exist on type... Remove this comment to see the full error message
   for (const s in w.shakespeare_book.names) w.shakespeare_book.synonyms.push(w.shakespeare_book.names[s])
-  //io.transcript = true
+  //Quest.IO.io.transcript = true
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'betaTesters' does not exist on type '{ p... Remove this comment to see the full error message

@@ -83,7 +83,7 @@ Quest.Settings.settings.roomCreateFunc = function (o: any) {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'setup' does not exist on type '{ perform... Remove this comment to see the full error message
 Quest.Settings.settings.setup = function () {
 
-  createAdditionalPane(1, "Go to", 'directions', function () {
+  Quest.IO.createAdditionalPane(1, "Go to", 'directions', function () {
     let html = ''
     for (const ex of currentLocation.dests) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
@@ -95,24 +95,24 @@ Quest.Settings.settings.setup = function () {
 
 
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  msg("You step on to the bridge. 'Welcome aboard, sir,' says a blonde woman in a red uniform, handing you a PAGE. 'I'm Yeoman Rand, I've been designated as your aide. The ship is all set, sir. We just need to to appoint the bridge officers. I believe Command has prepared a short list on your PAGE.'")
+  Quest.IO.msg("You step on to the bridge. 'Welcome aboard, sir,' says a blonde woman in a red uniform, handing you a PAGE. 'I'm Yeoman Rand, I've been designated as your aide. The ship is all set, sir. We just need to to appoint the bridge officers. I believe Command has prepared a short list on your PAGE.'")
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  msg("'Thank you, yeoman.'")
+  Quest.IO.msg("'Thank you, yeoman.'")
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  msg("'Can I ask what our mission is, sir?'")
+  Quest.IO.msg("'Can I ask what our mission is, sir?'")
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  msg("'We're being sent to Sector 7 Iota.'")
+  Quest.IO.msg("'We're being sent to Sector 7 Iota.'")
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  msg("'That's a long way out, sir. What do they want us to do there? Anything to do with the Brakk?'")
+  Quest.IO.msg("'That's a long way out, sir. What do they want us to do there? Anything to do with the Brakk?'")
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  msg("'I was just told to report to the Starbase. Beyond that... you know as much as I do, yeoman. Hopefully we'll not be close enough to the border to encounter any Brakk ships.'")
+  Quest.IO.msg("'I was just told to report to the Starbase. Beyond that... you know as much as I do, yeoman. Hopefully we'll not be close enough to the border to encounter any Brakk ships.'")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
-  if (Quest.Settings.settings.playMode !== 'dev') wait()
+  if (Quest.Settings.settings.playMode !== 'dev') Quest.IO.wait()
 
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  metamsg("If this is your first play through - or you just want a reminder of how to get going - you might want to look at the {cmd:intro1:introductory text}, see {cmd:intro2:how to start} or look at the {cmd:intro3:further notes}.")
+  Quest.IO.metamsg("If this is your first play through - or you just want a reminder of how to get going - you might want to look at the {cmd:intro1:introductory text}, see {cmd:intro2:how to start} or look at the {cmd:intro3:further notes}.")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
-  if (Quest.Settings.settings.playMode !== 'dev') wait()
+  if (Quest.Settings.settings.playMode !== 'dev') Quest.IO.wait()
   stars.draw('stardock')
 }
 
@@ -122,7 +122,7 @@ Quest.Settings.settings.setup = function () {
 Quest.Settings.settings.updateCustomUI = function () {
   const encyc = Array.from(document.getElementsByClassName('item')).filter(el => el.innerHTML === 'Encyclopedia')[0]
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'onclick' does not exist on type 'Element... Remove this comment to see the full error message
-  encyc.onclick = function () { askDiag("Search the web", w.encyclopedia.askDiag, "Submit") }
+  encyc.onclick = function () { Quest.IO.askDiag("Search the web", w.encyclopedia.askDiag, "Submit") }
 
 }
 
@@ -168,25 +168,25 @@ Quest.Settings.settings.startingDialogOnClick = function () {
     const roles = roster.getRoles(npc)
     if (roles.length === 0) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("You assign no positions to " + npc.alias + ".")
+      Quest.IO.msg("You assign no positions to " + npc.alias + ".")
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("You assign " + Quest.Utilities.formatList(roles) + " to " + npc.alias + ".")
+      Quest.IO.msg("You assign " + Quest.Utilities.formatList(roles) + " to " + npc.alias + ".")
     }
     if (roles.length === 0 && npc.loc) {
       npc.loc = false
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(npc.leaving, { char: npc })
+      Quest.IO.msg(npc.leaving, { char: npc })
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'updateUIItems' does not exist on type '{... Remove this comment to see the full error message
-      io.updateUIItems()
+      Quest.IO.io.updateUIItems()
     }
     if (roles.length !== 0 && !npc.loc) {
       npc.loc = 'bridge'
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg(npc.entering, { char: npc })
+      Quest.IO.msg(npc.entering, { char: npc })
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'updateUIItems' does not exist on type '{... Remove this comment to see the full error message
-      io.updateUIItems()
+      Quest.IO.io.updateUIItems()
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'dialogType' does not exist on type '{ pe... Remove this comment to see the full error message
     delete Quest.Settings.settings.dialogType

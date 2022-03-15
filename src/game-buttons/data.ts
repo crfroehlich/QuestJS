@@ -30,18 +30,18 @@ createItem("torch", TAKEABLE(), SWITCHABLE(false, 'providing light'), {
     this.power--;
     if (this.power === 2) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("The torch flickers.")
+      Quest.IO.msg("The torch flickers.")
     }
     if (this.power < 0) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("The torch flickers and dies.{once: Perhaps there is a charger in the garage?}");
+      Quest.IO.msg("The torch flickers and dies.{once: Perhaps there is a charger in the garage?}");
       this.doSwitchoff()
     }
   },
   testSwitchOn() {
     if (this.power < 0) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("The torch is dead.")
+      Quest.IO.msg("The torch is dead.")
       return false
     }
     return true
@@ -52,7 +52,7 @@ createItem("torch", TAKEABLE(), SWITCHABLE(false, 'providing light'), {
     if (options.char.loc != "garage") return falsemsg("There is nothing to charge the torch with here.")
 
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg("{pv:char:charge:true} the torch - it should last for hours now.", options)
+    Quest.IO.msg("{pv:char:charge:true} the torch - it should last for hours now.", options)
     this.power = 20
     return true
   },
@@ -89,7 +89,7 @@ createItem("phone", {
     contacts.push('Never mind.')
     log(contacts)
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
-    showMenuDiag('Who do you want to call?', contacts, function (result: any) {
+    Quest.IO.showMenuDiag('Who do you want to call?', contacts, function (result: any) {
       if (result === 'Never mind.') return
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'phone' does not exist on type '{}'.
       w.phone.makeCall(result)
@@ -97,13 +97,13 @@ createItem("phone", {
   },
   makeCall: function (npc: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'phone' does not exist on type '{}'.
-    if (w.phone.loc !== player.name) return failedmsg("You cannot phone anyone without a phone.")
-    if (!npc.npc) return failedmsg("Why would you want to phone {nm:item:the}?", { item: npc })
-    if (!npc.phone) return failedmsg("You wish you had {nms:item:the} number in your phone.", { item: npc })
-    if (npc.isHere()) return failedmsg("You think about phoning {nm:item:the}, but as {pv:item:be} is standing right here, that might look a bit odd.", { item: npc })
-    if (player.onPhoneTo === npc.name) return failedmsg("You think about phoning {nm:item:the} - then remember you already are!", { item: npc })
+    if (w.phone.loc !== player.name) return Quest.IO.failedmsg("You cannot phone anyone without a phone.")
+    if (!npc.npc) return Quest.IO.failedmsg("Why would you want to phone {nm:item:the}?", { item: npc })
+    if (!npc.phone) return Quest.IO.failedmsg("You wish you had {nms:item:the} number in your phone.", { item: npc })
+    if (npc.isHere()) return Quest.IO.failedmsg("You think about phoning {nm:item:the}, but as {pv:item:be} is standing right here, that might look a bit odd.", { item: npc })
+    if (player.onPhoneTo === npc.name) return Quest.IO.failedmsg("You think about phoning {nm:item:the} - then remember you already are!", { item: npc })
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    if (player.onPhoneTo) return failedmsg("You think about phoning {nm:item:the} - then remember you are already on the phone to {nm:other:the}!", { item: npc, other: w[player.onPhoneTo] })
+    if (player.onPhoneTo) return Quest.IO.failedmsg("You think about phoning {nm:item:the} - then remember you are already on the phone to {nm:other:the}!", { item: npc, other: w[player.onPhoneTo] })
 
     if (npc.phone()) {
       player.onPhoneTo = npc.name
@@ -119,7 +119,7 @@ createItem("phone", {
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg("You say your goodbyes to {nm:npc:the} and hang up.", { npc: npc })
+      Quest.IO.msg("You say your goodbyes to {nm:npc:the} and hang up.", { npc: npc })
     }
     delete player.onPhoneTo
   },
@@ -133,14 +133,14 @@ createItem("phone", {
     subjects.push('Never mind.')
     log(subjects)
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
-    showMenuDiag('What do you want a photo of?', subjects, function (result: any) {
+    Quest.IO.showMenuDiag('What do you want a photo of?', subjects, function (result: any) {
       if (result === 'Never mind.') return
       if (result.photo) {
         result.photo()
       }
       else {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        msg("You take a photo of {nm:item:the} on your phone.", { item: result })
+        Quest.IO.msg("You take a photo of {nm:item:the} on your phone.", { item: result })
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'phone' does not exist on type '{}'.
         w.phone.gallery.push(processText("A {random:out-of-focus:crooked:cool:artistic:indifference:poor:good:frankly awful} photo of {nm:item:the}.", { item: result }))
       }
@@ -148,9 +148,9 @@ createItem("phone", {
   },
   photogallery: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("You idly flick through the photos on your phone...")
+    Quest.IO.msg("You idly flick through the photos on your phone...")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    for (const s of this.gallery) msg(s)
+    for (const s of this.gallery) Quest.IO.msg(s)
     return true
   },
   newsState: 0,
@@ -173,12 +173,12 @@ createItem("phone", {
   ],
   newsfeed: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("You check the news on your phone...")
+    Quest.IO.msg("You check the news on your phone...")
     const news = this.news[this.newsState]
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("{b:" + news.name + ":} " + news.content)
+    Quest.IO.msg("{b:" + news.name + ":} " + news.content)
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("{b:Weather:} " + news.weather)
+    Quest.IO.msg("{b:Weather:} " + news.weather)
     return true
   },
   internet: {
@@ -186,20 +186,20 @@ createItem("phone", {
   },
   searchinternet: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    askDiag("Search the web", function (s: any) {
+    Quest.IO.askDiag("Search the web", function (s: any) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("On your phone you search for \"" + s + "\".")
+      Quest.IO.msg("On your phone you search for \"" + s + "\".")
       const regex = RegExp(s)
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'phone' does not exist on type '{}'.
       for (const key in w.phone.internet) {
         if (regex.test(key)) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("You find: {i:" + w.phone.internet[key] + "}")
+          Quest.IO.msg("You find: {i:" + w.phone.internet[key] + "}")
           return true
         }
       }
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("You find nothing of interest.")
+      Quest.IO.msg("You find nothing of interest.")
       return false
     })
   },
@@ -227,7 +227,7 @@ createRoom("kitchen", {
   }),
   afterFirstEnter: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("A fresh smell here!");
+    Quest.IO.msg("A fresh smell here!");
   },
 })
 
@@ -239,7 +239,7 @@ createItem("Lara", NPC(true), {
   contact: true,
   phone: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("You phone Lara.")
+    Quest.IO.msg("You phone Lara.")
     return true
   },
   verbFunction: function (list: any) {
@@ -265,11 +265,11 @@ createItem("Lara", NPC(true), {
   ],
   talkto: function (list: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("You chat to Lara about carrots for a while.")
+    Quest.IO.msg("You chat to Lara about carrots for a while.")
   },
   photo: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("You take a photo of Lara.")
+    Quest.IO.msg("You take a photo of Lara.")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'phone' does not exist on type '{}'.
     w.phone.gallery.push(processText("A {random:nice:blurry:good:poor} photo of {nm:item:the} {random:smiling:looking cross:eating a carrot} in {nm:loc:the}.", { item: this, loc: currentLocation }))
   },

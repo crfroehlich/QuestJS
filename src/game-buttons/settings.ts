@@ -57,11 +57,11 @@ Quest.Settings.settings.inventoryPane = [
 Quest.Settings.settings.compassPane = false
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'setup' does not exist on type '{ perform... Remove this comment to see the full error message
 Quest.Settings.settings.setup = function () {
-  createAdditionalPane(0, "Go to", 'directions', function () {
+  Quest.IO.createAdditionalPane(0, "Go to", 'directions', function () {
     const exitList = currentLocation.getExits({ excludeLocked: true })
     let s = '<p class="item-class"><span class="item-name">You can go:</span>'
     for (let ex of exitList) {
-      s += ' <span class="item-action-button" onclick="io.clickExit(\'' + ex.dir + '\')">'
+      s += ' <span class="item-action-button" onclick="Quest.IO.io.clickExit(\'' + ex.dir + '\')">'
       s += ex.dir
       s += '</span>'
     }

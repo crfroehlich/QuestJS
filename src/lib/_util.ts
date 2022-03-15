@@ -23,7 +23,7 @@ namespace Quest {
     // Runs the given string as though the player typed it, including recording it in the output
     export function runCmd(cmd: any) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'msgInputText' does not exist on type '{ ... Remove this comment to see the full error message
-      io.msgInputText(cmd)
+      Quest.IO.io.msgInputText(cmd)
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'parse' does not exist on type '{}'.
       parser.parse(cmd)
     }
@@ -47,7 +47,7 @@ namespace Quest {
         let s = item[attname]
         if (item[attname + 'Addendum']) s += item[attname + 'Addendum'](char)
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        msg(s, { char: char, item: item });
+        Quest.IO.msg(s, { char: char, item: item });
         return true;
       }
       else if (typeof item[attname] === "function") {
@@ -58,7 +58,7 @@ namespace Quest {
       else {
         const s = "Unsupported type for printOrRun (" + attname + " is a " + (typeof item[attname]) + ")."
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        errormsg(s + " F12 for more.")
+        Quest.IO.errormsg(s + " F12 for more.")
         throw new Error(s)
       }
     }
@@ -95,7 +95,7 @@ namespace Quest {
     // If multiple is true, returns the item name, otherwise nothing. This is useful in commands that handle
     // multiple objects, as you can have this at the start of the response string. For example, if the player does GET BALL,
     // the response might be "Done". If she does GET ALL, then the response for the ball needs to be "Ball: Done".
-    // In the command, you can have `msg("Done"), and it is sorted.
+    // In the command, you can have `Quest.IO.msg("Done"), and it is sorted.
     function prefix(item: any, options: any) {
       if (!options.multiple) { return ""; }
       return sentenceCase(item.alias) + ": ";
@@ -194,7 +194,7 @@ namespace Quest {
     export function toRoman(number: any) {
       if (typeof number !== "number") {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        errormsg("toRoman can only handle numbers");
+        Quest.IO.errormsg("toRoman can only handle numbers");
         return number;
       }
 
@@ -214,7 +214,7 @@ namespace Quest {
     export function displayMoney(n: any) {
       if (typeof Quest.Settings.settings.moneyFormat === "undefined") {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        errormsg("No format for money set (set Quest.Settings.settings.moneyFormat in Quest.Settings.settings.js).");
+        Quest.IO.errormsg("No format for money set (set Quest.Settings.settings.moneyFormat in Quest.Settings.settings.js).");
         return "" + n;
       }
       const ary = Quest.Settings.settings.moneyFormat.split("!");
@@ -244,7 +244,7 @@ namespace Quest {
       }
       else {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        errormsg("Quest.Settings.settings.moneyFormat in Quest.Settings.settings.js expected to have either 1, 2 or 3 exclamation marks.")
+        Quest.IO.errormsg("Quest.Settings.settings.moneyFormat in Quest.Settings.settings.js expected to have either 1, 2 or 3 exclamation marks.")
         return "" + n;
       }
     }
@@ -262,7 +262,7 @@ namespace Quest {
       const regex = /^(\D*)(\d+)(\D)(\d*)(\D*)$/;
       if (!regex.test(control)) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        errormsg("Unexpected format in displayNumber (" + control + "). Should be a number, followed by a single character separator, followed by a number.");
+        Quest.IO.errormsg("Unexpected format in displayNumber (" + control + "). Should be a number, followed by a single character separator, followed by a number.");
         return "" + n;
       }
       const options = regex.exec(control);
@@ -625,7 +625,7 @@ namespace Quest {
       registerTimerFunction: function (eventName: any, func: any) {
         if (world.isCreated && !Quest.Settings.settings.saveDisabled) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-          errormsg("Attempting to use registerEvent after set up.")
+          Quest.IO.errormsg("Attempting to use registerEvent after set up.")
           return
         }
         // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
@@ -634,7 +634,7 @@ namespace Quest {
 
       registerTimerEvent: function (eventName: any, triggerTime: any, interval: any) {
         // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-        if (!Quest.Settings.settings.eventFunctions[eventName]) errormsg("A timer is trying to call event '" + eventName + "' but no such function is registered.")
+        if (!Quest.Settings.settings.eventFunctions[eventName]) Quest.IO.errormsg("A timer is trying to call event '" + eventName + "' but no such function is registered.")
         // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'any' is not assignable to parame... Remove this comment to see the full error message
         game.timerEventNames.push(eventName)
         // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'any' is not assignable to parame... Remove this comment to see the full error message
@@ -656,11 +656,11 @@ namespace Quest {
         }
         if (char) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-          errormsg("Trying to find topic " + n + " called \"" + alias + "\" for " + char.name + " and came up empty-handed!")
+          Quest.IO.errormsg("Trying to find topic " + n + " called \"" + alias + "\" for " + char.name + " and came up empty-handed!")
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-          errormsg("Trying to find topic " + n + " called \"" + alias + "\" for anyone and came up empty-handed!")
+          Quest.IO.errormsg("Trying to find topic " + n + " called \"" + alias + "\" for anyone and came up empty-handed!")
         }
       },
 
@@ -683,7 +683,7 @@ namespace Quest {
       addChangeListener: function (object: any, attName: any, func: any, test = util.defaultChangeListenerTest) {
         if (world.isCreated && !Quest.Settings.settings.saveDisabled) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-          errormsg("Attempting to use addChangeListener after set up.")
+          Quest.IO.errormsg("Attempting to use addChangeListener after set up.")
           return
         }
         util.changeListeners.push({ object: object, attName: attName, func: func, test: test, oldValue: object[attName] })
@@ -700,9 +700,9 @@ namespace Quest {
         if (s === "NoChangeListeners") return
         const parts = s.split("=");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        if (parts.length !== 2) return errormsg("Bad format in saved data (" + s + ")")
+        if (parts.length !== 2) return Quest.IO.errormsg("Bad format in saved data (" + s + ")")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        if (parts[0] !== "ChangeListenersUsedStrings") return errormsg("Expected ChangeListenersUsedStrings to be first")
+        if (parts[0] !== "ChangeListenersUsedStrings") return Quest.IO.errormsg("Expected ChangeListenersUsedStrings to be first")
         const strings = saveLoad.decodeArray(parts[1])
         for (let i = 0; i < strings.length; i++) {
           util.changeListeners[i].oldValue = strings[i].match(/^\d+$/) ? parseInt(strings[i]) : strings[i]
@@ -915,19 +915,19 @@ namespace Quest {
         // @ts-expect-error ts-migrate(2365) FIXME: Operator '>' cannot be applied to types 'Date' and... Remove this comment to see the full error message
         if (targetTime) return nowTime > targetTime
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        return errormsg("Failed to parse date-time string: " + timeString)
+        return Quest.IO.errormsg("Failed to parse date-time string: " + timeString)
       },
 
 
       changePOV: function (char: any, pronouns: any) {
         if (typeof char === 'string') {
           // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          if (!w[char]) return errormsg("Failed to change POV, no object called '" + char + "'")
+          if (!w[char]) return Quest.IO.errormsg("Failed to change POV, no object called '" + char + "'")
           // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           char = w[char]
         }
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        else if (!char) errormsg("Failed to change POV, char not defined.")
+        else if (!char) Quest.IO.errormsg("Failed to change POV, char not defined.")
 
         if (player) {
           player.player = false
@@ -945,7 +945,7 @@ namespace Quest {
 
       getObj: function (name: any) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        if (!name) return errormsg("Trying to find an object in util.getObj, but name is " + name)
+        if (!name) return Quest.IO.errormsg("Trying to find an object in util.getObj, but name is " + name)
         if (typeof name === 'string') {
           // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           const room = w[name]
@@ -1075,7 +1075,7 @@ namespace Quest {
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-          errormsg("Unexpected location in util.setToFrom/util.getLoc: " + loc)
+          Quest.IO.errormsg("Unexpected location in util.setToFrom/util.getLoc: " + loc)
         }
       },
 
@@ -1104,10 +1104,10 @@ namespace Quest {
 
       defaultSimpleExitUse: function (char: any, exit: any) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        if (exit.name === '_') return errormsg("Trying to move character to location \"_\" from room " + exit.origin.name + ". This is probably a bug, as \"_\" is used to flag a destination that cannot be reached.")
+        if (exit.name === '_') return Quest.IO.errormsg("Trying to move character to location \"_\" from room " + exit.origin.name + ". This is probably a bug, as \"_\" is used to flag a destination that cannot be reached.")
         if (exit === undefined) exit = this
 
-        char.msg(Quest.lang.stop_posture(char))
+        char.Quest.IO.msg(Quest.lang.stop_posture(char))
         char.movingMsg(exit)
         char.moveChar(exit)
         return true
@@ -1121,7 +1121,7 @@ namespace Quest {
         const obj = w[this.door];
         if (obj === undefined) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-          errormsg("Not found an object called '" + this.door + "'. Any exit that uses the 'util.useWithDoor' function must also set a 'door' attribute.");
+          Quest.IO.errormsg("Not found an object called '" + this.door + "'. Any exit that uses the 'util.useWithDoor' function must also set a 'door' attribute.");
         }
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'doorName' does not exist on type '{}'.
         const tpParams = { char: char, doorName: this.doorName ? this.doorName : "door" }
@@ -1132,7 +1132,7 @@ namespace Quest {
         if (!obj.locked) {
           obj.closed = false
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-          msg(Quest.lang.open_and_enter, tpParams)
+          Quest.IO.msg(Quest.lang.open_and_enter, tpParams)
           char.moveChar(this)
           return true
         }
@@ -1140,12 +1140,12 @@ namespace Quest {
           obj.closed = false
           obj.locked = false
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-          msg(Quest.lang.unlock_and_enter, tpParams)
+          Quest.IO.msg(Quest.lang.unlock_and_enter, tpParams)
           char.moveChar(this)
           return true
         }
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        msg(Quest.lang.try_but_locked, tpParams)
+        Quest.IO.msg(Quest.lang.try_but_locked, tpParams)
         return false
       },
 
@@ -1155,7 +1155,7 @@ namespace Quest {
       cannotUse: function (char: any, dir: any) {
         const tpParams = { char: char }
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        msg(this.msg ? this.msg : Quest.lang.try_but_locked, tpParams)
+        Quest.IO.msg(this.msg ? this.msg : Quest.lang.try_but_locked, tpParams)
         return false
       },
     };
@@ -1176,7 +1176,7 @@ namespace Quest {
       if (!response) {
         if (func) func(params)
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        errormsg("Failed to find a response. ASK/TELL or some other system using the respond function was given a list of options that did not have a default. Below the stack trace, you should see the parameters sent and the list of responses. The last response should have no test function (or a test function that always returns true).")
+        Quest.IO.errormsg("Failed to find a response. ASK/TELL or some other system using the respond function was given a list of options that did not have a default. Below the stack trace, you should see the parameters sent and the list of responses. The last response should have no test function (or a test function that always returns true).")
         console.log(params)
         console.log(list)
         return false
@@ -1185,16 +1185,16 @@ namespace Quest {
       if (response.script) response.script.bind(params.char)(params)
       if (response.msg) {
         if (params.char) {
-          params.char.msg(response.msg, params)
+          params.char.Quest.IO.msg(response.msg, params)
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-          msg(response.msg, params)
+          Quest.IO.msg(response.msg, params)
         }
       }
       if (!response.script && !response.msg && !response.failed) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        errormsg("No script or msg for response")
+        Quest.IO.errormsg("No script or msg for response")
         console.log(response)
       }
       if (func) func(params, response)

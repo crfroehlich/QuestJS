@@ -123,13 +123,13 @@ function cloneObject(item: any, loc: any, newName: any) {
 // Creates a basic object. Generally it is better to use CreateItem or CreateRoom.
 function createObject(name: any, listOfHashes: any) {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  if (world.isCreated && !Quest.Settings.settings.saveDisabled) return errormsg("Attempting to use createObject with `" + name + "` after set up. To ensure games save properly you should use cloneObject to create ites during play.")
+  if (world.isCreated && !Quest.Settings.settings.saveDisabled) return Quest.IO.errormsg("Attempting to use createObject with `" + name + "` after set up. To ensure games save properly you should use cloneObject to create ites during play.")
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  if (/\W/.test(name)) return errormsg("Attempting to use the prohibited name `" + name + "`; a name can only include letters and digits - no Quest.Utilities.spaces or accented characters. Use the 'alias' attribute to give an item a name with other characters.")
+  if (/\W/.test(name)) return Quest.IO.errormsg("Attempting to use the prohibited name `" + name + "`; a name can only include letters and digits - no Quest.Utilities.spaces or accented characters. Use the 'alias' attribute to give an item a name with other characters.")
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  if (w[name]) return errormsg("Attempting to use the name `" + name + "` when there is already an item with that name in the world.")
+  if (w[name]) return Quest.IO.errormsg("Attempting to use the name `" + name + "` when there is already an item with that name in the world.")
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  if (typeof listOfHashes.unshift !== 'function') return errormsg("The list of hashes for `" + name + "` is not what I was expecting. Maybe you meant to use createItem or createRoom?")
+  if (typeof listOfHashes.unshift !== 'function') return Quest.IO.errormsg("The list of hashes for `" + name + "` is not what I was expecting. Maybe you meant to use createItem or createRoom?")
 
   // put the default attributes on the lift
   listOfHashes.unshift(Quest.Defaults.DEFAULT_OBJECT)
@@ -231,7 +231,7 @@ const world = {
     }
     if (!player) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      errormsg("No player object found. This is probably due to an error in the data file where the player object is defined, but could be because you have not set one.");
+      Quest.IO.errormsg("No player object found. This is probably due to an error in the data file where the player object is defined, but could be because you have not set one.");
       return;
     }
 
@@ -340,12 +340,12 @@ const world = {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'intro' does not exist on type '{ perform... Remove this comment to see the full error message
     if (typeof Quest.Settings.settings.intro === "string") {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg(Quest.Settings.settings.intro)
+      Quest.IO.msg(Quest.Settings.settings.intro)
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'intro' does not exist on type '{ perform... Remove this comment to see the full error message
     else if (Quest.Settings.settings.intro) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'intro' does not exist on type '{ perform... Remove this comment to see the full error message
-      for (let el of Quest.Settings.settings.intro) msg(el)
+      for (let el of Quest.Settings.settings.intro) Quest.IO.msg(el)
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'setup' does not exist on type '{ perform... Remove this comment to see the full error message
     if (typeof Quest.Settings.settings.setup === "function") Quest.Settings.settings.setup()
@@ -379,12 +379,12 @@ const world = {
       world.resetPauses();
       world.update();
       world.saveGameState();
-      endTurnUI(true);
+      Quest.IO.endTurnUI(true);
     }
     else {
       // @ts-expect-error ts-migrate(2349) FIXME: This expression is not callable.
       for (const el of Quest.Settings.settings.afterTurn) el(false)
-      endTurnUI(false);
+      Quest.IO.endTurnUI(false);
     }
   },
 
@@ -394,18 +394,18 @@ const world = {
   // Sets the light/dark
   update: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (!player) return errormsg("No player object found. This will not go well...")
+    if (!player) return Quest.IO.errormsg("No player object found. This will not go well...")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (player.loc === player.name) return errormsg("The location assigned to the player is the player itself.")
+    if (player.loc === player.name) return Quest.IO.errormsg("The location assigned to the player is the player itself.")
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     if (!player.loc || !w[player.loc]) {
       if (world.isCreated) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        return errormsg((player.loc === undefined ? "No player location set." : "Player location set to '" + player.loc + "', which does not exist.") + " Has the player just moved? This is likely to be because of an error in the exit being used.")
+        return Quest.IO.errormsg((player.loc === undefined ? "No player location set." : "Player location set to '" + player.loc + "', which does not exist.") + " Has the player just moved? This is likely to be because of an error in the exit being used.")
       }
       else {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        return errormsg((player.loc === undefined ? "No player location set." : "Player location set to '" + player.loc + "', which does not exist.") + " This is may be because of an error in one of the .js files; the browser has hit the error and stopped at that point, before getting to where the player is set. Is there another error above this one? If so, that i the real problem.")
+        return Quest.IO.errormsg((player.loc === undefined ? "No player location set." : "Player location set to '" + player.loc + "', which does not exist.") + " This is may be because of an error in one of the .js files; the browser has hit the error and stopped at that point, before getting to where the player is set. Is there another error above this one? If so, that i the real problem.")
       }
     }
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
@@ -485,7 +485,7 @@ const world = {
   enterRoom: function (exit: any) {
     if (currentLocation.beforeEnter === undefined) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      return errormsg("This room, " + currentLocation.name + ", has no 'beforeEnter` function defined.  This is probably because it is not actually a room (it was not created with 'createRoom' and has not got the Quest.Defaults.DEFAULT_ROOM template), but is an item. It is not clear what state the game will continue in.")
+      return Quest.IO.errormsg("This room, " + currentLocation.name + ", has no 'beforeEnter` function defined.  This is probably because it is not actually a room (it was not created with 'createRoom' and has not got the Quest.Defaults.DEFAULT_ROOM template), but is an item. It is not clear what state the game will continue in.")
     }
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
     Quest.Settings.settings.beforeEnter(exit)
@@ -590,9 +590,9 @@ const game = {
   setLoadString: function (s: any) {
     const parts = s.split("=")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (parts.length !== 2) return errormsg("Bad format in saved data (" + s + ")")
+    if (parts.length !== 2) return Quest.IO.errormsg("Bad format in saved data (" + s + ")")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (parts[0] !== "GameState") return errormsg("Expected GameState to be second")
+    if (parts[0] !== "GameState") return Quest.IO.errormsg("Expected GameState to be second")
     saveLoad.setFromArray(this, parts[1].split(";"));
   },
   // @ts-expect-error ts-migrate(7023) FIXME: 'saveLoadExclude' implicitly has return type 'any'... Remove this comment to see the full error message

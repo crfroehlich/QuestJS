@@ -19,17 +19,17 @@ createRoom("lobby", {
   desc: "There is something oppressive about the {cloakHere:dark:dingy} {once:room:foyer}; a presence in the air that almost suffocates you. It's former glory has all but faded; the walls still sport old posters from productions that ended over twenty years ago. Paint is peeling, dust is everywhere and it smells decidedly musty. You can see doors to the north, west and south.",
   beforeFirstEnter: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("You hurry through the night, keen to get out of the rain. Ahead, you can see the old opera house, a brightly-lit beacon of safety.")
+    Quest.IO.msg("You hurry through the night, keen to get out of the rain. Ahead, you can see the old opera house, a brightly-lit beacon of safety.")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Moments later you are pushing though the doors into the foyer. Now that you are here it does not seem so bright. The doors close behind you with an ominous finality...")
+    Quest.IO.msg("Moments later you are pushing though the doors into the foyer. Now that you are here it does not seem so bright. The doors close behind you with an ominous finality...")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("")
+    Quest.IO.msg("")
   },
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
   north: new Exit('lobby', {
     use: function () {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg('You try the doors out of the opera house, but they are locked. {once:{i:How did that happen?} you wonder.}')
+      Quest.IO.msg('You try the doors out of the opera house, but they are locked. {once:{i:How did that happen?} you wonder.}')
       return false
     }
   }),
@@ -86,11 +86,11 @@ createItem('hook', SURFACE(), {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'cloak' does not exist on type '{}'.
     if (w.cloak.isAtLoc('hook')) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("An ornate brass hook, with a cloak hanging from it.")
+      Quest.IO.msg("An ornate brass hook, with a cloak hanging from it.")
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("An ornate brass hook, ideal for hanging cloaks on.")
+      Quest.IO.msg("An ornate brass hook, ideal for hanging cloaks on.")
     }
   },
   loc: 'cloakroom'
@@ -137,35 +137,35 @@ createItem('message', {
   examine: function () {
     if (cloakHere()) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("You cannot see any message, it is too dark.")
+      Quest.IO.msg("You cannot see any message, it is too dark.")
       return
     }
     if (this.disturbed < 3) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("The message in the dust says 'You have won!'")
+      Quest.IO.msg("The message in the dust says 'You have won!'")
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("The message in the dust says 'You have lost!'")
+      Quest.IO.msg("The message in the dust says 'You have lost!'")
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'finish' does not exist on type '{ nextid... Remove this comment to see the full error message
-    io.finish()
+    Quest.IO.io.finish()
   },
   read: function () { this.examine() },
   eventPeriod: 1,
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'finished' does not exist on type '{ next... Remove this comment to see the full error message
-  eventIsActive: function () { return player.isAtLoc('bar') && !io.finished },
+  eventIsActive: function () { return player.isAtLoc('bar') && !Quest.IO.io.finished },
   eventScript: function () {
     this.count++
     if (this.count > 1) {
       if (this.disturbed === 0) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("You think it might be a bad idea to disturb things in the dark.")
+        Quest.IO.msg("You think it might be a bad idea to disturb things in the dark.")
       }
       else {
         if (!player.suppress_background_sounds) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          msg("You can hear {random:scratching:something moving in the dark:rasping breathing}.")
+          Quest.IO.msg("You can hear {random:scratching:something moving in the dark:rasping breathing}.")
         }
       }
       this.disturbed++
@@ -186,11 +186,11 @@ createItem('walls', {
   examine: function () {
     if (cloakHere() && player.isAtLoc('bar')) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("It is too dark to see the walls.")
+      Quest.IO.msg("It is too dark to see the walls.")
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("The walls are covered in a faded red and gold wallpaper, that is showing signs of damp.")
+      Quest.IO.msg("The walls are covered in a faded red and gold wallpaper, that is showing signs of damp.")
     }
   },
   scenery: true,
@@ -203,11 +203,11 @@ createItem('ceiling', {
   examine: function () {
     if (cloakHere() && player.isAtLoc('bar')) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("It is too dark to see the ceiling.")
+      Quest.IO.msg("It is too dark to see the ceiling.")
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("The ceiling is - or was - white. Now it is a dirty grey.")
+      Quest.IO.msg("The ceiling is - or was - white. Now it is a dirty grey.")
     }
   },
   scenery: true,
@@ -221,11 +221,11 @@ createItem('floor', {
   examine: function () {
     if (cloakHere() && player.isAtLoc('bar')) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("It is too dark to see the floor.")
+      Quest.IO.msg("It is too dark to see the floor.")
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("A red carpet covers the floor, worn almost though in places.")
+      Quest.IO.msg("A red carpet covers the floor, worn almost though in places.")
     }
   },
   scenery: true,
@@ -238,11 +238,11 @@ createItem('doors', {
   examine: function () {
     if (cloakHere() && player.isAtLoc('bar')) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("It is too dark to see the door properly.")
+      Quest.IO.msg("It is too dark to see the door properly.")
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("All the doors are wooden, and painted white.")
+      Quest.IO.msg("All the doors are wooden, and painted white.")
     }
   },
   scenery: true,

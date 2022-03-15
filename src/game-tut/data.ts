@@ -62,18 +62,18 @@ createItem("torch", TAKEABLE(), SWITCHABLE(false, 'providing light'), {
     this.power--;
     if (this.power === 2) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("The torch flickers.")
+      Quest.IO.msg("The torch flickers.")
     }
     if (this.power < 0) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("The torch flickers and dies.{once: Perhaps there is a charger in the garage?}");
+      Quest.IO.msg("The torch flickers and dies.{once: Perhaps there is a charger in the garage?}");
       this.doSwitchoff()
     }
   },
   testSwitchOn() {
     if (this.power < 0) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("The torch is dead.")
+      Quest.IO.msg("The torch is dead.")
       return false
     }
     return true
@@ -84,7 +84,7 @@ createItem("torch", TAKEABLE(), SWITCHABLE(false, 'providing light'), {
     if (options.char.loc != "garage") return falsemsg("There is nothing to charge the torch with here.")
 
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg("{pv:char:charge:true} the torch - it should last for hours now.", options)
+    Quest.IO.msg("{pv:char:charge:true} the torch - it should last for hours now.", options)
     this.power = 20
     return true
   },
@@ -117,7 +117,7 @@ createRoom("kitchen", {
   north: new Exit("garage"),
   afterFirstEnter: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("A fresh smell here!");
+    Quest.IO.msg("A fresh smell here!");
   },
 })
 
@@ -180,7 +180,7 @@ createItem("charger_button", COMPONENT("charger"), {
     if (!w.charger_compartment.closed || w.torch.loc !== "charger_compartment") return falsemsg("{pv:char:push:true} the button, but nothing happens.", options)
 
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg("{pv:char:push:true} the button. There is a brief hum of power, and a flash.", options)
+    Quest.IO.msg("{pv:char:push:true} the button. There is a brief hum of power, and a flash.", options)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'torch' does not exist on type '{}'.
     w.torch.power = 20
     return true

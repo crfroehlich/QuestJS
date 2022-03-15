@@ -8,10 +8,10 @@ test.ignoreHTML = true
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterFinish' does not exist on type '{}'... Remove this comment to see the full error message
 test.afterFinish = function (success: any) {
   if (success) {
-    debugmsg("Hurrah!")
+    Quest.IO.debugmsg("Hurrah!")
   }
   else {
-    debugmsg("Oh dear...")
+    Quest.IO.debugmsg("Oh dear...")
   }
 }
 

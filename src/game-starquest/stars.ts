@@ -90,7 +90,7 @@ const stars = {
     if (w.ship.arrivedAtSector) svg.push('<text class="map-text" x="353" y="12" fill="silver" onclick="stars.toggleStarMap(' + w.ship.showStarMap + ')">Toggle</text>')
     svg.push('<text class="map-text" x="0" y="398" fill="silver">Quicksilver Starmaps</text>')
     svg.push('<text class="map-text" x="313" y="398" fill="silver">Not to scale</text>')
-    draw(400, 400, svg, {destination:'quest-image'})
+    Quest.IO.draw(400, 400, svg, {destination:'quest-image'})
   },
   toggleStarMap(flag: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.

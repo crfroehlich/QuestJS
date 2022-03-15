@@ -31,7 +31,7 @@ createRoom("observatory", {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'uniform' does not exist on type '{}'.
       w.uniform.wet = 3
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("She is dripping water on to the floor.")
+      Quest.IO.msg("She is dripping water on to the floor.")
     }
   },
   examine_ceiling: function () {
@@ -51,7 +51,7 @@ createRoom("observatory", {
       }
     }
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg(s)
+    Quest.IO.msg(s)
   },
 })
 
@@ -77,7 +77,7 @@ createItem("slot", {
       }
     }
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg(s)
+    Quest.IO.msg(s)
   },
 })
 
@@ -126,7 +126,7 @@ createItem("telescope", {
     s += " It is currently " + this.altitudes[this.altitude] + ","
     s += " and pointing " + this.azimuths[this.azimuth] + "ward."
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg(s)
+    Quest.IO.msg(s)
   },
   use: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'glass_shard' does not exist on type '{}'... Remove this comment to see the full error message
@@ -137,23 +137,23 @@ createItem("telescope", {
         this.shardTime = Math.min(Math.max(this.shardTime, 0), this.shardViews.length - 1)
         if (this.shardTime === 8) player.easterEgg = true
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("Mandy looks though the eyepiece at the side of the base of the telescope, now it is pointed directly at the glass shard... ")
+        Quest.IO.msg("Mandy looks though the eyepiece at the side of the base of the telescope, now it is pointed directly at the glass shard... ")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg(this.shardViews[this.shardTime])
+        Quest.IO.msg(this.shardViews[this.shardTime])
       }
       else {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("Mandy looks though the eyepiece at the side of the base of the telescope, hoping to see the glass shard through it... But all she can see is {if:telescope:roofOpen:the sky:the dome of the roof}. She would need the telescope to go even lower. Or have a bigger shard.")
+        Quest.IO.msg("Mandy looks though the eyepiece at the side of the base of the telescope, hoping to see the glass shard through it... But all she can see is {if:telescope:roofOpen:the sky:the dome of the roof}. She would need the telescope to go even lower. Or have a bigger shard.")
       }
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
     else if (w.telescope.roofOpen) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy looks though the eyepiece at the side of the base of the telescope. For a moment, all she can see is the reflection of her eyelashes, but she opens her eye wide, and can see... clouds. And they look pretty much the same as they do without a telescope.")
+      Quest.IO.msg("Mandy looks though the eyepiece at the side of the base of the telescope. For a moment, all she can see is the reflection of her eyelashes, but she opens her eye wide, and can see... clouds. And they look pretty much the same as they do without a telescope.")
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy looks though the eyepiece at the side of the base of the telescope, but all she can see is a uniform off-white. Exactly the same colour as the ceiling...")
+      Quest.IO.msg("Mandy looks though the eyepiece at the side of the base of the telescope, but all she can see is a uniform off-white. Exactly the same colour as the ceiling...")
     }
     return true
   },
@@ -194,7 +194,7 @@ createItem("left_wheel", {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
     w.telescope.azimuthAsDegrees = w.telescope.azimuth * 45 + (w.telescope.azimuths[w.telescope.azimuth].length % 5 + 1)
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg("{if:params:inc:-1:With a grunt of effort, }Mandy turns the left wheel a full rotation {if:params:inc:-1:anti-}clockwise{if:params:inc:-1: -- it is hard work! As:, and as} she does the entire telescope, and the mechanism holding it, {if:params:inc:-1:rotates, with a painful grinding noise:smoothly rotates}. At the same time, the ceiling also turns{if:telescope:roofOpen:{if:telescope:azimuth:6:, and she can just see the roof of the great hall through the slot}}.", { inc: inc })
+    Quest.IO.msg("{if:params:inc:-1:With a grunt of effort, }Mandy turns the left wheel a full rotation {if:params:inc:-1:anti-}clockwise{if:params:inc:-1: -- it is hard work! As:, and as} she does the entire telescope, and the mechanism holding it, {if:params:inc:-1:rotates, with a painful grinding noise:smoothly rotates}. At the same time, the ceiling also turns{if:telescope:roofOpen:{if:telescope:azimuth:6:, and she can just see the roof of the great hall through the slot}}.", { inc: inc })
     return true
   },
 })
@@ -211,26 +211,26 @@ createItem("right_wheel", {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
     if (w.telescope.altitude === w.telescope.altitudes.length - 1) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy tries to move the right wheel clockwise, but it will not turn any more.")
+      Quest.IO.msg("Mandy tries to move the right wheel clockwise, but it will not turn any more.")
       return false
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
     w.telescope.altitude++
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Mandy turns the right wheel a full rotation clockwise, and as she does the telescope rises.")
+    Quest.IO.msg("Mandy turns the right wheel a full rotation clockwise, and as she does the telescope rises.")
     return true
   },
   turnleft: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
     if (w.telescope.altitude === 0) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Mandy tries to move the right wheel anti-clockwise, but it will not turn any more.")
+      Quest.IO.msg("Mandy tries to move the right wheel anti-clockwise, but it will not turn any more.")
       return false
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
     w.telescope.altitude--
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("Mandy turns the right wheel a full rotation anti-clockwise, and as she does the telescope lowers.")
+    Quest.IO.msg("Mandy turns the right wheel a full rotation anti-clockwise, and as she does the telescope lowers.")
     return true
   },
 })
@@ -246,19 +246,19 @@ createItem("lever", {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
     if (w.telescope.roofOpen) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg("{nv:char:" + verb + ":true} the lever up, and the slot in the ceiling slides closed.", options)
+      Quest.IO.msg("{nv:char:" + verb + ":true} the lever up, and the slot in the ceiling slides closed.", options)
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
       w.telescope.roofOpen = false
     }
     else {
       if (!this.used) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        msg("{nv:char:" + verb + ":true} the lever down, and a huge slot in the ceiling opens up, directly in front of the telescope, allowing anyone using the telescope to actually see the sky.{if:telescope:azimuth:6: She can just see the roof of the great hall from here.}|{nv:char:glance:true} outside; the sky looks threatening. It had been quite nice before she entered the house.", options)
+        Quest.IO.msg("{nv:char:" + verb + ":true} the lever down, and a huge slot in the ceiling opens up, directly in front of the telescope, allowing anyone using the telescope to actually see the sky.{if:telescope:azimuth:6: She can just see the roof of the great hall from here.}|{nv:char:glance:true} outside; the sky looks threatening. It had been quite nice before she entered the house.", options)
         this.used = true
       }
       else {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        msg("{nv:char:" + verb + ":true} the lever down, and the huge slot in the ceiling opens up.{if:telescope:azimuth:6: She can just see the roof of the great hall from here.}", options)
+        Quest.IO.msg("{nv:char:" + verb + ":true} the lever down, and the huge slot in the ceiling opens up.{if:telescope:azimuth:6: She can just see the roof of the great hall from here.}", options)
       }
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
       w.telescope.roofOpen = true
@@ -288,7 +288,7 @@ createRoom("observatory_up", {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'uniform' does not exist on type '{}'.
       w.uniform.wet = 4
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("At least she is out of the rain now!")
+      Quest.IO.msg("At least she is out of the rain now!")
     }
   },
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
@@ -451,7 +451,7 @@ createRoom("roof_location_east", {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'sky' does not exist on type '{}'.
       w.sky.state = 3
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Suddenly the rain starts. 'Shit,' she screams at the sky, as she is quickly soaked to the skin. It was supposed to be sunny today!")
+      Quest.IO.msg("Suddenly the rain starts. 'Shit,' she screams at the sky, as she is quickly soaked to the skin. It was supposed to be sunny today!")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'uniform' does not exist on type '{}'.
       w.uniform.wet = 5
     }
@@ -460,7 +460,7 @@ createRoom("roof_location_east", {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'sky' does not exist on type '{}'.
       w.sky.state = 6
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("Is the rain getting worse? She did not think that was possible.")
+      Quest.IO.msg("Is the rain getting worse? She did not think that was possible.")
     }
   },
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
@@ -489,7 +489,7 @@ createItem("spike", {
   examine: function () {
     if (this.alias === 'mangled metal') {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("The weather vane is a twisted lump of black metal. Two rods stick out, with \"N\" and \"W\" of them, the only hint of what it used to be.")
+      Quest.IO.msg("The weather vane is a twisted lump of black metal. Two rods stick out, with \"N\" and \"W\" of them, the only hint of what it used to be.")
       return
     }
     let s = "The weather vane is made of black metal. Above the traditional compass points, a flat raven, sat on an arrow, swings round with each gust of wind."
@@ -498,7 +498,7 @@ createItem("spike", {
       s += " A metal wire is attached to the letter E."
     }
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg(s)
+    Quest.IO.msg(s)
   },
 })
 
@@ -523,15 +523,15 @@ createItem("sky", {
     switch (this.state) {
       case 20:
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("The sky is blue, with the odd fluffy cloud.")
+        Quest.IO.msg("The sky is blue, with the odd fluffy cloud.")
         break
       case 2:
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("The dark clouds threatened rain at any moment.")
+        Quest.IO.msg("The dark clouds threatened rain at any moment.")
         break
       default:
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        msg("The sky is looking thundery; rain is pouring hard.")
+        Quest.IO.msg("The sky is looking thundery; rain is pouring hard.")
         break
     }
   },

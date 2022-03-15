@@ -41,9 +41,9 @@ const tp = {
   setLoadString: function (s: any) {
     const parts = s.split("=");
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (parts.length !== 2) return errormsg("Bad format in saved data (" + s + ")")
+    if (parts.length !== 2) return Quest.IO.errormsg("Bad format in saved data (" + s + ")")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (parts[0] !== "TPUsedStrings") return errormsg("Expected TP to be first")
+    if (parts[0] !== "TPUsedStrings") return Quest.IO.errormsg("Expected TP to be first")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'usedStrings' does not exist on type '{ t... Remove this comment to see the full error message
     tp.usedStrings = saveLoad.decodeArray(parts[1])
   },
@@ -147,7 +147,7 @@ tp.processText = function (str: any, params: any) {
       }
       else {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        errormsg("Attempting to use unknown text processor directive '" + left + "' (" + params.tpOriginalString + ")");
+        Quest.IO.errormsg("Attempting to use unknown text processor directive '" + left + "' (" + params.tpOriginalString + ")");
         return str;
       }
     }
@@ -168,7 +168,7 @@ tp.findFirstToken = function (s: any) {
   const start = s.lastIndexOf("{", end);
   if (start === -1) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    errormsg("Failed to find starting curly brace in text processor (<i>" + s + "</i>)");
+    Quest.IO.errormsg("Failed to find starting curly brace in text processor (<i>" + s + "</i>)");
     return false;
   }
   return s.substring(start + 1, end);
@@ -307,7 +307,7 @@ tp.text_processors.dialogue = function (arr: any, params: any) {
   let prefix = "<span";
   const style = arr.shift()
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  if (arr.length < 1) errormsg("Failed to find enough parts in text processor 'dialog' (" + params.tpOriginalString + ")")
+  if (arr.length < 1) Quest.IO.errormsg("Failed to find enough parts in text processor 'dialog' (" + params.tpOriginalString + ")")
 
   if (style.startsWith('.')) {
     prefix += ' class="' + style.replace('.', '') + '"'
@@ -317,7 +317,7 @@ tp.text_processors.dialogue = function (arr: any, params: any) {
   }
   else {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (arr.length < 2) errormsg("Failed to find enough parts in text processor 'dialog' without a class (" + params.tpOriginalString + ")")
+    if (arr.length < 2) Quest.IO.errormsg("Failed to find enough parts in text processor 'dialog' without a class (" + params.tpOriginalString + ")")
     const colour = arr.shift()
     prefix += ' style="'
     if (style.includes('i')) prefix += "font-style:italic;"
@@ -359,14 +359,14 @@ tp.select = function (arr: any, params: any, opt: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property '_findObject' does not exist on type '{ t... Remove this comment to see the full error message
   const o = tp._findObject(name, params, arr)
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  if (!o) errormsg('Failed to find an object called "' + name + '" in text processor select.')
+  if (!o) Quest.IO.errormsg('Failed to find an object called "' + name + '" in text processor select.')
   const l = o[arr[0]]
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  if (l === undefined) errormsg('Failed to find an attribute called "' + arr[0] + '" for "' + name + '" in text processor "select" directive.')
+  if (l === undefined) Quest.IO.errormsg('Failed to find an attribute called "' + arr[0] + '" for "' + name + '" in text processor "select" directive.')
   if (Array.isArray(l)) {
     const n = o[arr[1]]
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (!l) errormsg('Failed to find a secondary attribute called "' + arr[1] + '" for "' + name + '" in text processor "select" directive.')
+    if (!l) Quest.IO.errormsg('Failed to find a secondary attribute called "' + arr[1] + '" for "' + name + '" in text processor "select" directive.')
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'value' does not exist on type '{}'.
     return Quest.Utilities.array.value(l, n, opt)
   }
@@ -376,7 +376,7 @@ tp.select = function (arr: any, params: any, opt: any) {
     return Quest.Utilities.array.value(arr, l, opt)
   }
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  errormsg('Failed to do anything with the attribute called "' + arr[1] + '" for "' + name + '" in text processor select - neither an array or an integer.')
+  Quest.IO.errormsg('Failed to do anything with the attribute called "' + arr[1] + '" for "' + name + '" in text processor select - neither an array or an integer.')
 };
 
 
@@ -424,7 +424,7 @@ tp.text_processors.show = function (arr: any, params: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property '_findObject' does not exist on type '{ t... Remove this comment to see the full error message
   const obj = tp._findObject(name, params, arr)
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  if (!obj) return errormsg("Failed to find object '" + name + "' in text processor 'show' (" + params.tpOriginalString + ")")
+  if (!obj) return Quest.IO.errormsg("Failed to find object '" + name + "' in text processor 'show' (" + params.tpOriginalString + ")")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getWhatever' does not exist on type '{ t... Remove this comment to see the full error message
   return tp.getWhatever(obj[arr[0]], params, obj)
 }
@@ -439,7 +439,7 @@ tp.getWhatever = function (val: any, params: any, obj: any) {
   if (typeof val === 'string') return val
   if (typeof val === 'number') return val.toString()
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  if (typeof val !== 'function') return errormsg("Got a value of a type I was not expecting in show: " + (typeof val))
+  if (typeof val !== 'function') return Quest.IO.errormsg("Got a value of a type I was not expecting in show: " + (typeof val))
   const func = val.bind(obj)
   return func(params)
 }
@@ -453,7 +453,7 @@ tp.text_processors.contents = function (arr: any, params: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property '_findObject' does not exist on type '{ t... Remove this comment to see the full error message
   const obj = typeof params[name] === 'object' ? params[name] : tp._findObject(name, params, arr)
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  if (!obj) return errormsg("Failed to find object '" + name + "' in text processor 'contents' (" + params.tpOriginalString + ")")
+  if (!obj) return Quest.IO.errormsg("Failed to find object '" + name + "' in text processor 'contents' (" + params.tpOriginalString + ")")
   return Quest.Utilities.formatList(obj.getContents(world.LOOK), { article: Quest.Utilities.INDEFINITE, sep: arr[0], lastJoiner: arr[1], nothing: arr[2] })
 }
 
@@ -470,7 +470,7 @@ tp.text_processors.rndalt = function (arr: any, params: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property '_findObject' does not exist on type '{ t... Remove this comment to see the full error message
   const obj = tp._findObject(name, params, arr)
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  if (!obj) return errormsg("Failed to find object '" + name + "' in text processor 'show' (" + params.tpOriginalString + ")")
+  if (!obj) return Quest.IO.errormsg("Failed to find object '" + name + "' in text processor 'show' (" + params.tpOriginalString + ")")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
   if (obj.alt) return random.fromArray(obj.alt)
   return obj.alias
@@ -486,10 +486,10 @@ tp.text_processors.number = function (arr: any, params: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property '_findObject' does not exist on type '{ t... Remove this comment to see the full error message
   const obj = tp._findObject(name, params, arr)
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  if (!obj) return errormsg("Failed to find object '" + name + "' in text processor 'number' (" + params.tpOriginalString + ")")
+  if (!obj) return Quest.IO.errormsg("Failed to find object '" + name + "' in text processor 'number' (" + params.tpOriginalString + ")")
   if (typeof obj[arr[0]] === 'number') return Quest.lang.toWords(obj[arr[0]])
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  return errormsg("Failed to find a number for object '" + name + "' in text processor (" + params.tpOriginalString + ")")
+  return Quest.IO.errormsg("Failed to find a number for object '" + name + "' in text processor (" + params.tpOriginalString + ")")
 };
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'ordinal' does not exist on type '{}'.
@@ -500,10 +500,10 @@ tp.text_processors.ordinal = function (arr: any, params: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property '_findObject' does not exist on type '{ t... Remove this comment to see the full error message
   const obj = tp._findObject(name, params, arr)
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  if (!obj) return errormsg("Failed to find object '" + name + "' in text processor 'number' (" + params.tpOriginalString + ")")
+  if (!obj) return Quest.IO.errormsg("Failed to find object '" + name + "' in text processor 'number' (" + params.tpOriginalString + ")")
   if (typeof obj[arr[0]] === 'number') return Quest.lang.toOrdinal(obj[arr[0]])
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  return errormsg("Failed to find a number for object '" + name + "' in text processor (" + params.tpOriginalString + ")")
+  return Quest.IO.errormsg("Failed to find a number for object '" + name + "' in text processor (" + params.tpOriginalString + ")")
 };
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'money' does not exist on type '{}'.
@@ -514,7 +514,7 @@ tp.text_processors.money = function (arr: any, params: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property '_findObject' does not exist on type '{ t... Remove this comment to see the full error message
   const obj = tp._findObject(name, params, arr)
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  if (!obj) return errormsg("Failed to find object '" + name + "' in text processor 'money' (" + params.tpOriginalString + ")")
+  if (!obj) return Quest.IO.errormsg("Failed to find object '" + name + "' in text processor 'money' (" + params.tpOriginalString + ")")
   if (obj.loc === player.name && obj.getSellingPrice) {
     return Quest.Utilities.displayMoney(obj.getSellingPrice(player))
   }
@@ -531,7 +531,7 @@ tp.text_processors.money = function (arr: any, params: any) {
     return Quest.Utilities.displayMoney(obj.money)
   }
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  return errormsg("Failed to find a price for object '" + name + "' in text processor (" + params.tpOriginalString + ")")
+  return Quest.IO.errormsg("Failed to find a price for object '" + name + "' in text processor (" + params.tpOriginalString + ")")
 };
 // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
 tp.text_processors['$'] = tp.text_processors.money
@@ -553,7 +553,7 @@ tp.text_processors.transitDest = function (arr: any, params: any) {
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   const transit = arr[0] ? w[arr[0]] : w[player.loc]
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  if (!transit.transitDoorDir) return errormsg("Trying to use the 'transitDest' text process directive when the player is not in a transit location (" + params.tpOriginalString + ").")
+  if (!transit.transitDoorDir) return Quest.IO.errormsg("Trying to use the 'transitDest' text process directive when the player is not in a transit location (" + params.tpOriginalString + ").")
   if (transit.currentButtonName) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     const button = w[transit.currentButtonName]
@@ -591,11 +591,11 @@ tp.text_processors.notfirst = tp.text_processors.notOnce
 tp.text_processors.cmd = function (arr: any, params: any) {
   if (arr.length === 1) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'cmdlink' does not exist on type '{ nexti... Remove this comment to see the full error message
-    return io.cmdlink(arr[0], arr[0])
+    return Quest.IO.io.cmdlink(arr[0], arr[0])
   }
   else {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'cmdlink' does not exist on type '{ nexti... Remove this comment to see the full error message
-    return io.cmdlink(arr[0], arr[1])
+    return Quest.IO.io.cmdlink(arr[0], arr[1])
   }
 }
 
@@ -603,11 +603,11 @@ tp.text_processors.cmd = function (arr: any, params: any) {
 tp.text_processors.command = function (arr: any, params: any) {
   if (arr.length === 1) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'cmdlink' does not exist on type '{ nexti... Remove this comment to see the full error message
-    return io.cmdlink(arr[0], arr[0]);
+    return Quest.IO.io.cmdlink(arr[0], arr[0]);
   }
   else {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'cmdlink' does not exist on type '{ nexti... Remove this comment to see the full error message
-    return io.cmdlink(arr[0], arr[1]);
+    return Quest.IO.io.cmdlink(arr[0], arr[1]);
   }
 }
 
@@ -642,10 +642,10 @@ tp.text_processors.popup = function (arr: any, params: any) {
   let s2 = arr.join(':')
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'int' does not exist on type '{ buffer: n... Remove this comment to see the full error message
   let id = s1.replace(/[^a-zA-Z_]/, '') + random.int(0, 999999999)
-  const html = '<div id=\"' + id + '\" class=\"popup\" onclick=\"io.toggleDisplay(\'' + id + '\')"><p>' + s2 + '</p></div>'
+  const html = '<div id=\"' + id + '\" class=\"popup\" onclick=\"Quest.IO.io.toggleDisplay(\'' + id + '\')"><p>' + s2 + '</p></div>'
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
   document.querySelector('#main').innerHTML += html
-  return '<span class=\"popup-link\" onclick=\"io.toggleDisplay(\'#' + id + '\')">' + s1 + '</span>'
+  return '<span class=\"popup-link\" onclick=\"Quest.IO.io.toggleDisplay(\'#' + id + '\')">' + s1 + '</span>'
 }
 
 
@@ -674,7 +674,7 @@ tp.handleIf = function (arr: any, params: any, reverse: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property '_findObject' does not exist on type '{ t... Remove this comment to see the full error message
   const obj = tp._findObject(name, params, arr)
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  if (!obj) return errormsg("Failed to find object '" + name + "' in text processor 'if/ifNot' (" + params.tpOriginalString + ")")
+  if (!obj) return Quest.IO.errormsg("Failed to find object '" + name + "' in text processor 'if/ifNot' (" + params.tpOriginalString + ")")
   name = arr.shift();
   let attValue = typeof obj[name] === 'function' ? obj[name](params) : obj[name]
   if (typeof attValue === 'object') attValue = attValue.name
@@ -686,7 +686,7 @@ tp.handleIf = function (arr: any, params: any, reverse: any) {
     let value = arr.shift()
     if (typeof attValue === "number") {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      if (isNaN(value)) return errormsg("Trying to compare a numeric attribute, '" + name + "' with a string (" + params.tpOriginalString + ").")
+      if (isNaN(value)) return Quest.IO.errormsg("Trying to compare a numeric attribute, '" + name + "' with a string (" + params.tpOriginalString + ").")
       value = parseInt(value)
     }
     flag = (attValue === value)
@@ -708,7 +708,7 @@ tp.handleIfIs = function (arr: any, params: any, reverse: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property '_findObject' does not exist on type '{ t... Remove this comment to see the full error message
   const obj = tp._findObject(name, params, arr)
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  if (!obj) return errormsg("Failed to find object '" + name + "' in text processor 'if/ifNot' (" + params.tpOriginalString + ")")
+  if (!obj) return Quest.IO.errormsg("Failed to find object '" + name + "' in text processor 'if/ifNot' (" + params.tpOriginalString + ")")
   name = arr.shift();
   let attValue = typeof obj[name] === 'function' ? obj[name](params) : obj[name]
   if (typeof attValue === 'object') attValue = attValue.name
@@ -731,7 +731,7 @@ tp.handleIfExists = function (arr: any, params: any, reverse: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property '_findObject' does not exist on type '{ t... Remove this comment to see the full error message
   const obj = tp._findObject(name, params, arr)
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  if (!obj) return errormsg("Failed to find object '" + name + "' in text processor 'if/ifNotExists' (" + params.tpOriginalString + ")")
+  if (!obj) return Quest.IO.errormsg("Failed to find object '" + name + "' in text processor 'if/ifNotExists' (" + params.tpOriginalString + ")")
   name = arr.shift()
   flag = obj[name] !== undefined
   if (reverse) flag = !flag
@@ -753,14 +753,14 @@ tp.handleIfLessMoreThan = function (arr: any, params: any, moreThan: any, orEqua
   // @ts-expect-error ts-migrate(2339) FIXME: Property '_findObject' does not exist on type '{ t... Remove this comment to see the full error message
   const obj = tp._findObject(name, params, arr)
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  if (!obj) return errormsg("Failed to find object '" + name + "' in text processor 'ifLessMoreThan' (" + params.tpOriginalString + ")")
+  if (!obj) return Quest.IO.errormsg("Failed to find object '" + name + "' in text processor 'ifLessMoreThan' (" + params.tpOriginalString + ")")
   name = arr.shift()
   let attValue = typeof obj[name] === 'function' ? obj[name](params) : obj[name]
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  if (typeof attValue !== "number") return errormsg("Trying to use ifLessThan with a non-numeric (or nonexistent) attribute, '" + name + "' (" + params.tpOriginalString + ").")
+  if (typeof attValue !== "number") return Quest.IO.errormsg("Trying to use ifLessThan with a non-numeric (or nonexistent) attribute, '" + name + "' (" + params.tpOriginalString + ").")
   let value = arr.shift()
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  if (isNaN(value)) return errormsg("Trying to compare a numeric attribute, '" + name + "' with a string (" + params.tpOriginalString + ").")
+  if (isNaN(value)) return Quest.IO.errormsg("Trying to compare a numeric attribute, '" + name + "' with a string (" + params.tpOriginalString + ").")
   value = parseInt(value)
   flag = moreThan ? (orEqual ? (attValue >= value) : (attValue > value)) : (orEqual ? (attValue <= value) : (attValue < value))
   return (flag ? arr[0] : (arr[1] ? arr[1] : ""))
@@ -781,7 +781,7 @@ tp.handleIfHere = function (arr: any, params: any, reverse: any, locAtt: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property '_findObject' does not exist on type '{ t... Remove this comment to see the full error message
   const obj = tp._findObject(name, params, arr)
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  if (!obj) return errormsg("Failed to find object '" + name + "' in text processor 'ifHere' (" + params.tpOriginalString + ")")
+  if (!obj) return Quest.IO.errormsg("Failed to find object '" + name + "' in text processor 'ifHere' (" + params.tpOriginalString + ")")
   let flag = obj.isAtLoc(player[locAtt], world.ALL)
   if (reverse) flag = !flag
   return (flag ? arr[0] : (arr[1] ? arr[1] : ""))
@@ -798,7 +798,7 @@ tp.handleIfPlayer = function (arr: any, params: any, reverse: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property '_findObject' does not exist on type '{ t... Remove this comment to see the full error message
   const obj = tp._findObject(name, params, arr)
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  if (!obj) return errormsg("Failed to find object '" + name + "' in text processor 'if/ifNotPlayer' (" + params.tpOriginalString + ")")
+  if (!obj) return Quest.IO.errormsg("Failed to find object '" + name + "' in text processor 'if/ifNotPlayer' (" + params.tpOriginalString + ")")
   flag = obj === player
   if (reverse) flag = !flag
   return (flag ? arr[0] : (arr[1] ? arr[1] : ""))
@@ -848,7 +848,7 @@ tp.text_processors.hereDesc = function (arr: any, params: any) {
   else if (typeof room.desc === 'function') {
     s = room.desc()
     if (s === undefined) {
-      errormsg("This room description is not set up properly. It has a 'desc' function that does not return a string. The room is \"" + room.name + "\".", true)
+      Quest.IO.errormsg("This room description is not set up properly. It has a 'desc' function that does not return a string. The room is \"" + room.name + "\".", true)
       return "[Bad description]"
     }
   }
@@ -905,7 +905,7 @@ tp.text_processors.exits = function (arr: any, params: any) {
 /*
 The name functions could readily be expanded. You can add further parameters and Quest will then grab those and pass them to Quest.lang.getName. Thus, if we have this:
 
-msg("You see {nm:item:the:false:x_count}.", {item:w.terror_cat, x_count:4})
+Quest.IO.msg("You see {nm:item:the:false:x_count}.", {item:w.terror_cat, x_count:4})
 
 Then the options passed to Quest.lang.getName will include x_count set to 4.
 */

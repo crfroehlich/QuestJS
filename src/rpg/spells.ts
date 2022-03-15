@@ -30,7 +30,7 @@ new Spell("Fireball", {
   getPrimaryTargets: rpg.getAll,
   modifyOutgoingAttack: function (attack: any) {
     attack.element = "fire";
-    attack.msg("The room is momentarily filled with fire.", 1)
+    attack.Quest.IO.msg("The room is momentarily filled with fire.", 1)
   },
 })
 
@@ -89,11 +89,11 @@ new Spell("Call lightning", {
     const weather = weatherTypes[player.currentWeatherName]
     if (!weather.outside()) {
       attack.abort = true
-      attack.msg("The <i>Call lightning</i> spell can only be used outside.", 1)
+      attack.Quest.IO.msg("The <i>Call lightning</i> spell can only be used outside.", 1)
     }
     if (weather.wetness < 1) {
       attack.abort = true
-      attack.msg("The <i>Call lightning</i> spell can only be used when it is raining.", 1)
+      attack.Quest.IO.msg("The <i>Call lightning</i> spell can only be used when it is raining.", 1)
     }
   },
 })
@@ -311,7 +311,7 @@ new SpellInanimate("Earthmight Smasher", {
   tactical: "Can be cast on any crushing weapon the player is holding. The weapon will then do Earthmight damage, and an additional 6 damage.",
   getTargets: function (attack: any) { return Quest.Utilities.scopeReachable().filter(el => el.weaponType === 'crush' && el.loc === attack.attacker.name) },
   targetEffect: function (attack: any, item: any) {
-    attack.msg(processText("{nm:item:the:true} now has earthmight pounding in it.", { item: item }), 1)
+    attack.Quest.IO.msg(processText("{nm:item:the:true} now has earthmight pounding in it.", { item: item }), 1)
   },
   effect: {
     modifyOutgoingAttack: function (attack: any) {
@@ -328,7 +328,7 @@ new SpellInanimate("Storm Bow", {
   tactical: "Can be cast on any bow the player is holding. The weapon will then do Storm damage, and an additional 6 damage.",
   getTargets: function (attack: any) { return Quest.Utilities.scopeReachable().filter(el => el.weaponType === 'bow' && el.loc === attack.attacker.name) },
   targetEffect: function (attack: any, item: any) {
-    attack.msg(processText("{nm:item:the:true} now fizzles with electrical energy.", { item: item }), 1)
+    attack.Quest.IO.msg(processText("{nm:item:the:true} now fizzles with electrical energy.", { item: item }), 1)
   },
   effect: {
     modifyOutgoingAttack: function (attack: any) {
@@ -345,7 +345,7 @@ new SpellInanimate("Ice Spear", {
   tactical: "Can be cast on any polearm the player is holding. The weapon will then do frost damage, and the damage dice type will be increased by 3 (so a d6 will become d9).",
   getTargets: function (attack: any) { return Quest.Utilities.scopeReachable().filter(el => el.weaponType === 'polearm' && el.loc === attack.attacker.name) },
   targetEffect: function (attack: any, item: any) {
-    attack.msg(processText("{nm:item:the:true} has frost over it.", { item: item }), 1)
+    attack.Quest.IO.msg(processText("{nm:item:the:true} has frost over it.", { item: item }), 1)
   },
   effect: {
     modifyOutgoingAttack: function (attack: any) {
@@ -362,7 +362,7 @@ new SpellInanimate("Flaming Blade", {
   tactical: "Can be cast on any blade the player is holding. The weapon will then do fire damage, and the number of damage dice type will be increased by 1.",
   getTargets: function (attack: any) { return Quest.Utilities.scopeReachable().filter(el => el.weaponType === 'blade' && el.loc === attack.attacker.name) },
   targetEffect: function (attack: any, item: any) {
-    attack.msg(processText("{nm:item:the:true} now has fire along its blade.", { item: item }), 1)
+    attack.Quest.IO.msg(processText("{nm:item:the:true} now has fire along its blade.", { item: item }), 1)
   },
   effect: {
     modifyOutgoingAttack: function (attack: any) {
@@ -455,7 +455,7 @@ new SpellSelf("Truesight", {
         flag = flag || o.truesight()
       }
     }
-    if (!flag) attack.msg("It would seem there are no illusions here.", 1)
+    if (!flag) attack.Quest.IO.msg("It would seem there are no illusions here.", 1)
   },
 })
 
@@ -469,7 +469,7 @@ new SpellSelf("Cleanse", {
         flag = flag || o.cleanse()
       }
     }
-    if (!flag) attack.msg("Nothing here needs cleaning.", 1)
+    if (!flag) attack.Quest.IO.msg("Nothing here needs cleaning.", 1)
   },
 })
 
@@ -496,12 +496,12 @@ new SpellInanimate("Unlock", {
   targetEffect: function (attack: any, ex: any) {
     if (ex instanceof Exit) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'nice' does not exist on type '{}'.
-      attack.msg("The door to " + ex.nice() + " unlocks.", 1)
+      attack.Quest.IO.msg("The door to " + ex.nice() + " unlocks.", 1)
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'setLock' does not exist on type '{}'.
       ex.setLock(false)
     }
     else {
-      attack.msg(processText("{nv:item:unlock:true}.", { item: ex }), 1)
+      attack.Quest.IO.msg(processText("{nv:item:unlock:true}.", { item: ex }), 1)
       ex.locked = false
     }
   },
@@ -528,13 +528,13 @@ new SpellSelf("Annulment", {
   description: "Cancels all spell (and other) effects of the caster, good or bad.",
   targetEffect: function (attack: any) {
     if (attack.target.activeEffects.length === 0) {
-      attack.msg("The {i:Annulment} spell has no effect - no effects to annul!")
+      attack.Quest.IO.msg("The {i:Annulment} spell has no effect - no effects to annul!")
       return
     }
     for (const el of attack.target.activeEffects) {
       // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
       const s = rpg.findEffect(el).terminate(attack.target)
-      attack.msg(s)
+      attack.Quest.IO.msg(s)
     }
     return true
   },
@@ -564,7 +564,7 @@ new SpellSelf("Healing", {
   targetEffect: function (attack: any) {
     attack.attacker.health += 25
     if (attack.attacker.health > attack.attacker.maxHealth) attack.attacker.health = attack.attacker.maxHealth
-    attack.msg("{nv:attacker:have:true} {show:attacker:health} hits.")
+    attack.Quest.IO.msg("{nv:attacker:have:true} {show:attacker:health} hits.")
     return true
   },
 })
@@ -674,7 +674,7 @@ new SpellSelf("Returning", {
   item: 'Stone_of_Returning',
   targetEffect: function (attack: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("The air swirls around you, and everything blurs...")
+    Quest.IO.msg("The air swirls around you, and everything blurs...")
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     rpg.teleport(attack.target, w[this.item].loc)
     return true
@@ -686,11 +686,11 @@ new SpellSelf("Teleport", {
   description: "Casting this spell instantly moves the caster to a location previously stored with the <i>Mark</i> spell.",
   targetEffect: function (attack: any) {
     if (!attack.target.activeTeleportLocation) {
-      attack.msg("The {i:Teleport} spell has no effect - no location has been marked!")
+      attack.Quest.IO.msg("The {i:Teleport} spell has no effect - no location has been marked!")
       return
     }
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    msg("The air swirls around you, and everything blurs...")
+    Quest.IO.msg("The air swirls around you, and everything blurs...")
     rpg.teleport(attack.target, attack.target.activeTeleportLocation)
     return true
   },
@@ -700,7 +700,7 @@ new SpellSelf("Mark", {
   description: "Casting this spell marks a location for later use with the <i>Teleport</i> spell.",
   icon: 'moving',
   targetEffect: function (attack: any) {
-    attack.msg("This location is marked for future use.")
+    attack.Quest.IO.msg("This location is marked for future use.")
     attack.target.activeTeleportLocation = attack.target.loc
     return true
   },
@@ -715,11 +715,11 @@ new SpellSelf("Call rain", {
     const weather = weatherTypes[player.currentWeatherName]
     if (!weather.outside()) {
       attack.abort = true
-      attack.msg("The <i>Call rain</i> spell can only be used outside.", 1)
+      attack.Quest.IO.msg("The <i>Call rain</i> spell can only be used outside.", 1)
     }
     if (weather.wetness > 0) {
       attack.abort = true
-      attack.msg("The <i>Call rain</i> spell is only going to work if it is not already raining.", 1)
+      attack.Quest.IO.msg("The <i>Call rain</i> spell is only going to work if it is not already raining.", 1)
     }
   },
   targetEffect: function (attack: any) {
@@ -743,11 +743,11 @@ new SpellSelf("Cloudbusting", {
     const weather = weatherTypes[player.currentWeatherName]
     if (!weather.outside()) {
       attack.abort = true
-      attack.msg("The <i>Cloudbusting</i> spell can only be used outside.", 1)
+      attack.Quest.IO.msg("The <i>Cloudbusting</i> spell can only be used outside.", 1)
     }
     if (weather.name === 'hot') {
       attack.abort = true
-      attack.msg("The <i>Cloudbusting</i> spell is only going to work if there are clouds around", 1)
+      attack.Quest.IO.msg("The <i>Cloudbusting</i> spell is only going to work if there are clouds around", 1)
     }
   },
   targetEffect: function (attack: any) {

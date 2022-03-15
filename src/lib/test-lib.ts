@@ -36,7 +36,7 @@ test.runTests = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterFinish' does not exist on type '{}'... Remove this comment to see the full error message
   if (test.afterFinish) test.afterFinish(test.failCount === 0)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'updateUIItems' does not exist on type '{... Remove this comment to see the full error message
-  io.updateUIItems()
+  Quest.IO.io.updateUIItems()
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'start' does not exist on type '{}'.
@@ -51,7 +51,7 @@ test.start = function (title: any, filename = test.saveFilename) {
   }
   else {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    metamsg("Load failed: File not found: " + filename);
+    Quest.IO.metamsg("Load failed: File not found: " + filename);
   }
 }
 
@@ -68,7 +68,7 @@ test.title = function (title: any) {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'printTitle' does not exist on type '{}'.
 test.printTitle = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'currentTitle' does not exist on type '{}... Remove this comment to see the full error message
-  debugmsg(test.currentTitle + ": Error (test " + test.subCount + ")")
+  Quest.IO.debugmsg(test.currentTitle + ": Error (test " + test.subCount + ")")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'failCount' does not exist on type '{}'.
   test.failCount++
 }
@@ -106,8 +106,8 @@ test.assertSPCmd = function (item: any, verb: any, expected: any, extraOutput: a
     }
     else {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'currentTitle' does not exist on type '{}... Remove this comment to see the full error message
-      debugmsg(test.currentTitle + ": Error (test " + test.subCount + ")")
-      debugmsg("Expected this to be allowed")
+      Quest.IO.debugmsg(test.currentTitle + ": Error (test " + test.subCount + ")")
+      Quest.IO.debugmsg("Expected this to be allowed")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'totalCount' does not exist on type '{}'.
       test.totalCount++
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'subCount' does not exist on type '{}'.
@@ -124,8 +124,8 @@ test.assertSPCmd = function (item: any, verb: any, expected: any, extraOutput: a
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'verbListIncludes' does not exist on type... Remove this comment to see the full error message
     if (test.verbListIncludes(list, verb)) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'currentTitle' does not exist on type '{}... Remove this comment to see the full error message
-      debugmsg(test.currentTitle + ": Error (test " + test.subCount + ")")
-      debugmsg("Expected this NOT to be allowed")
+      Quest.IO.debugmsg(test.currentTitle + ": Error (test " + test.subCount + ")")
+      Quest.IO.debugmsg("Expected this NOT to be allowed")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'failCount' does not exist on type '{}'.
       test.failCount++
     }
@@ -182,7 +182,7 @@ test.assertOut = function (expected: any, f: any, extraOutput: any) {
       return expected[index].test(value)
     }
   })) {
-    //debugmsg(".")
+    //Quest.IO.debugmsg(".")
   }
   else {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'printTitle' does not exist on type '{}'.
@@ -192,10 +192,10 @@ test.assertOut = function (expected: any, f: any, extraOutput: any) {
       if (typeof expected[i] === "string") {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testOutput' does not exist on type '{}'.
         if (expected[i] !== test.testOutput[i]) {
-          debugmsg("Expected (A): " + expected[i])
+          Quest.IO.debugmsg("Expected (A): " + expected[i])
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'testOutput' does not exist on type '{}'.
-          debugmsg("...Found (A): " + test.testOutput[i])
-          debugmsg(" ")
+          Quest.IO.debugmsg("...Found (A): " + test.testOutput[i])
+          Quest.IO.debugmsg(" ")
           if (extraOutput) {
             // @ts-expect-error ts-migrate(2339) FIXME: Property 'testOutput' does not exist on type '{}'.
             if (typeof expected[i] === "string" && typeof test.testOutput[i] === "string") {
@@ -221,21 +221,21 @@ test.assertOut = function (expected: any, f: any, extraOutput: any) {
       else if (expected[i] instanceof RegExp) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testOutput' does not exist on type '{}'.
         if (test.testOutput[i] === undefined || !expected[i].test(test.testOutput[i])) {
-          debugmsg("Expected: " + expected[i])
+          Quest.IO.debugmsg("Expected: " + expected[i])
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'testOutput' does not exist on type '{}'.
-          debugmsg("...Found: " + test.testOutput[i])
-          debugmsg(" ")
+          Quest.IO.debugmsg("...Found: " + test.testOutput[i])
+          Quest.IO.debugmsg(" ")
         }
       }
       else if (expected[i] === undefined) {
-        debugmsg("Expected nothing")
+        Quest.IO.debugmsg("Expected nothing")
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testOutput' does not exist on type '{}'.
-        debugmsg("...Found: " + test.testOutput[i])
-        debugmsg(" ")
+        Quest.IO.debugmsg("...Found: " + test.testOutput[i])
+        Quest.IO.debugmsg(" ")
       }
       else {
-        debugmsg("Found an unrecognised type for expected (should be string or regex): " + (typeof expected[i]))
-        debugmsg(" ")
+        Quest.IO.debugmsg("Found an unrecognised type for expected (should be string or regex): " + (typeof expected[i]))
+        Quest.IO.debugmsg(" ")
       }
     }
   }
@@ -257,20 +257,20 @@ test.assertEqual = function (expected: any, found: any, extraOutput: any) {
     if (!Quest.Utilities.array.compare(expected, found)) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'printTitle' does not exist on type '{}'.
       test.printTitle()
-      debugmsg("Expected (A): " + expected)
-      debugmsg("...Found (A): " + found)
-      debugmsg(" ")
+      Quest.IO.debugmsg("Expected (A): " + expected)
+      Quest.IO.debugmsg("...Found (A): " + found)
+      Quest.IO.debugmsg(" ")
     }
   }
   else if (expected === found) {
-    //debugmsg(".")
+    //Quest.IO.debugmsg(".")
   }
   else {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'printTitle' does not exist on type '{}'.
     test.printTitle()
-    debugmsg("Expected: " + expected)
-    debugmsg("...Found: " + found)
-    debugmsg(" ")
+    Quest.IO.debugmsg("Expected: " + expected)
+    Quest.IO.debugmsg("...Found: " + found)
+    Quest.IO.debugmsg(" ")
     if (extraOutput) {
       if (typeof expected === "string" && typeof found === "string") {
         for (let i = 0; i < expected.length; i++) {
@@ -294,14 +294,14 @@ test.assertAlmostEqual = function (expected: any, found: any) {
   test.subCount++
 
   if (Math.abs((found - expected) / expected) < 0.001) {
-    //debugmsg(".")
+    //Quest.IO.debugmsg(".")
   }
   else {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'printTitle' does not exist on type '{}'.
     test.printTitle();
-    debugmsg("Expected: " + expected)
-    debugmsg("...Found: " + found)
-    debugmsg(" ")
+    Quest.IO.debugmsg("Expected: " + expected)
+    Quest.IO.debugmsg("...Found: " + found)
+    Quest.IO.debugmsg(" ")
   }
 }
 
@@ -312,14 +312,14 @@ test.assertMatch = function (expected: any, found: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'subCount' does not exist on type '{}'.
   test.subCount++
   if (expected.test(found)) {
-    //debugmsg(".")
+    //Quest.IO.debugmsg(".")
   }
   else {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'printTitle' does not exist on type '{}'.
     test.printTitle();
-    debugmsg("Expected: " + expected)
-    debugmsg("...Found: " + found)
-    debugmsg(" ")
+    Quest.IO.debugmsg("Expected: " + expected)
+    Quest.IO.debugmsg("...Found: " + found)
+    Quest.IO.debugmsg(" ")
   }
 }
 
@@ -340,27 +340,27 @@ test.assertError = function (expected: any, f: any) {
   if (test.errorOutput.length === 0) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'printTitle' does not exist on type '{}'.
     test.printTitle();
-    debugmsg("Expected error: " + expected)
-    debugmsg("...Found no error")
-    debugmsg(" ")
+    Quest.IO.debugmsg("Expected error: " + expected)
+    Quest.IO.debugmsg("...Found no error")
+    Quest.IO.debugmsg(" ")
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'errorOutput' does not exist on type '{}'... Remove this comment to see the full error message
   else if (typeof expected === 'string' && test.errorOutput[0] !== expected) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'printTitle' does not exist on type '{}'.
     test.printTitle();
-    debugmsg("Expected error: " + expected)
+    Quest.IO.debugmsg("Expected error: " + expected)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'errorOutput' does not exist on type '{}'... Remove this comment to see the full error message
-    debugmsg("...Found error: " + test.errorOutput[0])
-    debugmsg(" ")
+    Quest.IO.debugmsg("...Found error: " + test.errorOutput[0])
+    Quest.IO.debugmsg(" ")
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'errorOutput' does not exist on type '{}'... Remove this comment to see the full error message
   else if (!test.errorOutput[0].match(expected)) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'printTitle' does not exist on type '{}'.
     test.printTitle();
-    debugmsg("Expected error: " + expected)
+    Quest.IO.debugmsg("Expected error: " + expected)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'errorOutput' does not exist on type '{}'... Remove this comment to see the full error message
-    debugmsg("...Found error: " + test.errorOutput[0])
-    debugmsg(" ")
+    Quest.IO.debugmsg("...Found error: " + test.errorOutput[0])
+    Quest.IO.debugmsg(" ")
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'testing' does not exist on type '{}'.
   Quest.Utilities.test.testing = false
@@ -389,8 +389,8 @@ test.assertThrow = function (f: any) {
   if (!flag) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'printTitle' does not exist on type '{}'.
     test.printTitle();
-    debugmsg("Expected an exception to be throw, and it was not")
-    debugmsg(" ")
+    Quest.IO.debugmsg("Expected an exception to be throw, and it was not")
+    Quest.IO.debugmsg(" ")
   }
 }
 
@@ -400,8 +400,8 @@ test.assertThrow = function (f: any) {
 test.fail = function (msg: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'printTitle' does not exist on type '{}'.
   test.printTitle()
-  debugmsg("Failure: " + msg)
-  debugmsg(" ")
+  Quest.IO.debugmsg("Failure: " + msg)
+  Quest.IO.debugmsg(" ")
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'verbs' does not exist on type '{}'.
@@ -415,11 +415,11 @@ test.results = function (time: any) {
   // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'number' is not assignable to par... Remove this comment to see the full error message
   const elapsed = parseInt(Date.now()) - time
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'totalCount' does not exist on type '{}'.
-  debugmsg("Number of tests: " + test.totalCount)
+  Quest.IO.debugmsg("Number of tests: " + test.totalCount)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'failCount' does not exist on type '{}'.
-  debugmsg("Number of fails: " + test.failCount)
+  Quest.IO.debugmsg("Number of fails: " + test.failCount)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'totalCount' does not exist on type '{}'.
-  debugmsg("Elapsed time: " + elapsed + " ms (" + (Math.round(elapsed / test.totalCount * 10) / 10) + " ms/test)")
+  Quest.IO.debugmsg("Elapsed time: " + elapsed + " ms (" + (Math.round(elapsed / test.totalCount * 10) / 10) + " ms/test)")
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'padArray' does not exist on type '{}'.

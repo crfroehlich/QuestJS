@@ -60,7 +60,7 @@ class Weather {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     for (const key in data) this[key] = data[key]
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    if (weatherTypes[name]) return errormsg("Two weather types called \"" + name + "\".")
+    if (weatherTypes[name]) return Quest.IO.errormsg("Two weather types called \"" + name + "\".")
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     weatherTypes[name] = this
   }
@@ -102,7 +102,7 @@ class Weather {
     if (!this.outside(true)) return false
     if (currentLocation.weatherModifier) s = currentLocation.weatherModifier.replace('#', s)
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg(s, options)
+    Quest.IO.msg(s, options)
     return true
   }
 

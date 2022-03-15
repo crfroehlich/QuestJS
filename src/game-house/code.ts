@@ -647,16 +647,16 @@ const SIZE_CHANGING = function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'size' does not exist on type '{ afterCre... Remove this comment to see the full error message
     if (this.size === this.minsize) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg("{nv:item:be:true} too tiny to see properly!", { item: this })
+      Quest.IO.msg("{nv:item:be:true} too tiny to see properly!", { item: this })
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'size' does not exist on type '{ afterCre... Remove this comment to see the full error message
     else if (this.size === this.maxsize) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      msg("{nv:item:be:true} of gigantic proportions!", { item: this })
+      Quest.IO.msg("{nv:item:be:true} of gigantic proportions!", { item: this })
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg(this['desc' + this.size])
+      Quest.IO.msg(this['desc' + this.size])
     }
     return true
   }
@@ -678,7 +678,7 @@ const SIZE_CHANGING = function () {
     }
 
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    msg(this.msgTake, options)
+    Quest.IO.msg(this.msgTake, options)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'moveToFrom' does not exist on type '{ af... Remove this comment to see the full error message
     this.moveToFrom(options, "name", "loc")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'scenery' does not exist on type '{ after... Remove this comment to see the full error message

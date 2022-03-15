@@ -20,7 +20,7 @@ Quest.Settings.settings.noTalkTo = false
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'setup' does not exist on type '{ perform... Remove this comment to see the full error message
 Quest.Settings.settings.setup = function () {
-  createAdditionalPane(2, "Go to", 'directions', function () {
+  Quest.IO.createAdditionalPane(2, "Go to", 'directions', function () {
     let html = ''
     for (const ex of currentLocation.dests) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message

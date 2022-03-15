@@ -43,14 +43,14 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('GoTo', {
   script: function (objects: any) {
     const room = objects[0][0]
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (room === currentLocation) return failedmsg("As if by magic, you are suddenly... where you already were.")
-    if (!room.room) return failedmsg("{pv:item:be:true} not a destination.", { item: room })
+    if (room === currentLocation) return Quest.IO.failedmsg("As if by magic, you are suddenly... where you already were.")
+    if (!room.room) return Quest.IO.failedmsg("{pv:item:be:true} not a destination.", { item: room })
     for (const ex of currentLocation.dests) {
       if (room.name === ex.name) {
         return ex.use(player, ex) ? world.SUCCESS : world.FAILED
       }
     }
-    return failedmsg("{pv:item:be:true} not a destination you can get to from here.", { item: room })
+    return Quest.IO.failedmsg("{pv:item:be:true} not a destination you can get to from here.", { item: room })
   },
 }))
 
@@ -103,7 +103,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('HangUp', {
   ],
   script: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (!player.onPhoneTo) return failedmsg("You are not on a call.")
+    if (!player.onPhoneTo) return Quest.IO.failedmsg("You are not on a call.")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'phone' does not exist on type '{}'.
     w.phone.hangUp()
     return world.SUCCESS
@@ -129,9 +129,9 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('DialogTest', {
     log(funcName)
     const choices = ['red', 'yellow', 'blue']
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    io.menuFunctions[funcName]('Pick a colour?', choices, function (result: any) {
+    Quest.IO.io.menuFunctions[funcName]('Pick a colour?', choices, function (result: any) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      msg("You picked " + result)
+      Quest.IO.msg("You picked " + result)
     })
     return world.SUCCESS_NO_TURNSCRIPTS
   },
