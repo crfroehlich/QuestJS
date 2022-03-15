@@ -1309,7 +1309,7 @@ Quest.World.createItem("trophy", Quest.Templates.TAKEABLE(), Quest.Templates.MER
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-Quest.World.createItem("cactus", ZONE_FEATURE('desert', 1, -2, 3), {
+Quest.World.createItem("cactus", Quest.Zone.ZONE_FEATURE('desert', 1, -2, 3), {
   featureLook: "There is a big cactus to the #.",
   zoneColour: 'green',
   zoneMapName: 'Strange cactus',
@@ -1317,7 +1317,7 @@ Quest.World.createItem("cactus", ZONE_FEATURE('desert', 1, -2, 3), {
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-Quest.World.createItem("tower", ZONE_FEATURE('desert', -1, 3, 4), {
+Quest.World.createItem("tower", Quest.Zone.ZONE_FEATURE('desert', -1, 3, 4), {
   featureLook: "There is a tower to the #.",
   featureLookHere: "There is a tall stone tower here.",
   zoneMapName: 'Ancient tower',
@@ -1327,7 +1327,7 @@ Quest.World.createItem("tower", ZONE_FEATURE('desert', -1, 3, 4), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-Quest.World.createItem("barrier", ZONE_BORDER('desert'), {
+Quest.World.createItem("barrier", Quest.Zone.ZONE_BORDER('desert'), {
   examine: "It is invisible!",
   scenery: true,
   border: function (x: any, y: any) {
@@ -1338,7 +1338,7 @@ Quest.World.createItem("barrier", ZONE_BORDER('desert'), {
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-Quest.World.createItem("canyon", ZONE_BORDER('desert'), {
+Quest.World.createItem("canyon", Quest.Zone.ZONE_BORDER('desert'), {
   examine: "It looks very deep!",
   scenery: true,
   border: function (x: any, y: any) {
@@ -1351,7 +1351,7 @@ Quest.World.createItem("canyon", ZONE_BORDER('desert'), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-Quest.World.createRoom("desert", ZONE(), {
+Quest.World.createRoom("desert", Quest.Zone.ZONE(), {
   zoneExits: [
     { x: -1, y: 3, dir: 'in', dest: 'inside_tower', msg: 'You step inside the tower, and climb the step, spiral staircase to the top.' },
     { x: 5, y: 0, dir: 'east', dest: 'bridge', msg: 'You start across the bridge.' },
@@ -1388,7 +1388,7 @@ Quest.World.createRoom("desert", ZONE(), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-Quest.World.createItem("silver_coin", Quest.Templates.TAKEABLE(), ZONE_ITEM('desert', 1, 1), {
+Quest.World.createItem("silver_coin", Quest.Templates.TAKEABLE(), Quest.Zone.ZONE_ITEM('desert', 1, 1), {
   examine: "A curious silver coin; you do not recognise it. It says it is worth two dollars.",
 })
 
