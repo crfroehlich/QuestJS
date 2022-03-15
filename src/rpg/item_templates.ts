@@ -1,6 +1,6 @@
 namespace Quest {
   export namespace Templates {
-
+    
     export const EQUIPPABLE = function () {
       const res = Object.assign({}, Quest.Templates.TAKEABLE_DICTIONARY);
 
@@ -100,7 +100,7 @@ namespace Quest {
       return res;
     }
 
-    new Effect("Ammo consumer", {
+    new Quest.RPG.Effect("Ammo consumer", {
       modifyOutgoingAttack: function (attack: any, source: any) {
         if (!source.equipped) return
         const item = Quest.World.w[source.ammo]
@@ -116,7 +116,7 @@ namespace Quest {
       },
     })
 
-    new Effect("Ammo tracker", {
+    new Quest.RPG.Effect("Ammo tracker", {
       modifyOutgoingAttack: function (attack: any, source: any) {
         if (!source.equipped) return
         if (attack.weapon.ammo === 0) {
@@ -130,7 +130,7 @@ namespace Quest {
     })
 
     /*
-    rpg.add(new Effect("Deteriorating", {
+    Quest.RPG.rpg.add(new Quest.RPG.Effect("Deteriorating", {
       // really needs to be on success only
       modifyOutgoingAttack:function(attack) {
         if (attack.weapon.ammo === 0) {
@@ -196,12 +196,12 @@ namespace Quest {
         if (this.loc !== options.char.name) return Quest.IO.falsemsg("You need to be holding {nm:item:the} when using {sb:item}.", options)
 
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        const attack = Quest.RPG.Attack.createAttack(options.char, null, rpg.findSkill(this.spellName), this)
+        const attack = Quest.RPG.Attack.createAttack(options.char, null, Quest.RPG.rpg.findSkill(this.spellName), this)
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'apply' does not exist on type 'boolean |... Remove this comment to see the full error message
         attack.apply().output()
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'msgDestroy' does not exist on type '{ af... Remove this comment to see the full error message
         if (this.msgDestroy) Quest.IO.msg(this.msgDestroy)
-        rpg.destroy(this)
+        Quest.RPG.rpg.destroy(this)
         return true
       }
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'useWith' does not exist on type '{ after... Remove this comment to see the full error message
@@ -212,12 +212,12 @@ namespace Quest {
         if (this.loc !== char.name) return Quest.IO.falsemsg("You need to be holding {nm:item:the} when using {sb:item}.", { item: this })
 
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        const attack = Quest.RPG.Attack.createAttack(char, target, rpg.findSkill(this.spellName), this)
+        const attack = Quest.RPG.Attack.createAttack(char, target, Quest.RPG.rpg.findSkill(this.spellName), this)
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'apply' does not exist on type 'boolean |... Remove this comment to see the full error message
         attack.apply().output()
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'msgDestroy' does not exist on type '{ af... Remove this comment to see the full error message
         if (this.msgDestroy) Quest.IO.msg(this.msgDestroy)
-        rpg.destroy(this)
+        Quest.RPG.rpg.destroy(this)
         return true
       }
       return res

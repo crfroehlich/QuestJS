@@ -9,7 +9,7 @@ test.tests = function () {
 
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'suppressAntagonise' does not exist on ty... Remove this comment to see the full error message
-  for (const skill of rpg.list) skill.suppressAntagonise = true
+  for (const skill of Quest.RPG.rpg.list) skill.suppressAntagonise = true
 
 
 
@@ -24,9 +24,9 @@ test.tests = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Elements");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("fire", rpg.elements.opposed('frost'))
+  test.assertEqual("fire", Quest.RPG.rpg.elements.opposed('frost'))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("frost", rpg.elements.opposed('fire'))
+  test.assertEqual("frost", Quest.RPG.rpg.elements.opposed('fire'))
 
 
 
@@ -35,39 +35,39 @@ test.tests = function () {
   let l
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'orc' does not exist on type '{}'.
-  l = rpg.getAll(Quest.World.w.orc)
+  l = Quest.RPG.rpg.getAll(Quest.World.w.orc)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(4, l.length)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(Quest.World.w.orc, l[0])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'orc' does not exist on type '{}'.
-  l = rpg.getAllBut(Quest.World.w.orc)
+  l = Quest.RPG.rpg.getAllBut(Quest.World.w.orc)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(3, l.length)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(false, l.includes(Quest.World.w.orc))
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'orc' does not exist on type '{}'.
-  l = rpg.getFoes(Quest.World.w.orc)
+  l = Quest.RPG.rpg.getFoes(Quest.World.w.orc)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(3, l.length)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(Quest.World.w.orc, l[0])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'orc' does not exist on type '{}'.
-  l = rpg.getFoesBut(Quest.World.w.orc)
+  l = Quest.RPG.rpg.getFoesBut(Quest.World.w.orc)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(2, l.length)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(false, l.includes(Quest.World.w.orc))
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'orc' does not exist on type '{}'.
-  l = rpg.getHostiles(Quest.World.w.orc)
+  l = Quest.RPG.rpg.getHostiles(Quest.World.w.orc)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(1, l.length)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(Quest.World.w.orc, l[0])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'orc' does not exist on type '{}'.
-  l = rpg.getHostilesBut(Quest.World.w.orc)
+  l = Quest.RPG.rpg.getHostilesBut(Quest.World.w.orc)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(0, l.length)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -76,13 +76,13 @@ test.tests = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'goblin' does not exist on type '{}'.
   Quest.World.w.goblin.agressive = true
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'orc' does not exist on type '{}'.
-  l = rpg.getHostiles(Quest.World.w.orc)
+  l = Quest.RPG.rpg.getHostiles(Quest.World.w.orc)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(1, l.length)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(Quest.World.w.orc, l[0])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'orc' does not exist on type '{}'.
-  l = rpg.getHostilesBut(Quest.World.w.orc)
+  l = Quest.RPG.rpg.getHostilesBut(Quest.World.w.orc)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(0, l.length)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -270,7 +270,7 @@ test.tests = function () {
   Quest.World.w.flail.equipped = true
 
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
-  attack = Quest.RPG.Attack.createAttack(Quest.World.player, Quest.World.w.goblin, rpg.findSkill("Defensive attack"))
+  attack = Quest.RPG.Attack.createAttack(Quest.World.player, Quest.World.w.goblin, Quest.RPG.rpg.findSkill("Defensive attack"))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
   Quest.Random.rndm.prime([19, 4, 7])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'apply' does not exist on type 'boolean |... Remove this comment to see the full error message
@@ -302,7 +302,7 @@ test.tests = function () {
   Quest.World.w.long_bow.activeEffects = []
 
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
-  attack = Quest.RPG.Attack.createAttack(Quest.World.player, Quest.World.w.goblin, rpg.findSkill("Defensive attack"))
+  attack = Quest.RPG.Attack.createAttack(Quest.World.player, Quest.World.w.goblin, Quest.RPG.rpg.findSkill("Defensive attack"))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(false, attack)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'long_bow' does not exist on type '{}'.
@@ -382,7 +382,7 @@ test.tests = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("learn fireball")
 
-  const spell = rpg.find('fireball')
+  const spell = Quest.RPG.rpg.find('fireball')
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(true, spell.spell)
 
@@ -471,7 +471,7 @@ test.tests = function () {
   Quest.World.w.goblin.spellCasting = 3
 
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
-  attack = Quest.RPG.Attack.createAttack(Quest.World.w.goblin, Quest.World.player, rpg.findSkill('Ice shard'))
+  attack = Quest.RPG.Attack.createAttack(Quest.World.w.goblin, Quest.World.player, Quest.RPG.rpg.findSkill('Ice shard'))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual('goblin', attack.attacker.name)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -489,7 +489,7 @@ test.tests = function () {
 
 
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
-  attack = Quest.RPG.Attack.createAttack(Quest.World.w.goblin, Quest.World.player, rpg.findSkill('Psi-blast'))
+  attack = Quest.RPG.Attack.createAttack(Quest.World.w.goblin, Quest.World.player, Quest.RPG.rpg.findSkill('Psi-blast'))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual('goblin', attack.attacker.name)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
@@ -503,7 +503,7 @@ test.tests = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'ice_amulet' does not exist on type '{}'.
   Quest.World.w.ice_amulet.worn = true
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
-  attack = Quest.RPG.Attack.createAttack(Quest.World.w.goblin, Quest.World.player, rpg.findSkill('Ice shard'))
+  attack = Quest.RPG.Attack.createAttack(Quest.World.w.goblin, Quest.World.player, Quest.RPG.rpg.findSkill('Ice shard'))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
   Quest.Random.rndm.prime(19)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'resolve' does not exist on type 'boolean... Remove this comment to see the full error message
@@ -612,10 +612,10 @@ test.tests = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("cast Commune with animal restricted")
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  rpg.defaultSpellTestUseable = function (char) { return Quest.IO.falsemsg("You have no mana.") }
+  Quest.RPG.rpg.defaultSpellTestUseable = function (char) { return Quest.IO.falsemsg("You have no mana.") }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd('cast commune on rabbit', ['You have no mana.'])
-  rpg.defaultSpellTestUseable = function (char) { return true }
+  Quest.RPG.rpg.defaultSpellTestUseable = function (char) { return true }
 
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
@@ -626,7 +626,7 @@ test.tests = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
   Quest.World.w.me.health = 100
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
-  let attack4 = Quest.RPG.Attack.createAttack(Quest.World.w.goblin, Quest.World.player, rpg.findSkill('Ice shard'))
+  let attack4 = Quest.RPG.Attack.createAttack(Quest.World.w.goblin, Quest.World.player, Quest.RPG.rpg.findSkill('Ice shard'))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
   Quest.Random.rndm.prime([19, 6, 6, 6])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'resolve' does not exist on type 'boolean... Remove this comment to see the full error message
@@ -647,7 +647,7 @@ test.tests = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
   Quest.World.w.me.health = 100
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
-  attack4 = Quest.RPG.Attack.createAttack(Quest.World.w.goblin, Quest.World.player, rpg.findSkill('Ice shard'))
+  attack4 = Quest.RPG.Attack.createAttack(Quest.World.w.goblin, Quest.World.player, Quest.RPG.rpg.findSkill('Ice shard'))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
   Quest.Random.rndm.prime([19, 6, 6, 6])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'resolve' does not exist on type 'boolean... Remove this comment to see the full error message
@@ -666,7 +666,7 @@ test.tests = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
   Quest.World.w.me.health = 100
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
-  attack4 = Quest.RPG.Attack.createAttack(Quest.World.w.goblin, Quest.World.player, rpg.findSkill('Ice shard'))
+  attack4 = Quest.RPG.Attack.createAttack(Quest.World.w.goblin, Quest.World.player, Quest.RPG.rpg.findSkill('Ice shard'))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'prime' does not exist on type '{ buffer:... Remove this comment to see the full error message
   Quest.Random.rndm.prime([19, 6, 6, 6])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'resolve' does not exist on type 'boolean... Remove this comment to see the full error message
@@ -1058,7 +1058,7 @@ test.tests = function () {
 
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'suppressAntagonise' does not exist on ty... Remove this comment to see the full error message
-  for (const skill of rpg.list) delete skill.suppressAntagonise
+  for (const skill of Quest.RPG.rpg.list) delete skill.suppressAntagonise
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'goblin' does not exist on type '{}'.
   Quest.World.w.goblin.antagonise = Quest.World.w.snotling.antagonise
@@ -1101,7 +1101,7 @@ test.tests = function () {
   Quest.World.w.orc.unsetGuard()
 
 
-  //Quest.World.w.orc.attitude = rpg.BELLIGERENT
+  //Quest.World.w.orc.attitude = Quest.RPG.rpg.BELLIGERENT
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'orc' does not exist on type '{}'.
   Quest.World.w.orc.signalGroups = []
@@ -1191,19 +1191,19 @@ test.tests = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Attack agendas")
 
-  new Spell("Test attack 1", {
+  new Quest.Skill.Spell("Test attack 1", {
     primarySuccess: "Test attack one was performed",
   })
-  new Spell("Test attack 2", {
+  new Quest.Skill.Spell("Test attack 2", {
     primarySuccess: "Test attack two was performed",
   })
-  new Spell("Test attack 3A", {
+  new Quest.Skill.Spell("Test attack 3A", {
     primarySuccess: "Test attack three was prepared",
     afterUse: function (attack: any) {
       attack.attacker.nextAttack = "Test attack 3B"
     }
   })
-  new Spell("Test attack 3B", {
+  new Quest.Skill.Spell("Test attack 3B", {
     primarySuccess: "Test attack three was performed",
   })
 
@@ -1242,7 +1242,7 @@ test.tests = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("pursueToAttack")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'orc' does not exist on type '{}'.
-  Quest.World.w.orc.pursueToAttack = rpg.pursueToAttack
+  Quest.World.w.orc.pursueToAttack = Quest.RPG.rpg.pursueToAttack
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd('n', ['You head north.', 'The yard', 'A large open area in front of the Great Hall, which is to the south. There is a lake to the north, and you can see an island in the lake.', 'You can see eleven arrows, a goblin, a shotgun and Stone of Returning here.', 'You can go north or south.', 'The orc enters the yard from the south.'])

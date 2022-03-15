@@ -51,13 +51,13 @@ namespace Quest {
 
         // Find the skill
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'getSkill' does not exist on type '{ list... Remove this comment to see the full error message
-        if (attacker === Quest.World.player && skill === undefined && rpg.getSkill) {
+        if (attacker === Quest.World.player && skill === undefined && Quest.RPG.rpg.getSkill) {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'getSkill' does not exist on type '{ list... Remove this comment to see the full error message
-          attack.skill = rpg.getSkill()
+          attack.skill = Quest.RPG.rpg.getSkill()
           // @ts-expect-error ts-migrate(2552) FIXME: Cannot find name 'skillUI'. Did you mean 'skill'?
           skillUI.resetButtons()
         }
-        if (!attack.skill) attack.skill = defaultSkill
+        if (!attack.skill) attack.skill = Quest.Skill.defaultSkill
         // @ts-expect-error ts-migrate(2551) FIXME: Property 'reportText' does not exist on type 'Atta... Remove this comment to see the full error message
         attack.reportText = (source && source.reportText) ? source.reportText : attack.skill.reportText
 
@@ -257,12 +257,12 @@ namespace Quest {
         if (this.skill.targetEffect) this.skill.targetEffect(this, target, isPrimary, count)
 
         if (this.skill.targetEffectName) {
-          const effect = rpg.findEffect(this.skill.targetEffectName === true ? this.skill.name : this.skill.targetEffectName)
+          const effect = Quest.RPG.rpg.findEffect(this.skill.targetEffectName === true ? this.skill.name : this.skill.targetEffectName)
           if (!target.hasEffect(effect)) {
             // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
             if (effect.category) {
               for (let name of target.activeEffects) {
-                const eff = rpg.findEffect(name)
+                const eff = Quest.RPG.rpg.findEffect(name)
                 // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
                 if (eff.category === effect.category) {
                   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -299,7 +299,7 @@ namespace Quest {
           this.damageMultiplier *= 0.5
           this.secondaryDamageMultiplier *= 0.5
         }
-        if (this.element === rpg.elements.opposed(element)) {
+        if (this.element === Quest.RPG.rpg.elements.opposed(element)) {
           this.msg("Damage doubled as opposed element", 4)
           this.damageMultiplier *= 2
           this.secondaryDamageMultiplier *= 2
@@ -381,7 +381,7 @@ namespace Quest {
       applyActiveEffects(source: any, outgoing: any) {
         if (!source || !source.activeEffects) return
         for (let el of source.activeEffects) {
-          const effect = rpg.findEffect(el)
+          const effect = Quest.RPG.rpg.findEffect(el)
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           if (!effect) return Quest.IO.errormsg("applyActiveEffects: Failed to find skill [" + el + "]")
           if (outgoing) {

@@ -15,8 +15,8 @@ Quest.Text.addDirective("lore", function (arr: any, params: any) {
 
 
 // @ts-expect-error ts-migrate(2551) FIXME: Property 'signalResponse_destroy' does not exist o... Remove this comment to see the full error message
-rpg.signalResponse_destroy = function () {
+Quest.RPG.rpg.signalResponse_destroy = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{ list: nev... Remove this comment to see the full error message
   this.msg("{nv:item:be:true} dispelled.", { item: this })
-  rpg.destroy(this)
+  Quest.RPG.rpg.destroy(this)
 }

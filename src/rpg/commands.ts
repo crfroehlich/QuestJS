@@ -47,11 +47,11 @@ namespace Quest {
         { special: 'text' }
       ],
       script: function (objects: any) {
-        const spell = rpg.find(objects[0])
+        const spell = Quest.RPG.rpg.find(objects[0])
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'spell' does not exist on type 'never'.
         if (!spell || !spell.spell) return Quest.IO.failedmsg("There is no spell called " + objects[0] + ".")
 
-        const source = rpg.isSpellAvailable(Quest.World.player, spell)
+        const source = Quest.RPG.rpg.isSpellAvailable(Quest.World.player, spell)
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         if (!source) return Quest.IO.failedmsg("You do not have anything you can learn {i:" + spell.name + "} from.")
 
@@ -72,7 +72,7 @@ namespace Quest {
         { special: 'text' }
       ],
       script: function (objects: any) {
-        const spell = rpg.find(objects[0])
+        const spell = Quest.RPG.rpg.find(objects[0])
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'spell' does not exist on type 'never'.
         if (!spell || !spell.spell) return Quest.IO.failedmsg("There is no spell called " + objects[0] + ".")
 
@@ -103,7 +103,7 @@ namespace Quest {
         { scope: Quest.Parser.parser.isPresent },
       ],
       script: function (objects: any) {
-        const spell = rpg.find(objects[0])
+        const spell = Quest.RPG.rpg.find(objects[0])
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'spell' does not exist on type 'never'.
         if (!spell || !spell.spell) return Quest.IO.failedmsg("There is no spell called " + objects[0] + ".")
 
@@ -128,7 +128,7 @@ namespace Quest {
 
 
     Quest.Commands.commands.push(new Quest.Command.Cmd('DebugRPG', {
-      regex: /^rpg$/,
+      regex: /^Quest.RPG.rpg$/,
       objects: [
       ],
       script: function (objects: any) {

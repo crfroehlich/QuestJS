@@ -2202,31 +2202,22 @@ test.tests = function () {
   Quest.World.w.boots.notableFlag = true;
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
   Quest.World.w.boots.examine = "This will get saved";
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
   Quest.World.w.boots.sizes = [4, 5, 8]
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'cloneCounter' does not exist on type '{}... Remove this comment to see the full error message
   clone.cloneCounter = 29;
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'far_away' does not exist on type '{}'.
   Quest.World.w.far_away.north.hidden = false
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'far_away' does not exist on type '{}'.
   Quest.World.w.far_away.north.locked = false
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'Arthur' does not exist on type '{}'.
   const agendaCount = Quest.World.w.Arthur.agenda.length;
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(0, Quest.World.w.Arthur.followers.length);
   const s = Quest.SaveLoad.saveLoad.saveTheWorld("Comment!!!");
   // Now change them again, these changes should get over-written
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
   Quest.World.w.boots.counter = 42;
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
   Quest.World.w.boots.unusualString = "Some boring text";
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
   Quest.World.w.boots.notableFlag = false;
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
   Quest.World.w.boots.examine = "This will not remain";
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
   const clone3 = Quest.World.cloneObject(clone);  // should not be there later
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'far_away' does not exist on type '{}'.
   Quest.World.w.far_away.north.locked = true
   Quest.SaveLoad.saveLoad.loadTheWorld(s, 4)
 
@@ -2268,13 +2259,13 @@ test.tests = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Path finding");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("lounge", Quest.Utilities.formatList(agenda.findPath(Quest.World.w.dining_room, Quest.World.w.lounge)));
+  test.assertEqual("lounge", Quest.Utilities.formatList(Quest.NPC.agenda.findPath(Quest.World.w.dining_room, Quest.World.w.lounge)));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("", Quest.Utilities.formatList(agenda.findPath(Quest.World.w.dining_room, Quest.World.w.dining_room)));
+  test.assertEqual("", Quest.Utilities.formatList(Quest.NPC.agenda.findPath(Quest.World.w.dining_room, Quest.World.w.dining_room)));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual(false, agenda.findPath(Quest.World.w.dining_room, Quest.World.w.far_away));
+  test.assertEqual(false, Quest.NPC.agenda.findPath(Quest.World.w.dining_room, Quest.World.w.far_away));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("conservatory, dining room, lounge", Quest.Utilities.formatList(agenda.findPath(Quest.World.w.garden, Quest.World.w.dining_room)));
+  test.assertEqual("conservatory, dining room, lounge", Quest.Utilities.formatList(Quest.NPC.agenda.findPath(Quest.World.w.garden, Quest.World.w.dining_room)));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(null, Quest.World.w.dining_room.findExit(Quest.World.w.far_away));
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -2370,19 +2361,15 @@ test.tests = function () {
   test.assertCmd("push g", ["The old man presses the button....", "MOVING to dining_room from bedroom"]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("e", ["You head east.", "The dining room", "An old-fashioned room.", /^You can see/, "You can go east, up or west."])
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'lift' does not exist on type '{}'.
   Quest.World.w.lift.testTransit = function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg("The lift is out of order");
     return false;
   };
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'lift' does not exist on type '{}'.
   Quest.World.w.lift.transitAutoMove = true;
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'lift' does not exist on type '{}'.
   Quest.World.w.lift.afterEnter = Quest.World.w.lift.transitOfferMenu;
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("w", ["You head west.", "The lift", "A curious lift.", "You can go east.", "The lift is out of order", "The dining room", "An old-fashioned room.", "You can see a brick, a chair and a glass cabinet (containing a jewellery box (containing a ring) and an ornate doll) here.", "You can go east, up or west."]);
-
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Push");
