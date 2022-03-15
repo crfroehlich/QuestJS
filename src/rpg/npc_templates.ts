@@ -92,9 +92,6 @@ const RPG_TEMPLATE = {
   isLight: false,  // should this be on default items?
   activeEffects: [],
   skillsLearnt: [],
-
-  // @ts-expect-error ts-migrate(1117) FIXME: An object literal cannot have multiple properties ... Remove this comment to see the full error message
-  dead: false,
   asleep: false,
   stunned: 0,
   petrified: false,

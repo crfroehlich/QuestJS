@@ -22,7 +22,7 @@ test.runTests = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'currentTitle' does not exist on type '{}... Remove this comment to see the full error message
   test.currentTitle = "Not specified"
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'saveFilename' does not exist on type '{}... Remove this comment to see the full error message
-  localStorage.setItem(saveLoad.getName(test.saveFilename), saveLoad.saveTheWorld('Start point saved for unit testing'))
+  localStorage.setItem(Quest.SaveLoad.saveLoad.getName(test.saveFilename), Quest.SaveLoad.saveLoad.saveTheWorld('Start point saved for unit testing'))
   // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'number' is not assignable to par... Remove this comment to see the full error message
   const time = parseInt(Date.now())
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'tests' does not exist on type '{}'.
@@ -32,7 +32,7 @@ test.runTests = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'resetOnCompletion' does not exist on typ... Remove this comment to see the full error message
   if (this.resetOnCompletion) test.start("All done")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'saveFilename' does not exist on type '{}... Remove this comment to see the full error message
-  localStorage.removeItem(saveLoad.getName(test.saveFilename))
+  localStorage.removeItem(Quest.SaveLoad.saveLoad.getName(test.saveFilename))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterFinish' does not exist on type '{}'... Remove this comment to see the full error message
   if (test.afterFinish) test.afterFinish(test.failCount === 0)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'updateUIItems' does not exist on type '{... Remove this comment to see the full error message
@@ -43,9 +43,9 @@ test.runTests = function () {
 test.start = function (title: any, filename = test.saveFilename) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   this.title(title)
-  const s = localStorage.getItem(saveLoad.getName(filename))
+  const s = localStorage.getItem(Quest.SaveLoad.saveLoad.getName(filename))
   if (s != null) {
-    saveLoad.loadTheWorld(s, 4)
+    Quest.SaveLoad.saveLoad.loadTheWorld(s, 4)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterLoad' does not exist on type '{ per... Remove this comment to see the full error message
     if (Quest.Settings.settings.afterLoad) Quest.Settings.settings.afterLoad(filename)
   }

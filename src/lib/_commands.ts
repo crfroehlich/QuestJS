@@ -117,7 +117,6 @@ namespace Quest {
 
       new Quest.Command.Cmd('MetaBrief', {
         script: function () {
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'verbosity' does not exist on type '{ per... Remove this comment to see the full error message
           Quest.Settings.settings.verbosity = world.BRIEF
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           Quest.IO.metamsg(Quest.lang.mode_brief)
@@ -127,7 +126,6 @@ namespace Quest {
 
       new Quest.Command.Cmd('MetaTerse', {
         script: function () {
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'verbosity' does not exist on type '{ per... Remove this comment to see the full error message
           Quest.Settings.settings.verbosity = world.TERSE
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           Quest.IO.metamsg(Quest.lang.mode_terse)
@@ -137,7 +135,6 @@ namespace Quest {
 
       new Quest.Command.Cmd('MetaVerbose', {
         script: function () {
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'verbosity' does not exist on type '{ per... Remove this comment to see the full error message
           Quest.Settings.settings.verbosity = world.VERBOSE
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           Quest.IO.metamsg(llang.mode_verbose)
@@ -152,38 +149,38 @@ namespace Quest {
 
       new Quest.Command.Cmd('MetaTranscriptStart', {
         script: function () {
-          if (saveLoad.transcript) {
+          if (Quest.SaveLoad.saveLoad.transcript) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
             Quest.IO.metamsg(Quest.lang.transcript_already_on)
             return world.FAILED
           }
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
-          saveLoad.transcriptClear()
-          saveLoad.transcriptStart()
+          Quest.SaveLoad.saveLoad.transcriptClear()
+          Quest.SaveLoad.saveLoad.transcriptStart()
           return world.SUCCESS_NO_TURNSCRIPTS
         },
       }),
 
       new Quest.Command.Cmd('MetaTranscriptOn', {
         script: function () {
-          if (saveLoad.transcript) {
+          if (Quest.SaveLoad.saveLoad.transcript) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
             Quest.IO.metamsg(Quest.lang.transcript_already_on)
             return world.FAILED
           }
-          saveLoad.transcriptStart()
+          Quest.SaveLoad.saveLoad.transcriptStart()
           return world.SUCCESS_NO_TURNSCRIPTS
         },
       }),
 
       new Quest.Command.Cmd('MetaTranscriptOff', {
         script: function () {
-          if (!saveLoad.transcript) {
+          if (!Quest.SaveLoad.saveLoad.transcript) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
             Quest.IO.metamsg(Quest.lang.transcript_already_off)
             return world.FAILED
           }
-          saveLoad.transcriptEnd()
+          Quest.SaveLoad.saveLoad.transcriptEnd()
           return world.SUCCESS_NO_TURNSCRIPTS
         },
       }),
@@ -191,14 +188,14 @@ namespace Quest {
       new Quest.Command.Cmd('MetaTranscriptClear', {
         script: function () {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
-          saveLoad.transcriptClear()
+          Quest.SaveLoad.saveLoad.transcriptClear()
           return world.SUCCESS_NO_TURNSCRIPTS
         },
       }),
 
       new Quest.Command.Cmd('MetaTranscriptShow', {
         script: function () {
-          saveLoad.transcriptShow()
+          Quest.SaveLoad.saveLoad.transcriptShow()
           return world.SUCCESS_NO_TURNSCRIPTS
         },
       }),
@@ -222,7 +219,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('MetaSaveOverwriteGame', {
         script: function (arr: any) {
-          saveLoad.saveGame(arr[0], true)
+          Quest.SaveLoad.saveLoad.saveGame(arr[0], true)
           return world.SUCCESS_NO_TURNSCRIPTS;
         },
         objects: [
@@ -234,11 +231,11 @@ namespace Quest {
         script: function (arr: any) {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'localStorageDisabled' does not exist on ... Remove this comment to see the full error message
           if (Quest.Settings.settings.localStorageDisabled) {
-            saveLoad.saveGameAsFile(arr[0])
+            Quest.SaveLoad.saveLoad.saveGameAsFile(arr[0])
           }
           else {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-            saveLoad.saveGame(arr[0])
+            Quest.SaveLoad.saveLoad.saveGame(arr[0])
           }
           return world.SUCCESS_NO_TURNSCRIPTS;
         },
@@ -249,7 +246,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('MetaFileSaveGame', {
         script: function (arr: any) {
-          saveLoad.saveGameAsFile(arr[0])
+          Quest.SaveLoad.saveLoad.saveGameAsFile(arr[0])
           return world.SUCCESS_NO_TURNSCRIPTS;
         },
         objects: [
@@ -275,7 +272,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('MetaLoadGame', {
         script: function (arr: any) {
-          saveLoad.loadGameFromLS(arr[0])
+          Quest.SaveLoad.saveLoad.loadGameFromLS(arr[0])
           return world.SUCCESS_NO_TURNSCRIPTS
         },
         objects: [
@@ -296,14 +293,14 @@ namespace Quest {
 
       new Quest.Command.Cmd('MetaDir', {
         script: function () {
-          saveLoad.dirGame()
+          Quest.SaveLoad.saveLoad.dirGame()
           return world.SUCCESS_NO_TURNSCRIPTS
         },
       }),
 
       new Quest.Command.Cmd('MetaDeleteGame', {
         script: function (arr: any) {
-          saveLoad.deleteGame(arr[0])
+          Quest.SaveLoad.saveLoad.deleteGame(arr[0])
           return world.SUCCESS_NO_TURNSCRIPTS
         },
         objects: [
@@ -330,7 +327,7 @@ namespace Quest {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           Quest.IO.metamsg(Quest.lang.undo_done)
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-          saveLoad.loadTheWorld(gameState)
+          Quest.SaveLoad.saveLoad.loadTheWorld(gameState)
           // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           w[player.loc].description()
           return world.SUCCESS_NO_TURNSCRIPTS
@@ -339,14 +336,14 @@ namespace Quest {
 
       new Quest.Command.Cmd('MetaAgain', {
         script: function () {
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'againOrOops' does not exist on type '{ n... Remove this comment to see the full error message
+
           return Quest.IO.io.againOrOops(true)
         },
       }),
 
       new Quest.Command.Cmd('MetaOops', {
         script: function () {
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'againOrOops' does not exist on type '{ n... Remove this comment to see the full error message
+
           return Quest.IO.io.againOrOops(false)
         },
       }),
@@ -520,7 +517,7 @@ namespace Quest {
       // Out of convenient order as it needs to be before TAKE
 
       new Quest.Command.Cmd('GetFluid', {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
         objects: [
           { special: 'fluid' },
@@ -646,7 +643,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('Drop', {
         npcCmd: true,
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeldNotWorn' does not exist on type '{... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.isHeldNotWorn, Quest.Command.cmdRules.testManipulate],
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
@@ -657,7 +654,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('Wear2', {
         npcCmd: true,
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeldNotWorn' does not exist on type '{... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.isHeldNotWorn, Quest.Command.cmdRules.isHeld, Quest.Command.cmdRules.testManipulate],
         attName: "wear",
         objects: [
@@ -669,7 +666,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('Wear', {
         npcCmd: true,
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeldNotWorn' does not exist on type '{... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.isHeldNotWorn, Quest.Command.cmdRules.testManipulate],
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
@@ -714,7 +711,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('Purchase', {
         npcCmd: true,
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate],
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isForSale' does not exist on type '{}'.
@@ -725,7 +722,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('Sell', {
         npcCmd: true,
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeldNotWorn' does not exist on type '{... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.isHeldNotWorn, Quest.Command.cmdRules.testManipulate],
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
@@ -736,7 +733,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('Smash', {
         npcCmd: true,
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresent],
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
@@ -747,7 +744,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('Turn', {
         npcCmd: true,
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
@@ -758,7 +755,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('TurnLeft', {
         npcCmd: true,
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
@@ -769,7 +766,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('TurnRight', {
         npcCmd: true,
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
@@ -780,7 +777,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('SwitchOn', {
         npcCmd: true,
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
         attName: "switchon",
         cmdCategory: "SwitchOn",
@@ -793,7 +790,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('SwitchOn2', {
         npcCmd: true,
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
         attName: "switchon",
         cmdCategory: "SwitchOn",
@@ -807,7 +804,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('SwitchOff2', {
         npcCmd: true,
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
         attName: "switchoff",
         cmdCategory: "SwitchOff",
@@ -820,7 +817,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('SwitchOff', {
         npcCmd: true,
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
         attName: "switchoff",
         cmdCategory: "SwitchOff",
@@ -834,7 +831,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('Open', {
         npcCmd: true,
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
@@ -844,7 +841,7 @@ namespace Quest {
       }),
 
       new Quest.Command.Cmd('OpenWith', {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
@@ -858,7 +855,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('Close', {
         npcCmd: true,
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
@@ -870,7 +867,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('Lock', {
         npcCmd: true,
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
@@ -880,7 +877,7 @@ namespace Quest {
       }),
 
       new Quest.Command.Cmd('LockWith', {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
@@ -894,7 +891,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('Unlock', {
         npcCmd: true,
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
@@ -904,7 +901,7 @@ namespace Quest {
       }),
 
       new Quest.Command.Cmd('UnlockWith', {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
@@ -918,7 +915,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('Push', {
         npcCmd: true,
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
@@ -930,7 +927,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('Pull', {
         npcCmd: true,
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
@@ -941,7 +938,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('Fill', {
         npcCmd: true,
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate],
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
@@ -952,7 +949,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('Empty', {
         npcCmd: true,
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
@@ -985,7 +982,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('Eat', {
         npcCmd: true,
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeldNotWorn' does not exist on type '{... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.isHeldNotWorn, Quest.Command.cmdRules.testManipulate],
         objects: [
           { special: 'text' },
@@ -997,7 +994,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('Drink', {
         npcCmd: true,
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
         objects: [
           { special: 'text' },
@@ -1009,7 +1006,6 @@ namespace Quest {
 
       new Quest.Command.Cmd('Ingest', {
         npcCmd: true,
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
         objects: [
           { special: 'text' },
@@ -1105,7 +1101,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('Use', {
         npcCmd: true,
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
@@ -1703,7 +1699,7 @@ namespace Quest {
 
 
       new Quest.Command.Cmd('PushExit', {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHere],
         cmdCategory: "Push",
         script: function (objects: any) {
@@ -1718,7 +1714,7 @@ namespace Quest {
       }),
 
       new Quest.Command.Cmd('NpcPushExit', {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHere],
         cmdCategory: "Push",
         script: function (objects: any) {
@@ -1743,7 +1739,7 @@ namespace Quest {
 
 
       new Quest.Command.Cmd('TieUp', {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
         cmdCategory: "Tie",
         objects: [
@@ -1758,7 +1754,7 @@ namespace Quest {
       }),
 
       new Quest.Command.Cmd('TieTo', {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
         cmdCategory: "Tie",
         objects: [
@@ -1775,7 +1771,7 @@ namespace Quest {
       }),
 
       new Quest.Command.Cmd('NpcTieUp', {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
         cmdCategory: "Tie",
         script: function (objects: any) {
@@ -1795,7 +1791,7 @@ namespace Quest {
       }),
 
       new Quest.Command.Cmd('NpcTieTo', {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
         cmdCategory: "Tie",
         script: function (objects: any) {
@@ -1818,7 +1814,7 @@ namespace Quest {
 
 
       new Quest.Command.Cmd('Untie', {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresent],
         cmdCategory: "Untie",
         objects: [
@@ -1833,7 +1829,7 @@ namespace Quest {
       }),
 
       new Quest.Command.Cmd('NpcUntie', {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresent],
         cmdCategory: "Tie",
         script: function (objects: any) {
@@ -1854,7 +1850,7 @@ namespace Quest {
 
 
       new Quest.Command.Cmd('UntieFrom', {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresent],
         cmdCategory: "Untie",
         objects: [
@@ -1871,7 +1867,7 @@ namespace Quest {
       }),
 
       new Quest.Command.Cmd('NpcUntieFrom', {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresent],
         cmdCategory: "Tie",
         script: function (objects: any) {
@@ -1896,7 +1892,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('UseWith', {
         //npcCmd:true,
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testManipulate' does not exist on type '... Remove this comment to see the full error message
+        
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresent],
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
@@ -2074,7 +2070,6 @@ namespace Quest {
 
     // DEBUG commands
 
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
     if (Quest.Settings.settings.playMode === 'dev') {
 
       commands.push(new Quest.Command.Cmd('DebugWalkThrough', {
@@ -2154,11 +2149,11 @@ namespace Quest {
           }
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'runTests' does not exist on type '{}'.
           if (typeof test.runTests !== 'function') {
-            console.log(test)
+            console.log(Quest.Utilities.test)
             return world.FAILED
           }
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'runTests' does not exist on type '{}'.
-          test.runTests();
+          Quest.Utilities.test.runTests();
           return world.SUCCESS_NO_TURNSCRIPTS;
         },
       }))
@@ -2306,7 +2301,7 @@ namespace Quest {
 
       commands.push(new Quest.Command.Cmd('MetaTranscriptWalkthrough', {
         script: function () {
-          saveLoad.transcriptWalk()
+          Quest.SaveLoad.saveLoad.transcriptWalk()
           return world.SUCCESS_NO_TURNSCRIPTS
         },
       }))

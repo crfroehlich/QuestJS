@@ -1,5 +1,5 @@
 namespace Quest {
-  namespace Parser {
+  export namespace Parser {
 
     //@DOC
     // ## Parser Functions
@@ -13,14 +13,13 @@ namespace Quest {
       currentCommand: '',
       // Stores the current values for it, him, etc.
       pronouns: {},
-      specialText: {},
       debug: false,
       BAD_SPECIAL: -14,
       DISALLOWED_MULTIPLE: -16,
       NO_OBJECT: -13,
       NONE_FOR_ALL: -12,
       NO_MATCH: -100,
-
+      inputTexts: [],
 
       //@DOC
       // The "parse" function should be sent either the text the player typed or null.
@@ -441,44 +440,44 @@ namespace Quest {
         Quest.IO.debugmsg(s);
       },
 
-        specialText: {
-          ignore: {
-            error: function (text: any) {
-              return false
-            },
-            exec: function (text: any) {
-              return false
-            },
+      specialText: {
+        ignore: {
+          error: function (text: any) {
+            return false
           },
-          text: {
-            error: function (text: any) {
-              return false
-            },
-            exec: function (text: any) {
-              return text
-            },
-          },
-          fluid: {
-            error: function (text: any) {
-              if (Quest.Settings.settings.fluids.includes(text)) return false
-              return processText(Quest.lang.not_a_fluid_here, { text: text })
-            },
-            exec: function (text: any) {
-              return text
-            },
-          },
-          number: {
-            error: function (text: any) {
-              if (text.match(/^\d+$/)) return false
-              if (Quest.lang.numberUnits.includes(text)) return false
-              return true
-            },
-            exec: function (text: any) {
-              if (text.match(/^\d+$/)) return parseInt(text)
-              return Quest.lang.numberUnits.indexOf(text)
-            },
+          exec: function (text: any) {
+            return false
           },
         },
+        text: {
+          error: function (text: any) {
+            return false
+          },
+          exec: function (text: any) {
+            return text
+          },
+        },
+        fluid: {
+          error: function (text: any) {
+            if (Quest.Settings.settings.fluids.includes(text)) return false
+            return processText(Quest.lang.not_a_fluid_here, { text: text })
+          },
+          exec: function (text: any) {
+            return text
+          },
+        },
+        number: {
+          error: function (text: any) {
+            if (text.match(/^\d+$/)) return false
+            if (Quest.lang.numberUnits.includes(text)) return false
+            return true
+          },
+          exec: function (text: any) {
+            if (text.match(/^\d+$/)) return parseInt(text)
+            return Quest.lang.numberUnits.indexOf(text)
+          },
+        },
+      },
 
       msg: function (...ary: any[]) {
         if (parser.debug) {
@@ -566,7 +565,7 @@ namespace Quest {
       isHeld: function (item: any) {
         return item.isAtLoc(player.name, world.PARSER) && world.ifNotDark(item);
       },
-      isHeldByNpc = function (item: any) {
+      isHeldByNpc: function (item: any) {
         const npcs = parser.scopeFromScope(parser.isReachable).filter((el: any) => el.npc);
         for (let npc of npcs) {
           if (item.isAtLoc(npc.name, world.PARSER)) return true;
@@ -636,7 +635,7 @@ namespace Quest {
       isHereOrLocationContained: function (item: any) {
         if (parser.isHere(item)) return true;
         if (parser.isLocationContained(item)) return true;
-        return,, false;
+        return false;
       },
       // Is a CONSTRUCTION and has no location 
       
@@ -648,4 +647,5 @@ namespace Quest {
       //parser.debug = true
 
     }
+  }
 }

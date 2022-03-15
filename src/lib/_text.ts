@@ -45,12 +45,12 @@ const tp = {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     if (parts[0] !== "TPUsedStrings") return Quest.IO.errormsg("Expected TP to be first")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'usedStrings' does not exist on type '{ t... Remove this comment to see the full error message
-    tp.usedStrings = saveLoad.decodeArray(parts[1])
+    tp.usedStrings = Quest.SaveLoad.saveLoad.decodeArray(parts[1])
   },
   // @ts-expect-error ts-migrate(7023) FIXME: 'getSaveString' implicitly has return type 'any' b... Remove this comment to see the full error message
   getSaveString: function () {
     // @ts-expect-error ts-migrate(7022) FIXME: 's' implicitly has type 'any' because it does not ... Remove this comment to see the full error message
-    let s = "TPUsedStrings=" + saveLoad.encodeArray(tp.usedStrings);
+    let s = "TPUsedStrings=" + Quest.SaveLoad.saveLoad.encodeArray(tp.usedStrings);
     return s;
   },
 }

@@ -96,8 +96,7 @@ Quest.Settings.settings.mapBiomes = {
   C: { name: 'coniferous forest', colour: 'darkgreen', },
   R: { name: 'rain forest', colour: 'olive', },
   M: { name: 'marsh', colour: 'teal', },
-  // @ts-expect-error ts-migrate(1117) FIXME: An object literal cannot have multiple properties ... Remove this comment to see the full error message
-  C: { name: 'chaparral', colour: 'burlywood', },
+  CH: { name: 'chaparral', colour: 'burlywood', },
   H: { name: 'heath', colour: 'sandybrown', },
 
   s: { name: 'sea', colour: 'powderblue', },

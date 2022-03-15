@@ -1452,7 +1452,7 @@ createItem("Boris", Quest.NPC.NPC(), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("timetable", Quest.NPC.AGENDA_FOLLOWER((), {
+createItem("timetable", Quest.NPC.AGENDA_FOLLOWER(), {
   counter: 0,
   script: function (n: any) {
     this.counter += (n[0] ? parseInt(n[0]) : 1)

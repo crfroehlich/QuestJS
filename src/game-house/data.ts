@@ -559,8 +559,6 @@ createItem("glass_shard", SIZE_CHANGING(), {
 createItem("paper_funnel", SIZE_CHANGING(), CONSTRUCTION(["secret_recipe"]), {
   desc5: "It is a funnel, cunningly fashioned from a piece of card.",
   desc4: "It is a tiny funnel, cunningly fashioned from a piece of tissue paper.",
-  // @ts-expect-error ts-migrate(1117) FIXME: An object literal cannot have multiple properties ... Remove this comment to see the full error message
-  desc4: "It is a small funnel, cunningly fashioned from a piece of paper.",
   desc6: "It is a large funnel, cunningly fashioned from a piece of thick card.",
   testConstruction: function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'secret_recipe' does not exist on type '{... Remove this comment to see the full error message

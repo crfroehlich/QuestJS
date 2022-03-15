@@ -48,6 +48,11 @@ createRoom("great_gallery", {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'uniform' does not exist on type '{}'.
       w.uniform.wet = 2
     }
+    // @ts-expect-error ts-migrate(1117) FIXME: An object literal cannot have multiple properties ... Remove this comment to see the full error message
+    // afterEnter() {
+    //   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    //   if (this.silverSighting[this.visited % 15]) Quest.IO.msg(this.silverSighting[this.visited % 15])
+    // },
   },
   scenery: [
     { alias: ['balustrade', 'banister', 'handrail'], examine: 'A study, but rough-cut balustrade runs the length of the gallery.' },
@@ -56,11 +61,6 @@ createRoom("great_gallery", {
   silverSighting: {
     8: 'Mandy sees a silver figure in the great hall below her. It seems to be sniffing the floor, but then it looks up at Mandy, skitters away, heading west.',
     14: 'Mandy can see another silver figure on the floor below. Again it seems to be studying the floor, before running off.',
-  },
-  // @ts-expect-error ts-migrate(1117) FIXME: An object literal cannot have multiple properties ... Remove this comment to see the full error message
-  afterEnter() {
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    if (this.silverSighting[this.visited % 15]) Quest.IO.msg(this.silverSighting[this.visited % 15])
   },
 })
 

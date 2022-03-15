@@ -2108,9 +2108,9 @@ test.tests = function () {
 
   const sl1 = "Some long string, with ~ all | sorts {} of! = stuff. In it^&*\""
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual(sl1, saveLoad.decodeString(saveLoad.encodeString(sl1)))
+  test.assertEqual(sl1, Quest.SaveLoad.saveLoad.decodeString(Quest.SaveLoad.saveLoad.encodeString(sl1)))
   const sl2 = ["Some long string, ", "with ~ all | sorts {} of! = stuff.", " In it^&*\""]
-  const sl3 = saveLoad.decodeArray(saveLoad.encodeArray(sl2))
+  const sl3 = Quest.SaveLoad.saveLoad.decodeArray(Quest.SaveLoad.saveLoad.encodeArray(sl2))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(sl2[0], sl3[0])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -2119,54 +2119,54 @@ test.tests = function () {
   test.assertEqual(sl2[2], sl3[2])
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("tst:number:14;", saveLoad.encode("tst", 14))
+  test.assertEqual("tst:number:14;", Quest.SaveLoad.saveLoad.encode("tst", 14))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("tst:boolean:false;", saveLoad.encode("tst", false))
+  test.assertEqual("tst:boolean:false;", Quest.SaveLoad.saveLoad.encode("tst", false))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("tst:boolean:true;", saveLoad.encode("tst", true))
+  test.assertEqual("tst:boolean:true;", Quest.SaveLoad.saveLoad.encode("tst", true))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("tst:string:14;", saveLoad.encode("tst", '14'))
+  test.assertEqual("tst:string:14;", Quest.SaveLoad.saveLoad.encode("tst", '14'))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("tst:qobject:book;", saveLoad.encode("tst", w.book))
+  test.assertEqual("tst:qobject:book;", Quest.SaveLoad.saveLoad.encode("tst", w.book))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("tst:array:14~12;", saveLoad.encode("tst", ['14', '12']))
+  test.assertEqual("tst:array:14~12;", Quest.SaveLoad.saveLoad.encode("tst", ['14', '12']))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("tst:numberarray:14~12;", saveLoad.encode("tst", [14, 12]))
+  test.assertEqual("tst:numberarray:14~12;", Quest.SaveLoad.saveLoad.encode("tst", [14, 12]))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("tst:emptyarray;", saveLoad.encode("tst", []))
+  test.assertEqual("tst:emptyarray;", Quest.SaveLoad.saveLoad.encode("tst", []))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("tst:emptystring;", saveLoad.encode("tst", ''))
+  test.assertEqual("tst:emptystring;", Quest.SaveLoad.saveLoad.encode("tst", ''))
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'far_away' does not exist on type '{}'.
-  saveLoad.decode(w.far_away, "one:number:14")
+  Quest.SaveLoad.saveLoad.decode(w.far_away, "one:number:14")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(14, w.far_away.one)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'far_away' does not exist on type '{}'.
-  saveLoad.decode(w.far_away, "two:string:14")
+  Quest.SaveLoad.saveLoad.decode(w.far_away, "two:string:14")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual('14', w.far_away.two)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'far_away' does not exist on type '{}'.
-  saveLoad.decode(w.far_away, "three:boolean:true")
+  Quest.SaveLoad.saveLoad.decode(w.far_away, "three:boolean:true")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(true, w.far_away.three)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'far_away' does not exist on type '{}'.
-  saveLoad.decode(w.far_away, "four:qobject:book")
+  Quest.SaveLoad.saveLoad.decode(w.far_away, "four:qobject:book")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(w.book, w.far_away.four)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'far_away' does not exist on type '{}'.
-  saveLoad.decode(w.far_away, "five:array:14~12")
+  Quest.SaveLoad.saveLoad.decode(w.far_away, "five:array:14~12")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual('14', w.far_away.five[0])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'far_away' does not exist on type '{}'.
-  saveLoad.decode(w.far_away, "six:numberarray:4~67~9")
+  Quest.SaveLoad.saveLoad.decode(w.far_away, "six:numberarray:4~67~9")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual([4, 67, 9], w.far_away.six)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'far_away' does not exist on type '{}'.
-  saveLoad.decode(w.far_away, "six:emptyarray")
+  Quest.SaveLoad.saveLoad.decode(w.far_away, "six:emptyarray")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual([], w.far_away.six)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'far_away' does not exist on type '{}'.
-  saveLoad.decode(w.far_away, "seven:string:")
+  Quest.SaveLoad.saveLoad.decode(w.far_away, "seven:string:")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual('', w.far_away.seven)
 
@@ -2182,7 +2182,7 @@ test.tests = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
   delete w.boots.special_att_3
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
-  saveLoad.setFromArray(w.boots, bootsSaveString.split(";"))
+  Quest.SaveLoad.saveLoad.setFromArray(w.boots, bootsSaveString.split(";"))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual('one', w.boots.special_att_1)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -2214,7 +2214,7 @@ test.tests = function () {
   const agendaCount = w.Arthur.agenda.length;
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual(0, w.Arthur.followers.length);
-  const s = saveLoad.saveTheWorld("Comment!!!");
+  const s = Quest.SaveLoad.saveLoad.saveTheWorld("Comment!!!");
   // Now change them again, these changes should get over-written
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
   w.boots.counter = 42;
@@ -2228,7 +2228,7 @@ test.tests = function () {
   const clone3 = cloneObject(clone);  // should not be there later
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'far_away' does not exist on type '{}'.
   w.far_away.north.locked = true
-  saveLoad.loadTheWorld(s, 4)
+  Quest.SaveLoad.saveLoad.loadTheWorld(s, 4)
 
 
 

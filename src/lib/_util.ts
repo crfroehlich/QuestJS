@@ -692,7 +692,7 @@ namespace Quest {
       getChangeListenersSaveString: function () {
         if (util.changeListeners.length === 0) return "NoChangeListeners"
         const strings = util.changeListeners.map((el: any) => el.oldValue.toString())
-        const s = "ChangeListenersUsedStrings=" + saveLoad.encodeArray(strings);
+        const s = "ChangeListenersUsedStrings=" + Quest.SaveLoad.saveLoad.encodeArray(strings);
         return s;
       },
 
@@ -703,7 +703,7 @@ namespace Quest {
         if (parts.length !== 2) return Quest.IO.errormsg("Bad format in saved data (" + s + ")")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         if (parts[0] !== "ChangeListenersUsedStrings") return Quest.IO.errormsg("Expected ChangeListenersUsedStrings to be first")
-        const strings = saveLoad.decodeArray(parts[1])
+        const strings = Quest.SaveLoad.saveLoad.decodeArray(parts[1])
         for (let i = 0; i < strings.length; i++) {
           util.changeListeners[i].oldValue = strings[i].match(/^\d+$/) ? parseInt(strings[i]) : strings[i]
         }

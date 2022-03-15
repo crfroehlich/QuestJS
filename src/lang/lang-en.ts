@@ -791,7 +791,7 @@ namespace Quest {
       Quest.IO.metamsg("If you have not already done so, I recommend checking to ensure you can see the transcript before progressing too far though the game.")
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       Quest.IO.metamsg("PLEASE NOTE: Transcripts and save games are saved in LocalStorage; if you have this set to be deleted when you close your browser, you will lose all progress!")
-      saveLoad.transcriptStart()
+      Quest.SaveLoad.saveLoad.transcriptStart()
     },
 
     game_over_html: '<p>G<br/>A<br/>M<br/>E<br/>/<br/>O<br/>V<br/>E<br/>R</p>',

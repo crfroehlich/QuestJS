@@ -313,7 +313,6 @@ const world = {
       Quest.Settings.settings.roomSetList[item.roomSet].push({ name: item.name, visited: false })
     }
 
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
     if (Quest.Settings.settings.playMode === 'dev') {
       const dirs = Quest.lang.exit_list.filter(el => el.type !== 'nocmd').map(el => el.name)
       //console.log(dirs)
@@ -557,7 +556,7 @@ const world = {
   saveGameState: function () {
     if (Quest.Settings.settings.maxUndo > 0) {
       // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'string' is not assignable to par... Remove this comment to see the full error message
-      world.gameState.push(saveLoad.getSaveBody());
+      world.gameState.push(Quest.SaveLoad.saveLoad.getSaveBody());
       if (world.gameState.length > Quest.Settings.settings.maxUndo) world.gameState.shift();
     }
   },
@@ -583,7 +582,7 @@ const game = {
     let s = "GameState="
     for (const key in this) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      if (!this.saveLoadExclude(key)) s += saveLoad.encode(key, this[key])
+      if (!this.saveLoadExclude(key)) s += Quest.SaveLoad.saveLoad.encode(key, this[key])
     }
     return s
   },
@@ -593,7 +592,7 @@ const game = {
     if (parts.length !== 2) return Quest.IO.errormsg("Bad format in saved data (" + s + ")")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     if (parts[0] !== "GameState") return Quest.IO.errormsg("Expected GameState to be second")
-    saveLoad.setFromArray(this, parts[1].split(";"));
+    Quest.SaveLoad.saveLoad.setFromArray(this, parts[1].split(";"));
   },
   // @ts-expect-error ts-migrate(7023) FIXME: 'saveLoadExclude' implicitly has return type 'any'... Remove this comment to see the full error message
   saveLoadExclude: function (att: any) {

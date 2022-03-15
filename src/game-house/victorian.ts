@@ -603,8 +603,6 @@ createRoom("gallery_south", ROOM_SET("gallery"), {
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
   north: new Exit("gallery", { msg: 'The floorboards squeak beneath her, as she heads to the north end.' }),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  east: new Exit("room_small"),
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   south: new Exit("upper_steam_hall"),
   // @ts-expect-error ts-migrate(1117) FIXME: An object literal cannot have multiple properties ... Remove this comment to see the full error message
   east: new Exit("_", {

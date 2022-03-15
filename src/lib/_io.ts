@@ -7,7 +7,7 @@ namespace Quest {
       if (world.isCreated) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'print' does not exist on type '{ nextid:... Remove this comment to see the full error message
         io.print({ tag: 'p', cssClass: "error", text: Quest.lang.error })
-        saveLoad.transcriptAppend({ cssClass: 'error', text: msg, stack: err.stack, })
+        Quest.SaveLoad.saveLoad.transcriptAppend({ cssClass: 'error', text: msg, stack: err.stack, })
       }
       if (suppressTrace) return false
       console.log('Look through the trace below to find the offending code. The first entry in the list may be "errormsg" in the file "_io.js", which is me so can be ignored. The next will the code that detected the error and called the "errormsg" message. You may need to look further down to find the root cause, especially for a text process issue.')
@@ -775,7 +775,6 @@ namespace Quest {
         link.href = path + Quest.Settings.settings.favicon
         tab.document.head.appendChild(link)
       },
-      enable: () => { },
       // This is used by the various menu functions (not showMenuDiag).
       input: function (title: any, options: any, disableTextFunction: any, reactFunction: any, displayFunction: any, failFunction: any) {
         // Store the values so we can use them later in io.menuResponse
@@ -899,7 +898,7 @@ namespace Quest {
           const html = io.print(data)
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'speak' does not exist on type '{ nextid:... Remove this comment to see the full error message
           io.speak(data.text);
-          saveLoad.transcriptAppend(data);
+          Quest.SaveLoad.saveLoad.transcriptAppend(data);
           io.outputFromQueue()
         }
         if (data?.action === 'func') {
@@ -1301,7 +1300,7 @@ namespace Quest {
         // handle good number
         else {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'menuOptions' does not exist on type '{ n... Remove this comment to see the full error message
-          saveLoad.transcriptAppend({ cssClass: 'menu', text: (io.menuOptions[n].alias ? io.menuOptions[n].alias : io.menuOptions[n]), n: n });
+          Quest.SaveLoad.saveLoad.transcriptAppend({ cssClass: 'menu', text: (io.menuOptions[n].alias ? io.menuOptions[n].alias : io.menuOptions[n]), n: n });
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'menuFn' does not exist on type '{ nextid... Remove this comment to see the full error message
           io.menuFn(io.menuOptions[n]);
         }
@@ -1322,7 +1321,7 @@ namespace Quest {
         // stop disabling input
         io.enable()
 
-        saveLoad.transcriptAppend({ cssClass: 'menu', text: s })
+        Quest.SaveLoad.saveLoad.transcriptAppend({ cssClass: 'menu', text: s })
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'menuFn' does not exist on type '{ nextid... Remove this comment to see the full error message
         if (io.menuFn) io.menuFn(s);
         endTurnUI(true);
@@ -1500,7 +1499,7 @@ namespace Quest {
 
       msgInputText: function (s: any) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'transcriptWalkthrough' does not exist on... Remove this comment to see the full error message
-        if (saveLoad.transcript) saveLoad.transcriptWalkthrough.push('    "' + s + '",')
+        if (Quest.SaveLoad.saveLoad.transcript) Quest.SaveLoad.saveLoad.transcriptWalkthrough.push('    "' + s + '",')
         if (!Quest.Settings.settings.cmdEcho || s === '') return
         // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
         document.querySelector("#output").innerHTML += '<p id="n' + io.nextid + '" class="input-text">&gt; ' + s + "</p>"
@@ -1518,7 +1517,7 @@ namespace Quest {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
         if (Quest.Settings.settings.playMode === 'play') window.oncontextmenu = function () { return false }
         // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-        document.querySelector("#fileDialog").onchange = saveLoad.loadGameAsFile
+        document.querySelector("#fileDialog").onchange = Quest.SaveLoad.saveLoad.loadGameAsFile
 
         document.addEventListener('keydown', function (event) {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'keydownFunction' does not exist on type ... Remove this comment to see the full error message
@@ -1756,7 +1755,7 @@ namespace Quest {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'finishMetaComment' does not exist on typ... Remove this comment to see the full error message
         if (Quest.Settings.settings.finishMetaComment) metamsg(Quest.Settings.settings.finishMetaComment)
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
-        if (saveLoad.transcriptExists()) metamsg(Quest.lang.transcript_finish)
+        if (Quest.SaveLoad.saveLoad.transcriptExists()) metamsg(Quest.lang.transcript_finish)
       },
 
       toggleDarkMode: function () {

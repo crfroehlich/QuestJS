@@ -1007,8 +1007,6 @@ createItem("tamarind_pod_on_tree", {
   alias: 'tamarind pod',
   locList: ['greenhouse_catwalk_east', 'greenhouse_east'],
   isLocatedAt: function (room_name: any) { return this.locList.includes(room_name) },
-  // @ts-expect-error ts-migrate(1117) FIXME: An object literal cannot have multiple properties ... Remove this comment to see the full error message
-  alias: 'tamarind pod',
   scenery: true,
   parserPriority: -10,
   examine: 'The pods are pale brown, knobbly and about as long as her hand. They hang high up, but while the leaves spread out, they are clustered close to the trunk{if:player:loc:greenhouse_catwalk_east:, so out of reach from the catwalk}.',
