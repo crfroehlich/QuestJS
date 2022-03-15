@@ -43,11 +43,11 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('GoTo', {
   script: function (objects: any) {
     const room = objects[0][0]
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (room === currentLocation) return Quest.IO.failedmsg("As if by magic, you are suddenly... where you already were.")
+    if (room === Quest.World.currentLocation) return Quest.IO.failedmsg("As if by magic, you are suddenly... where you already were.")
     if (!room.room) return Quest.IO.failedmsg("{pv:item:be:true} not a destination.", { item: room })
-    for (const ex of currentLocation.dests) {
+    for (const ex of Quest.World.currentLocation.dests) {
       if (room.name === ex.name) {
-        return ex.use(player, ex) ? world.SUCCESS : world.FAILED
+        return ex.use(Quest.World.player, ex) ? Quest.World.world.SUCCESS : Quest.World.world.FAILED
       }
     }
     return Quest.IO.failedmsg("{pv:item:be:true} not a destination you can get to from here.", { item: room })
@@ -89,7 +89,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Phone', {
   ],
   script: function (objects: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'phone' does not exist on type '{}'.
-    return w.phone.makeCall(objects[0][0]) ? world.SUCCESS : world.FAILED
+    return Quest.World.w.phone.makeCall(objects[0][0]) ? Quest.World.world.SUCCESS : Quest.World.world.FAILED
   },
 }))
 
@@ -103,10 +103,10 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('HangUp', {
   ],
   script: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (!player.onPhoneTo) return Quest.IO.failedmsg("You are not on a call.")
+    if (!Quest.World.player.onPhoneTo) return Quest.IO.failedmsg("You are not on a call.")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'phone' does not exist on type '{}'.
-    w.phone.hangUp()
-    return world.SUCCESS
+    Quest.World.w.phone.hangUp()
+    return Quest.World.world.SUCCESS
   },
 }))
 
@@ -133,7 +133,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('DialogTest', {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("You picked " + result)
     })
-    return world.SUCCESS_NO_TURNSCRIPTS
+    return Quest.World.world.SUCCESS_NO_TURNSCRIPTS
   },
 }))
 

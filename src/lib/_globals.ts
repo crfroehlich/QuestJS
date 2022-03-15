@@ -3,7 +3,7 @@ type TState = {
 }
 
 export const globals: TState = {
-  world: {},
+  world: { },
   player: {},
   settings: {},
 }

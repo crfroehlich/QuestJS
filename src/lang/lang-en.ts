@@ -500,7 +500,7 @@ namespace Quest {
       if (!char.postureFurniture && char.posture === "standing") return ""
       const options = { char: char }
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      if (w[char.postureFurniture]) options.item = w[char.postureFurniture]
+      if (Quest.World.w[char.postureFurniture]) options.item = Quest.World.w[char.postureFurniture]
       char.posture = false
       char.postureFurniture = false
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'item' does not exist on type '{ char: an... Remove this comment to see the full error message
@@ -549,13 +549,13 @@ namespace Quest {
     // the NPC has already been moved, so npc.loc is the destination
     npc_entering_msg: function (npc: any, exit: any) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      let flag = npc.inSight(w[exit.name])
+      let flag = npc.inSight(Quest.World.w[exit.name])
       if (!flag) return
       if (exit.npcEnterMsg) { return exit.npcEnterMsg(npc) }
       let s = typeof flag === 'string' ? flag + " {nv:npc:enter}" : "{nv:npc:enter:true}"
       s += " {nm:room:the} from {show:dir}."
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      Quest.IO.msg(s, { room: w[exit.name], npc: npc, dir: exit.reverseNice() })
+      Quest.IO.msg(s, { room: Quest.World.w[exit.name], npc: npc, dir: exit.reverseNice() })
     },
 
     //----------------------------------------------------------------------------------------------
@@ -606,7 +606,7 @@ namespace Quest {
     helpScript: function () {
       if (Quest.Settings.settings.textInput) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        Quest.IO.metamsg("Type commands in the command bar to interact with the world.");
+        Quest.IO.metamsg("Type commands in the command bar to interact with the Quest.World.world.");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         Quest.IO.metamsg("{b:Movement:} To move, use the eight compass directions (or just {class:help-eg:N}, {class:help-eg:NE}, etc.). When \"Num Lock\" is on, you can use the number pad for all eight compass directions. Also try - and + for {class:help-eg:UP} and {class:help-eg:DOWN}, / and * for {class:help-eg:IN} and {class:help-eg:OUT}.");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -655,13 +655,13 @@ namespace Quest {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'additionalHelp' does not exist on type '... Remove this comment to see the full error message
         for (const s of Quest.Settings.settings.additionalHelp) Quest.IO.metamsg(s)
       }
-      return world.SUCCESS_NO_TURNSCRIPTS
+      return Quest.World.world.SUCCESS_NO_TURNSCRIPTS
     },
 
     hintScript: function () {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       Quest.IO.metamsg("Sorry, no hints available.")
-      return world.SUCCESS_NO_TURNSCRIPTS
+      return Quest.World.world.SUCCESS_NO_TURNSCRIPTS
     },
 
     aboutScript: function () {
@@ -680,7 +680,7 @@ namespace Quest {
       }
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'ifid' does not exist on type '{ performa... Remove this comment to see the full error message
       if (Quest.Settings.settings.ifid) Quest.IO.metamsg("{i:IFDB number:} " + Quest.Settings.settings.ifid)
-      return world.SUCCESS_NO_TURNSCRIPTS
+      return Quest.World.world.SUCCESS_NO_TURNSCRIPTS
     },
 
     warningsScript: function () {
@@ -693,7 +693,7 @@ namespace Quest {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'warnings' does not exist on type '{ perf... Remove this comment to see the full error message
         default: for (const el of Quest.Settings.settings.warnings) Quest.IO.metamsg(el)
       }
-      return world.SUCCESS_NO_TURNSCRIPTS;
+      return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
     },
 
     saveLoadScript: function () {
@@ -727,7 +727,7 @@ namespace Quest {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       Quest.IO.metamsg("There is no built-in facility to list or delete games saved as files, though you can delete through your normal file manager.")
 
-      return world.SUCCESS_NO_TURNSCRIPTS;
+      return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
     },
 
 
@@ -745,7 +745,7 @@ namespace Quest {
       Quest.IO.metamsg("Everything gets saved to \"LocalStorage\", so will be saved between sessions. If you complete the game the text input will disappear, however if you have a transcript recording, a link will be available to access it.");
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       Quest.IO.metamsg("Transcript is currently: " + (Quest.IO.io.transcript ? 'on' : 'off'))
-      return world.SUCCESS_NO_TURNSCRIPTS;
+      return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
     },
 
     transcriptTitle: function () {
@@ -771,7 +771,7 @@ namespace Quest {
     topicsScript: function () {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       Quest.IO.metamsg("Use TOPICS FOR [name] to see a list of topic suggestions to ask a character about (if implemented in this game).");
-      return world.SUCCESS_NO_TURNSCRIPTS;
+      return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
     },
 
     betaTestIntro: function () {
@@ -993,9 +993,8 @@ namespace Quest {
     // If the item has 'defArticle' it returns that; if it has a proper name, returns an empty string.
     addDefiniteArticle: function (item: any) {
       // test if player exists yet in case this is used during item creation
-      if (player && item.owner === player.name) return player.pronouns.poss_adj + " "
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      if (item.owner) return lang.getName(w[item.owner], { possessive: true }) + " "
+      if (Quest.World.player.ready && item.owner === Quest.World.player.name) return Quest.World.player.pronouns.poss_adj + " "
+      if (item.owner) return lang.getName(Quest.World.w[item.owner], { possessive: true }) + " "
       if (item.defArticle) return item.defArticle + " "
       return item.properNoun ? "" : "the "
     },
@@ -1006,9 +1005,8 @@ namespace Quest {
     // If it starts with a vowel, it returns "an ", otherwise "a ".
     addIndefiniteArticle: function (item: any) {
       // test if player exists yet in case this is used during item creation
-      if (player && item.owner === player.name) return player.pronouns.poss_adj + " "
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      if (item.owner) return lang.getName(w[item.owner], { possessive: true }) + " "
+      if (Quest.World.player.ready && item.owner === Quest.World.player.name) return Quest.World.player.pronouns.poss_adj + " "
+      if (item.owner) return lang.getName(Quest.World.w[item.owner], { possessive: true }) + " "
       if (item.indefArticle) return item.indefArticle + " "
       if (item.properNoun) return ""
       if (item.pronouns === lang.pronouns.plural) return "some "
@@ -1030,7 +1028,7 @@ namespace Quest {
       // and we need to be clear which item the count belongs to
       let count = options[item.name + '_count'] ? options[item.name + '_count'] : false
       // Or we can set count_this to an attribute, and use that to get the number
-      // Quest.Text.processText("Mandy watches as {nv:item:grow:false:count_this}.", {item:w.grown_tamarind_tree, count_this:'seedsPlanted'})
+      // Quest.Text.processText("Mandy watches as {nv:item:grow:false:count_this}.", {item:Quest.World.w.grown_tamarind_tree, count_this:'seedsPlanted'})
       if (options.count_this) count = item[options.count_this]
       // Or use suppressCount if we do not want the number, but do want it plural when it should
       if (!count && options.suppressCount) count = item[options.suppressCount]
@@ -1088,7 +1086,6 @@ namespace Quest {
       if (options.capital) s = Quest.Utilities.sentenceCase(s)
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'nameTransformer' does not exist on type ... Remove this comment to see the full error message
       if (Quest.Settings.settings.nameTransformer) s = Quest.Settings.settings.nameTransformer(s, item, options)
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'getNameModifiers' does not exist on type... Remove this comment to see the full error message
       s += Quest.Utilities.util.getNameModifiers(item, options)
       return s
     },
@@ -1180,22 +1177,7 @@ namespace Quest {
       return s + 's'
     },
 
-
-
-
-
-
-
-
-
-
-
-
-
     // Conjugating
-
-
-
 
     //@DOC
     // Returns the verb properly conjugated for the item, so "go" with a ball would return
@@ -1233,8 +1215,6 @@ namespace Quest {
       return options.capitalise ? Quest.Utilities.sentenceCase(verb) : verb
     },
 
-
-
     //@DOC
     // Returns the pronoun for the item, followed by the conjugated verb,
     // so "go" with a ball would return "it goes", but "go" with the player (if using second person pronouns)
@@ -1265,7 +1245,7 @@ namespace Quest {
     // would return the pronoun "you go".
     // The first letter is capitalised if 'capitalise' is true.
     nounVerb: function (item: any, verb: any, options: any) {
-      if (item === player && !player.useproperNoun) {
+      if (item === Quest.World.player && !Quest.World.player.useproperNoun) {
         return lang.pronounVerb(item, verb, options);
       }
       if (options.article === undefined) options.article = Quest.Utilities.DEFINITE
@@ -1275,7 +1255,7 @@ namespace Quest {
     },
 
     verbNoun: function (item: any, verb: any, options: any) {
-      if (item === player) {
+      if (item === Quest.World.player) {
         return lang.pronounVerb(item, verb, options);
       }
       if (options.article === undefined) options.article = Quest.Utilities.DEFINITE

@@ -27,12 +27,12 @@ const EQUIPPABLE = function () {
   res.afterCreation = function (o) {
     o.oldRpgOnCreation(o)
     o.verbFunctions.push(function (o: any, verbList: any) {
-      if (o.isAtLoc(player)) {
+      if (o.isAtLoc(Quest.World.player)) {
         verbList.push(o.equipped ? Quest.lang.verbs.unequip : Quest.lang.verbs.equip)
       }
     })
     o.nameModifierFunctions.push(function (o: any, list: any) {
-      if (o.equipped && o.isAtLoc(player.name)) list.push(Quest.lang.invModifiers.equipped)
+      if (o.equipped && o.isAtLoc(Quest.World.player.name)) list.push(Quest.lang.invModifiers.equipped)
     })
   }
 
@@ -51,7 +51,7 @@ const EQUIPPABLE = function () {
   res.equip = function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'getObstructing' does not exist on type '... Remove this comment to see the full error message
     const equipped = this.getObstructing(options.char)
-    if (equipped.includes(this)) return falsemsg(Quest.lang.already, options)
+    if (equipped.includes(this)) return Quest.IO.falsemsg(Quest.lang.already, options)
     if (equipped.length === 0) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
       Quest.IO.msg(Quest.lang.equip, options)
@@ -70,7 +70,7 @@ const EQUIPPABLE = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'unequip' does not exist on type '{ after... Remove this comment to see the full error message
   res.unequip = function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'equipped' does not exist on type '{ afte... Remove this comment to see the full error message
-    if (!this.equipped) return falsemsg(Quest.lang.already, options)
+    if (!this.equipped) return Quest.IO.falsemsg(Quest.lang.already, options)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'equipped' does not exist on type '{ afte... Remove this comment to see the full error message
     this.equipped = false
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
@@ -117,15 +117,15 @@ new Effect("Ammo consumer", {
   modifyOutgoingAttack: function (attack: any, source: any) {
     if (!source.equipped) return
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    const item = w[source.ammo]
+    const item = Quest.World.w[source.ammo]
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     if (!item) return Quest.IO.errormsg("The weapon " + source.name + " has an unknown ammo set: " + source.ammo)
-    if (item.countAtLoc(player.name) < 1) {
+    if (item.countAtLoc(Quest.World.player.name) < 1) {
       attack.msg("Out of ammo!", 1)
       attack.abort = true
     }
     else {
-      item.takeFrom(player.name, 1)
+      item.takeFrom(Quest.World.player.name, 1)
     }
   },
 })
@@ -212,9 +212,9 @@ const ONE_USE_ITEM = function (spellName: any, requiresTarget: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'use' does not exist on type '{ afterCrea... Remove this comment to see the full error message
   res.use = function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'requiresTarget' does not exist on type '... Remove this comment to see the full error message
-    if (this.requiresTarget) return falsemsg("You need to specify a target when using this item.")
+    if (this.requiresTarget) return Quest.IO.falsemsg("You need to specify a target when using this item.")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'loc' does not exist on type '{ afterCrea... Remove this comment to see the full error message
-    if (this.loc !== options.char.name) return falsemsg("You need to be holding {nm:item:the} when using {sb:item}.", options)
+    if (this.loc !== options.char.name) return Quest.IO.falsemsg("You need to be holding {nm:item:the} when using {sb:item}.", options)
 
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     const attack = Attack.createAttack(options.char, null, rpg.findSkill(this.spellName), this)
@@ -228,9 +228,9 @@ const ONE_USE_ITEM = function (spellName: any, requiresTarget: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'useWith' does not exist on type '{ after... Remove this comment to see the full error message
   res.useWith = function (char: any, target: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'requiresTarget' does not exist on type '... Remove this comment to see the full error message
-    if (!this.requiresTarget) return falsemsg("You should not specify a target when using this item.")
+    if (!this.requiresTarget) return Quest.IO.falsemsg("You should not specify a target when using this item.")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'loc' does not exist on type '{ afterCrea... Remove this comment to see the full error message
-    if (this.loc !== char.name) return falsemsg("You need to be holding {nm:item:the} when using {sb:item}.", { item: this })
+    if (this.loc !== char.name) return Quest.IO.falsemsg("You need to be holding {nm:item:the} when using {sb:item}.", { item: this })
 
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     const attack = Attack.createAttack(char, target, rpg.findSkill(this.spellName), this)
@@ -273,14 +273,14 @@ const POTION = function (spellName: any) {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("weapon_unarmed", WEAPON(), {
+Quest.World.createItem("weapon_unarmed", WEAPON(), {
   image: "fist",
   damage: "d4",
   offensiveBonus: -2,
   alias: "unarmed",
   scenery: true,
   isLocatedAt: function (loc: any, situation: any) {
-    return (situation === world.PARSER || situation === world.ALL) && loc === player.name
+    return (situation === Quest.World.world.PARSER || situation === Quest.World.world.ALL) && loc === Quest.World.player.name
   },
 })
 

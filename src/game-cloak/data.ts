@@ -1,6 +1,6 @@
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("me", Quest.Templates.PLAYER(), {
+Quest.World.createItem("me", Quest.Templates.PLAYER(), {
   loc: "lobby",
   synonyms: ["me", "myself", "player"],
   examine: "Just a regular guy.",
@@ -8,14 +8,14 @@ createItem("me", Quest.Templates.PLAYER(), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem('cloak', Quest.Templates.WEARABLE(), {
+Quest.World.createItem('cloak', Quest.Templates.WEARABLE(), {
   examine: 'The cloak is black... Very black... So black it seems to absorb light.',
   worn: true,
   loc: 'me'
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("lobby", {
+Quest.World.createRoom("lobby", {
   desc: "There is something oppressive about the {cloakHere:dark:dingy} {once:room:foyer}; a presence in the air that almost suffocates you. It's former glory has all but faded; the walls still sport old posters from productions that ended over twenty years ago. Paint is peeling, dust is everywhere and it smells decidedly musty. You can see doors to the north, west and south.",
   beforeFirstEnter: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -26,7 +26,7 @@ createRoom("lobby", {
     Quest.IO.msg("")
   },
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  north: new Exit('lobby', {
+  north: new Quest.World.Exit('lobby', {
     use: function () {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg('You try the doors out of the opera house, but they are locked. {once:{i:How did that happen?} you wonder.}')
@@ -34,15 +34,15 @@ createRoom("lobby", {
     }
   }),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  west: new Exit('cloakroom'),
+  west: new Quest.World.Exit('cloakroom'),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  south: new Exit('bar'),
+  south: new Quest.World.Exit('bar'),
   smell: 'It smells of damp and neglect in here.',
 })
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem('posters', {
+Quest.World.createItem('posters', {
   examine: 'The posters are ripped and peeling off the wall.',
   read: 'You spend a few minutes reading about the shows they put on twenty-odd years ago.... {i:Die Zauberflöte}... {i:Guillaume Tell}... {i:A Streetcar Named Desire}. Wasn\'t that a play?',
   scenery: true,
@@ -56,15 +56,15 @@ createItem('posters', {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("cloakroom", {
+Quest.World.createRoom("cloakroom", {
   desc: function () {
     let s = "The cloakroom is {cloakHere:dimly:brightly} lit, and is little more than a cupboard. "
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'cloak' does not exist on type '{}'.
-    if (w.cloak.isAtLoc('hook')) {
+    if (Quest.World.w.cloak.isAtLoc('hook')) {
       s = s + "Your cloak is hung from the only hook."
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'cloak' does not exist on type '{}'.
-    else if (w.cloak.isAtLoc(this)) {
+    else if (Quest.World.w.cloak.isAtLoc(this)) {
       s = s + "There is a single hook, which apparently was not good enough for you, to judge from the cloak on the floor."
     }
     else {
@@ -73,18 +73,18 @@ createRoom("cloakroom", {
     return s + " The only way out is back to the east. "
   },
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  east: new Exit('lobby'),
+  east: new Quest.World.Exit('lobby'),
 })
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem('hook', Quest.Templates.SURFACE(), {
+Quest.World.createItem('hook', Quest.Templates.SURFACE(), {
   synonyms: ["peg"],
   hookable: true,
   scenery: true,
   examine: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'cloak' does not exist on type '{}'.
-    if (w.cloak.isAtLoc('hook')) {
+    if (Quest.World.w.cloak.isAtLoc('hook')) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("An ornate brass hook, with a cloak hanging from it.")
     }
@@ -103,7 +103,7 @@ createItem('hook', Quest.Templates.SURFACE(), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("bar", {
+Quest.World.createRoom("bar", {
   desc: function () {
     if (cloakHere()) {
       return "It is too dark to see anything except the door to the north."
@@ -114,21 +114,21 @@ createRoom("bar", {
   },
   beforeEnter: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'message' does not exist on type '{}'.
-    w.message.visible = !cloakHere()
+    Quest.World.w.message.visible = !cloakHere()
   },
   afterExit: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'message' does not exist on type '{}'.
-    w.message.count = 0
+    Quest.World.w.message.count = 0
   },
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  north: new Exit('lobby'),
+  north: new Quest.World.Exit('lobby'),
   smell: 'There is a musty smell, but behind that, something else, something that reminds you of the zoo, perhaps?',
   listen: 'Is there something moving?',
 })
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem('message', {
+Quest.World.createItem('message', {
   synonyms: ["writing", "note", "dust"],
   count: 0,
   disturbed: 0,
@@ -154,7 +154,7 @@ createItem('message', {
   read: function () { this.examine() },
   eventPeriod: 1,
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'finished' does not exist on type '{ next... Remove this comment to see the full error message
-  eventIsActive: function () { return player.isAtLoc('bar') && !Quest.IO.io.finished },
+  eventIsActive: function () { return Quest.World.player.isAtLoc('bar') && !Quest.IO.io.finished },
   eventScript: function () {
     this.count++
     if (this.count > 1) {
@@ -163,7 +163,7 @@ createItem('message', {
         Quest.IO.msg("You think it might be a bad idea to disturb things in the dark.")
       }
       else {
-        if (!player.suppress_background_sounds) {
+        if (!Quest.World.player.suppress_background_sounds) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("You can hear {random:scratching:something moving in the dark:rasping breathing}.")
         }
@@ -182,9 +182,9 @@ createItem('message', {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem('walls', {
+Quest.World.createItem('walls', {
   examine: function () {
-    if (cloakHere() && player.isAtLoc('bar')) {
+    if (cloakHere() && Quest.World.player.isAtLoc('bar')) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("It is too dark to see the walls.")
     }
@@ -195,13 +195,13 @@ createItem('walls', {
   },
   scenery: true,
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  isLocatedAt: function (loc: any) { return w[loc].room },
+  isLocatedAt: function (loc: any) { return Quest.World.w[loc].room },
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem('ceiling', {
+Quest.World.createItem('ceiling', {
   examine: function () {
-    if (cloakHere() && player.isAtLoc('bar')) {
+    if (cloakHere() && Quest.World.player.isAtLoc('bar')) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("It is too dark to see the ceiling.")
     }
@@ -212,14 +212,14 @@ createItem('ceiling', {
   },
   scenery: true,
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  isLocatedAt: function (loc: any) { return w[loc].room },
+  isLocatedAt: function (loc: any) { return Quest.World.w[loc].room },
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem('floor', {
+Quest.World.createItem('floor', {
   synonyms: ["carpet"],
   examine: function () {
-    if (cloakHere() && player.isAtLoc('bar')) {
+    if (cloakHere() && Quest.World.player.isAtLoc('bar')) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("It is too dark to see the floor.")
     }
@@ -230,13 +230,13 @@ createItem('floor', {
   },
   scenery: true,
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  isLocatedAt: function (loc: any) { return w[loc].room },
+  isLocatedAt: function (loc: any) { return Quest.World.w[loc].room },
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem('doors', {
+Quest.World.createItem('doors', {
   examine: function () {
-    if (cloakHere() && player.isAtLoc('bar')) {
+    if (cloakHere() && Quest.World.player.isAtLoc('bar')) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("It is too dark to see the door properly.")
     }
@@ -247,5 +247,5 @@ createItem('doors', {
   },
   scenery: true,
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  isLocatedAt: function (loc: any) { return w[loc].room },
+  isLocatedAt: function (loc: any) { return Quest.World.w[loc].room },
 })

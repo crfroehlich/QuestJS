@@ -170,16 +170,16 @@ namespace Quest {
       ifid?: string;
       imagesFolder?: string;
       inventoryPane: IInventoryPane[] = [
-        { name: 'Items Held', alt: 'itemsHeld', test: this.isHeldNotWorn, getLoc: function () { return player.name; } },
-        { name: 'Items Worn', alt: 'itemsWorn', test: this.isWorn, getLoc: function () { return player.name; } },
-        { name: 'Items Here', alt: 'itemsHere', test: this.isHere, getLoc: function () { return player.loc; } },
+        { name: 'Items Held', alt: 'itemsHeld', test: this.isHeldNotWorn, getLoc: function () { return Quest.World.player.name; } },
+        { name: 'Items Worn', alt: 'itemsWorn', test: this.isWorn, getLoc: function () { return Quest.World.player.name; } },
+        { name: 'Items Here', alt: 'itemsHere', test: this.isHere, getLoc: function () { return Quest.World.player.loc; } },
       ];
       lang?: string;
       libraries: string[] = [];
       lookCountsAsTurn?: boolean;
       mapAndImageCollapseAt?: number;
       mapStyle?: IMapStyle;
-      maxUndo?: number;
+      maxUndo: number = 1000;
       mediaQuery?: ICustomPaneFunctions;
       moneyFormat?: string;
       narrowMode?: number;
@@ -240,14 +240,14 @@ namespace Quest {
 
       // Functions for the side panes lists
       isHeldNotWorn(item: any) {
-        return item.isAtLoc(player.name, world.SIDE_PANE) && world.ifNotDark(item) && !item.getWorn();
+        return item.isAtLoc(Quest.World.player.name, Quest.World.world.SIDE_PANE) && Quest.World.world.ifNotDark(item) && !item.getWorn();
       }
       isHere(item: any) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'sceneryInSidePane' does not exist on typ... Remove this comment to see the full error message
-        return item.isAtLoc(player.loc, this.sceneryInSidePane ? world.PARSER : world.SIDE_PANE) && world.ifNotDark(item);
+        return item.isAtLoc(Quest.World.player.loc, this.sceneryInSidePane ? Quest.World.world.PARSER : Quest.World.world.SIDE_PANE) && Quest.World.world.ifNotDark(item);
       }
       isWorn(item: any) {
-        return item.isAtLoc(player.name, world.SIDE_PANE) && world.ifNotDark(item) && item.getWorn();
+        return item.isAtLoc(Quest.World.player.name, Quest.World.world.SIDE_PANE) && Quest.World.world.ifNotDark(item) && item.getWorn();
       }
 
       // This is split out for Quest.IO.io.showInTab to use
@@ -312,7 +312,7 @@ namespace Quest {
             this.performanceLog('Audio loaded')
           }
 
-          world.init()
+          Quest.World.world.init()
           this.performanceLog('World initiated')
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'init' does not exist on type '{ nextid: ... Remove this comment to see the full error message
           Quest.IO.io.init()
@@ -389,7 +389,7 @@ namespace Quest {
           Quest.IO.io.enable()
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogOnClick' does not exist on... Remove this comment to see the full error message
           this.startingDialogOnClick()
-          world.begin()
+          Quest.World.world.begin()
           // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
           if (this.textInput) { document.querySelector('#textbox').focus(); }
           // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
@@ -430,12 +430,12 @@ namespace Quest {
       // The side panes
       panes: 'left',           //Can be set to Left, Right or None (setting PANES to None will more than double the speed of your game!)
       panesCollapseAt: 700,
-      compassPane: true,           // Set to true to have a compass world.
+      compassPane: true,           // Set to true to have a compass Quest.World.world.
       symbolsForCompass: true,
       statusPane: "Status",    // Title of the panel; set to false to turn off
       statusWidthLeft: 120,    // How wide the left column is in the status pane
       statusWidthRight: 40,    // How wide the right column is in the status pane
-      status: [() => ("<td>Health points:</td><td>" + player.hitpoints + "</td>")],
+      status: [() => ("<td>Health points:</td><td>" + Quest.World.player.hitpoints + "</td>")],
       customPaneFunctions: {},
 
       // Other UI settings
@@ -448,7 +448,7 @@ namespace Quest {
         "{terse:{hereDesc}}",
         "{objectsHere:You can see {objects} here.}",
         "{exitsHere:You can go {exits}.}",
-        "{ifNot:settings:playMode:play:{ifExists:currentLocation:todo:{class:todo:{show:currentLocation:todo}}}}",
+        "{ifNot:settings:playMode:play:{ifExists:Quest.World.currentLocation:todo:{class:todo:{show:Quest.World.currentLocation:todo}}}}",
       ],
       silent: false,
       walkthroughMenuResponses: [],

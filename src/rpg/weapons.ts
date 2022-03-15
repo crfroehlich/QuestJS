@@ -1,78 +1,78 @@
 
 const weapons = [
-  {name:"Dagger", damage:"d6", atts:"msFT", desc:"Can be concealed"},
-  {name:"Short sword", damage:"2d6", atts:"msF", desc:"Use if you want to go first; bonus to initiative"},
-  {name:"Broad sword", damage:"2d8", atts:"ms", desc:"Also sword, etc. Good general purpose weapon"},
-  {name:"Sabre", damage:"3d6", atts:"ms", desc:"Also scimitar, etc. Good for unarmoured foes"},
-  {name:"Two-handed sword", damage:"3d8", atts:"MsX", desc:"Requires skill, but does good damage, especially to unarmed foes"},
-  {name:"Wood axe", damage:"d8", atts:"maST", desc:"Cheap and readily available!"},
-  {name:"Battle axe", damage:"d10", atts:"maS", desc:"Good against armoured foes, but slow"},
-  {name:"Great axe", damage:"2d10", atts:"MaSX", desc:"Requires skill, but does good damage, especially to unarmed foes"},
-  {name:"Club", damage:"2d4", atts:"mb", desc:"Includes improvised weapons"},
-  {name:"Mace", damage:"d10", atts:"mb", desc:"Good against armed foes"},
-  {name:"Flanged mace", damage:"d12", atts:"ma", desc:"Good against armed foes"},
-  {name:"Morning star", damage:"2d8", atts:"ma", desc:"All round weapon"},
-  {name:"Flail", damage:"d12", atts:"MaXY", desc:"Requires skill, especially good against armoured foes with shields"},
-  {name:"Quarterstaff", damage:"2d4", atts:"MbD", desc:"Good for defense"},
-  {name:"Warhammer", damage:"2d10", atts:"mbS", desc:"Slow but good damage"},
-  {name:"Two-handed hammer", damage:"2d12", atts:"MbSX", desc:"Lots of damage, but slow and requires skill"},
-  {name:"Spear", damage:"2d8", atts:"MpR2XST", desc:"Extra reach, can be used as a thrown weapon too (also javelin or trident)"},
-  {name:"Polearm", damage:"3d8", atts:"MpR2XS", desc:"Extra reach"},
-  {name:"Halberd", damage:"3d6", atts:"MpR2XSH", desc:"Extra reach, and can be used to hook a foe"},
-  {name:"Whip", damage:"4d4", atts:"msR2XS", desc:"Requires skill, but good against unarmed and extra reach"},
-  {name:"Bull whip", damage:"4d4", atts:"msR3XS]", desc:"As whip, but even more reach"},
-  
-  
-  {name:"Thrown rock", damage:"d4", atts:"tb", desc:"Or anything of a decent size and weight to throw"},
-  {name:"Sling", damage:"2d4", atts:"tbL0", desc:"Cheap ammo"},
-  {name:"Short bow", damage:"2d6", atts:"bpL0X", desc:"Fast reload"},
-  {name:"Long bow", damage:"3d6", atts:"bpFL0X", desc:"Takes a minor action to reload, but decent damage against unarmoured"},
-  {name:"Light crossbow", damage:"d12", atts:"bpL0X", desc:"Takes a minor action to reload, but decent against armoured foes"},
-  {name:"Heavy crossbow", damage:"d20", atts:"bpL1X", desc:"Takes a full standard action to reload, but good against armoured foes"},
-  {name:"Flintlock", damage:"2d12", atts:"fpL2", desc:"Very noisy. Takes two full standard actions to reload, and expensive to use."},
-  {name:"Musket", damage:"2d20", atts:"FpL2", desc:"Very noisy. Takes two full standard actions to reload, and expensive to use, but look at all the damage!"},
+  { name: "Dagger", damage: "d6", atts: "msFT", desc: "Can be concealed" },
+  { name: "Short sword", damage: "2d6", atts: "msF", desc: "Use if you want to go first; bonus to initiative" },
+  { name: "Broad sword", damage: "2d8", atts: "ms", desc: "Also sword, etc. Good general purpose weapon" },
+  { name: "Sabre", damage: "3d6", atts: "ms", desc: "Also scimitar, etc. Good for unarmoured foes" },
+  { name: "Two-handed sword", damage: "3d8", atts: "MsX", desc: "Requires skill, but does good damage, especially to unarmed foes" },
+  { name: "Wood axe", damage: "d8", atts: "maST", desc: "Cheap and readily available!" },
+  { name: "Battle axe", damage: "d10", atts: "maS", desc: "Good against armoured foes, but slow" },
+  { name: "Great axe", damage: "2d10", atts: "MaSX", desc: "Requires skill, but does good damage, especially to unarmed foes" },
+  { name: "Club", damage: "2d4", atts: "mb", desc: "Includes improvised weapons" },
+  { name: "Mace", damage: "d10", atts: "mb", desc: "Good against armed foes" },
+  { name: "Flanged mace", damage: "d12", atts: "ma", desc: "Good against armed foes" },
+  { name: "Morning star", damage: "2d8", atts: "ma", desc: "All round weapon" },
+  { name: "Flail", damage: "d12", atts: "MaXY", desc: "Requires skill, especially good against armoured foes with shields" },
+  { name: "Quarterstaff", damage: "2d4", atts: "MbD", desc: "Good for defense" },
+  { name: "Warhammer", damage: "2d10", atts: "mbS", desc: "Slow but good damage" },
+  { name: "Two-handed hammer", damage: "2d12", atts: "MbSX", desc: "Lots of damage, but slow and requires skill" },
+  { name: "Spear", damage: "2d8", atts: "MpR2XST", desc: "Extra reach, can be used as a thrown weapon too (also javelin or trident)" },
+  { name: "Polearm", damage: "3d8", atts: "MpR2XS", desc: "Extra reach" },
+  { name: "Halberd", damage: "3d6", atts: "MpR2XSH", desc: "Extra reach, and can be used to hook a foe" },
+  { name: "Whip", damage: "4d4", atts: "msR2XS", desc: "Requires skill, but good against unarmed and extra reach" },
+  { name: "Bull whip", damage: "4d4", atts: "msR3XS]", desc: "As whip, but even more reach" },
+
+
+  { name: "Thrown rock", damage: "d4", atts: "tb", desc: "Or anything of a decent size and weight to throw" },
+  { name: "Sling", damage: "2d4", atts: "tbL0", desc: "Cheap ammo" },
+  { name: "Short bow", damage: "2d6", atts: "bpL0X", desc: "Fast reload" },
+  { name: "Long bow", damage: "3d6", atts: "bpFL0X", desc: "Takes a minor action to reload, but decent damage against unarmoured" },
+  { name: "Light crossbow", damage: "d12", atts: "bpL0X", desc: "Takes a minor action to reload, but decent against armoured foes" },
+  { name: "Heavy crossbow", damage: "d20", atts: "bpL1X", desc: "Takes a full standard action to reload, but good against armoured foes" },
+  { name: "Flintlock", damage: "2d12", atts: "fpL2", desc: "Very noisy. Takes two full standard actions to reload, and expensive to use." },
+  { name: "Musket", damage: "2d20", atts: "FpL2", desc: "Very noisy. Takes two full standard actions to reload, and expensive to use, but look at all the damage!" },
 ]
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'weaponTypeMapping' does not exist on typ... Remove this comment to see the full error message
 rpg.weaponTypeMapping = {
-  m:'1H melee',
-  M:'2H melee',
-  t:'Thrown',
-  b:'Bow',
-  f:'1H firearm',
-  F:'2H firearm',
+  m: '1H melee',
+  M: '2H melee',
+  t: 'Thrown',
+  b: 'Bow',
+  f: '1H firearm',
+  F: '2H firearm',
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'weaponDamageMapping' does not exist on t... Remove this comment to see the full error message
 rpg.weaponDamageMapping = {
-  s:'Slash',
-  b:'Bash',
-  p:'Pierce',
-  c:'Crush',
-  a:'Axe',    // using weight to create bloody wound
+  s: 'Slash',
+  b: 'Bash',
+  p: 'Pierce',
+  c: 'Crush',
+  a: 'Axe',    // using weight to create bloody wound
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'weaponFlags' does not exist on type '{ l... Remove this comment to see the full error message
 rpg.weaponFlags = {
-  R2:'longReach',
-  R3:'veryLongReach',
-  L0:'quickReload',
-  L1:'longReload',
-  L2:'veryLongReload',
-  X:'requiresSkill',
-  H:'hook',
-  T:'thrownable',
-  S:'slow',
-  F:'fast',
-  D:'defensive',
+  R2: 'longReach',
+  R3: 'veryLongReach',
+  L0: 'quickReload',
+  L1: 'longReload',
+  L2: 'veryLongReload',
+  X: 'requiresSkill',
+  H: 'hook',
+  T: 'thrownable',
+  S: 'slow',
+  F: 'fast',
+  D: 'defensive',
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'createWeapon' does not exist on type '{ ... Remove this comment to see the full error message
-rpg.createWeapon = function(data: any) {
+rpg.createWeapon = function (data: any) {
   const name = data.name.toLowerCase().replace(/ |\-/g, '_') + '_prototype'
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-  const weapon = createItem(name, WEAPON(data.damage))
+  const weapon = Quest.World.createItem(name, WEAPON(data.damage))
   // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
   weapon.type = rpg.weaponTypeMapping[data.atts[0]]
   // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.

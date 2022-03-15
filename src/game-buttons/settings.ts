@@ -32,9 +32,9 @@ Quest.Settings.settings.roomCreateFunc = function (o: any) {
 
 Quest.Settings.settings.afterEnter = function () {
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  if (player.onPhoneTo && w[player.onPhoneTo].loc === player.loc) {
+  if (Quest.World.player.onPhoneTo && Quest.World.w[Quest.World.player.onPhoneTo].loc === Quest.World.player.loc) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'phone' does not exist on type '{}'.
-    w.phone.hangUp()
+    Quest.World.w.phone.hangUp()
   }
 }
 
@@ -43,10 +43,10 @@ Quest.Settings.settings.afterEnter = function () {
 // For items
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'inventoryPane' does not exist on type '{... Remove this comment to see the full error message
 Quest.Settings.settings.inventoryPane = [
-  { name: 'You are holding...', alt: 'itemsHeld', test: Quest.Settings.settings.isHeldNotWorn, getLoc: function () { return player.name; }, noContent: 'Nothing' },
-  { name: 'You are wearing...', alt: 'itemsWorn', test: Quest.Settings.settings.isWorn, getLoc: function () { return player.name; }, noContent: 'Nothing' },
-  { name: 'You can see...', alt: 'itemsHere', test: Quest.Settings.settings.isHere, getLoc: function () { return player.loc; }, noContent: 'Nothing' },
-  { name: 'You are on the phone to', alt: 'onPhoneTo', test: function (item: any) { return item.name === player.onPhoneTo }, noContent: 'No one' }
+  { name: 'You are holding...', alt: 'itemsHeld', test: Quest.Settings.settings.isHeldNotWorn, getLoc: function () { return Quest.World.player.name; }, noContent: 'Nothing' },
+  { name: 'You are wearing...', alt: 'itemsWorn', test: Quest.Settings.settings.isWorn, getLoc: function () { return Quest.World.player.name; }, noContent: 'Nothing' },
+  { name: 'You can see...', alt: 'itemsHere', test: Quest.Settings.settings.isHere, getLoc: function () { return Quest.World.player.loc; }, noContent: 'Nothing' },
+  { name: 'You are on the phone to', alt: 'onPhoneTo', test: function (item: any) { return item.name === Quest.World.player.onPhoneTo }, noContent: 'No one' }
 ]
 
 
@@ -58,7 +58,7 @@ Quest.Settings.settings.compassPane = false
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'setup' does not exist on type '{ perform... Remove this comment to see the full error message
 Quest.Settings.settings.setup = function () {
   Quest.IO.createAdditionalPane(0, "Go to", 'directions', function () {
-    const exitList = currentLocation.getExits({ excludeLocked: true })
+    const exitList = Quest.World.currentLocation.getExits({ excludeLocked: true })
     let s = '<p class="item-class"><span class="item-name">You can go:</span>'
     for (let ex of exitList) {
       s += ' <span class="item-action-button" onclick="Quest.IO.io.clickExit(\'' + ex.dir + '\')">'
@@ -82,7 +82,7 @@ Quest.Settings.settings.updateCustomUI = function () {
     log(el.innerHTML)
   }
 
-  //el.previousSibling.innerHTML = currentLocation.headingAlias
+  //el.previousSibling.innerHTML = Quest.World.currentLocation.headingAlias
 }
 
 

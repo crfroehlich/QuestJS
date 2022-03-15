@@ -109,15 +109,15 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('Spray', {
   rules: [
     function (cmd: any, char: any, item: any, multiple: any) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'spray_sealant' does not exist on type '{... Remove this comment to see the full error message
-      if (w.spray_sealant.loc !== char.name) {
-        return falsemsg("{nv:char:do:true} not have the sealant spray.", { char: char })
+      if (Quest.World.w.spray_sealant.loc !== char.name) {
+        return Quest.IO.falsemsg("{nv:char:do:true} not have the sealant spray.", { char: char })
       }
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'spray' does not exist on type '{}'.
-      if (w.spray.uses <= 0) {
-        return falsemsg("{nv:char:aim:true} the spray can at {nm:item}, but it is empty.", { char: char, item: item })
+      if (Quest.World.w.spray.uses <= 0) {
+        return Quest.IO.falsemsg("{nv:char:aim:true} the spray can at {nm:item}, but it is empty.", { char: char, item: item })
       }
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'spray' does not exist on type '{}'.
-      w.spray.uses--
+      Quest.World.w.spray.uses--
       return true
     }
   ],
@@ -129,32 +129,30 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('Spray', {
   defmsg: "You can't spray that!",
 }));
 
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.push(new Quest.Command.Cmd('Pressurise', {
   regex: /^(?:pressuri[sz]e|pres) (.+)$/,
   attName: 'pressure',
   objects: [
     { scope: isRoomScope, extendedScope: true },
   ],
-  script: function (objects: any) { return handlePressurise(player, objects, true) },
+  script: function (objects: any) { return handlePressurise(Quest.World.player, objects, true) },
   defmsg: 'Not something you can pressurise.',
 }));
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+
 Quest.Commands.commands.push(new Quest.Command.Cmd('Depressurise', {
   regex: /^(?:depressuri[sz]e|evacuate|depres) (.+)$/,
   attName: 'pressure',
   objects: [
     { scope: isRoomScope, extendedScope: true },
   ],
-  script: function (objects: any) { return handlePressurise(player, objects, false) },
+  script: function (objects: any) { return handlePressurise(Quest.World.player, objects, false) },
   defmsg: 'Not something you can evacuate.',
 }));
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+
 Quest.Commands.commands.push(new Quest.Command.Cmd('NpcPressurise1', {
   regex: /^(.+), ?(?:pressuri[sz]e|pres) (.+)$/,
   attName: 'pressure',
   objects: [
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
     { scope: Quest.Parser.parser.isHere, attName: "npc" },
     { scope: isRoomScope, extendedScope: true },
   ],
@@ -164,18 +162,17 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('NpcPressurise1', {
     if (!npc.npc) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg(CMD_not_npc(npc));
-      return world.FAILED;
+      return Quest.World.world.FAILED;
     }
     objects.shift();
     return handlePressurise(npc, objects, true);
   },
 }));
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+
 Quest.Commands.commands.push(new Quest.Command.Cmd('NpcPressurise2', {
   regex: /^(?:tell|ask|instruct) (.+) to (?:pressuri[sz]e|pres) (.+)$/,
   attName: 'pressure',
   objects: [
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
     { scope: Quest.Parser.parser.isHere, attName: "npc" },
     { scope: isRoomScope, extendedScope: true },
   ],
@@ -185,18 +182,16 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('NpcPressurise2', {
     if (!npc.npc) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg(CMD_not_npc(npc));
-      return world.FAILED;
+      return Quest.World.world.FAILED;
     }
     objects.shift();
     return handlePressurise(npc, objects, true);
   },
 }));
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.push(new Quest.Command.Cmd('NpcDepressurise1', {
   regex: /^(.+), ?(?:depressuri[sz]e|evacuate|depres|evac) (.+)$/,
   attName: 'pressure',
   objects: [
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
     { scope: Quest.Parser.parser.isHere, attName: "npc" },
     { scope: isRoomScope, extendedScope: true },
   ],
@@ -206,18 +201,16 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('NpcDepressurise1', {
     if (!npc.npc) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg(CMD_not_npc(npc))
-      return world.FAILED
+      return Quest.World.world.FAILED
     }
     objects.shift()
     return handlePressurise(npc, objects, false)
   },
 }))
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.push(new Quest.Command.Cmd('NpcDepressurise2', {
   regex: /^(?:tell|ask|instruct) (.+) to (?:depressuri[sz]e|evacuate|depres) (.+)$/,
   attName: 'pressure',
   objects: [
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
     { scope: Quest.Parser.parser.isHere, attName: "npc" },
     { scope: isRoomScope, extendedScope: true },
   ],
@@ -227,7 +220,7 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('NpcDepressurise2', {
     if (!npc.npc) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg(CMD_not_npc(npc))
-      return world.FAILED
+      return Quest.World.world.FAILED
     }
     objects.shift()
     return handlePressurise(npc, objects, false)
@@ -240,12 +233,12 @@ function handlePressurise(char: any, objects: any, pressurise: any) {
   if (!baseRoom.room) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg("You can't " + (pressurise ? pressurise : depressurise) + " that.")
-    return world.FAILED
+    return Quest.World.world.FAILED
   }
-  if (char === player) {
+  if (char === Quest.World.player) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     Quest.IO.metamsg("You need to ask Xsansi to pressurise or depressurise any part of the ship.")
-    return world.FAILED
+    return Quest.World.world.FAILED
   }
 
   // I am counting these as successes as the player has successfully made the request, even if it was refused
@@ -254,7 +247,7 @@ function handlePressurise(char: any, objects: any, pressurise: any) {
     Quest.IO.msg("'{nm:char}, {if:pressurise:pressurise:depressurise} {nm:baseRoom:the},' you say.", { char: char, pressurise: pressurise, baseRoom: baseRoom })
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg("'You need to ask Xsansi to pressurise or depressurise any part of the ship.'")
-    return world.SUCCESS
+    return Quest.World.world.SUCCESS
   }
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
   Quest.IO.msg("'Xsansi, {if:pressurise:pressurise:depressurise} {nm:baseRoom:the},' you say.", { pressurise: pressurise, baseRoom: baseRoom })
@@ -267,49 +260,46 @@ function handlePressurise(char: any, objects: any, pressurise: any) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("'Space is already depressurised.'")
     }
-    return world.SUCCESS
+    return Quest.World.world.SUCCESS
   }
-  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  const mainRoom = (typeof baseRoom.vacuum === "string" ? w[baseRoom.vacuum] : baseRoom)
+
+  const mainRoom = (typeof baseRoom.vacuum === "string" ? Quest.World.w[baseRoom.vacuum] : baseRoom)
   if (mainRoom.vacuum !== pressurise) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg("'" + Quest.Utilities.sentenceCase(Quest.lang.getName(mainRoom, { article: Quest.Utilities.DEFINITE })) + " is already " + (pressurise ? 'pressurised' : 'depressurised') + ".")
-    return world.SUCCESS
+    return Quest.World.world.SUCCESS
   }
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-  if (!w.Xsansi.pressureOverride && mainRoom.name !== "airlock" && !pressurise) {
+
+  if (!Quest.World.w.Xsansi.pressureOverride && mainRoom.name !== "airlock" && !pressurise) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg("'Safety interlocks prevent depressurising parts of the ship while the crew are active.'")
-    return world.SUCCESS
+    return Quest.World.world.SUCCESS
   }
+
   // !!! Note that this assumes crew members never go in the airlock
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'your_spacesuit' does not exist on type '... Remove this comment to see the full error message
-  if (mainRoom.name === "airlock" && !pressurise && player.loc === "airlock" && !w.your_spacesuit.worn) {
+  if (mainRoom.name === "airlock" && !pressurise && Quest.World.player.loc === "airlock" && !Quest.World.w.your_spacesuit.worn) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg("'Safety interlocks prevent depressurising the airlock whilst personnel are inside it without spacesuits.'")
-    return world.SUCCESS
+    return Quest.World.world.SUCCESS
   }
   if (!pressurise) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg("'Evacuating " + Quest.lang.getName(mainRoom, { article: Quest.Utilities.DEFINITE }) + "... Room is now under vacuum.'")
     mainRoom.vacuum = true;
-    return world.SUCCESS
+    return Quest.World.world.SUCCESS
   }
   if (mainRoom.leaks) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg("'Pressurising " + Quest.lang.getName(mainRoom, { article: Quest.Utilities.DEFINITE }) + "... Pressurisation failed.'")
-    return world.SUCCESS
+    return Quest.World.world.SUCCESS
   }
 
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
   Quest.IO.msg("'Pressurising " + Quest.lang.getName(mainRoom, { article: Quest.Utilities.DEFINITE }) + "... Room is now pressurised.'")
   mainRoom.vacuum = false;
-  return world.SUCCESS
+  return Quest.World.world.SUCCESS
 }
 
-
-
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.push(new Quest.Command.Cmd('Approach', {
   regex: /^approach (.+)$/,
   objects: [
@@ -319,34 +309,30 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('Approach', {
     if (!objects[0][0].isShip) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       Quest.IO.metamsg("The APPROACH command is for piloting the ship to a specific destination; a satellite or vessel for example.")
-      return world.FAILED
+      return Quest.World.world.FAILED
     }
-    if (player.loc !== "flightdeck") {
+    if (Quest.World.player.loc !== "flightdeck") {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("You need to be on the flight-deck to pilot the ship.")
-      return world.FAILED
+      return Quest.World.world.FAILED
     }
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'alienShip' does not exist on type '{}'.
-    if (w.alienShip.status === 0) {
+    if (Quest.World.w.alienShip.status === 0) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("There is no ship detected.")
-      return world.FAILED
+      return Quest.World.world.FAILED
     }
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'alienShip' does not exist on type '{}'.
-    if (w.alienShip.status > 1) {
+    if (Quest.World.w.alienShip.status > 1) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("The {i:Joseph Banks} is already adjacent to the unidentified vessel.'")
-      return world.FAILED
+      return Quest.World.world.FAILED
     }
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg("You sit at the controls, and unlock the console. You type the co-ordinates into the system, and feel a noticeable pull as the ship accelerates to the target. At the half way point, the ship swings around, so the rockets are firing towards the target, slowing the ship down, so it comes to a stop, relative to the other ship.");
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'alienShip' does not exist on type '{}'.
-    w.alienShip.status = 2;
-    return world.SUCCESS
+    Quest.World.w.alienShip.status = 2;
+    return Quest.World.world.SUCCESS
   },
 }));
 
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.push(new Quest.Command.Cmd('Scan', {
   regex: /^scan (.+)$/,
   objects: [
@@ -356,24 +342,22 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('Scan', {
     if (!objects[0][0].isShip) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       Quest.IO.metamsg("The SCAN command is for scanning a target nearby in space, having approached it; a satellite or vessel for example.")
-      return world.FAILED
+      return Quest.World.world.FAILED
     }
-    if (player.loc !== "flightdeck") {
+    if (Quest.World.player.loc !== "flightdeck") {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("You need to be on the flight-deck to scan the ship.")
-      return world.FAILED
+      return Quest.World.world.FAILED
     }
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'alienShip' does not exist on type '{}'.
-    if (w.alienShip.status === 0) {
+    if (Quest.World.w.alienShip.status === 0) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("There is no ship detected.")
-      return world.FAILED
+      return Quest.World.world.FAILED
     }
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'alienShip' does not exist on type '{}'.
-    if (w.alienShip.status === 1) {
+    if (Quest.World.w.alienShip.status === 1) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("The source of the radio signal is too far away to be properly scanned.")
-      return world.FAILED
+      return Quest.World.world.FAILED
     }
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg("Sat at the controls, you initiate a scan of the unknown ship...")
@@ -385,9 +369,8 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('Scan', {
     Quest.IO.msg("A look at the infrared camera shows the ship is radiating low level thermal energy, especially from the aft area (relative to the Joseph Banks). The radio signal is emanating from a point lower port forward section.")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg("There are no other electromagnetic emissions detected, and no significant magnetic, electrical or gravity fields detected.")
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'alienShip' does not exist on type '{}'.
-    w.alienShip.status = 2
-    return world.SUCCESS
+    Quest.World.w.alienShip.status = 2
+    return Quest.World.world.SUCCESS
   },
 }))
 
@@ -395,10 +378,6 @@ function isShip(item: any) {
   return item.isShip
 }
 
-
-
-
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.push(new Quest.Command.Cmd('ProbeStatus', {
   regex: /^probes?$/,
   script: function () {
@@ -431,7 +410,7 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('ProbeStatus', {
     Quest.IO.metamsg("Satellite:" + currentPlanet().satellite);
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     Quest.IO.metamsg("Active:" + currentPlanet().eventIsActive());
-    return world.SUCCESS_NO_TURNSCRIPTS;
+    return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
   },
 }));
 
@@ -446,7 +425,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('MapUpdate', {
     updateMap()
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     Quest.IO.metamsg("Done")
-    return world.SUCCESS_NO_TURNSCRIPTS
+    return Quest.World.world.SUCCESS_NO_TURNSCRIPTS
   },
 }));
 
@@ -465,14 +444,14 @@ Quest.Command.findCmd('MetaHelp').script = function () {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   Quest.IO.metamsg("Do {color:red:HELP GAME} for suggestions on what to actually do. You could also try {color:red:HELP NPC} for how to interacting with other characters, {color:red:HELP PROBE} to learn about deploying probes, and {color:red:HELP STASIS} for more on stasis pods (and hence travel to the next planet). You might want to try {color:red:HELP VACUUM} to discover how to handle the cold vacuum of space of {color:red:HELP SEALANT} for how to use the spray sealant.")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'alienShip' does not exist on type '{}'.
-  if (w.alienShip.status > 0) Quest.IO.metamsg("You could also do {color:red:HELP DOCKING}.")
+  if (Quest.World.w.alienShip.status > 0) Quest.IO.metamsg("You could also do {color:red:HELP DOCKING}.")
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   Quest.IO.metamsg("{b:Meta-information about the game:}")
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   Quest.IO.metamsg("Do {color:red:HELP UNIVERSE} for some notes about the universe the game is set in, {color:red:HELP SYSTEM} to read about the game system, and {color:red:HELP CREDITS} for credits.")
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   Quest.IO.metamsg("NOTE: You can use {color:red:?} as a shorthand for {color:red:HELP}")
-  return world.SUCCESS_NO_TURNSCRIPTS
+  return Quest.World.world.SUCCESS_NO_TURNSCRIPTS
 }
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
@@ -485,12 +464,12 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('HelpSubject', {
     for (let el of this.topics) {
       if (objects[0].match(el.regex)) {
         el.script()
-        return world.SUCCESS_NO_TURNSCRIPTS
+        return Quest.World.world.SUCCESS_NO_TURNSCRIPTS
       }
     }
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     Quest.IO.metamsg("Sorry, no help topic found that matches \"" + objects[0] + "\"")
-    return world.FAILED
+    return Quest.World.world.FAILED
   },
   topics: [
     {
@@ -598,7 +577,7 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('HelpSubject', {
       regex: /^universe$/,
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        Quest.IO.metamsg("{b:The game world:}")
+        Quest.IO.metamsg("{b:The game Quest.World.world:}")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         Quest.IO.metamsg("I originally {i:tried} to go hard science fiction; these are real stars the ship visits! However, I have assumed artificial gravity, which is required to orientate the game (once you have down, you have port, up and starboard).")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.

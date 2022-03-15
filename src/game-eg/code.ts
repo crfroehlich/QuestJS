@@ -30,7 +30,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('TestInput', {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg("First some preamble...")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'book' does not exist on type '{}'.
-    Quest.IO.showMenu("What colour?", [w.book, w.coin, w.Kyle, 'None of them'], function (result: any) {
+    Quest.IO.showMenu("What colour?", [Quest.World.w.book, Quest.World.w.coin, Quest.World.w.Kyle, 'None of them'], function (result: any) {
       if (typeof result === 'string') {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("You picked " + result + ".");
@@ -149,7 +149,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('DialogTest', {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("You picked " + result)
     })
-    return world.SUCCESS_NO_TURNSCRIPTS
+    return Quest.World.world.SUCCESS_NO_TURNSCRIPTS
   },
 }))
 
@@ -166,7 +166,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('TextTest', {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("You picked " + result + ".");
     }, "Go")
-    return world.SUCCESS_NO_TURNSCRIPTS
+    return Quest.World.world.SUCCESS_NO_TURNSCRIPTS
   },
 }))
 
@@ -219,9 +219,9 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('EgMove', {
 
 Quest.Command.findCmd('MetaHint').script = function () {
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  if (w[player.loc].hint) {
+  if (Quest.World.w[Quest.World.player.loc].hint) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    Quest.IO.metamsg(w[player.loc].hint);
+    Quest.IO.metamsg(Quest.World.w[Quest.World.player.loc].hint);
   }
   else {
     return Quest.lang.hintScript()
@@ -279,11 +279,11 @@ Quest.Command.findCmd('MetaHint').script = function () {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
 Quest.Text.addDirective("charger_state", function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'charger_compartment' does not exist on t... Remove this comment to see the full error message
-  if (w.charger_compartment.closed) {
+  if (Quest.World.w.charger_compartment.closed) {
     return "The compartment is closed";
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'charger_compartment' does not exist on t... Remove this comment to see the full error message
-  const contents = w.charger_compartment.getContents(world.LOOK);
+  const contents = Quest.World.w.charger_compartment.getContents(Quest.World.world.LOOK);
   if (contents.length === 0) {
     return "The compartment is empty";
   }
@@ -306,7 +306,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('SliceCarrot', {
   ],
   script:function(objects) {
     Quest.IO.msg("You slice {nm:ob1:the} with {nm:ob2:the}.", {ob1:objects[1][0], ob2:objects[0][0]})
-    return world.SUCCESS
+    return Quest.World.world.SUCCESS
   },
   defmsg:"Not going to happen.",
 }));*/

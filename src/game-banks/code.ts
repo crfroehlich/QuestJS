@@ -63,13 +63,12 @@ const CREW = function (isFemale: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'revive' does not exist on type '{ canRea... Remove this comment to see the full error message
   res.revive = function (options: any) {
     // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'char'.
-    if (char === player) {
+    if (char === Quest.World.player) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
       Quest.IO.msg("You wonder how to revive {nm:item} - probably best to leave that to Xsansi.", options);
       return false;
     }
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-    if (options.char !== w.Xsansi) {
+    if (options.char !== Quest.World.w.Xsansi) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
       Quest.IO.msg("'{nm:char}, can you revive {nm:item}?' you ask.", options);
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -232,7 +231,7 @@ const CREW = function (isFemale: any) {
     }
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'probe_prototype' does not exist on type ... Remove this comment to see the full error message
-    w.probe_prototype.cloneMe(this)
+    Quest.World.w.probe_prototype.cloneMe(this)
   }
 
   return res
@@ -421,20 +420,20 @@ function howAreYouFeeling(response: any) {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
   Quest.IO.msg("'How are you feeling?' you ask " + Quest.lang.getName(response.char, { article: Quest.Utilities.DEFINITE }) + ".");
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  Quest.IO.msg(PLANETS[w.Xsansi.currentPlanet][response.char.name + "_how_are_you"]);
+  Quest.IO.msg(PLANETS[Quest.World.w.Xsansi.currentPlanet][response.char.name + "_how_are_you"]);
 }
 
 function planetAnalysis(response: any) {
   log(response)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-  const arr = response.char.data[w.Xsansi.currentPlanet]
+  const arr = response.char.data[Quest.World.w.Xsansi.currentPlanet]
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  if (Object.keys(arr).length === 0) return falsemsg("You should talk to Aada or Ostap about that stuff.")
+  if (Object.keys(arr).length === 0) return Quest.IO.falsemsg("You should talk to Aada or Ostap about that stuff.")
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-  let rank = response.char["rank" + w.Xsansi.currentPlanet]
+  let rank = response.char["rank" + Quest.World.w.Xsansi.currentPlanet]
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  if (rank === undefined) return falsemsg("You should talk to Aada or Ostap about that stuff.")
+  if (rank === undefined) return Quest.IO.falsemsg("You should talk to Aada or Ostap about that stuff.")
   rank >>= 1
   if (rank >= arr.length) rank = arr.length - 1
   return arr[rank]
@@ -444,7 +443,7 @@ function planetAnalysis(response: any) {
 function createPlanets() {
   for (let i = 0; i < PLANETS.length; i++) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-    createItem("planet" + i,
+    Quest.World.createItem("planet" + i,
       {
         starName: PLANETS[i].starName,
         alias: PLANETS[i].starName + " " + PLANETS[i].planet,
@@ -470,24 +469,24 @@ createPlanets();
 
 function arrival() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-  w.Xsansi.currentPlanet++
+  Quest.World.w.Xsansi.currentPlanet++
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-  PLANETS[w.Xsansi.currentPlanet].onArrival()
-  game.elapsedTime = 0
+  PLANETS[Quest.World.w.Xsansi.currentPlanet].onArrival()
+  Quest.World.game.elapsedTime = 0
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-  game.startTime = PLANETS[w.Xsansi.currentPlanet].arrivalTime
+  Quest.World.game.startTime = PLANETS[Quest.World.w.Xsansi.currentPlanet].arrivalTime
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Aada' does not exist on type '{}'.
-  w.Aada.deployProbeTotal = 0
+  Quest.World.w.Aada.deployProbeTotal = 0
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Ostap' does not exist on type '{}'.
-  w.Ostap.deployProbeTotal = 0
+  Quest.World.w.Ostap.deployProbeTotal = 0
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-  updateTopics(w.Xsansi, w.Xsansi.currentPlanet)
+  updateTopics(Quest.World.w.Xsansi, Quest.World.w.Xsansi.currentPlanet)
   for (let npc of NPCS) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-    npc.state = w.Xsansi.currentPlanet * 100
+    npc.state = Quest.World.w.Xsansi.currentPlanet * 100
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
-  w.Kyle.setAgenda(["walkTo:probes_forward", "text:deployProbe:1"])
+  Quest.World.w.Kyle.setAgenda(["walkTo:probes_forward", "text:deployProbe:1"])
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'updateStatus' does not exist on type '{ ... Remove this comment to see the full error message
   Quest.IO.io.updateStatus()
 }
@@ -526,9 +525,9 @@ function reviveNpc(npc: any, object: any) {
 
 function getProbes() {
   const arr = [];
-  for (let key in w) {
+  for (let key in Quest.World.w) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    if (w[key].clonePrototype === w.probe_prototype) arr.push(w[key]);
+    if (Quest.World.w[key].clonePrototype === Quest.World.w.probe_prototype) arr.push(Quest.World.w[key]);
   }
   return arr;
 }
@@ -544,13 +543,13 @@ function shipAlert(s: any) {
 
 function isOnShip() {
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  return w[player.loc].notOnShip === undefined;
+  return Quest.World.w[Quest.World.player.loc].notOnShip === undefined;
 }
 
 
 function currentPlanet() {
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  return w["planet" + w.Xsansi.currentPlanet];
+  return Quest.World.w["planet" + Quest.World.w.Xsansi.currentPlanet];
 }
 
 
@@ -560,11 +559,11 @@ function probeLandsOkay() {
   planet.probeLandingSuccess = planet.probeLandingSuccess.substring(1);
   if (!flag) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Aada' does not exist on type '{}'.
-    w.Aada.lostProbe = true;
+    Quest.World.w.Aada.lostProbe = true;
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Ostap' does not exist on type '{}'.
-    w.Ostap.lostProbe = true;
+    Quest.World.w.Ostap.lostProbe = true;
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Ostap' does not exist on type '{}'.
-    updateTopics(w.Ostap, "Lost")
+    updateTopics(Quest.World.w.Ostap, "Lost")
   }
   return flag;
 }
@@ -582,30 +581,30 @@ function updateMap() {
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
   document.querySelector('#layer4').style.display = 'none'
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  const currentDeck = w[player.loc].deckName
+  const currentDeck = Quest.World.w[Quest.World.player.loc].deckName
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
   document.querySelector('#map').setAttribute('title', 'The Joseph Banks, ' + Quest.Settings.settings.deckNames[currentDeck]);
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  if (!currentDeck) return Quest.IO.errormsg("No deckName for " + player.loc)
+  if (!currentDeck) return Quest.IO.errormsg("No deckName for " + Quest.World.player.loc)
   let el = document.querySelector('#' + currentDeck)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'style' does not exist on type 'Element'.
   if (el) el.style.display = 'block'
-  for (let key in w) {
+  for (let key in Quest.World.w) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    if (w[key].svgId) document.querySelector('#' + w[key].svgId).style.fill = isRoomPressured(w[key]) ? '#777' : '#222'
+    if (Quest.World.w[key].svgId) document.querySelector('#' + Quest.World.w[key].svgId).style.fill = isRoomPressured(Quest.World.w[key]) ? '#777' : '#222'
   }
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  const mySvgId = w[player.loc].svgId
+  const mySvgId = Quest.World.w[Quest.World.player.loc].svgId
   let otherSvgId
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-  if (w.Xsansi.locate) otherSvgId = w[w[w.Xsansi.locate].loc].svgId
+  if (Quest.World.w.Xsansi.locate) otherSvgId = Quest.World.w[Quest.World.w[Quest.World.w.Xsansi.locate].loc].svgId
 
   if (!mySvgId && !otherSvgId) return
   if (mySvgId === otherSvgId) {
     // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
     document.querySelector('#' + mySvgId).style.fill = 'green'
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-    w.Xsansi.locate = false
+    Quest.World.w.Xsansi.locate = false
   }
   else {
     // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
@@ -628,7 +627,7 @@ function updateMap() {
 
 function isRoomPressured(room: any) {
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  if (typeof room.vacuum === "string") room = w[room.vacuum];
+  if (typeof room.vacuum === "string") room = Quest.World.w[room.vacuum];
   return !room.vaccum;
 }
 

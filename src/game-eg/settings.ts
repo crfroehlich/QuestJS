@@ -44,8 +44,8 @@ Quest.Settings.settings.status = [
   // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type '() => str... Remove this comment to see the full error message
   "hitpoints",
   function () { return "<td>Spell points:</td><td>3</td>"; },
-  function () { return "<td>Health points:</td><td>" + player.hitpoints + "</td>"; },
-  function () { return '<td colspan="2">' + player.status + "</td>"; },
+  function () { return "<td>Health points:</td><td>" + Quest.World.player.hitpoints + "</td>"; },
+  function () { return '<td colspan="2">' + Quest.World.player.status + "</td>"; },
 ]
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'intro' does not exist on type '{ perform... Remove this comment to see the full error message
@@ -58,8 +58,8 @@ Quest.Settings.settings.mapDrawLabels = true
 // to introduce your game.
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'setup' does not exist on type '{ perform... Remove this comment to see the full error message
 Quest.Settings.settings.setup = function () {
-  player.hitpoints = 20;
-  player.status = "You are feeling fine";
+  Quest.World.player.hitpoints = 20;
+  Quest.World.player.status = "You are feeling fine";
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'updateStatus' does not exist on type '{ ... Remove this comment to see the full error message
   Quest.IO.io.updateStatus()
 }

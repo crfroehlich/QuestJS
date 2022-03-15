@@ -17,7 +17,7 @@ test.tests = function () {
   test.assertEqual(1, dateTimeDict.hour)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("It is 11 Marisi, 1374, 1:46 am", Quest.Text.processText("It is {dateTime}"))
-  game.elapsedTime += 8 * 60 * 60
+  Quest.World.game.elapsedTime += 8 * 60 * 60
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("It is 11 Marisi, 1374, 9:46 am", Quest.Text.processText("It is {dateTime}"))
 

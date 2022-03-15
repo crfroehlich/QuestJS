@@ -27,7 +27,7 @@ Quest.IO.io.modulesToInit.push(map)
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'getStartingLocations' does not exist on ... Remove this comment to see the full error message
 map.getStartingLocations = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapAutomapFrom' does not exist on type '... Remove this comment to see the full error message
-  const starts = Quest.Settings.settings.mapAutomapFrom ? Quest.Settings.settings.mapAutomapFrom.map((el: any) => w[el]) : [w[player.loc]]
+  const starts = Quest.Settings.settings.mapAutomapFrom ? Quest.Settings.settings.mapAutomapFrom.map((el: any) => Quest.World.w[el]) : [Quest.World.w[Quest.World.player.loc]]
   let count = 0
   for (let start of starts) {
     start.mapX = 0
@@ -107,7 +107,7 @@ map.init = function () {
       // For the exit destination, skip if flagged to ignore
       // otherwise map it
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      const exitRoom = w[exit.name]
+      const exitRoom = Quest.World.w[exit.name]
       if (!exitRoom) throw new Error("Mapping to unknown exit: " + exit.name)
       if (exitRoom.mapIgnore) {
         exit.mapIgnore = true
@@ -229,12 +229,12 @@ map.mapMultiRoomFromExit = function (room: any, exitRoom: any, exit: any, dir: a
 map.update = function () {
   // grab the current room region and level. If the room is missing either, give up now!
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  const level = w[player.loc].mapZ
+  const level = Quest.World.w[Quest.World.player.loc].mapZ
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  const region = w[player.loc].mapRegion
+  const region = Quest.World.w[Quest.World.player.loc].mapRegion
   if (level === undefined || region === undefined) return
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  if (w[player.loc].mapIgnore) return
+  if (Quest.World.w[Quest.World.player.loc].mapIgnore) return
 
   // Stuff gets put in any of several layers, which will be displayed in this order
   const lists = {}
@@ -242,9 +242,9 @@ map.update = function () {
   for (let el of map.layers) lists[el.name] = ['', '<g id="' + el.name + '-layer" ' + el.attrs + '>']
 
   // Loop through every room
-  for (let key in w) {
+  for (let key in Quest.World.w) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    const room = w[key]
+    const room = Quest.World.w[key]
     // Do not map if in another region (if region is true, the room can handle it)
     // Only show if visited unless mapShowNotVisited
     if (room.mapRegion !== region && room.mapRegion !== true) continue
@@ -266,13 +266,13 @@ map.update = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapExtras' does not exist on type '{ per... Remove this comment to see the full error message
   if (Quest.Settings.settings.mapExtras) result.push(...Quest.Settings.settings.mapExtras())
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapMarker' does not exist on type '{ per... Remove this comment to see the full error message
-  result.push(Quest.Settings.settings.mapMarker ? Quest.Settings.settings.mapMarker(w[player.loc]) : map.marker(w[player.loc].mapX, w[player.loc].mapY))
+  result.push(Quest.Settings.settings.mapMarker ? Quest.Settings.settings.mapMarker(Quest.World.w[Quest.World.player.loc]) : map.marker(Quest.World.w[Quest.World.player.loc].mapX, Quest.World.w[Quest.World.player.loc].mapY))
 
   // Centre the view on the player, and draw it
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  const x = w[player.loc].mapX - Quest.Settings.settings.mapWidth / 2
+  const x = Quest.World.w[Quest.World.player.loc].mapX - Quest.Settings.settings.mapWidth / 2
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapHeight' does not exist on type '{ per... Remove this comment to see the full error message
-  const y = -Quest.Settings.settings.mapHeight / 2 + w[player.loc].mapY
+  const y = -Quest.Settings.settings.mapHeight / 2 + Quest.World.w[Quest.World.player.loc].mapY
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapWidth' does not exist on type '{ perf... Remove this comment to see the full error message
   Quest.IO.draw(Quest.Settings.settings.mapWidth, Quest.Settings.settings.mapHeight, result, { destination: 'quest-map', x: x, y: y })
 }
@@ -308,7 +308,7 @@ map.mapDraw = function (lists: any, region: any, level: any, room: any) {
     if (exit.mapIgnore) continue
     if (exit.name === '_') continue
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    const exitRoom = w[exit.name]
+    const exitRoom = Quest.World.w[exit.name]
     if (exit.mapDrawString) {
       lists.exits.push(exit.mapDrawString)
     }
@@ -382,7 +382,7 @@ map.moveableLocDraw = function (lists: any, region: any, level: any, room: any) 
       if (exit.mapIgnore) continue
       if (exit.name === '_') continue
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      const exitRoom = w[exit.name]
+      const exitRoom = Quest.World.w[exit.name]
 
       if (exit.mapDrawBase) {
         lists.exits.push(exit.mapDrawBase(room, exitRoom, region, level))
@@ -569,13 +569,13 @@ if (Quest.Settings.settings.playMode === 'dev') {
     objects: [
     ],
     script: function () {
-      for (let key in w) {
+      for (let key in Quest.World.w) {
         // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-        if (w[key].mapZ == undefined) continue
+        if (Quest.World.w[key].mapZ == undefined) continue
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        Quest.IO.metamsg(w[key].name + ': ' + w[key].mapX + ', ' + w[key].mapY + ', ' + w[key].mapZ + ' Region=' + w[key].mapRegion)
+        Quest.IO.metamsg(Quest.World.w[key].name + ': ' + Quest.World.w[key].mapX + ', ' + Quest.World.w[key].mapY + ', ' + Quest.World.w[key].mapZ + ' Region=' + Quest.World.w[key].mapRegion)
       }
-      return world.SUCCESS_NO_TURNSCRIPTS
+      return Quest.World.world.SUCCESS_NO_TURNSCRIPTS
     },
   }))
 }
@@ -600,5 +600,5 @@ Quest.Command.findCmd('Map').script = function () {
   Quest.IO.io.calcMargins()
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
   Quest.IO.msg(Quest.lang.done_msg)
-  return world.SUCCESS_NO_TURNSCRIPTS
+  return Quest.World.world.SUCCESS_NO_TURNSCRIPTS
 }

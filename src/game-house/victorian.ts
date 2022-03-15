@@ -21,7 +21,7 @@ register('victorian', {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("front_hall", {
+Quest.World.createRoom("front_hall", {
   alias: "hall",
   windowsface: 'west',
   exitState: 0,
@@ -33,21 +33,21 @@ createRoom("front_hall", {
     Quest.IO.msg("The door slams shut, making Mandy jump.")
   },
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  west: new Exit("_", { alsoDir: ['out'], use: Quest.Utilities.util.cannotUse, msg: 'Mandy tries to go back outside, but that way is now mysteriously locked. It looks like she will have to head further into the house. It is strange, but now she is trapped inside the house, she does not feel so scared.' }),
+  west: new Quest.World.Exit("_", { alsoDir: ['out'], use: Quest.Utilities.util.cannotUse, msg: 'Mandy tries to go back outside, but that way is now mysteriously locked. It looks like she will have to head further into the house. It is strange, but now she is trapped inside the house, she does not feel so scared.' }),
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  north: new Exit("brass_dining_room", {
+  north: new Quest.World.Exit("brass_dining_room", {
     use: function (char: any) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'front_hall' does not exist on type '{}'.
-      if (w.front_hall.exitState < 2) w.front_hall.exitState = 1
+      if (Quest.World.w.front_hall.exitState < 2) Quest.World.w.front_hall.exitState = 1
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultExitUse' does not exist on type '... Remove this comment to see the full error message
       return Quest.Utilities.util.defaultExitUse(char, this)
     }
   }),
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  south: new Exit("gallery", {
+  south: new Quest.World.Exit("gallery", {
     use: function (char: any) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'front_hall' does not exist on type '{}'.
-      if (w.front_hall.exitState < 2) w.front_hall.exitState = 2
+      if (Quest.World.w.front_hall.exitState < 2) Quest.World.w.front_hall.exitState = 2
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultExitUse' does not exist on type '... Remove this comment to see the full error message
       return Quest.Utilities.util.defaultExitUse(char, this)
     }
@@ -82,7 +82,7 @@ createRoom("front_hall", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("inside_door", {
+Quest.World.createItem("inside_door", {
   loc: "front_hall",
   alias: 'door',
   scenery: true,
@@ -94,7 +94,7 @@ createItem("inside_door", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("front_hall_floor", {
+Quest.World.createItem("front_hall_floor", {
   loc: "front_hall",
   alias: 'floor',
   synonyms: ['image', 'design'],
@@ -138,19 +138,19 @@ createItem("front_hall_floor", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("brass_dining_room", {
+Quest.World.createRoom("brass_dining_room", {
   alias: "dining room",
   windowsface: 'north',
   mannequinCount: 4,
   blocked: function () {
     if (this.mannequinCount < 15) return false
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'large_key' does not exist on type '{}'.
-    if (w.large_key.loc === 'clock') return false
+    if (Quest.World.w.large_key.loc === 'clock') return false
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'wire' does not exist on type '{}'.
-    if (w.wire.locs.includes('brass_dining_room')) return false
-    for (const key in w) {
+    if (Quest.World.w.wire.locs.includes('brass_dining_room')) return false
+    for (const key in Quest.World.w) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      if (w[key].loc === 'brass_dining_room' && !w[key].scenery) return false
+      if (Quest.World.w[key].loc === 'brass_dining_room' && !Quest.World.w[key].scenery) return false
     }
     return true
   },
@@ -189,22 +189,22 @@ createRoom("brass_dining_room", {
   beforeEnter: function () { this.mannequinCount++ },
   afterFirstEnter: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'front_hall' does not exist on type '{}'.
-    if (!w.front_hall.notedasweird) {
+    if (!Quest.World.w.front_hall.notedasweird) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("{i:That's weird,} thinks Mandy, {i:where could the door to the west go?} The front garden must be the other side of the door, but there was no door visible there from the garden, just a window. ")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'front_hall' does not exist on type '{}'.
-      w.front_hall.notedasweird = true
+      Quest.World.w.front_hall.notedasweird = true
     }
   },
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  south: new Exit("gallery", {
+  south: new Quest.World.Exit("gallery", {
     use: function (char: any) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'front_hall' does not exist on type '{}'.
-      if (w.front_hall.exitState === 1) {
+      if (Quest.World.w.front_hall.exitState === 1) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("Mandy walks south... {i:Wait, this isn't the hall,} she thinks to herself. She is positive this is the doorway she came through before, so why is she not in the hall?")
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'front_hall' does not exist on type '{}'.
-        w.front_hall.exitState = 5
+        Quest.World.w.front_hall.exitState = 5
       }
       else {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -215,9 +215,9 @@ createRoom("brass_dining_room", {
     }
   }),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  west: new Exit("great_gallery"),
+  west: new Quest.World.Exit("great_gallery"),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  east: new Exit("steam_corridor"),
+  east: new Quest.World.Exit("steam_corridor"),
   colours: [
     'russet and lilac',
     'russet and lilac',
@@ -277,7 +277,7 @@ createRoom("brass_dining_room", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("mannequins", {
+Quest.World.createItem("mannequins", {
   loc: "brass_dining_room",
   scenery: true,
   examine: "Mandy looks closer at the mannequins. Their skin is a speckled grey that feels cool to the touch, and sounds like wood when knocked. Their faces are only half formed; slight depression to suggest eyes, a vague nose, but no mouth. Some are dressed as men, some as women though there is no indication of gender other than that. The female ones are wearing long dresses, the male ones are in black suits; they all look like extras from {i:Downton Abbey} -- apart from the grey complexions.|{once:Did that one just turn its head? Mandy looks again, maybe not.:They are not moving at the moment...}",
@@ -295,7 +295,7 @@ createItem("mannequins", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("clock", Quest.Templates.CONTAINER(false), {
+Quest.World.createItem("clock", Quest.Templates.CONTAINER(false), {
   loc: "brass_dining_room",
   scenery: true,
   alias: "clock",
@@ -319,11 +319,11 @@ createItem("clock", Quest.Templates.CONTAINER(false), {
   },
   testDropIn(options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'large_key' does not exist on type '{}'.
-    if (options.item !== w.large_key) return falsemsg("That is not something you can put in a clock.")
+    if (options.item !== Quest.World.w.large_key) return Quest.IO.falsemsg("That is not something you can put in a clock.")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'large_key' does not exist on type '{}'.
-    if (w.large_key.size > 5) return falsemsg("The key is too large for the clock.")
+    if (Quest.World.w.large_key.size > 5) return Quest.IO.falsemsg("The key is too large for the clock.")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'large_key' does not exist on type '{}'.
-    if (w.large_key.size < 5) return falsemsg("The key is too small for the clock.")
+    if (Quest.World.w.large_key.size < 5) return Quest.IO.falsemsg("The key is too small for the clock.")
     return true
   },
   examine: function () {
@@ -333,7 +333,7 @@ createItem("clock", Quest.Templates.CONTAINER(false), {
     if (this.setTimeCount > 2 && this.setTimeCount % 2 === 1) extra = ' Again!'
     if (typeof this.lookturn === "number") {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'turn' does not exist on type '{ turnCoun... Remove this comment to see the full error message
-      if (this.lookturn > (game.turn - 10)) {
+      if (this.lookturn > (Quest.World.game.turn - 10)) {
         s += "which indicate the time is now twenty past nine." + extra
       }
       else {
@@ -343,10 +343,10 @@ createItem("clock", Quest.Templates.CONTAINER(false), {
     else {
       s += "which indicate the time is now twenty past nine." + extra + " That is so wrong, Mandy cannot decide if it is slow or fast."
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'turn' does not exist on type '{ turnCoun... Remove this comment to see the full error message
-      this.lookturn = game.turn
+      this.lookturn = Quest.World.game.turn
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'large_key' does not exist on type '{}'.
-    if (w.large_key.isAtLoc(this.name)) {
+    if (Quest.World.w.large_key.isAtLoc(this.name)) {
       s += " She can see the key for winding the clock up is in the side of the clock."
     }
     if (this.setTimeCount % 2 === 1) this.setTimeCount++
@@ -355,43 +355,43 @@ createItem("clock", Quest.Templates.CONTAINER(false), {
   },
   windup: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'large_key' does not exist on type '{}'.
-    if (w.large_key.loc === player.name || w.large_key.loc === this.name) {
+    if (Quest.World.w.large_key.loc === Quest.World.player.name || Quest.World.w.large_key.loc === this.name) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'clock' does not exist on type '{}'.
-      return w.clock.dowindup()
+      return Quest.World.w.clock.dowindup()
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      return falsemsg("Mandy has nothing to wind the clock up with.")
+      return Quest.IO.falsemsg("Mandy has nothing to wind the clock up with.")
     }
   },
   dowindup: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'large_key' does not exist on type '{}'.
-    if (w.large_key.size < 5) {
+    if (Quest.World.w.large_key.size < 5) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      return falsemsg("Mandy looks at the hole in the back of the inanimate figure; a square peg. Like it would fit the key she has -- only much much bigger.")
+      return Quest.IO.falsemsg("Mandy looks at the hole in the back of the inanimate figure; a square peg. Like it would fit the key she has -- only much much bigger.")
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'large_key' does not exist on type '{}'.
-    if (w.large_key.size > 5) {
+    if (Quest.World.w.large_key.size > 5) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      return falsemsg("Mandy looks at the hole in the back of the inanimate figure; a square peg. Like it would fit the key she has -- if not {i:that} big.")
+      return Quest.IO.falsemsg("Mandy looks at the hole in the back of the inanimate figure; a square peg. Like it would fit the key she has -- if not {i:that} big.")
     }
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg("Mandy puts the key in the clock, and gives it a couple of turns. It continues to tick...")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'large_key' does not exist on type '{}'.
-    if (w.large_key.loc === this.name) {
+    if (Quest.World.w.large_key.loc === this.name) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("She decides to hang on to the key.")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'large_key' does not exist on type '{}'.
-      w.large_key.loc = player.name
+      Quest.World.w.large_key.loc = Quest.World.player.name
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'large_key' does not exist on type '{}'.
-      w.large_key.scenery = false
+      Quest.World.w.large_key.scenery = false
     }
     return true
   },
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("large_key", SIZE_CHANGING(), {
+Quest.World.createItem("large_key", SIZE_CHANGING(), {
   loc: "clock",
   scenery: true,
   alias: "clock key",
@@ -402,17 +402,17 @@ createItem("large_key", SIZE_CHANGING(), {
   turn: function (options: any) { return this.useFunction(options) },
   windup: function (options: any) { return this.useFunction(options) },
   useFunction: function (options: any) {
-    if (player.loc === 'theatre_stage') {
+    if (Quest.World.player.loc === 'theatre_stage') {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
-      w.clockwork_thespian.dowindup()
+      Quest.World.w.clockwork_thespian.dowindup()
     }
-    else if (player.loc === 'brass_dining_room') {
+    else if (Quest.World.player.loc === 'brass_dining_room') {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'clock' does not exist on type '{}'.
-      w.clock.dowindup()
+      Quest.World.w.clock.dowindup()
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      return falsemsg("Mandy wonders what she could use the clock key for. Besides winding up the clock, that is.")
+      return Quest.IO.falsemsg("Mandy wonders what she could use the clock key for. Besides winding up the clock, that is.")
     }
     return true
   },
@@ -422,13 +422,13 @@ createItem("large_key", SIZE_CHANGING(), {
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      return falsemsg("Mandy wonders what she could use the clock key for. Besides winding up the clock, that is.")
+      return Quest.IO.falsemsg("Mandy wonders what she could use the clock key for. Besides winding up the clock, that is.")
     }
   },
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("dining_room_chair", Quest.Templates.FURNITURE({ sit: true }), {
+Quest.World.createItem("dining_room_chair", Quest.Templates.FURNITURE({ sit: true }), {
   loc: "brass_dining_room",
   scenery: true,
   alias: "chair",
@@ -436,7 +436,7 @@ createItem("dining_room_chair", Quest.Templates.FURNITURE({ sit: true }), {
   examine: "The chair is made of dark wood, with a high back and a padded seat.",
   testPostureOn: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'brass_dining_room' does not exist on typ... Remove this comment to see the full error message
-    if (w.brass_dining_room.mannequinCount > 7) return falsemsg("Mandy looks at the chairs; all are occupied by mannequins, preventing her from sitting on any of them.")
+    if (Quest.World.w.brass_dining_room.mannequinCount > 7) return Quest.IO.falsemsg("Mandy looks at the chairs; all are occupied by mannequins, preventing her from sitting on any of them.")
     return true
   },
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -450,31 +450,31 @@ createItem("dining_room_chair", Quest.Templates.FURNITURE({ sit: true }), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createRoom("gallery", Quest.Templates.ROOM_SET("gallery"), {
+Quest.World.createRoom("gallery", Quest.Templates.ROOM_SET("gallery"), {
   windowsface: 'west',
   alias: 'north end of the gallery',
   headingAlias: "The Gallery (North)",
   desc: "{roomSet:Mandy is standing at the north end of a long and rather gloomy corridor -- at least this end has a couple of windows, the southern end looks even darker. There are paintings on the east wall.:The north end of the gallery is much like the south, if a little lighter with the window; again there are paintings along the east wall.}  Doors lead north and east. A small table with a chess board set in it stands against the west wall, under the window.",
   afterFirstEnter: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'front_hall' does not exist on type '{}'.
-    if (!w.front_hall.notedasweird) {
+    if (!Quest.World.w.front_hall.notedasweird) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("{i:That's weird,} thinks Mandy, {i:where could the door to the west go?} The front garden must be the other side of the door, but there was no door visible there from the garden, just a window. And this room is so long, surely the far end must be in number 21!")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'front_hall' does not exist on type '{}'.
-      w.front_hall.notedasweird = true
+      Quest.World.w.front_hall.notedasweird = true
     }
   },
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  north: new Exit("brass_dining_room", {
+  north: new Quest.World.Exit("brass_dining_room", {
     use: function (char: any) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'brass_dining_room' does not exist on typ... Remove this comment to see the full error message
-      if (w.brass_dining_room.blocked()) return falsemsg("Mandy starts heading north, but the dining room is now so full of mannequins, she cannot get into it.")
+      if (Quest.World.w.brass_dining_room.blocked()) return Quest.IO.falsemsg("Mandy starts heading north, but the dining room is now so full of mannequins, she cannot get into it.")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'front_hall' does not exist on type '{}'.
-      if (w.front_hall.exitState === 2) {
+      if (Quest.World.w.front_hall.exitState === 2) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("Mandy walks north... {i:Wait, this isn't the hall,} she thinks to herself. She is positive this is the doorway she came through before, so why is she not in the hall?")
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'front_hall' does not exist on type '{}'.
-        w.front_hall.exitState = 5
+        Quest.World.w.front_hall.exitState = 5
       }
       else {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -485,16 +485,16 @@ createRoom("gallery", Quest.Templates.ROOM_SET("gallery"), {
     }
   }),
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  south: new Exit("gallery_south", { msg: 'Mandy heads to the other end of the gallery; the floorboards squeak under her feet.' }),
+  south: new Quest.World.Exit("gallery_south", { msg: 'Mandy heads to the other end of the gallery; the floorboards squeak under her feet.' }),
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  east: new Exit("_", {
+  east: new Quest.World.Exit("_", {
     simpleUse: function (char: any) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'room_big' does not exist on type '{}'.
-      if (!w.room_big.accessedFrom) w.room_big.accessedFrom = 'gallery_south'
+      if (!Quest.World.w.room_big.accessedFrom) Quest.World.w.room_big.accessedFrom = 'gallery_south'
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'room_big' does not exist on type '{}'.
-      const dest = w.room_big.accessedFrom === 'gallery' ? w.room_big : w.room_small
+      const dest = Quest.World.w.room_big.accessedFrom === 'gallery' ? Quest.World.w.room_big : Quest.World.w.room_small
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSimpleExitUse' does not exist on ... Remove this comment to see the full error message
-      return Quest.Utilities.util.defaultSimpleExitUse(char, new Exit(dest, { origin: this.origin, dir: this.dir }))
+      return Quest.Utilities.util.defaultSimpleExitUse(char, new Quest.World.Exit(dest, { origin: this.origin, dir: this.dir }))
     }
   }),
   scenery: [
@@ -535,7 +535,7 @@ createRoom("gallery", Quest.Templates.ROOM_SET("gallery"), {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("chess_pieces", {
+Quest.World.createItem("chess_pieces", {
   loc: "gallery",
   scenery: true,
   parserPriority: -10,
@@ -555,7 +555,7 @@ createItem("chess_pieces", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("white_knight", {
+Quest.World.createItem("white_knight", {
   loc: "gallery",
   scenery: true,
   alias: "white knight",
@@ -567,23 +567,23 @@ createItem("white_knight", {
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg(w.chess_pieces.examine)
+      Quest.IO.msg(Quest.World.w.chess_pieces.examine)
     }
   },
   turn: function () {
     if (this.active) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
-      if (w.Patch.leaderName) w.Patch.setLeader()
+      if (Quest.World.w.Patch.leaderName) Quest.World.w.Patch.setLeader()
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("Mandy gives the white knight a twist -- and suddenly the room is changing around her...")
-      player.loc = 'battlefield'
-      world.update()
+      Quest.World.player.loc = 'battlefield'
+      Quest.World.world.update()
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
-      world.enterRoom()
+      Quest.World.world.enterRoom()
     }
     else {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'chess_pieces' does not exist on type '{}... Remove this comment to see the full error message
-      w.chess_pieces.turn
+      Quest.World.w.chess_pieces.turn
     }
   }
 })
@@ -593,43 +593,43 @@ createItem("white_knight", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createRoom("gallery_south", Quest.Templates.ROOM_SET("gallery"), {
+Quest.World.createRoom("gallery_south", Quest.Templates.ROOM_SET("gallery"), {
   windowsface: 'none',
   alias: 'south end of the gallery',
   headingAlias: "The Gallery (South)",
   desc: "{roomSet:Mandy is standing at the south end of a long and rather gloomy corridor -- though the far end looks a little lighter; there is at least a window at that end. There are paintings on the east wall.:The south end of the gallery is much like the north, if a little darker without the windows; again there are paintings along the east wall.} {once: Why would anyone hang paintings where it is so dark?} The wooden panelling on the walls has warped, and shows sign of damp. There are doors to the south, east and west.",
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  west: new Exit("theatre"),
+  west: new Quest.World.Exit("theatre"),
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  north: new Exit("gallery", { msg: 'The floorboards squeak beneath her, as she heads to the north end.' }),
+  north: new Quest.World.Exit("gallery", { msg: 'The floorboards squeak beneath her, as she heads to the north end.' }),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  south: new Exit("upper_steam_hall"),
+  south: new Quest.World.Exit("upper_steam_hall"),
   // @ts-expect-error ts-migrate(1117) FIXME: An object literal cannot have multiple properties ... Remove this comment to see the full error message
-  east: new Exit("_", {
+  east: new Quest.World.Exit("_", {
     simpleUse: function (char: any) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'room_big' does not exist on type '{}'.
-      if (!w.room_big.accessedFrom) w.room_big.accessedFrom = 'gallery'
+      if (!Quest.World.w.room_big.accessedFrom) Quest.World.w.room_big.accessedFrom = 'gallery'
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'room_big' does not exist on type '{}'.
-      const dest = w.room_big.accessedFrom === 'gallery' ? w.room_small : w.room_big
+      const dest = Quest.World.w.room_big.accessedFrom === 'gallery' ? Quest.World.w.room_small : Quest.World.w.room_big
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSimpleExitUse' does not exist on ... Remove this comment to see the full error message
-      return Quest.Utilities.util.defaultSimpleExitUse(char, new Exit(dest, { origin: this.origin, dir: this.dir }))
+      return Quest.Utilities.util.defaultSimpleExitUse(char, new Quest.World.Exit(dest, { origin: this.origin, dir: this.dir }))
     }
   }),
   examine_walls: "The walls are panelled with dark wood, but some patches are discoloured, and the wood has warped.",
   afterEnter: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'beach' does not exist on type '{}'.
-    if (!this.silverFlag1 && w.beach.visited > 0) {
+    if (!this.silverFlag1 && Quest.World.w.beach.visited > 0) {
       this.silverFlag1 = true
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("A sudden movement at the other end of the gallery catches her eye. A figure, all in silver, looks at her, before disappearing through the door at the far end.")
-      player.silverSpotted++
+      Quest.World.player.silverSpotted++
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'hourglass' does not exist on type '{}'.
-    if (this.silverFlag1 && !this.silverFlag2 && w.hourglass.fillState === 5) {
+    if (this.silverFlag1 && !this.silverFlag2 && Quest.World.w.hourglass.fillState === 5) {
       this.silverFlag2 = true
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("She notices a silver figure at the other end of the gallery, studying the chessboard. She remembers seeing one there before. This one seems unaware of her, she thinks. Then it glances her way, and suddenly dashes for the door to the dining room.")
-      player.silverSpotted++
+      Quest.World.player.silverSpotted++
     }
   },
   scenery: [
@@ -659,14 +659,14 @@ createRoom("gallery_south", Quest.Templates.ROOM_SET("gallery"), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("room_big", {
+Quest.World.createRoom("room_big", {
   windowsface: 'none',
   alias: "drawing room",
   noFollow: true,
   desc: function () {
     let s = "The drawing room is rather well appointed with wood panelling on the walls, and an ornate ceiling. A fireplace to the east has portraits on either side, and above it a painting of a battle."
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'mahogany_cabinet' does not exist on type... Remove this comment to see the full error message
-    if (w.mahogany_cabinet.moved) {
+    if (Quest.World.w.mahogany_cabinet.moved) {
       s += " The mahogany bureau has been pulled out from the north wall. There is a thick rug on the floor."
     }
     else {
@@ -677,9 +677,9 @@ createRoom("room_big", {
   },
   roll: "Mandy wonders if she could roll up the rug, and carry it that way. Does she really want to be lugging the thing around everywhere? Maybe not.",
   beforeEnter: function () {
-    for (let key in w) {
+    for (let key in Quest.World.w) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      const item = w[key]
+      const item = Quest.World.w[key]
       if (item.size_changing && ['room_small', 'drawing_room_south', 'drawing_room_north'].includes(item.loc)) {
         item.shrink()
         item.oldLoc = item.loc
@@ -688,12 +688,12 @@ createRoom("room_big", {
     }
   },
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  west: new Exit("_", {
+  west: new Quest.World.Exit("_", {
     simpleUse: function (char: any) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'room_big' does not exist on type '{}'.
-      const dest = w.room_big.accessedFrom === 'gallery' ? w.gallery : w.gallery_south
+      const dest = Quest.World.w.room_big.accessedFrom === 'gallery' ? Quest.World.w.gallery : Quest.World.w.gallery_south
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSimpleExitUse' does not exist on ... Remove this comment to see the full error message
-      return Quest.Utilities.util.defaultSimpleExitUse(char, new Exit(dest, { origin: this.origin, dir: this.dir }))
+      return Quest.Utilities.util.defaultSimpleExitUse(char, new Quest.World.Exit(dest, { origin: this.origin, dir: this.dir }))
     }
   }),
   scenery: [
@@ -757,7 +757,7 @@ createRoom("room_big", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("mahogany_cabinet", Quest.Templates.OPENABLE(true), {
+Quest.World.createItem("mahogany_cabinet", Quest.Templates.OPENABLE(true), {
   loc: "room_big",
   scenery: true,
   alias: "mahogany bureau",
@@ -773,11 +773,11 @@ createItem("mahogany_cabinet", Quest.Templates.OPENABLE(true), {
   },
   push: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (this.moved) return falsemsg("Mandy looks at the bureau. 'No, not shifting that thing again.'")
+    if (this.moved) return Quest.IO.falsemsg("Mandy looks at the bureau. 'No, not shifting that thing again.'")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg("Not sure if she should be moving furniture in someone else's house, Mandy grabs a hold of the bureau, and heaves it away from the wall, revealing a hole in the wall, a few inches high, just above the skirting board.")
     this.moved = true
-    return world.SUCCESS
+    return Quest.World.world.SUCCESS
   },
   pull: function () { return this.push() },
   shift: function () { return this.push() },
@@ -794,11 +794,11 @@ createItem("mahogany_cabinet", Quest.Templates.OPENABLE(true), {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("cabinet_drawer", {
+Quest.World.createItem("cabinet_drawer", {
   alias: 'drawers',
   synonym: ['left drawer', 'right drawer'],
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mahogany_cabinet' does not exist on type... Remove this comment to see the full error message
-  isLocatedAt: function (loc: any) { return loc === "room_big" && !w.mahogany_cabinet.closed },
+  isLocatedAt: function (loc: any) { return loc === "room_big" && !Quest.World.w.mahogany_cabinet.closed },
   scenery: true,
   examine: 'The drawers are small, perhaps used for keeping pens in.',
   open: 'Mandy tries a drawer, only to find it is locked. Odd that there is no keyhole.',
@@ -807,16 +807,16 @@ createItem("cabinet_drawer", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("cabinet_hole", {
+Quest.World.createItem("cabinet_hole", {
   alias: 'hole',
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mahogany_cabinet' does not exist on type... Remove this comment to see the full error message
-  isLocatedAt: function (loc: any) { return loc === "room_big" && w.mahogany_cabinet.moved },
+  isLocatedAt: function (loc: any) { return loc === "room_big" && Quest.World.w.mahogany_cabinet.moved },
   scenery: true,
   examine: 'With the bureau pulled out, Mandy can now see the hole in the wall; it is about the size of her hand, just above the skirting board. The cracks in the wall suggest it was the result of an impact.',
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("portraits_big", {
+Quest.World.createItem("portraits_big", {
   loc: "room_big",
   synonyms: ['portraits', 'pictures', 'paintings'],
   scenery: true,
@@ -825,7 +825,7 @@ createItem("portraits_big", {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg("There are two portraits of girls, one about eight years old, the other maybe twelve. They look alike, perhaps sisters. The other painting is of a great battle in ancient times. The armoured soldiers look like they might be Roman, and have shields and short swords, whilst their opponents have long swords and axes, but no armour. The Romans seem to be winning.")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'portraits_west' does not exist on type '... Remove this comment to see the full error message
-    if (w.portraits_west.flag && w.portraits_north.flag && w.portraits_south.flag) {
+    if (Quest.World.w.portraits_west.flag && Quest.World.w.portraits_north.flag && Quest.World.w.portraits_south.flag) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("She realises these are the same three pictures she saw in the drawing room -- just not as big. In fact, everything in this room is identical to that room, just in here it is normal size.")
     }
@@ -836,16 +836,16 @@ createItem("portraits_big", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("room_small", {
+Quest.World.createRoom("room_small", {
   windowsface: 'none',
   alias: 'giant drawing room',
   headingAlias: "The Drawing Room (Giant)",
   noFollow: true,
   desc: "This is a drawing room of immense size. Perhaps a hundred metres above her, Mandy can see the ornate ceiling. The walls, panelled in wood, stretch an even greater distance crossways. Huge paintings, way above Mandy's head, hang from the wall, above and either side of an enormous fireplace. In the centre of the room is a thick rug, about the size of a football pitch. The pile is so great, it would stop Mandy going across it. She can, however go round the sides, to the northeast or southeast. The door to the west looks very much out of place, being normal height in such a huge wall.",
   beforeEnter: function () {
-    for (let key in w) {
+    for (let key in Quest.World.w) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      const item = w[key]
+      const item = Quest.World.w[key]
       if (item.size_changing && item.loc === "room_big") {
         item.grow()
         item.loc = item.oldLoc ? item.oldLoc : "room_small"
@@ -853,25 +853,25 @@ createRoom("room_small", {
     }
   },
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  west: new Exit("_", {
+  west: new Quest.World.Exit("_", {
     simpleUse: function (char: any) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'room_big' does not exist on type '{}'.
-      const dest = w.room_big.accessedFrom === 'gallery' ? w.gallery_south : w.gallery
+      const dest = Quest.World.w.room_big.accessedFrom === 'gallery' ? Quest.World.w.gallery_south : Quest.World.w.gallery
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSimpleExitUse' does not exist on ... Remove this comment to see the full error message
-      return Quest.Utilities.util.defaultSimpleExitUse(char, new Exit(dest, { origin: this.origin, dir: this.dir }))
+      return Quest.Utilities.util.defaultSimpleExitUse(char, new Quest.World.Exit(dest, { origin: this.origin, dir: this.dir }))
     },
   }),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  northeast: new Exit("drawing_room_north"),
+  northeast: new Quest.World.Exit("drawing_room_north"),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  southeast: new Exit("drawing_room_south"),
+  southeast: new Quest.World.Exit("drawing_room_south"),
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  in: new Exit("boots_room", {
+  in: new Quest.World.Exit("boots_room", {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
-    isHidden: function () { return w.boots.loc !== "room_small" || w.boots.size < 6 },
+    isHidden: function () { return Quest.World.w.boots.loc !== "room_small" || Quest.World.w.boots.size < 6 },
     simpleUse: function (char: any) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
-      if (w.boots.loc !== "room_small" || w.boots.size < 6) return falsemsg(Quest.lang.not_that_way, { char: char, dir: this.dir })
+      if (Quest.World.w.boots.loc !== "room_small" || Quest.World.w.boots.size < 6) return Quest.IO.falsemsg(Quest.lang.not_that_way, { char: char, dir: this.dir })
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSimpleExitUse' does not exist on ... Remove this comment to see the full error message
       return Quest.Utilities.util.defaultSimpleExitUse(char, this)
     },
@@ -906,7 +906,7 @@ createRoom("room_small", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("portraits_west", {
+Quest.World.createItem("portraits_west", {
   loc: "room_small",
   synonyms: ['portraits', 'pictures', 'paintings'],
   scenery: true,
@@ -914,11 +914,11 @@ createItem("portraits_west", {
   examine: function (options: any) {
     options.item.flag = true
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'portraits_west' does not exist on type '... Remove this comment to see the full error message
-    if (w.portraits_west.flag && w.portraits_north.flag && w.portraits_south.flag) {
+    if (Quest.World.w.portraits_west.flag && Quest.World.w.portraits_north.flag && Quest.World.w.portraits_south.flag) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("Mandy looks at the three paintings. Having looked from three angles, she can see that there are two portraits of girls, one about eight years old, the other maybe twelve. They look alike, perhaps sisters. The other painting is of a great battle in ancient times. The armoured soldiers look like they might be Roman, and have shields and short swords, whilst their opponents have long swords and axes, but no armour. The Romans seem to be winning.")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'room_big' does not exist on type '{}'.
-      if (w.room_big.visited > 0) {
+      if (Quest.World.w.room_big.visited > 0) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("She realises these are the same three pictures she saw in the drawing room -- just much, much big. In fact, everything in this room is identical to that room, just in here it is giant size.")
       }
@@ -931,23 +931,23 @@ createItem("portraits_west", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("portraits_south", {
+Quest.World.createItem("portraits_south", {
   loc: "drawing_room_south",
   synonyms: ['portraits', 'pictures', 'paintings'],
   scenery: true,
   flag: false,
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'portraits_west' does not exist on type '... Remove this comment to see the full error message
-  examine: function (options: any) { return w.portraits_west.examine(options) },
+  examine: function (options: any) { return Quest.World.w.portraits_west.examine(options) },
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("portraits_north", {
+Quest.World.createItem("portraits_north", {
   loc: "drawing_room_north",
   synonyms: ['portraits', 'pictures', 'paintings'],
   scenery: true,
   flag: false,
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'portraits_west' does not exist on type '... Remove this comment to see the full error message
-  examine: function (options: any) { return w.portraits_west.examine(options) },
+  examine: function (options: any) { return Quest.World.w.portraits_west.examine(options) },
 })
 
 
@@ -955,12 +955,12 @@ createItem("portraits_north", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("drawing_room_south", {
+Quest.World.createRoom("drawing_room_south", {
   windowsface: 'none',
   alias: 'south side of the giant drawing room',
   headingAlias: "The Drawing Room (Giant, South)",
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  northwest: new Exit("room_small"),
+  northwest: new Quest.World.Exit("room_small"),
   desc: 'Mandy is standing in a narrow strip between the wall to the south and the rug-forest to the north. The south side of the giant room is notable for how dusty it is -- and how big the particles of dust are; about the size of marbles. Probably the way she can go from here is back northwest.',
   scenery: [
     {
@@ -1000,14 +1000,14 @@ createRoom("drawing_room_south", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("drawing_room_north", {
+Quest.World.createRoom("drawing_room_north", {
   windowsface: 'none',
   alias: 'north side of the giant drawing room',
   headingAlias: "The Drawing Room (Giant, North)",
   desc: function () {
     let s = "Mandy stands on a narrow strip of wooden floor, between the colossal wall to the north, and the forest-like carpet to the south. To the east, the rug is flush against the wall, so that is not an option, but she can head southwest, back to the door."
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'mahogany_cabinet' does not exist on type... Remove this comment to see the full error message
-    if (w.mahogany_cabinet.moved) {
+    if (Quest.World.w.mahogany_cabinet.moved) {
       s += " Above her towers a huge mahogany bureau, standing some way out from the wall. Behind it, to the north, is a large hole in the otherwise perfect wall."
     }
     else {
@@ -1016,14 +1016,14 @@ createRoom("drawing_room_north", {
     return s
   },
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  southwest: new Exit("room_small"),
+  southwest: new Quest.World.Exit("room_small"),
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  north: new Exit("secret_room", {
+  north: new Quest.World.Exit("secret_room", {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'mahogany_cabinet' does not exist on type... Remove this comment to see the full error message
-    isHidden: function () { return !w.mahogany_cabinet.moved },
+    isHidden: function () { return !Quest.World.w.mahogany_cabinet.moved },
     simpleUse: function (char: any) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'mahogany_cabinet' does not exist on type... Remove this comment to see the full error message
-      if (!w.mahogany_cabinet.moved) {
+      if (!Quest.World.w.mahogany_cabinet.moved) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("No way can Mandy get between the wall and the giant bureau to go that way.")
         return false
@@ -1062,14 +1062,14 @@ createRoom("drawing_room_north", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("cracks_in_the_wall", {
+Quest.World.createItem("cracks_in_the_wall", {
   loc: "drawing_room_north",
   synonyms: ['hole'],
   scenery: true,
   goInDirection: 'north',
   examine: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'mahogany_cabinet' does not exist on type... Remove this comment to see the full error message
-    if (w.mahogany_cabinet.moved) {
+    if (Quest.World.w.mahogany_cabinet.moved) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("The cracks in the wall surround a hole big enough to climb through.")
     }
@@ -1081,7 +1081,7 @@ createItem("cracks_in_the_wall", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("huge_cabinet", {
+Quest.World.createItem("huge_cabinet", {
   alias: 'huge bureau',
   loc: "drawing_room_north",
   open: 'Mandy wonders what sort of crane she would need to open the bureau.',
@@ -1090,7 +1090,7 @@ createItem("huge_cabinet", {
   examine: function () {
     let s = "The mahogany bureau towers over Mandy; it has to be higher than the science block at Kyderbrook High. {if:mahogany_cabinet:closed:Its doors are closed:It has two doors that are open, through it is hard to see what is beyond them from this angle -- it looks strangely like a castle}."
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'mahogany_cabinet' does not exist on type... Remove this comment to see the full error message
-    if (w.mahogany_cabinet.moved) {
+    if (Quest.World.w.mahogany_cabinet.moved) {
       s += " It is standing a little way from the wall -- like about 10 foot -- and Mandy can see a hole in the wall behind it."
     }
     else {
@@ -1101,7 +1101,7 @@ createItem("huge_cabinet", {
   },
   push: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    return falsemsg("Mandy looks at the bureau. The one that is higher than the science block at Kyderbrook High. 'That's not going to budge.'")
+    return Quest.IO.falsemsg("Mandy looks at the bureau. The one that is higher than the science block at Kyderbrook High. 'That's not going to budge.'")
   },
   pull: function () { return this.push() },
   shift: function () { return this.push() },
@@ -1122,16 +1122,16 @@ createItem("huge_cabinet", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("secret_room", {
+Quest.World.createRoom("secret_room", {
   windowsface: 'none',
   headingAlias: "A Secret Room",
   desc: "After the opulence of the other rooms, this one is decidedly bare -- but at least it is of reasonable proportions. More or less square, the walls are white, or had been at one time. The floor and ceiling are wood.{if:boots:scenery: The only feature of note is a large pair of boots in one corner.}",
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  south: new Exit("drawing_room_north", { alsoDir: ['out'] }),
+  south: new Quest.World.Exit("drawing_room_north", { alsoDir: ['out'] }),
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("boots", SIZE_CHANGING(), {
+Quest.World.createItem("boots", SIZE_CHANGING(), {
   loc: "secret_room",
   scenery: true,
   mended: false,
@@ -1147,9 +1147,9 @@ createItem("boots", SIZE_CHANGING(), {
   smell: "Mandy gives the boots a cautious sniff. 'Oh, God!' she exclaims. Not good...",
   examine: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
-    if (w.boots.rejectedForStone) {
+    if (Quest.World.w.boots.rejectedForStone) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
-      w.boots.rejectedForStone = false
+      Quest.World.w.boots.rejectedForStone = false
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("Mandy tips up the left boot, hoping something will fall out -- no such luck. She puts her hand inside it, hoping to feel something. There {i:is} something there, she can just touch it with her fingertips. Something thin, stuck right up in the toe. Try as she might, however, she cannot get her hand in far enough to get a grip on it, whatever it is, to pull it out.")
       return true
@@ -1170,31 +1170,30 @@ createItem("boots", SIZE_CHANGING(), {
   },
   enteritem: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
-    if (w.boots.size < 6) return falsemsg("The boots are too small for Mandy to get inside.")
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSimpleExitUse' does not exist on ... Remove this comment to see the full error message
-    return Quest.Utilities.util.defaultSimpleExitUse(player, w.room_small.in)
+    if (Quest.World.w.boots.size < 6) return Quest.IO.falsemsg("The boots are too small for Mandy to get inside.")
+    return Quest.Utilities.util.defaultSimpleExitUse(Quest.World.player, Quest.World.w.room_small.in)
   },
   afterSizeChange: function () {
     this.goInDirection = this.size === this.maxsize ? 'in' : undefined
   },
   repair: function (options: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (this.mended) return falsemsg("Mandy looks at the boots -- they are probably as mended as they will ever be.")
+    if (this.mended) return Quest.IO.falsemsg("Mandy looks at the boots -- they are probably as mended as they will ever be.")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (options.char === player) return falsemsg("Mandy looks at the boots. If she had some suitable materials, she could fix them. And the the right tools, of course. And some clue about what to do. Hmm, maybe she should find someone else to do it.")
+    if (options.char === Quest.World.player) return Quest.IO.falsemsg("Mandy looks at the boots. If she had some suitable materials, she could fix them. And the the right tools, of course. And some clue about what to do. Hmm, maybe she should find someone else to do it.")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'tiny_man' does not exist on type '{}'.
-    if (options.char !== w.tiny_man) falsemsg("Mandy wonders if she could ask {nm:char:the} to fix the boots. She decides there is no points.")
+    if (options.char !== Quest.World.w.tiny_man) Quest.IO.falsemsg("Mandy wonders if she could ask {nm:char:the} to fix the boots. She decides there is no points.")
 
     this.doRepair()
     return true
   },
   doRepair: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
-    if (w.boots.loc === player.name) {
+    if (Quest.World.w.boots.loc === Quest.World.player.name) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("'Could you mend some boots?' Mandy shows him the boots.")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
-      if (w.boots.size > 4) {
+      if (Quest.World.w.boots.size > 4) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Are you kidding me? They're enormous! 'Ow can I get a needle through leather that thick?'")
       }
@@ -1202,11 +1201,11 @@ createItem("boots", SIZE_CHANGING(), {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'I should think so. Toss 'em over here, and I'll 'ave a go.'")
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'tiny_man' does not exist on type '{}'.
-        w.tiny_man.state = 1
+        Quest.World.w.tiny_man.state = 1
       }
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
-    else if (w.boots.loc === "tiny_man") {
+    else if (Quest.World.w.boots.loc === "tiny_man") {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("'How are you doing with those boots?'|'Nearly done,' he says, not looking up.")
     }
@@ -1218,7 +1217,7 @@ createItem("boots", SIZE_CHANGING(), {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("boots_toe", Quest.Templates.COMPONENT("boots"), {
+Quest.World.createItem("boots_toe", Quest.Templates.COMPONENT("boots"), {
   alias: 'toe of boot',
   examine: "The toe of the boot has come away from the sole completely.",
 })
@@ -1227,32 +1226,32 @@ createItem("boots_toe", Quest.Templates.COMPONENT("boots"), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("boots_room", {
+Quest.World.createRoom("boots_room", {
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  out: new Exit("room_small", { msg: "Mandy climbs out of the giant boot, thankful to be out of there." }),
+  out: new Quest.World.Exit("room_small", { msg: "Mandy climbs out of the giant boot, thankful to be out of there." }),
   alias: 'inside a boot',
   headingAlias: "Inside a left boot",
   afterFirstEnter: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'secret_recipe' does not exist on type '{... Remove this comment to see the full error message
-    w.secret_recipe.size = 6
+    Quest.World.w.secret_recipe.size = 6
   },
   desc: "The interior of the boot is no more pleasant than the exterior; just darker.{if:secret_recipe:scenery: It looks like there is a huge sheet of thick card, folded into two, wedged in the toe.}",
 })
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("boots_from_inside", {
+Quest.World.createItem("boots_from_inside", {
   loc: "boots_room",
   scenery: true,
   alias: 'boot',
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  examine: function () { Quest.IO.msg(w.boots_room.desc) },
+  examine: function () { Quest.IO.msg(Quest.World.w.boots_room.desc) },
   goOutDirection: 'out',
 })
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("secret_recipe", SIZE_CHANGING(), {
+Quest.World.createItem("secret_recipe", SIZE_CHANGING(), {
   alias: "piece of paper",
   synonyms: ['huge sheet of card', 'tiny sheet of paper', 'notes'],
   loc: "boots_room",
@@ -1298,37 +1297,37 @@ createItem("secret_recipe", SIZE_CHANGING(), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("victorian_floor", {
+Quest.World.createItem("victorian_floor", {
   scenery: true,
   alias: "floor",
   examine: "The floor is wooden, and well-polished.",
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("victorian_walls", {
+Quest.World.createItem("victorian_walls", {
   scenery: true,
   alias: "wall",
   examine: "The walls are all panelled in wood.",
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("victorian_ceiling", {
+Quest.World.createItem("victorian_ceiling", {
   scenery: true,
   alias: "ceiling",
   examine: function () {
-    if (player.standson === null) {
+    if (Quest.World.player.standson === null) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("The ceiling is white, with simple decorations along each side.")
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      Quest.IO.msg("The ceiling turns out to be no more interesting from up here. Mandy wonders why she bothered standing on the {nm:item}.", { item: w[player.standson] })
+      Quest.IO.msg("The ceiling turns out to be no more interesting from up here. Mandy wonders why she bothered standing on the {nm:item}.", { item: Quest.World.w[Quest.World.player.standson] })
     }
   },
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("floor", {
+Quest.World.createItem("floor", {
   scenery: true,
   alias: "Floor",
   examine: "Mandy is not quite sure what it is about the tiles. They does not depict a demon or murder or anything really; they just has a strange effect on her eyes that is... disturbing.",

@@ -104,7 +104,7 @@ class SpellSummon extends Spell {
 
   targetEffect(attack: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    attack.item = cloneObject(this.prototype, attack.attacker.loc)
+    attack.item = Quest.World.cloneObject(this.prototype, attack.attacker.loc)
     attack.item.summonedCountdown = this.duration
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'summoning_successful' does not exist on ... Remove this comment to see the full error message
     attack.msg(Quest.lang.summoning_successful, 1)

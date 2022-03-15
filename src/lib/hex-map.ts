@@ -7,13 +7,13 @@
 function createHex(x: any, y: any, data: any) {
   const name = map.coordToCellName(x, y)
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  if (w[name]) {
+  if (Quest.World.w[name]) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapReportRepeats' does not exist on type... Remove this comment to see the full error message
     if (Quest.Settings.settings.mapReportRepeats) log('Already got a ' + name)
     return null
   }
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-  const o = createRoom(name, data)
+  const o = Quest.World.createRoom(name, data)
 
   // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
   o.mapX = x
@@ -34,7 +34,7 @@ function createHex(x: any, y: any, data: any) {
     log(map.vectors[dir])
     log(map.coordToCellName(x, y))
     // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-    return new Exit(map.coordToCellName(x, y), { origin: this, dir: dir })
+    return new Quest.World.Exit(map.coordToCellName(x, y), { origin: this, dir: dir })
   }
 
   // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
@@ -64,7 +64,7 @@ function createHex(x: any, y: any, data: any) {
     // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
     const y = this.mapY + map.vectors[dir][1]
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    if (w[map.coordToCellName(x, y)]) return true
+    if (Quest.World.w[map.coordToCellName(x, y)]) return true
     return false
   }
 
@@ -201,7 +201,7 @@ map.update = function () {
   // grab the current room x and y position as an array
   // or give up if not that sort of location
 
-  const playerCoord = map.cellNameToCoord(currentLocation)
+  const playerCoord = map.cellNameToCoord(Quest.World.currentLocation)
   if (!playerCoord) return
 
 
@@ -227,7 +227,7 @@ map.update = function () {
   for (let x = hexStartX; x <= hexStartX + hexWidth; x++) {
     for (let y = hexStartY * 2; y <= hexStartY + hexHeight; y++) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      const cell = w[map.coordToCellName(x, y)] || {}   // get data for cell or default
+      const cell = Quest.World.w[map.coordToCellName(x, y)] || {}   // get data for cell or default
       // We loop over all cells in a parallelogram because the x axis is rising,
       // but can ignore the top and bottom ones
       if (y + x / 2 > hexStartY + hexHeight + 1) continue
@@ -250,7 +250,7 @@ map.update = function () {
   if (Quest.Settings.settings.mapExtras) result.push(...Quest.Settings.settings.mapExtras())
   // Add the player position marker
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapMarker' does not exist on type '{ per... Remove this comment to see the full error message
-  result.push(Quest.Settings.settings.mapMarker ? Quest.Settings.settings.mapMarker(w[player.loc]) : map.marker())
+  result.push(Quest.Settings.settings.mapMarker ? Quest.Settings.settings.mapMarker(Quest.World.w[Quest.World.player.loc]) : map.marker())
   log(result)
 
   // The image will be draweing using these coordinates (in pixels)
@@ -385,7 +385,7 @@ map.mapDrawSymbol = function (lists: any, cell: any, x: any, y: any) {
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'marker' does not exist on type '{ toggle... Remove this comment to see the full error message
 map.marker = function () {
-  const coord = map.cellNameToCoord(currentLocation)
+  const coord = map.cellNameToCoord(Quest.World.currentLocation)
   if (!coord) return
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'yFactor' does not exist on type '{ toggl... Remove this comment to see the full error message
   const y = (-coord[1] - coord[0] / 2) * map.yFactor
@@ -411,7 +411,7 @@ map.river = function (x: any, y: any, ...data: any[]) {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'border' does not exist on type '{ toggle... Remove this comment to see the full error message
 map.border = function (x: any, y: any, colour: any, ...data: any[]) {
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  const hex = w[map.coordToCellName(x, y)]
+  const hex = Quest.World.w[map.coordToCellName(x, y)]
   if (!hex) {
     log('Failed to add river to ' + map.coordToCellName(x, y))
     return
@@ -459,13 +459,13 @@ if (Quest.Settings.settings.playMode === 'dev') {
     objects: [
     ],
     script: function () {
-      for (let key in w) {
+      for (let key in Quest.World.w) {
         // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-        if (w[key].mapZ == undefined) continue
+        if (Quest.World.w[key].mapZ == undefined) continue
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        Quest.IO.metamsg(w[key].name + ': ' + w[key].mapX + ', ' + w[key].mapY + ', ' + w[key].mapZ + ' Region=' + w[key].mapRegion)
+        Quest.IO.metamsg(Quest.World.w[key].name + ': ' + Quest.World.w[key].mapX + ', ' + Quest.World.w[key].mapY + ', ' + Quest.World.w[key].mapZ + ' Region=' + Quest.World.w[key].mapRegion)
       }
-      return world.SUCCESS_NO_TURNSCRIPTS
+      return Quest.World.world.SUCCESS_NO_TURNSCRIPTS
     },
   }))
 }
@@ -490,5 +490,5 @@ Quest.Command.findCmd('Map').script = function () {
   Quest.IO.io.calcMargins()
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
   Quest.IO.msg(Quest.lang.done_msg)
-  return world.SUCCESS_NO_TURNSCRIPTS
+  return Quest.World.world.SUCCESS_NO_TURNSCRIPTS
 }

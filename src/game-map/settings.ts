@@ -38,7 +38,7 @@ Quest.Settings.settings.mapStyle = { right: '0', top: '200px', width: '400px', h
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapClick' does not exist on type '{ perf... Remove this comment to see the full error message
 Quest.Settings.settings.mapClick = function (name: any) {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  Quest.IO.metamsg("You clicked on " + w[name].alias)
+  Quest.IO.metamsg("You clicked on " + Quest.World.w[name].alias)
 }
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapAutomapFrom' does not exist on type '... Remove this comment to see the full error message
 Quest.Settings.settings.mapAutomapFrom = ['street_middle', 'glade']
@@ -53,9 +53,9 @@ Quest.Settings.settings.mapMarker = function (loc: any) {
 Quest.Settings.settings.mapExtras = function () {
   const result = []
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  const room = w[player.loc]
-  /*for (let o of [w.Robot, w.Lara, w.Kyle]) {
-    if (w[o.loc].mapZ !== room.mapZ || w[o.loc].mapRegion !== room.mapRegion) continue
+  const room = Quest.World.w[Quest.World.player.loc]
+  /*for (let o of [Quest.World.w.Robot, Quest.World.w.Lara, Quest.World.w.Kyle]) {
+    if (Quest.World.w[o.loc].mapZ !== room.mapZ || Quest.World.w[o.loc].mapRegion !== room.mapRegion) continue
     result.push(o.mapDrawBase())
   }*/
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'polygon' does not exist on type '{ toggl... Remove this comment to see the full error message

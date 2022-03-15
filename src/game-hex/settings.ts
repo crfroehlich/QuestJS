@@ -19,7 +19,7 @@ Quest.Settings.settings.libraries.push('hex-map')
 Quest.Settings.settings.tests = true
 
 Quest.Settings.settings.status = [
-  function () { return '<td>Health points:</td><td>' + player.hitpoints + '</td>' },
+  function () { return '<td>Health points:</td><td>' + Quest.World.player.hitpoints + '</td>' },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getDateTime' does not exist on type '{}'... Remove this comment to see the full error message
   function () { return '<td colspan="2">' + Quest.Utilities.util.getDateTime() + '</td>' },
 ]

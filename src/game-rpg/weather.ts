@@ -35,16 +35,16 @@ currentWeatherTotal
 
 // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '() => void' is not assignable to... Remove this comment to see the full error message
 Quest.Settings.settings.afterTurn.push(function () {
-  if (player.currentWeatherDisabled) return
-  if (player.currentWeatherName) {
+  if (Quest.World.player.currentWeatherDisabled) return
+  if (Quest.World.player.currentWeatherName) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    weatherTypes[player.currentWeatherName].turn()
+    weatherTypes[Quest.World.player.currentWeatherName].turn()
   }
   else {
-    player.currentWeatherName = Object.keys(weatherTypes)[0]
-    player.currentWeatherCount = 0
+    Quest.World.player.currentWeatherName = Object.keys(weatherTypes)[0]
+    Quest.World.player.currentWeatherCount = 0
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    player.currentWeatherTotal = weatherTypes[player.currentWeatherName].getNumberOfTurns()
+    Quest.World.player.currentWeatherTotal = weatherTypes[Quest.World.player.currentWeatherName].getNumberOfTurns()
   }
 })
 
@@ -66,22 +66,22 @@ class Weather {
   }
 
   turn() {
-    player.currentWeatherCount++
+    Quest.World.player.currentWeatherCount++
     if (this.wetness) {
-      if (!player.currentWeatherWetness) player.currentWeatherWetness = 0
-      player.currentWeatherWetness += this.wetness
+      if (!Quest.World.player.currentWeatherWetness) Quest.World.player.currentWeatherWetness = 0
+      Quest.World.player.currentWeatherWetness += this.wetness
       if (this.wetness > 100) this.wetness = 100
       if (this.wetness < 0) this.wetness = 0
       if (this.wetness > 80) this.wetness--
       if (this.wetness > 60) this.wetness--
     }
-    if (player.currentWeatherCount >= player.currentWeatherTotal) {
+    if (Quest.World.player.currentWeatherCount >= Quest.World.player.currentWeatherTotal) {
       const currentName = this.getNext()
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       const current = weatherTypes[currentName]
-      player.currentWeatherName = currentName
-      player.currentWeatherCount = 0
-      player.currentWeatherTotal = current.getNumberOfTurns()
+      Quest.World.player.currentWeatherName = currentName
+      Quest.World.player.currentWeatherCount = 0
+      Quest.World.player.currentWeatherTotal = current.getNumberOfTurns()
       if (current.start) current.start(this.name)
     }
     else {
@@ -91,16 +91,16 @@ class Weather {
 
   outside(includeVisible: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'weatherReportsAssumeYes' does not exist ... Remove this comment to see the full error message
-    if (Quest.Settings.settings.weatherReportsAssumeYes && currentLocation.noWeather) return false
+    if (Quest.Settings.settings.weatherReportsAssumeYes && Quest.World.currentLocation.noWeather) return false
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'weatherReportsAssumeYes' does not exist ... Remove this comment to see the full error message
-    if (!Quest.Settings.settings.weatherReportsAssumeYes && !currentLocation.yesWeather) return false
+    if (!Quest.Settings.settings.weatherReportsAssumeYes && !Quest.World.currentLocation.yesWeather) return false
     if (includeVisible) return true
-    return !currentLocation.weatherModifier
+    return !Quest.World.currentLocation.weatherModifier
   }
 
   report(s: any, options: any) {
     if (!this.outside(true)) return false
-    if (currentLocation.weatherModifier) s = currentLocation.weatherModifier.replace('#', s)
+    if (Quest.World.currentLocation.weatherModifier) s = Quest.World.currentLocation.weatherModifier.replace('#', s)
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
     Quest.IO.msg(s, options)
     return true
@@ -123,7 +123,7 @@ new Weather("cloudingOver", {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
   getNext: function () { return Quest.Random.rndm.fromArray(['rain', 'clearing', 'drizzle', 'cloudy']) },
   getDescription: function () { return "It is getting cloudy." },
-  getCloudCover: function () { return Math.round(player.currentWeatherCount / player.currentWeatherTotal * 100) },
+  getCloudCover: function () { return Math.round(Quest.World.player.currentWeatherCount / Quest.World.player.currentWeatherTotal * 100) },
   start: function () { this.report("It is starting to get cloudy.") },
 })
 new Weather("rain", {
@@ -155,7 +155,7 @@ new Weather("clearing", {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
   getNext: function () { return Quest.Random.rndm.fromArray(['hot', 'cloudingOver']) },
   getDescription: function () { return "The sky is clearing." },
-  getCloudCover: function () { return 100 - Math.round(player.currentWeatherCount / player.currentWeatherTotal * 100) },
+  getCloudCover: function () { return 100 - Math.round(Quest.World.player.currentWeatherCount / Quest.World.player.currentWeatherTotal * 100) },
   start: function (previous: any) { if (previous === "rain") this.report("The rain stops.") },
 })
 new Weather("clearingToHot", {

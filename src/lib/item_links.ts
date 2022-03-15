@@ -89,7 +89,7 @@ itemLinks.update = function () {
 
   for (const el of document.querySelectorAll(".object-link")) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    const obj = w[el.dataset.objname]
+    const obj = Quest.World.w[el.dataset.objname]
     if (obj.scopeStatus.canReach || obj.scopeStatus.visible) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'disableItemLink' does not exist on type ... Remove this comment to see the full error message
       itemLinks.disableItemLink(el)
@@ -183,7 +183,7 @@ itemLinks.disableItemLink = function (el) {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'updateItemLinks' does not exist on type ... Remove this comment to see the full error message
 itemLinks.updateItemLinks = function (el) {
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  const obj = w[el.dataset.objname]
+  const obj = Quest.World.w[el.dataset.objname]
   const alias = el.children[0].innerHTML
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'nameTransformer' does not exist on type ... Remove this comment to see the full error message
   el.innerHTML = Quest.Settings.settings.nameTransformer(alias, obj)
@@ -193,7 +193,7 @@ itemLinks.updateItemLinks = function (el) {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'updateItemLinks2' does not exist on type... Remove this comment to see the full error message
 itemLinks.updateItemLinks2 = function (el) {
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  const obj = w[el.dataset.objname]
+  const obj = Quest.World.w[el.dataset.objname]
   const options = {}
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   for (const key in el.dataset) options[key] = Quest.Utilities.util.guessMyType(el.dataset[key])
@@ -239,7 +239,7 @@ Quest.Text.text_processors.exitsHere = function (arr, params) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'disableAllLinks' does not exist on type ... Remove this comment to see the full error message
   itemLinks.disableAllLinks('exit-link')
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  const list = w[player.loc].getExitDirs().map(el => '<span class="exit-link" onclick="Quest.Utilities.runCmd(\'' + el + '\')">' + el + '</span>')
+  const list = Quest.World.w[Quest.World.player.loc].getExitDirs().map(el => '<span class="exit-link" onclick="Quest.Utilities.runCmd(\'' + el + '\')">' + el + '</span>')
   return Quest.Utilities.formatList(list, { lastJoiner: Quest.lang.list_or, nothing: Quest.lang.list_nowhere });
 }
 

@@ -57,10 +57,8 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('Unequip', {
 
 
 
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.push(new Quest.Command.Cmd('LearnSpell', {
   npcCmd: true,
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
   rules: [Quest.Command.cmdRules.isPresent],
   objects: [
     { special: 'text' }
@@ -70,15 +68,15 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('LearnSpell', {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'spell' does not exist on type 'never'.
     if (!spell || !spell.spell) return Quest.IO.failedmsg("There is no spell called " + objects[0] + ".")
 
-    const source = rpg.isSpellAvailable(player, spell)
+    const source = rpg.isSpellAvailable(Quest.World.player, spell)
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     if (!source) return Quest.IO.failedmsg("You do not have anything you can learn {i:" + spell.name + "} from.")
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'name' does not exist on type 'never'.
-    player.skillsLearnt.push(spell.name)
+    Quest.World.player.skillsLearnt.push(spell.name)
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg("You learn {i:" + spell.name + "} from " + Quest.lang.getName(source, { article: Quest.Utilities.DEFINITE }) + ".")
-    return world.SUCCESS
+    return Quest.World.world.SUCCESS
   },
 }))
 
@@ -98,17 +96,17 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('CastSpell', {
     if (!spell || !spell.spell) return Quest.IO.failedmsg("There is no spell called " + objects[0] + ".")
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'name' does not exist on type 'never'.
-    if (!player.skillsLearnt.includes(spell.name)) return Quest.IO.failedmsg("You do not know the spell {i:" + spell.name + "}.")
+    if (!Quest.World.player.skillsLearnt.includes(spell.name)) return Quest.IO.failedmsg("You do not know the spell {i:" + spell.name + "}.")
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'noTarget' does not exist on type 'never'... Remove this comment to see the full error message
     if (!spell.noTarget) return Quest.IO.failedmsg("You need a target for the spell {i:" + spell.name + "}.")
 
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
-    const attack = Attack.createAttack(player, player, spell)
-    if (!attack) return world.FAILED
+    const attack = Attack.createAttack(Quest.World.player, Quest.World.player, spell)
+    if (!attack) return Quest.World.world.FAILED
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'apply' does not exist on type 'true | At... Remove this comment to see the full error message
     attack.apply().output()
-    return world.SUCCESS
+    return Quest.World.world.SUCCESS
   },
 }))
 
@@ -132,7 +130,7 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('CastSpellAt', {
     if (!spell || !spell.spell) return Quest.IO.failedmsg("There is no spell called " + objects[0] + ".")
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'name' does not exist on type 'never'.
-    if (!player.skillsLearnt.includes(spell.name)) return Quest.IO.failedmsg("You do not know the spell {i:" + spell.name + "}.")
+    if (!Quest.World.player.skillsLearnt.includes(spell.name)) return Quest.IO.failedmsg("You do not know the spell {i:" + spell.name + "}.")
 
     const target = objects[1][0]
 
@@ -142,11 +140,11 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('CastSpellAt', {
     if (spell.damage && target.health === undefined) return Quest.IO.failedmsg("You can't attack that.")
 
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
-    const attack = Attack.createAttack(player, target, spell)
-    if (!attack) return world.FAILED
+    const attack = Attack.createAttack(Quest.World.player, target, spell)
+    if (!attack) return Quest.World.world.FAILED
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'apply' does not exist on type 'true | At... Remove this comment to see the full error message
     attack.apply().output()
-    return world.SUCCESS
+    return Quest.World.world.SUCCESS
   },
 }))
 
@@ -161,7 +159,7 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('DebugRPG', {
     Quest.Settings.settings.attackOutputLevel = 10
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     Quest.IO.metamsg("All output from attacks will now be seen.");
-    return world.SUCCESS_NO_TURNSCRIPTS
+    return Quest.World.world.SUCCESS_NO_TURNSCRIPTS
   },
 }))
 

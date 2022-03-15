@@ -9,7 +9,7 @@ const missions = {
   getMission(name: any) { return this.data.find(el => el.name === name) },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'alias' does not exist on type 'never'.
   find(alias: any) { return this.data.find(el => el.alias.toLowerCase() === alias.toLowerCase()) },
-  getState(name: any) { return player['mission_' + name] },
+  getState(name: any) { return Quest.World.player['mission_' + name] },
   isActive(name: any) {
     const state = this.getState(name)
     return state !== undefined && state < 1000
@@ -56,9 +56,9 @@ const missions = {
 
   start: function (name: any) {
     const mission = this.getMission(name)
-    player['mission_' + name] = 1
+    Quest.World.player['mission_' + name] = 1
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
-    player['missionStart_' + name] = w.ship.dateTime
+    Quest.World.player['missionStart_' + name] = Quest.World.w.ship.dateTime
   },
 
   init: function () {
@@ -244,7 +244,7 @@ missions.add({
       {
         name: 'metabelis3',
         alias: 'Metabelis III',
-        desc: "The third planet of the Metabelis is a pleasant world, know for it blue crystal caves, said to have mind-enhancing properties. This has allowed some minor tourism to develop, though the colony is mostly agricultural and mining.",
+        desc: "The third planet of the Metabelis is a pleasant Quest.World.world, know for it blue crystal caves, said to have mind-enhancing properties. This has allowed some minor tourism to develop, though the colony is mostly agricultural and mining.",
       }
     ]
   },

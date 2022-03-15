@@ -2,15 +2,15 @@
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("player", Quest.Templates.PLAYER(), {
+Quest.World.createItem("player", Quest.Templates.PLAYER(), {
   loc: "bridge",
   crewSummary: '',
   mission_assemble_crew: 1,
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
-  missionStart_assemble_crew: w.ship.dateTime,
+  missionStart_assemble_crew: Quest.World.w.ship.dateTime,
   mission_sector_7_iota: 1,
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
-  missionStart_sector_7_iota: w.ship.dateTime,
+  missionStart_sector_7_iota: Quest.World.w.ship.dateTime,
 })
 
 
@@ -20,11 +20,11 @@ createItem("player", Quest.Templates.PLAYER(), {
 
 // Your boss
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("nagoshima", Quest.NPC.NPC(true), {
+Quest.World.createItem("nagoshima", Quest.NPC.NPC(true), {
   alias: "Commander Nagoshima",
   properNoun: true,
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
-  isAtLoc: function (loc: any, situation: any) { return situation === world.PARSER && w.ship.onView === this.name },
+  isAtLoc: function (loc: any, situation: any) { return situation === Quest.World.world.PARSER && Quest.World.w.ship.onView === this.name },
   examine: "Despite her striking black hair, which she wears in a neat bun, you would judge Commander Nagoshima to be in her fifties. You find yourself warming to her smile.",
   convTopics: [
     {
@@ -68,7 +68,7 @@ createItem("nagoshima", Quest.NPC.NPC(true), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("yeoman", Quest.NPC.NPC(true), {
+Quest.World.createItem("yeoman", Quest.NPC.NPC(true), {
   loc: "bridge",
   alias: "Yeoman Rand",
   properNoun: true,
@@ -128,7 +128,7 @@ createItem("yeoman", Quest.NPC.NPC(true), {
         Quest.IO.msg("'I prefer ma'am to sir,' you tell the yeoman.");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'As you wish, ma'am.'");
-        player.callmemaam = true
+        Quest.World.player.callmemaam = true
       },
     },
   ],
@@ -155,7 +155,7 @@ const CANDIDATE = function (female: any) {
     for (let role of roster.data) {
       const npc = roster.getOfficer(role.name)
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
-      if (!w.ship.arrivedAtSector) {
+      if (!Quest.World.w.ship.arrivedAtSector) {
         if (npc === this) {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
           Quest.Settings.settings.startingDialogHtml += '<p><input type="checkbox" name="' + role.name + '" id="diag-' + role.name + '" checked="yes"/> ' + role.alias + '</p>'
@@ -204,7 +204,7 @@ const getCandidates = function () {
 const belongsToHelm = function (loc: any) {
   log(loc)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
-  return w.ship.helm && loc === w.ship.helm
+  return Quest.World.w.ship.helm && loc === Quest.World.w.ship.helm
 }
 
 
@@ -212,7 +212,7 @@ const belongsToHelm = function (loc: any) {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("sharraaa", CANDIDATE(false), {
+Quest.World.createItem("sharraaa", CANDIDATE(false), {
   alias: "Sharraaa",
   examine: "Sharraaa is a pink, and somewhat translucent, blob. He is sat in bucket from which he raises a pseudopod as the need arises.",
   weapons: "5",
@@ -236,7 +236,7 @@ createItem("sharraaa", CANDIDATE(false), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("farrington_moss", CANDIDATE(false), {
+Quest.World.createItem("farrington_moss", CANDIDATE(false), {
   alias: "Farrington Moss",
   examine: "Farrington is a well-muscled man, with cropped hair that almost looks painted on. His uniform is crisply smart and he seems to be constantly standing at attention, even when in his seat.",
   weapons: "5",
@@ -260,7 +260,7 @@ createItem("farrington_moss", CANDIDATE(false), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("lashirr_hrong", CANDIDATE(true), {
+Quest.World.createItem("lashirr_hrong", CANDIDATE(true), {
   alias: "Lashirr Hrong",
   examine: "Like most  Girr-Girr, Lashirr is tall and gangling. The sensory nodules covering her yellowy-green skin do serve to fill out her uniform, but in a manner that looks rather odd to the human eye.",
   weapons: "2",
@@ -283,7 +283,7 @@ createItem("lashirr_hrong", CANDIDATE(true), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("dakota_north", CANDIDATE(true), {
+Quest.World.createItem("dakota_north", CANDIDATE(true), {
   alias: "Dakota North",
   examine: "Dakota is a tall, slim woman, with blonde hair in a neat ponytail. She has a stern look and eyes of steel.",
   weapons: "9",
@@ -307,7 +307,7 @@ createItem("dakota_north", CANDIDATE(true), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("river_severn", CANDIDATE(true), {
+Quest.World.createItem("river_severn", CANDIDATE(true), {
   alias: "River Severn",
   examine: "River is a petite woman, whose long, flowing, blue hair indicates a casual regard for the regulations, to say nothing of the unfastened button on her collar and the bangles and earrings.",
   weapons: "1",
@@ -347,7 +347,7 @@ createItem("river_severn", CANDIDATE(true), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("milton_keynes", CANDIDATE(false), {
+Quest.World.createItem("milton_keynes", CANDIDATE(false), {
   alias: "Milton Keynes",
   examine: "A thick-set man, shorted than average, with hands like shovels, Milton looks like he could pummel the engines into submission if necessary.",
   weapons: "4",
@@ -380,7 +380,7 @@ createItem("milton_keynes", CANDIDATE(false), {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Er, remind me...'");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'The twin gods, Yinus and Yango, that rules our lives. Yinus the goddess who controls all that is moving, the flowing river of time, the entropy of the universe. Yango the god, controlling all that is static, the foundations of the world, the energy of the universe. I'll give you one of my pamphlets; it explains how the whole of creation is set out in the Book of the All, written by the prophet.'");
+        Quest.IO.msg("'The twin gods, Yinus and Yango, that rules our lives. Yinus the goddess who controls all that is moving, the flowing river of time, the entropy of the universe. Yango the god, controlling all that is static, the foundations of the Quest.World.world, the energy of the universe. I'll give you one of my pamphlets; it explains how the whole of creation is set out in the Book of the All, written by the prophet.'");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Yeah, I'll read it... later. I guess.'");
       },
@@ -393,7 +393,7 @@ createItem("milton_keynes", CANDIDATE(false), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("norton_canes", CANDIDATE(false), {
+Quest.World.createItem("norton_canes", CANDIDATE(false), {
   alias: "Norton Canes",
   examine: "Norton is a slender man, with a thin mustache, and raven black hair in a ponytail. Though his uniform is buttoned and polished, it still looks messy on him, and there is a distinctly seedy look about him.",
   weapons: "7",
@@ -460,7 +460,7 @@ createItem("norton_canes", CANDIDATE(false), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("info", CANDIDATE(false), {
+Quest.World.createItem("info", CANDIDATE(false), {
   alias: "Info",
   examine: "Info is a sophisticated robot; a cylinder on crawler trackers, standing a little over average height for a man, from which six arms can extend, each suited to a different task. He has a flashing orange light on the top; a health and safety requirement.",
   weapons: "4",
@@ -484,7 +484,7 @@ createItem("info", CANDIDATE(false), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("restrel_juazz", CANDIDATE(true), {
+Quest.World.createItem("restrel_juazz", CANDIDATE(true), {
   alias: "Restrel Juazz",
   examine: "The Chal are perhaps the most human-like of all the alien races mankind has discovered, and Restrel is very obviously a female. Her skin is smooth, green with a hint of blue, her hair a deep blue. She is a little shorter than you, but not by much.",
   weapons: "5",
@@ -540,7 +540,7 @@ createItem("restrel_juazz", CANDIDATE(true), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("helmsman_go_to_7iota", Quest.NPC.TOPIC(true), {
+Quest.World.createItem("helmsman_go_to_7iota", Quest.NPC.TOPIC(true), {
   belongsTo: belongsToHelm,
   nowShow: ['helmsman_go_to_star', 'helmsman_go_to_location'],
   alias: "Lay in a course for 7 Iota",
@@ -564,7 +564,7 @@ createItem("helmsman_go_to_7iota", Quest.NPC.TOPIC(true), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("helmsman_go_to_star", Quest.NPC.TOPIC(false), {
+Quest.World.createItem("helmsman_go_to_star", Quest.NPC.TOPIC(false), {
   belongsTo: belongsToHelm,
   hideAfter: false,
   alias: "Lay in a course for star...",
@@ -576,12 +576,12 @@ createItem("helmsman_go_to_star", Quest.NPC.TOPIC(false), {
       const system = stars.getSystem(result)
       log(system)
     })
-    return world.SUCCESS
+    return Quest.World.world.SUCCESS
   }
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("helmsman_go_to_location", Quest.NPC.TOPIC(false), {
+Quest.World.createItem("helmsman_go_to_location", Quest.NPC.TOPIC(false), {
   belongsTo: belongsToHelm,
   hideAfter: false,
   alias: "Lay in a course for location in this system...",

@@ -26,17 +26,17 @@ Quest.Settings.settings.noTalkTo = false
 Quest.Settings.settings.iconsFolder = false
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'onView' does not exist on type '{ perfor... Remove this comment to see the full error message
-Quest.Settings.settings.onView = function (item: any) { return w.ship.onView === item.name && currentLocation === w.bridge }
+Quest.Settings.settings.onView = function (item: any) { return Quest.World.w.ship.onView === item.name && Quest.World.currentLocation === Quest.World.w.bridge }
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'pageOption' does not exist on type '{ pe... Remove this comment to see the full error message
 Quest.Settings.settings.pageOption = function (item: any) { return item.pageOption }
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'inventoryPane' does not exist on type '{... Remove this comment to see the full error message
 Quest.Settings.settings.inventoryPane = [
-  //  {name:'Items Held', alt:'itemsHeld', test:Quest.Settings.settings.isHeldNotWorn, getLoc:function() { return player.name; } },
+  //  {name:'Items Held', alt:'itemsHeld', test:Quest.Settings.settings.isHeldNotWorn, getLoc:function() { return Quest.World.player.name; } },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'onView' does not exist on type '{ perfor... Remove this comment to see the full error message
   { name: 'On Viewscreen', alt: 'itemsView', test: Quest.Settings.settings.onView },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'pageOption' does not exist on type '{ pe... Remove this comment to see the full error message
   { name: 'Your PAGE', alt: 'pageOptions', test: Quest.Settings.settings.pageOption },
-  { name: 'People Here', alt: 'itemsHere', test: Quest.Settings.settings.isHere, getLoc: function () { return player.loc; } },
+  { name: 'People Here', alt: 'itemsHere', test: Quest.Settings.settings.isHere, getLoc: function () { return Quest.World.player.loc; } },
 ]
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'favicon' does not exist on type '{ perfo... Remove this comment to see the full error message
@@ -46,17 +46,17 @@ Quest.Settings.settings.funcForDynamicConv = 'showMenuDiag'
 
 Quest.Settings.settings.status = [
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
-  function () { return "<td>Stardate:</td><td>" + w.ship.getDateTime() + "</td>"; },
+  function () { return "<td>Stardate:</td><td>" + Quest.World.w.ship.getDateTime() + "</td>"; },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
-  function () { return "<td>Alert:</td><td>" + w.ship.getAlert() + "</td>"; },
+  function () { return "<td>Alert:</td><td>" + Quest.World.w.ship.getAlert() + "</td>"; },
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
   function () { return "<td>System:</td><td>" + stars.getSystem().alias + "</td>"; },
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
   function () { return "<td>Location:</td><td>" + stars.getLocation().alias + "</td>"; },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
-  function () { return "<td>Hull:</td><td>" + w.ship.hullIntegrity + "%</td>"; },
+  function () { return "<td>Hull:</td><td>" + Quest.World.w.ship.hullIntegrity + "%</td>"; },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
-  function () { return "<td>Shields:</td><td>" + w.ship.getShields() + "</td>"; },
+  function () { return "<td>Shields:</td><td>" + Quest.World.w.ship.getShields() + "</td>"; },
 ]
 
 Quest.Settings.settings.libraries.push('image-pane')
@@ -85,9 +85,9 @@ Quest.Settings.settings.setup = function () {
 
   Quest.IO.createAdditionalPane(1, "Go to", 'directions', function () {
     let html = ''
-    for (const ex of currentLocation.dests) {
+    for (const ex of Quest.World.currentLocation.dests) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      const dest = w[ex.name]
+      const dest = Quest.World.w[ex.name]
       html += '<div style="margin-bottom: 10px;"><p class="item" onclick="Quest.Utilities.runCmd(\'go to ' + dest.alias.toLowerCase() + '\')">' + dest.headingAlias + '</p></div>'
     }
     return html
@@ -122,7 +122,7 @@ Quest.Settings.settings.setup = function () {
 Quest.Settings.settings.updateCustomUI = function () {
   const encyc = Array.from(document.getElementsByClassName('item')).filter(el => el.innerHTML === 'Encyclopedia')[0]
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'onclick' does not exist on type 'Element... Remove this comment to see the full error message
-  encyc.onclick = function () { Quest.IO.askDiag("Search the web", w.encyclopedia.askDiag, "Submit") }
+  encyc.onclick = function () { Quest.IO.askDiag("Search the web", Quest.World.w.encyclopedia.askDiag, "Submit") }
 
 }
 
@@ -147,9 +147,9 @@ Quest.Settings.settings.startingDialogInit = function () {
 Quest.Settings.settings.startingDialogOnClick = function () {
   Quest.Settings.settings.startingDialogEnabled = true
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'dialogType' does not exist on type '{ pe... Remove this comment to see the full error message
-  if (Quest.Settings.settings.dialogType === 'crew roster' && !w.ship.arrivedAtSector) {
+  if (Quest.Settings.settings.dialogType === 'crew roster' && !Quest.World.w.ship.arrivedAtSector) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    const npc = w[document.querySelector("#diag-name").value]
+    const npc = Quest.World.w[document.querySelector("#diag-name").value]
 
     for (let role of roster.data) {
       const assignedNpc = roster.getOfficer(role.name)
@@ -158,11 +158,11 @@ Quest.Settings.settings.startingDialogOnClick = function () {
       // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
       if (document.querySelector("#diag-" + role.name).checked) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
-        w.ship[role.name] = npc.name
+        Quest.World.w.ship[role.name] = npc.name
       }
       else {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
-        w.ship[role.name] = false
+        Quest.World.w.ship[role.name] = false
       }
     }
     const roles = roster.getRoles(npc)

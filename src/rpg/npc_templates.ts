@@ -17,7 +17,7 @@ const RPG_TEMPLATE = {
   setGuardFromAgenda(ary: any) {
     log(ary)
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    const room = w[ary.shift()]
+    const room = Quest.World.w[ary.shift()]
     const dir = ary.shift()
     this.setGuard(room, dir, ary.join(':'))
   },
@@ -34,7 +34,7 @@ const RPG_TEMPLATE = {
   },
   unsetGuard() {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'remove' does not exist on type '{}'.
-    Quest.Utilities.array.remove(w[this.guardingLoc][this.guardingDir].guardedBy, this.name)
+    Quest.Utilities.array.remove(Quest.World.w[this.guardingLoc][this.guardingDir].guardedBy, this.name)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'guardingLoc' does not exist on type '{ o... Remove this comment to see the full error message
     delete this.guardingLoc
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'guardingDir' does not exist on type '{ o... Remove this comment to see the full error message
@@ -71,7 +71,7 @@ const RPG_TEMPLATE = {
     }
   },
   testTalk: function () {
-    // @ts-expect-error ts-migrate(2552) FIXME: Cannot find name 'falsems'. Did you mean 'falsemsg... Remove this comment to see the full error message
+    // @ts-expect-error ts-migrate(2552) FIXME: Cannot find name 'falsems'. Did you mean 'Quest.IO.falsemsg... Remove this comment to see the full error message
     if (this.dead) return falsems(Quest.lang.npc_dead)
     return true
   },
@@ -122,7 +122,7 @@ const RPG_TEMPLATE = {
   // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'any' is not assignable to parame... Remove this comment to see the full error message
   hasEffect: function (name: any) { return this.activeEffects.includes(name) },
 
-  lightSource: function () { return this.isLight ? world.LIGHT_FULL : world.LIGHT_NONE },
+  lightSource: function () { return this.isLight ? Quest.World.world.LIGHT_FULL : Quest.World.world.LIGHT_NONE },
 
 }
 
@@ -135,7 +135,7 @@ const RPG_PLAYER = function (female: any) {
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   for (let key in RPG_TEMPLATE) res[key] = RPG_TEMPLATE[key]
 
-  //res.getEquippedWeapon = function() { return this.equipped ? w[this.equipped] : w.weapon_unarmed; }
+  //res.getEquippedWeapon = function() { return this.equipped ? Quest.World.w[this.equipped] : Quest.World.w.weapon_unarmed; }
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'allegiance' does not exist on type '{ ca... Remove this comment to see the full error message
   res.allegiance = 'friend'
@@ -143,7 +143,7 @@ const RPG_PLAYER = function (female: any) {
   res.getEquippedWeapon = function () {
     const carried = Quest.Utilities.scopeHeldBy(this)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'weapon_unarmed' does not exist on type '... Remove this comment to see the full error message
-    return carried.find((el: any) => el.equipped && el.weapon) || w.weapon_unarmed;
+    return carried.find((el: any) => el.equipped && el.weapon) || Quest.World.w.weapon_unarmed;
   }
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getEquippedShield' does not exist on typ... Remove this comment to see the full error message
@@ -200,15 +200,15 @@ const RPG_NPC = function (female: any) {
   res.isHostile = function (chr: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'aggressive' does not exist on type '{ ca... Remove this comment to see the full error message
     if (!this.aggressive) return false
-    if (!chr) chr = player
+    if (!chr) chr = Quest.World.player
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'target' does not exist on type '{ canRea... Remove this comment to see the full error message
-    if (!this.target) this.target = player.name
+    if (!this.target) this.target = Quest.World.player.name
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'target' does not exist on type '{ canRea... Remove this comment to see the full error message
     if (this.target === chr.name) return true
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'target' does not exist on type '{ canRea... Remove this comment to see the full error message
     if (!this.target) return Quest.IO.errormsg("Oh dear, no target set for this NPC")
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    if (chr.allegiance && w[this.target].allegiance === chr.allegiance) return true
+    if (chr.allegiance && Quest.World.w[this.target].allegiance === chr.allegiance) return true
     return false
   }
 
@@ -274,9 +274,9 @@ const RPG_NPC = function (female: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'search' does not exist on type '{ canRea... Remove this comment to see the full error message
   res.search = function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'dead' does not exist on type '{ canReach... Remove this comment to see the full error message
-    if (!this.dead && !this.asleep) return falsemsg(Quest.lang.searchAlive, options)
+    if (!this.dead && !this.asleep) return Quest.IO.falsemsg(Quest.lang.searchAlive, options)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSearch' does not exist on type '{... Remove this comment to see the full error message
-    if (!Quest.Settings.settings.defaultSearch) return falsemsg(Quest.lang.searchNothing, options)
+    if (!Quest.Settings.settings.defaultSearch) return Quest.IO.falsemsg(Quest.lang.searchNothing, options)
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSearch' does not exist on type '{... Remove this comment to see the full error message
     Quest.Settings.settings.defaultSearch(this)
@@ -295,7 +295,7 @@ const RPG_NPC = function (female: any) {
     let target
     if (Array.isArray(target)) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      target = w[arr[0]]
+      target = Quest.World.w[arr[0]]
       arr.shift()
     }
     else {
@@ -363,7 +363,7 @@ const RPG_NPC = function (female: any) {
     if (this.aggressive && this.target) {
       // If attacking, ignore agenda, etc.
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'performAttack' does not exist on type '{... Remove this comment to see the full error message
-      this.performAttack(w[this.target])
+      this.performAttack(Quest.World.w[this.target])
     }
     else {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'sayTakeTurn' does not exist on type '{ c... Remove this comment to see the full error message
@@ -376,7 +376,7 @@ const RPG_NPC = function (female: any) {
       if (this.aggressive && this.target && !this.delayAgendaAttack) {
         // Is the NPC now aggressive? If so, have an attack
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'performAttack' does not exist on type '{... Remove this comment to see the full error message
-        this.performAttack(w[this.target])
+        this.performAttack(Quest.World.w[this.target])
       }
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'delayAgendaAttack' does not exist on typ... Remove this comment to see the full error message
       this.delayAgendaAttack = false
@@ -452,11 +452,11 @@ const RPG_PHANTOM = function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'clonePrototype' does not exist on type '... Remove this comment to see the full error message
     if (this.clonePrototype) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      delete w[this.name]
+      delete Quest.World.w[this.name]
     }
     else {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      delete w[this.name].loc
+      delete Quest.World.w[this.name].loc
     }
   }
   return res
@@ -560,7 +560,7 @@ const RPG_BEAST = function (female: any, aggressive: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'activeEffects' does not exist on type '{... Remove this comment to see the full error message
     if (this.activeEffects.includes(Quest.lang.communeWithAnimalSpell)) return true
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'cannotTalkToBeast' does not exist on typ... Remove this comment to see the full error message
-    return falsemsg(Quest.lang.cannotTalkToBeast, { item: this, char: player })
+    return Quest.IO.falsemsg(Quest.lang.cannotTalkToBeast, { item: this, char: player })
   }
 
   return res

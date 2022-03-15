@@ -32,13 +32,13 @@ Quest.Settings.settings.eventFunctions = {
   },
 
   sayOften: function () {
-    if (!player.count) player.count = 0
-    player.count++
+    if (!Quest.World.player.count) Quest.World.player.count = 0
+    Quest.World.player.count++
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    Quest.IO.msg("Often! " + player.count)
+    Quest.IO.msg("Often! " + Quest.World.player.count)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'scrollToEnd' does not exist on type '{ n... Remove this comment to see the full error message
     Quest.IO.io.scrollToEnd()
-    if (player.count > 3) return true
+    if (Quest.World.player.count > 3) return true
   },
 }
 

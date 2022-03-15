@@ -18,13 +18,13 @@ register('normality', {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("lounge", {
+Quest.World.createRoom("lounge", {
   windowsface: 'west',
   desc: "This is a cosy room. After the chaos of the last few hours, there is a strange sense of normality here; the comfy chairs around the fireplace, the ornaments on the mantelpiece.|The way out of the house -- and back to her routine life, Mandy suspects -- is west.",
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  west: new Exit("_", {
+  west: new Quest.World.Exit("_", {
     use: function () {
-      if (player.easterEgg) {
+      if (Quest.World.player.easterEgg) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("Mandy steps out of the house, and into the garden. She has escaped at last. Now all she has to worry about is exams in two weeks... But at least she knows what will be on the papers, and has seen the future-Mandy confidently answering the questions. She smiles to herself, feeling strangely confident about the future.")
       }

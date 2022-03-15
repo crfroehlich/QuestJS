@@ -70,10 +70,9 @@ namespace Quest {
       },
 
       getSaveBody: function () {
-        const l = [Quest.Text.getSaveString(), game.getSaveString(), Quest.Utilities.util.getChangeListenersSaveString()]
-        for (let key in w) {
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          l.push(key + "=" + w[key].getSaveString())
+        const l = [Quest.Text.getSaveString(), Quest.World.game.getSaveString(), Quest.Utilities.util.getChangeListenersSaveString()]
+        for (let key in Quest.World.w) {
+          l.push(key + "=" + Quest.World.w[key].getSaveString())
         }
         return l.join("!")
       },
@@ -121,7 +120,7 @@ namespace Quest {
           Quest.IO.metamsg(Quest.lang.sl_file_loaded, { filename: filename })
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterLoad' does not exist on type '{ per... Remove this comment to see the full error message
           if (Quest.Settings.settings.afterLoad) Quest.Settings.settings.afterLoad(filename)
-          currentLocation.description()
+          Quest.World.currentLocation.description()
         }
       },
 
@@ -133,18 +132,17 @@ namespace Quest {
         }
 
         // Eliminate all clones
-        for (let key in w) {
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          if (w[key].clonePrototype) delete w[key]
+        for (let key in Quest.World.w) {
+          if (Quest.World.w[key].clonePrototype) delete Quest.World.w[key]
         }
 
         Quest.Text.setLoadString(arr.shift())
-        game.setLoadString(arr.shift())
+        Quest.World.game.setLoadString(arr.shift())
         Quest.Utilities.util.setChangeListenersLoadString(arr.shift())
         for (let el of arr) {
           this.setLoadString(el);
         }
-        world.update()
+        Quest.World.world.update()
         Quest.IO.endTurnUI(true)
       },
 
@@ -162,31 +160,28 @@ namespace Quest {
 
         if (saveType.startsWith("Clone")) {
           const clonePrototype = saveType.split(":")[1];
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          if (!w[clonePrototype]) {
+          if (!Quest.World.w[clonePrototype]) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
             Quest.IO.errormsg("Cannot find prototype '" + clonePrototype + "'");
             return;
           }
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          const obj = cloneObject(w[clonePrototype]);
+          const obj = Quest.World.cloneObject(Quest.World.w[clonePrototype]);
           this.setFromArray(obj, arr);
           // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          w[obj.name] = obj;
+          Quest.World.w[obj.name] = obj;
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterLoadForTemplate' does not exist on ... Remove this comment to see the full error message
           obj.afterLoadForTemplate();
           return
         }
 
         if (saveType === "Object") {
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          if (!w[name]) {
+          if (!Quest.World.w[name]) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
             Quest.IO.errormsg("Cannot find object '" + name + "'");
             return;
           }
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          const obj = w[name];
+          const obj = Quest.World.w[name];
           this.setFromArray(obj, arr);
           obj.afterLoadForTemplate();
           return
@@ -236,8 +231,7 @@ namespace Quest {
 
         else if (attType === "qobject") {
           // this will cause an issue if it points to a clone that has not been done yet !!!
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          hash[key] = w[s]
+          hash[key] = Quest.World.w[s]
         }
 
         return key
@@ -263,7 +257,7 @@ namespace Quest {
             throw "Error encountered with attribute \"" + key + "\": " + error + ". More here: https://github.com/ThePix/QuestJS/wiki/Save-Load#save-errors"
           }
         }
-        if (value instanceof Exit) {
+        if (value instanceof Quest.World.Exit) {
           return '';
         }
         if (attType === "object") {

@@ -10,21 +10,21 @@ test.tests = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Planet Analysis")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-  w.Xsansi.currentPlanet = 2
+  Quest.World.w.Xsansi.currentPlanet = 2
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Ostap' does not exist on type '{}'.
-  const response = { char: w.Ostap }
+  const response = { char: Quest.World.w.Ostap }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("'Not as interesting as the last one, I think.'", planetAnalysis(response))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Ostap' does not exist on type '{}'.
-  w.Ostap.rank2 = 4
+  Quest.World.w.Ostap.rank2 = 4
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("'There are things a live here, but buried. There's bacteria in the soil. But it is not primitive bacteria. I cannot say for sure - I know only Earth bacteria - but I think this is highly evolved. I think some disaster, an extinction event, has wiped out virtually all life. This is all that survives.'", planetAnalysis(response))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Ostap' does not exist on type '{}'.
-  w.Ostap.rank2 = 8
+  Quest.World.w.Ostap.rank2 = 8
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("'It is sad; a whole planet dead - or virtually dead. Sad that we missed them, sad they all died. This is why this mission is so important, so mankind can spread to the stars before something like this happens on Earth.'", planetAnalysis(response))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Ostap' does not exist on type '{}'.
-  w.Ostap.rank2 = 0
+  Quest.World.w.Ostap.rank2 = 0
 
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
@@ -35,13 +35,13 @@ test.tests = function () {
   test.testOutput = [];
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-  w.Xsansi.currentPlanet = 2
+  Quest.World.w.Xsansi.currentPlanet = 2
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Ostap' does not exist on type '{}'.
-  w.Ostap.deployProbeOverallTotal = 1
+  Quest.World.w.Ostap.deployProbeOverallTotal = 1
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Ostap' does not exist on type '{}'.
-  w.Ostap.deployProbeTotal = 1
+  Quest.World.w.Ostap.deployProbeTotal = 1
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'probe_prototype' does not exist on type ... Remove this comment to see the full error message
-  const probe = w.probe_prototype.cloneMe(w.Ostap)
+  const probe = Quest.World.w.probe_prototype.cloneMe(Quest.World.w.Ostap)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("Ostap", probe.owner)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -57,9 +57,9 @@ test.tests = function () {
   test.assertEqual(1, probe.launchCounter)
   for (let i = 0; i < TURNS_TO_LANDING - 1; i++) probe.eventScript()
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual(0, w.Ostap.rank2)
+  test.assertEqual(0, Quest.World.w.Ostap.rank2)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual(0, w.me.bonus)
+  test.assertEqual(0, Quest.World.w.me.bonus)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("Landing", probe.status)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -75,30 +75,30 @@ test.tests = function () {
   test.title("Probe events 2")
   for (let i = 0; i < 4; i++) probe.eventScript()
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual(1, w.Ostap.rank2)
+  test.assertEqual(1, Quest.World.w.Ostap.rank2)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual(2, w.me.bonus)
+  test.assertEqual(2, Quest.World.w.me.bonus)
   for (let i = 0; i < 4; i++) probe.eventScript()
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual(2, w.Ostap.rank2)
+  test.assertEqual(2, Quest.World.w.Ostap.rank2)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual(4, w.me.bonus)
+  test.assertEqual(4, Quest.World.w.me.bonus)
   for (let i = 0; i < 8; i++) probe.eventScript()
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual(3, w.Ostap.rank2)
+  test.assertEqual(3, Quest.World.w.Ostap.rank2)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual(6, w.me.bonus)
+  test.assertEqual(6, Quest.World.w.me.bonus)
   for (let i = 0; i < 4; i++) probe.eventScript()
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual(3, w.Ostap.rank2)
+  test.assertEqual(3, Quest.World.w.Ostap.rank2)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual(6, w.me.bonus)
+  test.assertEqual(6, Quest.World.w.me.bonus)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Ostap' does not exist on type '{}'.
-  w.Ostap.rank2 = 0
+  Quest.World.w.Ostap.rank2 = 0
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Ostap' does not exist on type '{}'.
-  w.Ostap.deployProbeOverallTotal = 0
+  Quest.World.w.Ostap.deployProbeOverallTotal = 0
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-  w.Xsansi.currentPlanet = 0
+  Quest.World.w.Xsansi.currentPlanet = 0
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'testing' does not exist on type '{}'.
   Quest.Utilities.test.testing = false;
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -225,15 +225,15 @@ test.tests = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("topics ostap", ["Some suggestions for what to ask Ostap about: background; expertise; health; lost probe; planet; probes."]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual(0, w.Ostap.relationship);
+  test.assertEqual(0, Quest.World.w.Ostap.relationship);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("ask ostap about himself", ["'Tell me about yourself,' you say to Ostap.", /^'I'm from Nastasiv, near Ternopil.'/]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual(1, w.Ostap.relationship);
+  test.assertEqual(1, Quest.World.w.Ostap.relationship);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("ask ostap about himself", ["'Tell me about yourself,' you say to Ostap.", /^'I'm from Nastasiv, near Ternopil.'/]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual(1, w.Ostap.relationship);
+  test.assertEqual(1, Quest.World.w.Ostap.relationship);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
   test.assertCmd("ask ostap about planet", ["'What's your report on HD 154088D?' you ask Ostap.", "'So far, we see nothing. No life, no green. Perhaps bacteria living below the surface?'"]);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.

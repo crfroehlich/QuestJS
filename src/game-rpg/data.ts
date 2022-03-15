@@ -4,7 +4,7 @@
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("me", RPG_PLAYER(), {
+Quest.World.createItem("me", RPG_PLAYER(), {
     loc: "practice_room",
     regex: /^(me|myself|player)$/,
     health: 100,
@@ -21,7 +21,7 @@ createItem("me", RPG_PLAYER(), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("knife", WEAPON("d4+2", "blade"), {
+Quest.World.createItem("knife", WEAPON("d4+2", "blade"), {
     loc: "me",
     image: "knife",
     examine: "An example of a poor weapon.",
@@ -29,26 +29,26 @@ createItem("knife", WEAPON("d4+2", "blade"), {
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("flail", WEAPON("2d10+4", "crush"), {
+Quest.World.createItem("flail", WEAPON("2d10+4", "crush"), {
     loc: "me",
     image: "flail",
     examine: "An example of a good weapon.",
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("long_bow", LIMITED_AMMO_WEAPON("2d8", "bow", "arrow"), {
+Quest.World.createItem("long_bow", LIMITED_AMMO_WEAPON("2d8", "bow", "arrow"), {
     loc: "me",
     examine: "An example of a bow.",
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("arrow", Quest.Templates.COUNTABLE({ yard: 14 }), {
+Quest.World.createItem("arrow", Quest.Templates.COUNTABLE({ yard: 14 }), {
     examine: "A simple arrow.",
 })
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("flaming_sword", WEAPON("3d6+2", "blade"), {
+Quest.World.createItem("flaming_sword", WEAPON("3d6+2", "blade"), {
     //loc:"me",
     image: "sword",
     examine: "An example of a magic weapon.",
@@ -57,7 +57,7 @@ createItem("flaming_sword", WEAPON("3d6+2", "blade"), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("ice_amulet", Quest.Templates.WEARABLE(4, ['neck']), {
+Quest.World.createItem("ice_amulet", Quest.Templates.WEARABLE(4, ['neck']), {
     loc: "me",
     examine: "An example of a wearable magic item; it stops ice/frost damage.",
     modifyIncomingAttack: function (attack: any) {
@@ -73,23 +73,23 @@ createItem("ice_amulet", Quest.Templates.WEARABLE(4, ['neck']), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("practice_room", {
+Quest.World.createRoom("practice_room", {
     desc: 'A large room with straw scattered across the floor. The only exit is west',
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    west: new Exit('great_hall'),
+    west: new Quest.World.Exit('great_hall'),
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    east: new Exit('passage'),
-    /*east:new Exit('passage', {
+    east: new Quest.World.Exit('passage'),
+    /*east:new Quest.World.Exit('passage', {
       simpleUse:function(char) {
-        if (w.practice_room.guarded && !w.orc.dead) {
+        if (Quest.World.w.practice_room.guarded && !Quest.World.w.orc.dead) {
           rpg.broadcast('guards', 'attack', 'practice room exit')
-          return falsemsg("You try to head east, but the orc bars your way. Looks like he is going to attack!")
+          return Quest.IO.falsemsg("You try to head east, but the orc bars your way. Looks like he is going to attack!")
         }
         return Quest.Utilities.util.defaultSimpleExitUse(char, this)
       }    
     }),*/
     // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-    south: new Exit('cupboard', {
+    south: new Quest.World.Exit('cupboard', {
         lockedmsg: "It seems to be locked."
     }),
     exit_locked_south: true,
@@ -99,63 +99,63 @@ createRoom("practice_room", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("great_hall", {
+Quest.World.createRoom("great_hall", {
     desc: 'An imposing - and rather cold - room with a high, vaulted roof{if:tapestry.scenery:, and an impressive tapestry hanging from the wall}.',
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    east: new Exit('practice_room'),
+    east: new Quest.World.Exit('practice_room'),
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    north: new Exit('yard'),
+    north: new Quest.World.Exit('yard'),
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("tapestry", Quest.Templates.TAKEABLE(), {
+Quest.World.createItem("tapestry", Quest.Templates.TAKEABLE(), {
     examine: 'A huge tapestry, taller than you, and wider than it is tall.',
     scenery: true,
     loc: 'great_hall',
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("passage", {
+Quest.World.createRoom("passage", {
     desc: 'A long passage.',
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    west: new Exit('practice_room'),
+    west: new Quest.World.Exit('practice_room'),
 })
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("practice_room_door", Quest.Templates.LOCKED_DOOR("small_key", "great_hall", "practice_room"), {
+Quest.World.createItem("practice_room_door", Quest.Templates.LOCKED_DOOR("small_key", "great_hall", "practice_room"), {
     examine: 'A very solid, wooden door.',
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("cupboard", {
+Quest.World.createRoom("cupboard", {
     desc: 'A large storeroom, with no windows.',
     darkDesc: "It is dark, but the exit is north.",
-    lightSource: function () { return world.LIGHT_NONE },
+    lightSource: function () { return Quest.World.world.LIGHT_NONE },
     // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-    north: new Exit('practice_room', {
+    north: new Quest.World.Exit('practice_room', {
         isHidden: function () { return false }
     }),
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("small_key", Quest.Templates.KEY(), {
+Quest.World.createItem("small_key", Quest.Templates.KEY(), {
     examine: 'A small key.',
     loc: "practice_room",
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("yard", {
+Quest.World.createRoom("yard", {
     desc: 'A large open area in front of the Great Hall, which is to the south. There is a lake to the north, and you can see an island in the lake.',
     yesWeather: true,
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    south: new Exit('great_hall'),
+    south: new Quest.World.Exit('great_hall'),
     // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-    north: new Exit('lake_swimming', {
+    north: new Quest.World.Exit('lake_swimming', {
         simpleUse: function (char: any) {
             if (char.hasEffect('Walk On Water')) {
                 // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSimpleExitUse' does not exist on ... Remove this comment to see the full error message
-                return Quest.Utilities.util.defaultSimpleExitUse(char, new Exit('lake', { origin: this.origin, dir: this.dir, msg: "You walk out on to the surface of the lake." }))
+                return Quest.Utilities.util.defaultSimpleExitUse(char, new Quest.World.Exit('lake', { origin: this.origin, dir: this.dir, msg: "You walk out on to the surface of the lake." }))
             }
             // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultSimpleExitUse' does not exist on ... Remove this comment to see the full error message
             return Quest.Utilities.util.defaultSimpleExitUse(char, this)
@@ -165,26 +165,26 @@ createRoom("yard", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("lake", {
+Quest.World.createRoom("lake", {
     desc: 'You are stood on a lake! Dry land is to the south.',
     yesWeather: true,
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    south: new Exit('yard'),
+    south: new Quest.World.Exit('yard'),
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("lake_swimming", {
+Quest.World.createRoom("lake_swimming", {
     desc: 'You are swimming in a lake! Dry land is to the south.',
     yesWeather: true,
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    south: new Exit('yard'),
+    south: new Quest.World.Exit('yard'),
 })
 
 
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("goblin", RPG_NPC(false), {
+Quest.World.createItem("goblin", RPG_NPC(false), {
     loc: "practice_room",
     damage: "d8",
     health: 40,
@@ -193,7 +193,7 @@ createItem("goblin", RPG_NPC(false), {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("orc", RPG_NPC(false), {
+Quest.World.createItem("orc", RPG_NPC(false), {
     loc: "practice_room",
     damage: "2d10+4",
     health: 60,
@@ -208,12 +208,12 @@ createItem("orc", RPG_NPC(false), {
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("huge_shield", SHIELD(10), {
+Quest.World.createItem("huge_shield", SHIELD(10), {
     loc: "orc",
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("snotling", RPG_NPC(false), {
+Quest.World.createItem("snotling", RPG_NPC(false), {
     loc: "practice_room",
     damage: "2d4",
     health: 20,
@@ -222,7 +222,7 @@ createItem("snotling", RPG_NPC(false), {
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("rabbit", RPG_BEAST(false), {
+Quest.World.createItem("rabbit", RPG_BEAST(false), {
     loc: "practice_room",
     damage: "2d4",
     health: 20,
@@ -256,7 +256,7 @@ const elementals = [
 
 for (const el of elementals) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-    createItem("lesser_" + el.name + "_elemental_prototype", RPG_ELEMENTAL(el.name), {
+    Quest.World.createItem("lesser_" + el.name + "_elemental_prototype", RPG_ELEMENTAL(el.name), {
         alias: "lesser " + el.name + ' elemental',
         damage: "2d" + (4 + el.level),
         health: 35 + 5 * el.level,
@@ -264,7 +264,7 @@ for (const el of elementals) {
         ex: 'A small ' + el.desc + '.',
     })
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-    createItem("greater_" + el.name + "_elemental_prototype", RPG_ELEMENTAL(el.name), {
+    Quest.World.createItem("greater_" + el.name + "_elemental_prototype", RPG_ELEMENTAL(el.name), {
         alias: "greater " + el.name + ' elemental',
         damage: "3d" + (6 + el.level),
         health: 100 + 10 * el.level,
@@ -276,14 +276,14 @@ for (const el of elementals) {
 
 for (const el of elementals) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    new SpellSummon(w['lesser_' + el.name + '_elemental_prototype'], { level: 2 + el.level, duration: 6, })
+    new SpellSummon(Quest.World.w['lesser_' + el.name + '_elemental_prototype'], { level: 2 + el.level, duration: 6, })
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    new SpellSummon(w['greater_' + el.name + '_elemental_prototype'], { level: 12 + el.level, duration: 6, })
+    new SpellSummon(Quest.World.w['greater_' + el.name + '_elemental_prototype'], { level: 12 + el.level, duration: 6, })
 }
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("phantasm_prototype", RPG_PHANTOM(), {
+Quest.World.createItem("phantasm_prototype", RPG_PHANTOM(), {
     alias: "phantom",
     damage: "1",
     health: 1,
@@ -296,13 +296,13 @@ createItem("phantasm_prototype", RPG_PHANTOM(), {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'phantasm_prototype' does not exist on ty... Remove this comment to see the full error message
-new SpellSummon(w.phantasm_prototype, { level: 1, duration: 6, })
+new SpellSummon(Quest.World.w.phantasm_prototype, { level: 1, duration: 6, })
 
 
 
 
 /*
-createItem("zombie_prototype", RPG_CORPOREAL_UNDEAD(), {
+Quest.World.createItem("zombie_prototype", RPG_CORPOREAL_UNDEAD(), {
   alias:'zombie',
   damage:"2d4",
   health:20,
@@ -314,53 +314,53 @@ createItem("zombie_prototype", RPG_CORPOREAL_UNDEAD(), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("pink_scroll", SCROLL("Fireball", false), {
+Quest.World.createItem("pink_scroll", SCROLL("Fireball", false), {
     examine: 'A scroll with a magical glyph on it.',
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("blue_scroll", SCROLL("Ice shard", true), {
+Quest.World.createItem("blue_scroll", SCROLL("Ice shard", true), {
     examine: 'A scroll with a magical glyph on it.',
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("healing_potion", POTION("Healing"), {
+Quest.World.createItem("healing_potion", POTION("Healing"), {
     examine: 'A sweet smelling concoction!',
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("chest", Quest.Templates.CONTAINER(true), Quest.Templates.LOCKED_WITH(), {
+Quest.World.createItem("chest", Quest.Templates.CONTAINER(true), Quest.Templates.LOCKED_WITH(), {
     loc: "practice_room",
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("spellbook", SPELLBOOK(["Fireball", "Stoneskin", "Steelskin", "Lightning bolt", "Ice shard"]), {
+Quest.World.createItem("spellbook", SPELLBOOK(["Fireball", "Stoneskin", "Steelskin", "Lightning bolt", "Ice shard"]), {
     examine: "An example of a spell book, obviously.",
     loc: "practice_room",
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("helmet", Quest.Templates.WEARABLE(2, ['head']), {
+Quest.World.createItem("helmet", Quest.Templates.WEARABLE(2, ['head']), {
     loc: "practice_room",
     examine: "An example of armour; it will add +{armour} to your armour rating.",
     armour: 10,
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("chestplate", Quest.Templates.WEARABLE(2, ['chest']), {
+Quest.World.createItem("chestplate", Quest.Templates.WEARABLE(2, ['chest']), {
     loc: "practice_room",
     examine: "An example of armour; it will add +{armour} to your armour rating.",
     armour: 20,
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("boots", Quest.Templates.WEARABLE(2, ['feet']), {
+Quest.World.createItem("boots", Quest.Templates.WEARABLE(2, ['feet']), {
     loc: "practice_room",
     pronouns: Quest.lang.pronouns.plural,
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("shotgun", LIMITED_AMMO_WEAPON("2d10+4", 'firearm', 1), {
+Quest.World.createItem("shotgun", LIMITED_AMMO_WEAPON("2d10+4", 'firearm', 1), {
     loc: "practice_room",
     ammo: 1,
     examine: "An example of a limited ammo weapon.",
@@ -370,7 +370,7 @@ createItem("shotgun", LIMITED_AMMO_WEAPON("2d10+4", 'firearm', 1), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("Stone_of_Returning", Quest.Templates.TAKEABLE(), {
+Quest.World.createItem("Stone_of_Returning", Quest.Templates.TAKEABLE(), {
     loc: "yard",
 });
 
@@ -429,7 +429,7 @@ new Skill("Sweeping attack", {
     getSecondaryTargets: rpg.getFoesBut,
     testUseable: function (char: any) {
         // @ts-expect-error ts-migrate(2367) FIXME: This condition will always return 'false' since th... Remove this comment to see the full error message
-        if (!char.equipped.weaponType === 'blade') return falsemsg("This skill is only useable with a bladed weapon.")
+        if (!char.equipped.weaponType === 'blade') return Quest.IO.falsemsg("This skill is only useable with a bladed weapon.")
         return rpg.defaultSkillTestUseable(char)
     },
     modifyOutgoingAttack: function (attack: any) {
@@ -448,7 +448,7 @@ new Skill("Defensive attack", {
     tactical: "Attack one foe with a -2 penalty, but any attacks on you will suffer a -3 penalty until your next turn.",
     testUseable: function (char: any) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        if (char.getEquippedWeapon().weaponType === 'bow') return falsemsg("This skill is not useable with a bow.")
+        if (char.getEquippedWeapon().weaponType === 'bow') return Quest.IO.falsemsg("This skill is not useable with a bow.")
         return rpg.defaultSkillTestUseable(char)
     },
     modifyOutgoingAttack: function (attack: any) {
@@ -464,13 +464,13 @@ new Skill("Defensive attack", {
 
 const imported = [
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-    createItem("slug_prototype", RPG_CORRUPTED(), {
+    Quest.World.createItem("slug_prototype", RPG_CORRUPTED(), {
         "name": "slug",
         "alias": "Giant slug",
         "desc": "At least fifteen foot of slimy slug.",
     }),
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-    createItem("giant_rat_prototype", RPG_BEAST(), {
+    Quest.World.createItem("giant_rat_prototype", RPG_BEAST(), {
         "alias": "Giant rat",
         "level": 1,
         "hitpoints": 20,
@@ -486,18 +486,18 @@ const imported = [
         "treasurechance": 8,
     }),
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-    createItem("gargoyle_prototype", RPG_CREATED(), {
+    Quest.World.createItem("gargoyle_prototype", RPG_CREATED(), {
         "alias": "Gargoyle",
         "desc": "A dire cross between a bat and a statue.",
         "treasurechance": 0,
     }),
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-    createItem("tentacled_horror_prototype", RPG_CORRUPTED(), {
+    Quest.World.createItem("tentacled_horror_prototype", RPG_CORRUPTED(), {
         "alias": "Tentacled horror",
         "desc": "A writhing black mass of mouths and eyes.",
     }),
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-    createItem("mudman_prototype", RPG_CREATED(), {
+    Quest.World.createItem("mudman_prototype", RPG_CREATED(), {
         "alias": "Mudman",
         "level": 2,
         "damage": "2d6+1",
@@ -505,13 +505,13 @@ const imported = [
         "element": "earthmight",
     }),
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-    createItem("hydra_prototype", RPG_BEAST(), {
+    Quest.World.createItem("hydra_prototype", RPG_BEAST(), {
         "alias": "Hydra",
         "desc": "A semi-aquatic creature with numerous heads,",
         "loredesc": "A semi-aquatic creature with numerous heads, academics have suggested that it is related to the dragon, adapted for life in water. Some speculate that in fact it is a colony of creatures; each head is in fact a separate entity, but this theory so far remains unpopular with more respected scholars.",
     }),
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-    createItem("rust_monster_prototype", RPG_BEAST(), {
+    Quest.World.createItem("rust_monster_prototype", RPG_BEAST(), {
         "armour": 3,
         "attackdesc": "% bites at you",
         "level": 8,
@@ -522,10 +522,10 @@ const imported = [
         "treasurechance": 5,
         "attackbonus": 2,
         "damage": "3d8+2",
-        "onweaponhit": "if (player.equipped.canberusted) {\n            msg (\"Your \" + player.equipped.alias + \" has been rusted by its contact with the creature. It will not be so effective from now on (but it is immune to further rusting).\")\n            player.equipped.canberusted = false\n            player.equipped.rusted = true\n            player.equipped.attackbonus = player.equipped.attackbonus - 2\n            player.equipped.damagebonus = player.equipped.damagebonus - 2\n            player.equipped.damagedicesides = player.equipped.damagedicesides - 2\n            player.equipped.alias = player.equipped.alias + \" (rusted)\"\n            UpdateStatus\n          }",
+        "onweaponhit": "if (Quest.World.player.equipped.canberusted) {\n            msg (\"Your \" + Quest.World.player.equipped.alias + \" has been rusted by its contact with the creature. It will not be so effective from now on (but it is immune to further rusting).\")\n            Quest.World.player.equipped.canberusted = false\n            Quest.World.player.equipped.rusted = true\n            Quest.World.player.equipped.attackbonus = Quest.World.player.equipped.attackbonus - 2\n            Quest.World.player.equipped.damagebonus = Quest.World.player.equipped.damagebonus - 2\n            Quest.World.player.equipped.damagedicesides = Quest.World.player.equipped.damagedicesides - 2\n            Quest.World.player.equipped.alias = Quest.World.player.equipped.alias + \" (rusted)\"\n            UpdateStatus\n          }",
     }),
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-    createItem("amorphous_blob_prototype", RPG_PLANT(), {
+    Quest.World.createItem("amorphous_blob_prototype", RPG_PLANT(), {
         "alias": "Amorphous blob",
         "level": 7,
         "canberusted": false,
@@ -539,7 +539,7 @@ const imported = [
         "ondeath": "msg (\"The blob slumps to the ground, split in to three by your attack, dead at last...\")\n          msg (\"Wait... The bits are starting to twitch. As you watch, each of the three parts rises up, a new, albeit smaller, amorphous blob.\")\n          for (i, 1, 3) {\n            o = CloneObjectAndMove(amorphous_blob_2, this.parent)\n            do (o, \"settoattack\")\n          }",
     }),
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-    createItem("amorphous_blob_2_prototype", RPG_PLANT(), {
+    Quest.World.createItem("amorphous_blob_2_prototype", RPG_PLANT(), {
         "alias": "Amorphous blob",
         "level": 3,
         "attackonsight": [],
@@ -553,7 +553,7 @@ const imported = [
         "ondeath": "msg (\"The smaller blob slumps to the ground.\")\n          msg (\"Then the bits start to twitch. As you watch, each of the parts rises up, a new, even smaller, amorphous blob.\")\n          for (i, 1, GetRandomInt(2, 4)) {\n            o = CloneObjectAndMove(amorphous_blob_3, this.parent)\n            do (o, \"settoattack\")\n          }",
     }),
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-    createItem("amorphous_blob_3_prototype", RPG_PLANT(), {
+    Quest.World.createItem("amorphous_blob_3_prototype", RPG_PLANT(), {
         "alias": "Amorphous blob",
         "level": 1,
         "attackonsight": [],
@@ -568,7 +568,7 @@ const imported = [
         "ondeath": "msg (\"The blob slumps to the ground, split in two by your attack, dead at last...\")\n          msg (\"Wait... The bits are starting to twitch. As you watch, each of the three parts rises up, a new, albeit smaller, amorphous blob.\")\n          for (i, 1, 3) {\n            o = CloneObjectAndMove(amorphous_blob_2, this.parent)\n            do (o, \"settoattack\")\n          }",
     }),
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-    createItem("adherer_prototype", RPG_CORRUPTED(), {
+    Quest.World.createItem("adherer_prototype", RPG_CORRUPTED(), {
         "armour": 2,
         "attackdesc": "% bites at you",
         "level": 4,
@@ -579,10 +579,10 @@ const imported = [
         "lookwhendead": "There is just a pile of bandages and junk.",
         "damage": "2d8+1",
         "attackonsight": [],
-        "onweaponhit": "if (not player.equipped = fists) {\n            msg (\"Your \" + player.equipped.alias + \" has stuck fast to the creature!\")\n            player.equipped.parent = this\n            player.equipped.inventoryverbs = Split (\"Look at;Drop;Equip;Sell\", \";\")\n            player.equipped = fists\n            UpdateStatus\n            this.alias = \"Adherer\"\n          }",
+        "onweaponhit": "if (not Quest.World.player.equipped = fists) {\n            msg (\"Your \" + Quest.World.player.equipped.alias + \" has stuck fast to the creature!\")\n            Quest.World.player.equipped.parent = this\n            Quest.World.player.equipped.inventoryverbs = Split (\"Look at;Drop;Equip;Sell\", \";\")\n            Quest.World.player.equipped = fists\n            UpdateStatus\n            this.alias = \"Adherer\"\n          }",
     }),
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-    createItem("mimic_prototype", RPG_PLANT(), {
+    Quest.World.createItem("mimic_prototype", RPG_PLANT(), {
         "nonweapon": [],
         "alias": "Chest",
         "look": "This battered chest has a lock, but it looks crude.",
@@ -594,17 +594,17 @@ const imported = [
         "level": 3,
     }),
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-    createItem("mushroomman_prototype", RPG_PLANT(), {
+    Quest.World.createItem("mushroomman_prototype", RPG_PLANT(), {
         "alias": "Mushroomman",
         "desc": "A weirldly humanoid mushroom, according to that guy in the Greedy Goblin, they explode when killed.",
         "level": 1,
         "damage": "d6",
         "attackonsight": false,
         "nocorpse": [],
-        "ondeath": "if (DoesInherit(player.currectattack, \"spell\") or DoesInherit(player.currectattack, \"scroll\")) {\n            msg (\"The mushroom man's corpse explodes in a haze of spores. Just as well you were not right next to it.\")\n          }\n          else if (GetBoolean(player.currectattack, \"longreach\")) {\n            msg (\"The mushroomman's corpse explodes in a haze of spores. Just as well you finished it off with a weapon with long reach.\")\n          }\n          else {\n            msg (\"The mushroomman's corpse explodes in a haze of spores, leaving you coughing and spluttering. -6 hits.\")\n            game.pov.hitpoints = game.pov.hitpoints - 6\n          }"
+        "ondeath": "if (DoesInherit(Quest.World.player.currectattack, \"spell\") or DoesInherit(Quest.World.player.currectattack, \"scroll\")) {\n            msg (\"The mushroom man's corpse explodes in a haze of spores. Just as well you were not right next to it.\")\n          }\n          else if (GetBoolean(Quest.World.player.currectattack, \"longreach\")) {\n            msg (\"The mushroomman's corpse explodes in a haze of spores. Just as well you finished it off with a weapon with long reach.\")\n          }\n          else {\n            msg (\"The mushroomman's corpse explodes in a haze of spores, leaving you coughing and spluttering. -6 hits.\")\n            Quest.World.game.pov.hitpoints = Quest.World.game.pov.hitpoints - 6\n          }"
     }),
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-    createItem("dark_pixie_prototype", RPG_FEY(), {
+    Quest.World.createItem("dark_pixie_prototype", RPG_FEY(), {
         "alias": "Dark pixie",
         "desc": "While most pixies are wondrous and clever, dark pixies are annoying! They are less than a foot tall, and have wings not unlike that of a dragon fly. Cunning and elusive!",
         "poisonimmunity": true,
@@ -615,7 +615,7 @@ const imported = [
         "attackasgroup": []
     }),
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-    createItem("shambling_mound_prototype", RPG_CORPOREAL_UNDEAD(), {
+    Quest.World.createItem("shambling_mound_prototype", RPG_CORPOREAL_UNDEAD(), {
         "alias": "Shambling Mound",
         "desc": "Humanoid, flesh-eating vegetation!",
         "absorbsmagic": [],
@@ -624,7 +624,7 @@ const imported = [
         "attackonsight": []
     }),
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-    createItem("dire_hag_prototype", RPG_CORRUPTED(), {
+    Quest.World.createItem("dire_hag_prototype", RPG_CORRUPTED(), {
         "desc": "At first glance the hag resembles an old woman, but the reality is this creature is considerably tougher than that.",
         "death": "In the death, the Dire Hag looks like a sad old woman.",
         "level": 5,
@@ -635,7 +635,7 @@ const imported = [
         "ondeath": "if (HasString(this, \"oldroomdesc\")) {\n            this.parent.description = this.oldroomdesc\n          }\n          foreach (ex, ScopeExitsForRoom(this.parent)) {\n            ex.visible = true\n          }\n          msg (\"As the Dire Hag dies, the lava-filled cavern shimmers before you eyes, and a moment later you are back in the chamber you first encountered the creature - if you ever left it?\")",
     }),
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-    createItem("iron_cobra_prototype", RPG_CONSTRUCT(), {
+    Quest.World.createItem("iron_cobra_prototype", RPG_CONSTRUCT(), {
         "alias": "Iron cobra",
         "desc": "A huge, mechanical snake, constructed of articulated segments.",
         "attackonsight": [],
@@ -644,7 +644,7 @@ const imported = [
         "level": 10,
     }),
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-    createItem("lich_prototype", RPG_CORPOREAL_UNDEAD(), {
+    Quest.World.createItem("lich_prototype", RPG_CORPOREAL_UNDEAD(), {
         "name": "lich",
         "desc": "A malicious wizard who has tried to cheat death, the lich resembles a bonelord, but retains his evil powers,",
         "alias": "Lich",
@@ -655,7 +655,7 @@ const imported = [
         "attackonsight": [],
     }),
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-    createItem("electric_skeleton_prototype", RPG_CORPOREAL_UNDEAD(), {
+    Quest.World.createItem("electric_skeleton_prototype", RPG_CORPOREAL_UNDEAD(), {
         "desc": "A skeleton, with electricity sparking off it.",
         "alias": "Electric skeleton",
         "level": 8,
@@ -666,7 +666,7 @@ const imported = [
         "attackdesc": "% lunges at you",
     }),
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-    createItem("fire_zombie_prototype", RPG_CORPOREAL_UNDEAD(), {
+    Quest.World.createItem("fire_zombie_prototype", RPG_CORPOREAL_UNDEAD(), {
         "desc": "A zombie, burning, but not consumed in the fire.",
         "alias": "Fire zombie",
         "level": 5,
@@ -717,11 +717,11 @@ const monsters = [
                 "name": "banshee"
             },
             {
-                "desc": "The spirit of one who has fallen in battle, but is kept tied to this world by his or her own hate and need for vengeance against all living things.",
+                "desc": "The spirit of one who has fallen in battle, but is kept tied to this Quest.World.world by his or her own hate and need for vengeance against all living things.",
                 "name": "revenant"
             },
             {
-                "desc": "The spirit of one who has fallen in battle, but is kept tied to this world by his or her own hate and need for vengeance against all living things.",
+                "desc": "The spirit of one who has fallen in battle, but is kept tied to this Quest.World.world by his or her own hate and need for vengeance against all living things.",
                 "name": "dark stalker"
             },
             {
@@ -733,7 +733,7 @@ const monsters = [
                 "name": "wraith"
             },
             {
-                "desc": "The spirit of a powerful leader who has fallen in battle, but is kept tied to this world by his or her own hate and need for vengeance against all living things.",
+                "desc": "The spirit of a powerful leader who has fallen in battle, but is kept tied to this Quest.World.world by his or her own hate and need for vengeance against all living things.",
                 "name": "revenant lord"
             },
             {
@@ -764,7 +764,7 @@ const monsters = [
                 "mustmatch": "banshee",
                 "onsuccessfulattack": {
                     "type": "script",
-                    "text": "msg (\"The % has drained your mind!\")\n            player.magiccurse = player.magiccurse + 2\n            player.magicbonus = player.magicbonus - 2"
+                    "text": "msg (\"The % has drained your mind!\")\n            Quest.World.player.magiccurse = Quest.World.player.magiccurse + 2\n            Quest.World.player.magicbonus = Quest.World.player.magicbonus - 2"
                 }
             }
         ],
@@ -1024,7 +1024,7 @@ const monsters = [
                 },
                 "attackplayer": {
                     "type": "script",
-                    "text": "// Only targets player!\n            player.damagebonus = player.damagebonus - 5\n            this.parent.resetattribute = \"damagebonus\"\n            this.parent.resetbonus = 5\n            this.parent = dead\n            msg (CapFirst(GetDisplayAlias (this.parent)) + \" casts <i>Weaken</i> at you; you will do 5  less damage.with every weapon attack.\")"
+                    "text": "// Only targets player!\n            Quest.World.player.damagebonus = Quest.World.player.damagebonus - 5\n            this.parent.resetattribute = \"damagebonus\"\n            this.parent.resetbonus = 5\n            this.parent = dead\n            msg (CapFirst(GetDisplayAlias (this.parent)) + \" casts <i>Weaken</i> at you; you will do 5  less damage.with every weapon attack.\")"
                 }
             }
         ],
@@ -1190,7 +1190,7 @@ const monsters = [
                 },
                 "attackplayer": {
                     "type": "script",
-                    "text": "// Only targets player!\n            player.damagebonus = player.magicbonus - 2\n            this.parent.resetattribute = \"magicbonus\"\n            this.parent.resetbonus = 2\n            this.parent = dead\n            msg (CapFirst(GetDisplayAlias (this.parent)) + \" casts <i>Befuddle</i> at you; your intelligence drops by 2.\")"
+                    "text": "// Only targets player!\n            Quest.World.player.damagebonus = Quest.World.player.magicbonus - 2\n            this.parent.resetattribute = \"magicbonus\"\n            this.parent.resetbonus = 2\n            this.parent = dead\n            msg (CapFirst(GetDisplayAlias (this.parent)) + \" casts <i>Befuddle</i> at you; your intelligence drops by 2.\")"
                 }
             }
         ],
@@ -1506,7 +1506,7 @@ for (const el of monsters) {
         const name = el.instances[i].name.replace(/ /g, '_') + "_prototype"
         //log(name)
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-        createItem(name, el.template, {
+        Quest.World.createItem(name, el.template, {
             name: el.instances[i].name,
             alias: Quest.Utilities.sentenceCase(el.instances[i].name),
             desc: el.instances[i].desc,

@@ -28,7 +28,7 @@ quest.create = function (name: any, stages: any, data: any) {
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'getState' does not exist on type '{ INIT... Remove this comment to see the full error message
 quest.getState = function (name: any, char: any) {
-  if (!char) char = player
+  if (!char) char = Quest.World.player
   const result = {}
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'quest' does not exist on type '{}'.
   result.quest = typeof name === 'string' ? quest.data.find(el => el.name === name) : name
@@ -66,10 +66,10 @@ quest.comment = function (q: any, n: any, s: any) {
 quest.start = function (name: any) {
   console.log(name)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getState' does not exist on type '{ INIT... Remove this comment to see the full error message
-  const result = quest.getState(name, player)
+  const result = quest.getState(name, Quest.World.player)
   if (result.progress !== undefined) return false // quest already started
-  player[result.progressName] = quest.ACTIVE
-  player[result.stateName] = 0
+  Quest.World.player[result.progressName] = quest.ACTIVE
+  Quest.World.player[result.stateName] = 0
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'comment' does not exist on type '{ INITI... Remove this comment to see the full error message
   quest.comment(result.quest, 0, "Quest started")
   return true
@@ -78,13 +78,13 @@ quest.start = function (name: any) {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'restart' does not exist on type '{ INITI... Remove this comment to see the full error message
 quest.restart = function (name: any, n: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getState' does not exist on type '{ INIT... Remove this comment to see the full error message
-  const data = quest.getState(name, player)
+  const data = quest.getState(name, Quest.World.player)
   // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'result'.
   if (result.progress === quest.ACTIVE) return false // quest already started
   // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'result'.
-  player[result.progressName] = quest.ACTIVE
+  Quest.World.player[result.progressName] = quest.ACTIVE
   // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'result'.
-  player[result.stateName] = n ? n : 0
+  Quest.World.player[result.stateName] = n ? n : 0
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'comment' does not exist on type '{ INITI... Remove this comment to see the full error message
   quest.comment(result.quest, 0, "Quest started")
   return true
@@ -93,13 +93,13 @@ quest.restart = function (name: any, n: any) {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'next' does not exist on type '{ INITIAL:... Remove this comment to see the full error message
 quest.next = function (name: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getState' does not exist on type '{ INIT... Remove this comment to see the full error message
-  const data = quest.getState(name, player)
+  const data = quest.getState(name, Quest.World.player)
   // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'result'.
   if (result.progress !== quest.ACTIVE) return false
   // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'result'.
-  player[result.stateName]++
+  Quest.World.player[result.stateName]++
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'stages' does not exist on type '{ INITIA... Remove this comment to see the full error message
-  if (quest.stages.length >= player[result.stateName]) return quest.complete(data.quest)
+  if (quest.stages.length >= Quest.World.player[result.stateName]) return quest.complete(data.quest)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'comment' does not exist on type '{ INITI... Remove this comment to see the full error message
   quest.comment(result.quest, result.stateName, "Quest progress")
   return true
@@ -108,13 +108,13 @@ quest.next = function (name: any) {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'complete' does not exist on type '{ INIT... Remove this comment to see the full error message
 quest.complete = function (name: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getState' does not exist on type '{ INIT... Remove this comment to see the full error message
-  const data = quest.getState(name, player)
+  const data = quest.getState(name, Quest.World.player)
   // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'result'.
   if (result.progress !== quest.ACTIVE) return false
   // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'result'.
-  player[result.progressName] = quest.SUCCESS
+  Quest.World.player[result.progressName] = quest.SUCCESS
   // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'result'.
-  player[result.stateName] = false
+  Quest.World.player[result.stateName] = false
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'comment' does not exist on type '{ INITI... Remove this comment to see the full error message
   quest.comment(result.quest, false, "Quest completed")
   return true
@@ -123,13 +123,13 @@ quest.complete = function (name: any) {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'fail' does not exist on type '{ INITIAL:... Remove this comment to see the full error message
 quest.fail = function (name: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getState' does not exist on type '{ INIT... Remove this comment to see the full error message
-  const data = quest.getState(name, player)
+  const data = quest.getState(name, Quest.World.player)
   // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'result'.
   if (result.progress !== quest.ACTIVE) return false
   // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'result'.
-  player[result.progressName] = quest.FAILED
+  Quest.World.player[result.progressName] = quest.FAILED
   // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'result'.
-  player[result.stateName] = false
+  Quest.World.player[result.stateName] = false
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'comment' does not exist on type '{ INITI... Remove this comment to see the full error message
   quest.comment(result.quest, false, "Quest failed")
   return true
@@ -138,13 +138,13 @@ quest.fail = function (name: any) {
 // @ts-expect-error ts-migrate(2551) FIXME: Property 'moot' does not exist on type '{ INITIAL:... Remove this comment to see the full error message
 quest.moot = function (name: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getState' does not exist on type '{ INIT... Remove this comment to see the full error message
-  const data = quest.getState(name, player)
+  const data = quest.getState(name, Quest.World.player)
   // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'result'.
   if (result.progress !== quest.ACTIVE) return false
   // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'result'.
-  player[result.progressName] = quest.MOOT
+  Quest.World.player[result.progressName] = quest.MOOT
   // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'result'.
-  player[result.stateName] = false
+  Quest.World.player[result.stateName] = false
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'comment' does not exist on type '{ INITI... Remove this comment to see the full error message
   quest.comment(result.quest, false, "Quest moot")
   return true
@@ -153,13 +153,13 @@ quest.moot = function (name: any) {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'set' does not exist on type '{ INITIAL: ... Remove this comment to see the full error message
 quest.set = function (name: any, n: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getState' does not exist on type '{ INIT... Remove this comment to see the full error message
-  const data = quest.getState(name, player)
+  const data = quest.getState(name, Quest.World.player)
   // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'result'.
   if (result.progress !== quest.ACTIVE) return false
   // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'result'.
   if (result.state <= n) return false
   // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'result'.
-  player[result.stateName] = n
+  Quest.World.player[result.stateName] = n
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'comment' does not exist on type '{ INITI... Remove this comment to see the full error message
   quest.comment(result.quest, result.stateName, "Quest progress")
   return true
@@ -172,7 +172,7 @@ quest.set = function (name: any, n: any) {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'progress' does not exist on type '{ INIT... Remove this comment to see the full error message
 quest.progress = function (name: any, all: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getState' does not exist on type '{ INIT... Remove this comment to see the full error message
-  const data = quest.getState(name, player)
+  const data = quest.getState(name, Quest.World.player)
   // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'result'.
   if (result.progress === undefined) return false
   // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'result'.
@@ -208,9 +208,7 @@ quest.list = function (all: any) {
   if (!all) Quest.IO.metamsg("[Do QUESTS ALL to include completed and failed quests]")
 }
 
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.unshift(new Quest.Command.Cmd('MetaQuests', {
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
   rules: [Quest.Command.cmdRules.isPresent],
   regex: /^(?:quest|quests|q)$/,
   objects: [
@@ -221,9 +219,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('MetaQuests', {
   },
 }))
 
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.unshift(new Quest.Command.Cmd('MetaQuestsAll', {
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
   rules: [Quest.Command.cmdRules.isPresent],
   regex: /^(?:quest|quests|q) all$/,
   objects: [

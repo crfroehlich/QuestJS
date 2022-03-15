@@ -20,7 +20,7 @@ register('theatre', {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("theatre", {
+Quest.World.createRoom("theatre", {
   windowsface: 'none',
   alias: "theatre backstage",
   properNoun: true,
@@ -28,11 +28,11 @@ createRoom("theatre", {
   afterEnter: function () {
   },
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  northwest: new Exit("theatre_stage", { msg: 'Mandy heads northwest, through the side-left wing, onto the stage.' }),
+  northwest: new Quest.World.Exit("theatre_stage", { msg: 'Mandy heads northwest, through the side-left wing, onto the stage.' }),
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  southwest: new Exit("theatre_stage", { msg: 'Mandy heads southwest, through the side-right wing, onto the stage.' }),
+  southwest: new Quest.World.Exit("theatre_stage", { msg: 'Mandy heads southwest, through the side-right wing, onto the stage.' }),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  east: new Exit("gallery_south"),
+  east: new Quest.World.Exit("gallery_south"),
   scenery: [
     { alias: 'scenery', examine: 'There are several huge boards, each painted on both sides, presumably designed to go together to form either a country lane backdrop, or, when reversed, a room with panelled walls.' },
     { alias: ['junk', 'props'], examine: 'There is a table that is upside-down, with two chairs, a grandfather clock and a hatstand on it.' },
@@ -49,13 +49,13 @@ createRoom("theatre", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem('hatstand', Quest.Templates.SURFACE(), {
+Quest.World.createItem('hatstand', Quest.Templates.SURFACE(), {
   examine: 'The hatstand is wooden, and badly made; it is a wonder it is still together.{if:floppy_hat:loc:hatstand: There is a floppy hat on it.}',
   loc: 'theatre',
   scenery: true,
   testDropIn: function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'floppy_hat' does not exist on type '{}'.
-    if (options.item !== w.floppy_hat) return falsemsg("Mandy can only put hats on the hatstand - the clue is in the name.")
+    if (options.item !== Quest.World.w.floppy_hat) return Quest.IO.falsemsg("Mandy can only put hats on the hatstand - the clue is in the name.")
 
     return true
   },
@@ -65,22 +65,22 @@ createItem('hatstand', Quest.Templates.SURFACE(), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("theatre_stage", {
+Quest.World.createRoom("theatre_stage", {
   windowsface: 'none',
   alias: "theatre stage",
-  desc: "{once:They say \"All the world's a stage\", but this bit definitely is, muses Mandy, realising she is indeed standing on a stage:Mandy is standing on a stage}. The curtain is up and bright lights are pointed at her, making it hard to see the rest of the theatre, but the chairs seem to be empty. As theatres go, it is not big, with a small balcony, and only a dozen or so rows in the stalls. Backstage is through the wings, northeast and southeast.",
+  desc: "{once:They say \"All the Quest.World.world's a stage\", but this bit definitely is, muses Mandy, realising she is indeed standing on a stage:Mandy is standing on a stage}. The curtain is up and bright lights are pointed at her, making it hard to see the rest of the theatre, but the chairs seem to be empty. As theatres go, it is not big, with a small balcony, and only a dozen or so rows in the stalls. Backstage is through the wings, northeast and southeast.",
   beforeFirstEnter: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg("'Oh, what? Hey!' She is startled for a moment to see a figure standing on the stage. She is about to say something more articulate when she realises it is not moving.")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
-    w.clockwork_thespian.loc = this.name
+    Quest.World.w.clockwork_thespian.loc = this.name
   },
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  west: new Exit("_", { use: Quest.Utilities.util.cannotUse, msg: 'Mandy heads west, towards the edge of the stage, intending to jump down into the stalls, but somehow cannot do it. As she gets nearer to the edge her steps get heavier and heavier -- it is almost like those bright lights are pushing her back.' }),
+  west: new Quest.World.Exit("_", { use: Quest.Utilities.util.cannotUse, msg: 'Mandy heads west, towards the edge of the stage, intending to jump down into the stalls, but somehow cannot do it. As she gets nearer to the edge her steps get heavier and heavier -- it is almost like those bright lights are pushing her back.' }),
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  northeast: new Exit("theatre", { msg: 'Mandy heads northeast, through the side-left wing, to the backstage area.' }),
+  northeast: new Quest.World.Exit("theatre", { msg: 'Mandy heads northeast, through the side-left wing, to the backstage area.' }),
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  southeast: new Exit("theatre", { msg: 'Mandy heads southeast, through the side-right wing, to the backstage area.' }),
+  southeast: new Quest.World.Exit("theatre", { msg: 'Mandy heads southeast, through the side-right wing, to the backstage area.' }),
   scenery: [
     { alias: 'lights', examine: 'There are about a dozen lights shining directly on to the stage, from three points up on the ceiling. They are too bright for her to see anything behind them.' },
     { alias: 'orchestra pit', examine: 'Curiously, there is no orchestra pit.' },
@@ -98,17 +98,16 @@ createRoom("theatre_stage", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("floppy_hat", Quest.Templates.WEARABLE(), {
+Quest.World.createItem("floppy_hat", Quest.Templates.WEARABLE(), {
   loc: "clockwork_thespian",
   examine: "The hat is not unlike a cowboy's, but made of softer material. It is black, with a wide brim.",
   afterWear: function (options: any) {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
-    if (options.char === w.Patch && !this.patchFlag) {
+    if (options.char === Quest.World.w.Patch && !this.patchFlag) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("Mandy looks at Patch in his new hat. 'You look cool!'")
       this.patchFlag = true
     }
-    if (options.char === player && !this.playerFlag) {
+    if (options.char === Quest.World.player && !this.playerFlag) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("Mandy decides she likes the hat; it makes her feel very... Bohemian she decides. It is a shame there is no mirror here.")
       this.playerFlag = true
@@ -117,23 +116,23 @@ createItem("floppy_hat", Quest.Templates.WEARABLE(), {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("clockwork_thespian", Quest.NPC.NPC(), Quest.Templates.CONTAINER(false), {
+Quest.World.createItem("clockwork_thespian", Quest.NPC.NPC(), Quest.Templates.CONTAINER(false), {
   alias: "theatre mannequin",
   synonyms: ['theatre mannequin', 'clockwork thespian', 'cecil malewicz'],
   state: 0,
   npc: false,
   testDropIn(options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'large_key' does not exist on type '{}'.
-    if (options.item !== w.large_key) return falsemsg("That is not something you can put in the keyhole. The clue is in the word \"keyhole\".")
+    if (options.item !== Quest.World.w.large_key) return Quest.IO.falsemsg("That is not something you can put in the keyhole. The clue is in the word \"keyhole\".")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'large_key' does not exist on type '{}'.
-    if (w.large_key.size > 6) return falsemsg("The key is too large for the keyhole.")
+    if (Quest.World.w.large_key.size > 6) return Quest.IO.falsemsg("The key is too large for the keyhole.")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'large_key' does not exist on type '{}'.
-    if (w.large_key.size < 6) return falsemsg("The key is too small for the keyhole.")
+    if (Quest.World.w.large_key.size < 6) return Quest.IO.falsemsg("The key is too small for the keyhole.")
     return true
   },
   getAgreement: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    return falsemsg("'I have no time for that, girl! I have a show to prepare!'")
+    return Quest.IO.falsemsg("'I have no time for that, girl! I have a show to prepare!'")
   },
   brevity: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -141,7 +140,7 @@ createItem("clockwork_thespian", Quest.NPC.NPC(), Quest.Templates.CONTAINER(fals
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg("'{class:riddle:Perfect!} Indeed it is. I knew you would find it. And now I will tell you how to escape this house. Outside this small theatre is a long gallery, with a chess set on a table.'")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'chess_pieces' does not exist on type '{}... Remove this comment to see the full error message
-    if (w.chess_pieces.gluedDownNoted) {
+    if (Quest.World.w.chess_pieces.gluedDownNoted) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("'I saw it. All the pieces are glued down.'")
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -154,13 +153,13 @@ createItem("clockwork_thespian", Quest.NPC.NPC(), Quest.Templates.CONTAINER(fals
       Quest.IO.msg("'The white k{class:riddle:night changes} the room if you twist it, takes you outside the house.'")
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'white_knight' does not exist on type '{}... Remove this comment to see the full error message
-    w.white_knight.active = true
+    Quest.World.w.white_knight.active = true
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
-    w.clockwork_thespian.state = 102
+    Quest.World.w.clockwork_thespian.state = 102
   },
   examine: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
-    if (w.clockwork_thespian.state === 0) {
+    if (Quest.World.w.clockwork_thespian.state === 0) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("The figure seems to have been manufactured to resemble a man of impressive proportions, in height, but also in the girth of his chest. And its groin too, Mandy notices with a wry smile. It, or he, is constructed of brass, and looks to be jointed. He is clothed in a frilly off-white shirt, and dark baggy trousers, as well as a floppy hat. Mandy notices there is a hole in the back of his shirt, and a corresponding hole in his back, where a simple, if large, key might fit.")
     }
@@ -171,12 +170,12 @@ createItem("clockwork_thespian", Quest.NPC.NPC(), Quest.Templates.CONTAINER(fals
   },
   talkto: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
-    if (w.clockwork_thespian.state === 0) {
+    if (Quest.World.w.clockwork_thespian.state === 0) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("'Hello!' says Mandy to the inanimate figure. There is no response.")
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
-    else if (w.clockwork_thespian.state === 1) {
+    else if (Quest.World.w.clockwork_thespian.state === 1) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("'So...' says Mandy, 'I don't suppose you can tell me how to get out of here?'")
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -190,19 +189,19 @@ createItem("clockwork_thespian", Quest.NPC.NPC(), Quest.Templates.CONTAINER(fals
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("'Why, Hamlet of course, as you well know. Act 2, scene 2. Now quickly girl, answer the question, and we shall be done here.'")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
-      w.clockwork_thespian.state = 2
+      Quest.World.w.clockwork_thespian.state = 2
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
-    else if (w.clockwork_thespian.state === 2) {
+    else if (Quest.World.w.clockwork_thespian.state === 2) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("'Why do you need to know what the soul of wit is anyway?'")
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("'There are rules that must be obeyed. If I am to help you, then you must first do something for me. As to the exact question, well, I made that up myself. You are clearly a scholar of the bard, so I know it is easy for you, but for the riff-raff, it will be utterly beyond them.'")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
-      w.clockwork_thespian.state = 3
+      Quest.World.w.clockwork_thespian.state = 3
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
-    else if (w.clockwork_thespian.state === 3) {
+    else if (Quest.World.w.clockwork_thespian.state === 3) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("'How do you know what's in my bag?'")
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -212,10 +211,10 @@ createItem("clockwork_thespian", Quest.NPC.NPC(), Quest.Templates.CONTAINER(fals
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("'I don't really know, it is so hard to judge. It was the 3rd of October 1932 when I entered herein. To me, it feels as though at least two or three whole years have passed.'")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
-      w.clockwork_thespian.state = 4
+      Quest.World.w.clockwork_thespian.state = 4
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
-    else if (w.clockwork_thespian.state === 4) {
+    else if (Quest.World.w.clockwork_thespian.state === 4) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("'I'm not really a, er, scholar of the bard.'")
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -229,25 +228,25 @@ createItem("clockwork_thespian", Quest.NPC.NPC(), Quest.Templates.CONTAINER(fals
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("He shrugged. 'That's just the way things are in The House. Perhaps you should look it up? In a library, maybe. I imagine there's a library...'")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
-      w.clockwork_thespian.state = 5
+      Quest.World.w.clockwork_thespian.state = 5
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
-    else if (w.clockwork_thespian.state === 5) {
+    else if (Quest.World.w.clockwork_thespian.state === 5) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("Mandy had nothing to say to the Clockwork Thespian at the moment.")
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
-    else if (w.clockwork_thespian.state === 101) {
+    else if (Quest.World.w.clockwork_thespian.state === 101) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
-      w.clockwork_thespian.brevity()
+      Quest.World.w.clockwork_thespian.brevity()
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
-    else if (w.clockwork_thespian.state === 102) {
+    else if (Quest.World.w.clockwork_thespian.state === 102) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("Mandy has nothing to say to the Clockwork Thespian at the moment.")
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
-    else if (w.clockwork_thespian.state === 201) {
+    else if (Quest.World.w.clockwork_thespian.state === 201) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("'What the fuck?' says Mandy to the Clockwork Thespian indignantly. 'You said I'd be able to get out of this stupid house!'")
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -271,19 +270,19 @@ createItem("clockwork_thespian", Quest.NPC.NPC(), Quest.Templates.CONTAINER(fals
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("'Of course not! Heaven forbid you could just tell me!'")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
-      w.clockwork_thespian.state = 202
+      Quest.World.w.clockwork_thespian.state = 202
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
-    else if (w.clockwork_thespian.state === 202) {
+    else if (Quest.World.w.clockwork_thespian.state === 202) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("Mandy has nothing to say to the Clockwork Thespian at the moment; she just gives the stupid thing a kick.")
     }
   },
   windup: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'large_key' does not exist on type '{}'.
-    if (w.large_key.loc !== player.name && w.large_key.loc !== this.name) {
+    if (Quest.World.w.large_key.loc !== Quest.World.player.name && Quest.World.w.large_key.loc !== this.name) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      return falsemsg("Mandy has nothing to wind up the mannequin with.")
+      return Quest.IO.falsemsg("Mandy has nothing to wind up the mannequin with.")
     }
     else {
       return this.dowindup()
@@ -291,24 +290,24 @@ createItem("clockwork_thespian", Quest.NPC.NPC(), Quest.Templates.CONTAINER(fals
   },
   dowindup: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'large_key' does not exist on type '{}'.
-    if (w.large_key.size < 6) {
+    if (Quest.World.w.large_key.size < 6) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      return falsemsg("Mandy looks at the hole in the back of the inanimate figure; a square peg. Like it would fit the key she has -- only much bigger.")
+      return Quest.IO.falsemsg("Mandy looks at the hole in the back of the inanimate figure; a square peg. Like it would fit the key she has -- only much bigger.")
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'large_key' does not exist on type '{}'.
-    if (w.large_key.size > 6) {
+    if (Quest.World.w.large_key.size > 6) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      return falsemsg("Mandy looks at the hole in the back of the inanimate figure; a square peg. Like it would fit the key she has -- if not {i:that} big.")
+      return Quest.IO.falsemsg("Mandy looks at the hole in the back of the inanimate figure; a square peg. Like it would fit the key she has -- if not {i:that} big.")
     }
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
-    if (w.clockwork_thespian.state === 0) {
+    if (Quest.World.w.clockwork_thespian.state === 0) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'large_key' does not exist on type '{}'.
-      if (w.large_key.loc !== 'clockwork_thespian') {
+      if (Quest.World.w.large_key.loc !== 'clockwork_thespian') {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("Mandy looks at the hole in the back of the inanimate figure; a square peg. She puts the large key over it, and finds it is a good fit. What are the odds?")
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'large_key' does not exist on type '{}'.
-        w.large_key.loc = 'clockwork_thespian'
+        Quest.World.w.large_key.loc = 'clockwork_thespian'
       }
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("She gives the key in the back of the mannequin half a turn, with some effort. Another turn, and another, until it will turn no more. Suddenly, the figure moves, and Mandy jumps back, even though that is exactly what she is hoping for. He looks at her. 'Good day. I see you are a fellow thespian!' he says in a fruity voice.{if:floppy_hat:loc:player: 'And you seem to have my hat!'}")
@@ -324,14 +323,12 @@ createItem("clockwork_thespian", Quest.NPC.NPC(), Quest.Templates.CONTAINER(fals
   },
   nameModifierFunction: function (list: any) {
     list.length = 0
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'floppy_hat' does not exist on type '{}'.
-    if (w.floppy_hat.loc === this.name) list.push('wearing a floppy hat')
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'large_key' does not exist on type '{}'.
-    if (w.large_key.loc === this.name) list.push('a large key in his back')
+    if (Quest.World.w.floppy_hat.loc === this.name) list.push('wearing a floppy hat')
+    if (Quest.World.w.large_key.loc === this.name) list.push('a large key in his back')
   },
 
   testTalk: function (text: any) {
-    if (!this.npc) return falsemsg(text ? Quest.lang.cannot_ask_about : Quest.lang.cannot_talk_to, { item: this, char: player, text: text })
+    if (!this.npc) return Quest.IO.falsemsg(text ? Quest.lang.cannot_ask_about : Quest.lang.cannot_talk_to, { item: this, char: Quest.World.player, text: text })
     return true
   },
   askOptions: [
@@ -339,8 +336,7 @@ createItem("clockwork_thespian", Quest.NPC.NPC(), Quest.Templates.CONTAINER(fals
       name: 'House',
       test: function (p: any) { return p.text.match(/escape|house/); },
       script: function (p: any) {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
-        if (w.clockwork_thespian.state < 2) {
+        if (Quest.World.w.clockwork_thespian.state < 2) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("'So...' says Mandy, 'I don't suppose you can tell me how to get out of here?'")
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -354,7 +350,7 @@ createItem("clockwork_thespian", Quest.NPC.NPC(), Quest.Templates.CONTAINER(fals
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("'Why, Hamlet of course, as you well know. Act 2, scene 2. Now quickly girl, answer the question, and we shall be done here.'")
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
-          w.clockwork_thespian.state = 2
+          Quest.World.w.clockwork_thespian.state = 2
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -385,7 +381,7 @@ createItem("clockwork_thespian", Quest.NPC.NPC(), Quest.Templates.CONTAINER(fals
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'So... the soul of wit, the soul of wit... What was that again?' asks Mandy.")
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'white_knight' does not exist on type '{}... Remove this comment to see the full error message
-        if (!w.white_knight.active) {
+        if (!Quest.World.w.white_knight.active) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("'That is for you to determine, my dear,' declares the clockwork thespian. 'Tis a simple question.'")
         }
@@ -404,7 +400,7 @@ createItem("clockwork_thespian", Quest.NPC.NPC(), Quest.Templates.CONTAINER(fals
     },
     { // boots
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
-      test: function (p: any) { return p.text.match(/boots/) && w.boots.loc === player.name; },
+      test: function (p: any) { return p.text.match(/boots/) && Quest.World.w.boots.loc === Quest.World.player.name; },
       script: function (p: any) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'What's the deal with these boots?' asks Mandy, holding up the pair of boots.")
@@ -517,14 +513,14 @@ createItem("clockwork_thespian", Quest.NPC.NPC(), Quest.Templates.CONTAINER(fals
       test: function (p: any) { return p.text.match(/riddle/); },
       script: function (p: any) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'white_knight' does not exist on type '{}... Remove this comment to see the full error message
-        if (!w.white_knight.active) {
+        if (!Quest.World.w.white_knight.active) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("'So... the soul of wit, the soul of wit... What was that again?' asks Mandy.")
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("'That is for you to determine, my dear,' declares the clockwork thespian. 'Tis a simple question.'")
         }
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'weird_room' does not exist on type '{}'.
-        else if (w.weird_room.visited > 0) {
+        else if (Quest.World.w.weird_room.visited > 0) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("'Can you help me solve the riddle?'")
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -549,12 +545,12 @@ createItem("clockwork_thespian", Quest.NPC.NPC(), Quest.Templates.CONTAINER(fals
     {
       name: 'Mannequins',
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'brass_dining_room' does not exist on typ... Remove this comment to see the full error message
-      test: function (p: any) { return p.text.match(/mannequin/) && w.brass_dining_room.visited > 2; },
+      test: function (p: any) { return p.text.match(/mannequin/) && Quest.World.w.brass_dining_room.visited > 2; },
       msg: "'What's the deal with the mannequins in the dining room?' This guy is a mannequin himself, so might have a clue, Mandy reasons.|'I'm afraid I have not ventured far from here. The rest of the house rather unnerves me, while here, on the stage, I feel at home.'",
     },
     {
       name: 'Silvers',
-      test: function (p: any) { return p.text.match(/silver/) && player.silverSpotted > 0; },
+      test: function (p: any) { return p.text.match(/silver/) && Quest.World.player.silverSpotted > 0; },
       msg: "'What's the deal with the Silvers - the guy in silver I saw?'|'I must admit, I do not know. They are very elusive, and yet I get the impression they are running the place!'",
     },
     {

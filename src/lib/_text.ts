@@ -111,15 +111,15 @@ namespace Quest {
             for (const el of ary.reverse()) arr.unshift(el)
           }
           else if (left === "player") {
-            arr.unshift(player.name);
+            arr.unshift(Quest.World.player.name);
             left = "show";
           }
-          else if (left === "currentLocation") {
-            arr.unshift(currentLocation.name);
+          else if (left === "Quest.World.currentLocation") {
+            arr.unshift(Quest.World.currentLocation.name);
             left = "show";
           }
           // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          else if (w[left]) {
+          else if (Quest.World.w[left]) {
             arr.unshift(left);
             left = "show";
           }
@@ -304,13 +304,13 @@ namespace Quest {
 
     const _findObject = function (name: any, params: any, arr: any) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      if (params && params[name]) return typeof params[name] === 'string' ? w[params[name]] : params[name]
-      if (name === "player") return player
-      if (name === "currentLocation") return currentLocation
+      if (params && params[name]) return typeof params[name] === 'string' ? Quest.World.w[params[name]] : params[name]
+      if (name === "player") return Quest.World.player
+      if (name === "Quest.World.currentLocation") return Quest.World.currentLocation
       if (name === "settings") return Quest.Settings.settings
       if (name === "params") return params
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      if (w[name]) return w[name]
+      if (Quest.World.w[name]) return Quest.World.w[name]
       const ary = name.split('.')
       if (ary.length === 1) return undefined
       if (ary.length > 2) {
@@ -320,7 +320,7 @@ namespace Quest {
       }
       arr.unshift(ary[1])
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      return w[ary[0]]
+      return Quest.World.w[ary[0]]
     }
 
     const multi = function (arr: any, params: any) {
@@ -360,7 +360,7 @@ namespace Quest {
       const obj = typeof params[name] === 'object' ? params[name] : _findObject(name, params, arr)
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       if (!obj) return Quest.IO.errormsg("Failed to find object '" + name + "' in text processor 'contents' (" + params.tpOriginalString + ")")
-      return Quest.Utilities.formatList(obj.getContents(world.LOOK), { article: Quest.Utilities.INDEFINITE, sep: arr[0], lastJoiner: arr[1], nothing: arr[2] })
+      return Quest.Utilities.formatList(obj.getContents(Quest.World.world.LOOK), { article: Quest.Utilities.INDEFINITE, sep: arr[0], lastJoiner: arr[1], nothing: arr[2] })
     }
 
     const rndalt = function (arr: any, params: any) {
@@ -409,11 +409,11 @@ namespace Quest {
       const obj = _findObject(name, params, arr)
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       if (!obj) return Quest.IO.errormsg("Failed to find object '" + name + "' in text processor 'money' (" + params.tpOriginalString + ")")
-      if (obj.loc === player.name && obj.getSellingPrice) {
-        return Quest.Utilities.displayMoney(obj.getSellingPrice(player))
+      if (obj.loc === Quest.World.player.name && obj.getSellingPrice) {
+        return Quest.Utilities.displayMoney(obj.getSellingPrice(Quest.World.player))
       }
-      if (obj.loc === player.name && obj.getBuyingPrice) {
-        return Quest.Utilities.displayMoney(obj.getBuyingPrice(player))
+      if (obj.loc === Quest.World.player.name && obj.getBuyingPrice) {
+        return Quest.Utilities.displayMoney(obj.getBuyingPrice(Quest.World.player))
       }
       if (obj.getPrice) {
         return Quest.Utilities.displayMoney(obj.getPrice())
@@ -439,17 +439,17 @@ namespace Quest {
 
     const transitDest = function (arr: any, params: any) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      const transit = arr[0] ? w[arr[0]] : w[player.loc]
+      const transit = arr[0] ? Quest.World.w[arr[0]] : Quest.World.w[Quest.World.player.loc]
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       if (!transit.transitDoorDir) return Quest.IO.errormsg("Trying to use the 'transitDest' text process directive when the player is not in a transit location (" + params.tpOriginalString + ").")
       if (transit.currentButtonName) {
         // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-        const button = w[transit.currentButtonName]
+        const button = Quest.World.w[transit.currentButtonName]
         if (button.title) return button.title
       }
       const destName = transit[transit.transitDoorDir].name
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      return Quest.lang.getName(w[destName], { capital: true })
+      return Quest.lang.getName(Quest.World.w[destName], { capital: true })
     };
 
     const img = function (arr: any, params: any) {
@@ -510,7 +510,7 @@ namespace Quest {
     }
 
     const roomSet = function (arr: any, params: any) {
-      const n = currentLocation.roomSetOrder - 1
+      const n = Quest.World.currentLocation.roomSetOrder - 1
       return n < arr.length ? arr[n] : ''
     }
 
@@ -605,7 +605,7 @@ namespace Quest {
       const obj = _findObject(name, params, arr)
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       if (!obj) return Quest.IO.errormsg("Failed to find object '" + name + "' in text processor 'ifHere' (" + params.tpOriginalString + ")")
-      let flag = obj.isAtLoc(player[locAtt], world.ALL)
+      let flag = obj.isAtLoc(Quest.World.player[locAtt], Quest.World.world.ALL)
       if (reverse) flag = !flag
       return (flag ? arr[0] : (arr[1] ? arr[1] : ""))
     }
@@ -617,7 +617,7 @@ namespace Quest {
       const obj = _findObject(name, params, arr)
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       if (!obj) return Quest.IO.errormsg("Failed to find object '" + name + "' in text processor 'if/ifNotPlayer' (" + params.tpOriginalString + ")")
-      flag = obj === player
+      flag = obj === Quest.World.player
       if (reverse) flag = !flag
       return (flag ? arr[0] : (arr[1] ? arr[1] : ""))
     }
@@ -625,7 +625,7 @@ namespace Quest {
     //---------------  SUPPORT  FOR  ROOM  TEMPLATES  ------------------------------------
 
     const terse = function (arr: any, params: any) {
-      if ((Quest.Settings.settings.verbosity === world.TERSE && currentLocation.visited === 0) || Quest.Settings.settings.verbosity === world.VERBOSE) {
+      if ((Quest.Settings.settings.verbosity === Quest.World.world.TERSE && Quest.World.currentLocation.visited === 0) || Quest.Settings.settings.verbosity === Quest.World.world.VERBOSE) {
         return Quest.Utilities.sentenceCase(arr.join(":"))
       }
       else {
@@ -640,7 +640,7 @@ namespace Quest {
     // The hack then is to pre-process the room text in here
     const hereDesc = function (arr: any, params: any) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      const room = w[player.loc];
+      const room = Quest.World.w[Quest.World.player.loc];
       let s
       if (typeof room.desc === 'string') {
         s = room.desc
@@ -661,7 +661,7 @@ namespace Quest {
 
     const hereName = function (arr: any, params: any) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      const room = w[player.loc]
+      const room = Quest.World.w[Quest.World.player.loc]
       return room.headingAlias
     };
 
@@ -672,18 +672,18 @@ namespace Quest {
 
     const exitsHere = function (arr: any, params: any) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      const list = w[player.loc].getExitDirs()
+      const list = Quest.World.w[Quest.World.player.loc].getExitDirs()
       return list.length === 0 ? "" : arr.join(":");
     };
 
     const objects = function (arr: any, params: any) {
       const listOfOjects = Quest.Utilities.scopeHereListed();
-      return Quest.Utilities.formatList(listOfOjects, { article: Quest.Utilities.INDEFINITE, lastJoiner: Quest.lang.list_and, modified: true, nothing: Quest.lang.list_nothing, loc: player.loc });
+      return Quest.Utilities.formatList(listOfOjects, { article: Quest.Utilities.INDEFINITE, lastJoiner: Quest.lang.list_and, modified: true, nothing: Quest.lang.list_nothing, loc: Quest.World.player.loc });
     }
 
     const exits = function (arr: any, params: any) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      const list = w[player.loc].getExitDirs()
+      const list = Quest.World.w[Quest.World.player.loc].getExitDirs()
       return Quest.Utilities.formatList(list, { lastJoiner: Quest.lang.list_or, nothing: Quest.lang.list_nowhere });
     }
 
@@ -693,7 +693,7 @@ namespace Quest {
     /*
     The name functions could readily be expanded. You can add further parameters and Quest will then grab those and pass them to Quest.lang.getName. Thus, if we have this:
     
-    Quest.IO.msg("You see {nm:item:the:false:x_count}.", {item:w.terror_cat, x_count:4})
+    Quest.IO.msg("You see {nm:item:the:false:x_count}.", {item:Quest.World.w.terror_cat, x_count:4})
     
     Then the options passed to Quest.lang.getName will include x_count set to 4.
     */

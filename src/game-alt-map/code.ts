@@ -16,9 +16,9 @@ quest.create('Charm for Tary', [
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'openingTimes' does not exist on type '{}... Remove this comment to see the full error message
 Quest.Utilities.util.openingTimes = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'isAfter' does not exist on type '{}'.
-  if (Quest.Utilities.util.isAfter('1700')) return falsemsg('The business is now closed.')
+  if (Quest.Utilities.util.isAfter('1700')) return Quest.IO.falsemsg('The business is now closed.')
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'isAfter' does not exist on type '{}'.
-  if (!Quest.Utilities.util.isAfter('0800')) return falsemsg('The business closed until eight.')
+  if (!Quest.Utilities.util.isAfter('0800')) return Quest.IO.falsemsg('The business closed until eight.')
   return true
 }
 
@@ -30,7 +30,7 @@ Quest.Text.addDirective("timeOfDayComment", function (arr: any, params: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getCustomDateTimeDict' does not exist on... Remove this comment to see the full error message
   const time = Quest.Utilities.util.getCustomDateTimeDict({})
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  const location = w[player.loc]
+  const location = Quest.World.w[Quest.World.player.loc]
   if (!location.timeStatus) return ''
   let hour = time.hour
   for (let i = 0; i < location.timeStatus.length; i++) {

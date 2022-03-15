@@ -1,29 +1,29 @@
 "use strict"
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("robot", Quest.NPC.NPC(false), {
+Quest.World.createItem("robot", Quest.NPC.NPC(false), {
   loc: "laboratory",
   examine: "The robot is approximately man-shaped, if a little squat. It looks a little... clunky, like might have been designed in the fifties.",
   strong: true,
   attachable: true,
-  /*  eventIsActive:function() { w.me.loc === 'laboratory' },
+  /*  eventIsActive:function() { Quest.World.w.me.loc === 'laboratory' },
     eventPeriod:1,
     eventScript:function() {
-      if (w.me.hints < 250 && this.loc === 'reactor_room') {
+      if (Quest.World.w.me.hints < 250 && this.loc === 'reactor_room') {
         Quest.IO.msg("You noti.")
         tmsg("Of course, there may be other topics you can ask about, so you might want to experiment. But that does NOT mean you should start asking about every rude word you can think of.")
-        w.me.hints = 220
+        Quest.World.w.me.hints = 220
       }
     },*/
 
   isLocatedAt: function (loc: any, situation: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
-    if (situation === world.PARSER && w.me.loc === 'laboratory') return true
+    if (situation === Quest.World.world.PARSER && Quest.World.w.me.loc === 'laboratory') return true
   },
 
   getAgreementGo: function (ex: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'rope' does not exist on type '{}'.
-    if (w.rope.isAttachedTo(this)) {
+    if (Quest.World.w.rope.isAttachedTo(this)) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("'I cannot move while tied to the rope.'");
       if (!this.ropeMoveFlag) {
@@ -48,13 +48,13 @@ createItem("robot", Quest.NPC.NPC(false), {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'This is Professor Kleinscope's zeta-particle laboratory,' says the robot grandly.")
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
-        if (w.me.hints < 220) {
+        if (Quest.World.w.me.hints < 220) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           tmsg("When you ask about one topic, you might learn about others. If you are stuck, try the TOPICS command. In Quest 6, topics are determined according to the character, so you need to specific that, i.e., TOPICS FOR ROBOT.")
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           tmsg("Of course, there may be other topics you can ask about, so you might want to experiment. But that does NOT mean you should start asking about every rude word you can think of.")
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
-          w.me.hints = 220
+          Quest.World.w.me.hints = 220
         }
       }
     },
@@ -81,41 +81,41 @@ createItem("robot", Quest.NPC.NPC(false), {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Zeta-particles were discovered in Atlantis over 3000 years ago, but knowledge of them was lost when that great city disappeared. They offer unlimited power and a cure for all diseases,' says the robot.")
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
-        if (w.me.hints < 230) {
+        if (Quest.World.w.me.hints < 230) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           tmsg("Great, you are having a conversation with someone. But it is Professor Kleinscope we want to talk to, so let's take the lift up to him.")
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
-          w.me.hints = 230
+          Quest.World.w.me.hints = 230
         }
       }
     },
     {
       name: 'reactor',
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
-      test: function (p: any) { return p.text.match(/\b(reactor)\b/) && w.me.hints >= 250; },
+      test: function (p: any) { return p.text.match(/\b(reactor)\b/) && Quest.World.w.me.hints >= 250; },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'How do I turn on the reactor?' you ask the robot. 'And where is it, anyway?'")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'The control rod must be placed in the reactor core,' says the robot. 'The reactor is through the door to the north.'")
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
-        if (w.me.hints < 270) {
+        if (Quest.World.w.me.hints < 270) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           tmsg("So we need to head north, but that door is too heavy to open yourself; you need to get the robot to do it. We can tell the robot to do something with TELL ROBOT TO. followed by the usual command, or just ROBOT, (note the comma). Once the door is open, head to the reactor.")
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
-          w.me.hints = 270
+          Quest.World.w.me.hints = 270
         }
       }
     },
     {
       name: 'lift',
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'lift' does not exist on type '{}'.
-      test: function (p: any) { return p.text.match(/\b(lift|elevator)\b/) && w.lift.visited > 0; },
+      test: function (p: any) { return p.text.match(/\b(lift|elevator)\b/) && Quest.World.w.lift.visited > 0; },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'What's the deal with the lift?' you ask the robot.")
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'reactor_room' does not exist on type '{}... Remove this comment to see the full error message
-        if (w.reactor_room.reactorRunning) {
+        if (Quest.World.w.reactor_room.reactorRunning) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("'The zeta-lift - or zeta-elevator - is operating normally,' says the robot.")
         }
@@ -124,11 +124,11 @@ createItem("robot", Quest.NPC.NPC(false), {
           Quest.IO.msg("'The zeta-lift - or zeta-elevator - is powered by the zeta-reactor, which is currently not running,' says the robot.")
         }
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
-        if (w.me.hints < 260) {
+        if (Quest.World.w.me.hints < 260) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           tmsg("We need to So we need the reactor to be running. Better ask the robot about that.")
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
-          w.me.hints = 260
+          Quest.World.w.me.hints = 260
         }
       }
     },
@@ -168,7 +168,7 @@ createItem("robot", Quest.NPC.NPC(false), {
       name: 'vomit',
       test: function (p: any) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'vomit' does not exist on type '{}'.
-        return p.text.match(/\b(vomit|puke|sick)\b/) && w.vomit.loc === 'reactor_room';
+        return p.text.match(/\b(vomit|puke|sick)\b/) && Quest.World.w.vomit.loc === 'reactor_room';
       },
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -213,7 +213,7 @@ createItem("robot", Quest.NPC.NPC(false), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("Professor_Kleinscope", Quest.NPC.NPC(false), {
+Quest.World.createItem("Professor_Kleinscope", Quest.NPC.NPC(false), {
   loc: "office",
   examine: "The Professor is a slim tall man, perhaps in his forties, dressed, inevitably in a lab coat. Curiously his hair is neither white nor wild.{ifNot:Professor_Kleinscope:flag: He is sat at he desk, engrossed in his work.}",
   talk: function () {
@@ -230,7 +230,7 @@ createItem("Professor_Kleinscope", Quest.NPC.NPC(false), {
       tmsg("Maybe now he is not sitting there we can use the computer.")
       this.flag = true
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
-      w.me.hints = 410
+      Quest.World.w.me.hints = 410
       this.setAgenda([
         "text:The Professor locks his computer.",
         "text:Professor Kleinscope heads to the lift.",

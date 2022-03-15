@@ -149,31 +149,31 @@ map.update = function () {
 map.redraw = function (offX: any, offY: any) {
   // grab the current room region and level. If the room is missing either, give up now!
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  if (w[player.loc].mapX) player.mapX = w[player.loc].mapX / Quest.Settings.settings.mapScale
+  if (Quest.World.w[Quest.World.player.loc].mapX) Quest.World.player.mapX = Quest.World.w[Quest.World.player.loc].mapX / Quest.Settings.settings.mapScale
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  if (w[player.loc].mapY) player.mapY = w[player.loc].mapY / Quest.Settings.settings.mapScale
+  if (Quest.World.w[Quest.World.player.loc].mapY) Quest.World.player.mapY = Quest.World.w[Quest.World.player.loc].mapY / Quest.Settings.settings.mapScale
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  if (w[player.loc].mapRegion) player.mapRegion = w[player.loc].mapRegion
+  if (Quest.World.w[Quest.World.player.loc].mapRegion) Quest.World.player.mapRegion = Quest.World.w[Quest.World.player.loc].mapRegion
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapImages' does not exist on type '{ per... Remove this comment to see the full error message
-  if (!player.mapRegion) player.mapRegion = Quest.Settings.settings.mapImages[0].name
+  if (!Quest.World.player.mapRegion) Quest.World.player.mapRegion = Quest.Settings.settings.mapImages[0].name
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapImages' does not exist on type '{ per... Remove this comment to see the full error message
-  const mapImage = Quest.Settings.settings.mapImages.find((el: any) => el.name === player.mapRegion)
+  const mapImage = Quest.Settings.settings.mapImages.find((el: any) => el.name === Quest.World.player.mapRegion)
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  if (!mapImage) return Quest.IO.errormsg("Failed to find a map region called '" + player.mapRegion + "'")
+  if (!mapImage) return Quest.IO.errormsg("Failed to find a map region called '" + Quest.World.player.mapRegion + "'")
 
   const result = []
   result.push('<g id="map-top">')
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapScale' does not exist on type '{ perf... Remove this comment to see the full error message
   result.push('<image width="' + (mapImage.width / Quest.Settings.settings.mapScale) + '" height="' + (mapImage.height / Quest.Settings.settings.mapScale) + '", x="0", y="0" href="' + mapImage.file + '"/>')
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapMarker' does not exist on type '{ per... Remove this comment to see the full error message
-  result.push(Quest.Settings.settings.mapMarker(player))
+  result.push(Quest.Settings.settings.mapMarker(Quest.World.player))
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapPointsOfInterest' does not exist on t... Remove this comment to see the full error message
   for (let point of Quest.Settings.settings.mapPointsOfInterest) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapImages' does not exist on type '{ per... Remove this comment to see the full error message
     if (!point.mapRegion) point.mapRegion = Quest.Settings.settings.mapImages[0].name
-    if (point.mapRegion !== player.mapRegion) continue
+    if (point.mapRegion !== Quest.World.player.mapRegion) continue
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapDrawPointOfInterest' does not exist o... Remove this comment to see the full error message
     if (!point.isActive || point.isActive()) result.push(Quest.Settings.settings.mapDrawPointOfInterest(point))
   }
@@ -187,8 +187,8 @@ map.redraw = function (offX: any, offY: any) {
   if (offY) offsetY += offY
 
   // Centre the view on the player, and draw it
-  const x = player.mapX + offsetX
-  const y = player.mapY + offsetY
+  const x = Quest.World.player.mapX + offsetX
+  const y = Quest.World.player.mapY + offsetY
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'mapWidth' does not exist on type '{ perf... Remove this comment to see the full error message
   Quest.IO.draw(Quest.Settings.settings.mapWidth, Quest.Settings.settings.mapHeight, result, { destination: 'quest-map', x: x, y: y, background: 'black' })
 }
@@ -231,5 +231,5 @@ Quest.Command.findCmd('Map').script = function () {
   Quest.IO.io.calcMargins()
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
   Quest.IO.msg(Quest.lang.done_msg)
-  return world.SUCCESS_NO_TURNSCRIPTS
+  return Quest.World.world.SUCCESS_NO_TURNSCRIPTS
 }

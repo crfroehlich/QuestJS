@@ -1,10 +1,12 @@
 namespace Quest {
   export namespace IO {
 
+    const log = console.log;
+
     // This is at the top of the file so authors know to ignore stack trace enties for lines 1 to 15 in _io.js
     export const printError = function (msg: any, err: any, suppressTrace: any) {
       console.error("ERROR: " + msg)
-      if (world.isCreated) {
+      if (Quest.World.world.isCreated) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'print' does not exist on type '{ nextid:... Remove this comment to see the full error message
         io.print({ tag: 'p', cssClass: "error", text: Quest.lang.error })
         Quest.SaveLoad.saveLoad.transcriptAppend({ cssClass: 'error', text: msg, stack: err.stack, })
@@ -29,8 +31,8 @@ namespace Quest {
     //@DOC
     // ##Output functions
     //
-    // The idea is that you can have them world. differently - or not at all -
-    // so error messages can be world.ed in red, meta-data (help., etc)
+    // The idea is that you can have them Quest.World.world. differently - or not at all -
+    // so error messages can be Quest.World.world.ed in red, meta-data (help., etc)
     // is grey, and debug messages can be turned on and off as required.
     //
     // Note that not all use the text processor (so if there is an issue with
@@ -282,7 +284,7 @@ namespace Quest {
     //     if (notAllowed) return failedmsg("That is not allowed.")
     export function failedmsg(s: any, params: any) {
       _msg(s, params || {}, { cssClass: "default-p failed", tag: 'p' });
-      return world.FAILED;
+      return Quest.World.world.FAILED;
     }
 
     //@DOC
@@ -295,7 +297,7 @@ namespace Quest {
     }
 
     //@DOC
-    // Output a meta-message - a message to inform the player about something outside the game world,
+    // Output a meta-message - a message to inform the player about something outside the game Quest.World.world,
     // such as hints and help messages.
     // The string will first be passed through the text processor.
     // Additional data can be put in the optional params dictionary.
@@ -556,7 +558,7 @@ namespace Quest {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'input' does not exist on type '{ nextid:... Remove this comment to see the full error message
       io.input(false, options, disableTextFunction, fn, displayFunction)
 
-      return world.SUCCESS_NO_TURNSCRIPTS
+      return Quest.World.world.SUCCESS_NO_TURNSCRIPTS
     }
 
     export function showYesNoMenu(title: any, fn: any) {
@@ -664,7 +666,7 @@ namespace Quest {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'input' does not exist on type '{ nextid:... Remove this comment to see the full error message
       io.input(false, [], disableTextFunction, fn, displayFunction)
 
-      return world.SUCCESS_NO_TURNSCRIPTS
+      return Quest.World.world.SUCCESS_NO_TURNSCRIPTS
     }
 
     // This should be called after each turn to ensure we are at the end of the page and the text box has the focus
@@ -674,7 +676,7 @@ namespace Quest {
         for (let exit of Quest.lang.exit_list) {
           const el = document.querySelector('#exit-' + exit.name)
           if (!el) continue
-          if (currentLocation.hasExit(exit.name, { excludeScenery: true }) || exit.type === 'nocmd') {
+          if (Quest.World.currentLocation.hasExit(exit.name, { excludeScenery: true }) || exit.type === 'nocmd') {
             // @ts-expect-error ts-migrate(2339) FIXME: Property 'style' does not exist on type 'Element'.
             el.style.display = 'block'
           }
@@ -719,7 +721,7 @@ namespace Quest {
 
       // Each line that is output is given an id, n plus an id number.
       nextid: 0,
-      // A list of names for items currently world. in the inventory panes
+      // A list of names for items currently Quest.World.world. in the inventory panes
       currentItemList: [],
       doNotSaveInput: false,
       modulesToUpdate: [],
@@ -1209,9 +1211,9 @@ namespace Quest {
         }
 
         io.currentItemList = [];
-        for (let key in w) {
+        for (let key in Quest.World.w) {
           // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          const item = w[key];
+          const item = Quest.World.w[key];
           for (let inv of Quest.Settings.settings.inventoryPane) {
             const loc = inv.getLoc ? inv.getLoc() : null
             if (inv.test(item) && !item.inventorySkip) {
@@ -1247,9 +1249,9 @@ namespace Quest {
           document.querySelector("#status-pane").textContent = "";
           for (let st of Quest.Settings.settings.status) {
             if (typeof st === "string") {
-              if (player[st] !== undefined) {
+              if (Quest.World.player[st] !== undefined) {
                 let s = '<tr><td width="' + Quest.Settings.settings.statusWidthLeft + '">' + Quest.Utilities.sentenceCase(st) + "</td>";
-                s += '<td width="' + Quest.Settings.settings.statusWidthRight + '">' + player[st] + "</td></tr>";
+                s += '<td width="' + Quest.Settings.settings.statusWidthRight + '">' + Quest.World.player[st] + "</td></tr>";
                 // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
                 document.querySelector("#status-pane").innerHTML += s
               }
@@ -1356,7 +1358,7 @@ namespace Quest {
       clickItemAction: function (itemName: any, action: any) {
         if (io.disableLevel) return
         // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-        const item = w[itemName];
+        const item = Quest.World.w[itemName];
         const cmd = action.includes('%') ? action.replace('%', item.alias) : action + ' ' + item.alias
         Quest.Utilities.runCmd(cmd)
       },
@@ -1376,7 +1378,7 @@ namespace Quest {
             console.log("item flagged as container but no getContents function:");
             console.log(item);
           }
-          const l = item.getContents(world.SIDE_PANE);
+          const l = item.getContents(Quest.World.world.SIDE_PANE);
           for (let el of l) {
             // @ts-expect-error ts-migrate(2339) FIXME: Property 'appendItem' does not exist on type '{ ne... Remove this comment to see the full error message
             io.appendItem(el, htmlDiv, item.name, true);
@@ -1682,7 +1684,7 @@ namespace Quest {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogAlt' does not exist on typ... Remove this comment to see the full error message
           if (Quest.Settings.settings.startingDialogAlt) Quest.Settings.settings.startingDialogAlt()
           Quest.Settings.settings.delayStart = false
-          world.begin()
+          Quest.World.world.begin()
         }
         Quest.Settings.settings.performanceLog('End io.onload')
       },
@@ -1774,7 +1776,7 @@ namespace Quest {
         if (Quest.Settings.settings.panes !== 'none') io.textColour = document.querySelector(".side-panes").style.color
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         metamsg(Quest.lang.done_msg)
-        return world.SUCCESS_NO_TURNSCRIPTS
+        return Quest.World.world.SUCCESS_NO_TURNSCRIPTS
       },
 
       toggleAutoScrollMode: function () {
@@ -1783,7 +1785,7 @@ namespace Quest {
         if (Quest.Settings.settings.afterAutoScrollToggle) Quest.Settings.settings.afterAutoScrollToggle()
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         metamsg(Quest.lang.done_msg)
-        return world.SUCCESS_NO_TURNSCRIPTS
+        return Quest.World.world.SUCCESS_NO_TURNSCRIPTS
       },
 
       toggleNarrowMode: function () {
@@ -1800,7 +1802,7 @@ namespace Quest {
         if (Quest.Settings.settings.afterNarrowChange) Quest.Settings.settings.afterNarrowChange()
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         metamsg(Quest.lang.done_msg)
-        return world.SUCCESS_NO_TURNSCRIPTS
+        return Quest.World.world.SUCCESS_NO_TURNSCRIPTS
       },
 
       togglePlainFontMode: function () {
@@ -1817,7 +1819,7 @@ namespace Quest {
         if (Quest.Settings.settings.afterPlainFontToggle) Quest.Settings.settings.afterPlainFontToggle()
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         metamsg(Quest.lang.done_msg)
-        return world.SUCCESS_NO_TURNSCRIPTS
+        return Quest.World.world.SUCCESS_NO_TURNSCRIPTS
       },
 
       // If the element starts off displayed, you will probably needs to explicitly set display to block for it
@@ -1876,7 +1878,7 @@ namespace Quest {
         if (io.savedCommands.length === 0) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           metamsg(Quest.lang.again_not_available)
-          return world.FAILED
+          return Quest.World.world.FAILED
         }
         io.savedCommands.pop() // do not save AGAIN/OOPS
         if (isAgain) {
@@ -1889,7 +1891,7 @@ namespace Quest {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'doNotEraseLastCommand' does not exist on... Remove this comment to see the full error message
           io.doNotEraseLastCommand = true
         }
-        return world.SUCCESS_NO_TURNSCRIPTS;
+        return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
       },
 
       setCssByClass: function (name: any, prop: any, val: any) {
@@ -1945,7 +1947,7 @@ namespace Quest {
 
       getToolbarHTML: function (data = {}) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'room' does not exist on type '{}'.
-        if (data.room) return Quest.Utilities.sentenceCase(Quest.lang.getName(w[player.loc], { article: Quest.Utilities.DEFINITE }))
+        if (data.room) return Quest.Utilities.sentenceCase(Quest.lang.getName(Quest.World.w[Quest.World.player.loc], { article: Quest.Utilities.DEFINITE }))
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
         if (data.title) return '<b><i>' + Quest.Settings.settings.title + '</i></b>'
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'content' does not exist on type '{}'.

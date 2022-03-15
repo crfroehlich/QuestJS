@@ -34,9 +34,9 @@ const PLANETS = [
     arrivalTime: new Date('December 22, 2325 09:43:43'),
     onArrival: function () {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Ha_yoon' does not exist on type '{}'.
-      w.Ha_yoon.status = Math.min(w.Ha_yoon.status, 96);
+      Quest.World.w.Ha_yoon.status = Math.min(Quest.World.w.Ha_yoon.status, 96);
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
-      w.Kyle.status = Math.min(w.Kyle.status, 98);
+      Quest.World.w.Kyle.status = Math.min(Quest.World.w.Kyle.status, 98);
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("{i:The \"Joseph Banks\" left Earth orbit in 2319, on a centuries-long mission to survey five relatively close star systems. The crew were put in stasis for the long journey between the stars. As the captain, it is up to you to decide what probes to send to the surface to maximise your bonus - and to keep the crew happy and safe.}");
       //Quest.IO.wait()
@@ -44,7 +44,7 @@ const PLANETS = [
       Quest.IO.msg("&nbsp;");
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("'Good morning,' says a female voice. {i:Who the hell?} you wonder for a few minutes, before realising you are in a stasis pod. You sit up. 'We have arrived at {star},' the voice continues, 'our first destination, without incident.' It is Xsansi, the ship AI, who has been piloting the ship for the last twenty years or whatever. 'You may be suffering from disorientation, nausea, headache and muscle fatigue. If symptoms persist, you should seek medical advice. Following standard procedure, Crewman Kyle will soon launch a satellite, which will give us basic data about the planet, allowing you to decide how many probes to send to the surface.'");
-      //world.enterRoom();
+      //Quest.World.world.enterRoom();
     },
     Kyle_how_are_you: "'I'm good, mate. Why? Why shouldn't I be?'",
     Ostap_how_are_you: "'I am feeling good.'",
@@ -84,28 +84,28 @@ const PLANETS = [
       Quest.IO.msg("'Good morning,' says a female voice. {i:Who the hell?} you wonder for a few minutes, before again realising you are in a stasis pod. 'We have arrived at " + this.starName + ",' the voice continues, 'our second destination, after a lengthy journey, with a single incident. On the nineteenth of September, 2338 at 2104, ship time, the ship passed through a meteor shower, resulting in a loss of integrity in: the lounge, the captain's cabin, the top deck corridor.");
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("'You may be suffering from disorientation, nausea, headache and muscle fatigue. If symptoms persist, you should seek medical advice.' You sit up, and for a moment you do feel dizzy, but it soon passes.");
-      player.status = Math.min(player.status, 95);
+      Quest.World.player.status = Math.min(Quest.World.player.status, 95);
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
-      w.Kyle.status = Math.min(w.Kyle.status, 93);
+      Quest.World.w.Kyle.status = Math.min(Quest.World.w.Kyle.status, 93);
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Ostap' does not exist on type '{}'.
-      w.Ostap.status = Math.min(w.Ostap.status, 96);
+      Quest.World.w.Ostap.status = Math.min(Quest.World.w.Ostap.status, 96);
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Ha_yoon' does not exist on type '{}'.
-      w.Ha_yoon.status = Math.min(w.Ha_yoon.status, 84);
+      Quest.World.w.Ha_yoon.status = Math.min(Quest.World.w.Ha_yoon.status, 84);
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-      w.Xsansi.status = 74;
+      Quest.World.w.Xsansi.status = 74;
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-      w.Xsansi.pressureOverride = true;
+      Quest.World.w.Xsansi.pressureOverride = true;
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'lounge' does not exist on type '{}'.
-      w.lounge.leaks = true;
+      Quest.World.w.lounge.leaks = true;
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'your_cabin' does not exist on type '{}'.
-      w.your_cabin.leaks = true;
+      Quest.World.w.your_cabin.leaks = true;
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'top_deck_forward' does not exist on type... Remove this comment to see the full error message
-      w.top_deck_forward.leaks = true;
-      for (let key in w) {
+      Quest.World.w.top_deck_forward.leaks = true;
+      for (let key in Quest.World.w) {
         // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-        if (w[key].vacuum === false && w[key].name !== "stasis_bay" && w[key].name !== "stasis_pod_room") {
+        if (Quest.World.w[key].vacuum === false && Quest.World.w[key].name !== "stasis_bay" && Quest.World.w[key].name !== "stasis_pod_room") {
           // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          w[key].vacuum = true;
+          Quest.World.w[key].vacuum = true;
         }
       }
     },
@@ -144,17 +144,17 @@ const PLANETS = [
     onArrival: function () {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("'Good morning,' says a female voice. {i:Xsansi,} you think to yourself. 'We have arrived at " + this.starName + ",' the voice continues, 'our third destination, after a long and oh-so-tedious journey. You may be suffering from disorientation, nausea, headache and muscle fatigue, but I expect that is nothing to decades of loniness, right? If symptoms persist, I suggest you man-up.' You sit up, and immediately feel sick. You grip the sides of the pod as the room spins, waiting for it stop. It is a few minutes before you feel well enough to actually think.");
-      player.status = Math.min(player.status, 85);
+      Quest.World.player.status = Math.min(Quest.World.player.status, 85);
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
-      w.Kyle.status = Math.min(w.Kyle.status, 82);
+      Quest.World.w.Kyle.status = Math.min(Quest.World.w.Kyle.status, 82);
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Ostap' does not exist on type '{}'.
-      w.Ostap.status = Math.min(w.Ostap.status, 89);
+      Quest.World.w.Ostap.status = Math.min(Quest.World.w.Ostap.status, 89);
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Ha_yoon' does not exist on type '{}'.
-      w.Ha_yoon.status = Math.min(w.Ha_yoon.status, 76);
+      Quest.World.w.Ha_yoon.status = Math.min(Quest.World.w.Ha_yoon.status, 76);
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Aada' does not exist on type '{}'.
-      w.Aada.status = Math.min(w.Aada.status, 93);
+      Quest.World.w.Aada.status = Math.min(Quest.World.w.Aada.status, 93);
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-      w.Xsansi.pressureOverride = false;
+      Quest.World.w.Xsansi.pressureOverride = false;
     },
     Kyle_how_are_you: "'I'm okay. Well, not so bad, anyway.'",
     Ostap_how_are_you: "'I feel sick,' he says with a grin, 'but I keep going.'",
@@ -190,9 +190,9 @@ const PLANETS = [
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("'Awake at last are we?' says a female voice. {i:Why does she sound so odd?} you wonder. 'Here we are at " + this.starName + ",' the strangely inflected voice continues, 'our fourth destination, after a long, long journey, giving me plenty of time to consider the nature of reality.' You sit up, and immediately throw up over the side of the pod. You grip the sides of the pod as the entire contents of your stomach is ejected on to the floor. Eventually, the heaving stops.");
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'pile_of_vomit' does not exist on type '{... Remove this comment to see the full error message
-      w.pile_of_vomit.loc = "stasis_bay";
+      Quest.World.w.pile_of_vomit.loc = "stasis_bay";
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'alienShip' does not exist on type '{}'.
-      w.alienShip.status = 0;
+      Quest.World.w.alienShip.status = 0;
     },
     Kyle_how_are_you: "'Feeling a bit crock, to be honest.'",
     Ostap_how_are_you: "'I feel sick,' he says mournfully, 'but I keep going.'",

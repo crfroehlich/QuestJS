@@ -12,22 +12,22 @@ register('external', {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("highfield_lane", {
+Quest.World.createRoom("highfield_lane", {
   properNoun: true,
   desc: function () {
     let s = "Mandy is standing, feeling a little anxious, on the pavement outside The House, which stands in a neatly kept garden to the east. The road continues north, through the countryside, towards home, and then onwards to Hedlington, while southward, Highfield Lane makes its way back into town."
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'letter' does not exist on type '{}'.
-    if (w.letter.scenery) s += "|She can see a letter lying on the ground."
+    if (Quest.World.w.letter.scenery) s += "|She can see a letter lying on the ground."
     return s
   },
   beforeFirstEnter: function () {
   },
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  east: new Exit("garden_location", {
+  east: new Quest.World.Exit("garden_location", {
     alsoDir: ['in'],
     msg: function () {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'letter' does not exist on type '{}'.
-      if (w.letter.loc === player.name) {
+      if (Quest.World.w.letter.loc === Quest.World.player.name) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("With the letter is her hand, Mandy nervously steps though the garden gate...")
       }
@@ -38,9 +38,9 @@ createRoom("highfield_lane", {
     }
   }),
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  south: new Exit("_", { use: Quest.Utilities.util.cannotUse, msg: "Mandy looks back down the road she has just walked up. No point going that way." }),
+  south: new Quest.World.Exit("_", { use: Quest.Utilities.util.cannotUse, msg: "Mandy looks back down the road she has just walked up. No point going that way." }),
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  north: new Exit("_", { use: Quest.Utilities.util.cannotUse, msg: "The road ahead looks inviting, and she thinks of home. And yet... And yet she feels there is something she has to do." }),
+  north: new Quest.World.Exit("_", { use: Quest.Utilities.util.cannotUse, msg: "The road ahead looks inviting, and she thinks of home. And yet... And yet she feels there is something she has to do." }),
   scenery: [
     {
       alias: "other houses",
@@ -86,7 +86,7 @@ createRoom("highfield_lane", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("house_from_road", {
+Quest.World.createItem("house_from_road", {
   loc: "highfield_lane",
   scenery: true,
   synonyms: ['house', '23'],
@@ -97,7 +97,7 @@ createItem("house_from_road", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("letter", Quest.Templates.TAKEABLE(), {  // cannot get dropped in size change rooms
+Quest.World.createItem("letter", Quest.Templates.TAKEABLE(), {  // cannot get dropped in size change rooms
   loc: "highfield_lane",
   scenery: true,
   alias: "letter",
@@ -106,7 +106,7 @@ createItem("letter", Quest.Templates.TAKEABLE(), {  // cannot get dropped in siz
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("The letter is face-down; Mandy would have to pick it up to see the address.")
     }
-    else if (currentLocation.zone === 'external') {
+    else if (Quest.World.currentLocation.zone === 'external') {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("Mandy turns the letter over. It is addressed to \"Dr Winfield Malewicz, 23 Highfield Lane, Westleigh\". {i:That must be who lives in The House,} she thinks. Perhaps she should deliver it. She feels a little terrified at the prospect, but that is ridiculous -- it is only a house. Mrs Kennedy is always saying you should confront your fears head-on in Personal Development lessons.")
     }
@@ -127,8 +127,8 @@ createItem("letter", Quest.Templates.TAKEABLE(), {  // cannot get dropped in siz
   drop: "Mandy decides she will hang on to the letter.",
   giveLetter: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'winfield_malovich' does not exist on typ... Remove this comment to see the full error message
-    if (player.loc === w.winfield_malovich.loc) {
-      if (player.loc === 'lounge') {
+    if (Quest.World.player.loc === Quest.World.w.winfield_malovich.loc) {
+      if (Quest.World.player.loc === 'lounge') {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("Mandy takes the letter from her bag, and hands it to the old man.")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -152,32 +152,32 @@ createItem("letter", Quest.Templates.TAKEABLE(), {  // cannot get dropped in siz
   },
 })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'pronouns' does not exist on type '{}'.
-Quest.Parser.parser.pronouns = { it: w.letter }
+Quest.Parser.parser.pronouns = { it: Quest.World.w.letter }
 
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("garden_location", {
+Quest.World.createRoom("garden_location", {
   alias: "front garden",
   desc: function () {
     let s = "The garden is simple, but well maintained. A gravel path curves from the road, to the west, to The House, to the east. On either side, the lawn is lush and well-trimmed. The garden is bordered by a hedge to the north and south. To the west there are rose bushes either side of the gateway, though Mandy has never seen them flower. Short sections of fencing prevent access to the back of the house."
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'letter' does not exist on type '{}'.
-    if (!w.letter.scenery) {
+    if (!Quest.World.w.letter.scenery) {
       s += " The door to the house is open. "
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'front_door' does not exist on type '{}'.
-      s += w.front_door.checked ? "Mandy is sure it was closed when she looked before." : "Had it been open when she first looked? Mandy cannot remember."
+      s += Quest.World.w.front_door.checked ? "Mandy is sure it was closed when she looked before." : "Had it been open when she first looked? Mandy cannot remember."
       s += " Her heart is starting to pound. She cannot decide if this is a good idea or not."
       this.flag = true
     }
     return s
   },
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  west: new Exit("highfield_lane", { alsoDir: ['out'] }),
+  west: new Quest.World.Exit("highfield_lane", { alsoDir: ['out'] }),
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  east: new Exit("front_hall", {
+  east: new Quest.World.Exit("front_hall", {
     use: function (char: any, dir: any) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'letter' does not exist on type '{}'.
-      if (w.letter.scenery) {
+      if (Quest.World.w.letter.scenery) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("Mandy looks at the door to the house. Can she really just walk in? She tries the handle -- it is locked. So, no, she cannot just walk in.")
         return false
@@ -234,7 +234,7 @@ createRoom("garden_location", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("front_door", Quest.Templates.CONTAINER(), {
+Quest.World.createItem("front_door", Quest.Templates.CONTAINER(), {
   loc: "garden_location",
   scenery: true,
   checked: false,
@@ -242,7 +242,7 @@ createItem("front_door", Quest.Templates.CONTAINER(), {
   examine: function () {
     let s = "The door is tall, and made of panelled wood painted green, set into a white doorframe with a transom above."
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'letter' does not exist on type '{}'.
-    if (!w.letter.scenery) {
+    if (!Quest.World.w.letter.scenery) {
       s += " It stands open, inviting..."
     }
     else {
@@ -253,23 +253,23 @@ createItem("front_door", Quest.Templates.CONTAINER(), {
   },
   testDropIn: function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'letter' does not exist on type '{}'.
-    if (options.item !== w.letter) return falsemsg("It is a door, not a suitcase...")
+    if (options.item !== Quest.World.w.letter) return Quest.IO.falsemsg("It is a door, not a suitcase...")
 
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    return falsemsg("Mandy looks for a letter box she can just post the letter through, and be done with it. No letter box.")
+    return Quest.IO.falsemsg("Mandy looks for a letter box she can just post the letter through, and be done with it. No letter box.")
   },
   open: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'letter' does not exist on type '{}'.
-    if (!w.letter.scenery) return Quest.IO.failedmsg("It already is. ")
+    if (!Quest.World.w.letter.scenery) return Quest.IO.failedmsg("It already is. ")
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg("Mandy tries the door, but it is locked.")
     this.checked = true
-    return world.SUCCESS
+    return Quest.World.world.SUCCESS
   },
   lookinside: function () { return this.lookthrough() },
   lookthrough: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'letter' does not exist on type '{}'.
-    if (!w.letter.scenery) {
+    if (!Quest.World.w.letter.scenery) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("Mandy looks through the open door, into the house. It is dark, but she can see a hallway with a tiled floor and wood panelled walls; are there painting on the far wall? ")
     }
@@ -277,7 +277,7 @@ createItem("front_door", Quest.Templates.CONTAINER(), {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("Mandy spends a few moments trying to look through a solid door. If she was eight foot tall she might be able to see through the small window above it, but not otherwise.")
     }
-    return world.SUCCESS
+    return Quest.World.world.SUCCESS
   },
   knockon: function () {
     if (this.knocked) {
@@ -285,7 +285,7 @@ createItem("front_door", Quest.Templates.CONTAINER(), {
       Quest.IO.msg("Mandy knocks on the door again, but still no signs of life in the house.")
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'letter' does not exist on type '{}'.
-    else if (!w.letter.scenery) {
+    else if (!Quest.World.w.letter.scenery) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("Mandy knocks gingerly on the open door, not sure she really wants to disturb anyone. Then again, a bit harder, but still no reply.")
       this.knocked = true
@@ -296,12 +296,12 @@ createItem("front_door", Quest.Templates.CONTAINER(), {
       this.knocked = true
       this.checked = true
     }
-    return world.SUCCESS
+    return Quest.World.world.SUCCESS
   },
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("windows", {
+Quest.World.createItem("windows", {
   loc: "garden_location",
   scenery: true,
   examine: "The windows look old-fashioned, sash-opening. The window frames are painted white; the paint looks old and it peeling off in places.",
@@ -317,12 +317,12 @@ createItem("windows", {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("Mandy tries another window, but it is too dark to make out anything besides vague impressions of furniture.")
     }
-    return world.SUCCESS
+    return Quest.World.world.SUCCESS
   },
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("house_from_garden", {
+Quest.World.createItem("house_from_garden", {
   loc: "garden_location",
   scenery: true,
   synonyms: ['house', '23'],

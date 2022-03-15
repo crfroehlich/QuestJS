@@ -104,20 +104,20 @@ Quest.Settings.settings.dateTime = {
 // to introduce your game.
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'setup' does not exist on type '{ perform... Remove this comment to see the full error message
 Quest.Settings.settings.setup = function () {
-  player.skillsLearnt = ["Double attack", "Fireball"]
+  Quest.World.player.skillsLearnt = ["Double attack", "Fireball"]
   Quest.IO.createAdditionalPane(1, "Spells", 'spells-known', function () {
     let html = ''
-    for (const name of player.skillsLearnt) {
+    for (const name of Quest.World.player.skillsLearnt) {
       html += '<p class="item" onclick="Quest.Utilities.runCmd(\'cast ' + name + '\')" >' + name + '</p><br/>'
     }
     return html
   })
 
-  player.hitpoints = 20
-  player.status = "You are feeling fine"
-  player.skillsLearnt = ["Double attack", "Fireball"]
+  Quest.World.player.hitpoints = 20
+  Quest.World.player.status = "You are feeling fine"
+  Quest.World.player.skillsLearnt = ["Double attack", "Fireball"]
   //Quest.Settings.settings.updateCustomUI()
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'rabbit' does not exist on type '{}'.
-  w.rabbit.setLeader(player)
+  Quest.World.w.rabbit.setLeader(player)
 }
 

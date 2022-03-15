@@ -9,7 +9,7 @@ Quest.Text.addDirective("armour", function (arr: any, params: any) {
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
 Quest.Text.addDirective("lore", function (arr: any, params: any) {
-  return player.activeEffects.includes('Lore') ? arr[1] : arr[0]
+  return Quest.World.player.activeEffects.includes('Lore') ? arr[1] : arr[0]
 })
 
 

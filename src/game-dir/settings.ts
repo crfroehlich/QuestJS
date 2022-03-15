@@ -22,9 +22,9 @@ Quest.Settings.settings.noTalkTo = false
 Quest.Settings.settings.setup = function () {
   Quest.IO.createAdditionalPane(2, "Go to", 'directions', function () {
     let html = ''
-    for (const ex of currentLocation.dests) {
+    for (const ex of Quest.World.currentLocation.dests) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      const dest = w[ex.name]
+      const dest = Quest.World.w[ex.name]
       html += '<div style="margin-bottom: 10px;"><p class="item" onclick="Quest.Utilities.runCmd(\'go to ' + dest.alias.toLowerCase() + '\')">' + dest.headingAlias + '</p></div>'
     }
     return html
@@ -44,13 +44,13 @@ Quest.Settings.settings.roomCreateFunc = function (o: any) {
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'inventoryPane' does not exist on type '{... Remove this comment to see the full error message
 Quest.Settings.settings.inventoryPane.push(
-  { name: 'On Phone To', alt: 'onPhoneTo', test: function (item: any) { return item.name === player.onPhoneTo } }
+  { name: 'On Phone To', alt: 'onPhoneTo', test: function (item: any) { return item.name === Quest.World.player.onPhoneTo } }
 )
 
 Quest.Settings.settings.afterEnter = function () {
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  if (player.onPhoneTo && w[player.onPhoneTo].loc === player.loc) {
+  if (Quest.World.player.onPhoneTo && Quest.World.w[Quest.World.player.onPhoneTo].loc === Quest.World.player.loc) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'phone' does not exist on type '{}'.
-    w.phone.hangUp()
+    Quest.World.w.phone.hangUp()
   }
 }

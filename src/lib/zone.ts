@@ -14,13 +14,13 @@ const zoneExit = function (this: any, char: any, exit: any) {
   for (let el of this.origin.zoneExits) {
     if (char.positionX === el.x && char.positionY === el.y && dir === el.dir) {
       const tpParams = { char: char, dir: dir }
-      if (el.blocking) return falsemsg(el.blockedmsg || Quest.lang.not_that_way, tpParams)
-      if (el.isLocked) return falsemsg(el.lockedmsg || Quest.lang.locked_exit, tpParams)
+      if (el.blocking) return Quest.IO.falsemsg(el.blockedmsg || Quest.lang.not_that_way, tpParams)
+      if (el.isLocked) return Quest.IO.falsemsg(el.lockedmsg || Quest.lang.locked_exit, tpParams)
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
       Quest.IO.msg(el.msg || Quest.lang.go_successful, tpParams)
       this.origin.afterZoneEixit(dir)
       // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-      char.moveChar(new Exit(el.dest, exit))
+      char.moveChar(new Quest.World.Exit(el.dest, exit))
       return true
     }
   }
@@ -30,17 +30,17 @@ const zoneExit = function (this: any, char: any, exit: any) {
 
 
   // Check if a feature blocks the way
-  for (let name in w) {
+  for (let name in Quest.World.w) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    const o = w[name]
+    const o = Quest.World.w[name]
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (o.zone === this.origin.name && newX === o.x && newY === o.y && o.featureNoExit) return falsemsg(o.featureNoExit.replace('#', dir))
+    if (o.zone === this.origin.name && newX === o.x && newY === o.y && o.featureNoExit) return Quest.IO.falsemsg(o.featureNoExit.replace('#', dir))
   }
 
   // Check if this would cross a border
   for (let el of this.origin.getBorders()) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (el.border(newX, newY)) return falsemsg(el.borderMsg.replace('#', dir))
+    if (el.border(newX, newY)) return Quest.IO.falsemsg(el.borderMsg.replace('#', dir))
   }
 
   // Handle objects at the old location
@@ -54,7 +54,7 @@ const zoneExit = function (this: any, char: any, exit: any) {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
   Quest.IO.msg(Quest.lang.go_successful, { char: char, dir: dir });
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  char.moveChar(new Exit(this.origin.name, exit))
+  char.moveChar(new Quest.World.Exit(this.origin.name, exit))
 
   return true;
 };
@@ -80,7 +80,7 @@ const ZONE = function (defaultToBlocked: any) {
   for (let ex of Quest.lang.exit_list) {
     if (ex.type === 'nocmd') continue
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    res[ex.name] = new Exit("_", { use: zoneExit, data: ex })
+    res[ex.name] = new Quest.World.Exit("_", { use: zoneExit, data: ex })
   }
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getExitObjs' does not exist on type '{ z... Remove this comment to see the full error message
@@ -102,7 +102,7 @@ const ZONE = function (defaultToBlocked: any) {
     // Check for special exit
     for (let el of this.zoneExits) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'x' does not exist on type 'never'.
-      if (player.positionX === el.x && player.positionY === el.y && dir === el.dir) {
+      if (Quest.World.player.positionX === el.x && Quest.World.player.positionY === el.y && dir === el.dir) {
         //console.log("found special")
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'blocking' does not exist on type 'never'... Remove this comment to see the full error message
         if (el.blocking) return false
@@ -123,9 +123,9 @@ const ZONE = function (defaultToBlocked: any) {
 
     // Check if this would cross a border
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    const newX = player.positionX + this[dir].data.x
+    const newX = Quest.World.player.positionX + this[dir].data.x
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    const newY = player.positionY + this[dir].data.y
+    const newY = Quest.World.player.positionY + this[dir].data.y
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'getBorders' does not exist on type '{ zo... Remove this comment to see the full error message
     for (let el of this.getBorders()) {
       if (el.borderMsg !== undefined) continue
@@ -143,11 +143,11 @@ const ZONE = function (defaultToBlocked: any) {
     for (let el of this.zoneDescs) {
       if (el.when !== undefined) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'getDesc' does not exist on type '{ zoneE... Remove this comment to see the full error message
-        if (el.when(player.positionX, player.positionY)) return this.getDesc(el)
+        if (el.when(Quest.World.player.positionX, Quest.World.player.positionY)) return this.getDesc(el)
       }
       else if (el.x !== undefined) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'getDesc' does not exist on type '{ zoneE... Remove this comment to see the full error message
-        if (el.x === player.positionX && el.y === player.positionY) return this.getDesc(el)
+        if (el.x === Quest.World.player.positionX && el.y === Quest.World.player.positionY) return this.getDesc(el)
       }
       else {
         //console.log(el)
@@ -155,7 +155,7 @@ const ZONE = function (defaultToBlocked: any) {
         return this.getDesc(el)
       }
     }
-    return "ERROR: No description found for zone at x=" + player.positionX + ", y=" + player.positionY
+    return "ERROR: No description found for zone at x=" + Quest.World.player.positionX + ", y=" + Quest.World.player.positionY
   }
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getDesc' does not exist on type '{ zoneE... Remove this comment to see the full error message
@@ -166,14 +166,13 @@ const ZONE = function (defaultToBlocked: any) {
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterZoneEixit' does not exist on type '... Remove this comment to see the full error message
   res.afterZoneEixit = function (dir: any) {
-    for (let name in w) {
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      const o = w[name]
+    for (let name in Quest.World.w) {
+      const o = Quest.World.w[name]
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'name' does not exist on type '{ zoneExit... Remove this comment to see the full error message
-      if (o.loc === this.name && o !== player) {
+      if (o.loc === this.name && o !== Quest.World.player) {
         o.loc = false
-        o.positionX = player.positionX
-        o.positionY = player.positionY
+        o.positionX = Quest.World.player.positionX
+        o.positionY = Quest.World.player.positionY
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'name' does not exist on type '{ zoneExit... Remove this comment to see the full error message
         o.zoneElsewhere = this.name
       }
@@ -183,36 +182,35 @@ const ZONE = function (defaultToBlocked: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getFeatureDescs' does not exist on type ... Remove this comment to see the full error message
   res.getFeatureDescs = function () {
     let s = ''
-    for (let name in w) {
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      const el = w[name]
+    for (let name in Quest.World.w) {
+      const el = Quest.World.w[name]
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'name' does not exist on type '{ zoneExit... Remove this comment to see the full error message
       if (el.zone !== this.name || el.zoneBorder) continue
-      if (player.positionX === el.positionX && player.positionY === el.positionY && el.featureLookHere) {
+      if (Quest.World.player.positionX === el.positionX && Quest.World.player.positionY === el.positionY && el.featureLookHere) {
         s += ' ' + el.featureLookHere
       }
       else {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'getDirection' does not exist on type '{ ... Remove this comment to see the full error message
-        const d = this.getDirection(player, el.positionX, el.positionY, el.range)
+        const d = this.getDirection(Quest.World.player, el.positionX, el.positionY, el.range)
         if (d) s += ' ' + el.featureLook.replace('#', d)
       }
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'getBorders' does not exist on type '{ zo... Remove this comment to see the full error message
     for (let el of this.getBorders()) {
-      if (el.isAdjacentTo(player) && el.borderDesc) s += ' ' + el.borderDesc
+      if (el.isAdjacentTo(Quest.World.player) && el.borderDesc) s += ' ' + el.borderDesc
     }
     return s
   }
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'beforeEnter' does not exist on type '{ z... Remove this comment to see the full error message
   res.beforeEnter = function () {
-    if (player.positionX === undefined) player.positionX = 0
-    if (player.positionY === undefined) player.positionY = 0
-    for (let name in w) {
+    if (Quest.World.player.positionX === undefined) Quest.World.player.positionX = 0
+    if (Quest.World.player.positionY === undefined) Quest.World.player.positionY = 0
+    for (let name in Quest.World.w) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      const o = w[name]
+      const o = Quest.World.w[name]
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'name' does not exist on type '{ zoneExit... Remove this comment to see the full error message
-      if (o.zoneElsewhere === this.name && o.positionX === player.positionX && o.positionY === player.positionY) {
+      if (o.zoneElsewhere === this.name && o.positionX === Quest.World.player.positionX && o.positionY === Quest.World.player.positionY) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'name' does not exist on type '{ zoneExit... Remove this comment to see the full error message
         o.loc = this.name
         o.zoneElsewhere = false
@@ -246,9 +244,9 @@ const ZONE = function (defaultToBlocked: any) {
   res.getBorders = function () {
     const borders = []
     // @ts-expect-error ts-migrate(2588) FIXME: Cannot assign to 'name' because it is a constant.
-    for (name in w) {
+    for (name in Quest.World.w) {
       // @ts-expect-error ts-migrate(2538) FIXME: Type 'void' cannot be used as an index type.
-      if (w[name].zoneBorder && w[name].zone === this.name) borders.push(w[name])
+      if (Quest.World.w[name].zoneBorder && Quest.World.w[name].zone === this.name) borders.push(Quest.World.w[name])
     }
     return borders
   }
@@ -266,9 +264,9 @@ const ZONE = function (defaultToBlocked: any) {
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getFeatureAt' does not exist on type '{ ... Remove this comment to see the full error message
   res.getFeatureAt = function (x: any, y: any) {
-    for (let name in w) {
+    for (let name in Quest.World.w) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      const el = w[name]
+      const el = Quest.World.w[name]
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'name' does not exist on type '{ zoneExit... Remove this comment to see the full error message
       if (el.zone !== this.name || el.zoneBorder) continue
       if (x === el.positionX && y === el.positionY) {
@@ -313,9 +311,9 @@ const ZONE = function (defaultToBlocked: any) {
     const map = cells.concat(this.mapCells, features, this.mapFeatures, labels, this.mapLabels)
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'size' does not exist on type '{ zoneExit... Remove this comment to see the full error message
-    const x2 = (this.size + player.positionX) * this.cellSize
+    const x2 = (this.size + Quest.World.player.positionX) * this.cellSize
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'size' does not exist on type '{ zoneExit... Remove this comment to see the full error message
-    const y2 = (this.size - player.positionY) * this.cellSize
+    const y2 = (this.size - Quest.World.player.positionY) * this.cellSize
     map.push('<rect x="' + (x2 + 4) + '" y="' + (y2 + 4) + '" width="' + (this.cellSize - 8) + '" height="' + (this.cellSize - 8) + '" stroke="none" fill="' + this.playerColour + '"/>')
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'size' does not exist on type '{ zoneExit... Remove this comment to see the full error message
@@ -336,7 +334,7 @@ const ZONE_BORDER = function (loc: any) {
     zoneBorder: true,
     zone: loc,
     isLocatedAt: function (loc: any) {
-      return this.isAdjacentTo(player)
+      return this.isAdjacentTo(Quest.World.player)
     },
     isAdjacentTo: function (char: any) {
       if (char.loc !== this.zone) return false
@@ -364,11 +362,11 @@ const ZONE_FEATURE = function (loc: any, x: any, y: any, range: any, adjacent: a
     isLocatedAt: function (loc: any) {
       if (adjacent) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'x' does not exist on type '{ positionX: ... Remove this comment to see the full error message
-        return loc === this.zone && Math.abs(player.positionX - this.x) < 2 && Math.abs(player.positionY - this.y) < 2
+        return loc === this.zone && Math.abs(Quest.World.player.positionX - this.x) < 2 && Math.abs(Quest.World.player.positionY - this.y) < 2
       }
       else {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'x' does not exist on type '{ positionX: ... Remove this comment to see the full error message
-        return loc === this.zone && player.positionX === this.x && player.positionY === this.y
+        return loc === this.zone && Quest.World.player.positionX === this.x && Quest.World.player.positionY === this.y
       }
     }
   };

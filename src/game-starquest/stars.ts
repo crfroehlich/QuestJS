@@ -2,12 +2,12 @@
 
 
 const stars = {
-  // track ship location with currentLocation, and work out the system from that
-  getLocation:function(name: any) { return this.getSystemOrLocation(true, name) },
-  getSystem:function(name: any) { return this.getSystemOrLocation(false, name) },
-  getSystemOrLocation:function(isLocation: any, name: any) {
+  // track ship location with Quest.World.currentLocation, and work out the system from that
+  getLocation: function (name: any) { return this.getSystemOrLocation(true, name) },
+  getSystem: function (name: any) { return this.getSystemOrLocation(false, name) },
+  getSystemOrLocation: function (isLocation: any, name: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
-    if (name === undefined) name = w.ship.currentLocation
+    if (name === undefined) name = Quest.World.w.ship.Quest.World.currentLocation
     for (let el of this.data) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'locations' does not exist on type 'never... Remove this comment to see the full error message
       for (let el2 of el.locations) {
@@ -17,20 +17,20 @@ const stars = {
     log("ERROR: Failed to find " + (isLocation ? 'location' : 'system') + " with name " + name)
   },
 
-  getLocationNames:function() {
+  getLocationNames: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
-    const system = stars.getSystem(w.ship.currentSystem)
+    const system = stars.getSystem(Quest.World.w.ship.currentSystem)
     return system.locations.map((el: any) => el.alias);
   },
-  getStarNames:function() {
+  getStarNames: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'alias' does not exist on type 'never'.
     return stars.data.map(el => el.alias)
   },
-  add:function(data: any) {
+  add: function (data: any) {
     // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'any' is not assignable to parame... Remove this comment to see the full error message
     this.data.push(data)
     let locs = []
-    
+
     for (let el of data.locations) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       encyclopedia[el.alias] = 'In the [[' + data.alias + ']] system.|' + el.desc
@@ -39,62 +39,62 @@ const stars = {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     encyclopedia[data.alias] = 'A type ' + data.type + ' star in the ' + data.sector + ' sector.|Significant locations include: [[' + locs.join(']], [[') + ']]'
   },
-  data:[],
-  arriveAtSector:function() {
+  data: [],
+  arriveAtSector: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
-    w.ship.arrivedAtSector = true
+    Quest.World.w.ship.arrivedAtSector = true
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
-    w.ship.currentSystem = 'cyrennis'
+    Quest.World.w.ship.currentSystem = 'cyrennis'
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
-    w.ship.datetime += 9 * 24 + 3
+    Quest.World.w.ship.datetime += 9 * 24 + 3
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
-    w.ship.currentLocation = 'starbase'
+    Quest.World.w.ship.Quest.World.currentLocation = 'starbase'
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
-    w.ship.onView = 'nagoshima'
+    Quest.World.w.ship.onView = 'nagoshima'
 
-    player.mission_assemble_crew = 1001
-    player.mission_sector_7_iota = 1001
+    Quest.World.player.mission_assemble_crew = 1001
+    Quest.World.player.mission_sector_7_iota = 1001
     missions.init()
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
     stars.draw()
   },
-  draw:function(name: any) {
+  draw: function (name: any) {
     const system = this.getSystem(name)
     let svg = []
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
-    if (w.ship.showStarMap) {
+    if (Quest.World.w.ship.showStarMap) {
       for (let el of stars.data) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'x' does not exist on type 'never'.
         if (!el.x) continue
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'sector' does not exist on type 'never'.
         if (el.sector !== system.sector) continue
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'x' does not exist on type 'never'.
-        svg.push('<circle cx="' + el.x + '" cy="' + el.y + '" r="' + (el.size/4) + '" fill="' + el.colour + '" stroke="none"/>')
+        svg.push('<circle cx="' + el.x + '" cy="' + el.y + '" r="' + (el.size / 4) + '" fill="' + el.colour + '" stroke="none"/>')
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'x' does not exist on type 'never'.
-        svg.push('<text class="map-text" x="' + (el.x-3) + '" y="' + (el.y-5) + '" fill="white">' + el.alias + '</text>')
+        svg.push('<text class="map-text" x="' + (el.x - 3) + '" y="' + (el.y - 5) + '" fill="white">' + el.alias + '</text>')
       }
       svg.push('<text class="map-text" x="0" y="12" fill="silver">Sector ' + system.sector + '</text>')
     }
     else {
       svg.push('<circle cx="200" cy="200" r="' + system.size + '" fill="' + system.colour + '" stroke="white"/>')
       for (let el of system.locations) {
-        svg.push('<ellipse cx="200" cy="200" rx="' + el.radius + '" ry="' + (el.radius/2) + '" fill="none" stroke="silver"/>')
+        svg.push('<ellipse cx="200" cy="200" rx="' + el.radius + '" ry="' + (el.radius / 2) + '" fill="none" stroke="silver"/>')
         const x = 200 + Math.sin(el.angle * Math.PI / 180) * el.radius
         const y = 200 + Math.cos(el.angle * Math.PI / 180) * el.radius / 2
         svg.push('<circle cx="' + x + '" cy="' + y + '" r="3" fill="grey" stroke="white"/>')
-        svg.push('<text class="map-text" x="' + (x-3) + '" y="' + (y-5) + '" fill="white">' + el.alias + '</text>')
+        svg.push('<text class="map-text" x="' + (x - 3) + '" y="' + (y - 5) + '" fill="white">' + el.alias + '</text>')
       }
       svg.push('<text class="map-text" x="0" y="12" fill="silver">' + (system.system ? system.system : system.alias + ' system') + '</text>')
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
-    if (w.ship.arrivedAtSector) svg.push('<text class="map-text" x="353" y="12" fill="silver" onclick="stars.toggleStarMap(' + w.ship.showStarMap + ')">Toggle</text>')
+    if (Quest.World.w.ship.arrivedAtSector) svg.push('<text class="map-text" x="353" y="12" fill="silver" onclick="stars.toggleStarMap(' + Quest.World.w.ship.showStarMap + ')">Toggle</text>')
     svg.push('<text class="map-text" x="0" y="398" fill="silver">Quicksilver Starmaps</text>')
     svg.push('<text class="map-text" x="313" y="398" fill="silver">Not to scale</text>')
-    Quest.IO.draw(400, 400, svg, {destination:'quest-image'})
+    Quest.IO.draw(400, 400, svg, { destination: 'quest-image' })
   },
   toggleStarMap(flag: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
-    w.ship.showStarMap = !flag
+    Quest.World.w.ship.showStarMap = !flag
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
     this.draw()
   },
@@ -130,9 +130,9 @@ R Reducing; a significant atmosphere that is more than 1% carbon dioxide (before
 P Toxic; a significant atmosphere containing components toxic to humans
 
 
-D Desert world; less than 5% of the surface is water
+D Desert Quest.World.world; less than 5% of the surface is water
 F Frozen, surface water is frozen, even at the equator
-W Water world; less than 5% of the surface is land
+W Water Quest.World.world; less than 5% of the surface is land
 
 C Colonised
 T Undergoing terraforming
@@ -143,63 +143,63 @@ Z Planet believed to have had an Indigenous population
 
 */
 stars.add({
-  name:'sol',
-  alias:'Sol',
-  system:'Solar system',
-  start:true,
-  colour:'yellow',
-  size:8,
-  type:'G2',
-  sector:'1 Alpha',
-  locations:[
+  name: 'sol',
+  alias: 'Sol',
+  system: 'Solar system',
+  start: true,
+  colour: 'yellow',
+  size: 8,
+  type: 'G2',
+  sector: '1 Alpha',
+  locations: [
     {
-      name:'stardock',
-      alias:'Stardock 83',
-      desc:'One of numerous star docks in the solar system, 83 is in Earth orbit at L4.',
-      radius:180,
-      angle:200,
+      name: 'stardock',
+      alias: 'Stardock 83',
+      desc: 'One of numerous star docks in the solar system, 83 is in Earth orbit at L4.',
+      radius: 180,
+      angle: 200,
     },
     {
-      name:'earth',
-      alias:'Earth',
-      desc:'The cradle of mankind.',
-      radius:180,
-      angle:130,
+      name: 'earth',
+      alias: 'Earth',
+      desc: 'The cradle of mankind.',
+      radius: 180,
+      angle: 130,
     },
     {
-      name:'venus',
-      alias:'Venus',
-      desc:'Terraforming has turned Venus into a tropical paradise.',
-      radius:90,
-      angle:0,
+      name: 'venus',
+      alias: 'Venus',
+      desc: 'Terraforming has turned Venus into a tropical paradise.',
+      radius: 90,
+      angle: 0,
     },
     {
-      name:'mars',
-      alias:'Mars',
-      desc:'Limited terraforming to support an industrial planet.',
-      radius:280,
-      angle:20,
+      name: 'mars',
+      alias: 'Mars',
+      desc: 'Limited terraforming to support an industrial planet.',
+      radius: 280,
+      angle: 20,
     },
   ],
 })
 
 stars.add({
-  name:'cyrennis',
-  alias:'Cyrennis Minima',
-  start:true,
-  colour:'red',
+  name: 'cyrennis',
+  alias: 'Cyrennis Minima',
+  start: true,
+  colour: 'red',
   type: 'M2',
-  size:12,
-  x:200,
-  y:200,
-  sector:'7 Iota',
-  locations:[
+  size: 12,
+  x: 200,
+  y: 200,
+  sector: '7 Iota',
+  locations: [
     {
-      name:'starbase',
-      alias:'Starbase 142',
-      desc:"Starbase 142 is a type 7-gamma base, with limited facilities. It is currently under the command of Commander Nagoshima.|For historical reasons, Starbase 142 is in orbit around Cyrennis Minima, a star with no habitable planets. When it was established, all of the planets in the sector were independant and none wanted a Starbase in their sky. Although the political situation has changed significantly, Starbase 142 has remained in the same position.",
-      radius:140,
-      angle:220,
+      name: 'starbase',
+      alias: 'Starbase 142',
+      desc: "Starbase 142 is a type 7-gamma base, with limited facilities. It is currently under the command of Commander Nagoshima.|For historical reasons, Starbase 142 is in orbit around Cyrennis Minima, a star with no habitable planets. When it was established, all of the planets in the sector were independant and none wanted a Starbase in their sky. Although the political situation has changed significantly, Starbase 142 has remained in the same position.",
+      radius: 140,
+      angle: 220,
     }
   ]
 })

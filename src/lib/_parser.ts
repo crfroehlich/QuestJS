@@ -65,14 +65,14 @@ namespace Quest {
           if (typeof res === "string") {
             Quest.IO.parsermsg(res)
             parser.abort()
-            world.endTurn(world.PARSER_FAILURE)
+            Quest.World.world.endTurn(Quest.World.world.PARSER_FAILURE)
             return
           }
           if (res.tmp.score < 0) {
             Quest.IO.parsermsg(res.tmp.error)
 
             parser.abort()
-            world.endTurn(world.PARSER_FAILURE)
+            Quest.World.world.endTurn(Quest.World.world.PARSER_FAILURE)
             return
           }
           parser.currentCommand = res;
@@ -135,12 +135,12 @@ namespace Quest {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
           if (outcome === undefined && Quest.Settings.settings.playMode === 'dev') log("WARNING: " + parser.currentCommand.name + " command did not return a result to indicate success or failure.")
           inEndTurnFlag = true
-          Quest.Settings.settings.performanceLog('About to run world.endTurn')
-          world.endTurn(outcome)
+          Quest.Settings.settings.performanceLog('About to run Quest.World.world.endTurn')
+          Quest.World.world.endTurn(outcome)
         } catch (err) {
           if (inEndTurnFlag) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-            Quest.IO.printError("Hit a coding error trying to process world.endTurn after that command.", err)
+            Quest.IO.printError("Hit a coding error trying to process Quest.World.world.endTurn after that command.", err)
           }
           else {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
@@ -490,7 +490,7 @@ namespace Quest {
         if (!cmdParams.scope) {
           console.log("WARNING: No scope (or scope not found) in command")
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'scope' does not exist on type '{ LIGHT_N... Remove this comment to see the full error message
-          return world.scope
+          return Quest.World.world.scope
         }
 
         if (cmdParams.extendedScope) {
@@ -503,14 +503,14 @@ namespace Quest {
       getScopes: function (cmdParams: any) {
         const baseScope = cmdParams.extendedScope ? parser.scopeFromWorld(cmdParams.scope) : parser.scopeFromScope(cmdParams.scope)
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'scope' does not exist on type '{ LIGHT_N... Remove this comment to see the full error message
-        const scopes = [baseScope, world.scope]
+        const scopes = [baseScope, Quest.World.world.scope]
         return scopes
       },
 
       scopeFromScope: function (fn: any, options: any) {
         const list = [];
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'scope' does not exist on type '{ LIGHT_N... Remove this comment to see the full error message
-        for (const o of world.scope) {
+        for (const o of Quest.World.world.scope) {
           if (fn(o, options)) {
             list.push(o);
           }
@@ -520,11 +520,11 @@ namespace Quest {
 
       scopeFromWorld: function (fn: any, options: any) {
         const list = [];
-        for (const key in w) {
+        for (const key in Quest.World.w) {
           // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          if (fn(w[key], options)) {
+          if (fn(Quest.World.w[key], options)) {
             // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-            list.push(w[key]);
+            list.push(Quest.World.w[key]);
           }
         }
         return list;
@@ -538,17 +538,17 @@ namespace Quest {
       // This set is used in the objects attribute of commands
       // The "is" functions are for looking at a specific place
 
-      // Anywhere in the world
+      // Anywhere in the Quest.World.world
       isInWorld: function (item: any) {
         return true;
       },
-      // Anywhere in the world
+      // Anywhere in the Quest.World.world
       isReachable: function (item: any) {
-        return item.scopeStatus.canReach && world.ifNotDark(item);
+        return item.scopeStatus.canReach && Quest.World.world.ifNotDark(item);
       },
       // Anywhere in the location (used by the parser for the fallback)
       isVisible: function (item: any) {
-        return item.scopeStatus.visible && world.ifNotDark(item);
+        return item.scopeStatus.visible && Quest.World.world.ifNotDark(item);
       },
       // Held or here, but not in a container
       isPresent: function (item: any) {
@@ -556,49 +556,49 @@ namespace Quest {
       },
       // Used by examine, so the player can X ME, even if something called metalhead is here.
       isPresentOrMe: function (item: any) {
-        return parser.isHere(item) || parser.isHeld(item) || item === player;
+        return parser.isHere(item) || parser.isHeld(item) || item === Quest.World.player;
       },
       // ... but not in a container
       isHeldNotWorn: function (item: any) {
-        return item.isAtLoc(player.name, world.PARSER) && world.ifNotDark(item) && !item.getWorn();
+        return item.isAtLoc(Quest.World.player.name, Quest.World.world.PARSER) && Quest.World.world.ifNotDark(item) && !item.getWorn();
       },
       isHeld: function (item: any) {
-        return item.isAtLoc(player.name, world.PARSER) && world.ifNotDark(item);
+        return item.isAtLoc(Quest.World.player.name, Quest.World.world.PARSER) && Quest.World.world.ifNotDark(item);
       },
       isHeldByNpc: function (item: any) {
         const npcs = parser.scopeFromScope(parser.isReachable).filter((el: any) => el.npc);
         for (let npc of npcs) {
-          if (item.isAtLoc(npc.name, world.PARSER)) return true;
+          if (item.isAtLoc(npc.name, Quest.World.world.PARSER)) return true;
         }
         return false;
       },
       isWorn: function (item: any) {
-        return item.isAtLoc(player.name, world.PARSER) && world.ifNotDark(item) && item.getWorn();
+        return item.isAtLoc(Quest.World.player.name, Quest.World.world.PARSER) && Quest.World.world.ifNotDark(item) && item.getWorn();
       },
       isWornByNpc: function (item: any) {
         const npcs = parser.scopeFromScope(parser.isReachable).filter((el: any) => el.npc);
         for (let npc of npcs) {
-          if (item.isAtLoc(npc.name, world.PARSER) && item.getWorn()) return true;
+          if (item.isAtLoc(npc.name, Quest.World.world.PARSER) && item.getWorn()) return true;
         }
         return false;
       },
 
       isNpcOrHere: function (item: any) {
-        return (item.isAtLoc(player.loc, world.PARSER) && world.ifNotDark(item)) || item.npc || item.player;
+        return (item.isAtLoc(Quest.World.player.loc, Quest.World.world.PARSER) && Quest.World.world.ifNotDark(item)) || item.npc || item.player;
       },
       isNpcAndHere: function (item: any) {
-        return player.onPhoneTo === item.name || (item.isAtLoc(player.loc, world.PARSER) && (item.npc || item.player))
+        return Quest.World.player.onPhoneTo === item.name || (item.isAtLoc(Quest.World.player.loc, Quest.World.world.PARSER) && (item.npc || item.player))
       },
       isHere: function (item: any) {
-        return item.isAtLoc(player.loc, world.PARSER) && world.ifNotDark(item);
+        return item.isAtLoc(Quest.World.player.loc, Quest.World.world.PARSER) && Quest.World.world.ifNotDark(item);
       },
 
       isForSale: function (item: any) {
-        return item.isForSale && item.isForSale(player.loc) && world.ifNotDark(item);
+        return item.isForSale && item.isForSale(Quest.World.player.loc) && Quest.World.world.ifNotDark(item);
       },
 
       //parser.isInside = function(item, options) {
-      //  return item.isAtLoc(options.container.name, world.PARSER) && world.ifNotDark(item);
+      //  return item.isAtLoc(options.container.name, Quest.World.world.PARSER) && Quest.World.world.ifNotDark(item);
       //}
 
       //parser.isRoom = function(item) {
@@ -610,7 +610,7 @@ namespace Quest {
         const containers = parser.scopeFromScope(parser.isReachable).filter((el: any) => el.container);
         for (let container of containers) {
           if (container.closed) continue;
-          if (item.isAtLoc(container.name, world.PARSER)) return true;
+          if (item.isAtLoc(container.name, Quest.World.world.PARSER)) return true;
         }
         return false;
       },
@@ -620,8 +620,8 @@ namespace Quest {
         const containers = parser.scopeFromScope(parser.isReachable).filter((el: any) => el.container)
         for (let container of containers) {
           if (container.closed) continue
-          if (container.isUltimatelyHeldBy(player)) continue
-          if (item.isAtLoc(container.name, world.PARSER)) return true
+          if (container.isUltimatelyHeldBy(Quest.World.player)) continue
+          if (item.isAtLoc(container.name, Quest.World.world.PARSER)) return true
         }
         return false;
       },

@@ -46,20 +46,19 @@ Quest.Settings.settings.saveLoadExcludedAtts.push("data")
 
 
 Quest.Settings.settings.status = [
-  function () { return '<td width="55px" title="You receive a bonus for collecting good data"><b>Bonus:</b></td><td width="20px"></td><td align="right"><b>$' + player.bonus + 'k</b></td>' },
+  function () { return '<td width="55px" title="You receive a bonus for collecting good data"><b>Bonus:</b></td><td width="20px"></td><td align="right"><b>$' + Quest.World.player.bonus + 'k</b></td>' },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'statusReport' does not exist on type '{ ... Remove this comment to see the full error message
-  function () { return Quest.Settings.settings.statusReport(player) },
+  function () { return Quest.Settings.settings.statusReport(Quest.World.player) },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'statusReport' does not exist on type '{ ... Remove this comment to see the full error message
-  function () { return Quest.Settings.settings.statusReport(w.Xsansi) },
+  function () { return Quest.Settings.settings.statusReport(Quest.World.w.Xsansi) },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'statusReport' does not exist on type '{ ... Remove this comment to see the full error message
-  function () { return Quest.Settings.settings.statusReport(w.Ha_yoon) },
+  function () { return Quest.Settings.settings.statusReport(Quest.World.w.Ha_yoon) },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'statusReport' does not exist on type '{ ... Remove this comment to see the full error message
-  function () { return Quest.Settings.settings.statusReport(w.Kyle) },
+  function () { return Quest.Settings.settings.statusReport(Quest.World.w.Kyle) },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'statusReport' does not exist on type '{ ... Remove this comment to see the full error message
-  function () { return Quest.Settings.settings.statusReport(w.Ostap) },
+  function () { return Quest.Settings.settings.statusReport(Quest.World.w.Ostap) },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'statusReport' does not exist on type '{ ... Remove this comment to see the full error message
-  function () { return Quest.Settings.settings.statusReport(w.Aada) },
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'getDateTime' does not exist on type '{}'... Remove this comment to see the full error message
+  function () { return Quest.Settings.settings.statusReport(Quest.World.w.Aada) },
   function () { return '<td colspan="3" style="border:black solid 1px" align="center" title="The current date and time (adjusted for relativistic effects)">' + Quest.Utilities.util.getDateTime() + '</td>' },
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'oxygenReport' does not exist on type '{ ... Remove this comment to see the full error message
   function () { return Quest.Settings.settings.oxygenReport() },
@@ -89,7 +88,7 @@ Quest.Settings.settings.statusReport = function (obj: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'getByInterval' does not exist on type '{... Remove this comment to see the full error message
     colourCode = Quest.Utilities.util.getByInterval(Quest.Settings.settings.intervals, obj.status)
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    if (obj.crewman) tooltip += 'in ' + w[obj.loc].alias
+    if (obj.crewman) tooltip += 'in ' + Quest.World.w[obj.loc].alias
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'warningLight' does not exist on type '{ ... Remove this comment to see the full error message
   return '<td title="' + tooltip + '"><i>' + obj.alias + ':</i></td>' + Quest.Settings.settings.warningLight(colourCode) + '<td align="right">' + s + '</td>'
@@ -99,12 +98,12 @@ Quest.Settings.settings.oxygenReport = function (obj: any) {
   // 0.84 kg O2  per day
   // https://ntrs.nasa.gov/citations/20040012725
   // so 0.58 g/m
-  //console.log(w.ship.oxygen)
-  //console.log(Quest.Utilities.util.getByInterval(Quest.Settings.settings.intervals, w.ship.oxygen / 50))
+  //console.log(Quest.World.w.ship.oxygen)
+  //console.log(Quest.Utilities.util.getByInterval(Quest.Settings.settings.intervals, Quest.World.w.ship.oxygen / 50))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getByInterval' does not exist on type '{... Remove this comment to see the full error message
-  const colourCode = Quest.Utilities.util.getByInterval(Quest.Settings.settings.intervals, w.ship.oxygen / 10)
+  const colourCode = Quest.Utilities.util.getByInterval(Quest.Settings.settings.intervals, Quest.World.w.ship.oxygen / 10)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'warningLight' does not exist on type '{ ... Remove this comment to see the full error message
-  return '<td title="The ship has a limited amount of oxygen; an adult uses about 6 g every minute, but none while in stasis"><b>Oxygen:</b></td>' + Quest.Settings.settings.warningLight(colourCode) + '<td align="right"><span style="font-size:0.8em">' + (Math.round(w.ship.oxygen) / 1000).toFixed(3) + ' kg</span></td>'
+  return '<td title="The ship has a limited amount of oxygen; an adult uses about 6 g every minute, but none while in stasis"><b>Oxygen:</b></td>' + Quest.Settings.settings.warningLight(colourCode) + '<td align="right"><span style="font-size:0.8em">' + (Math.round(Quest.World.w.ship.oxygen) / 1000).toFixed(3) + ' kg</span></td>'
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'warningLight' does not exist on type '{ ... Remove this comment to see the full error message
@@ -197,25 +196,25 @@ Quest.Settings.settings.startingDialogHtml = s
 Quest.Settings.settings.startingDialogButton = 'OK'
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogOnClick' does not exist on... Remove this comment to see the full error message
 Quest.Settings.settings.startingDialogOnClick = function () {
-  let p = player;
+  let p = Quest.World.player;
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
   const jobName = document.querySelector("#job").value;
   const job = professions.find(function (el) { return el.name === jobName; });
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
-  w.me.job = job.name;
+  Quest.World.w.me.job = job.name;
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
-  w.me.jobBonus = job.bonus;
+  Quest.World.w.me.jobBonus = job.bonus;
   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
   const backgroundName = document.querySelector("#background").value
   const background = backgrounds.find(function (el) { return el.name === backgroundName; })
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
-  w.me.background = background.name
+  Quest.World.w.me.background = background.name
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
-  w.me.backgroundBonus = background.bonus
+  Quest.World.w.me.backgroundBonus = background.bonus
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
-  w.me.isFemale = document.querySelector("#female").checked
+  Quest.World.w.me.isFemale = document.querySelector("#female").checked
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
-  w.me.alias = document.querySelector("#namefield").value
+  Quest.World.w.me.alias = document.querySelector("#namefield").value
 }
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogInit' does not exist on ty... Remove this comment to see the full error message
 Quest.Settings.settings.startingDialogInit = function () {
@@ -225,13 +224,13 @@ Quest.Settings.settings.startingDialogInit = function () {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogAlt' does not exist on typ... Remove this comment to see the full error message
 Quest.Settings.settings.startingDialogAlt = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
-  w.me.job = professions[0].name;
+  Quest.World.w.me.job = professions[0].name;
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
-  w.me.jobBonus = professions[0].bonus;
+  Quest.World.w.me.jobBonus = professions[0].bonus;
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
-  w.me.isFemale = true;
+  Quest.World.w.me.isFemale = true;
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
-  w.me.alias = "Shaala";
+  Quest.World.w.me.alias = "Shaala";
 }
 
 

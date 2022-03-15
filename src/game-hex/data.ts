@@ -1,7 +1,7 @@
 "use strict"
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("me", Quest.Templates.PLAYER(), {
+Quest.World.createItem("me", Quest.Templates.PLAYER(), {
   loc: "hex_0_0",
   regex: /^(me|myself|player)$/,
   examine: "Just a regular guy.",
@@ -19,14 +19,14 @@ createBiome(5, -4, 'G', {
   getHexSymbol: function () { return 'assets/icons/houseicon.png' },
   getHexSymbolOffset: function () { return [-8, -8] },
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  in: new Exit('tower'),
+  in: new Quest.World.Exit('tower'),
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("tower", {
+Quest.World.createRoom("tower", {
   desc: 'In a tower',
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  out: new Exit(map.coordToCellName(5, -4)),
+  out: new Quest.World.Exit(map.coordToCellName(5, -4)),
 })
 
 

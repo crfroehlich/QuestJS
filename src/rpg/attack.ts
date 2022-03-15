@@ -51,7 +51,7 @@ class Attack {
 
     // Find the skill
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'getSkill' does not exist on type '{ list... Remove this comment to see the full error message
-    if (attacker === player && skill === undefined && rpg.getSkill) {
+    if (attacker === Quest.World.player && skill === undefined && rpg.getSkill) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'getSkill' does not exist on type '{ list... Remove this comment to see the full error message
       attack.skill = rpg.getSkill()
       // @ts-expect-error ts-migrate(2552) FIXME: Cannot find name 'skillUI'. Did you mean 'skill'?
@@ -74,7 +74,7 @@ class Attack {
 
     if (attack.primaryTargets.length === 0) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'noTarget' does not exist on type '{ rege... Remove this comment to see the full error message
-      return falsemsg(attack.skill.msgNoTarget ? attack.skill.msgNoTarget : Quest.lang.noTarget, attack)
+      return Quest.IO.falsemsg(attack.skill.msgNoTarget ? attack.skill.msgNoTarget : Quest.lang.noTarget, attack)
     }
 
 
@@ -144,7 +144,7 @@ class Attack {
 
     // Now take into account the target's room (count as incoming still)
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    const room = (target ? w[target.loc] : w[attacker.loc])
+    const room = (target ? Quest.World.w[target.loc] : Quest.World.w[attacker.loc])
     if (room.modifyOutgoingAttack) room.modifyOutgoingAttack(attack)
     attack.applyActiveEffects(room, false)
     attack.report('After room effects:', attack.offensiveBonus)

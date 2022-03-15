@@ -5,7 +5,7 @@
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("knife",
+Quest.World.createItem("knife",
   Quest.Templates.TAKEABLE(),
   {
     loc: "Buddy", sharp: false,
@@ -34,17 +34,17 @@ createItem("knife",
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("lounge", {
+Quest.World.createRoom("lounge", {
   desc: 'A smelly room with an old settee and a tv. There is a tatty rug on the floor.{if:player:name:piggy_suu: This is Piggy-Suu\'s favourite room.}',
   mapColour: 'silver',
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  east: new Exit('kitchen'),
+  east: new Quest.World.Exit('kitchen'),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  west: new Exit("dining_room"),
+  west: new Quest.World.Exit("dining_room"),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  south: new Exit("conservatory"),
+  south: new Quest.World.Exit("conservatory"),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  up: new Exit("bedroom"),
+  up: new Quest.World.Exit("bedroom"),
   hint: "There is a lot in this room! The bricks can be picked up by number (try GET 3 BRICKS). The book can be read. The coin is stuck to the floor. There are containers too. Kyle is an NPC; you can tell him to do nearly anything the player character can do (everything except looking and talking).",
   scenery: [
     'tv',
@@ -56,7 +56,7 @@ createRoom("lounge", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("Buddy", Quest.NPC.NPC(false), {
+Quest.World.createItem("Buddy", Quest.NPC.NPC(false), {
   loc: "lounge",
   money: 10,
   properNoun: true,
@@ -93,26 +93,26 @@ createItem("Buddy", Quest.NPC.NPC(false), {
   ],
 })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'changePOV' does not exist on type '{}'.
-Quest.Utilities.util.changePOV(w.Buddy)
+Quest.Utilities.util.changePOV(Quest.World.w.Buddy)
 
 
 
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("dining_room_on_stool", {
+Quest.World.createRoom("dining_room_on_stool", {
   desc: 'Stood on a stool, in an old-fashioned room.',
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  east: new Exit('lounge', { mapIgnore: true }),
+  east: new Quest.World.Exit('lounge', { mapIgnore: true }),
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  down: new Exit("dining_room", { mapIgnore: true }),
+  down: new Quest.World.Exit("dining_room", { mapIgnore: true }),
   alias: "dining room (on a stool)",
   //loc:"dining_room",
 });
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("hole", {
+Quest.World.createRoom("hole", {
   desc: 'An old-fashioned room.',
 });
 
@@ -121,14 +121,14 @@ createRoom("hole", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("book", Quest.Templates.TAKEABLE(), Quest.Templates.READABLE(true), {
+Quest.World.createItem("book", Quest.Templates.TAKEABLE(), Quest.Templates.READABLE(true), {
   loc: "lounge",
   examine: "A leather-bound book.",
   read: function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
     if (Quest.Command.cmdRules.isHeld(null, options)) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Lara' does not exist on type '{}'.
-      if (options.char === w.Lara) {
+      if (options.char === Quest.World.w.Lara) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Okay.' Lara spends a few minutes reading the book.");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -158,12 +158,12 @@ createItem("book", Quest.Templates.TAKEABLE(), Quest.Templates.READABLE(true), {
 })
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addChangeListener' does not exist on typ... Remove this comment to see the full error message
-Quest.Utilities.util.addChangeListener(w.book, "watchedStringAttribute", function (o: any, current: any, previous: any) {
+Quest.Utilities.util.addChangeListener(Quest.World.w.book, "watchedStringAttribute", function (o: any, current: any, previous: any) {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
   Quest.IO.msg("watchedStringAttribute changed from " + previous + " to " + current)
 })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addChangeListener' does not exist on typ... Remove this comment to see the full error message
-Quest.Utilities.util.addChangeListener(w.book, "watchedNumberAttribute", function (o: any, current: any, previous: any) {
+Quest.Utilities.util.addChangeListener(Quest.World.w.book, "watchedNumberAttribute", function (o: any, current: any, previous: any) {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
   Quest.IO.msg("watchedNumberAttribute changed from " + previous + " to " + current)
 }, function (o: any, current: any, previous: any) {
@@ -173,14 +173,14 @@ Quest.Utilities.util.addChangeListener(w.book, "watchedNumberAttribute", functio
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("book_cover", Quest.Templates.COMPONENT("book"), {
+Quest.World.createItem("book_cover", Quest.Templates.COMPONENT("book"), {
   examine: "The book cover is very fancy.",
   parserPriority: -20,
 });
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("boots", Quest.Templates.WEARABLE(), {
+Quest.World.createItem("boots", Quest.Templates.WEARABLE(), {
   loc: "lounge",
   pronouns: Quest.lang.pronouns.plural,
   examine: "Some old boots.",
@@ -190,7 +190,7 @@ createItem("boots", Quest.Templates.WEARABLE(), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("canteen", Quest.Templates.TAKEABLE(), Quest.Templates.VESSEL(), {
+Quest.World.createItem("canteen", Quest.Templates.TAKEABLE(), Quest.Templates.VESSEL(), {
   examine: "The canteen is {ifExists:canteen:containedFluidName:full:empty}.",
   loc: "lounge",
 })
@@ -200,7 +200,7 @@ createItem("canteen", Quest.Templates.TAKEABLE(), Quest.Templates.VESSEL(), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("glass_cabinet", Quest.Templates.CONTAINER(true), Quest.Templates.LOCKED_WITH(["cabinet_key", "small_key"]), {
+Quest.World.createItem("glass_cabinet", Quest.Templates.CONTAINER(true), Quest.Templates.LOCKED_WITH(["cabinet_key", "small_key"]), {
   examine: "A cabinet with a glass front.",
   transparent: true,
   isLocatedAt: function (loc: any) { return (loc == "lounge" || loc == "dining_room") }
@@ -208,7 +208,7 @@ createItem("glass_cabinet", Quest.Templates.CONTAINER(true), Quest.Templates.LOC
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("cabinet_key", Quest.Templates.KEY(), {
+Quest.World.createItem("cabinet_key", Quest.Templates.KEY(), {
   loc: "garage",
   examine: "A small brass key."
 })
@@ -216,20 +216,20 @@ createItem("cabinet_key", Quest.Templates.KEY(), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("jewellery_box",
+Quest.World.createItem("jewellery_box",
   Quest.Templates.TAKEABLE(),
   Quest.Templates.CONTAINER(true),
   { loc: "glass_cabinet", alias: "jewellery box", examine: "A nice box.", }
 );
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("ring",
+Quest.World.createItem("ring",
   Quest.Templates.TAKEABLE(),
   { loc: "jewellery_box", examine: "A ring.", }
 );
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("cardboard_box", Quest.Templates.TAKEABLE(), Quest.Templates.CONTAINER(true), {
+Quest.World.createItem("cardboard_box", Quest.Templates.TAKEABLE(), Quest.Templates.CONTAINER(true), {
   loc: "lounge",
   alias: "cardboard box",
   regex: /cardboard/,
@@ -238,7 +238,7 @@ createItem("cardboard_box", Quest.Templates.TAKEABLE(), Quest.Templates.CONTAINE
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("ham_and_cheese_sandwich", Quest.Templates.EDIBLE(false), {
+Quest.World.createItem("ham_and_cheese_sandwich", Quest.Templates.EDIBLE(false), {
   pattern: 'egg|mayo',
   loc: "lounge",
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -247,7 +247,7 @@ createItem("ham_and_cheese_sandwich", Quest.Templates.EDIBLE(false), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("ornate_doll", Quest.Templates.TAKEABLE(), {
+Quest.World.createItem("ornate_doll", Quest.Templates.TAKEABLE(), {
   loc: "glass_cabinet",
   alias: "ornate doll",
   examine: "A fancy doll, eigthteenth century.",
@@ -257,29 +257,29 @@ createItem("ornate_doll", Quest.Templates.TAKEABLE(), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("coin", Quest.Templates.TAKEABLE(), {
+Quest.World.createItem("coin", Quest.Templates.TAKEABLE(), {
   loc: "lounge",
   examine: "A gold coin.",
   take2: function (options: any) {
-    return falsemsg("{pv:char:try:true} to pick up the coin, but it just will not budge.", options)
+    return Quest.IO.falsemsg("{pv:char:try:true} to pick up the coin, but it just will not budge.", options)
   },
   take: "{pv:char:try:true} to pick up the coin, but it just will not budge.",
 })
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("small_key", Quest.Templates.KEY(), {
+Quest.World.createItem("small_key", Quest.Templates.KEY(), {
   loc: "lounge", examine: "A small key.", alias: "small key",
 })
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("flashlight", Quest.Templates.TAKEABLE(), Quest.Templates.SWITCHABLE(false, 'providing light'), {
+Quest.World.createItem("flashlight", Quest.Templates.TAKEABLE(), Quest.Templates.SWITCHABLE(false, 'providing light'), {
   loc: "lounge",
   examine: "A small red torch.",
   regex: /^torch$/,
   lightSource: function () {
-    return this.switchedon ? world.LIGHT_FULL : world.LIGHT_NONE
+    return this.switchedon ? Quest.World.world.LIGHT_FULL : Quest.World.world.LIGHT_NONE
   },
   eventPeriod: 1,
   eventIsActive: function () {
@@ -310,7 +310,7 @@ createItem("flashlight", Quest.Templates.TAKEABLE(), Quest.Templates.SWITCHABLE(
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
     Quest.IO.msg("{nv:char:push:true} the button. There is a brief hum of power, and a flash.", options)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'flashlight' does not exist on type '{}'.
-    w.flashlight.power = 20
+    Quest.World.w.flashlight.power = 20
     return true
   },
 })
@@ -321,21 +321,21 @@ createItem("flashlight", Quest.Templates.TAKEABLE(), Quest.Templates.SWITCHABLE(
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("dining_room", {
+Quest.World.createRoom("dining_room", {
   desc: 'An old-fashioned room.',
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  east: new Exit('lounge'),
+  east: new Quest.World.Exit('lounge'),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  west: new Exit('lift'),
+  west: new Quest.World.Exit('lift'),
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  up: new Exit("dining_room_on_stool", { mapIgnore: true }),
+  up: new Quest.World.Exit("dining_room_on_stool", { mapIgnore: true }),
   alias: "dining room",
   hint: "This room features an NPC who will sometimes do as you ask. Compliment her, and she will go to another room, and with then pick things up and drop them (but not bricks). Also not that the glass cabinet is in this room as well as the lounge.",
 });
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("lift_item", {
+Quest.World.createItem("lift_item", {
   alias: 'lift',
   loc: "dining_room",
   examine: "An old-fashioned lift.",
@@ -344,7 +344,7 @@ createItem("lift_item", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("chair", Quest.Templates.FURNITURE({ sit: true }), {
+Quest.World.createItem("chair", Quest.Templates.FURNITURE({ sit: true }), {
   loc: "dining_room", examine: "A wooden chair.",
   afterPostureOn: function (options: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
@@ -355,17 +355,17 @@ createItem("chair", Quest.Templates.FURNITURE({ sit: true }), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createRoom("lift", Quest.Templates.TRANSIT("east"), {
+Quest.World.createRoom("lift", Quest.Templates.TRANSIT("east"), {
   desc: 'A curious lift.',
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  east: new Exit('dining_room'),
+  east: new Quest.World.Exit('dining_room'),
   transitMenuPrompt: 'Where do you want to go?',
 })
 
 
 // calling it button_0 make it appear before button_1 in lists
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("button_0",
+Quest.World.createItem("button_0",
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   Quest.Templates.TRANSIT_BUTTON("lift"),
   {
@@ -381,7 +381,7 @@ createItem("button_0",
 );
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("button_1",
+Quest.World.createItem("button_1",
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   Quest.Templates.TRANSIT_BUTTON("lift"),
   {
@@ -397,7 +397,7 @@ createItem("button_1",
 );
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("button_2",
+Quest.World.createItem("button_2",
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   Quest.Templates.TRANSIT_BUTTON("lift"),
   {
@@ -418,10 +418,10 @@ createItem("button_2",
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("attic", {
+Quest.World.createRoom("attic", {
   desc: 'An spooky attic.',
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  west: new Exit('lift'),
+  west: new Quest.World.Exit('lift'),
 });
 
 
@@ -429,14 +429,14 @@ createRoom("attic", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("kitchen", {
+Quest.World.createRoom("kitchen", {
   desc: 'A clean room{if:clock:scenery:, a clock hanging on the wall}. There is a sink in the corner.',
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  west: new Exit("lounge"),
+  west: new Quest.World.Exit("lounge"),
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  down: new Exit('basement', {
+  down: new Quest.World.Exit('basement', {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'trapdoor' does not exist on type '{}'.
-    isHidden: function () { return w.trapdoor.closed; },
+    isHidden: function () { return Quest.World.w.trapdoor.closed; },
     msg: "You go through the trapdoor, and down the ladder.",
     npcLeaveMsg: function (char: any) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
@@ -448,7 +448,7 @@ createRoom("kitchen", {
     },
   }),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  north: new Exit("garage"),
+  north: new Quest.World.Exit("garage"),
   afterFirstEnter: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg("A fresh smell here!");
@@ -458,46 +458,46 @@ createRoom("kitchen", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("clock", Quest.Templates.TAKEABLE(), {
+Quest.World.createItem("clock", Quest.Templates.TAKEABLE(), {
   loc: "kitchen",
   scenery: true,
   examine: "A white clock.",
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("trapdoor", Quest.Templates.OPENABLE(false), {
+Quest.World.createItem("trapdoor", Quest.Templates.OPENABLE(false), {
   loc: "kitchen",
   examine: "A small trapdoor in the floor.",
   goThroughDirection: 'down',
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("camera", Quest.Templates.TAKEABLE(), {
+Quest.World.createItem("camera", Quest.Templates.TAKEABLE(), {
   loc: "kitchen",
   examine: "A cheap digital camera.",
   regex: /^picture box$/,
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("big_kitchen_table", Quest.Templates.SURFACE(), {
+Quest.World.createItem("big_kitchen_table", Quest.Templates.SURFACE(), {
   loc: "kitchen",
   examine: "A Formica table.",
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("jug", Quest.Templates.TAKEABLE(), Quest.Templates.VESSEL(), {
+Quest.World.createItem("jug", Quest.Templates.TAKEABLE(), Quest.Templates.VESSEL(), {
   loc: "big_kitchen_table",
   examine: "A small jug, stripped blue and white.",
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("honey_pot", {
+Quest.World.createItem("honey_pot", {
   scenery: true,
   examine: "A pot of honey.",
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("kitchen_sink", {
+Quest.World.createItem("kitchen_sink", {
   loc: "kitchen",
   scenery: true,
   examine: "A dirty sink.",
@@ -518,26 +518,26 @@ createItem("kitchen_sink", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("basement", {
+Quest.World.createRoom("basement", {
   desc: "A dank room, with piles of crates everywhere.",
   darkDesc: "It is dark, but you can just see the outline of the trapdoor above you.",
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  up: new Exit('kitchen', { isHidden: function () { return false; } }),
+  up: new Quest.World.Exit('kitchen', { isHidden: function () { return false; } }),
   lightSource: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'light_switch' does not exist on type '{}... Remove this comment to see the full error message
-    return w.light_switch.switchedon ? world.LIGHT_FULL : world.LIGHT_NONE;
+    return Quest.World.w.light_switch.switchedon ? Quest.World.world.LIGHT_FULL : Quest.World.world.LIGHT_NONE;
   },
   hint: "The basement illustrates light and dark. There is a torch in the lounge that may be useful.",
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("light_switch", Quest.Templates.SWITCHABLE(false), {
+Quest.World.createItem("light_switch", Quest.Templates.SWITCHABLE(false), {
   loc: "basement",
   examine: "A switch, presumably for the light.",
   alias: "light switch",
   testSwitchOn: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'crates' does not exist on type '{}'.
-    if (!w.crates.moved) {
+    if (!Quest.World.w.crates.moved) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("You cannot reach the light switch, without first moving the crates.");
       return false;
@@ -550,13 +550,13 @@ createItem("light_switch", Quest.Templates.SWITCHABLE(false), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("ladder", {
+Quest.World.createItem("ladder", {
   loc: "basement",
   examine: "A ladder, fixed to the wall, leading to the trapdoor.",
   goUpDirection: 'up',
 })
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("crates", {
+Quest.World.createItem("crates", {
   loc: "basement",
   examine: "A bunch of old crates.",
   move: function () {
@@ -572,27 +572,27 @@ createItem("crates", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("garage", {
+Quest.World.createRoom("garage", {
   desc: 'An empty garage.',
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  south: new Exit("kitchen"),
+  south: new Quest.World.Exit("kitchen"),
   hint: "The garage features a complex mechanism, with two components.",
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("garage_door", Quest.Templates.LOCKED_DOOR("garage_key", "kitchen", "garage"), {
+Quest.World.createItem("garage_door", Quest.Templates.LOCKED_DOOR("garage_key", "kitchen", "garage"), {
   examine: "The door to the garage.",
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("garage_key", Quest.Templates.KEY(), {
+Quest.World.createItem("garage_key", Quest.Templates.KEY(), {
   loc: "lounge",
   examine: "A big key.",
 });
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("charger", {
+Quest.World.createItem("charger", {
   loc: "garage",
   examine: "A device bigger than a washing machine to charge a torch? It has a compartment and a button. {charger_state}.",
   mended: false,
@@ -604,12 +604,12 @@ createItem("charger", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("charger_compartment", Quest.Templates.COMPONENT("charger"), Quest.Templates.CONTAINER(true), {
+Quest.World.createItem("charger_compartment", Quest.Templates.COMPONENT("charger"), Quest.Templates.CONTAINER(true), {
   alias: "compartment",
   examine: "The compartment is just the right size for the torch. It is {if:charger_compartment:closed:closed:open}.",
   testDropIn: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'charger_compartment' does not exist on t... Remove this comment to see the full error message
-    const contents = w.charger_compartment.getContents(world.LOOK)
+    const contents = Quest.World.w.charger_compartment.getContents(Quest.World.world.LOOK)
     if (contents.length > 0) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("The compartment is full.")
@@ -622,15 +622,15 @@ createItem("charger_compartment", Quest.Templates.COMPONENT("charger"), Quest.Te
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("charger_button", Quest.Templates.COMPONENT("charger"), Quest.Templates.BUTTON(), {
+Quest.World.createItem("charger_button", Quest.Templates.COMPONENT("charger"), Quest.Templates.BUTTON(), {
   examine: "A big red button.",
   alias: "button",
   push: function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'charger_compartment' does not exist on t... Remove this comment to see the full error message
-    const contents = w.charger_compartment.getContents(world.ALL)[0]
+    const contents = Quest.World.w.charger_compartment.getContents(Quest.World.world.ALL)[0]
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'charger_compartment' does not exist on t... Remove this comment to see the full error message
-    if (!w.charger_compartment.closed || !contents) return falsemsg("{pv:char:push:true} the button, but nothing happens.", options)
-    if (!contents.chargeResponse) return falsemsg("{pv:char:push:true} the button. There is a brief hum of power, but nothing happens.", options)
+    if (!Quest.World.w.charger_compartment.closed || !contents) return Quest.IO.falsemsg("{pv:char:push:true} the button, but nothing happens.", options)
+    if (!contents.chargeResponse) return Quest.IO.falsemsg("{pv:char:push:true} the button. There is a brief hum of power, but nothing happens.", options)
     return contents.chargeResponse(options)
   }
 })
@@ -641,28 +641,28 @@ createItem("charger_button", Quest.Templates.COMPONENT("charger"), Quest.Templat
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("bedroom", {
+Quest.World.createRoom("bedroom", {
   desc: "A large room, with a big bed and a wardrobe.",
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  down: new Exit("lounge"),
+  down: new Quest.World.Exit("lounge"),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  in: new Exit("wardrobe"),
+  in: new Quest.World.Exit("wardrobe"),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  west: new Exit('lift'),
+  west: new Quest.World.Exit('lift'),
   hint: "The bedroom has a variety of garments that can be put on - in the right order.",
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("wardrobe", Quest.Defaults.DEFAULT_ROOM, {
+Quest.World.createItem("wardrobe", Quest.Defaults.DEFAULT_ROOM, {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  out: new Exit("bedroom"),
+  out: new Quest.World.Exit("bedroom"),
   loc: "bedroom",
   examine: "It is so big you could probably get inside it.",
   desc: "Oddly empty of fantasy worlds.",
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("bed", Quest.Templates.FURNITURE({ sit: true, recline: true }), {
+Quest.World.createItem("bed", Quest.Templates.FURNITURE({ sit: true, recline: true }), {
   loc: "bedroom",
   scenery: true,
   examine: "What would a bedroom be without a bed?",
@@ -670,7 +670,7 @@ createItem("bed", Quest.Templates.FURNITURE({ sit: true, recline: true }), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("underwear",
+Quest.World.createItem("underwear",
   Quest.Templates.WEARABLE(1, ["lower"]),
   {
     loc: "bedroom",
@@ -680,25 +680,25 @@ createItem("underwear",
 );
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("jeans",
+Quest.World.createItem("jeans",
   Quest.Templates.WEARABLE(2, ["lower"]),
   { loc: "bedroom", pronouns: Quest.lang.pronouns.plural, examine: "Clean!", }
 );
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("shirt",
+Quest.World.createItem("shirt",
   Quest.Templates.WEARABLE(2, ["upper"]),
   { loc: "bedroom", examine: "Clean!", }
 );
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("coat",
+Quest.World.createItem("coat",
   Quest.Templates.WEARABLE(3, ["upper"]),
   { loc: "bedroom", examine: "Clean!", }
 );
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("jumpsuit",
+Quest.World.createItem("jumpsuit",
   Quest.Templates.WEARABLE(2, ["upper", "lower"]),
   { loc: "bedroom", examine: "Clean!", }
 );
@@ -709,56 +709,56 @@ createItem("jumpsuit",
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("suit_trousers",
+Quest.World.createItem("suit_trousers",
   Quest.Templates.WEARABLE(2, ["lower"]),
   { loc: "wardrobe", examine: "The trousers.", pronouns: Quest.lang.pronouns.plural }
 );
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("jacket",
+Quest.World.createItem("jacket",
   Quest.Templates.WEARABLE(3, ["upper"]),
   { loc: "wardrobe", examine: "The jacket", }
 );
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("waistcoat",
+Quest.World.createItem("waistcoat",
   Quest.Templates.WEARABLE(2, ["upper"]),
   { loc: "wardrobe", examine: "The waistcoat", }
 );
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'suit_trousers' does not exist on type '{... Remove this comment to see the full error message
-Quest.Templates.createEnsemble("suit", [w.suit_trousers, w.jacket, w.waistcoat],
+Quest.Templates.createEnsemble("suit", [Quest.World.w.suit_trousers, Quest.World.w.jacket, Quest.World.w.waistcoat],
   { examine: "A complete suit.", regex: /xyz/ }
 );
 
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("conservatory", {
+Quest.World.createRoom("conservatory", {
   desc: "A light airy room.",
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  north: new Exit("lounge"),
+  north: new Quest.World.Exit("lounge"),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  west: new Exit("garden"),
+  west: new Quest.World.Exit("garden"),
   hint: "The conservatory features a pro-active NPC.",
 });
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("crate", Quest.Templates.FURNITURE({ stand: true }), Quest.Templates.SHIFTABLE(), {
+Quest.World.createItem("crate", Quest.Templates.FURNITURE({ stand: true }), Quest.Templates.SHIFTABLE(), {
   loc: "conservatory",
   examine: "A large wooden crate, probably strong enough to stand on.",
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("broken_chair", {
+Quest.World.createItem("broken_chair", {
   loc: "conservatory",
   examine: "A broken chair.",
   attachable: true,
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("rope", Quest.Templates.ROPE(3), {
+Quest.World.createItem("rope", Quest.Templates.ROPE(3), {
   loc: "conservatory",
   examine: "The rope is about 40' long.",
 })
@@ -766,19 +766,19 @@ createItem("rope", Quest.Templates.ROPE(3), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("garden", {
+Quest.World.createRoom("garden", {
   desc: "Very overgrown. The garden opens onto a road to the west, whilst the conservatory is east. There is a hook on the wall.",
   mapColour: 'green',
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  east: new Exit("conservatory"),
+  east: new Quest.World.Exit("conservatory"),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  west: new Exit("road"),
+  west: new Quest.World.Exit("road"),
   visibleFrom: ["dining_room"],
   visibleFromPrefix: "Through the window you can see",
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("hook", {
+Quest.World.createItem("hook", {
   loc: "garden",
   scenery: true,
   examine: "A rusty hook, on the wall of the house.",
@@ -786,15 +786,15 @@ createItem("hook", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("far_away", {
+Quest.World.createRoom("far_away", {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  north: new Exit("lounge"),
+  north: new Quest.World.Exit("lounge"),
 });
 
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("Arthur",
+Quest.World.createItem("Arthur",
   Quest.NPC.NPC(false),
   {
     loc: "garden",
@@ -825,7 +825,7 @@ createItem("Arthur",
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg(arr[0]);
       }
-      if (player.loc === "dining_room") {
+      if (Quest.World.player.loc === "dining_room") {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg(arr[1]);
       }
@@ -851,7 +851,7 @@ createItem("Arthur",
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("ball", {
+Quest.World.createItem("ball", {
   //loc:"Kyle",
   examine: "Some old boots.",
 });
@@ -859,7 +859,7 @@ createItem("ball", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("Kyle", Quest.NPC.NPC(false),
+Quest.World.createItem("Kyle", Quest.NPC.NPC(false),
   {
     loc: "lounge",
     //alias:'Bobby',
@@ -867,12 +867,12 @@ createItem("Kyle", Quest.NPC.NPC(false),
     receiveItems: [
       {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'book' does not exist on type '{}'.
-        item: w.book,
+        item: Quest.World.w.book,
         f: function () {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("'Oh!' says Kyle. 'Is this a book?'")
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'book' does not exist on type '{}'.
-          w.book.loc = this.name
+          Quest.World.w.book.loc = this.name
           return true
         }
       },
@@ -904,15 +904,15 @@ createItem("Kyle", Quest.NPC.NPC(false),
         responses: [
           {
             // @ts-expect-error ts-migrate(2339) FIXME: Property 'garden' does not exist on type '{}'.
-            test: function (p: any) { return w.garden.fixed; },
+            test: function (p: any) { return Quest.World.w.garden.fixed; },
             msg: "'Looks much better now,' Kyle says with a grin.",
           },
           {
             // @ts-expect-error ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
-            test: function (p: any) { return w.Kyle.needsWorkCount === 0; },
+            test: function (p: any) { return Quest.World.w.Kyle.needsWorkCount === 0; },
             msg: "'Needs some work,' Kyle says with a sign.",
             // @ts-expect-error ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
-            script: function (p: any) { w.Kyle.needsWorkCount++; },
+            script: function (p: any) { Quest.World.w.Kyle.needsWorkCount++; },
           },
           {
             msg: "'I'm giving up hope of it ever getting sorted,' Kyle says.",
@@ -982,7 +982,7 @@ createItem("Kyle", Quest.NPC.NPC(false),
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("You talk to " + this.alias + " about the weather; he asks your opinion...")
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'askTopics' does not exist on type '{ sho... Remove this comment to see the full error message
-          this.askTopics("Tell Kyle your view on the weather...", w.kyle_response_good, w.kyle_response_bad)
+          this.askTopics("Tell Kyle your view on the weather...", Quest.World.w.kyle_response_good, Quest.World.w.kyle_response_bad)
         },
       },
       {
@@ -1011,7 +1011,7 @@ createItem("Kyle", Quest.NPC.NPC(false),
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("'No problem,' says Kyle.")
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
-          w.Kyle.agenda = [
+          Quest.World.w.Kyle.agenda = [
             "leadTo:garden",
             "waitFor:player:'So here we are,' says Kyle.",
           ]
@@ -1024,7 +1024,7 @@ createItem("Kyle", Quest.NPC.NPC(false),
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("kyle_question", Quest.NPC.QUESTION(), {
+Quest.World.createItem("kyle_question", Quest.NPC.QUESTION(), {
   responses: [
     {
       regex: /^(yes)$/,
@@ -1045,7 +1045,7 @@ createItem("kyle_question", Quest.NPC.QUESTION(), {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'I don't know what that means,' says Kyle. 'It's a simple yes-no question.'");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
-        w.Kyle.askQuestion("kyle_question");
+        Quest.World.w.Kyle.askQuestion("kyle_question");
       }
     },
   ],
@@ -1053,7 +1053,7 @@ createItem("kyle_question", Quest.NPC.QUESTION(), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("straw_boater",
+Quest.World.createItem("straw_boater",
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   Quest.Templates.WEARABLE(false),
   { loc: "Kyle", examine: "A straw boater.", worn: true }
@@ -1066,7 +1066,7 @@ createItem("straw_boater",
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("Lara", Quest.NPC.NPC(true), {
+Quest.World.createItem("Lara", Quest.NPC.NPC(true), {
   loc: "dining_room",
   examine: "A normal-sized bunny.",
   properNoun: true,
@@ -1075,12 +1075,12 @@ createItem("Lara", Quest.NPC.NPC(true), {
   receiveItems: [
     {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'knife' does not exist on type '{}'.
-      item: w.knife,
+      item: Quest.World.w.knife,
       f: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'A knife?' says Lara. 'I guess I could use that... for something?'")
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'knife' does not exist on type '{}'.
-        w.knife.loc = this.name
+        Quest.World.w.knife.loc = this.name
       }
     },
     {
@@ -1095,32 +1095,32 @@ createItem("Lara", Quest.NPC.NPC(true), {
     },
     {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'ring' does not exist on type '{}'.
-      item: w.ring,
+      item: Quest.World.w.ring,
       f: function (options: any) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Oh, my,' says Lara. 'How delightful.' She slips the ring on her finger, then hands you a key.")
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'ring' does not exist on type '{}'.
-        w.ring.loc = "Lara"
+        Quest.World.w.ring.loc = "Lara"
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'ring' does not exist on type '{}'.
-        w.ring.worn = true
+        Quest.World.w.ring.worn = true
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'garage_key' does not exist on type '{}'.
-        w.garage_key.loc = options.char.name
+        Quest.World.w.garage_key.loc = options.char.name
       }
     },
     {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'book' does not exist on type '{}'.
-      item: w.book,
+      item: Quest.World.w.book,
       f: function (options: any) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Hmm, a book about carrots,' says Lara. 'Thanks.'")
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'book' does not exist on type '{}'.
-        w.book.loc = "Lara"
+        Quest.World.w.book.loc = "Lara"
       }
     },
   ],
   getAgreementTake: function (item: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'brick' does not exist on type '{}'.
-    if (item === w.brick) {
+    if (item === Quest.World.w.brick) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("'I'm not picking up any bricks,' says Lara indignantly.")
       return false
@@ -1165,11 +1165,11 @@ createItem("Lara", Quest.NPC.NPC(true), {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Oh, hello there,' replies Lara.")
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
-        if (w.Kyle.isHere()) {
+        if (Quest.World.w.Kyle.isHere()) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("'Have you two met before?' asks Kyle.")
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
-          w.Kyle.askQuestion("kyle_question")
+          Quest.World.w.Kyle.askQuestion("kyle_question")
         }
       },
     }
@@ -1186,7 +1186,7 @@ createItem("Lara", Quest.NPC.NPC(true), {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("Lara_garage_key",
+Quest.World.createItem("Lara_garage_key",
   Quest.NPC.TOPIC(true),
   {
     loc: "Lara", alias: "Can I have the garden key?",
@@ -1199,7 +1199,7 @@ createItem("Lara_garage_key",
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("Lara_very_attractive",
+Quest.World.createItem("Lara_very_attractive",
   Quest.NPC.TOPIC(true),
   {
     loc: "Lara", alias: "You're very attractive",
@@ -1207,13 +1207,13 @@ createItem("Lara_very_attractive",
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("You tell Lara she looks very attractive. 'Why thank you!' she replies, smiling at last.");
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Lara' does not exist on type '{}'.
-      w.Lara.happy = true;
+      Quest.World.w.Lara.happy = true;
     },
   }
 );
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("Lara_carrots",
+Quest.World.createItem("Lara_carrots",
   Quest.NPC.TOPIC(true),
   {
     loc: "Lara", alias: "I hear you like carrots",
@@ -1221,7 +1221,7 @@ createItem("Lara_carrots",
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("'Need carrots!' she says with feeling. 'Fading away bunny!' She looks mournfully at her ample tummy.");
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Lara' does not exist on type '{}'.
-      w.Lara.happy = true;
+      Quest.World.w.Lara.happy = true;
     },
   }
 );
@@ -1229,58 +1229,58 @@ createItem("Lara_carrots",
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("walls", {
+Quest.World.createItem("walls", {
   examine: "They're walls, what are you expecting?",
   regex: /^wall$/,
   scenery: true,
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  isLocatedAt: function (loc: any) { return w[loc].room },
+  isLocatedAt: function (loc: any) { return Quest.World.w[loc].room },
 })
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("brick", Quest.Templates.COUNTABLE({ lounge: 7, dining_room: 1 }), {
+Quest.World.createItem("brick", Quest.Templates.COUNTABLE({ lounge: 7, dining_room: 1 }), {
   examine: "A brick is a brick.",
   //regex:/^(\d+ )?bricks?$/,
 })
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("shop", {
+Quest.World.createRoom("shop", {
   desc: "A funny little shop.",
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  south: new Exit("road"),
+  south: new Quest.World.Exit("road"),
   willBuy: function (obj: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'trophy' does not exist on type '{}'.
-    return (obj === w.trophy);
+    return (obj === Quest.World.w.trophy);
   }
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("road", {
+Quest.World.createRoom("road", {
   desc: "A road heading west over a bridge. You can see a shop to the north.",
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  east: new Exit("garden"),
+  east: new Quest.World.Exit("garden"),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  west: new Exit("bridge"),
+  west: new Quest.World.Exit("bridge"),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  north: new Exit("shop"),
+  north: new Quest.World.Exit("shop"),
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("carrot", Quest.Templates.TAKEABLE(), Quest.Templates.MERCH(2, ["shop"]), {
+Quest.World.createItem("carrot", Quest.Templates.TAKEABLE(), Quest.Templates.MERCH(2, ["shop"]), {
   examine: "It's a carrot!",
   slice: function (options: any) {
     if (options.with === undefined) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'knife' does not exist on type '{}'.
-      if (w.knife.loc !== player.name) {
+      if (Quest.World.w.knife.loc !== Quest.World.player.name) {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        return falsemsg("Going to need a knife to do that.")
+        return Quest.IO.falsemsg("Going to need a knife to do that.")
       }
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'knife' does not exist on type '{}'.
-    else if (options.with !== w.knife) {
-      return falsemsg("You can't cut a carrot with {nm:with:the}.", { with: options.with })
+    else if (options.with !== Quest.World.w.knife) {
+      return Quest.IO.falsemsg("You can't cut a carrot with {nm:with:the}.", { with: options.with })
     }
     // do stuff
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -1290,12 +1290,12 @@ createItem("carrot", Quest.Templates.TAKEABLE(), Quest.Templates.MERCH(2, ["shop
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("honey_pasta", Quest.Templates.TAKEABLE(), Quest.Templates.MERCH(5, ["shop"]), {
+Quest.World.createItem("honey_pasta", Quest.Templates.TAKEABLE(), Quest.Templates.MERCH(5, ["shop"]), {
   examine: "It's pasta. With honey on it.",
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("trophy", Quest.Templates.TAKEABLE(), Quest.Templates.MERCH(15, "shop"), {
+Quest.World.createItem("trophy", Quest.Templates.TAKEABLE(), Quest.Templates.MERCH(15, "shop"), {
   examine: "It is a unique trophy!",
   doNotClone: true,
 });
@@ -1309,7 +1309,7 @@ createItem("trophy", Quest.Templates.TAKEABLE(), Quest.Templates.MERCH(15, "shop
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("cactus", ZONE_FEATURE('desert', 1, -2, 3), {
+Quest.World.createItem("cactus", ZONE_FEATURE('desert', 1, -2, 3), {
   featureLook: "There is a big cactus to the #.",
   zoneColour: 'green',
   zoneMapName: 'Strange cactus',
@@ -1317,7 +1317,7 @@ createItem("cactus", ZONE_FEATURE('desert', 1, -2, 3), {
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("tower", ZONE_FEATURE('desert', -1, 3, 4), {
+Quest.World.createItem("tower", ZONE_FEATURE('desert', -1, 3, 4), {
   featureLook: "There is a tower to the #.",
   featureLookHere: "There is a tall stone tower here.",
   zoneMapName: 'Ancient tower',
@@ -1327,7 +1327,7 @@ createItem("tower", ZONE_FEATURE('desert', -1, 3, 4), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("barrier", ZONE_BORDER('desert'), {
+Quest.World.createItem("barrier", ZONE_BORDER('desert'), {
   examine: "It is invisible!",
   scenery: true,
   border: function (x: any, y: any) {
@@ -1338,7 +1338,7 @@ createItem("barrier", ZONE_BORDER('desert'), {
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("canyon", ZONE_BORDER('desert'), {
+Quest.World.createItem("canyon", ZONE_BORDER('desert'), {
   examine: "It looks very deep!",
   scenery: true,
   border: function (x: any, y: any) {
@@ -1351,7 +1351,7 @@ createItem("canyon", ZONE_BORDER('desert'), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createRoom("desert", ZONE(), {
+Quest.World.createRoom("desert", ZONE(), {
   zoneExits: [
     { x: -1, y: 3, dir: 'in', dest: 'inside_tower', msg: 'You step inside the tower, and climb the step, spiral staircase to the top.' },
     { x: 5, y: 0, dir: 'east', dest: 'bridge', msg: 'You start across the bridge.' },
@@ -1388,7 +1388,7 @@ createRoom("desert", ZONE(), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("silver_coin", Quest.Templates.TAKEABLE(), ZONE_ITEM('desert', 1, 1), {
+Quest.World.createItem("silver_coin", Quest.Templates.TAKEABLE(), ZONE_ITEM('desert', 1, 1), {
   examine: "A curious silver coin; you do not recognise it. It says it is worth two dollars.",
 })
 
@@ -1397,37 +1397,37 @@ createItem("silver_coin", Quest.Templates.TAKEABLE(), ZONE_ITEM('desert', 1, 1),
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("bridge", {
+Quest.World.createRoom("bridge", {
   desc: 'From the bridge you can just how deep the canyon is.',
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  west: new Exit('desert'),
+  west: new Quest.World.Exit('desert'),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  east: new Exit('road'),
+  east: new Quest.World.Exit('road'),
   beforeEnter: function () {
-    player.positionX = 5
-    player.positionY = 0
+    Quest.World.player.positionX = 5
+    Quest.World.player.positionY = 0
   },
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("inside_tower", {
+Quest.World.createRoom("inside_tower", {
   desc: "A tower, looking out over the desert. To the south is the road, heading east back to your house. To the north is a magic portal, going who knows where.",
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  down: new Exit("desert"),
+  down: new Quest.World.Exit("desert"),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  north: new Exit("shop"),
+  north: new Quest.World.Exit("shop"),
   alias: 'Inside the tower',
   properNoun: true,
   beforeEnter: function () {
-    player.positionX = -1
-    player.positionY = 3
+    Quest.World.player.positionX = -1
+    Quest.World.player.positionY = 3
   },
 })
 
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("piggy_suu", Quest.NPC.NPC(true), {
+Quest.World.createItem("piggy_suu", Quest.NPC.NPC(true), {
   loc: "bridge",
   alias: 'Piggy-suu',
   money: 10,
@@ -1447,12 +1447,12 @@ createItem("piggy_suu", Quest.NPC.NPC(true), {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("Boris", Quest.NPC.NPC(), {
+Quest.World.createItem("Boris", Quest.NPC.NPC(), {
 })
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("timetable", Quest.NPC.AGENDA_FOLLOWER(), {
+Quest.World.createItem("timetable", Quest.NPC.AGENDA_FOLLOWER(), {
   counter: 0,
   script: function (n: any) {
     this.counter += (n[0] ? parseInt(n[0]) : 1)

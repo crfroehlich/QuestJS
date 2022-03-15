@@ -573,9 +573,9 @@ let zone
 
 const register = function (name: any, data: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'uniform' does not exist on type '{}'.
-  w.uniform.uniforms[name] = data.uniform
+  Quest.World.w.uniform.uniforms[name] = data.uniform
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'shakespeare_book' does not exist on type... Remove this comment to see the full error message
-  w.shakespeare_book.names[name] = data.book
+  Quest.World.w.shakespeare_book.names[name] = data.book
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   zones[name] = data
   zone = name
@@ -664,17 +664,17 @@ const SIZE_CHANGING = function () {
   res.take = function (options) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isAtLoc' does not exist on type '{ after... Remove this comment to see the full error message
     if (this.isAtLoc(options.char.name)) {
-      return falsemsg(Quest.lang.already_have, options)
+      return Quest.IO.falsemsg(Quest.lang.already_have, options)
     }
     if (!options.char.testManipulate(this, "take")) return false
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'size' does not exist on type '{ afterCre... Remove this comment to see the full error message
     if (this.size === this.maxsize) {
-      return falsemsg("{nv:item:be:true} far too big to pick up.", { item: this })
+      return Quest.IO.falsemsg("{nv:item:be:true} far too big to pick up.", { item: this })
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'size' does not exist on type '{ afterCre... Remove this comment to see the full error message
     else if (this.size === this.minsize) {
-      return falsemsg("Mandy tries to pick up {nm:item:the}, but {pv:item:be} too tiny for her fingers to grasp.", { item: this })
+      return Quest.IO.falsemsg("Mandy tries to pick up {nm:item:the}, but {pv:item:be} too tiny for her fingers to grasp.", { item: this })
     }
 
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.

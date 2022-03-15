@@ -2,7 +2,7 @@
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("missions", {
+Quest.World.createItem("missions", {
   pageOption: true,
   verbFunction: function (verbList: any) {
     verbList.pop()
@@ -29,7 +29,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd("Mission", {
     for (const el of ary) Quest.Settings.settings.startingDialogHtml += '<p><i>' + el + '</i></p>'
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'setUpDialog' does not exist on type '{ p... Remove this comment to see the full error message
     Quest.Settings.settings.setUpDialog()
-    return world.SUCCESS
+    return Quest.World.world.SUCCESS
   },
 }))
 
@@ -39,12 +39,12 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd("Mission", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("crew_roster", {
+Quest.World.createItem("crew_roster", {
   pageOption: true,
   verbFunction: function (verbList: any) {
     verbList.pop()
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
-    if (w.ship.arrivedAtSector) {
+    if (Quest.World.w.ship.arrivedAtSector) {
       for (const o of roster.getCrew()) verbList.push(o.alias)
     }
     else {
@@ -63,7 +63,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd("Crew Roster", {
   script: function (objects: any) {
     const o = objects[0][0]
     o.dutiesDiag()
-    return world.SUCCESS
+    return Quest.World.world.SUCCESS
   },
 }))
 
@@ -75,7 +75,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd("Crew Roster", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createItem("encyclopedia", {
+Quest.World.createItem("encyclopedia", {
   pageOption: true,
   askDiag: function (s: any, fromLink: any) {
     if (s.length === 0) return
@@ -91,7 +91,7 @@ createItem("encyclopedia", {
         if (!fromLink) Quest.IO.msg("On your PAGE you search for \"" + s + "\".")
         let strs = []
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'encyclopedia' does not exist on type '{}... Remove this comment to see the full error message
-        if (Quest.Utilities.doOnce(w.encyclopedia, 'Encyclopaedia')) {
+        if (Quest.Utilities.doOnce(Quest.World.w.encyclopedia, 'Encyclopaedia')) {
           strs.push("<b>Welcome to the Fleet Admiralty Encyclopaedia</b>")
           strs.push("Please note that the admiralty cannot be held accountable for any inaccuracy or inconsistency on the information contained herein. Continued use is taken as absolving the admiralty of any and all liability.")
           strs.push("If you do notice any  inaccuracy or inconsistency, please communicate this to the admiralty.")
@@ -102,12 +102,12 @@ createItem("encyclopedia", {
         for (const s of paras) {
           if (flag) {
             // @ts-expect-error ts-migrate(2339) FIXME: Property 'encyclopedia' does not exist on type '{}... Remove this comment to see the full error message
-            strs.push("<b>" + key + "</b> " + w.encyclopedia.expandRefs(s))
+            strs.push("<b>" + key + "</b> " + Quest.World.w.encyclopedia.expandRefs(s))
             flag = false
           }
           else {
             // @ts-expect-error ts-migrate(2339) FIXME: Property 'encyclopedia' does not exist on type '{}... Remove this comment to see the full error message
-            strs.push(w.encyclopedia.expandRefs(s))
+            strs.push(Quest.World.w.encyclopedia.expandRefs(s))
           }
         }
         Quest.IO.msgDiv(strs, {}, 'encyclopedia')
@@ -143,8 +143,8 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd("Encyclopedia", {
   ],
   script: function (objects: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'encyclopedia' does not exist on type '{}... Remove this comment to see the full error message
-    w.encyclopedia.askDiag(objects[0], true)
-    return world.SUCCESS
+    Quest.World.w.encyclopedia.askDiag(objects[0], true)
+    return Quest.World.world.SUCCESS
   },
 }))
 

@@ -93,7 +93,7 @@ What do you think Earth will be like when we get back?
 
 Quest.IO.msg("'Deploy a couple of geological probes,' you tell Kyle.");
 Quest.IO.msg("'Sure thing, mate!'");
-w.Kyle.agenda = ["walkTo:probes_aft:Kyle starts looking through the crates.", "deployProbe:geology", "walkTo:lab3"];
+Quest.World.w.Kyle.agenda = ["walkTo:probes_aft:Kyle starts looking through the crates.", "deployProbe:geology", "walkTo:lab3"];
 
 
 deployProbe takes a few turns

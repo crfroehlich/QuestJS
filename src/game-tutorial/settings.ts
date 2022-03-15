@@ -30,7 +30,7 @@ Quest.Settings.settings.afterSave = function (filename: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     tmsg("Okay, we were not going to do saving until later, but whatever...")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
-    w.me.alreadySaved = true
+    Quest.World.w.me.alreadySaved = true
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'before' does not exist on type '{}'.
   else if (hint.before('westRobot')) {
@@ -66,7 +66,7 @@ Quest.Settings.settings.setup = function () {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   tmsg("This is a simple introduction to text adventures; comments like this will lead you by the hand as you do most of the common things in a text adventures (you can toggle these comments on and off with the TUTORIAL command).")
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  tmsg("Text adventures are also known as interactive fiction, and there are numerous formats. This is about parser-based game, which is to say, a game where the user types commands, and the game attempts to parse the command, and update the game world accordingly.")
+  tmsg("Text adventures are also known as interactive fiction, and there are numerous formats. This is about parser-based game, which is to say, a game where the user types commands, and the game attempts to parse the command, and update the game Quest.World.world accordingly.")
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   tmsg("There is also a huge variety of parser-based games, but most start with some introductory text, as above, and then place the player in a starting location, so let's see where we are...")
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.

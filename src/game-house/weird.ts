@@ -17,12 +17,12 @@ register('weird', {
 // deathToBeNoted
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-createRoom("weird_room", {
+Quest.World.createRoom("weird_room", {
   alias: "A Weird Room",
   properNoun: true,
   windowsface: 'none',
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  south: new Exit("steam_control_room"),
+  south: new Quest.World.Exit("steam_control_room"),
   desc: "This is best described as blackness. And yet, if is not darkness, as Mandy can see a strange man here. And the control room to the south.",
   afterFirstEnter: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -30,9 +30,9 @@ createRoom("weird_room", {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg("'{smallcaps:A mere girl,}' says the house... No, says the {i:man}, Mandy tells herself. '{smallcaps:A mere girl thinks she can solve a riddle that has stumped poor Malewicz for over a century?}'")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Winfield_Malewicz' does not exist on typ... Remove this comment to see the full error message
-    if (w.Winfield_Malewicz.loc) {
+    if (Quest.World.w.Winfield_Malewicz.loc) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'Winfield_Malewicz' does not exist on typ... Remove this comment to see the full error message
-      w.Winfield_Malewicz.loc = this.name
+      Quest.World.w.Winfield_Malewicz.loc = this.name
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("'Over a century?' says Dr Malewicz, having followed Mandy. 'Can it really be that long?'")
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -77,16 +77,16 @@ createRoom("weird_room", {
   },
   afterEnter: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Winfield_Malewicz' does not exist on typ... Remove this comment to see the full error message
-    if (w.Winfield_Malewicz.loc === this.name || w.Winfield_Malewicz.dead) return
+    if (Quest.World.w.Winfield_Malewicz.loc === this.name || Quest.World.w.Winfield_Malewicz.dead) return
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Winfield_Malewicz' does not exist on typ... Remove this comment to see the full error message
-    w.Winfield_Malewicz.loc = this.name
+    Quest.World.w.Winfield_Malewicz.loc = this.name
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg("Dr Malewicz follows Mandy into the strange room.")
   },
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("house_man", Quest.NPC.NPC(), {
+Quest.World.createItem("house_man", Quest.NPC.NPC(), {
   loc: "weird_room",
   alias: 'house-man',
   talkCount: 0,
@@ -121,26 +121,26 @@ createItem("house_man", Quest.NPC.NPC(), {
   getAgreement: function () {
     this.talkCount++
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    return falsemsg("'{smallcaps:Uh-uh-uh,}' says the man. Or the house. '{smallcaps:Not until you answer my question. What direction?}'")
+    return Quest.IO.falsemsg("'{smallcaps:Uh-uh-uh,}' says the man. Or the house. '{smallcaps:Not until you answer my question. What direction?}'")
   },
   kill: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
-    if (w.chamber_pot.loc === player.name && w.chamber_pot.size > 4) {
+    if (Quest.World.w.chamber_pot.loc === Quest.World.player.name && Quest.World.w.chamber_pot.size > 4) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("{Fuck this,} thinks Mandy. She takes the chamber pot, and swings it at the house-man's head as hard as she can. And yet he is not there, and somehow never was. '{smallcaps:Not going to happen,}' he says. She takes a couple more swings, but they are equally ineffective.")
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'glass_shard' does not exist on type '{}'... Remove this comment to see the full error message
-    else if (w.glass_shard.loc === player.name) {
+    else if (Quest.World.w.glass_shard.loc === Quest.World.player.name) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("{Fuck this,} thinks Mandy. She takes the glass shard, and swings it at the house-man's neck, hoping he is more man than house. And yet he is not there, and somehow never was. '{smallcaps:Not going to happen,}' he says. She takes a couple more swings, but they are equally ineffective.")
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'crocodile_tooth' does not exist on type ... Remove this comment to see the full error message
-    else if (w.crocodile_tooth.loc === player.name) {
+    else if (Quest.World.w.crocodile_tooth.loc === Quest.World.player.name) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("{Fuck this,} thinks Mandy. She takes the crocodile tooth, and swings it at the house-man's neck, hoping he is more man than house. And that a tooth can be used as a weapon. Somehow he is not there, and never was. '{smallcaps:Not going to happen,}' he says. She takes a couple more swings, but they are equally ineffective.")
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
-    else if (w.chamber_pot.loc === player.name) {
+    else if (Quest.World.w.chamber_pot.loc === Quest.World.player.name) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("Mandy wishes the chamber pot was not so small; it might have made a good weapon... Not that a weapon would necessarily work against a house-man, of course.")
     }
@@ -158,9 +158,9 @@ createItem("house_man", Quest.NPC.NPC(), {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'{smallcaps:h-uh-uh,}' says the man. Or the house. '{smallcaps:Not until you answer my question. What direction?}'")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg(w.house_man.talkCount === 4 ? "'Yeah, okay, I get it,' mutters Mandy. 'You must be a whole barrel of laughs at a party.'" : "Mandy wonders what she should say.")
+        Quest.IO.msg(Quest.World.w.house_man.talkCount === 4 ? "'Yeah, okay, I get it,' mutters Mandy. 'You must be a whole barrel of laughs at a party.'" : "Mandy wonders what she should say.")
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'house_man' does not exist on type '{}'.
-        w.house_man.talkCount++
+        Quest.World.w.house_man.talkCount++
       }
     },
   ],

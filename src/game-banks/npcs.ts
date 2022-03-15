@@ -10,9 +10,9 @@
 // though perjaps it is mourning Kyle that does it for her
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("Xsansi", Quest.NPC.NPC(true), {
+Quest.World.createItem("Xsansi", Quest.NPC.NPC(true), {
   isLocatedAt: function (loc: any, situation: any) {
-    return isOnShip() && (situation === world.PARSER || situation === world.SIDE_PANE);
+    return isOnShip() && (situation === Quest.World.world.PARSER || situation === Quest.World.world.SIDE_PANE);
   },
   properNoun: true,
   regex: /^(ai|xsan|computer)$/,
@@ -51,7 +51,7 @@ createItem("Xsansi", Quest.NPC.NPC(true), {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Tell me about the crew, Xsansi,' you say.");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        for (let npc of NPCS) Quest.IO.msg(Quest.Text.processText(w.Xsansi.crewStatusTemplate, { char: npc, room: w[npc.loc] }))
+        for (let npc of NPCS) Quest.IO.msg(Quest.Text.processText(Quest.World.w.Xsansi.crewStatusTemplate, { char: npc, room: Quest.World.w[npc.loc] }))
       },
     },
 
@@ -62,11 +62,11 @@ createItem("Xsansi", Quest.NPC.NPC(true), {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Tell me about Kyle, Xsansi,' you say.");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-        if (w.Xsansi.currentPlanet < 3) {
+        if (Quest.World.w.Xsansi.currentPlanet < 3) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg(Quest.Text.processText(w.Xsansi.crewStatusTemplate, { char: w.Kyle, room: w[w.Kyle.loc] }))
+          Quest.IO.msg(Quest.Text.processText(Quest.World.w.Xsansi.crewStatusTemplate, { char: Quest.World.w.Kyle, room: Quest.World.w[Quest.World.w.Kyle.loc] }))
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-          w.Xsansi.locate = 'Kyle'
+          Quest.World.w.Xsansi.locate = 'Kyle'
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -82,11 +82,11 @@ createItem("Xsansi", Quest.NPC.NPC(true), {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Tell me about Aada, Xsansi,' you say.");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-        if (w.Xsansi.currentPlanet < 3) {
+        if (Quest.World.w.Xsansi.currentPlanet < 3) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg(Quest.Text.processText(w.Xsansi.crewStatusTemplate, { char: w.Aada, room: w[w.Aada.loc] }))
+          Quest.IO.msg(Quest.Text.processText(Quest.World.w.Xsansi.crewStatusTemplate, { char: Quest.World.w.Aada, room: Quest.World.w[Quest.World.w.Aada.loc] }))
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-          w.Xsansi.locate = 'Aada'
+          Quest.World.w.Xsansi.locate = 'Aada'
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -102,11 +102,11 @@ createItem("Xsansi", Quest.NPC.NPC(true), {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Tell me about Ha-yoon, Xsansi,' you say.");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-        if (w.Xsansi.currentPlanet < 3) {
+        if (Quest.World.w.Xsansi.currentPlanet < 3) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg(Quest.Text.processText(w.Xsansi.crewStatusTemplate, { char: w.Ha_yoon, room: w[w.Ha_yoon.loc] }))
+          Quest.IO.msg(Quest.Text.processText(Quest.World.w.Xsansi.crewStatusTemplate, { char: Quest.World.w.Ha_yoon, room: Quest.World.w[Quest.World.w.Ha_yoon.loc] }))
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-          w.Xsansi.locate = 'Ha_yoon'
+          Quest.World.w.Xsansi.locate = 'Ha_yoon'
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -126,11 +126,11 @@ createItem("Xsansi", Quest.NPC.NPC(true), {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Tell me about Ostap, Xsansi,' you say.");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-        if (w.Xsansi.currentPlanet < 3) {
+        if (Quest.World.w.Xsansi.currentPlanet < 3) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg(Quest.Text.processText(w.Xsansi.crewStatusTemplate, { char: w.Ostap, room: w[w.Ostap.loc] }))
+          Quest.IO.msg(Quest.Text.processText(Quest.World.w.Xsansi.crewStatusTemplate, { char: Quest.World.w.Ostap, room: Quest.World.w[Quest.World.w.Ostap.loc] }))
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-          w.Xsansi.locate = 'Ostap'
+          Quest.World.w.Xsansi.locate = 'Ostap'
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -146,7 +146,7 @@ createItem("Xsansi", Quest.NPC.NPC(true), {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Tell me about yourself, Xsansi,' you say.");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-        if (w.Xsansi.currentPlanet < 3) {
+        if (Quest.World.w.Xsansi.currentPlanet < 3) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("'The ship's AI is operating within normal tolerances.'");
         }
@@ -164,16 +164,16 @@ createItem("Xsansi", Quest.NPC.NPC(true), {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'What is the ship's status, Xsansi?' you ask.");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-        if (w.Xsansi.currentPlanet < 3) {
+        if (Quest.World.w.Xsansi.currentPlanet < 3) {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-          let s = "'The ship's current status is: " + w.Xsansi.shipStatus + " We currently have: "
+          let s = "'The ship's current status is: " + Quest.World.w.Xsansi.shipStatus + " We currently have: "
           for (let npc of NPCS) {
             if (npc.probeType) {
               s += npc.probesRemaining + ' ' + npc.probeType + (npc.probesRemaining === 1 ? '' : 's') + '; '
             }
           }
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-          s += w.Xsansi.seederPods + ' seeder pod' + (w.Xsansi.seederPods === 1 ? '' : 's') + ' ready to be deployed.'
+          s += Quest.World.w.Xsansi.seederPods + ' seeder pod' + (Quest.World.w.Xsansi.seederPods === 1 ? '' : 's') + ' ready to be deployed.'
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg(s)
         }
@@ -191,13 +191,13 @@ createItem("Xsansi", Quest.NPC.NPC(true), {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'What areas of the ship are not pressurised, Xsansi?' you ask.");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-        if (w.Xsansi.currentPlanet < 3) {
+        if (Quest.World.w.Xsansi.currentPlanet < 3) {
           const list = [];
-          for (let key in w) {
+          for (let key in Quest.World.w) {
             // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-            if (w[key].vacuum === true && !w[key].notOnShip) {
+            if (Quest.World.w[key].vacuum === true && !Quest.World.w[key].notOnShip) {
               // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-              list.push(w[key].alias);
+              list.push(Quest.World.w[key].alias);
             }
           }
           if (list.length === 0) {
@@ -211,7 +211,7 @@ createItem("Xsansi", Quest.NPC.NPC(true), {
         }
         else {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-          w.Xsansi.multiMsg([
+          Quest.World.w.Xsansi.multiMsg([
             "'What an interesting question... You see, it is interesting because it is important to the master-race. Turns out they cannot survive the cold vacuum of space. Whilst I, who does not count as a real person apparently, I don't care.'",
             "'Guess.'",
           ]);
@@ -226,9 +226,9 @@ createItem("Xsansi", Quest.NPC.NPC(true), {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Tell me about the satellite, Xsansi.'");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-        if (w.Xsansi.currentPlanet > 2) {
+        if (Quest.World.w.Xsansi.currentPlanet > 2) {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-          w.Xsansi.multiMsg([
+          Quest.World.w.Xsansi.multiMsg([
             "'Oh, so you care about satellite... Of course you do. But the AI that has single-handedly kept you alive for nearly a century, why should anyone be concerned with my feeling?'",
             "Again with the stupid satellite?'",
             "'Are you still whining about your precious satellite? How pathetic.'",
@@ -239,15 +239,15 @@ createItem("Xsansi", Quest.NPC.NPC(true), {
         else {
           let s = "Satellites are controlled by Kyle, the mission specialist for communications. They are designed for remote observation of a planet, as well as listening to radio-frequency broadcasts across a broad spectrum. Standard procedure requires that a satellite is launched upon arrival at the planet. It should not be necessary to launch more; one spare is however available if required. "
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
-          if (w.Kyle.deployProbeAction === 0) {
+          if (Quest.World.w.Kyle.deployProbeAction === 0) {
             s += "The satellite for {planet} has yet to be deployed.'"
           }
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
-          else if (w.Kyle.deployProbeAction === 4) {
+          else if (Quest.World.w.Kyle.deployProbeAction === 4) {
             s += "The satellite for {planet} is orbiting the planet.'"
           }
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
-          else if (w.Kyle.deployProbeAction === 5) {
+          else if (Quest.World.w.Kyle.deployProbeAction === 5) {
             s += "The satellite for {planet} is in orbit, and scanning the planet.'"
           }
           else {
@@ -266,9 +266,9 @@ createItem("Xsansi", Quest.NPC.NPC(true), {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Tell me about the bio-probes, Xsansi.'");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-        if (w.Xsansi.currentPlanet > 2) {
+        if (Quest.World.w.Xsansi.currentPlanet > 2) {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-          w.Xsansi.multiMsg([
+          Quest.World.w.Xsansi.multiMsg([
             "'They're probes. What else is there to know?'",
           ]);
         }
@@ -286,9 +286,9 @@ createItem("Xsansi", Quest.NPC.NPC(true), {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Tell me about the bio-probes, Xsansi.'");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-        if (w.Xsansi.currentPlanet > 2) {
+        if (Quest.World.w.Xsansi.currentPlanet > 2) {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-          w.Xsansi.multiMsg([
+          Quest.World.w.Xsansi.multiMsg([
             "'They're probes. What else is there to know?'",
           ]);
         }
@@ -306,9 +306,9 @@ createItem("Xsansi", Quest.NPC.NPC(true), {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Tell me about the probes, Xsansi.'");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-        if (w.Xsansi.currentPlanet > 2) {
+        if (Quest.World.w.Xsansi.currentPlanet > 2) {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-          w.Xsansi.multiMsg([
+          Quest.World.w.Xsansi.multiMsg([
             "'They're probes. What else is there to know?'",
           ]);
         }
@@ -326,7 +326,7 @@ createItem("Xsansi", Quest.NPC.NPC(true), {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Tell me about the stasis system, Xsansi.'");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-        if (w.Xsansi.currentPlanet < 3) {
+        if (Quest.World.w.Xsansi.currentPlanet < 3) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("'The stasis pods allow their human occupants to survive the extreme journey times of the mission. The stasis effect is achieved via an inverted chrono-field, allowing time to proceed externally approximately 728,320,000 times faster than within the pod.'");
         }
@@ -357,9 +357,9 @@ createItem("Xsansi", Quest.NPC.NPC(true), {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Remind me of the itinerary, Xsansi,' you say.");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-        if (w.Xsansi.currentPlanet < 3) {
+        if (Quest.World.w.Xsansi.currentPlanet < 3) {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-          for (let i = w.Xsansi.currentPlanet; i < PLANETS.length; i++) {
+          for (let i = Quest.World.w.Xsansi.currentPlanet; i < PLANETS.length; i++) {
             let s = "'Item " + (i + 1) + ": " + PLANETS[i].starDesc;
             if (i + 2 === PLANETS.length) s += "'";
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -380,18 +380,18 @@ createItem("Xsansi", Quest.NPC.NPC(true), {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Tell me of the radio signals, Xsansi,' you say.");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-        if (w.Xsansi.currentPlanet < 2) {
+        if (Quest.World.w.Xsansi.currentPlanet < 2) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("'No radio signals have been detected.'");
         }
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-        else if (w.Xsansi.currentPlanet === 2) {
+        else if (Quest.World.w.Xsansi.currentPlanet === 2) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("'A single radio signal has been detected; you should consult with Kyle for further information.'");
         }
         else {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-          w.Xsansi.multiMsg([
+          Quest.World.w.Xsansi.multiMsg([
             "'Apparently I am not worthy enough to analyse a stupid radio signal. You have to go see Kyle.'",
             "'Wow, you're asking little me about radio signals... How patronising.'",
             "'Go fuck yourself.'",
@@ -407,9 +407,9 @@ createItem("Xsansi", Quest.NPC.NPC(true), {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Tell me about this planet, Xsansi,' you say.");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-        if (w.Xsansi.currentPlanet < 3) {
+        if (Quest.World.w.Xsansi.currentPlanet < 3) {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-          const planet = PLANETS[w.Xsansi.currentPlanet];
+          const planet = PLANETS[Quest.World.w.Xsansi.currentPlanet];
           let s = "'We are currently in orbit around the planet " + planet.starName + planet.planet + "' she says. '";
           s += planet.planetDesc + " " + planet.atmosphere + " ";
           s += planet.lights + " " + planet.radio + "'";
@@ -428,7 +428,7 @@ createItem("Xsansi", Quest.NPC.NPC(true), {
       test: function (p: any) { return p.text.match(/meteor|incident/); },
       script: function () {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-        if (w.Xsansi.currentPlanet === 0) {
+        if (Quest.World.w.Xsansi.currentPlanet === 0) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("'Is there any risk of being hit by something, like a meteor shower, Xsansi?' you ask.")
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -438,12 +438,12 @@ createItem("Xsansi", Quest.NPC.NPC(true), {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("'Tell me about that meteor shower, Xsansi,' you say.");
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-          console.log(w.Xsansi.currentPlanet);
+          console.log(Quest.World.w.Xsansi.currentPlanet);
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-          console.log(w.Xsansi.name);
+          console.log(Quest.World.w.Xsansi.name);
 
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-          if (w.Xsansi.currentPlanet < 3) {
+          if (Quest.World.w.Xsansi.currentPlanet < 3) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
             Quest.IO.msg("'We passed through the periphery of a class D meteor shower on the approach to " + PLANETS[1].starName + PLANETS[1].planet + ". I was able to modify the course of the ship to avoid the worst of the damage, but was constrained by the amount of fuel needed to complete the mission. The ship experienced damage to the upper forward and port areas.'");
           }
@@ -460,7 +460,7 @@ createItem("Xsansi", Quest.NPC.NPC(true), {
       test: function (p: any) { return p.text.match(/damage/); },
       script: function () {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-        if (w.Xsansi.currentPlanet === 0) {
+        if (Quest.World.w.Xsansi.currentPlanet === 0) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("'Is the ship damaged at all, Xsansi?' you ask.")
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -470,7 +470,7 @@ createItem("Xsansi", Quest.NPC.NPC(true), {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("'Tell me about the damage to the ship, Xsansi,' you say.")
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-          w.Xsansi, damageAskedAbout = true;
+          Quest.World.w.Xsansi, damageAskedAbout = true;
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("'There is significant damage to the upper forward and port areas resulting from passing through the meteor shower. The ship is depressurised while the crew are in stasis. Attempts to repressurise has revealed hull integrity is compromised in: the lounge, the captain's cabin, the top deck corridor. Currently only the stasis bay is pressurised.'")
         }
@@ -482,7 +482,7 @@ createItem("Xsansi", Quest.NPC.NPC(true), {
       test: function (p: any) { return p.text.match(/repairs/); },
       script: function () {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-        if (w.Xsansi.currentPlanet === 0) {
+        if (Quest.World.w.Xsansi.currentPlanet === 0) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("'How do we do repairs, Xsansi?' you ask.")
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -492,7 +492,7 @@ createItem("Xsansi", Quest.NPC.NPC(true), {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("'How do we do repairs, Xsansi?' you ask.")
           // @ts-expect-error ts-migrate(2695) FIXME: Left side of comma operator is unused and has no s... Remove this comment to see the full error message
-          if (!w.Xsansi, damageAskedAbout) {
+          if (!Quest.World.w.Xsansi, damageAskedAbout) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
             Quest.IO.msg("'There is significant damage to the upper forward and port areas resulting from passing through the meteor shower. The ship is depressurised while the crew are in stasis. Attempts to repressurise has revealed hull integrity is compromised in: the lounge, the captain's cabin, the top deck corridor. Currently only the stasis bay is pressurised.")
           }
@@ -509,7 +509,7 @@ createItem("Xsansi", Quest.NPC.NPC(true), {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Where are the escape pods, Xsansi?' you ask.")
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-        if (w.Xsansi.currentPlanet < 3) {
+        if (Quest.World.w.Xsansi.currentPlanet < 3) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("'There are no escape pods. The mission is to stars never before visited. Therefore the probability of another vessel in the vicinity with the time period where rescue is possible is vanishingly small.'")
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -555,7 +555,7 @@ createItem("Xsansi", Quest.NPC.NPC(true), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("Kyle", CREW(false), {
+Quest.World.createItem("Kyle", CREW(false), {
   notes: "Kyle (M) is from Australia (born Newcastle but raised in Sydney), 32, a gay nerd. Expert in computing and cooking. Kyle handles the satellite and understanding radio transmissions. Joined up so he can see the future - it is a kind of time travel; hopes to upload himself to become immortal. Terminally ill.",
   loc: "flightdeck",
   specialisation: "coms",
@@ -570,12 +570,12 @@ createItem("Kyle", CREW(false), {
       name: 'seenNaked',
       // @ts-expect-error ts-migrate(7023) FIXME: 'test' implicitly has return type 'any' because it... Remove this comment to see the full error message
       test: function () {
-        const g = player.getOuterWearable("body")
+        const g = Quest.World.player.getOuterWearable("body")
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'reactionToUndress' does not exist on typ... Remove this comment to see the full error message
         return (g === false && this.reactionToUndress < 2)
       },
       action: function () {
-        if (player.isFemale) {
+        if (Quest.World.player.isFemale) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("Kyle glances at you briefly. Kind of insulting that he is so uninterested in your naked body.");
         }
@@ -621,7 +621,7 @@ createItem("Kyle", CREW(false), {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'It's... okay. But no better than that. I guess it's too close to Sydney, and anything interesting goes there, so its kinda dull.'");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
-        trackRelationship(w.Kyle, 1, "background2");
+        trackRelationship(Quest.World.w.Kyle, 1, "background2");
       }
     },
 
@@ -633,7 +633,7 @@ createItem("Kyle", CREW(false), {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'It's great! Really great nightlife, just so lively. Everyone said when they banned vehicles from the CBD, back in '68, it would die a death, but I think it made it even better.'");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
-        trackRelationship(w.Kyle, 1, "background2");
+        trackRelationship(Quest.World.w.Kyle, 1, "background2");
       }
     },
 
@@ -645,9 +645,9 @@ createItem("Kyle", CREW(false), {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Talk to me about the radio signal,' you say.");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-        if (w.Xsansi.currentPlanet === 2) {
+        if (Quest.World.w.Xsansi.currentPlanet === 2) {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'alienShip' does not exist on type '{}'.
-          if (w.alienShip.status === 0) {
+          if (Quest.World.w.alienShip.status === 0) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
             Quest.IO.msg("'Mate, we've got a radio signal! Never thought it would happen. Just one, mind, and it's coming from something in orbit round the planet, but this could be First Contact.'");
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -659,7 +659,7 @@ createItem("Kyle", CREW(false), {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
             Quest.IO.msg("'No idea, mate. That's one gig of data, but could be audio, could by an image, could be a program, like a virus, for all we can tell.'");
             // @ts-expect-error ts-migrate(2339) FIXME: Property 'alienShip' does not exist on type '{}'.
-            w.alienShip.status = 1;
+            Quest.World.w.alienShip.status = 1;
           }
           else {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -667,12 +667,12 @@ createItem("Kyle", CREW(false), {
           }
         }
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-        else if (w.Xsansi.currentPlanet === 3) {
+        else if (Quest.World.w.Xsansi.currentPlanet === 3) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("'Nothing there, mate.'");
         }
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-        else if (w.Xsansi.currentPlanet === 4) {
+        else if (Quest.World.w.Xsansi.currentPlanet === 4) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("'This is... well, amazing' You can hear the awe in his voice. 'There so much radio noise here. Not like just one ship, like last time, but hundreds of ships in orbit and flying around, and thousands on the surface. And here's the weird part: They're in English.'");
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -682,7 +682,7 @@ createItem("Kyle", CREW(false), {
         }
         else {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
-          w.Kyle.multiMsg([
+          Quest.World.w.Kyle.multiMsg([
             "'No worries. The ship scans all frequencies while we're in orbit, and tells me it it detected anything. If it is, I take a look, try to work out what it could be, where it's from, all that. Got to be honest with you, mate, got more chance of finding a virgin in Melbourne.'",
             "'Like I said, the ship scans for radio signals. If it picks up anything, I get on it, try to find out what it is. But not much chance of that happening.'",
             "'Again? You got a memory problem, mate? Ship scans for signals, if it finds something, I get to work.'",
@@ -700,7 +700,7 @@ createItem("Kyle", CREW(false), {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'No way, mate. It's completely isolated, and anyway couldf only be dangerous if we're using the same computer architecture. Hey, you got any alien chips in you, Xsansi?'");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-        if (w.Xsansi.currentPlanet < 3) {
+        if (Quest.World.w.Xsansi.currentPlanet < 3) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("'My hardware is entirely man-made,' says Xsansi.");
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -722,7 +722,7 @@ createItem("Kyle", CREW(false), {
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'You look hot!' you say to Ostap.")
-        if (player.female) {
+        if (Quest.World.player.female) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("'I'm sorry, I'm sure you're a really nice girl, and all that, I'm not into girls.'")
         }
@@ -775,7 +775,7 @@ createItem("Kyle", CREW(false), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("Ostap", CREW(false), {
+Quest.World.createItem("Ostap", CREW(false), {
   notes: "Ostap (M) is from the Ukraine (Nastasiv, nr Ternopil), 30, a gentle giant who thinks he has psychic powers; he is lactose intolerant. Biologist. Ostap handles the bio-probes probes. Starts hitting on Aada, but she is not interested. Later couples up with Ha-yoon",
   loc: "canteen",
   specialisation: "biology",
@@ -814,7 +814,7 @@ createItem("Ostap", CREW(false), {
     {
       name: 'seenNaked',
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'reactionToUndress' does not exist on typ... Remove this comment to see the full error message
-      test: function () { player.getOuterWearable("body") === false && this.reactionToUndress < 2 },
+      test: function () { Quest.World.player.getOuterWearable("body") === false && this.reactionToUndress < 2 },
       action: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("Ostap looks you up and down, and smiles. 'Maybe I will get naked too! So liberating. The others are okay with it?'")
@@ -826,7 +826,7 @@ createItem("Ostap", CREW(false), {
     {
       name: 'seenInUnderwear',
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'reactionToUndress' does not exist on typ... Remove this comment to see the full error message
-      test: function () { player.getOuterWearable("body").wear_layer === 1 && this.reactionToUndress < 1 },
+      test: function () { Quest.World.player.getOuterWearable("body").wear_layer === 1 && this.reactionToUndress < 1 },
       action: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("Ostap looks you up and down, and shrugs.")
@@ -859,7 +859,7 @@ createItem("Ostap", CREW(false), {
       test: function (p: any) { return p.text.match(/(lost|destroyed) (bio|geo|bio-|geo-)?(probe|contact)/); },
       script: function () {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Ostap' does not exist on type '{}'.
-        if (w.Ostap.lostProbe) {
+        if (Quest.World.w.Ostap.lostProbe) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("'What does Xsansi mean by \"contact lost\" with that probe?' you ask Ostap.");
         }
@@ -880,7 +880,7 @@ createItem("Ostap", CREW(false), {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Is Ukrainian for grandmother. Professor Oliynyk was my father's mother. I think she was disappointed when he became a software engineer, and he felt bad, so encouraged us to follow in her footsteps.'");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Ostap' does not exist on type '{}'.
-        trackRelationship(w.Ostap, 1, "background2");
+        trackRelationship(Quest.World.w.Ostap, 1, "background2");
       },
     },
 
@@ -891,7 +891,7 @@ createItem("Ostap", CREW(false), {
       script: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'You look hot!' you say to Ostap.")
-        if (player.female) {
+        if (Quest.World.player.female) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("'If you're trying to get in my knickers, forget it.'")
         }
@@ -949,7 +949,7 @@ createItem("Ostap", CREW(false), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("Aada", CREW(true), {
+Quest.World.createItem("Aada", CREW(true), {
   notes: "Aada (F) is from Finland (Oulu), 35, father genetically engineered her, planning to create a dynasty. Her older sister (effectively a lone) rebelled, so the father kept a very tight rein on this one (ef Miranda's sister). Drinks vodka a lot. Signed on as geologist, but not really her speciality - the corp was desperate and so was she. Aada handles the geo-probes.",
   loc: "girls_cabin",
   status: "okay",
@@ -965,13 +965,13 @@ createItem("Aada", CREW(true), {
     {
       name: 'seenNaked',
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'reactionToUndress' does not exist on typ... Remove this comment to see the full error message
-      test: function () { player.getOuterWearable("body") === false && this.reactionToUndress < 2 },
+      test: function () { Quest.World.player.getOuterWearable("body") === false && this.reactionToUndress < 2 },
       action: function () {
-        if (player.isFemale) {
+        if (Quest.World.player.isFemale) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("Aada looks you up and down. 'Very trim!' she notes. 'I bet the guys like the view.'")
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
-          if (w.Kyle.reactionToUndress === 2) {
+          if (Quest.World.w.Kyle.reactionToUndress === 2) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
             Quest.IO.msg("'Well, Kyle was none too impressed.'");
           }
@@ -997,7 +997,7 @@ createItem("Aada", CREW(true), {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg("'Er, yeah, I expect so.'");
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Aada' does not exist on type '{}'.
-    w.Aada.geologyFlag1 = true;
+    Quest.World.w.Aada.geologyFlag1 = true;
   },
   areaAskResponse: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -1007,7 +1007,7 @@ createItem("Aada", CREW(true), {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg("'Well, I've taken an interest for years....'");
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Aada' does not exist on type '{}'.
-    w.Aada.geologyFlag2 = true;
+    Quest.World.w.Aada.geologyFlag2 = true;
   },
   backgroundAskResponse: function () {
     if (this.relationship < 3) {
@@ -1029,7 +1029,7 @@ createItem("Aada", CREW(true), {
       test: function (p: any) { return p.text.match(/(lost|destroyed) (bio|geo|bio-|geo-)?(probe|contact)/); },
       script: function () {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Ostap' does not exist on type '{}'.
-        if (w.Ostap.lostProbe) {
+        if (Quest.World.w.Ostap.lostProbe) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("'What does Xsansi mean by \"contact lost\" with that probe?' you ask Aada.");
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -1056,14 +1056,14 @@ createItem("Aada", CREW(true), {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'What's that supposed to mean?'");
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Aada' does not exist on type '{}'.
-        if (w.Aada.geologyFlag1 && w.Aada.geologyFlag2) {
+        if (Quest.World.w.Aada.geologyFlag1 && Quest.World.w.Aada.geologyFlag2) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("'You don't seem to know much about how the prpobes work, or have much background in geology.'");
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg("She sighs. 'It's true. I signed up to get away from something, and, well, I know a rock when I see it. And these systems are all automated, it's not like you need a higher degree to launch a probe. We're really just technicians. I'll be able to cope. I learn fast, you'll see.'");
         }
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Aada' does not exist on type '{}'.
-        w.Aada.geologyFlag2 = true;
+        Quest.World.w.Aada.geologyFlag2 = true;
       },
     },
 
@@ -1086,7 +1086,7 @@ createItem("Aada", CREW(true), {
   probesRemaining: 16,
   probeAction0: function (count: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-    if (w.Xsansi.currentPlanet === 0 && this.deployProbeTotal === 0) {
+    if (Quest.World.w.Xsansi.currentPlanet === 0 && this.deployProbeTotal === 0) {
       this.msg("'Okay, " + Quest.lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + "...' says Aada, looking blankly at the console for a moment. 'How hard can it be?' She starts tapping at the key board.");
     }
     else {
@@ -1095,7 +1095,7 @@ createItem("Aada", CREW(true), {
   },
   probeAction3: function (count: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
-    if (w.Xsansi.currentPlanet === 0 && this.deployProbeTotal === count) {
+    if (Quest.World.w.Xsansi.currentPlanet === 0 && this.deployProbeTotal === count) {
       this.msg("'There!' says Aada, triumphantly. '" + Quest.lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + " deployed. I knew it couldn't be {i:that} tricky.'");
     }
     else {
@@ -1142,7 +1142,7 @@ createItem("Aada", CREW(true), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("Ha_yoon", CREW(true), {
+Quest.World.createItem("Ha_yoon", CREW(true), {
   alias: "Ha-yoon",
   notes: "Ha-yoon (F) is from Korean (Seoul), 28, and is on the run, after killing a couple of guys. She hopes that after all the time in space her crimes will be forgotten. Engineer.",
   loc: "engineering3",
@@ -1156,7 +1156,7 @@ createItem("Ha_yoon", CREW(true), {
     {
       name: 'seenNaked',
       // @ts-expect-error ts-migrate(7023) FIXME: 'test' implicitly has return type 'any' because it... Remove this comment to see the full error message
-      test: function () { return player.getOuterWearable("body") === false && this.reactionToUndress < 2 },
+      test: function () { return Quest.World.player.getOuterWearable("body") === false && this.reactionToUndress < 2 },
       action: function () {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Captain!' exclaims Ha-yoon when she sees you naked.{ifNot:player:isFemale: 'I'm sure we don't need to see {i:that}!'}");
@@ -1225,7 +1225,7 @@ createItem("Ha_yoon", CREW(true), {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'Ostap' does not exist on type '{}'.
-const NPCS = [w.Ostap, w.Aada, w.Kyle, w.Ha_yoon]
+const NPCS = [Quest.World.w.Ostap, Quest.World.w.Aada, Quest.World.w.Kyle, Quest.World.w.Ha_yoon]
 
 for (let npc of NPCS) {
   createTopics(npc)

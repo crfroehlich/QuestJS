@@ -53,7 +53,7 @@ Quest.Settings.settings.roomTemplate = [
   "#{cap:{hereName}}",
   "{terse:{hereDesc}}",
   "{objectsHere:She can see {objects} here.}",
-  "{ifNot:settings:playMode:play:{ifExists:currentLocation:todo:{class:todo:{show:currentLocation:todo}}}}",
+  "{ifNot:settings:playMode:play:{ifExists:Quest.World.currentLocation:todo:{class:todo:{show:Quest.World.currentLocation:todo}}}}",
 ]
 
 // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'never'.
@@ -75,7 +75,7 @@ Quest.Settings.settings.afterLoad = function () {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'customNoExitMsg' does not exist on type ... Remove this comment to see the full error message
 Quest.Settings.settings.customNoExitMsg = function (char: any, dir: any) {
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  const list = w[player.loc].getExitDirs({ excludeLocked: true, excludeScenery: true, excludeAlsoDir: true })
+  const list = Quest.World.w[Quest.World.player.loc].getExitDirs({ excludeLocked: true, excludeScenery: true, excludeAlsoDir: true })
   if (list.length === 1) return "She cannot go " + dir + ". Looks like the only exit is back " + list[0] + "."
   const listString = Quest.Utilities.formatList(list, { lastJoiner: Quest.lang.list_or, nothing: Quest.lang.list_nowhere })
   return "She cannot go " + dir + " - the exits she can see are " + listString + "."
@@ -100,7 +100,7 @@ Quest.Settings.settings.blurb = [
   'The house at the top of Highfield Lane has always scared Mandy, though she could never say why exactly. Perhaps today is the day she should confront that fear!',
   'I started writing this in 2012-13, and to be honest bits of it were more relevant back then. Like why has Mandy not got a mask in her bag? For the record, then, this is set in 2016.',
   'There are a couple of riddles... The first is for Mandy to solve, the second for you. YOU may know the answer to the first, and if you do not you can easily Google it. Good for you. The riddle is for Mandy, and to solve it you need to find a way for HER to look it up. The second riddle, however, is for YOU, and you need to connect the numerous -- if obscure -- clues throughout the game to solve it and complete the game.',
-  'While every item is there for a reason, some of them are just to help create a world, and not because you need to use them to progress, such as the items in your inventory at the start, maybe?',
+  'While every item is there for a reason, some of them are just to help create a Quest.World.world, and not because you need to use them to progress, such as the items in your inventory at the start, maybe?',
   'WARNING: There is occasional swearing, including the F-word.',
 ]
 
@@ -110,7 +110,7 @@ Quest.Settings.settings.finishMetaComment = "Congratulations on completing \"The
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'setup' does not exist on type '{ perform... Remove this comment to see the full error message
 Quest.Settings.settings.setup = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'shakespeare_book' does not exist on type... Remove this comment to see the full error message
-  for (const s in w.shakespeare_book.names) w.shakespeare_book.synonyms.push(w.shakespeare_book.names[s])
+  for (const s in Quest.World.w.shakespeare_book.names) Quest.World.w.shakespeare_book.synonyms.push(Quest.World.w.shakespeare_book.names[s])
   //Quest.IO.io.transcript = true
 }
 

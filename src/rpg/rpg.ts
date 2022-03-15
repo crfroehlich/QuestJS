@@ -32,9 +32,9 @@ Quest.Settings.settings.output = function (reportTexts: any) {
 
 // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '() => void' is not assignable to... Remove this comment to see the full error message
 Quest.Settings.settings.afterTurn.push(function () {
-  for (const key in w) {
+  for (const key in Quest.World.w) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    const obj = w[key]
+    const obj = Quest.World.w[key]
 
 
 
@@ -64,31 +64,31 @@ Quest.Settings.settings.afterTurn.push(function () {
 
   // Determine lighting and fog/smoke in room
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'dark' does not exist on type '{ turnCoun... Remove this comment to see the full error message
-  currentLocation.rpgLighting = game.dark ? rpg.DARK : rpg.LIGHT
-  if (!currentLocation.rpgFog) currentLocation.rpgFog = 0
-  let targetFog = currentLocation.defaultFog ? currentLocation.defaultFog : 0
-  if (currentLocation.activeEffects) {
-    for (const effectName of currentLocation.activeEffects) {
+  Quest.World.currentLocation.rpgLighting = Quest.World.game.dark ? rpg.DARK : rpg.LIGHT
+  if (!Quest.World.currentLocation.rpgFog) Quest.World.currentLocation.rpgFog = 0
+  let targetFog = Quest.World.currentLocation.defaultFog ? Quest.World.currentLocation.defaultFog : 0
+  if (Quest.World.currentLocation.activeEffects) {
+    for (const effectName of Quest.World.currentLocation.activeEffects) {
       const effect = rpg.findEffect(effectName)
       // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
       if (effect.fogEffect) targetFog *= effect.fogEffect
       // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
       if (effect.lightEffect) {
         // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
-        if (effect.lightEffect === rpg.UTTERLIGHT) currentLocation.rpgLighting = rpg.UTTERLIGHT
+        if (effect.lightEffect === rpg.UTTERLIGHT) Quest.World.currentLocation.rpgLighting = rpg.UTTERLIGHT
         // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
-        if (effect.lightEffect === rpg.UTTERDARK && currentLocation.rpgLighting !== rpg.UTTERLIGHT) currentLocation.rpgLighting = rpg.UTTERDARK
+        if (effect.lightEffect === rpg.UTTERDARK && Quest.World.currentLocation.rpgLighting !== rpg.UTTERLIGHT) Quest.World.currentLocation.rpgLighting = rpg.UTTERDARK
         // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
-        if (effect.lightEffect === rpg.LIGHT && currentLocation.rpgLighting !== rpg.UTTERLIGHT && currentLocation.rpgLighting !== rpg.UTTERDARK) currentLocation.rpgLighting = rpg.DARK
+        if (effect.lightEffect === rpg.LIGHT && Quest.World.currentLocation.rpgLighting !== rpg.UTTERLIGHT && Quest.World.currentLocation.rpgLighting !== rpg.UTTERDARK) Quest.World.currentLocation.rpgLighting = rpg.DARK
         // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
-        if (effect.lightEffect === rpg.LIGHT && currentLocation.rpgLighting !== rpg.UTTERLIGHT && currentLocation.rpgLighting !== rpg.UTTERDARK && currentLocation.rpgLighting !== rpg.LIGHT) currentLocation.rpgLighting = rpg.DARK
+        if (effect.lightEffect === rpg.LIGHT && Quest.World.currentLocation.rpgLighting !== rpg.UTTERLIGHT && Quest.World.currentLocation.rpgLighting !== rpg.UTTERDARK && Quest.World.currentLocation.rpgLighting !== rpg.LIGHT) Quest.World.currentLocation.rpgLighting = rpg.DARK
       }
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'dark' does not exist on type '{ turnCoun... Remove this comment to see the full error message
-    game.dark = (currentLocation.rpgLighting === rpg.UTTERDARK || currentLocation.rpgLighting === rpg.DARK) // !!! This could have bad consequences!
+    Quest.World.game.dark = (Quest.World.currentLocation.rpgLighting === rpg.UTTERDARK || Quest.World.currentLocation.rpgLighting === rpg.DARK) // !!! This could have bad consequences!
   }
-  if (targetFog > currentLocation.rpgFog) currentLocation.rpgFog++
-  if (targetFog < currentLocation.rpgFog) currentLocation.rpgFog--
+  if (targetFog > Quest.World.currentLocation.rpgFog) Quest.World.currentLocation.rpgFog++
+  if (targetFog < Quest.World.currentLocation.rpgFog) Quest.World.currentLocation.rpgFog--
 
 })
 
@@ -177,9 +177,9 @@ const rpg = {
   defaultSpellAfterUse: function (attack: any, count: any) { },
 
   broadcast: function (group: any, message: any, source: any, other: any) {
-    for (const key in w) {
+    for (const key in Quest.World.w) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      const o = w[key]
+      const o = Quest.World.w[key]
       if (o.signalGroups && o.signalGroups.includes(group)) {
         rpg.broadcastCommunication(o, message, source, other)
       }
@@ -187,9 +187,9 @@ const rpg = {
   },
   broadcastAll: function (message: any, source: any, other: any) {
     log(source.name)
-    for (const key in w) {
+    for (const key in Quest.World.w) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      const o = w[key]
+      const o = Quest.World.w[key]
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'intersection' does not exist on type '{}... Remove this comment to see the full error message
       if (o.signalGroups && source.signalGroups && Quest.Utilities.array.intersection(o.signalGroups, source.signalGroups).length) {
         log(o.name)
@@ -222,7 +222,7 @@ const rpg = {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'aggressive' does not exist on type '{ li... Remove this comment to see the full error message
     this.aggressive = true
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'target' does not exist on type '{ list: ... Remove this comment to see the full error message
-    this.target = target ? target.name : player.name
+    this.target = target ? target.name : Quest.World.player.name
   },
 
 
@@ -257,7 +257,7 @@ const rpg = {
 
   pursueToAttack: function (target: any) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    const exit = w[this.loc].findExit(target.loc)
+    const exit = Quest.World.w[this.loc].findExit(target.loc)
     if (!exit) return false  // not in adjacent room, so give up
     // may want to check NPC can use that exit
 
@@ -281,20 +281,20 @@ const rpg = {
 
   teleport: function (char: any, loc: any) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    const oldLocation = w[char.loc]
+    const oldLocation = Quest.World.w[char.loc]
     char.loc = loc
 
-    if (char === player) {
-      world.update()
+    if (char === Quest.World.player) {
+      Quest.World.world.update()
       // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-      world.enterRoom(new Exit(loc, { origin: oldLocation, dir: 'teleport', msg: Quest.lang.teleport }))
+      Quest.World.world.enterRoom(new Quest.World.Exit(loc, { origin: oldLocation, dir: 'teleport', msg: Quest.lang.teleport }))
     }
   },
 
   destroy: function (obj: any) {
     if (obj.clonePrototype) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      delete w[obj.name]
+      delete Quest.World.w[obj.name]
     }
     else {
       delete obj.loc
@@ -374,7 +374,7 @@ Quest.Utilities.util.defaultExitUse = function (char: any, exit: any) {
   }
 
   if (exit.isLocked()) {
-    return falsemsg(exit.lockedmsg ? exit.lockedmsg : Quest.lang.locked_exit, { char: char, exit: exit })
+    return Quest.IO.falsemsg(exit.lockedmsg ? exit.lockedmsg : Quest.lang.locked_exit, { char: char, exit: exit })
   }
   if (exit.testExit && !exit.testExit(char, exit)) return false
   for (const el of char.getCarrying()) {
@@ -405,44 +405,44 @@ agenda.guardExit = function (npc: any, arr: any) {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'guardScenery' does not exist on type '{ ... Remove this comment to see the full error message
 agenda.guardScenery = function (npc: any, arr: any) {
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  const item = w[arr.shift()]
+  const item = Quest.World.w[arr.shift()]
   if (item.scenery) return false
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
   Quest.IO.msg(arr.join(':'))
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  if (item.loc && w[item.loc] && (w[item.loc].npc || w[item.loc].player)) npc.target = item.loc
-  npc.antagonise(player)
+  if (item.loc && Quest.World.w[item.loc] && (Quest.World.w[item.loc].npc || Quest.World.w[item.loc].player)) npc.target = item.loc
+  npc.antagonise(Quest.World.player)
   npc.delayAgendaAttack = true
   return true
 }
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'guardSceneryNow' does not exist on type ... Remove this comment to see the full error message
 agenda.guardSceneryNow = function (npc: any, arr: any) {
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  const item = w[arr.shift()]
+  const item = Quest.World.w[arr.shift()]
   if (item.scenery) return false
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
   Quest.IO.msg(arr.join(':'))
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  if (item.loc && w[item.loc] && (w[item.loc].npc || w[item.loc].player)) npc.target = item.loc
-  npc.antagonise(player)
+  if (item.loc && Quest.World.w[item.loc] && (Quest.World.w[item.loc].npc || Quest.World.w[item.loc].player)) npc.target = item.loc
+  npc.antagonise(Quest.World.player)
   return true
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'antagonise' does not exist on type '{ de... Remove this comment to see the full error message
 agenda.antagonise = function (npc: any, arr: any) {
   if (arr.length === 0) {
-    npc.antagonise(player)
+    npc.antagonise(Quest.World.player)
   }
   else if (arr[0] === 'player') {
-    npc.antagonise(player)
+    npc.antagonise(Quest.World.player)
   }
   else if (arr[0] === 'target') {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    npc.antagonise(w[npc.target])
+    npc.antagonise(Quest.World.w[npc.target])
   }
   else {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    const target = w[arr[0]]
+    const target = Quest.World.w[arr[0]]
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     if (!target) return Quest.IO.errormsg("Unknown target set for `antagonise` agenda item: " + arr[0])
     npc.antagonise(target)

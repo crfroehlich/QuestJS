@@ -432,6 +432,6 @@ test.padArray = function (arr: any, n: any) {
 // You can use this in a test to move the player silently
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'movePlayer' does not exist on type '{}'.
 test.movePlayer = function (roomName: any) {
-  player.loc = roomName
-  world.update()
+  Quest.World.player.loc = roomName
+  Quest.World.world.update()
 }

@@ -84,9 +84,9 @@ new Spell("Call lightning", {
   primaryFailure: "A lightning bolt comes down from the sky, towards {nm:target:the}, but fizzles out before it can actually do anything.",
   modifyOutgoingAttack: function (attack: any) {
     attack.element = "storm"
-    if (player.currentWeatherDisabled) return
+    if (Quest.World.player.currentWeatherDisabled) return
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    const weather = weatherTypes[player.currentWeatherName]
+    const weather = weatherTypes[Quest.World.player.currentWeatherName]
     if (!weather.outside()) {
       attack.abort = true
       attack.msg("The <i>Call lightning</i> spell can only be used outside.", 1)
@@ -208,7 +208,7 @@ new Spell("Befuddle", {
 
 //-------  ENHANCING SPELLS  -----------
 // These spells give the cast an ability, but only in terms of adding the active effect. It is up to authors
-// to create the world so this is meaningful.
+// to create the Quest.World.world so this is meaningful.
 
 new SpellSelf("Lore", {
   level: 2,
@@ -448,7 +448,7 @@ for (const visage of visages) {
 new SpellSelf("Truesight", {
   targetEffect: function (attack: any) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    const room = w[attack.attacker.loc]
+    const room = Quest.World.w[attack.attacker.loc]
     let flag = false
     for (const o of Quest.Utilities.scopeReachable()) {
       if (typeof o.truesight === "function") {
@@ -462,7 +462,7 @@ new SpellSelf("Truesight", {
 new SpellSelf("Cleanse", {
   targetEffect: function (attack: any) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    const room = w[attack.attacker.loc]
+    const room = Quest.World.w[attack.attacker.loc]
     let flag = false
     for (const o of Quest.Utilities.scopeReachable()) {
       if (typeof o.cleanse === "function") {
@@ -486,15 +486,15 @@ new SpellInanimate("Unlock", {
   description: "All locks in this location will unlock.",
   getTargets: function (attack: any) {
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    const list = w[attack.attacker.loc].getExits().filter((el: any) => el.isLocked())
-    for (const key in w) {
+    const list = Quest.World.w[attack.attacker.loc].getExits().filter((el: any) => el.isLocked())
+    for (const key in Quest.World.w) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      if (w[key].isHere() && w[key].locked) list.push(w[key])
+      if (Quest.World.w[key].isHere() && Quest.World.w[key].locked) list.push(Quest.World.w[key])
     }
     return list
   },
   targetEffect: function (attack: any, ex: any) {
-    if (ex instanceof Exit) {
+    if (ex instanceof Quest.World.Exit) {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'nice' does not exist on type '{}'.
       attack.msg("The door to " + ex.nice() + " unlocks.", 1)
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'setLock' does not exist on type '{}'.
@@ -514,7 +514,7 @@ new SpellInanimate("Unillusion", {
   automaticSuccess: true,
   getTargets: function (attack: any) {
     const list = Quest.Utilities.scopeHereParser().filter(el => el.unillusionable)
-    if (currentLocation.unillusionable) list.push(currentLocation)
+    if (Quest.World.currentLocation.unillusionable) list.push(Quest.World.currentLocation)
     return list
   },
   targetEffect: function (attack: any, item: any) {
@@ -542,10 +542,10 @@ new SpellSelf("Annulment", {
 
 new SpellSelf("Dispel", {
   icon: 'annul',
-  description: "Dispels all elementals across the entire world!",
+  description: "Dispels all elementals across the entire Quest.World.world!",
   targetEffect: function (attack: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
-    rpg.broadcast('elementals', 'destroy', player)
+    rpg.broadcast('elementals', 'destroy', Quest.World.player)
     return true
   },
 })
@@ -624,7 +624,7 @@ new Spell("Enrage", {
   effect: {
     start: function (target: any) {
       target.aggressive = true
-      target.target = player.name
+      target.target = Quest.World.player.name
       if (target.allegiance === 'friend') target.allegiance = 'foe'
       return "{nv:target:look:true} angry at you."
     },
@@ -676,7 +676,7 @@ new SpellSelf("Returning", {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg("The air swirls around you, and everything blurs...")
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    rpg.teleport(attack.target, w[this.item].loc)
+    rpg.teleport(attack.target, Quest.World.w[this.item].loc)
     return true
   },
 })
@@ -710,9 +710,9 @@ new SpellSelf("Call rain", {
   description: "Casting this spell will cause it to rain.",
   icon: 'weather',
   modifyOutgoingAttack: function (attack: any) {
-    if (player.currentWeatherDisabled) return
+    if (Quest.World.player.currentWeatherDisabled) return
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    const weather = weatherTypes[player.currentWeatherName]
+    const weather = weatherTypes[Quest.World.player.currentWeatherName]
     if (!weather.outside()) {
       attack.abort = true
       attack.msg("The <i>Call rain</i> spell can only be used outside.", 1)
@@ -726,9 +726,9 @@ new SpellSelf("Call rain", {
     const currentName = 'rain'
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     const current = weatherTypes[currentName]
-    player.currentWeatherName = currentName
-    player.currentWeatherCount = 0
-    player.currentWeatherTotal = current.getNumberOfTurns()
+    Quest.World.player.currentWeatherName = currentName
+    Quest.World.player.currentWeatherCount = 0
+    Quest.World.player.currentWeatherTotal = current.getNumberOfTurns()
     if (current.start) current.start(this.name)
     return true
   },
@@ -738,9 +738,9 @@ new SpellSelf("Cloudbusting", {
   description: "Casting this spell will clear the sky of all clouds, at least for a while.",
   icon: 'weather',
   modifyOutgoingAttack: function (attack: any) {
-    if (player.currentWeatherDisabled) return
+    if (Quest.World.player.currentWeatherDisabled) return
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    const weather = weatherTypes[player.currentWeatherName]
+    const weather = weatherTypes[Quest.World.player.currentWeatherName]
     if (!weather.outside()) {
       attack.abort = true
       attack.msg("The <i>Cloudbusting</i> spell can only be used outside.", 1)
@@ -754,9 +754,9 @@ new SpellSelf("Cloudbusting", {
     const currentName = 'clearingToHot'
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     const current = weatherTypes[currentName]
-    player.currentWeatherName = currentName
-    player.currentWeatherCount = 0
-    player.currentWeatherTotal = current.getNumberOfTurns()
+    Quest.World.player.currentWeatherName = currentName
+    Quest.World.player.currentWeatherCount = 0
+    Quest.World.player.currentWeatherTotal = current.getNumberOfTurns()
     if (current.start) current.start(this.name)
     return true
   },

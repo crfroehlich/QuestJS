@@ -49,14 +49,14 @@ lang.wayGuarded = "The way {show:exit:dir} is guarded!"
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'summonSpellPre' does not exist on type '... Remove this comment to see the full error message
 lang.summonSpellPre = "Summon"
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'summonSpellDesc' does not exist on type ... Remove this comment to see the full error message
-lang.summonSpellDesc = function(spell: any) { return "Summons a " + spell.prototype.alias + "; it will last about " + spell.duration + " turns, unless it is destroyed before then." }
+lang.summonSpellDesc = function (spell: any) { return "Summons a " + spell.prototype.alias + "; it will last about " + spell.duration + " turns, unless it is destroyed before then." }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'communeWithAnimalSpell' does not exist o... Remove this comment to see the full error message
 lang.communeWithAnimalSpell = 'Commune with animal'
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'cannotTalkToBeast' does not exist on typ... Remove this comment to see the full error message
 lang.cannotTalkToBeast = "{nv:char:spend:true} a few minutes telling {nm:item:the} about {pa:char} life, but {pv:item:do} not seem interested. Possibly because {pv:item:be} just a dumb beast."
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'teleport' does not exist on type '{ rege... Remove this comment to see the full error message
-lang.teleport = "{nv:attacker:feel:true} disorientated and the world around {sb:attacker} dissolves. A moment later, {nv:attacker:be} somewhere else."
+lang.teleport = "{nv:attacker:feel:true} disorientated and the Quest.World.world around {sb:attacker} dissolves. A moment later, {nv:attacker:be} somewhere else."
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'summoning_successful' does not exist on ... Remove this comment to see the full error message
 lang.summoning_successful = "{nv:item:appear:true} before {nm:attacker:the}."
 
