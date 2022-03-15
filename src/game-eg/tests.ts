@@ -3102,9 +3102,9 @@ test.tests = function () {
   /*
     test.title("quests")
     test.assertCmd("talk to buddy", ["'Hey, Buddy,' you say.", "'Hey yourself! Say, could you get me a carrot?'","Quest started: <i>A carrot for Buddy</i>", "Go find a carrot."])
-    let res = quest.getState('A carrot for Buddy', Quest.World.w.Buddy)
+    let res = Quest.quest.getState('A carrot for Buddy', Quest.World.w.Buddy)
     test.assertEqual(0, res.progress)
-    test.assertEqual(quest.ACTIVE, res.state)
+    test.assertEqual(Quest.quest.ACTIVE, res.state)
     
   */
 

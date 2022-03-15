@@ -1,12 +1,12 @@
 "use strict"
 
 
-//quest.next(char, questname)
-//quest.set(char, questname, const or stepname)
+//Quest.quest.next(char, questname)
+//Quest.quest.set(char, questname, const or stepname)
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'create' does not exist on type '{ INITIA... Remove this comment to see the full error message
-quest.create('Charm for Tary', [
+Quest.quest.create('Charm for Tary', [
   { text: 'Tary has asked me to find her a petro-charm; I should try Madame Rel\'s Little Shop of Wonders on the Wheat Road.' },
   { text: 'Tary has asked me to find her a petro-charm; I have found one, I need to give it to her.' },
 ])

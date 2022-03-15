@@ -63,7 +63,7 @@ Quest.World.createItem("Buddy", Quest.NPC.NPC(false), {
   examine: 'An orangutan!',
   talkto: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'getState' does not exist on type '{ INIT... Remove this comment to see the full error message
-    const res = quest.getState('A carrot for Buddy', this)
+    const res = Quest.quest.getState('A carrot for Buddy', this)
     console.log(res)
     if (!res.status) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -71,7 +71,7 @@ Quest.World.createItem("Buddy", Quest.NPC.NPC(false), {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("'Hey yourself! Say, could you get me a carrot?'")
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'start' does not exist on type '{ INITIAL... Remove this comment to see the full error message
-      quest.start('A carrot for Buddy')
+      Quest.quest.start('A carrot for Buddy')
     }
     else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.

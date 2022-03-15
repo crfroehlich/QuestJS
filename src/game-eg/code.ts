@@ -6,7 +6,7 @@
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'create' does not exist on type '{ INITIA... Remove this comment to see the full error message
-quest.create('A carrot for Buddy', [
+Quest.quest.create('A carrot for Buddy', [
   { text: 'Go find a carrot.' },
   { text: 'Give the carrot to Buddy.' },
 ])
