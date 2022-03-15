@@ -4,7 +4,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Charge', {
   npcCmd:true,
   regex:/^(?:charge|power) (.+)$/,
   objects:[
-    {scope:parser.isHeld}
+    {scope:Quest.Parser.parser.isHeld}
   ],
   defmsg:"{pv:item:'be:true} not something you can charge.",
 }))
@@ -42,7 +42,7 @@ Quest.IO.io.getItemHtml = function (item: any, loc: any, isSubItem: any, highlig
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'isRoom' does not exist on type '{}'.
-parser.isRoom = function (o: any) { return o.room }
+Quest.Parser.parser.isRoom = function (o: any) { return o.room }
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.unshift(new Quest.Command.Cmd('GoTo', {
@@ -50,7 +50,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('GoTo', {
   regex: /^(?:go to|go) (.+)$/,
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isRoom' does not exist on type '{}'.
-    { scope: parser.isRoom }
+    { scope: Quest.Parser.parser.isRoom }
   ],
   script: function (objects: any) {
     const room = objects[0][0]
@@ -69,7 +69,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('GoTo', {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'isContact' does not exist on type '{}'.
-parser.isContact = function (o: any) { return o.contact }
+Quest.Parser.parser.isContact = function (o: any) { return o.contact }
 
 
 
@@ -83,7 +83,7 @@ for (let el of smartPhoneFunctions) {
     attName: Quest.Utilities.verbify(el),
     objects: [
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
-      { scope: parser.isHeld },
+      { scope: Quest.Parser.parser.isHeld },
     ],
     defmsg: "{pv:item:'be:true} not something you can do that with.",
   }))
@@ -97,7 +97,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Phone', {
   regex: /^(?:telephone|phone|call|contact) (.+)$/,
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isContact' does not exist on type '{}'.
-    { scope: parser.isContact }
+    { scope: Quest.Parser.parser.isContact }
   ],
   script: function (objects: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'phone' does not exist on type '{}'.
@@ -137,7 +137,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('DialogTest', {
   ],
   script: function (objects: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'currentCommand' does not exist on type '... Remove this comment to see the full error message
-    const funcName = parser.currentCommand.string.replace(/dialog /i, '')
+    const funcName = Quest.Parser.parser.currentCommand.string.replace(/dialog /i, '')
     log(funcName)
     const choices = ['red', 'yellow', 'blue']
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message

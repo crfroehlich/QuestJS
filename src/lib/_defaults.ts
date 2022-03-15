@@ -450,9 +450,9 @@ namespace Quest {
           if (w[key].loc === this.name) w[key].loc = item.name
         }
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'pronouns' does not exist on type '{}'.
-        for (const key in parser.pronouns) {
+        for (const key in Quest.Parser.parser.pronouns) {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'pronouns' does not exist on type '{}'.
-          if (parser.pronouns[key] === this) parser.pronouns[key] = item
+          if (Quest.Parser.parser.pronouns[key] === this) Quest.Parser.parser.pronouns[key] = item
         }
       },
     };

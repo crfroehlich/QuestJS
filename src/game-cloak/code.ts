@@ -32,7 +32,7 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('HangUp', {
   regex: /^(?:hang up|hang) (.+?)(?: on the hook| on hook|)$/,
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
-    { scope: parser.isHeld },
+    { scope: Quest.Parser.parser.isHeld },
   ],
   script: function (objects: any) {
     if (!objects[0][0].isAtLoc(player)) {

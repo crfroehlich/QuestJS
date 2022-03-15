@@ -242,7 +242,7 @@ createItem("lever", {
   examine: "A small brass level, currently in the {if:telescope:roofOpen:down}{ifNot:telescope:roofOpen:up} position.",
   push: function (options: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'currentCommand' does not exist on type '... Remove this comment to see the full error message
-    const verb = parser.currentCommand.name.toLowerCase()
+    const verb = Quest.Parser.parser.currentCommand.name.toLowerCase()
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
     if (w.telescope.roofOpen) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.

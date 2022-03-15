@@ -141,7 +141,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('DialogTest', {
   ],
   script: function (objects: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'currentCommand' does not exist on type '... Remove this comment to see the full error message
-    const funcName = parser.currentCommand.tmp.string.replace(/dialog /i, '')
+    const funcName = Quest.Parser.parser.currentCommand.tmp.string.replace(/dialog /i, '')
     console.log("Testing dialog: " + funcName)
     const choices = ['red', 'yellow', 'blue']
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
@@ -182,7 +182,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('EgKick', {
   objects: [
     { special: 'ignore' },
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
-    { scope: parser.isPresent }
+    { scope: Quest.Parser.parser.isPresent }
   ],
   defmsg: "{pv:char:kick:true} {ob:item}, but nothing happens.",
 }));
@@ -197,7 +197,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('EgCharge', {
   regex: /^(?:charge|power) (.+)$/,
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
-    { scope: parser.isHeld }
+    { scope: Quest.Parser.parser.isHeld }
   ],
   defmsg: "{pv:item:'be:true} not something you can charge.",
 }))
@@ -212,7 +212,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('EgMove', {
   objects: [
     { special: 'ignore' },
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-    { scope: parser.isHere }
+    { scope: Quest.Parser.parser.isHere }
   ],
   defmsg: "{pv:item:'be:true} not something you can move.",
 }));
@@ -301,8 +301,8 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('SliceCarrot', {
   rules:[Quest.Command.cmdRules.isHeld],
   regexes:[/^use (.+) to slice (.+)$/, /^use (.+) slice (.+)$/, {regex:/slice (.+) with (.+)/, mod:{reverse:true}}],
   objects:[
-    {scope:parser.isPresent},
-    {scope:parser.isPresent},
+    {scope:Quest.Parser.parser.isPresent},
+    {scope:Quest.Parser.parser.isPresent},
   ],
   script:function(objects) {
     Quest.IO.msg("You slice {nm:ob1:the} with {nm:ob2:the}.", {ob1:objects[1][0], ob2:objects[0][0]})

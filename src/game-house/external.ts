@@ -152,7 +152,7 @@ createItem("letter", TAKEABLE(), {  // cannot get dropped in size change rooms
   },
 })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'pronouns' does not exist on type '{}'.
-parser.pronouns = { it: w.letter }
+Quest.Parser.parser.pronouns = { it: w.letter }
 
 
 

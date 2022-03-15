@@ -145,7 +145,7 @@ createItem("book", TAKEABLE(), READABLE(true), {
         Quest.IO.msg("It is not in a language {pv:char:understand}.", options)
       }
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'abort' does not exist on type '{}'.
-      parser.abort()
+      Quest.Parser.parser.abort()
       return true;
     }
     else {

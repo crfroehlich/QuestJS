@@ -136,7 +136,7 @@ createRoom("basement", {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'flashlight' does not exist on type '{}'.
     if (!w.flashlight.switchedon && w.light_switch.switchedon && !this.flag2) hint.now('getAll')
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'currentCommand' does not exist on type '... Remove this comment to see the full error message
-    if (parser.currentCommand.all && hint.before('moveCrates')) hint.now('moveCrates')
+    if (Quest.Parser.parser.currentCommand.all && hint.before('moveCrates')) hint.now('moveCrates')
   }
 });
 

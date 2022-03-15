@@ -246,7 +246,7 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('Crowbar', {
   objects: [
     { special: 'ignore' },
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-    { scope: parser.isHere },
+    { scope: Quest.Parser.parser.isHere },
   ],
   defmsg: "That's not something you can crowbar open.",
 }));
@@ -261,7 +261,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Move', {
   objects: [
     { special: 'ignore' },
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-    { scope: parser.isHere }
+    { scope: Quest.Parser.parser.isHere }
   ],
   defmsg: "{pv:item:'be:true} not something you can move.",
 }));
@@ -318,9 +318,9 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Wrap1', {
   regex: /^(?:wrap|cover) (.+) (?:with|in) (.+)$/,
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
-    { scope: parser.isHeld },
+    { scope: Quest.Parser.parser.isHeld },
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
-    { scope: parser.isHeld },
+    { scope: Quest.Parser.parser.isHeld },
   ],
   script: function (objects: any) { wrapScript(objects[0][0], objects[1][0]) },
 }));
@@ -331,9 +331,9 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Wrap2', {
   regex: /^(?:wrap) (.+) (?:round|around) (.+)$/,
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
-    { scope: parser.isHeld },
+    { scope: Quest.Parser.parser.isHeld },
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
-    { scope: parser.isHeld },
+    { scope: Quest.Parser.parser.isHeld },
   ],
   script: function (objects: any) { wrapScript(objects[1][0], objects[0][0]) },
 }));
@@ -344,9 +344,9 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Unwrap1', {
   regex: /^(?:unwrap|uncover) (.+)$/,
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
-    { scope: parser.isHeld },
+    { scope: Quest.Parser.parser.isHeld },
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
-    { scope: parser.isHeld },
+    { scope: Quest.Parser.parser.isHeld },
   ],
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'old_newspaper' does not exist on type '{... Remove this comment to see the full error message
   script: function (objects: any) { unwrapScript(objects[0][0], w.old_newspaper) },
@@ -358,9 +358,9 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Unwrap2', {
   regex: /^(?:take|remove) (.+) (?:off|from) (.+)$/,
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
-    { scope: parser.isHeld },
+    { scope: Quest.Parser.parser.isHeld },
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
-    { scope: parser.isHeld },
+    { scope: Quest.Parser.parser.isHeld },
   ],
   script: function (objects: any) { unwrapScript(objects[1][0], objects[0][0]) },
 }));
@@ -373,9 +373,9 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('ThrowThrough', {
   regex: /^(?:throw|chuck|hurl|toss|pitch|lob|heave) (.+) (?:out of|out|through) (.+)$/,
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
-    { scope: parser.isHeld },
+    { scope: Quest.Parser.parser.isHeld },
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-    { scope: parser.isHere, attName: 'throwThrough' },
+    { scope: Quest.Parser.parser.isHere, attName: 'throwThrough' },
   ],
   script: function (objects: any) {
     const item = objects[0][0]
@@ -422,9 +422,9 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('SmashWith', {
   regex: /^(?:smash|break|destroy) (.+) (?:with|using) (.+)$/,
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-    { scope: parser.isHere, attName: 'throwThrough' },
+    { scope: Quest.Parser.parser.isHere, attName: 'throwThrough' },
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
-    { scope: parser.isHeld },
+    { scope: Quest.Parser.parser.isHeld },
   ],
   script: function (objects: any) {
     return smashWithScript(objects[1][0], objects[0][0])
@@ -438,9 +438,9 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('UseToSmash', {
   regex: /^(?:use|using) (.+?) (?:to |)(?:smash|break|destroy) (.+)$/,
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
-    { scope: parser.isHeld },
+    { scope: Quest.Parser.parser.isHeld },
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-    { scope: parser.isHere, attName: 'throwThrough' },
+    { scope: Quest.Parser.parser.isHere, attName: 'throwThrough' },
   ],
   script: function (objects: any) {
     return smashWithScript(objects[0][0], objects[1][0])
@@ -455,7 +455,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Attack', {
   regex: /^(?:attack|kick|punch|hit|strike|kill) (.+?)$/,
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-    { scope: parser.isHere },
+    { scope: Quest.Parser.parser.isHere },
   ],
   script: function (objects: any) {
     if (objects[0][0].npc) {
@@ -486,7 +486,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('TieUp', {
   regex: /^(?:tie up|tie|bind) (.+?)$/,
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-    { scope: parser.isHere },
+    { scope: Quest.Parser.parser.isHere },
   ],
   script: function (objects: any) {
     const tpParams = { item: objects[0][0] }
@@ -523,7 +523,7 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('RudeCommand', {
   regex: /^(?:fuck|facefuck|face-fuck|face fuck|bugger|shag|suck|suck off|assfuck|ass-fuck|ass fuck|rape|ass-rape|ass rape) (.+?)$/,
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-    { scope: parser.isHere },
+    { scope: Quest.Parser.parser.isHere },
   ],
   script: function (objects: any) {
     Quest.IO.parsermsg(Quest.lang.not_known_msg)
@@ -549,8 +549,8 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('ThrowAt', {
   // throw computer at window
   regex:/^(?:wrap|cover) (.+) (?:with|in) (.+)$/,
   objects:[
-    {scope:parser.isHeld},
-    {scope:parser.isHeld},
+    {scope:Quest.Parser.parser.isHeld},
+    {scope:Quest.Parser.parser.isHeld},
   ],
   script:function(objects) { wrapScript(objects[0][0], objects[1][0]) },
 }));

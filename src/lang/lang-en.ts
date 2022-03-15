@@ -1299,7 +1299,7 @@ namespace Quest {
         regex: new RegExp("^(?:" + options.words + ") (.+)$"),
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'held' does not exist on type '{}'.
-          { scope: options.held ? parser.isHeld : parser.isHere },
+          { scope: options.held ? Quest.Parser.parser.isHeld : Quest.Parser.parser.isHere },
         ],
         npcCmd: true,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'defmsg' does not exist on type '{}'.
@@ -1328,9 +1328,9 @@ namespace Quest {
         ],
         objects: [
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'held' does not exist on type '{}'.
-          { scope: options.held ? parser.isHeld : parser.isHere },
+          { scope: options.held ? Quest.Parser.parser.isHeld : Quest.Parser.parser.isHere },
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
-          { scope: parser.isHeld },
+          { scope: Quest.Parser.parser.isHeld },
         ],
         attName: name.toLowerCase(),
         npcCmd: true,

@@ -17,7 +17,7 @@ namespace Quest {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
     const debuglog = (s: any) => { if (Quest.Settings.settings.playMode === 'dev' || Quest.Settings.settings.playMode === 'beta') { log(s) } }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'debug' does not exist on type '{}'.
-    const parserlog = (s: any) => { if (parser.debug) { log(s) } }
+    const parserlog = (s: any) => { if (Quest.Parser.parser.debug) { log(s) } }
 
     //@DOC
     // Runs the given string as though the player typed it, including recording it in the output
@@ -25,7 +25,7 @@ namespace Quest {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'msgInputText' does not exist on type '{ ... Remove this comment to see the full error message
       Quest.IO.io.msgInputText(cmd)
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'parse' does not exist on type '{}'.
-      parser.parse(cmd)
+      Quest.Parser.parser.parse(cmd)
     }
 
     export function doOnce(o: any, s: any) {
@@ -455,7 +455,7 @@ namespace Quest {
         for (let i = ary.length; i > 0; i--) {
           const s = ary.slice(0, i).join(' ')
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'findInList' does not exist on type '{}'.
-          const items = parser.findInList(s, scope, cmdParams)
+          const items = Quest.Parser.parser.findInList(s, scope, cmdParams)
           if (items.length > 0) {
             for (let j = 0; j < i; j++) ary.shift()
             return items

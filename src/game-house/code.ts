@@ -526,7 +526,7 @@ const walkthroughs = {
 
 // this version allows quotes in aliases
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'itemSetup' does not exist on type '{}'.
-parser.itemSetup = function (item: any) {
+Quest.Parser.parser.itemSetup = function (item: any) {
   item.parserOptionsSet = true
   item.parserItemName = item.alias.toLowerCase().replace(/[^\w ]/g, '')
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'combos' does not exist on type '{}'.
@@ -553,7 +553,7 @@ parser.itemSetup = function (item: any) {
 }
 
 /*
-parser.specialText.integer = {
+Quest.Parser.parser.specialText.integer = {
   error:function(text) {
     return false
   },

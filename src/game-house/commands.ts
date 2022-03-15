@@ -249,7 +249,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('ThrowAtPod', {
   ],
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
-    { scope: parser.isHeld },
+    { scope: Quest.Parser.parser.isHeld },
   ],
   responses: {
     pen: 'Mandy lobs her pen at the pods on the tree. It bounces off one of them.',
@@ -304,7 +304,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('TurnWithOar', {
   ],
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-    { scope: parser.isHere, attName: 'turn' },
+    { scope: Quest.Parser.parser.isHere, attName: 'turn' },
   ],
   attName: 'turn',
   defmsg: "Touching {nm:item:the} is not going to achieve much.",
@@ -317,8 +317,8 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('OpenWith', {
     {regex:/^use (.+) to (?:open|remove|get) (.+)$/, mod:{reverse:true}},
   ],
   objects:[
-    {scope:parser.isHere, items:['grating']},
-    {scope:parser.isHeld},
+    {scope:Quest.Parser.parser.isHere, items:['grating']},
+    {scope:Quest.Parser.parser.isHeld},
   ],
   script(objects) {
     if (objects[0][0] === w.grating) return w.grating.openWith(objects[1][0]) ? world.SUCCESS : world.FAILED
@@ -337,7 +337,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('GrindUnderHeel', {
   attName: 'grind',
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-    { scope: parser.isHere },
+    { scope: Quest.Parser.parser.isHere },
   ],
   defmsg: "Grinding {nm:item:the} is not going to achieve much.",
 }))
@@ -363,7 +363,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('NpcHelp', {
   ],
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-    { scope: parser.isHere, attName: "npc" },
+    { scope: Quest.Parser.parser.isHere, attName: "npc" },
   ],
   script: function (objects: any) {
     const obj = objects[0][0]
@@ -397,7 +397,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Plant', {
   ],
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
-    { scope: parser.isHeld },
+    { scope: Quest.Parser.parser.isHeld },
   ],
   script: function (objects: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -419,7 +419,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Shift', {
   regex: /^(?:shift|move) (.+)$/,
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-    { scope: parser.isHere },
+    { scope: Quest.Parser.parser.isHere },
   ],
   // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'objects' implicitly has an 'any' type.
   script: function (objects) {
@@ -441,7 +441,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Invert', {
   ],
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
-    { scope: parser.isPresent, attName: 'turn' },
+    { scope: Quest.Parser.parser.isPresent, attName: 'turn' },
   ],
   // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'objects' implicitly has an 'any' type.
   script: function (objects) {
@@ -461,9 +461,9 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('BurstBalloon', {
   ],
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
-    { scope: parser.isHeld },
+    { scope: Quest.Parser.parser.isHeld },
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-    { scope: parser.isHere },
+    { scope: Quest.Parser.parser.isHere },
   ],
   // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'objects' implicitly has an 'any' type.
   script: function (objects) {
@@ -483,7 +483,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('BurstBalloonOnly', {
   regex: /^(?:burst|break|cut|puncture|pierce|stab|pop) (.+?)$/,
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
-    { scope: parser.isPresent, attName: 'burst' },
+    { scope: Quest.Parser.parser.isPresent, attName: 'burst' },
   ],
   // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'objects' implicitly has an 'any' type.
   script: function (objects) {
@@ -572,9 +572,9 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('PutUnder', {
   rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
-    { scope: parser.isHeld, items: ['chamber_pot'] },
+    { scope: Quest.Parser.parser.isHeld, items: ['chamber_pot'] },
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
-    { scope: parser.isPresent, items: ["leaking_pipe", "tamarind_tree_from_ground"] },
+    { scope: Quest.Parser.parser.isPresent, items: ["leaking_pipe", "tamarind_tree_from_ground"] },
   ],
   // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'objects' implicitly has an 'any' type.
   script: function (objects) {

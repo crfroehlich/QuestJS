@@ -58,7 +58,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd("Crew Roster", {
   regex: /(.+) crew roster$/,
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isInWorld' does not exist on type '{}'.
-    { scope: parser.isInWorld, attName: 'npc' },
+    { scope: Quest.Parser.parser.isInWorld, attName: 'npc' },
   ],
   script: function (objects: any) {
     const o = objects[0][0]

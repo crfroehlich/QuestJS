@@ -80,7 +80,7 @@ test.assertCmd = function (cmdStr: any, expected: any, extraOutput: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertOut' does not exist on type '{}'.
   test.assertOut(expected, function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'parse' does not exist on type '{}'.
-    parser.parse(cmdStr)
+    Quest.Parser.parser.parse(cmdStr)
   }, extraOutput)
 }
 
@@ -101,7 +101,7 @@ test.assertSPCmd = function (item: any, verb: any, expected: any, extraOutput: a
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertOut' does not exist on type '{}'.
       test.assertOut(expected, function () {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'parse' does not exist on type '{}'.
-        parser.parse(cmdStr)
+        Quest.Parser.parser.parse(cmdStr)
       }, extraOutput)
     }
     else {

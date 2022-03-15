@@ -69,7 +69,7 @@ Quest.Settings.settings.roomCreateFunc = function (o: any) {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterLoad' does not exist on type '{ per... Remove this comment to see the full error message
 Quest.Settings.settings.afterLoad = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'pronouns' does not exist on type '{}'.
-  parser.pronouns = {}
+  Quest.Parser.parser.pronouns = {}
 }
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'customNoExitMsg' does not exist on type ... Remove this comment to see the full error message

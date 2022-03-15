@@ -89,7 +89,7 @@ createItem("phone", {
   },
   contacts: function () {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isContact' does not exist on type '{}'.
-    const contacts = Quest.Utilities.scopeBy(parser.isContact)
+    const contacts = Quest.Utilities.scopeBy(Quest.Parser.parser.isContact)
     contacts.push('Never mind.')
     log(contacts)
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.

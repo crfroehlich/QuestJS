@@ -5,7 +5,7 @@
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'isRoom' does not exist on type '{}'.
-parser.isRoom = function (o: any) { return o.room }
+Quest.Parser.parser.isRoom = function (o: any) { return o.room }
 
 // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.unshift(new Quest.Command.Cmd('GoToDest', {
@@ -13,7 +13,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('GoToDest', {
   regex: /^(?:go to|go) (.+)$/,
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isRoom' does not exist on type '{}'.
-    { scope: parser.isRoom }
+    { scope: Quest.Parser.parser.isRoom }
   ],
   script: function (objects: any) {
     const room = objects[0][0]
@@ -145,7 +145,7 @@ for (let el of newVerbs) {
     attName: Quest.Utilities.verbify(el.name),
     objects: [
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'scopeHeld' does not exist on type '{ nam... Remove this comment to see the full error message
-      { scope: el.scopeHeld ? parser.isHeld : parser.isHere },
+      { scope: el.scopeHeld ? Quest.Parser.parser.isHeld : Quest.Parser.parser.isHere },
     ],
     defmsg: "{pv:item:'be:true} not something you can do that with.",
   }))

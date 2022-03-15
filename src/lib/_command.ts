@@ -53,7 +53,7 @@ namespace Quest {
             // }
           }
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'NO_MATCH' does not exist on type '{}'.
-          this.tmp = { score: parser.NO_MATCH }
+          this.tmp = { score: Quest.Parser.parser.NO_MATCH }
           return false
         }
 
@@ -105,9 +105,9 @@ namespace Quest {
 
 
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{}'.
-          parser.msg("---------------------------------------------------------");
+          Quest.Parser.parser.msg("---------------------------------------------------------");
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{}'.
-          parser.msg("* Looking at candidate: " + this.name);
+          Quest.Parser.parser.msg("* Looking at candidate: " + this.name);
 
           // this is a temporary set of data used while we parser one input
           this.tmp = this.tmp || {};
@@ -123,7 +123,7 @@ namespace Quest {
           if (this.tmp.mod.func) arr = this.tmp.mod.func(arr)
 
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{}'.
-          parser.msg("..Base score: " + this.tmp.score);
+          Quest.Parser.parser.msg("..Base score: " + this.tmp.score);
 
           for (let i = 0; i < arr.length; i++) {
             const cmdParams = this.objects[i]
@@ -141,20 +141,20 @@ namespace Quest {
             if (cmdParams.special) {
               // this capture group has been flagged to be special
               // @ts-expect-error ts-migrate(2339) FIXME: Property 'specialText' does not exist on type '{}'... Remove this comment to see the full error message
-              const specialError = parser.specialText[cmdParams.special].error(arr[i], cmdParams)
+              const specialError = Quest.Parser.parser.specialText[cmdParams.special].error(arr[i], cmdParams)
               // @ts-expect-error ts-migrate(2339) FIXME: Property 'BAD_SPECIAL' does not exist on type '{}'... Remove this comment to see the full error message
-              if (specialError) return this.setError(parser.BAD_SPECIAL, specialError)
+              if (specialError) return this.setError(Quest.Parser.parser.BAD_SPECIAL, specialError)
               // @ts-expect-error ts-migrate(2339) FIXME: Property 'specialText' does not exist on type '{}'... Remove this comment to see the full error message
-              const special = parser.specialText[cmdParams.special].exec(arr[i], cmdParams)
+              const special = Quest.Parser.parser.specialText[cmdParams.special].exec(arr[i], cmdParams)
               if (special !== false) this.tmp.objects.push(special)
               score = 1
               if (special.name) {
                 // @ts-expect-error ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{}'.
-                parser.msg("-> special match object found: " + special.name)
+                Quest.Parser.parser.msg("-> special match object found: " + special.name)
               }
               else {
                 // @ts-expect-error ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{}'.
-                parser.msg("-> special match found: " + special)
+                Quest.Parser.parser.msg("-> special match found: " + special)
               }
             }
 
@@ -162,11 +162,11 @@ namespace Quest {
               // Handle ALL and ALL BUT
               this.tmp.all = true
               // @ts-expect-error ts-migrate(2339) FIXME: Property 'DISALLOWED_MULTIPLE' does not exist on t... Remove this comment to see the full error message
-              if (!cmdParams.multiple) return this.setError(parser.DISALLOWED_MULTIPLE, Quest.lang.no_multiples_msg)
+              if (!cmdParams.multiple) return this.setError(Quest.Parser.parser.DISALLOWED_MULTIPLE, Quest.lang.no_multiples_msg)
               if (!cmdParams.scope) console.log("WARNING: Command without scope - " + this.name)
 
               // @ts-expect-error ts-migrate(2339) FIXME: Property 'getScope' does not exist on type '{}'.
-              let scope = parser.getScope(cmdParams)
+              let scope = Quest.Parser.parser.getScope(cmdParams)
               let exclude = [player];
 
               // anything flagged as scenery should be excluded
@@ -184,15 +184,15 @@ namespace Quest {
                 const objectNames = s.split(joiner_regex).map(function (el: any) { return el.trim(); });
                 for (let s in objectNames) {
                   // @ts-expect-error ts-migrate(2339) FIXME: Property 'findInList' does not exist on type '{}'.
-                  const items = parser.findInList(s, world.scope);
+                  const items = Quest.Parser.parser.findInList(s, world.scope);
                   if (items.length === 1) exclude.push(items[0])
                 }
               }
               scope = scope.filter((el: any) => !exclude.includes(el))
               // @ts-expect-error ts-migrate(2339) FIXME: Property 'DISALLOWED_MULTIPLE' does not exist on t... Remove this comment to see the full error message
-              if (scope.length > 1 && !cmdParams.multiple) return this.setError(parser.DISALLOWED_MULTIPLE, Quest.lang.no_multiples_msg)
+              if (scope.length > 1 && !cmdParams.multiple) return this.setError(Quest.Parser.parser.DISALLOWED_MULTIPLE, Quest.lang.no_multiples_msg)
               // @ts-expect-error ts-migrate(2339) FIXME: Property 'NONE_FOR_ALL' does not exist on type '{}... Remove this comment to see the full error message
-              if (scope.length === 0) return this.setError(parser.NONE_FOR_ALL, this.nothingForAll ? this.nothingForAll : Quest.lang.nothing_msg)
+              if (scope.length === 0) return this.setError(Quest.Parser.parser.NONE_FOR_ALL, this.nothingForAll ? this.nothingForAll : Quest.lang.nothing_msg)
               score = 2
               this.tmp.objects.push(scope.map((el: any) => [el]))
             }
@@ -202,26 +202,26 @@ namespace Quest {
                 console.warn("No scope found in command. This may be because the scope specified does not exist; check the spelling. The command in question is:")
                 console.log(this)
                 // @ts-expect-error ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{}'.
-                parser.msg("ERROR: No scope")
+                Quest.Parser.parser.msg("ERROR: No scope")
                 return null
               }
               // @ts-expect-error ts-migrate(2339) FIXME: Property 'getScopes' does not exist on type '{}'.
-              const scope = parser.getScopes(cmdParams)
+              const scope = Quest.Parser.parser.getScopes(cmdParams)
               // @ts-expect-error ts-migrate(2339) FIXME: Property 'matchToNames' does not exist on type '{}... Remove this comment to see the full error message
-              parser.matchToNames(arr[i], scope, cmdParams, this.tmp)
+              Quest.Parser.parser.matchToNames(arr[i], scope, cmdParams, this.tmp)
               // @ts-expect-error ts-migrate(2339) FIXME: Property 'NO_OBJECT' does not exist on type '{}'.
-              if (this.tmp.score === parser.NO_OBJECT) {
+              if (this.tmp.score === Quest.Parser.parser.NO_OBJECT) {
                 this.tmp.error = this.noobjecterror(this.tmp.error_s, i)
                 if (this.objects.length > 1) this.tmp.score += 10
                 // @ts-expect-error ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{}'.
-                parser.msg("Result score is (no object): " + this.tmp.score)
+                Quest.Parser.parser.msg("Result score is (no object): " + this.tmp.score)
                 return
               }
             }
             // @ts-expect-error ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{}'.
-            parser.msg("...Adding to the score: " + score)
+            Quest.Parser.parser.msg("...Adding to the score: " + score)
             // @ts-expect-error ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{}'.
-            parser.msg("Result score is: " + this.tmp.score)
+            Quest.Parser.parser.msg("Result score is: " + this.tmp.score)
             this.tmp.score += score
           }
         }
@@ -236,7 +236,7 @@ namespace Quest {
           this.tmp.score = score
           if (this.objects.length > 1) this.tmp.score += 10
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{}'.
-          parser.msg("Match failed: " + this.tmp.score + " (" + msg + ")")
+          Quest.Parser.parser.msg("Match failed: " + this.tmp.score + " (" + msg + ")")
         }
 
 
@@ -254,7 +254,7 @@ namespace Quest {
           let secondItem
           if (objects.length > 1) secondItem = objects[1][0]
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'currentCommand' does not exist on type '... Remove this comment to see the full error message
-          const multiple = objects[0] && (objects[0].length > 1 || parser.currentCommand.all)
+          const multiple = objects[0] && (objects[0].length > 1 || Quest.Parser.parser.currentCommand.all)
           if (objects[0].length === 0) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
             Quest.IO.metamsg(Quest.lang.nothing_msg)
@@ -293,7 +293,7 @@ namespace Quest {
           let verb
           if (objects.length > 2) verb = objects.shift()
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'currentCommand' does not exist on type '... Remove this comment to see the full error message
-          const multiple = objects[0] && (objects[0].length > 1 || parser.currentCommand.all)
+          const multiple = objects[0] && (objects[0].length > 1 || Quest.Parser.parser.currentCommand.all)
           if (objects[0].length === 0) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
             Quest.IO.metamsg(Quest.lang.nothing_msg)
@@ -391,7 +391,7 @@ namespace Quest {
           return world.FAILED;
         }
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'currentCommand' does not exist on type '... Remove this comment to see the full error message
-        const multiple = (objects[1].length > 1 || parser.currentCommand.all);
+        const multiple = (objects[1].length > 1 || Quest.Parser.parser.currentCommand.all);
         for (let obj of objects[1]) {
           const options = { multiple: multiple, char: npc, item: obj }
           if (!npc.getAgreement(this.cmdCategory, obj, this)) continue
@@ -469,7 +469,7 @@ namespace Quest {
       this.exitCmd = true;
       this.dir = dir;
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-      this.objects = [{ scope: parser.isHere, attName: "npc" }, { special: 'ignore' }, { special: 'ignore' },],
+      this.objects = [{ scope: Quest.Parser.parser.isHere, attName: "npc" }, { special: 'ignore' }, { special: 'ignore' },],
         this.script = function (objects: any) {
           const npc = objects[0][0]
           if (!npc.npc) return Quest.IO.failedmsg(Quest.lang.not_npc, { char: player, item: npc })
@@ -509,7 +509,7 @@ namespace Quest {
           const regexAsStr = el.regexes[0]?.source.substr(1);  // lose the ^ at the start, as we will prepend to it
           const objects = el.objects.slice();
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-          objects.unshift({ scope: parser.isHere, attName: "npc" });
+          objects.unshift({ scope: Quest.Parser.parser.isHere, attName: "npc" });
 
           const data = {
             objects: objects,
@@ -533,9 +533,9 @@ namespace Quest {
           cmd.scope = []
           for (let el2 of el.objects) {
             // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
-            cmd.scope.push(el2 === parser.isHeld ? parser.isHeldByNpc : el2)
+            cmd.scope.push(el2 === Quest.Parser.parser.isHeld ? Quest.Parser.parser.isHeldByNpc : el2)
             // @ts-expect-error ts-migrate(2339) FIXME: Property 'isWorn' does not exist on type '{}'.
-            cmd.scope.push(el2 === parser.isWorn ? parser.isWornByNpc : el2)
+            cmd.scope.push(el2 === Quest.Parser.parser.isWorn ? Quest.Parser.parser.isWornByNpc : el2)
           }
           newCmds.push(cmd)
         }
@@ -687,7 +687,7 @@ namespace Quest {
 
         if (options.item.isAtLoc(options.char.name, world.PARSER)) return true;
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-        if (parser.isHere(options.item)) return true;
+        if (Quest.Parser.parser.isHere(options.item)) return true;
 
         if (options.item.loc) {
           // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
@@ -695,7 +695,7 @@ namespace Quest {
           if (options.holder && (options.holder.npc || options.holder.player)) return falsemsg(Quest.lang.char_has_it, options)
         }
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'isContained' does not exist on type '{}'... Remove this comment to see the full error message
-        if (parser.isContained(options.item)) return true;
+        if (Quest.Parser.parser.isContained(options.item)) return true;
         return falsemsg(Quest.lang.not_here, options)
       },
 

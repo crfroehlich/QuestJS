@@ -419,7 +419,7 @@ namespace Quest {
     function showMenuNumbersOnly(title: any, options: any, fn: any) {
       const opts = { article: Quest.Utilities.DEFINITE, capital: true, noLinks: true }
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'overrideWith' does not exist on type '{}... Remove this comment to see the full error message
-      parser.overrideWith(function (s: any) { io.menuResponse(s) })
+      Quest.Parser.parser.overrideWith(function (s: any) { io.menuResponse(s) })
       const disableTextFunction = function (disable: any) {
         if (disable) {
           io.disable(3)
@@ -428,7 +428,7 @@ namespace Quest {
           io.keydownFunction = function (e: any) {
             const n = parseInt(e.key)
             // @ts-expect-error ts-migrate(2339) FIXME: Property 'menuOptions' does not exist on type '{ n... Remove this comment to see the full error message
-            if (!isNaN(n) && n <= io.menuOptions.length && n !== 0) parser.parse('' + n)
+            if (!isNaN(n) && n <= io.menuOptions.length && n !== 0) Quest.Parser.parser.parse('' + n)
             // stopping the typed character appearing in the text field is not easy...
             // stopPropagation and stopImmediatePropagation did not do it,
             // even though it seems to happen after this
@@ -463,7 +463,7 @@ namespace Quest {
     function showMenuWithNumbers(title: any, options: any, fn: any) {
       const opts = { article: Quest.Utilities.DEFINITE, capital: true, noLinks: true }
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'overrideWith' does not exist on type '{}... Remove this comment to see the full error message
-      parser.overrideWith(function (s: any) { io.menuResponse(s) })
+      Quest.Parser.parser.overrideWith(function (s: any) { io.menuResponse(s) })
       const disableTextFunction = function (disable: any) {
         if (disable) {
           io.disable(2)
@@ -579,7 +579,7 @@ namespace Quest {
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'disable' does not exist on type '{ nexti... Remove this comment to see the full error message
       io.disable(2)
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'overrideWith' does not exist on type '{}... Remove this comment to see the full error message
-      parser.overrideWith(function (result: any) {
+      Quest.Parser.parser.overrideWith(function (result: any) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'enable' does not exist on type '{ nextid... Remove this comment to see the full error message
         io.enable()
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'savedCommands' does not exist on type '{... Remove this comment to see the full error message
@@ -775,7 +775,7 @@ namespace Quest {
         link.href = path + Quest.Settings.settings.favicon
         tab.document.head.appendChild(link)
       },
-      enable: () => {},
+      enable: () => { },
       // This is used by the various menu functions (not showMenuDiag).
       input: function (title: any, options: any, disableTextFunction: any, reactFunction: any, displayFunction: any, failFunction: any) {
         // Store the values so we can use them later in io.menuResponse
@@ -1285,7 +1285,7 @@ namespace Quest {
 
         // stop overriding the parser
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'overrideWith' does not exist on type '{}... Remove this comment to see the full error message
-        parser.overrideWith()
+        Quest.Parser.parser.overrideWith()
 
         // remove choices from screen
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'menuStartId' does not exist on type '{ n... Remove this comment to see the full error message
@@ -1538,7 +1538,7 @@ namespace Quest {
             if (exit.key && exit.key === keycode) {
               io.msgInputText(exit.name);
               // @ts-expect-error ts-migrate(2339) FIXME: Property 'parse' does not exist on type '{}'.
-              parser.parse(exit.name);
+              Quest.Parser.parser.parse(exit.name);
               // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
               document.querySelector('#textbox').value = ''
               event.stopPropagation();
@@ -1558,7 +1558,7 @@ namespace Quest {
             // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
             if (event.ctrlKey && (Quest.Settings.settings.playMode === 'dev' || Quest.Settings.settings.playMode === 'beta')) {
               // @ts-expect-error ts-migrate(2339) FIXME: Property 'parse' does not exist on type '{}'.
-              parser.parse("script show")
+              Quest.Parser.parser.parse("script show")
             }
             else {
               // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
@@ -1570,7 +1570,7 @@ namespace Quest {
                 }
                 io.savedCommandsPos = io.savedCommands.length;
                 // @ts-expect-error ts-migrate(2339) FIXME: Property 'parse' does not exist on type '{}'.
-                parser.parse(s);
+                Quest.Parser.parser.parse(s);
                 // @ts-expect-error ts-migrate(2339) FIXME: Property 'doNotEraseLastCommand' does not exist on... Remove this comment to see the full error message
                 if (io.doNotEraseLastCommand) {
                   // @ts-expect-error ts-migrate(2339) FIXME: Property 'doNotEraseLastCommand' does not exist on... Remove this comment to see the full error message
@@ -1627,26 +1627,26 @@ namespace Quest {
           if (keycode === 96 && (Quest.Settings.settings.playMode === 'dev' || Quest.Settings.settings.playMode === 'beta')) {
             if (event.ctrlKey && event.altKey) {
               // @ts-expect-error ts-migrate(2339) FIXME: Property 'parse' does not exist on type '{}'.
-              parser.parse("wt b")
+              Quest.Parser.parser.parse("wt b")
             }
             else if (event.altKey) {
               // @ts-expect-error ts-migrate(2339) FIXME: Property 'parse' does not exist on type '{}'.
-              parser.parse("wt a")
+              Quest.Parser.parser.parse("wt a")
             }
             else if (event.ctrlKey) {
               // @ts-expect-error ts-migrate(2339) FIXME: Property 'parse' does not exist on type '{}'.
-              parser.parse("wt c")
+              Quest.Parser.parser.parse("wt c")
             }
             else {
               // @ts-expect-error ts-migrate(2339) FIXME: Property 'parse' does not exist on type '{}'.
-              parser.parse("test")
+              Quest.Parser.parser.parse("test")
             }
             // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
             setTimeout(function () { document.querySelector('#textbox').value = '' }, 1);
           }
           if (keycode === 90 && event.ctrlKey) {
             // @ts-expect-error ts-migrate(2339) FIXME: Property 'parse' does not exist on type '{}'.
-            parser.parse("undo")
+            Quest.Parser.parser.parse("undo")
           }
         })
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'textColour' does not exist on type '{ ne... Remove this comment to see the full error message
@@ -1882,7 +1882,7 @@ namespace Quest {
         io.savedCommands.pop() // do not save AGAIN/OOPS
         if (isAgain) {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'parse' does not exist on type '{}'.
-          parser.parse(io.savedCommands[io.savedCommands.length - 1])
+          Quest.Parser.parser.parse(io.savedCommands[io.savedCommands.length - 1])
         }
         else {
           // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.

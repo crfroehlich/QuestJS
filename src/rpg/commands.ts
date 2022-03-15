@@ -10,7 +10,7 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('Attack', {
   rules: [Quest.Command.cmdRules.isPresent],
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
-    { scope: parser.isPresent }
+    { scope: Quest.Parser.parser.isPresent }
   ],
   defmsg: "No point attacking {nm:item:the}."
 }))
@@ -23,7 +23,7 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('Search', {
   rules: [Quest.Command.cmdRules.isPresent],
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
-    { scope: parser.isPresent }
+    { scope: Quest.Parser.parser.isPresent }
   ],
   defmsg: "No point attacking {nm:item:the}."
 }))
@@ -35,7 +35,7 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('Equip', {
   rules: [Quest.Command.cmdRules.isHeld],
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
-    { scope: parser.isHeld }
+    { scope: Quest.Parser.parser.isHeld }
   ],
   defmsg: "{nv:item:be:true} not something you can equip.",
 }))
@@ -48,7 +48,7 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('Unequip', {
   rules: [Quest.Command.cmdRules.isHeld],
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
-    { scope: parser.isHeld }
+    { scope: Quest.Parser.parser.isHeld }
   ],
   defmsg: "{nv:item:be:true} not something you can equip.",
 }))
@@ -124,7 +124,7 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('CastSpellAt', {
   objects: [
     { special: 'text' },
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
-    { scope: parser.isPresent },
+    { scope: Quest.Parser.parser.isPresent },
   ],
   script: function (objects: any) {
     const spell = rpg.find(objects[0])

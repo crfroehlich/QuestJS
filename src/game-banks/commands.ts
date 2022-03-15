@@ -6,7 +6,7 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('Kick', {
   regex:/^(kick) (.+)$/,
   objects:[
     {special:'ignore'},
-    {scope:parser.isPresent}
+    {scope:Quest.Parser.parser.isPresent}
   ],
   default:function(item, char, options) {
     Quest.IO.msg("{pv:char:kick:true} {ob:item:the}, but nothing happens.", options);
@@ -20,7 +20,7 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('Move', {
   regex:/^(move) (.+)$/,
   objects:[
     {special:'ignore'},
-    {scope:parser.isHere}
+    {scope:Quest.Parser.parser.isHere}
   ],
   default:function(item, char, options) {
     Quest.IO.msg("{pv:char:be:true} not something you can move.", options);
@@ -39,7 +39,7 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('Get in pod1', {
   attName: "stasis",
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-    { scope: parser.isHere, attName: "npc" },
+    { scope: Quest.Parser.parser.isHere, attName: "npc" },
   ],
   defmsg: "That's not about to get in a stasis!",
 }));
@@ -50,7 +50,7 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('Get in pod2', {
   attName: "stasis",
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-    { scope: parser.isHere, attName: "npc" },
+    { scope: Quest.Parser.parser.isHere, attName: "npc" },
   ],
   defmsg: "That's not about to get in a stasis!",
 }));
@@ -62,7 +62,7 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('Stop1', {
   attName: "stopAgenda",
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-    { scope: parser.isHere, attName: "npc" },
+    { scope: Quest.Parser.parser.isHere, attName: "npc" },
   ],
   defmsg: "That's not doing anything!",
 }));
@@ -73,7 +73,7 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('Stop2', {
   attName: "stopAgenda",
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-    { scope: parser.isHere, attName: "npc" },
+    { scope: Quest.Parser.parser.isHere, attName: "npc" },
   ],
   defmsg: "That's not doing anything",
 }));
@@ -85,7 +85,7 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('Launch', {
   npcCmd: true,
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isInWorld' does not exist on type '{}'.
-    { scope: parser.isInWorld },
+    { scope: Quest.Parser.parser.isInWorld },
   ],
   defmsg: "You can't launch that!",
 }));
@@ -96,7 +96,7 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('Revive', {
   npcCmd: true,
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isInWorld' does not exist on type '{}'.
-    { scope: parser.isInWorld },
+    { scope: Quest.Parser.parser.isInWorld },
   ],
   defmsg: "You can't revive that!",
 }));
@@ -124,7 +124,7 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('Spray', {
   //npcCmd:true, // ???
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-    { scope: parser.isHere },
+    { scope: Quest.Parser.parser.isHere },
   ],
   defmsg: "You can't spray that!",
 }));
@@ -155,7 +155,7 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('NpcPressurise1', {
   attName: 'pressure',
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-    { scope: parser.isHere, attName: "npc" },
+    { scope: Quest.Parser.parser.isHere, attName: "npc" },
     { scope: isRoomScope, extendedScope: true },
   ],
   script: function (objects: any) {
@@ -176,7 +176,7 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('NpcPressurise2', {
   attName: 'pressure',
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-    { scope: parser.isHere, attName: "npc" },
+    { scope: Quest.Parser.parser.isHere, attName: "npc" },
     { scope: isRoomScope, extendedScope: true },
   ],
   script: function (objects: any) {
@@ -197,7 +197,7 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('NpcDepressurise1', {
   attName: 'pressure',
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-    { scope: parser.isHere, attName: "npc" },
+    { scope: Quest.Parser.parser.isHere, attName: "npc" },
     { scope: isRoomScope, extendedScope: true },
   ],
   script: function (objects: any) {
@@ -218,7 +218,7 @@ Quest.Commands.commands.push(new Quest.Command.Cmd('NpcDepressurise2', {
   attName: 'pressure',
   objects: [
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-    { scope: parser.isHere, attName: "npc" },
+    { scope: Quest.Parser.parser.isHere, attName: "npc" },
     { scope: isRoomScope, extendedScope: true },
   ],
   script: function (objects: any) {

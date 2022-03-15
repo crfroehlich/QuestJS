@@ -5,7 +5,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Charge', {
   npcCmd:true,
   regex:/^(?:charge|power) (.+)$/,
   objects:[
-    {scope:parser.isHeld}
+    {scope:Quest.Parser.parser.isHeld}
   ],
   defmsg:"{pv:item:'be:true} not something you can charge.",
 }))
