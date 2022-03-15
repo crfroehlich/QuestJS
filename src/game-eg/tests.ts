@@ -761,7 +761,7 @@ test.tests = function () {
   test.assertEqual("There are seven bricks.", processText("There are {nm:item:count}.", { item: w.brick, brick_count: 7 }));
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
-  test.title("Text processor 5a: nm with COUNTABLE.");
+  test.title("Text processor 5a: nm with Quest.Templates.COUNTABLE.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("Five bricks", processText("{nm:item:count:true}", { item: w.brick, brick_count: 5 }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
@@ -789,7 +789,7 @@ test.tests = function () {
   test.assertEqual("Lara looks at the book thoughtfully.", processText("Lara looks at the {nm:item:false:false:count_this} thoughtfully.", { item: w.book, count_this: 'specialCount' }))
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
-  test.title("Text processor 5b: nm with COUNTABLE too.");
+  test.title("Text processor 5b: nm with Quest.Templates.COUNTABLE too.");
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'book' does not exist on type '{}'.
   w.book.getDisplayName = function (options: any) { return 'a ' + options.adj + ' tomb' }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message

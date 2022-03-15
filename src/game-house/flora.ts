@@ -194,7 +194,7 @@ createItem("lift_fake_flora", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("pedestal", SURFACE(), {
+createItem("pedestal", Quest.Templates.SURFACE(), {
   loc: 'greenhouse_west',
   scenery: true,
   examine: function () {
@@ -462,7 +462,7 @@ createItem("hourglass", SIZE_CHANGING(), {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'hourglass' does not exist on type '{}'.
 w.hourglass.maxsize = 7
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("protrusion", COMPONENT("hourglass"), CONTAINER(true), {
+createItem("protrusion", Quest.Templates.COMPONENT("hourglass"), Quest.Templates.CONTAINER(true), {
   examine: "{select:hourglass:protrusionDescriptions:size}",
   synonyms: ['tap', 'opening'],
   msgOpen: 'Mandy opens the tap on the side of the hourglass bulb.',
@@ -512,7 +512,7 @@ tp.addDirective("hourglass", function (arr: any, params: any) {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("bare_earth", CONTAINER(), {
+createItem("bare_earth", Quest.Templates.CONTAINER(), {
   loc: 'greenhouse_west',
   scenery: true,
   seedsPlanted: 0,
@@ -703,7 +703,7 @@ createRoom("greenhouse_catwalk_west", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("pedestal_from_catwalk", SURFACE(), {
+createItem("pedestal_from_catwalk", Quest.Templates.SURFACE(), {
   alias: 'pedestal',
   loc: "greenhouse_catwalk_west",
   scenery: true,
@@ -1060,7 +1060,7 @@ createItem("tamarind_pod_prototype", SIZE_CHANGING(), {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("tamarind_seed", COUNTABLE(), {
+createItem("tamarind_seed", Quest.Templates.COUNTABLE(), {
   regex: /^(\d+ )?seeds?$/,
   defaultToAll: false,
   examine: 'The tamarind seed is black and shiny; more like a pebble than a seed.',

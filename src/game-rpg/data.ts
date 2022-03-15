@@ -42,7 +42,7 @@ createItem("long_bow", LIMITED_AMMO_WEAPON("2d8", "bow", "arrow"), {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("arrow", COUNTABLE({ yard: 14 }), {
+createItem("arrow", Quest.Templates.COUNTABLE({ yard: 14 }), {
     examine: "A simple arrow.",
 })
 
@@ -57,7 +57,7 @@ createItem("flaming_sword", WEAPON("3d6+2", "blade"), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("ice_amulet", WEARABLE(4, ['neck']), {
+createItem("ice_amulet", Quest.Templates.WEARABLE(4, ['neck']), {
     loc: "me",
     examine: "An example of a wearable magic item; it stops ice/frost damage.",
     modifyIncomingAttack: function (attack: any) {
@@ -108,7 +108,7 @@ createRoom("great_hall", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("tapestry", TAKEABLE(), {
+createItem("tapestry", Quest.Templates.TAKEABLE(), {
     examine: 'A huge tapestry, taller than you, and wider than it is tall.',
     scenery: true,
     loc: 'great_hall',
@@ -123,7 +123,7 @@ createRoom("passage", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("practice_room_door", LOCKED_DOOR("small_key", "great_hall", "practice_room"), {
+createItem("practice_room_door", Quest.Templates.LOCKED_DOOR("small_key", "great_hall", "practice_room"), {
     examine: 'A very solid, wooden door.',
 })
 
@@ -139,7 +139,7 @@ createRoom("cupboard", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("small_key", KEY(), {
+createItem("small_key", Quest.Templates.KEY(), {
     examine: 'A small key.',
     loc: "practice_room",
 })
@@ -329,7 +329,7 @@ createItem("healing_potion", POTION("Healing"), {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("chest", CONTAINER(true), LOCKED_WITH(), {
+createItem("chest", Quest.Templates.CONTAINER(true), Quest.Templates.LOCKED_WITH(), {
     loc: "practice_room",
 });
 
@@ -340,21 +340,21 @@ createItem("spellbook", SPELLBOOK(["Fireball", "Stoneskin", "Steelskin", "Lightn
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("helmet", WEARABLE(2, ['head']), {
+createItem("helmet", Quest.Templates.WEARABLE(2, ['head']), {
     loc: "practice_room",
     examine: "An example of armour; it will add +{armour} to your armour rating.",
     armour: 10,
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("chestplate", WEARABLE(2, ['chest']), {
+createItem("chestplate", Quest.Templates.WEARABLE(2, ['chest']), {
     loc: "practice_room",
     examine: "An example of armour; it will add +{armour} to your armour rating.",
     armour: 20,
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("boots", WEARABLE(2, ['feet']), {
+createItem("boots", Quest.Templates.WEARABLE(2, ['feet']), {
     loc: "practice_room",
     pronouns: Quest.lang.pronouns.plural,
 });
@@ -370,7 +370,7 @@ createItem("shotgun", LIMITED_AMMO_WEAPON("2d10+4", 'firearm', 1), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("Stone_of_Returning", TAKEABLE(), {
+createItem("Stone_of_Returning", Quest.Templates.TAKEABLE(), {
     loc: "yard",
 });
 

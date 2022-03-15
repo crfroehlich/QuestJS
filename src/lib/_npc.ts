@@ -3,7 +3,7 @@ namespace Quest {
     // Should all be language neutral
     export const NPC = function (isFemale: any) {
       // A whole bunch of defaults are the same as the player
-      const res = Object.assign({}, CHARACTER(), CONSULTABLE(), AGENDA_FOLLOWER());
+      const res = Object.assign({}, Quest.Templates.CHARACTER(), CONSULTABLE(), AGENDA_FOLLOWER());
 
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'npc' does not exist on type '{ canReachT... Remove this comment to see the full error message
       res.npc = true;

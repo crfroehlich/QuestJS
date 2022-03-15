@@ -1,6 +1,6 @@
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("me", PLAYER(), {
+createItem("me", Quest.Templates.PLAYER(), {
   loc: "lobby",
   synonyms: ["me", "myself", "player"],
   examine: "Just a regular guy.",
@@ -8,7 +8,7 @@ createItem("me", PLAYER(), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem('cloak', WEARABLE(), {
+createItem('cloak', Quest.Templates.WEARABLE(), {
   examine: 'The cloak is black... Very black... So black it seems to absorb light.',
   worn: true,
   loc: 'me'
@@ -78,7 +78,7 @@ createRoom("cloakroom", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem('hook', SURFACE(), {
+createItem('hook', Quest.Templates.SURFACE(), {
   synonyms: ["peg"],
   hookable: true,
   scenery: true,

@@ -619,7 +619,7 @@ const sizeAdjectives = {
 
 
 const SIZE_CHANGING = function () {
-  const res = Object.assign({}, TAKEABLE_DICTIONARY)
+  const res = Object.assign({}, Quest.Templates.TAKEABLE_DICTIONARY)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'size_changing' does not exist on type '{... Remove this comment to see the full error message
   res.size_changing = true
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'size' does not exist on type '{ afterCre... Remove this comment to see the full error message

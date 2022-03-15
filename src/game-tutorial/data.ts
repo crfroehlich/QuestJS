@@ -1,7 +1,7 @@
 "use strict"
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("me", PLAYER(), {
+createItem("me", Quest.Templates.PLAYER(), {
   loc: "lounge",
   regex: /^(me|myself|player)$/,
   examine: "Just a regular guy.",
@@ -107,7 +107,7 @@ createRoom("kitchen", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("kitchen_door", LOCKED_DOOR([], "lounge", "kitchen"), {
+createItem("kitchen_door", Quest.Templates.LOCKED_DOOR([], "lounge", "kitchen"), {
   examine: "It is plain, wooden door, painted white.",
 })
 
@@ -141,7 +141,7 @@ createRoom("basement", {
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("light_switch", SWITCHABLE(false), {
+createItem("light_switch", Quest.Templates.SWITCHABLE(false), {
   loc: "basement",
   examine: "A switch, presumably for the light.",
   regex: /^light|switch/,
@@ -194,21 +194,21 @@ createItem("cobwebs", {
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("old_newspaper", TAKEABLE(), READABLE(), {
+createItem("old_newspaper", Quest.Templates.TAKEABLE(), Quest.Templates.READABLE(), {
   examine: 'A newspaper from the eighties; yellow with age.',
   read: 'You spend a few minutes reading about what happens on the day 14th June 1987 (or perhaps the day before). A somewhat mocking article about an archaeologist, Dr Ruudhorn, and Atlantis catches your eye.',
   loc: 'basement',
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("rope", ROPE(false), {
+createItem("rope", Quest.Templates.ROPE(false), {
   examine: 'About 25 foot long; it looks old, but serviceable.',
   loc: 'basement',
   ropeLength: 5,
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("apple", EDIBLE(), {
+createItem("apple", Quest.Templates.EDIBLE(), {
   examine: 'A rosy red apple.',
   loc: 'basement',
 });
@@ -276,7 +276,7 @@ createRoom("garden", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("hat", WEARABLE(), {
+createItem("hat", Quest.Templates.WEARABLE(), {
   examine: "It is straw boater, somewhat the worse for wear.",
   loc: "garden",
   afterMove: function (options: any) {
@@ -327,7 +327,7 @@ createItem("grass", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 5.
-createItem("box", READABLE(), CONTAINER(true), LOCKED_WITH([]), {
+createItem("box", Quest.Templates.READABLE(), Quest.Templates.CONTAINER(true), Quest.Templates.LOCKED_WITH([]), {
   examine: function () {
     const tpParams = { char: player, container: this }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'list' does not exist on type '{ char: an... Remove this comment to see the full error message
@@ -367,7 +367,7 @@ createItem("box", READABLE(), CONTAINER(true), LOCKED_WITH([]), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("crowbar", TAKEABLE(), {
+createItem("crowbar", Quest.Templates.TAKEABLE(), {
   examine: "A cheap plastic crowbar; it is red, white, blue and yellow.",
   loc: "box",
   afterMove: function (options: any) {
@@ -433,7 +433,7 @@ createRoom("shed", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("flashlight", TAKEABLE(), SWITCHABLE(false, 'providing light'), {
+createItem("flashlight", Quest.Templates.TAKEABLE(), Quest.Templates.SWITCHABLE(false, 'providing light'), {
   loc: "shed",
   scenery: true,
   examine: "A small red torch.",
@@ -530,7 +530,7 @@ createRoom("laboratory", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("lab_door", OPENABLE(false), {
+createItem("lab_door", Quest.Templates.OPENABLE(false), {
   examine: "A very solid, steel door.",
   loc: 'laboratory',
   open: function (options: any) {
@@ -570,7 +570,7 @@ createItem("instruments", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("brand_badges", COMPONENT("instruments"), {
+createItem("brand_badges", Quest.Templates.COMPONENT("instruments"), {
   examine: function () {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg("The badges on the various instruments are all the same; \"Zeta Industries\". They appear to be hand-drawn.")
@@ -646,7 +646,7 @@ createRoom("reactor_room", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createRoom("reactor", CONTAINER(false), {
+createRoom("reactor", Quest.Templates.CONTAINER(false), {
   examine: function () {
     return "The reactor is composed of a series of rings, hoops and cylinders arranged on a vertical axis. Some are shiny metal, other dull black, but you have no idea of the significant of any of them.{if:reactor_room:reactorRunning: An intense blue light spills out from various points up it length.}"
   },
@@ -678,7 +678,7 @@ createItem("vomit", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("control_rod", TAKEABLE(), {
+createItem("control_rod", Quest.Templates.TAKEABLE(), {
   examine: "The control rod is about two foot long, and a dull black colour.",
   take: function (options: any) {
     // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'char'.
@@ -718,7 +718,7 @@ createItem("control_rod", TAKEABLE(), {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("control_rod_repository", SURFACE(), {
+createItem("control_rod_repository", Quest.Templates.SURFACE(), {
   examine: "The control rod repository is a cross between a shelf and a cradle; it is attached to the wall like a shelf, but shaped like a cradle to hold the control rod.",
   loc: 'reactor_room',
 })
@@ -882,7 +882,7 @@ createItem("painting", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("postit_note", TAKEABLE(), READABLE(), {
+createItem("postit_note", Quest.Templates.TAKEABLE(), Quest.Templates.READABLE(), {
   alias: 'post-it note',
   examine: "The sticky yellow note has something written on it; the number {show:computer:code}.",
   read: "The post-it note just has six digits written on it: {show:computer:code}.",
@@ -893,7 +893,7 @@ createItem("postit_note", TAKEABLE(), READABLE(), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("chair", FURNITURE({ sit: true, stand: true }), {
+createItem("chair", Quest.Templates.FURNITURE({ sit: true, stand: true }), {
   examine: "This is an elegant, white office chair in good condition.",
   loc: 'office',
   scenery: true,
@@ -1021,7 +1021,7 @@ createItem("computer", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createRoom("lift", TRANSIT("east"), {
+createRoom("lift", Quest.Templates.TRANSIT("east"), {
   regex: /elevator/,
   desc: function () {
     return "The lift is small; according the plaque it is limited to just three people. There are three buttons, labelled one to three. A label above indicates the lift is at \"{transitDest}\"."
@@ -1061,7 +1061,7 @@ createRoom("lift", TRANSIT("east"), {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("button_3", TRANSIT_BUTTON("lift"), {
+createItem("button_3", Quest.Templates.TRANSIT_BUTTON("lift"), {
   alias: "Button: 3",
   examine: "A button with the letter 3 on it.",
   transitDest: "office",
@@ -1071,7 +1071,7 @@ createItem("button_3", TRANSIT_BUTTON("lift"), {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("button_2", TRANSIT_BUTTON("lift"), {
+createItem("button_2", Quest.Templates.TRANSIT_BUTTON("lift"), {
   alias: "Button: 2",
   examine: "A button with the letter 2 on it.",
   title: 'Level 2: Lounge',
@@ -1081,7 +1081,7 @@ createItem("button_2", TRANSIT_BUTTON("lift"), {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("button_1", TRANSIT_BUTTON("lift"), {
+createItem("button_1", Quest.Templates.TRANSIT_BUTTON("lift"), {
   alias: "Button: 1",
   examine: "A button with the letter 1 on it.",
   title: 'Level 1: Laboratory',

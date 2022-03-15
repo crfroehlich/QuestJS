@@ -1,7 +1,7 @@
 "use strict"
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("me", PLAYER(), {
+createItem("me", Quest.Templates.PLAYER(), {
   loc: "lounge",
   synonyms: ['me', 'myself'],
   examine: "Just a regular guy.",
@@ -19,7 +19,7 @@ createRoom("lounge", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("torch", TAKEABLE(), SWITCHABLE(false, 'providing light'), {
+createItem("torch", Quest.Templates.TAKEABLE(), Quest.Templates.SWITCHABLE(false, 'providing light'), {
   loc: "lounge",
   examine: "A small black torch.",
   synonyms: ["flashlight"],
@@ -63,13 +63,13 @@ createItem("torch", TAKEABLE(), SWITCHABLE(false, 'providing light'), {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("garage_key", KEY(), {
+createItem("garage_key", Quest.Templates.KEY(), {
   loc: "lounge",
   examine: "A big key.",
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("box", CONTAINER(), {
+createItem("box", Quest.Templates.CONTAINER(), {
   loc: "lounge",
   examine: "A big box.",
 })
@@ -290,7 +290,7 @@ createItem("Lara", Quest.NPC.NPC(true), {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("trapdoor", OPENABLE(false), {
+createItem("trapdoor", Quest.Templates.OPENABLE(false), {
   loc: "kitchen",
   examine: "A small trapdoor in the floor.",
 })
@@ -333,7 +333,7 @@ createRoom("basement", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("light_switch", SWITCHABLE(false), {
+createItem("light_switch", Quest.Templates.SWITCHABLE(false), {
   loc: "basement",
   alias: "light switch",
   examine: "A switch, presumably for the light.",

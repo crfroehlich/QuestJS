@@ -6,7 +6,7 @@
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("knife",
-  TAKEABLE(),
+  Quest.Templates.TAKEABLE(),
   {
     loc: "Buddy", sharp: false,
     examine: function (options: any) {
@@ -121,7 +121,7 @@ createRoom("hole", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("book", TAKEABLE(), READABLE(true), {
+createItem("book", Quest.Templates.TAKEABLE(), Quest.Templates.READABLE(true), {
   loc: "lounge",
   examine: "A leather-bound book.",
   read: function (options: any) {
@@ -173,14 +173,14 @@ Quest.Utilities.util.addChangeListener(w.book, "watchedNumberAttribute", functio
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("book_cover", COMPONENT("book"), {
+createItem("book_cover", Quest.Templates.COMPONENT("book"), {
   examine: "The book cover is very fancy.",
   parserPriority: -20,
 });
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("boots", WEARABLE(), {
+createItem("boots", Quest.Templates.WEARABLE(), {
   loc: "lounge",
   pronouns: Quest.lang.pronouns.plural,
   examine: "Some old boots.",
@@ -190,7 +190,7 @@ createItem("boots", WEARABLE(), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("canteen", TAKEABLE(), VESSEL(), {
+createItem("canteen", Quest.Templates.TAKEABLE(), Quest.Templates.VESSEL(), {
   examine: "The canteen is {ifExists:canteen:containedFluidName:full:empty}.",
   loc: "lounge",
 })
@@ -200,7 +200,7 @@ createItem("canteen", TAKEABLE(), VESSEL(), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("glass_cabinet", CONTAINER(true), LOCKED_WITH(["cabinet_key", "small_key"]), {
+createItem("glass_cabinet", Quest.Templates.CONTAINER(true), Quest.Templates.LOCKED_WITH(["cabinet_key", "small_key"]), {
   examine: "A cabinet with a glass front.",
   transparent: true,
   isLocatedAt: function (loc: any) { return (loc == "lounge" || loc == "dining_room") }
@@ -208,7 +208,7 @@ createItem("glass_cabinet", CONTAINER(true), LOCKED_WITH(["cabinet_key", "small_
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("cabinet_key", KEY(), {
+createItem("cabinet_key", Quest.Templates.KEY(), {
   loc: "garage",
   examine: "A small brass key."
 })
@@ -217,19 +217,19 @@ createItem("cabinet_key", KEY(), {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
 createItem("jewellery_box",
-  TAKEABLE(),
-  CONTAINER(true),
+  Quest.Templates.TAKEABLE(),
+  Quest.Templates.CONTAINER(true),
   { loc: "glass_cabinet", alias: "jewellery box", examine: "A nice box.", }
 );
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("ring",
-  TAKEABLE(),
+  Quest.Templates.TAKEABLE(),
   { loc: "jewellery_box", examine: "A ring.", }
 );
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("cardboard_box", TAKEABLE(), CONTAINER(true), {
+createItem("cardboard_box", Quest.Templates.TAKEABLE(), Quest.Templates.CONTAINER(true), {
   loc: "lounge",
   alias: "cardboard box",
   regex: /cardboard/,
@@ -238,7 +238,7 @@ createItem("cardboard_box", TAKEABLE(), CONTAINER(true), {
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("ham_and_cheese_sandwich", EDIBLE(false), {
+createItem("ham_and_cheese_sandwich", Quest.Templates.EDIBLE(false), {
   pattern: 'egg|mayo',
   loc: "lounge",
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
@@ -247,7 +247,7 @@ createItem("ham_and_cheese_sandwich", EDIBLE(false), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("ornate_doll", TAKEABLE(), {
+createItem("ornate_doll", Quest.Templates.TAKEABLE(), {
   loc: "glass_cabinet",
   alias: "ornate doll",
   examine: "A fancy doll, eigthteenth century.",
@@ -257,7 +257,7 @@ createItem("ornate_doll", TAKEABLE(), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("coin", TAKEABLE(), {
+createItem("coin", Quest.Templates.TAKEABLE(), {
   loc: "lounge",
   examine: "A gold coin.",
   take2: function (options: any) {
@@ -268,13 +268,13 @@ createItem("coin", TAKEABLE(), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("small_key", KEY(), {
+createItem("small_key", Quest.Templates.KEY(), {
   loc: "lounge", examine: "A small key.", alias: "small key",
 })
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("flashlight", TAKEABLE(), SWITCHABLE(false, 'providing light'), {
+createItem("flashlight", Quest.Templates.TAKEABLE(), Quest.Templates.SWITCHABLE(false, 'providing light'), {
   loc: "lounge",
   examine: "A small red torch.",
   regex: /^torch$/,
@@ -344,7 +344,7 @@ createItem("lift_item", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("chair", FURNITURE({ sit: true }), {
+createItem("chair", Quest.Templates.FURNITURE({ sit: true }), {
   loc: "dining_room", examine: "A wooden chair.",
   afterPostureOn: function (options: any) {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
@@ -355,7 +355,7 @@ createItem("chair", FURNITURE({ sit: true }), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createRoom("lift", TRANSIT("east"), {
+createRoom("lift", Quest.Templates.TRANSIT("east"), {
   desc: 'A curious lift.',
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   east: new Exit('dining_room'),
@@ -367,7 +367,7 @@ createRoom("lift", TRANSIT("east"), {
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("button_0",
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  TRANSIT_BUTTON("lift"),
+  Quest.Templates.TRANSIT_BUTTON("lift"),
   {
     alias: "Button: G",
     examine: "A button with the letter G on it.",
@@ -383,7 +383,7 @@ createItem("button_0",
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("button_1",
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  TRANSIT_BUTTON("lift"),
+  Quest.Templates.TRANSIT_BUTTON("lift"),
   {
     alias: "Button: 1",
     examine: "A button with the letter 1 on it.",
@@ -399,7 +399,7 @@ createItem("button_1",
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("button_2",
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  TRANSIT_BUTTON("lift"),
+  Quest.Templates.TRANSIT_BUTTON("lift"),
   {
     alias: "Button: 2",
     examine: "A button with the letter 2 on it.",
@@ -458,34 +458,34 @@ createRoom("kitchen", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("clock", TAKEABLE(), {
+createItem("clock", Quest.Templates.TAKEABLE(), {
   loc: "kitchen",
   scenery: true,
   examine: "A white clock.",
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("trapdoor", OPENABLE(false), {
+createItem("trapdoor", Quest.Templates.OPENABLE(false), {
   loc: "kitchen",
   examine: "A small trapdoor in the floor.",
   goThroughDirection: 'down',
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("camera", TAKEABLE(), {
+createItem("camera", Quest.Templates.TAKEABLE(), {
   loc: "kitchen",
   examine: "A cheap digital camera.",
   regex: /^picture box$/,
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("big_kitchen_table", SURFACE(), {
+createItem("big_kitchen_table", Quest.Templates.SURFACE(), {
   loc: "kitchen",
   examine: "A Formica table.",
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("jug", TAKEABLE(), VESSEL(), {
+createItem("jug", Quest.Templates.TAKEABLE(), Quest.Templates.VESSEL(), {
   loc: "big_kitchen_table",
   examine: "A small jug, stripped blue and white.",
 })
@@ -531,7 +531,7 @@ createRoom("basement", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("light_switch", SWITCHABLE(false), {
+createItem("light_switch", Quest.Templates.SWITCHABLE(false), {
   loc: "basement",
   examine: "A switch, presumably for the light.",
   alias: "light switch",
@@ -580,12 +580,12 @@ createRoom("garage", {
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("garage_door", LOCKED_DOOR("garage_key", "kitchen", "garage"), {
+createItem("garage_door", Quest.Templates.LOCKED_DOOR("garage_key", "kitchen", "garage"), {
   examine: "The door to the garage.",
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("garage_key", KEY(), {
+createItem("garage_key", Quest.Templates.KEY(), {
   loc: "lounge",
   examine: "A big key.",
 });
@@ -604,7 +604,7 @@ createItem("charger", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("charger_compartment", COMPONENT("charger"), CONTAINER(true), {
+createItem("charger_compartment", Quest.Templates.COMPONENT("charger"), Quest.Templates.CONTAINER(true), {
   alias: "compartment",
   examine: "The compartment is just the right size for the torch. It is {if:charger_compartment:closed:closed:open}.",
   testDropIn: function () {
@@ -622,7 +622,7 @@ createItem("charger_compartment", COMPONENT("charger"), CONTAINER(true), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("charger_button", COMPONENT("charger"), BUTTON(), {
+createItem("charger_button", Quest.Templates.COMPONENT("charger"), Quest.Templates.BUTTON(), {
   examine: "A big red button.",
   alias: "button",
   push: function (options: any) {
@@ -662,7 +662,7 @@ createItem("wardrobe", Quest.Defaults.DEFAULT_ROOM, {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("bed", FURNITURE({ sit: true, recline: true }), {
+createItem("bed", Quest.Templates.FURNITURE({ sit: true, recline: true }), {
   loc: "bedroom",
   scenery: true,
   examine: "What would a bedroom be without a bed?",
@@ -671,7 +671,7 @@ createItem("bed", FURNITURE({ sit: true, recline: true }), {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("underwear",
-  WEARABLE(1, ["lower"]),
+  Quest.Templates.WEARABLE(1, ["lower"]),
   {
     loc: "bedroom",
     pronouns: Quest.lang.pronouns.massnoun,
@@ -681,25 +681,25 @@ createItem("underwear",
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("jeans",
-  WEARABLE(2, ["lower"]),
+  Quest.Templates.WEARABLE(2, ["lower"]),
   { loc: "bedroom", pronouns: Quest.lang.pronouns.plural, examine: "Clean!", }
 );
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("shirt",
-  WEARABLE(2, ["upper"]),
+  Quest.Templates.WEARABLE(2, ["upper"]),
   { loc: "bedroom", examine: "Clean!", }
 );
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("coat",
-  WEARABLE(3, ["upper"]),
+  Quest.Templates.WEARABLE(3, ["upper"]),
   { loc: "bedroom", examine: "Clean!", }
 );
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("jumpsuit",
-  WEARABLE(2, ["upper", "lower"]),
+  Quest.Templates.WEARABLE(2, ["upper", "lower"]),
   { loc: "bedroom", examine: "Clean!", }
 );
 
@@ -710,24 +710,24 @@ createItem("jumpsuit",
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("suit_trousers",
-  WEARABLE(2, ["lower"]),
+  Quest.Templates.WEARABLE(2, ["lower"]),
   { loc: "wardrobe", examine: "The trousers.", pronouns: Quest.lang.pronouns.plural }
 );
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("jacket",
-  WEARABLE(3, ["upper"]),
+  Quest.Templates.WEARABLE(3, ["upper"]),
   { loc: "wardrobe", examine: "The jacket", }
 );
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("waistcoat",
-  WEARABLE(2, ["upper"]),
+  Quest.Templates.WEARABLE(2, ["upper"]),
   { loc: "wardrobe", examine: "The waistcoat", }
 );
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'suit_trousers' does not exist on type '{... Remove this comment to see the full error message
-createEnsemble("suit", [w.suit_trousers, w.jacket, w.waistcoat],
+Quest.Templates.createEnsemble("suit", [w.suit_trousers, w.jacket, w.waistcoat],
   { examine: "A complete suit.", regex: /xyz/ }
 );
 
@@ -745,7 +745,7 @@ createRoom("conservatory", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("crate", FURNITURE({ stand: true }), SHIFTABLE(), {
+createItem("crate", Quest.Templates.FURNITURE({ stand: true }), Quest.Templates.SHIFTABLE(), {
   loc: "conservatory",
   examine: "A large wooden crate, probably strong enough to stand on.",
 })
@@ -758,7 +758,7 @@ createItem("broken_chair", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("rope", ROPE(3), {
+createItem("rope", Quest.Templates.ROPE(3), {
   loc: "conservatory",
   examine: "The rope is about 40' long.",
 })
@@ -1055,7 +1055,7 @@ createItem("kyle_question", Quest.NPC.QUESTION(), {
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("straw_boater",
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  WEARABLE(false),
+  Quest.Templates.WEARABLE(false),
   { loc: "Kyle", examine: "A straw boater.", worn: true }
 );
 
@@ -1239,7 +1239,7 @@ createItem("walls", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("brick", COUNTABLE({ lounge: 7, dining_room: 1 }), {
+createItem("brick", Quest.Templates.COUNTABLE({ lounge: 7, dining_room: 1 }), {
   examine: "A brick is a brick.",
   //regex:/^(\d+ )?bricks?$/,
 })
@@ -1268,7 +1268,7 @@ createRoom("road", {
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("carrot", TAKEABLE(), MERCH(2, ["shop"]), {
+createItem("carrot", Quest.Templates.TAKEABLE(), Quest.Templates.MERCH(2, ["shop"]), {
   examine: "It's a carrot!",
   slice: function (options: any) {
     if (options.with === undefined) {
@@ -1290,12 +1290,12 @@ createItem("carrot", TAKEABLE(), MERCH(2, ["shop"]), {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("honey_pasta", TAKEABLE(), MERCH(5, ["shop"]), {
+createItem("honey_pasta", Quest.Templates.TAKEABLE(), Quest.Templates.MERCH(5, ["shop"]), {
   examine: "It's pasta. With honey on it.",
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("trophy", TAKEABLE(), MERCH(15, "shop"), {
+createItem("trophy", Quest.Templates.TAKEABLE(), Quest.Templates.MERCH(15, "shop"), {
   examine: "It is a unique trophy!",
   doNotClone: true,
 });
@@ -1388,7 +1388,7 @@ createRoom("desert", ZONE(), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("silver_coin", TAKEABLE(), ZONE_ITEM('desert', 1, 1), {
+createItem("silver_coin", Quest.Templates.TAKEABLE(), ZONE_ITEM('desert', 1, 1), {
   examine: "A curious silver coin; you do not recognise it. It says it is worth two dollars.",
 })
 

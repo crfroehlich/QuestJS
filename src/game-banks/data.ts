@@ -8,7 +8,7 @@ createRoom("nowhere", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("me", PLAYER(), {
+createItem("me", Quest.Templates.PLAYER(), {
   loc: "stasis_pod_room",
   regex: /^(me|myself|player)$/,
   status: 100,
@@ -51,7 +51,7 @@ createItem("me", PLAYER(), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("your_jumpsuit", WEARABLE(2, ["body"]), {
+createItem("your_jumpsuit", Quest.Templates.WEARABLE(2, ["body"]), {
   alias: "jumpsuit",
   loc: "stasis_pod_drawer",
   defArticle: "your",
@@ -73,7 +73,7 @@ createItem("your_jumpsuit", WEARABLE(2, ["body"]), {
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("your_underwear", WEARABLE(1, ["body"]), {
+createItem("your_underwear", Quest.Templates.WEARABLE(1, ["body"]), {
   alias: "underwear",
   loc: "me",
   worn: true,
@@ -146,7 +146,7 @@ createItem("stasis_pod", {
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("stasis_pod_drawer", CONTAINER(true), {
+createItem("stasis_pod_drawer", Quest.Templates.CONTAINER(true), {
   alias: "drawer",
   scenery: true,
   loc: "stasis_bay",
@@ -155,7 +155,7 @@ createItem("stasis_pod_drawer", CONTAINER(true), {
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("stasis_locker", CONTAINER(true), {
+createItem("stasis_locker", Quest.Templates.CONTAINER(true), {
   alias: "locker",
   scenery: true,
   loc: "stasis_bay",
@@ -177,7 +177,7 @@ createItem("stasis_locker", CONTAINER(true), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("your_spacesuit", WEARABLE(2, ["body"]), {
+createItem("your_spacesuit", Quest.Templates.WEARABLE(2, ["body"]), {
   alias: "spacesuit",
   loc: "stasis_locker",
   defArticle: "your",
@@ -197,7 +197,7 @@ createItem("your_spacesuit", WEARABLE(2, ["body"]), {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("other_spacesuit", WEARABLE(2, ["body"]), {
+createItem("other_spacesuit", Quest.Templates.WEARABLE(2, ["body"]), {
   alias: "spare spacesuit",
   loc: "stasis_locker",
   parserPriority: -10,
@@ -209,7 +209,7 @@ createItem("other_spacesuit", WEARABLE(2, ["body"]), {
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("spray_sealant", TAKEABLE(), {
+createItem("spray_sealant", Quest.Templates.TAKEABLE(), {
   alias: "sealant spray",
   loc: "stasis_locker",
   uses: 5,
@@ -261,7 +261,7 @@ createRoom("stasis_pod_room", {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("stasis_pod_interior",
-  OPENABLE(true),
+  Quest.Templates.OPENABLE(true),
   {
     alias: "stasis pod",
     regex: /^(stasis pod|pod|lid)$/,
@@ -324,7 +324,7 @@ createRoom("cargo_bay", {
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createRoom("airlock", TRANSIT("starboard"), {
+createRoom("airlock", Quest.Templates.TRANSIT("starboard"), {
   deckName: 'layer1',
   svgId: 'rect2770',
   desc: "The airlock is just big enough for two persons wearing spacesuits, and is featureless besides the doors, port and starboard, and the controls.",
@@ -647,7 +647,7 @@ createRoom("canteen", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("canteen_table", SURFACE(), {
+createItem("canteen_table", Quest.Templates.SURFACE(), {
   alias: "table",
   loc: "canteen",
   scenery: true,
@@ -655,7 +655,7 @@ createItem("canteen_table", SURFACE(), {
   examine: "The table is plastic, attached to the wall at one end, and held up by a single leg at the other end.{table_desc}",
 })
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("canteen_chair", FURNITURE({ sit: true }), {
+createItem("canteen_chair", Quest.Templates.FURNITURE({ sit: true }), {
   alias: "chair",
   loc: "canteen",
   scenery: true,
@@ -736,13 +736,13 @@ createItem("alien_ship_interior", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("_button_alien_ship", TRANSIT_BUTTON("airlock"), {
+createItem("_button_alien_ship", Quest.Templates.TRANSIT_BUTTON("airlock"), {
   transitDest: "alien_ship_interior",
   isLocatedAt: function () { return false },
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("_button_space", TRANSIT_BUTTON("airlock"), {
+createItem("_button_space", Quest.Templates.TRANSIT_BUTTON("airlock"), {
   transitDest: "space",
   isLocatedAt: function () { return false },
 })
@@ -795,7 +795,7 @@ createItem("ship", {
 // Probes are cloned from this
 //
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("probe_prototype", COUNTABLE([]), {
+createItem("probe_prototype", Quest.Templates.COUNTABLE([]), {
   alias: "probe",
   regex: /^(\d+ )?(bio-|geo-|bio|geo)?(probe|satellite|satelite)s?$/,
   launch: function (char: any) {

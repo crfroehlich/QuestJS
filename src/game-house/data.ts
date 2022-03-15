@@ -4,7 +4,7 @@
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("player", PLAYER(), {
+createItem("player", Quest.Templates.PLAYER(), {
   loc: "highfield_lane",
   alias: 'Mandy',
   regex: /^(me|myself|player|mandy|amanda|her)$/,
@@ -75,7 +75,7 @@ createItem("player", PLAYER(), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("school_bag", CONTAINER(), {
+createItem("school_bag", Quest.Templates.CONTAINER(), {
   loc: "player",
   synonyms: ['satchel'],
   examine: "Once more Mandy looks at her bag with disgust. She has had it since she was thirteen, when she had really been into One Direction. God, what has she been thinking? She has been asking her dad to get her a new one for like six months. It still has Zayn on it!",
@@ -556,7 +556,7 @@ createItem("glass_shard", SIZE_CHANGING(), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("paper_funnel", SIZE_CHANGING(), CONSTRUCTION(["secret_recipe"]), {
+createItem("paper_funnel", SIZE_CHANGING(), Quest.Templates.CONSTRUCTION(["secret_recipe"]), {
   desc5: "It is a funnel, cunningly fashioned from a piece of card.",
   desc4: "It is a tiny funnel, cunningly fashioned from a piece of tissue paper.",
   desc6: "It is a large funnel, cunningly fashioned from a piece of thick card.",

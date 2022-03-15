@@ -128,7 +128,7 @@ createRoom("beach", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("sea", CONTAINER(), {
+createItem("sea", Quest.Templates.CONTAINER(), {
   loc: "beach",
   scenery: true,
   examine: "The sea looks nice from a distance, but now she almost has her toes in it, Mandy can see the bits of mutilated bodies in it; not so enticing.",
@@ -182,7 +182,7 @@ createItem("sand_item", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("sandcastle", CONSTRUCTION(), {
+createItem("sandcastle", Quest.Templates.CONSTRUCTION(), {
   synonyms: ['sand castle'],
   buildAtLocation: true,
   examine: 'The sandcastle looks pretty good, to Mandy\'s eye; four squat towers, connected by thick walls and surrounded by a moat. Well, a ditch that will {i:become} a moat when the tide comes in.',
@@ -229,7 +229,7 @@ createItem("battered_boat", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("oar", TAKEABLE(), {  // cannot get taken to size change rooms
+createItem("oar", Quest.Templates.TAKEABLE(), {  // cannot get taken to size change rooms
   loc: "rocky_beach",
   scenery: true,
   examine: "The oar is made of solid wood, and about a metre long.",

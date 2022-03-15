@@ -97,7 +97,7 @@ createItem("house_from_road", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("letter", TAKEABLE(), {  // cannot get dropped in size change rooms
+createItem("letter", Quest.Templates.TAKEABLE(), {  // cannot get dropped in size change rooms
   loc: "highfield_lane",
   scenery: true,
   alias: "letter",
@@ -234,7 +234,7 @@ createRoom("garden_location", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("front_door", CONTAINER(), {
+createItem("front_door", Quest.Templates.CONTAINER(), {
   loc: "garden_location",
   scenery: true,
   checked: false,

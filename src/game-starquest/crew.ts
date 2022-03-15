@@ -2,7 +2,7 @@
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("player", PLAYER(), {
+createItem("player", Quest.Templates.PLAYER(), {
   loc: "bridge",
   crewSummary: '',
   mission_assemble_crew: 1,

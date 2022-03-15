@@ -1,7 +1,7 @@
 "use strict"
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("me", PLAYER(), {
+createItem("me", Quest.Templates.PLAYER(), {
   loc: "lounge",
   regex: /^(me|myself|player)$/,
   examine: "Just a regular guy.",
@@ -245,7 +245,7 @@ createRoom("forest", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createRoom("bus", TRANSIT("south"), {
+createRoom("bus", Quest.Templates.TRANSIT("south"), {
   desc: "The bus is boring, the author really needs to put stuff in it.",
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   south: new Exit('street_north'),
@@ -263,7 +263,7 @@ createRoom("bus", TRANSIT("south"), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("button_street", TRANSIT_BUTTON("bus"), {
+createItem("button_street", Quest.Templates.TRANSIT_BUTTON("bus"), {
   alias: "Button: Street",
   examine: 'A button with the word "High Street" on it.',
   transitDest: "street_north",
@@ -273,7 +273,7 @@ createItem("button_street", TRANSIT_BUTTON("bus"), {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("button_glade", TRANSIT_BUTTON("bus"), {
+createItem("button_glade", Quest.Templates.TRANSIT_BUTTON("bus"), {
   alias: "Button: Glade",
   examine: 'A button with the word "Hidden Glade" on it.',
   transitDest: "glade",

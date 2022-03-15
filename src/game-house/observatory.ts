@@ -166,7 +166,7 @@ createItem("telescope", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("controls", SURFACE(), {
+createItem("controls", Quest.Templates.SURFACE(), {
   loc: "observatory",
   scenery: true,
   synonyms: ['panel', 'slim box'],

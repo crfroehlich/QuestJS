@@ -3,7 +3,7 @@
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("me",
-  PLAYER(),
+  Quest.Templates.PLAYER(),
   {
     loc: "lounge",
     regex: /^(me|myself|player)$/,
@@ -17,7 +17,7 @@ createItem("me",
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("knife",
-  TAKEABLE(),
+  Quest.Templates.TAKEABLE(),
   {
     loc: "me",
     sharp: false,

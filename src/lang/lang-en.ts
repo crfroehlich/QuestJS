@@ -241,7 +241,7 @@ namespace Quest {
     //----------------------------------------------------------------------------------------------
     // Standard Responses
 
-    // TAKEABLE
+    // Quest.Templates.TAKEABLE
     take_successful: "{nv:char:take:true} {nm:item:the}{ifIs:params:excess:true:, that is all there is}.",
     take_successful_counted: "{nv:char:take:true} {number:count} {nm:item}.",
     drop_successful: "{nv:char:drop:true} {nm:item:the}{ifIs:params:excess:true:, that is all {nv:char:have}}.",
@@ -252,7 +252,7 @@ namespace Quest {
     already_have: "{multi}{pv:char:'ve:true} got {ob:item} already.",
     cannot_take_component: "{multi}{pv:char:can't:true} take {ob:item}; {pv:item:be} part of {nm:whole:the}.",
 
-    // EDIBLE
+    // Quest.Templates.EDIBLE
     eat_successful: "{nv:char:eat:true} {nm:item:the}.",
     drink_successful: "{nv:char:drink:true} {nm:item:the}.",
     cannot_eat: "{nv:item:be:true} not something {nv:char:can} eat.",
@@ -260,7 +260,7 @@ namespace Quest {
     cannot_ingest: "{nv:item:be:true} not something {nv:char:can} ingest.",
 
 
-    // WEARABLE
+    // Quest.Templates.WEARABLE
     wear_successful: "{nv:char:put:true} on {nm:item:the}.",
     remove_successful: "{nv:char:take:true} {nm:item:the} off.",
     cannot_wear: "{multi}{nv:char:can't:true} wear {ob:item}.",
@@ -273,7 +273,7 @@ namespace Quest {
     invHoldingPrefix: "holding",
 
 
-    // CONTAINER, etc.
+    // Quest.Templates.CONTAINER, etc.
     open_successful: "{nv:char:open:true} {nm:container:the}.",
     close_successful: "{nv:char:close:true} {nm:container:the}.",
     lock_successful: "{nv:char:lock:true} {nm:container:the}.",
@@ -311,7 +311,7 @@ namespace Quest {
     cannot_sell_here: "{nv:char:can't:true} sell {nm:item:the} here.",
 
 
-    // FURNITURE
+    // Quest.Templates.FURNITURE
     sit_on_successful: "{nv:char:sit:true} on {nm:item:the}.",
     stand_on_successful: "{nv:char:stand:true} on {nm:item:the}.",
     recline_on_successful: "{nv:char:lie:true} down on {nm:item:the}.",
@@ -322,7 +322,7 @@ namespace Quest {
     no_recline_object: "There is nothing to lie down on here.",
 
 
-    // SWITCHABLE
+    // Quest.Templates.SWITCHABLE
     switch_on_successful: "{nv:char:switch:true} {nm:item:the} on.",
     switch_off_successful: "{nv:char:switch:true} {nm:item:the} off.",
     cannot_switch_on: "{nv:char:can't:true} turn {ob:item} on.",
@@ -354,7 +354,7 @@ namespace Quest {
 
 
 
-    // CONSTRUCTION
+    // Quest.Templates.CONSTRUCTION
     component_wrong: "{nv:char:cannot:true} make {nm:item:a} from {nm:wrong:a}.",
     component_missing: "{nv:char:need:true} {nm:missing:a} to build {nm:item:a}.",
     construction_done: "{nv:char:build:true} {nm:item:a} from {show:list}.",
@@ -384,17 +384,17 @@ namespace Quest {
     npc_dead: "{nv:char:be:true} dead.",
 
 
-    // BUTTON
+    // Quest.Templates.BUTTON
     press_button_successful: "{nv:char:push:true} {nm:item:the}.",
 
-    // SHIFTABLE
+    // Quest.Templates.SHIFTABLE
     push_exit_successful: "{nv:char:push:true} {nm:item:the} {show:dir}.",
     cannot_push: "{pv:item:be:true} not something {nv:char:can} move around like that.",
     cannot_push_up: "{pv:char:be:true} not getting {nm:item:the} up there!",
     take_not_push: "Just pick the thing up already!",
 
 
-    // ROPE
+    // Quest.Templates.ROPE
     rope_examine_attached_both_ends: " It is {item.attachedVerb} to both {nm:obj1:the} and {nm:obj2:the}.",
     rope_examine_attached_one_end: " It is {item.attachedVerb} to {nm:obj1:the}.",
     rope_attach_verb: 'tie',
@@ -424,7 +424,7 @@ namespace Quest {
     rope_no_end: "{nv:char:cannot:true} see either end of {nm:item:the}.",
 
 
-    // TRANSIT
+    // Quest.Templates.TRANSIT
     transit_already_here: "{nv:char:press:true} the button; nothing happens.",
     transit_go_to_dest: "{nv:char:press:true} the button; the door closes...",
 

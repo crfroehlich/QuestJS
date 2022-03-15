@@ -140,7 +140,7 @@ createRoom("solar", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("chamber_pot", SIZE_CHANGING(), VESSEL(), {
+createItem("chamber_pot", SIZE_CHANGING(), Quest.Templates.VESSEL(), {
   loc: "solar",
   synonyms: ['chamberpot'],
   scenery: true,
@@ -290,7 +290,7 @@ createRoom("mad_science_lab", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("stuffed_crocodile", TAKEABLE(), CONTAINER(true), { // cannot get taken to size change rooms
+createItem("stuffed_crocodile", Quest.Templates.TAKEABLE(), Quest.Templates.CONTAINER(true), { // cannot get taken to size change rooms
   loc: "mad_science_lab",
   scenery: true,
   parserPriority: 50,
@@ -339,7 +339,7 @@ createItem("crocodile_tooth", SIZE_CHANGING(), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("mad_science_bench", FURNITURE({ recline: true, sit: true, stand: true }), {
+createItem("mad_science_bench", Quest.Templates.FURNITURE({ recline: true, sit: true, stand: true }), {
   loc: "mad_science_lab",
   synonyms: ['table'],
   scenery: true,
@@ -377,7 +377,7 @@ createItem("patchwork_body", {
   shift: 'Mandy thinks about shifting the body off the table. She would have to touch it to do that. And really, why would she want to?',
 })
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("patchwork_body_stiches", COMPONENT("patchwork_body"), {
+createItem("patchwork_body_stiches", Quest.Templates.COMPONENT("patchwork_body"), {
   alias: "stitches",
   synonyms: ['marks', 'parts'],
   examine: 'Mandy looks closer at the stitching holding the patchwork body together. She has to acknowledge that the needlework is good quality - and presumably all done by hand. She remembers her own efforts at making oven gloves at school, and that was with a machine. Not good.',
@@ -613,7 +613,7 @@ createItem("strange_device", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("device_controls", COMPONENT("strange_device"), {
+createItem("device_controls", Quest.Templates.COMPONENT("strange_device"), {
   scenery: true,
   synonyms: ['dials', 'knobs'],
   examine: "There are three black knobs, each set to about half way between zero and ten. Each has a dial above, each reading exactly zero.",
@@ -633,7 +633,7 @@ createItem("device_controls", COMPONENT("strange_device"), {
   },
 })
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("bolts", COMPONENT("strange_device"), {
+createItem("bolts", Quest.Templates.COMPONENT("strange_device"), {
   synonyms: ['pads', 'wires'],
   examine: "There are twelve bolts on the strange device, in a row under the control panel. {ifExists:patchwork_body:loc:Each has a wire that runs to a pad on the patchwork body:Each has a wire dangling from it}.",
   attachable: true,
@@ -650,7 +650,7 @@ createItem("bolts", COMPONENT("strange_device"), {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("wire", ROPE(8, "strange_device"), {
+createItem("wire", Quest.Templates.ROPE(8, "strange_device"), {
   loc: "mad_science_lab",
   alias: "wire",
   synonyms: ['coil of wires', 'wires', 'cable'],
@@ -802,7 +802,7 @@ createRoom("nursery", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("nursery_chair", FURNITURE({ sit: true }), {
+createItem("nursery_chair", Quest.Templates.FURNITURE({ sit: true }), {
   alias: 'chair',
   loc: "nursery",
   scenery: true,
@@ -810,7 +810,7 @@ createItem("nursery_chair", FURNITURE({ sit: true }), {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("nursery_cot", FURNITURE({ sit: true, recline: true }), {
+createItem("nursery_cot", Quest.Templates.FURNITURE({ sit: true, recline: true }), {
   alias: 'cot',
   loc: "nursery",
   scenery: true,
@@ -840,7 +840,7 @@ createItem("china_doll", SIZE_CHANGING(), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("china_doll_dress", COMPONENT("china_doll"), {
+createItem("china_doll_dress", Quest.Templates.COMPONENT("china_doll"), {
   scenery: true,
   alias: 'dress',
   examine: 'The reddish brown dress is quite fancy, if old fashioned, and equipped with all the accessories of a proper dress albeit in miniature. {ifMoreThan:china_doll:size:5: Well, not in miniature now, but it was when she first saw it.} There seems to be no way to get the dress off the doll, in fact, Mandy suspects the doll\'s torso is just stuffing inside the dress.'
@@ -999,7 +999,7 @@ createItem("yellow_balloon_remains", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("dollshouse", CONTAINER(true), {
+createItem("dollshouse", Quest.Templates.CONTAINER(true), {
   loc: "nursery",
   scenery: true,
   hasBeenOpened: false,

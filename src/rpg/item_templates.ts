@@ -7,7 +7,7 @@
 
 
 const EQUIPPABLE = function () {
-  const res = Object.assign({}, TAKEABLE_DICTIONARY);
+  const res = Object.assign({}, Quest.Templates.TAKEABLE_DICTIONARY);
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'equippable' does not exist on type '{ af... Remove this comment to see the full error message
   res.equippable = true;
@@ -183,7 +183,7 @@ const SHIELD = function (bonus: any) {
 
 
 const SPELLBOOK = function (list: any) {
-  const res = Object.assign({}, TAKEABLE_DICTIONARY)
+  const res = Object.assign({}, Quest.Templates.TAKEABLE_DICTIONARY)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'spellbook' does not exist on type '{ aft... Remove this comment to see the full error message
   res.spellbook = true
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'spellsAvailableToLearn' does not exist o... Remove this comment to see the full error message
@@ -204,7 +204,7 @@ const SPELLBOOK = function (list: any) {
 
 
 const ONE_USE_ITEM = function (spellName: any, requiresTarget: any) {
-  const res = Object.assign({}, TAKEABLE_DICTIONARY)
+  const res = Object.assign({}, Quest.Templates.TAKEABLE_DICTIONARY)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'spellName' does not exist on type '{ aft... Remove this comment to see the full error message
   res.spellName = spellName
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'requiresTarget' does not exist on type '... Remove this comment to see the full error message

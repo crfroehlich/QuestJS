@@ -295,7 +295,7 @@ createItem("mannequins", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("clock", CONTAINER(false), {
+createItem("clock", Quest.Templates.CONTAINER(false), {
   loc: "brass_dining_room",
   scenery: true,
   alias: "clock",
@@ -428,7 +428,7 @@ createItem("large_key", SIZE_CHANGING(), {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("dining_room_chair", FURNITURE({ sit: true }), {
+createItem("dining_room_chair", Quest.Templates.FURNITURE({ sit: true }), {
   loc: "brass_dining_room",
   scenery: true,
   alias: "chair",
@@ -450,7 +450,7 @@ createItem("dining_room_chair", FURNITURE({ sit: true }), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createRoom("gallery", ROOM_SET("gallery"), {
+createRoom("gallery", Quest.Templates.ROOM_SET("gallery"), {
   windowsface: 'west',
   alias: 'north end of the gallery',
   headingAlias: "The Gallery (North)",
@@ -593,7 +593,7 @@ createItem("white_knight", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createRoom("gallery_south", ROOM_SET("gallery"), {
+createRoom("gallery_south", Quest.Templates.ROOM_SET("gallery"), {
   windowsface: 'none',
   alias: 'south end of the gallery',
   headingAlias: "The Gallery (South)",
@@ -757,7 +757,7 @@ createRoom("room_big", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("mahogany_cabinet", OPENABLE(true), {
+createItem("mahogany_cabinet", Quest.Templates.OPENABLE(true), {
   loc: "room_big",
   scenery: true,
   alias: "mahogany bureau",
@@ -1218,7 +1218,7 @@ createItem("boots", SIZE_CHANGING(), {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("boots_toe", COMPONENT("boots"), {
+createItem("boots_toe", Quest.Templates.COMPONENT("boots"), {
   alias: 'toe of boot',
   examine: "The toe of the boot has come away from the sole completely.",
 })

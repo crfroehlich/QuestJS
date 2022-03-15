@@ -49,7 +49,7 @@ createRoom("theatre", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem('hatstand', SURFACE(), {
+createItem('hatstand', Quest.Templates.SURFACE(), {
   examine: 'The hatstand is wooden, and badly made; it is a wonder it is still together.{if:floppy_hat:loc:hatstand: There is a floppy hat on it.}',
   loc: 'theatre',
   scenery: true,
@@ -98,7 +98,7 @@ createRoom("theatre_stage", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("floppy_hat", WEARABLE(), {
+createItem("floppy_hat", Quest.Templates.WEARABLE(), {
   loc: "clockwork_thespian",
   examine: "The hat is not unlike a cowboy's, but made of softer material. It is black, with a wide brim.",
   afterWear: function (options: any) {
@@ -117,7 +117,7 @@ createItem("floppy_hat", WEARABLE(), {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("clockwork_thespian", Quest.NPC.NPC(), CONTAINER(false), {
+createItem("clockwork_thespian", Quest.NPC.NPC(), Quest.Templates.CONTAINER(false), {
   alias: "theatre mannequin",
   synonyms: ['theatre mannequin', 'clockwork thespian', 'cecil malewicz'],
   state: 0,

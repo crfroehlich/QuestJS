@@ -130,7 +130,7 @@ const RPG_TEMPLATE = {
 
 const RPG_PLAYER = function (female: any) {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
-  const res = PLAYER(female)
+  const res = Quest.Templates.PLAYER(female)
 
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   for (let key in RPG_TEMPLATE) res[key] = RPG_TEMPLATE[key]

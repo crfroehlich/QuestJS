@@ -1,7 +1,7 @@
 "use strict"
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("me", PLAYER(), {
+createItem("me", Quest.Templates.PLAYER(), {
   loc: "street_of_the_gods",
   regex: /^(me|myself|player)$/,
   examine: "Just a regular guy.",

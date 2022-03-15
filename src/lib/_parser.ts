@@ -20,7 +20,8 @@ namespace Quest {
       NONE_FOR_ALL: -12,
       NO_MATCH: -100,
       inputTexts: [],
-
+      override: (_p) => { },
+      
       //@DOC
       // The "parse" function should be sent either the text the player typed or null.
       // If sent null it will continue to work with the current values in currentCommand.
@@ -33,8 +34,7 @@ namespace Quest {
 
         // This allows the command system to be temporarily overriden,
         // say if the game asks a question
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'override' does not exist on type '{}'.
-        if (override) {
+        if (parser.override) {
           parser.msg("Parser overriden");
           parser.override(inputText)
           delete parser.override
@@ -42,7 +42,7 @@ namespace Quest {
         }
 
         parser.inputTexts = parser.keepTogether(inputText) ? [inputText] : inputText.split(Quest.lang.command_split_regex)
-        
+
         while (parser.inputTexts.length > 0) {
           const s = parser.inputTexts.shift()
           Quest.Settings.settings.performanceLog('Start "' + s + '"')
@@ -70,7 +70,7 @@ namespace Quest {
           }
           if (res.tmp.score < 0) {
             Quest.IO.parsermsg(res.tmp.error)
-      
+
             parser.abort()
             world.endTurn(world.PARSER_FAILURE)
             return
@@ -404,7 +404,7 @@ namespace Quest {
         // note what we matched against in case a command wants to use it later
         // This is a little risky as at this point it is only a suggestion,
         // but I cannot think of a situation where it would fail.
-        // Used by COUNTABLE
+        // Used by Quest.Templates.COUNTABLE
         item.cmdMatch = s;
         return res;
       },
@@ -637,8 +637,8 @@ namespace Quest {
         if (parser.isLocationContained(item)) return true;
         return false;
       },
-      // Is a CONSTRUCTION and has no location 
-      
+      // Is a Quest.Templates.CONSTRUCTION and has no location 
+
       isUnconstructed: function (item: any) {
         if (!item.loc && item.construction) return true
         return false;

@@ -17,7 +17,7 @@ register('steampunk', {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createRoom("steam_hall", ROOM_SET("steam hall"), {
+createRoom("steam_hall", Quest.Templates.ROOM_SET("steam hall"), {
   windowsface: 'south',
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
   in: new Exit('lift', {
@@ -210,7 +210,7 @@ createItem("vent", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("grating", TAKEABLE(), {
+createItem("grating", Quest.Templates.TAKEABLE(), {
   loc: "steam_corridor",
   scenery: true,
   synonyms: ['grate'],
@@ -363,7 +363,7 @@ createItem("Silver", Quest.NPC.NPC(), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createRoom("upper_steam_hall", ROOM_SET("steam hall"), {
+createRoom("upper_steam_hall", Quest.Templates.ROOM_SET("steam hall"), {
   headingAlias: 'The Steam Hall (Upper)',
   windowsface: 'north',
   desc: "This is a catwalk that overlooks the main steam hall, perhaps to give maintenance access to the upper parts of the great engine. Built of very solid metal, it hugs the north, east and west walls of the hall, and is about level with the beams that are pounding up and down on top of the engine in the centre of the hall. From here, she could go in the lift to get to the upper or lower levels, or head north or east.",
@@ -461,7 +461,7 @@ createItem("lift_fake_upper", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createRoom("lift", TRANSIT('out'), {
+createRoom("lift", Quest.Templates.TRANSIT('out'), {
   windowsface: 'none',
   desc: "The lift is little more than a platform on vertical rails{once:, the proper exit from which is to the northwest, into the control room above the steam hall. Now inside it, :. }Mandy can see three buttons on a plinth, connected to the mechanism; a motor of some sorts at the back of the lift that turns cogs - or rather pinions - on a rack on each side.{once: That would mean the weight of the lift is held on just one tooth of each pinion; hmm, perhaps best not to think about that too much.} It is currently at {transitDest:lift}. The only exit is northwest.",
   // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
@@ -504,7 +504,7 @@ const liftDestNames = ['Steam Hall', 'Upper Steam Hall', "Control Room"]
 const seeFromFloras = ['at the bottom', 'in the middle', 'at the top']
 for (let i = liftDests.length - 1; i >= 0; i--) {
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-  createItem("button_" + (i + 1), TRANSIT_BUTTON("lift"), {
+  createItem("button_" + (i + 1), Quest.Templates.TRANSIT_BUTTON("lift"), {
     alias: "Button: " + (i + 1) + ' (' + liftDestNames[i] + ')',
     examine: "A button with the number " + (i + 1) + " on it.",
     transitDest: liftDests[i],

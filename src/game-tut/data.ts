@@ -1,7 +1,7 @@
 "use strict"
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("me", PLAYER(), {
+createItem("me", Quest.Templates.PLAYER(), {
   loc: "lounge",
   synonyms: ['me', 'myself'],
   examine: "Just a regular guy.",
@@ -15,26 +15,26 @@ createRoom("lounge", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("coin", TAKEABLE(), {
+createItem("coin", Quest.Templates.TAKEABLE(), {
   loc: "lounge",
   examine: "A gold coin.",
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("glass_cabinet", CONTAINER(), {
+createItem("glass_cabinet", Quest.Templates.CONTAINER(), {
   loc: "lounge",
   transparent: true,
   examine: "A cabinet with a glass front",
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("ornate_doll", TAKEABLE(), LOCKED_WITH("cabinet_key"), {
+createItem("ornate_doll", Quest.Templates.TAKEABLE(), Quest.Templates.LOCKED_WITH("cabinet_key"), {
   loc: "glass_cabinet",
   examine: "A fancy doll, eighteenth century.",
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("boots", WEARABLE(), {
+createItem("boots", Quest.Templates.WEARABLE(), {
   loc: "lounge",
   pronouns: Quest.lang.pronouns.plural,
   examine: "Some old boots.",
@@ -47,7 +47,7 @@ createItem("Lara", Quest.NPC.NPC(true), {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("torch", TAKEABLE(), SWITCHABLE(false, 'providing light'), {
+createItem("torch", Quest.Templates.TAKEABLE(), Quest.Templates.SWITCHABLE(false, 'providing light'), {
   loc: "lounge",
   examine: "A small black torch.",
   synonyms: ["flashlight"],
@@ -92,7 +92,7 @@ createItem("torch", TAKEABLE(), SWITCHABLE(false, 'providing light'), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("garage_key", KEY(), {
+createItem("garage_key", Quest.Templates.KEY(), {
   loc: "lounge",
   examine: "A big key.",
 })
@@ -122,7 +122,7 @@ createRoom("kitchen", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("trapdoor", OPENABLE(false), {
+createItem("trapdoor", Quest.Templates.OPENABLE(false), {
   loc: "kitchen",
   examine: "A small trapdoor in the floor.",
 })
@@ -141,13 +141,13 @@ createRoom("garage", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("cabinet_key", KEY(), {
+createItem("cabinet_key", Quest.Templates.KEY(), {
   loc: "garage",
   examine: "A small brass key."
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("garage_door", LOCKED_DOOR("garage_key", "kitchen", "garage"), {
+createItem("garage_door", Quest.Templates.LOCKED_DOOR("garage_key", "kitchen", "garage"), {
   examine: "The door to the garage.",
 })
 
@@ -158,7 +158,7 @@ createItem("charger", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("charger_compartment", COMPONENT("charger"), CONTAINER(true), {
+createItem("charger_compartment", Quest.Templates.COMPONENT("charger"), Quest.Templates.CONTAINER(true), {
   alias: "compartment",
   examine: "The compartment is just the right size for the torch. It is {if:charger_compartment:closed:closed:open}.",
   testDropIn: function (options: any) {
@@ -172,7 +172,7 @@ createItem("charger_compartment", COMPONENT("charger"), CONTAINER(true), {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("charger_button", COMPONENT("charger"), {
+createItem("charger_button", Quest.Templates.COMPONENT("charger"), {
   examine: "A big red button.",
   alias: "button",
   push: function (options: any) {
@@ -207,7 +207,7 @@ createRoom("basement", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("light_switch", SWITCHABLE(false), {
+createItem("light_switch", Quest.Templates.SWITCHABLE(false), {
   loc: "basement",
   alias: "light switch",
   examine: "A switch, presumably for the light.",

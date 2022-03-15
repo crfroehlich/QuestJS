@@ -1,11 +1,11 @@
 "use strict"
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("me", PLAYER(), {
-  loc:"hex_0_0",
-  regex:/^(me|myself|player)$/,
+createItem("me", Quest.Templates.PLAYER(), {
+  loc: "hex_0_0",
+  regex: /^(me|myself|player)$/,
   examine: "Just a regular guy.",
-  hitpoints:100,
+  hitpoints: 100,
 })
 
 
@@ -15,18 +15,18 @@ createItem("me", PLAYER(), {
 
 
 createBiome(5, -4, 'G', {
-  desc:"The market square is the centre of the city, and is teeming with people.  In the southeast corner you see the magnificent entrance of Estalia Manor.|In the centre of the square, a golden statue of Stratos and Geo embracing while looking north to the Great Temple stands on a stone plinth; their presence blesses all who pass through.",
-  getHexSymbol:function() { return 'assets/icons/houseicon.png' },
-  getHexSymbolOffset:function() { return [-8, -8] },
+  desc: "The market square is the centre of the city, and is teeming with people.  In the southeast corner you see the magnificent entrance of Estalia Manor.|In the centre of the square, a golden statue of Stratos and Geo embracing while looking north to the Great Temple stands on a stone plinth; their presence blesses all who pass through.",
+  getHexSymbol: function () { return 'assets/icons/houseicon.png' },
+  getHexSymbolOffset: function () { return [-8, -8] },
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  in:new Exit('tower'),
+  in: new Exit('tower'),
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 createRoom("tower", {
-  desc:'In a tower', 
+  desc: 'In a tower',
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  out:new Exit(map.coordToCellName(5, -4)),
+  out: new Exit(map.coordToCellName(5, -4)),
 })
 
 
