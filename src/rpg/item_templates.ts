@@ -121,7 +121,7 @@ new Effect("Ammo consumer", {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     if (!item) return Quest.IO.errormsg("The weapon " + source.name + " has an unknown ammo set: " + source.ammo)
     if (item.countAtLoc(player.name) < 1) {
-      attack.Quest.IO.msg("Out of ammo!", 1)
+      attack.msg("Out of ammo!", 1)
       attack.abort = true
     }
     else {
@@ -136,7 +136,7 @@ new Effect("Ammo tracker", {
   modifyOutgoingAttack: function (attack: any, source: any) {
     if (!source.equipped) return
     if (attack.weapon.ammo === 0) {
-      attack.Quest.IO.msg("Out of ammo!", 1)
+      attack.msg("Out of ammo!", 1)
       attack.abort = true
     }
     else {
@@ -151,7 +151,7 @@ rpg.add(new Effect("Deteriorating", {
   // really needs to be on success only
   modifyOutgoingAttack:function(attack) {
     if (attack.weapon.ammo === 0) {
-      attack.Quest.IO.msg("Out of ammo!")
+      attack.msg("Out of ammo!")
       attack.abort = true
     }
     else {

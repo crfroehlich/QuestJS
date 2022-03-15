@@ -21,7 +21,7 @@ namespace Quest {
       NO_MATCH: -100,
       inputTexts: [],
       override: (_p) => { },
-      
+
       //@DOC
       // The "parse" function should be sent either the text the player typed or null.
       // If sent null it will continue to work with the current values in currentCommand.
@@ -460,7 +460,7 @@ namespace Quest {
         fluid: {
           error: function (text: any) {
             if (Quest.Settings.settings.fluids.includes(text)) return false
-            return processText(Quest.lang.not_a_fluid_here, { text: text })
+            return Quest.Text.processText(Quest.lang.not_a_fluid_here, { text: text })
           },
           exec: function (text: any) {
             return text

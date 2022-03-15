@@ -448,7 +448,7 @@ const RPG_PHANTOM = function () {
   res.unillusionable = true
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'unillusion' does not exist on type '{ ca... Remove this comment to see the full error message
   res.unillusion = function (attack: any) {
-    attack.Quest.IO.msg("{nv:target:disappear:true}.", 1)
+    attack.msg("{nv:target:disappear:true}.", 1)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'clonePrototype' does not exist on type '... Remove this comment to see the full error message
     if (this.clonePrototype) {
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message

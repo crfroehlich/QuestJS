@@ -1014,11 +1014,11 @@ namespace Quest {
         testPostureOn: () => true,
         getoff: function (options: any) {
           if (!options.char.posture) {
-            options.char.Quest.IO.msg(Quest.lang.already, options);
+            options.char.msg(Quest.lang.already, options);
             return false;
           }
           if (options.char.posture) {
-            options.char.Quest.IO.msg(Quest.lang.stop_posture(options.char));  // stop_posture handles details
+            options.char.msg(Quest.lang.stop_posture(options.char));  // stop_posture handles details
             return true;
           }
         },
@@ -1050,7 +1050,7 @@ namespace Quest {
         const char = options.char
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'name' does not exist on type '{ testPost... Remove this comment to see the full error message
         if (char.posture === posture && char.postureFurniture === this.name) {
-          char.Quest.IO.msg(Quest.lang.already, { item: char })
+          char.msg(Quest.lang.already, { item: char })
           return false
         }
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
@@ -1058,18 +1058,18 @@ namespace Quest {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'name' does not exist on type '{ testPost... Remove this comment to see the full error message
         if (char.posture && char.postureFurniture !== this.name) {
           // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'stop_posture'.
-          char.Quest.IO.msg(stop_posture(char))
+          char.msg(stop_posture(char))
           // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          char.Quest.IO.msg(lang[name + '_on_successful'], options)
+          char.msg(lang[name + '_on_successful'], options)
         }
         // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         else if (char.posture && this[char.posture + "_to_" + posture] && this.postureChangesImplemented) {
           // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          char.Quest.IO.msg(this[char.posture + "_to_" + posture], options)
+          char.msg(this[char.posture + "_to_" + posture], options)
         }
         else {
           // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          char.Quest.IO.msg(lang[name + '_on_successful'], options)
+          char.msg(lang[name + '_on_successful'], options)
         }
         char.posture = posture
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'name' does not exist on type '{ testPost... Remove this comment to see the full error message
@@ -1137,7 +1137,7 @@ namespace Quest {
       res.switchon = function (options: any) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'switchedon' does not exist on type '{}'.
         if (this.switchedon) {
-          options.char.Quest.IO.msg(Quest.lang.already, { item: this });
+          options.char.msg(Quest.lang.already, { item: this });
           return false;
         }
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testSwitchOn' does not exist on type '{}... Remove this comment to see the full error message
@@ -1145,7 +1145,7 @@ namespace Quest {
         if (!options.char.getAgreement("SwitchOn", this, true)) return false
 
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'suppressMsgs' does not exist on type '{}... Remove this comment to see the full error message
-        if (!this.suppressMsgs) options.char.Quest.IO.msg(this.msgSwitchOn, options);
+        if (!this.suppressMsgs) options.char.msg(this.msgSwitchOn, options);
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'doSwitchon' does not exist on type '{}'.
         this.doSwitchon(options);
         return true;
@@ -1175,7 +1175,7 @@ namespace Quest {
       res.switchoff = function (options: any) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'switchedon' does not exist on type '{}'.
         if (!this.switchedon) {
-          options.char.Quest.IO.msg(Quest.lang.already, { item: this });
+          options.char.msg(Quest.lang.already, { item: this });
           return false;
         }
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'testSwitchOff' does not exist on type '{... Remove this comment to see the full error message
@@ -1183,7 +1183,7 @@ namespace Quest {
         if (!options.char.getAgreement("SwitchOn", this, false)) return false
 
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'suppressMsgs' does not exist on type '{}... Remove this comment to see the full error message
-        if (!this.suppressMsgs) options.char.Quest.IO.msg(this.msgSwitchOff, options);
+        if (!this.suppressMsgs) options.char.msg(this.msgSwitchOff, options);
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'doSwitchoff' does not exist on type '{}'... Remove this comment to see the full error message
         this.doSwitchoff(options);
         return true;
@@ -1551,9 +1551,9 @@ namespace Quest {
           // Handle the easy cases, only one loc in locs
           if (this.locs.length === 1) {
             // @ts-expect-error ts-migrate(2339) FIXME: Property 'examineAddBothEnds' does not exist on ty... Remove this comment to see the full error message
-            if (obj1 && obj2) return processText(Quest.lang.examineAddBothEnds, { item: this, obj1: obj1, obj2: obj2 })
-            if (obj1) return processText(Quest.lang.rope_examine_attached_one_end, { item: this, obj1: obj1 })
-            if (obj2) return processText(Quest.lang.rope_examine_attached_one_end, { item: this, obj1: obj2 })
+            if (obj1 && obj2) return Quest.Text.processText(Quest.lang.examineAddBothEnds, { item: this, obj1: obj1, obj2: obj2 })
+            if (obj1) return Quest.Text.processText(Quest.lang.rope_examine_attached_one_end, { item: this, obj1: obj1 })
+            if (obj2) return Quest.Text.processText(Quest.lang.rope_examine_attached_one_end, { item: this, obj1: obj2 })
             return ''  // just in one place, like any ordinary object
           }
 
@@ -1602,7 +1602,7 @@ namespace Quest {
             s += Quest.lang.rope_examine_end_headed.replace('loc', 'loc2')
           }
 
-          return processText(s, { item: this, obj1: obj1, obj2: obj2, holder1: holder1, holder2: holder2, loc1: loc1, loc2: loc2 })
+          return Quest.Text.processText(s, { item: this, obj1: obj1, obj2: obj2, holder1: holder1, holder2: holder2, loc1: loc1, loc2: loc2 })
         },
         canAttachTo: function (item: any) {
           return item.attachable
@@ -1839,11 +1839,11 @@ namespace Quest {
           this.locs.shift()  // remove me
           if (this.locs[1] === char.loc) {
             this.locs.shift()
-            char.Quest.IO.msg(this.msgWind, { char: char, item: this })
+            char.msg(this.msgWind, { char: char, item: this })
           }
           else {
             this.locs.unshift(char.loc)
-            char.Quest.IO.msg(this.msgUnwind, { char: char, item: this })
+            char.msg(this.msgUnwind, { char: char, item: this })
           }
           this.locs.unshift(char.name)
         }
@@ -1851,11 +1851,11 @@ namespace Quest {
           this.locs.pop()  // remove me
           if (this.locs[this.locs.length - 2] === char.loc) {
             this.locs.pop()
-            char.Quest.IO.msg(this.msgWind, { char: char, item: this })
+            char.msg(this.msgWind, { char: char, item: this })
           }
           else {
             this.locs.push(char.loc)
-            char.Quest.IO.msg(this.msgUnwind, { char: char, item: this })
+            char.msg(this.msgUnwind, { char: char, item: this })
           }
           this.locs.push(char.name)
         }

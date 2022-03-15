@@ -201,7 +201,7 @@ createItem("chamber_pot", SIZE_CHANGING(), Quest.Templates.VESSEL(), {
   }
 })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
-tp.addDirective("chamber_pot", function (arr: any, params: any) {
+Quest.Text.addDirective("chamber_pot", function (arr: any, params: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
   if (w.chamber_pot.underLeakState > 0) return ' It has a tiny bit of oily water in it.'
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message

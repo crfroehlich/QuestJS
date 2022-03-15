@@ -70,7 +70,7 @@ namespace Quest {
       },
 
       getSaveBody: function () {
-        const l = [tp.getSaveString(), game.getSaveString(), Quest.Utilities.util.getChangeListenersSaveString()]
+        const l = [Quest.Text.getSaveString(), game.getSaveString(), Quest.Utilities.util.getChangeListenersSaveString()]
         for (let key in w) {
           // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           l.push(key + "=" + w[key].getSaveString())
@@ -138,7 +138,7 @@ namespace Quest {
           if (w[key].clonePrototype) delete w[key]
         }
 
-        tp.setLoadString(arr.shift())
+        Quest.Text.setLoadString(arr.shift())
         game.setLoadString(arr.shift())
         Quest.Utilities.util.setChangeListenersLoadString(arr.shift())
         for (let el of arr) {

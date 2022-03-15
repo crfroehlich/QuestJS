@@ -1107,7 +1107,7 @@ namespace Quest {
         if (exit.name === '_') return Quest.IO.errormsg("Trying to move character to location \"_\" from room " + exit.origin.name + ". This is probably a bug, as \"_\" is used to flag a destination that cannot be reached.")
         if (exit === undefined) exit = this
 
-        char.Quest.IO.msg(Quest.lang.stop_posture(char))
+        char.msg(Quest.lang.stop_posture(char))
         char.movingMsg(exit)
         char.moveChar(exit)
         return true
@@ -1185,7 +1185,7 @@ namespace Quest {
       if (response.script) response.script.bind(params.char)(params)
       if (response.msg) {
         if (params.char) {
-          params.char.Quest.IO.msg(response.msg, params)
+          params.char.msg(response.msg, params)
         }
         else {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.

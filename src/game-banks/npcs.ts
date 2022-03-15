@@ -51,7 +51,7 @@ createItem("Xsansi", Quest.NPC.NPC(true), {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Tell me about the crew, Xsansi,' you say.");
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        for (let npc of NPCS) Quest.IO.msg(processText(w.Xsansi.crewStatusTemplate, { char: npc, room: w[npc.loc] }))
+        for (let npc of NPCS) Quest.IO.msg(Quest.Text.processText(w.Xsansi.crewStatusTemplate, { char: npc, room: w[npc.loc] }))
       },
     },
 
@@ -64,7 +64,7 @@ createItem("Xsansi", Quest.NPC.NPC(true), {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         if (w.Xsansi.currentPlanet < 3) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg(processText(w.Xsansi.crewStatusTemplate, { char: w.Kyle, room: w[w.Kyle.loc] }))
+          Quest.IO.msg(Quest.Text.processText(w.Xsansi.crewStatusTemplate, { char: w.Kyle, room: w[w.Kyle.loc] }))
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
           w.Xsansi.locate = 'Kyle'
         }
@@ -84,7 +84,7 @@ createItem("Xsansi", Quest.NPC.NPC(true), {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         if (w.Xsansi.currentPlanet < 3) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg(processText(w.Xsansi.crewStatusTemplate, { char: w.Aada, room: w[w.Aada.loc] }))
+          Quest.IO.msg(Quest.Text.processText(w.Xsansi.crewStatusTemplate, { char: w.Aada, room: w[w.Aada.loc] }))
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
           w.Xsansi.locate = 'Aada'
         }
@@ -104,7 +104,7 @@ createItem("Xsansi", Quest.NPC.NPC(true), {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         if (w.Xsansi.currentPlanet < 3) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg(processText(w.Xsansi.crewStatusTemplate, { char: w.Ha_yoon, room: w[w.Ha_yoon.loc] }))
+          Quest.IO.msg(Quest.Text.processText(w.Xsansi.crewStatusTemplate, { char: w.Ha_yoon, room: w[w.Ha_yoon.loc] }))
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
           w.Xsansi.locate = 'Ha_yoon'
         }
@@ -128,7 +128,7 @@ createItem("Xsansi", Quest.NPC.NPC(true), {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
         if (w.Xsansi.currentPlanet < 3) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg(processText(w.Xsansi.crewStatusTemplate, { char: w.Ostap, room: w[w.Ostap.loc] }))
+          Quest.IO.msg(Quest.Text.processText(w.Xsansi.crewStatusTemplate, { char: w.Ostap, room: w[w.Ostap.loc] }))
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
           w.Xsansi.locate = 'Ostap'
         }
@@ -737,10 +737,10 @@ createItem("Kyle", CREW(false), {
   // Satellite deployment
   probeType: 'satellite',
   probesRemaining: 6,
-  probeAction0: function () { this.Quest.IO.msg("Kyle sits at the console, and logs in.") },
-  probeAction3: function () { this.Quest.IO.msg("Kyle watches the satellite as it goes into its prescribed orbit.") },
+  probeAction0: function () { this.msg("Kyle sits at the console, and logs in.") },
+  probeAction3: function () { this.msg("Kyle watches the satellite as it goes into its prescribed orbit.") },
   probeInPlace: function () {
-    this.Quest.IO.msg("'Ripper!' said Kyle.");
+    this.msg("'Ripper!' said Kyle.");
     shipAlert("The satellite is in orbit,");
     currentPlanet().satellite = true;
   },
@@ -906,8 +906,8 @@ createItem("Ostap", CREW(false), {
   // Probe deployment
   probeType: 'bio-probe',
   probesRemaining: 16,
-  probeAction0: function (count: any) { this.Quest.IO.msg("'Okay, " + Quest.lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + " to deploy...' mutters Ostap as he types at the console.") },
-  probeAction3: function (count: any) { this.Quest.IO.msg("'Okay, " + Quest.lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + " launched,' says Ostap as he stands up.") },
+  probeAction0: function (count: any) { this.msg("'Okay, " + Quest.lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + " to deploy...' mutters Ostap as he types at the console.") },
+  probeAction3: function (count: any) { this.msg("'Okay, " + Quest.lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + " launched,' says Ostap as he stands up.") },
   data: [
     [
       // planet 0
@@ -1087,19 +1087,19 @@ createItem("Aada", CREW(true), {
   probeAction0: function (count: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
     if (w.Xsansi.currentPlanet === 0 && this.deployProbeTotal === 0) {
-      this.Quest.IO.msg("'Okay, " + Quest.lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + "...' says Aada, looking blankly at the console for a moment. 'How hard can it be?' She starts tapping at the key board.");
+      this.msg("'Okay, " + Quest.lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + "...' says Aada, looking blankly at the console for a moment. 'How hard can it be?' She starts tapping at the key board.");
     }
     else {
-      this.Quest.IO.msg("'Another " + Quest.lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + "...' says Aada. 'Easy enough.'");
+      this.msg("'Another " + Quest.lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + "...' says Aada. 'Easy enough.'");
     }
   },
   probeAction3: function (count: any) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
     if (w.Xsansi.currentPlanet === 0 && this.deployProbeTotal === count) {
-      this.Quest.IO.msg("'There!' says Aada, triumphantly. '" + Quest.lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + " deployed. I knew it couldn't be {i:that} tricky.'");
+      this.msg("'There!' says Aada, triumphantly. '" + Quest.lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + " deployed. I knew it couldn't be {i:that} tricky.'");
     }
     else {
-      this.Quest.IO.msg("'That's another " + Quest.lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + " deployed,' says Aada.");
+      this.msg("'That's another " + Quest.lang.toWords(count) + " probe" + (count === 1 ? "" : "s") + " deployed,' says Aada.");
     }
   },
   data: [

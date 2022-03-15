@@ -54,7 +54,7 @@ namespace Quest {
     function _msg(s: any, params: any, options: any) {
       if (options.tag === undefined) options.tag = 'p'
       if (options.cssClass === undefined) options.cssClass = 'default-' + options.tag.toLowerCase();
-      let processed = params ? processText(s, params).trim() : s.trim();
+      let processed = params ? Quest.Text.processText(s, params).trim() : s.trim();
       if (processed === "" && !options.printBlank) return;
 
       for (let line of processed.split('|')) {
@@ -198,7 +198,7 @@ namespace Quest {
       for (let row of arr) {
         s += '  <tr>\n'
         for (let item of row) {
-          s += "    <td>" + processText(item, params).trim() + "</td>\n"
+          s += "    <td>" + Quest.Text.processText(item, params).trim() + "</td>\n"
         }
         s += "  </tr>\n"
       }
@@ -995,7 +995,7 @@ namespace Quest {
           // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
           document.querySelector("#output").innerHTML += '<' + data.tag + ' id="n' + data.id + '" class=\"typewriter\"></' + data.tag + '>'
           data.position = 0
-          data.text = processText(data.text, data.params)
+          data.text = Quest.Text.processText(data.text, data.params)
         }
         const el = document.querySelector('#n' + data.id)
         // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
@@ -1014,7 +1014,7 @@ namespace Quest {
           // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
           document.querySelector("#output").innerHTML += '<' + data.tag + ' id="n' + data.id + '" class="typewriter"></' + data.tag + '>'
           data.count = 0
-          data.text = processText(data.text, data.params)
+          data.text = Quest.Text.processText(data.text, data.params)
           if (!data.pick) data.pick = io.unscamblePick
           data.mask = ''
           data.scrambled = ''
@@ -1226,7 +1226,7 @@ namespace Quest {
         for (let inv of Quest.Settings.settings.inventoryPane) {
           if (!inv.hasContent && inv.noContent) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-            const s = processText(inv.noContent)
+            const s = Quest.Text.processText(inv.noContent)
             // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
             document.querySelector('#' + inv.alt).innerHTML = '<div class="item-nothing">' + s + '</div>'
           }

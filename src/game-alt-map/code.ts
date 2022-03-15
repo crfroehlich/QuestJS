@@ -26,7 +26,7 @@ Quest.Utilities.util.openingTimes = function () {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
-tp.addDirective("timeOfDayComment", function (arr: any, params: any) {
+Quest.Text.addDirective("timeOfDayComment", function (arr: any, params: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'getCustomDateTimeDict' does not exist on... Remove this comment to see the full error message
   const time = Quest.Utilities.util.getCustomDateTimeDict({})
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
@@ -41,7 +41,7 @@ tp.addDirective("timeOfDayComment", function (arr: any, params: any) {
 })
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
-tp.addDirective("npcStatus", function (arr: any, params: any) {
+Quest.Text.addDirective("npcStatus", function (arr: any, params: any) {
   const result = []
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
   for (let el of Quest.Utilities.scopeAllNpcHere()) {

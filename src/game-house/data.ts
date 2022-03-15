@@ -412,7 +412,7 @@ createItem("brackets", {
 })
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'hereDesc' does not exist on type '{}'.
-tp.text_processors.hereDesc = function (arr: any, params: any) {
+Quest.Text.text_processors.hereDesc = function (arr: any, params: any) {
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   const room = w[player.loc];
   let s
@@ -434,7 +434,7 @@ tp.text_processors.hereDesc = function (arr: any, params: any) {
     s += " There is a panel missing in one wall; some kind of mechanism is visible."
   }
   delete params.tpFirstTime
-  return processText(s, params)
+  return Quest.Text.processText(s, params)
 }
 
 

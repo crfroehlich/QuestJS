@@ -504,7 +504,7 @@ namespace Quest {
       char.posture = false
       char.postureFurniture = false
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'item' does not exist on type '{ char: an... Remove this comment to see the full error message
-      return processText(options.item ? "{nv:char:get:true} off {nm:item:the}." : "{nv:char:stand:true} up.", options)
+      return Quest.Text.processText(options.item ? "{nv:char:get:true} off {nm:item:the}." : "{nv:char:stand:true} up.", options)
     },
 
 
@@ -1030,7 +1030,7 @@ namespace Quest {
       // and we need to be clear which item the count belongs to
       let count = options[item.name + '_count'] ? options[item.name + '_count'] : false
       // Or we can set count_this to an attribute, and use that to get the number
-      // processText("Mandy watches as {nv:item:grow:false:count_this}.", {item:w.grown_tamarind_tree, count_this:'seedsPlanted'})
+      // Quest.Text.processText("Mandy watches as {nv:item:grow:false:count_this}.", {item:w.grown_tamarind_tree, count_this:'seedsPlanted'})
       if (options.count_this) count = item[options.count_this]
       // Or use suppressCount if we do not want the number, but do want it plural when it should
       if (!count && options.suppressCount) count = item[options.suppressCount]

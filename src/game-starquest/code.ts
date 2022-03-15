@@ -102,7 +102,7 @@ const roster = {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
-tp.addDirective("role", function (arr: any, params: any) {
+Quest.Text.addDirective("role", function (arr: any, params: any) {
   const pos = arr[0]
   const npc = roster.getOfficer(pos)
   if (!npc) {
@@ -115,12 +115,12 @@ tp.addDirective("role", function (arr: any, params: any) {
 })
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
-tp.addDirective("sir", function (arr: any, params: any) { return player.callmemaam ? "ma'am" : "sir" })
+Quest.Text.addDirective("sir", function (arr: any, params: any) { return player.callmemaam ? "ma'am" : "sir" })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
-tp.addDirective("Sir", function (arr: any, params: any) { return player.callmemaam ? "Ma'am" : "Sir" })
+Quest.Text.addDirective("Sir", function (arr: any, params: any) { return player.callmemaam ? "Ma'am" : "Sir" })
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
-tp.addDirective("time", function (arr: any, params: any) {
+Quest.Text.addDirective("time", function (arr: any, params: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
   return "Stardate " + w.ship.getDateTime(arr[0])
 })

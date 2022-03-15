@@ -126,7 +126,7 @@ createItem("poppies", {
   examine: 'There is a large flowerbed with poppies growing. They look slightly past their prime; a little wilted.',
 })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
-tp.addDirective("floraFlowerBed", function (arr: any, params: any) {
+Quest.Text.addDirective("floraFlowerBed", function (arr: any, params: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'grown_tamarind_tree' does not exist on t... Remove this comment to see the full error message
   if (w.grown_tamarind_tree.growthTime === 0) {
     let s = " Mandy can see a patch of bare earth"
@@ -154,10 +154,10 @@ tp.addDirective("floraFlowerBed", function (arr: any, params: any) {
     }
   }
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'grown_tamarind_tree' does not exist on t... Remove this comment to see the full error message
-  return processText(s, { item: w.grown_tamarind_tree, count_this: 'seedsPlanted' })
+  return Quest.Text.processText(s, { item: w.grown_tamarind_tree, count_this: 'seedsPlanted' })
 })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
-tp.addDirective("floraDesc", function (arr: any, params: any) {
+Quest.Text.addDirective("floraDesc", function (arr: any, params: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'greenhouse_west' does not exist on type ... Remove this comment to see the full error message
   if (w.greenhouse_west.seenFlag) return ''
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'greenhouse_west' does not exist on type ... Remove this comment to see the full error message
@@ -165,7 +165,7 @@ tp.addDirective("floraDesc", function (arr: any, params: any) {
   return 'Just for a moment, Mandy thinks she is outside -- all she can see is trees, bushes and plants. But no, above there is a roof, and walls can be seen all around her; this is a greenhouse. Or perhaps a conservatory or orangery, as it is attached to the house. Mandy looks around. In her mind, she will call it a greenhouse, she decides. '
 })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
-tp.addDirective("tamarind", function (arr: any, params: any) {
+Quest.Text.addDirective("tamarind", function (arr: any, params: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'bare_earth' does not exist on type '{}'.
   return w.bare_earth.seedsPlanted > 1 ? arr[1] : arr[0]
 })
@@ -487,7 +487,7 @@ createItem("protrusion", Quest.Templates.COMPONENT("hourglass"), Quest.Templates
   },
 })
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
-tp.addDirective("hourglass", function (arr: any, params: any) {
+Quest.Text.addDirective("hourglass", function (arr: any, params: any) {
   let s
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'hourglass' does not exist on type '{}'.
   if (w.hourglass.state > 0) {
@@ -826,7 +826,7 @@ createRoom("greenhouse_east", {
 })
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
-tp.addDirective("chamberPotUnderTree", function (arr: any, params: any) {
+Quest.Text.addDirective("chamberPotUnderTree", function (arr: any, params: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
   if (!w.chamber_pot.underTree) return ''
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message

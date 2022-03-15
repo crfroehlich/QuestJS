@@ -96,7 +96,7 @@ class Attack {
     // Get the weapon (for most monsters, the monster IS the weapon)
     // Base the attack on the weapon
     // Some skills use no weapon
-    attack.Quest.IO.msg('Offensive bonus', 4)
+    attack.msg('Offensive bonus', 4)
     if (attack.skill.noWeapon) {
       attack.offensiveBonus = attack.skill.offensiveBonus
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'damage' does not exist on type 'Attack'.
@@ -211,7 +211,7 @@ class Attack {
       if (this.element && target.element) this.modifyElementalAttack(target.element, this, isPrimary)
     }
 
-    this.msg(processText("---\nTargeting {nm:target:the}...", { skill: this.skill, attacker: this.attacker, target: target }), 3)
+    this.msg(Quest.Text.processText("---\nTargeting {nm:target:the}...", { skill: this.skill, attacker: this.attacker, target: target }), 3)
     if (this.element) this.msg("Element: " + this.element, 3)
 
     // Is the target affected (hit)?
@@ -229,10 +229,10 @@ class Attack {
 
       if (this.result < 10) {
         if (isPrimary && this.primaryFailure) {
-          this.msg(processText(this.primaryFailure, this), 1)
+          this.msg(Quest.Text.processText(this.primaryFailure, this), 1)
         }
         else if (!isPrimary && this.secondaryFailure) {
-          this.msg(processText(this.secondaryFailure, this), 1)
+          this.msg(Quest.Text.processText(this.secondaryFailure, this), 1)
         }
         else {
           this.msg("A miss...\n", 1)
@@ -243,10 +243,10 @@ class Attack {
       }
     }
     if (isPrimary && this.primarySuccess) {
-      this.msg(processText(this.primarySuccess, this), 1)
+      this.msg(Quest.Text.processText(this.primarySuccess, this), 1)
     }
     else if (!isPrimary && this.secondarySuccess) {
-      this.msg(processText(this.secondarySuccess, this), 1)
+      this.msg(Quest.Text.processText(this.secondarySuccess, this), 1)
     }
     else {
       //this.msg("A hit!", 1)
@@ -307,7 +307,7 @@ class Attack {
   }
 
   msg(s: any, n: any) {
-    this.reportTexts.push({ t: processText(s, this), level: n || 1 })
+    this.reportTexts.push({ t: Quest.Text.processText(s, this), level: n || 1 })
   }
 
   output() {

@@ -146,7 +146,7 @@ createItem("phone", {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
         Quest.IO.msg("You take a photo of {nm:item:the} on your phone.", { item: result })
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'phone' does not exist on type '{}'.
-        w.phone.gallery.push(processText("A {random:out-of-focus:crooked:cool:artistic:indifference:poor:good:frankly awful} photo of {nm:item:the}.", { item: result }))
+        w.phone.gallery.push(Quest.Text.processText("A {random:out-of-focus:crooked:cool:artistic:indifference:poor:good:frankly awful} photo of {nm:item:the}.", { item: result }))
       }
     });
   },
@@ -285,7 +285,7 @@ createItem("Lara", Quest.NPC.NPC(true), {
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg("You take a photo of Lara.")
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'phone' does not exist on type '{}'.
-    w.phone.gallery.push(processText("A {random:nice:blurry:good:poor} photo of {nm:item:the} {random:smiling:looking cross:eating a carrot} in {nm:loc:the}.", { item: this, loc: currentLocation }))
+    w.phone.gallery.push(Quest.Text.processText("A {random:nice:blurry:good:poor} photo of {nm:item:the} {random:smiling:looking cross:eating a carrot} in {nm:loc:the}.", { item: this, loc: currentLocation }))
   },
 })
 

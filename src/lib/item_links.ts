@@ -235,7 +235,7 @@ itemLinks.disableAllLinks = function (className) {
 // ---
 //@UNDOC
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'exitsHere' does not exist on type '{}'.
-tp.text_processors.exitsHere = function (arr, params) {
+Quest.Text.text_processors.exitsHere = function (arr, params) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'disableAllLinks' does not exist on type ... Remove this comment to see the full error message
   itemLinks.disableAllLinks('exit-link')
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message

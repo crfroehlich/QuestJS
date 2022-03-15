@@ -1,14 +1,14 @@
 "use strict"
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'tests' does not exist on type '{}'.
-test.tests = function() {
+test.tests = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Text processor 1")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Sir! Yes, sir", processText("{Sir}! Yes, {sir}"))
-  player.callmemaam = true 
+  test.assertEqual("Sir! Yes, sir", Quest.Text.processText("{Sir}! Yes, {sir}"))
+  player.callmemaam = true
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Ma'am! Yes, ma'am", processText("{Sir}! Yes, {sir}"))
+  test.assertEqual("Ma'am! Yes, ma'am", Quest.Text.processText("{Sir}! Yes, {sir}"))
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Text processor 2")
@@ -23,31 +23,31 @@ test.tests = function() {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'farrington_moss' does not exist on type ... Remove this comment to see the full error message
   w.farrington_moss.loc = 'bridge'
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("The Helmsman is Sharraaa.", processText("The Helmsman is {role:helm:alias}."))
+  test.assertEqual("The Helmsman is Sharraaa.", Quest.Text.processText("The Helmsman is {role:helm:alias}."))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("The Helmsman is the Salis.", processText("The Helmsman is {role:helm:altName}."))
+  test.assertEqual("The Helmsman is the Salis.", Quest.Text.processText("The Helmsman is {role:helm:altName}."))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("The Salis is the Helmsman.", processText("{role:helm:altName:true} is the Helmsman."))
+  test.assertEqual("The Salis is the Helmsman.", Quest.Text.processText("{role:helm:altName:true} is the Helmsman."))
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
   test.title("Text processor 3")
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Stardate 854.63.5", processText("{time}"))
+  test.assertEqual("Stardate 854.63.5", Quest.Text.processText("{time}"))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
   w.ship.dateTime += 24
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Stardate 854.64.5", processText("{time}"))
+  test.assertEqual("Stardate 854.64.5", Quest.Text.processText("{time}"))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
   w.ship.dateTime += 2
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Stardate 854.64.7", processText("{time}"))
+  test.assertEqual("Stardate 854.64.7", Quest.Text.processText("{time}"))
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Stardate 854.63.5", processText("{time:0}"))
+  test.assertEqual("Stardate 854.63.5", Quest.Text.processText("{time:0}"))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Stardate 854.63.6", processText("{time:1}"))
+  test.assertEqual("Stardate 854.63.6", Quest.Text.processText("{time:1}"))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Stardate 854.64.5", processText("{time:24}"))
+  test.assertEqual("Stardate 854.64.5", Quest.Text.processText("{time:24}"))
 
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.

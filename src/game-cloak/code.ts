@@ -13,7 +13,7 @@ Quest.lang.no_smell = "It smells slightly musty."
 Quest.lang.no_listen = "It is quiet as the grave..."
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
-tp.addDirective("cloakHere", function (arr: any, params: any) {
+Quest.Text.addDirective("cloakHere", function (arr: any, params: any) {
   return cloakHere() ? arr[0] : arr[1]
 });
 

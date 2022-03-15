@@ -28,15 +28,15 @@ test.tests = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'grown_tamarind_tree' does not exist on t... Remove this comment to see the full error message
   w.grown_tamarind_tree.update()
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Mandy watches as four shoots grow.", processText("Mandy watches as {nv:item:grow:false:grown_tamarind_tree_count}.", { item: w.grown_tamarind_tree, grown_tamarind_tree_count: 4 }))
+  test.assertEqual("Mandy watches as four shoots grow.", Quest.Text.processText("Mandy watches as {nv:item:grow:false:grown_tamarind_tree_count}.", { item: w.grown_tamarind_tree, grown_tamarind_tree_count: 4 }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Mandy can see four shoots.", processText("Mandy can see {nm:item:count}.", { item: w.grown_tamarind_tree, grown_tamarind_tree_count: 4 }))
+  test.assertEqual("Mandy can see four shoots.", Quest.Text.processText("Mandy can see {nm:item:count}.", { item: w.grown_tamarind_tree, grown_tamarind_tree_count: 4 }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Mandy watches as three shoots grow; the shoots are now about two centimetres high.", processText("Mandy watches as {nv:item:grow:false:count_this}; {nv:item:be:false:count_this:suppressCount} now about {show:grown_tamarind_tree:getHeight} high.", { item: w.grown_tamarind_tree, count_this: 'seedsPlanted', suppressCount: 'seedsPlanted' }))
+  test.assertEqual("Mandy watches as three shoots grow; the shoots are now about two centimetres high.", Quest.Text.processText("Mandy watches as {nv:item:grow:false:count_this}; {nv:item:be:false:count_this:suppressCount} now about {show:grown_tamarind_tree:getHeight} high.", { item: w.grown_tamarind_tree, count_this: 'seedsPlanted', suppressCount: 'seedsPlanted' }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Mandy can see three shoots.", processText("Mandy can see {nm:item:count:false:count_this}.", { item: w.grown_tamarind_tree, count_this: 'seedsPlanted' }))
+  test.assertEqual("Mandy can see three shoots.", Quest.Text.processText("Mandy can see {nm:item:count:false:count_this}.", { item: w.grown_tamarind_tree, count_this: 'seedsPlanted' }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Mandy watches as three shoots grow; the shoots are now about two centimetres high.", processText("Mandy watches as {nv:item:grow:false:count_this}; {nv:item:be:false:count_this:suppressCount} now about {show:grown_tamarind_tree:getHeight} high.", { item: w.grown_tamarind_tree, count_this: 'seedsPlanted', suppressCount: 'seedsPlanted' }))
+  test.assertEqual("Mandy watches as three shoots grow; the shoots are now about two centimetres high.", Quest.Text.processText("Mandy watches as {nv:item:grow:false:count_this}; {nv:item:be:false:count_this:suppressCount} now about {show:grown_tamarind_tree:getHeight} high.", { item: w.grown_tamarind_tree, count_this: 'seedsPlanted', suppressCount: 'seedsPlanted' }))
 
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'grown_tamarind_tree' does not exist on t... Remove this comment to see the full error message
@@ -46,11 +46,11 @@ test.tests = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'grown_tamarind_tree' does not exist on t... Remove this comment to see the full error message
   w.grown_tamarind_tree.update()
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Mandy watches as the plant grows.", processText("Mandy watches as {nv:item:grow:false:grown_tamarind_tree_count}.", { item: w.grown_tamarind_tree, grown_tamarind_tree_count: 1 }))
+  test.assertEqual("Mandy watches as the plant grows.", Quest.Text.processText("Mandy watches as {nv:item:grow:false:grown_tamarind_tree_count}.", { item: w.grown_tamarind_tree, grown_tamarind_tree_count: 1 }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Mandy can see one plant.", processText("Mandy can see {nm:item:count}.", { item: w.grown_tamarind_tree, grown_tamarind_tree_count: 1 }))
+  test.assertEqual("Mandy can see one plant.", Quest.Text.processText("Mandy can see {nm:item:count}.", { item: w.grown_tamarind_tree, grown_tamarind_tree_count: 1 }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
-  test.assertEqual("Mandy watches as the plant grows; the plant is now about twenty centimetres high.", processText("Mandy watches as {nv:item:grow:false:count_this}; {nv:item:be} now about {show:grown_tamarind_tree:getHeight} high.", { item: w.grown_tamarind_tree, count_this: 'seedsPlanted' }))
+  test.assertEqual("Mandy watches as the plant grows; the plant is now about twenty centimetres high.", Quest.Text.processText("Mandy watches as {nv:item:grow:false:count_this}; {nv:item:be} now about {show:grown_tamarind_tree:getHeight} high.", { item: w.grown_tamarind_tree, count_this: 'seedsPlanted' }))
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'grown_tamarind_tree' does not exist on t... Remove this comment to see the full error message
   w.grown_tamarind_tree.seedsPlanted = 0
@@ -71,11 +71,11 @@ test.tests = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'grown_tamarind_tree' does not exist on t... Remove this comment to see the full error message
   w.grown_tamarind_tree.update()
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'grown_tamarind_tree' does not exist on t... Remove this comment to see the full error message
-  s_out = processText(s_in, { item: w.grown_tamarind_tree, count_this: 'seedsPlanted', suppressCount: 'seedsPlanted' })
+  s_out = Quest.Text.processText(s_in, { item: w.grown_tamarind_tree, count_this: 'seedsPlanted', suppressCount: 'seedsPlanted' })
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("Mandy watches as the shoot grows; the shoot is now about one centimetre high.", s_out)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'grown_tamarind_tree' does not exist on t... Remove this comment to see the full error message
-  s_out = processText("{nv:item:wither:true:suppressCount} away to nothing.", { item: w.grown_tamarind_tree, suppressCount: 'seedsPlanted' })
+  s_out = Quest.Text.processText("{nv:item:wither:true:suppressCount} away to nothing.", { item: w.grown_tamarind_tree, suppressCount: 'seedsPlanted' })
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("The shoot withers away to nothing.", s_out)
 
@@ -87,12 +87,12 @@ test.tests = function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("the shoots", Quest.lang.getName(w.grown_tamarind_tree, { article: 2, suppressCount: 'seedsPlanted' }))
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'grown_tamarind_tree' does not exist on t... Remove this comment to see the full error message
-  s_out = processText(s_in, { item: w.grown_tamarind_tree, count_this: 'seedsPlanted', suppressCount: 'seedsPlanted' })
+  s_out = Quest.Text.processText(s_in, { item: w.grown_tamarind_tree, count_this: 'seedsPlanted', suppressCount: 'seedsPlanted' })
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("Mandy watches as three shoots grow; the shoots are now about one centimetre high.", s_out)
 
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'grown_tamarind_tree' does not exist on t... Remove this comment to see the full error message
-  s_out = processText("{nv:item:wither:true:suppressCount} away to nothing.", { item: w.grown_tamarind_tree, count_this: 'seedsPlanted', suppressCount: 'seedsPlanted' })
+  s_out = Quest.Text.processText("{nv:item:wither:true:suppressCount} away to nothing.", { item: w.grown_tamarind_tree, count_this: 'seedsPlanted', suppressCount: 'seedsPlanted' })
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'assertEqual' does not exist on type '{}'... Remove this comment to see the full error message
   test.assertEqual("The shoots wither away to nothing.", s_out)
 

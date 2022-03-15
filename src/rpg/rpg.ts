@@ -120,7 +120,7 @@ class Effect {
   }
 
   apply(attack: any, target: any, duration: any) {
-    if (this.start) attack.Quest.IO.msg(this.start(target), 1)
+    if (this.start) attack.msg(this.start(target), 1)
     if (duration) target['countdown_' + this.name] = duration
     if (!target.activeEffects.includes(this.name)) target.activeEffects.push(this.name)
   }
@@ -134,7 +134,7 @@ class Effect {
     if (this.suppressFinishMsg) return ''
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultEffectExpires' does not exist on ... Remove this comment to see the full error message
     if (!s) s = Quest.lang.defaultEffectExpires
-    return processText(s, { effect: this, target: target })
+    return Quest.Text.processText(s, { effect: this, target: target })
   }
 }
 

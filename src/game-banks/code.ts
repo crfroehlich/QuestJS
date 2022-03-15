@@ -136,19 +136,19 @@ const CREW = function (isFemale: any) {
     const tpParams = { char: this }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'clothing' does not exist on type '{ canR... Remove this comment to see the full error message
     if (this.clothing === 2) {
-      this.Quest.IO.msg("{nv:char:pull:true} off {pa:char} jumpsuit, and puts it in the drawer under {pa:char} stasis pod.", tpParams);
+      this.msg("{nv:char:pull:true} off {pa:char} jumpsuit, and puts it in the drawer under {pa:char} stasis pod.", tpParams);
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'clothing' does not exist on type '{ canR... Remove this comment to see the full error message
       this.clothing = 1;
       return false;
     }
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'posture' does not exist on type '{ canRe... Remove this comment to see the full error message
     if (this.posture !== "reclining") {
-      this.Quest.IO.msg("Just in {pa:char} underwear, {nv:char:climb} into {pa:char} stasis pod.", tpParams);
+      this.msg("Just in {pa:char} underwear, {nv:char:climb} into {pa:char} stasis pod.", tpParams);
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'posture' does not exist on type '{ canRe... Remove this comment to see the full error message
       this.posture = "reclining";
       return false;
     }
-    this.Quest.IO.msg("'Close the pod, Xsansi,' {nv:char:say}. The stasis pod lid smoothly lowers, and Xsansi operates the stasis field.", tpParams);
+    this.msg("'Close the pod, Xsansi,' {nv:char:say}. The stasis pod lid smoothly lowers, and Xsansi operates the stasis field.", tpParams);
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'status' does not exist on type '{ canRea... Remove this comment to see the full error message
     this.status = "stasis";
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'loc' does not exist on type '{ canReachT... Remove this comment to see the full error message
@@ -187,12 +187,12 @@ const CREW = function (isFemale: any) {
         this.deployProbeAction++
         break
       case 1:
-        this.Quest.IO.msg("{nv:char:prepare:true} the {ordinal:count} {show:char:probeType}.", tpParams)
+        this.msg("{nv:char:prepare:true} the {ordinal:count} {show:char:probeType}.", tpParams)
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'deployProbeAction' does not exist on typ... Remove this comment to see the full error message
         this.deployProbeAction++
         break
       case 2:
-        this.Quest.IO.msg("{nv:char:launch:true} the {ordinal:count} {show:char:probeType}.", tpParams)
+        this.msg("{nv:char:launch:true} the {ordinal:count} {show:char:probeType}.", tpParams)
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'actuallyDeployProbe' does not exist on t... Remove this comment to see the full error message
         this.actuallyDeployProbe(count)
         break

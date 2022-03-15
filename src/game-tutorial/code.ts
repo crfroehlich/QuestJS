@@ -222,7 +222,7 @@ const walkthroughs = {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
-tp.addDirective("rope", function (arr: any, params: any) {
+Quest.Text.addDirective("rope", function (arr: any, params: any) {
   return '<span style="font-family:Montserrat">' + arr.join(":") + "</span>";
 });
 

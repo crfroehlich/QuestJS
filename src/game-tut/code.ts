@@ -13,7 +13,7 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Charge', {
 
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
-tp.addDirective("charger_state", function () {
+Quest.Text.addDirective("charger_state", function () {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'charger_compartment' does not exist on t... Remove this comment to see the full error message
   if (w.charger_compartment.closed) {
     return "The compartment is closed"

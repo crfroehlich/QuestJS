@@ -107,7 +107,7 @@ class SpellSummon extends Spell {
     attack.item = cloneObject(this.prototype, attack.attacker.loc)
     attack.item.summonedCountdown = this.duration
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'summoning_successful' does not exist on ... Remove this comment to see the full error message
-    attack.Quest.IO.msg(Quest.lang.summoning_successful, 1)
+    attack.msg(Quest.lang.summoning_successful, 1)
   }
 }
 
