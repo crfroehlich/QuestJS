@@ -298,7 +298,7 @@ const world = {
       item.convTopics.forEach(function (value: any, i: any) {
         value.loc = item.name
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-        createItem(value.name ? value.name : item.name + '_convTopic_' + i, TOPIC(), value)
+        createItem(value.name ? value.name : item.name + '_convTopic_' + i, Quest.NPC.TOPIC(), value)
       })
       delete item.convTopics
     }

@@ -248,7 +248,7 @@ createRoom("kitchen", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("Lara", NPC(true), {
+createItem("Lara", Quest.NPC.NPC(true), {
   loc: 'kitchen',
   contact: true,
   phone: function () {

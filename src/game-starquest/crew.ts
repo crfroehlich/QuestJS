@@ -20,7 +20,7 @@ createItem("player", PLAYER(), {
 
 // Your boss
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("nagoshima", NPC(true), {
+createItem("nagoshima", Quest.NPC.NPC(true), {
   alias: "Commander Nagoshima",
   properNoun: true,
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
@@ -68,7 +68,7 @@ createItem("nagoshima", NPC(true), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("yeoman", NPC(true), {
+createItem("yeoman", Quest.NPC.NPC(true), {
   loc: "bridge",
   alias: "Yeoman Rand",
   properNoun: true,
@@ -137,7 +137,7 @@ createItem("yeoman", NPC(true), {
 
 
 const CANDIDATE = function (female: any) {
-  const res = NPC(female)
+  const res = Quest.NPC.NPC(female)
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'candidate' does not exist on type '{ can... Remove this comment to see the full error message
   res.candidate = true
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'properNoun' does not exist on type '{ ca... Remove this comment to see the full error message
@@ -540,7 +540,7 @@ createItem("restrel_juazz", CANDIDATE(true), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("helmsman_go_to_7iota", TOPIC(true), {
+createItem("helmsman_go_to_7iota", Quest.NPC.TOPIC(true), {
   belongsTo: belongsToHelm,
   nowShow: ['helmsman_go_to_star', 'helmsman_go_to_location'],
   alias: "Lay in a course for 7 Iota",
@@ -564,7 +564,7 @@ createItem("helmsman_go_to_7iota", TOPIC(true), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("helmsman_go_to_star", TOPIC(false), {
+createItem("helmsman_go_to_star", Quest.NPC.TOPIC(false), {
   belongsTo: belongsToHelm,
   hideAfter: false,
   alias: "Lay in a course for star...",
@@ -581,7 +581,7 @@ createItem("helmsman_go_to_star", TOPIC(false), {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("helmsman_go_to_location", TOPIC(false), {
+createItem("helmsman_go_to_location", Quest.NPC.TOPIC(false), {
   belongsTo: belongsToHelm,
   hideAfter: false,
   alias: "Lay in a course for location in this system...",

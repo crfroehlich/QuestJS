@@ -10,7 +10,7 @@
 // though perjaps it is mourning Kyle that does it for her
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("Xsansi", NPC(true), {
+createItem("Xsansi", Quest.NPC.NPC(true), {
   isLocatedAt: function (loc: any, situation: any) {
     return isOnShip() && (situation === world.PARSER || situation === world.SIDE_PANE);
   },

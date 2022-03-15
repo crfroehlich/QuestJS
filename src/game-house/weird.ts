@@ -86,7 +86,7 @@ createRoom("weird_room", {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("house_man", NPC(), {
+createItem("house_man", Quest.NPC.NPC(), {
   loc: "weird_room",
   alias: 'house-man',
   talkCount: 0,

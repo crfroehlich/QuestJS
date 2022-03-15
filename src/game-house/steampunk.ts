@@ -284,7 +284,7 @@ createRoom("steam_corridor_duct", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("Silver", NPC(), {
+createItem("Silver", Quest.NPC.NPC(), {
   pronouns: Quest.lang.pronouns.thirdperson,
   synonyms: ['silver man', 'silver humanoid', 'silver figure'],
   scenery: true,
@@ -614,7 +614,7 @@ createItem("bloody_brick", SIZE_CHANGING(), {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("Winfield_Malewicz", NPC(), {
+createItem("Winfield_Malewicz", Quest.NPC.NPC(), {
   songlist: [],
   synonyms: ['old man', 'doctor', 'dr'],
   parserPriority: 10,
@@ -1263,7 +1263,7 @@ createItem("Winfield_Malewicz", NPC(), {
 
 /*
 
-createItem("wm_1911", TOPIC(false), {
+createItem("wm_1911", Quest.NPC.TOPIC(false), {
   loc:"Winfield_Malewicz",
   alias:"You have been here since 1911?",
   script:function() {

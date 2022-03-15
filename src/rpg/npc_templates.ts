@@ -172,7 +172,7 @@ const RPG_PLAYER = function (female: any) {
 }
 
 const RPG_NPC = function (female: any) {
-  const res = NPC(female)
+  const res = Quest.NPC.NPC(female)
 
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   for (let key in RPG_TEMPLATE) res[key] = RPG_TEMPLATE[key]

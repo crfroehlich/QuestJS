@@ -385,7 +385,7 @@ createItem("patchwork_body_stiches", COMPONENT("patchwork_body"), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("Patch", NPC(false), {
+createItem("Patch", Quest.NPC.NPC(false), {
   alias: "animated corpse",
   synonyms: ['patch', 'patchwork body', 'animated corpse'],
   state: 0,
@@ -1065,7 +1065,7 @@ createItem("dollshouse", CONTAINER(true), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("tiny_man", NPC(false), {
+createItem("tiny_man", Quest.NPC.NPC(false), {
   loc: "dollshouse",
   scenery: true,
   alias: "tiny man",

@@ -1,7 +1,7 @@
 "use strict"
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("robot", NPC(false), {
+createItem("robot", Quest.NPC.NPC(false), {
   loc: "laboratory",
   examine: "The robot is approximately man-shaped, if a little squat. It looks a little... clunky, like might have been designed in the fifties.",
   strong: true,
@@ -213,7 +213,7 @@ createItem("robot", NPC(false), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("Professor_Kleinscope", NPC(false), {
+createItem("Professor_Kleinscope", Quest.NPC.NPC(false), {
   loc: "office",
   examine: "The Professor is a slim tall man, perhaps in his forties, dressed, inevitably in a lab coat. Curiously his hair is neither white nor wild.{ifNot:Professor_Kleinscope:flag: He is sat at he desk, engrossed in his work.}",
   talk: function () {

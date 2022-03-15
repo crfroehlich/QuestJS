@@ -56,7 +56,7 @@ createRoom("lounge", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("Buddy", NPC(false), {
+createItem("Buddy", Quest.NPC.NPC(false), {
   loc: "lounge",
   money: 10,
   properNoun: true,
@@ -795,7 +795,7 @@ createRoom("far_away", {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("Arthur",
-  NPC(false),
+  Quest.NPC.NPC(false),
   {
     loc: "garden",
     examine: function () {
@@ -859,7 +859,7 @@ createItem("ball", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("Kyle", NPC(false),
+createItem("Kyle", Quest.NPC.NPC(false),
   {
     loc: "lounge",
     //alias:'Bobby',
@@ -1024,7 +1024,7 @@ createItem("Kyle", NPC(false),
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("kyle_question", QUESTION(), {
+createItem("kyle_question", Quest.NPC.QUESTION(), {
   responses: [
     {
       regex: /^(yes)$/,
@@ -1066,7 +1066,7 @@ createItem("straw_boater",
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("Lara", NPC(true), {
+createItem("Lara", Quest.NPC.NPC(true), {
   loc: "dining_room",
   examine: "A normal-sized bunny.",
   properNoun: true,
@@ -1187,7 +1187,7 @@ createItem("Lara", NPC(true), {
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("Lara_garage_key",
-  TOPIC(true),
+  Quest.NPC.TOPIC(true),
   {
     loc: "Lara", alias: "Can I have the garden key?",
     script: function () {
@@ -1200,7 +1200,7 @@ createItem("Lara_garage_key",
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("Lara_very_attractive",
-  TOPIC(true),
+  Quest.NPC.TOPIC(true),
   {
     loc: "Lara", alias: "You're very attractive",
     script: function () {
@@ -1214,7 +1214,7 @@ createItem("Lara_very_attractive",
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 createItem("Lara_carrots",
-  TOPIC(true),
+  Quest.NPC.TOPIC(true),
   {
     loc: "Lara", alias: "I hear you like carrots",
     script: function () {
@@ -1427,7 +1427,7 @@ createRoom("inside_tower", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("piggy_suu", NPC(true), {
+createItem("piggy_suu", Quest.NPC.NPC(true), {
   loc: "bridge",
   alias: 'Piggy-suu',
   money: 10,
@@ -1447,12 +1447,12 @@ createItem("piggy_suu", NPC(true), {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("Boris", NPC(), {
+createItem("Boris", Quest.NPC.NPC(), {
 })
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("timetable", AGENDA_FOLLOWER(), {
+createItem("timetable", Quest.NPC.AGENDA_FOLLOWER((), {
   counter: 0,
   script: function (n: any) {
     this.counter += (n[0] ? parseInt(n[0]) : 1)

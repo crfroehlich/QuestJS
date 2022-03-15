@@ -117,7 +117,7 @@ createItem("floppy_hat", WEARABLE(), {
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 4.
-createItem("clockwork_thespian", NPC(), CONTAINER(false), {
+createItem("clockwork_thespian", Quest.NPC.NPC(), CONTAINER(false), {
   alias: "theatre mannequin",
   synonyms: ['theatre mannequin', 'clockwork thespian', 'cecil malewicz'],
   state: 0,

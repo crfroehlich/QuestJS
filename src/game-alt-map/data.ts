@@ -53,7 +53,7 @@ createRoom("market_square", {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-createItem("street_preacher", NPC(false), {
+createItem("street_preacher", Quest.NPC.NPC(false), {
   loc: "market_square",
   scenery: true,
   locationStatus: function () {
