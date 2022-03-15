@@ -302,7 +302,7 @@ for (const el of ['Fire', 'Frost', 'Storm']) {
 
 
 
-//-------  ELEMENTAL WEAPON ENHANCEMENTS  -----------
+//-------  ELEMENTAL Quest.Templates.WEAPON ENHANCEMENTS  -----------
 // Cast on a weapon to give it a bonus
 
 new SpellInanimate("Earthmight Smasher", {

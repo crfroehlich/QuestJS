@@ -21,7 +21,7 @@ Quest.World.createItem("me", RPG_PLAYER(), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-Quest.World.createItem("knife", WEAPON("d4+2", "blade"), {
+Quest.World.createItem("knife", Quest.Templates.WEAPON("d4+2", "blade"), {
     loc: "me",
     image: "knife",
     examine: "An example of a poor weapon.",
@@ -29,14 +29,14 @@ Quest.World.createItem("knife", WEAPON("d4+2", "blade"), {
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-Quest.World.createItem("flail", WEAPON("2d10+4", "crush"), {
+Quest.World.createItem("flail", Quest.Templates.WEAPON("2d10+4", "crush"), {
     loc: "me",
     image: "flail",
     examine: "An example of a good weapon.",
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-Quest.World.createItem("long_bow", LIMITED_AMMO_WEAPON("2d8", "bow", "arrow"), {
+Quest.World.createItem("long_bow", Quest.Templates.LIMITED_AMMO_WEAPON("2d8", "bow", "arrow"), {
     loc: "me",
     examine: "An example of a bow.",
 })
@@ -48,7 +48,7 @@ Quest.World.createItem("arrow", Quest.Templates.COUNTABLE({ yard: 14 }), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-Quest.World.createItem("flaming_sword", WEAPON("3d6+2", "blade"), {
+Quest.World.createItem("flaming_sword", Quest.Templates.WEAPON("3d6+2", "blade"), {
     //loc:"me",
     image: "sword",
     examine: "An example of a magic weapon.",
@@ -314,17 +314,17 @@ Quest.World.createItem("zombie_prototype", RPG_CORPOREAL_UNDEAD(), {
 
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-Quest.World.createItem("pink_scroll", SCROLL("Fireball", false), {
+Quest.World.createItem("pink_scroll", Quest.Templates.SCROLL("Fireball", false), {
     examine: 'A scroll with a magical glyph on it.',
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-Quest.World.createItem("blue_scroll", SCROLL("Ice shard", true), {
+Quest.World.createItem("blue_scroll", Quest.Templates.SCROLL("Ice shard", true), {
     examine: 'A scroll with a magical glyph on it.',
 })
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-Quest.World.createItem("healing_potion", POTION("Healing"), {
+Quest.World.createItem("healing_potion", Quest.Templates.POTION("Healing"), {
     examine: 'A sweet smelling concoction!',
 })
 
@@ -334,7 +334,7 @@ Quest.World.createItem("chest", Quest.Templates.CONTAINER(true), Quest.Templates
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-Quest.World.createItem("spellbook", SPELLBOOK(["Fireball", "Stoneskin", "Steelskin", "Lightning bolt", "Ice shard"]), {
+Quest.World.createItem("spellbook", Quest.Templates.SPELLBOOK(["Fireball", "Stoneskin", "Steelskin", "Lightning bolt", "Ice shard"]), {
     examine: "An example of a spell book, obviously.",
     loc: "practice_room",
 });
@@ -360,7 +360,7 @@ Quest.World.createItem("boots", Quest.Templates.WEARABLE(2, ['feet']), {
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
-Quest.World.createItem("shotgun", LIMITED_AMMO_WEAPON("2d10+4", 'firearm', 1), {
+Quest.World.createItem("shotgun", Quest.Templates.LIMITED_AMMO_WEAPON("2d10+4", 'firearm', 1), {
     loc: "practice_room",
     ammo: 1,
     examine: "An example of a limited ammo weapon.",

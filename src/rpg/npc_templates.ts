@@ -102,7 +102,7 @@ const RPG_TEMPLATE = {
   attack: function (options: any) {
     // Create an attack, based on the current skill, weapon and given target
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 2.
-    const attack = Attack.createAttack(options.char, this)
+    const attack = Quest.RPG.Attack.createAttack(options.char, this)
     if (!attack) return false
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'apply' does not exist on type 'true | At... Remove this comment to see the full error message
     attack.apply().output()
@@ -338,7 +338,7 @@ const RPG_NPC = function (female: any) {
       skill = defaultSkill
     }
     // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
-    const attack = Attack.createAttack(this, target, skill)
+    const attack = Quest.RPG.Attack.createAttack(this, target, skill)
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'apply' does not exist on type 'boolean |... Remove this comment to see the full error message
     attack.apply().output()
     return attack

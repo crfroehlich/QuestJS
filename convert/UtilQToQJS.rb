@@ -434,7 +434,7 @@ class Obj
     end
 
     if (@types.include? "weapon")
-      s += " WEAPON(),"
+      s += " Quest.Templates.WEAPON(),"
     end
 
     if (@types.include? "monster")

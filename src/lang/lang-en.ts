@@ -623,7 +623,7 @@ namespace Quest {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         Quest.IO.metamsg(s)
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        Quest.IO.metamsg("{b:Accessibility:} Type {class:help-eg:DARK} to toggle dark mode or {class:help-eg:SPOKEN} to toggle the text being read out. Use {class:help-eg:FONT} to toggle replacing all the fonts the author carefully chose to a standard sans-serif font. Use {class:help-eg:SCROLL} to toggle whether the text automatically scrolling.")
+        Quest.IO.metamsg("{b:Accessibility:} Type {class:help-eg:DARK} to toggle dark mode or {class:help-eg:SPOKEN} to toggle the text being read out. Use {class:help-eg:FONT} to toggle replacing all the fonts the author carefully chose to a standard sans-serif font. Use {class:help-eg:Quest.Templates.SCROLL} to toggle whether the text automatically scrolling.")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         Quest.IO.metamsg("{b:Mobile:} If you are on a mobile phone, type {class:help-eg:NARROW} to reduce the width of the text. Type it again to reduce it even more, and a third time to go back to standard width.")
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.

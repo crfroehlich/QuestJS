@@ -72,7 +72,7 @@ rpg.weaponFlags = {
 rpg.createWeapon = function (data: any) {
   const name = data.name.toLowerCase().replace(/ |\-/g, '_') + '_prototype'
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
-  const weapon = Quest.World.createItem(name, WEAPON(data.damage))
+  const weapon = Quest.World.createItem(name, Quest.Templates.WEAPON(data.damage))
   // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
   weapon.type = rpg.weaponTypeMapping[data.atts[0]]
   // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
