@@ -6,8 +6,8 @@ import pkg        from './package.json';
 
 const input        = 'src/index.ts';
 const tsconfig     = 'tsconfig.json';
-const production   = process.env.NODE_ENV === 'production';
-const browserslist = pkg.browserslist[process.env.NODE_ENV];
+const production = false;  //process?.env?.NODE_ENV === 'production';
+const browserslist = pkg.browserslist[process.env?.NODE_ENV];
 
 const keys = (deps) =>
   (deps == null ? [] : Object.keys(deps).map((dep) => new RegExp(`^${dep}`)));
