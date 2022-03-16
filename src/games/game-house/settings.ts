@@ -1,15 +1,15 @@
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
 Quest.Settings.settings.playMode = 'play';
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type '{ perform... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'title' does not exist on type '{ perform... Remove this comment to see the full error message
 Quest.Settings.settings.title = 'The House on Highfield Lane';
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'author' does not exist on type '{ perfor... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'author' does not exist on type '{ perfor... Remove this comment to see the full error message
 Quest.Settings.settings.author = 'Andy Joel';
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'version' does not exist on type '{ perfo... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'version' does not exist on type '{ perfo... Remove this comment to see the full error message
 Quest.Settings.settings.version = '1.6';
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'ifid' does not exist on type '{ performa... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'ifid' does not exist on type '{ performa... Remove this comment to see the full error message
 Quest.Settings.settings.ifid = '8F79966F-54C6-4DA3-842A-330DBA5D0CB0';
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'additionalAbout' does not exist on type ... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'additionalAbout' does not exist on type ... Remove this comment to see the full error message
 Quest.Settings.settings.additionalAbout = {
   'Also thanks to': 'My wife, sister, son and daughter -- Sara, Mags, Richard and Bex -- for testing from an outsider\'s perspective.',
   'Bug reporters':  'Thanks to those who did indeed report bugs that have hopefully been sorted in later versions: Rovarsson and Sarah Willson. Also the anonymous comments left during the competition.',
@@ -19,12 +19,12 @@ Quest.Settings.settings.additionalAbout = {
   'Reporting bugs': 'Hopefully you will not encounter any issues with the game, but if you do, please e-mail the details to me at <i>the_pix@hotmail.com</i>, or via the IntFiction forum where my user name is "The Pixie".',
   'Thanks to':      'K.V., Pertex, XanMag, Jade, Mike Russo, Karona, Agnieszka Trzaska, Christopher Merriner, Mike_G, Amanda Walker and Andrew Schultz for beta testing. I would like to particularly pick out K.V., Agnieszka Trzaska and Christopher Merriner who went above and beyond, with any number of helpful suggestions between them.',
 };
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'warnings' does not exist on type '{ perf... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'warnings' does not exist on type '{ perf... Remove this comment to see the full error message
 Quest.Settings.settings.warnings = 'Occasional bad language, including the F-word. A couple of locations have seen recent battles, and there are a lot bodies, but no graphic descriptions.';
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'transcript' does not exist on type '{ pe... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'transcript' does not exist on type '{ pe... Remove this comment to see the full error message
 Quest.Settings.settings.transcript = 'walk';
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'convertDoubleDash' does not exist on typ... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'convertDoubleDash' does not exist on typ... Remove this comment to see the full error message
 Quest.Settings.settings.convertDoubleDash = true;
 
 Quest.Settings.settings.files = [
@@ -33,19 +33,19 @@ Quest.Settings.settings.files = [
 ];
 
 Quest.Settings.settings.tests = true;
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'styleFile' does not exist on type '{ per... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'styleFile' does not exist on type '{ per... Remove this comment to see the full error message
 Quest.Settings.settings.styleFile             = 'style';
 Quest.Settings.settings.getDefaultRoomHeading = function (item) {
   return Quest.Utilities.titleCase(Quest.lang.addDefiniteArticle(item) + item.alias);
 };
 Quest.Settings.settings.symbolsForCompass     = true;
 // Quest.Settings.settings.panes = 'none'
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
 Quest.Settings.settings.panes  = Quest.Settings.settings.playMode === 'dev' ? 'left' : 'none';
 Quest.Settings.settings.themes = ['serif'];
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'favicon' does not exist on type '{ perfo... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'favicon' does not exist on type '{ perfo... Remove this comment to see the full error message
 Quest.Settings.settings.favicon = 'assets/icons/houseicon.png';
-// @ts-expect-error ts-migrate(2322) FIXME: Type 'boolean' is not assignable to type 'string'.
+// ts-error-fixed ts-migrate(2322) FIXME: Type 'boolean' is not assignable to type 'string'.
 Quest.Settings.settings.noAskTell            = false;
 Quest.Settings.settings.givePlayerAskTellMsg = false;
 Quest.Settings.settings.roomTemplate         = [
@@ -55,25 +55,25 @@ Quest.Settings.settings.roomTemplate         = [
   '{ifNot:settings:playMode:play:{ifExists:Quest.World.currentLocation:todo:{class:todo:{show:Quest.World.currentLocation:todo}}}}',
 ];
 
-// @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'never'.
+// ts-error-fixed ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'never'.
 Quest.Settings.settings.fluids = ['sand', 'water'];
 Quest.Settings.settings.saveLoadExcludedAtts.push('silverSighting');
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'roomCreateFunc' does not exist on type '... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'roomCreateFunc' does not exist on type '... Remove this comment to see the full error message
 Quest.Settings.settings.roomCreateFunc = function (o: any) {
-  // @ts-expect-error ts-migrate(7005) FIXME: Variable 'zone' implicitly has an 'any' type.
+// ts-error-fixed ts-migrate(7005) FIXME: Variable 'zone' implicitly has an 'any' type.
   o.zone = zone;
 };
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'afterLoad' does not exist on type '{ per... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'afterLoad' does not exist on type '{ per... Remove this comment to see the full error message
 Quest.Settings.settings.afterLoad = function () {
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'pronouns' does not exist on type '{}'.
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'pronouns' does not exist on type '{}'.
   Quest.Parser.parser.pronouns = {};
 };
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'customNoExitMsg' does not exist on type ... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'customNoExitMsg' does not exist on type ... Remove this comment to see the full error message
 Quest.Settings.settings.customNoExitMsg = function (char: any, dir: any) {
-  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   const list = Quest.World.w[Quest.World.player.loc].getExitDirs({ excludeAlsoDir: true, excludeLocked: true, excludeScenery: true });
   if (list.length === 1) return `She cannot go ${dir}. Looks like the only exit is back ${list[0]}.`;
   const listString = Quest.Utilities.formatList(list, { lastJoiner: Quest.lang.list_or, nothing: Quest.lang.list_nowhere });
@@ -125,10 +125,10 @@ Quest.Settings.settings.statsData = [
   },
 ];
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'intro' does not exist on type '{ perform... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'intro' does not exist on type '{ perform... Remove this comment to see the full error message
 Quest.Settings.settings.intro = 'There is something weird about the house on Highfield Lane. Whenever she walks past it, Mandy feels a chill, and hurries to be away from it. It is not the only house on Highfield Lane -- there are a couple of dozen, all built in the late nineteenth century -- but to Mandy it is {i:the} house. The end of the row, on the right, as she walks up the hill, before the town gives way to fields.|Tuesday... exams in three weeks, so tonight will be another evening of devising evermore complex and artistic revision timetables. Perhaps she should get down to some real revision, maybe biology or French. She should really learn those irregular verbs. Her bag slips off her shoulder, and she shivers, suddenly feeling cold; she is already at that house. Usually she would have crossed over to the other side of the road to avoid it by now. She glances at it quickly, the windows that look like eyes mocking her. How is that even possible? There are four windows, all rectangular and all different sizes. They look nothing like eyes, and yet somehow she knows they are laughing at her.';
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'blurb' does not exist on type '{ perform... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'blurb' does not exist on type '{ perform... Remove this comment to see the full error message
 Quest.Settings.settings.blurb = [
   'The house at the top of Highfield Lane has always scared Mandy, though she could never say why exactly. Perhaps today is the day she should confront that fear!',
   'I started writing this in 2012-13, and to be honest bits of it were more relevant back then. Like why has Mandy not got a mask in her bag? For the record, then, this is set in 2016.',
@@ -137,17 +137,17 @@ Quest.Settings.settings.blurb = [
   'WARNING: There is occasional swearing, including the F-word.',
 ];
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'finishMetaComment' does not exist on typ... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'finishMetaComment' does not exist on typ... Remove this comment to see the full error message
 Quest.Settings.settings.finishMetaComment = `Congratulations on completing "The House on Highfield Lane". You can read about some of the background to the game and how I created it {link:here:${folder}/story.html}.`;
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'setup' does not exist on type '{ perform... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'setup' does not exist on type '{ perform... Remove this comment to see the full error message
 Quest.Settings.settings.setup = function () {
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'shakespeare_book' does not exist on type... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'shakespeare_book' does not exist on type... Remove this comment to see the full error message
   for (const s in Quest.World.w.shakespeare_book.names) Quest.World.w.shakespeare_book.synonyms.push(Quest.World.w.shakespeare_book.names[s]);
   // Quest.IO.io.transcript = true
 };
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'betaTesters' does not exist on type '{ p... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'betaTesters' does not exist on type '{ p... Remove this comment to see the full error message
 Quest.Settings.settings.betaTesters = [
   ['KV'],                           // First Quest wave (version 0.1.0--0.1.4+, early July)
   ['XanMag', 'Pertex'],             // Second Quest wave (version 0.2.0-?, late July

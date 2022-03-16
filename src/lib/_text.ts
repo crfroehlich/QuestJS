@@ -18,23 +18,23 @@ namespace Quest {
       params.tpOriginalString = str;
       if (params.count) params.item_count = params.count;
       // log(params)
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'usedStrings' does not exist on type '{ t... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'usedStrings' does not exist on type '{ t... Remove this comment to see the full error message
       if (usedStrings.includes(str)) {
         params.tpFirstTime = false;
       } else {
         usedStrings.push(str);
         params.tpFirstTime = true;
       }
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'processText' does not exist on type '{ t... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'processText' does not exist on type '{ t... Remove this comment to see the full error message
       return processTextTp(str, params);
     }
 
     // Most of the text processors are set up in text.js; these are the language specific ones.
     export const setLoadString = function (s: any) {
       const parts = s.split('=');
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       if (parts.length !== 2) return Quest.IO.errormsg(`Bad format in saved data (${s})`);
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       if (parts[0] !== 'TPUsedStrings') return Quest.IO.errormsg('Expected TP to be first');
       usedStrings.length = 0;
       for (const p of Quest.SaveLoad.saveLoad.decodeArray(parts[1])) {
@@ -43,7 +43,7 @@ namespace Quest {
     };
 
     export const getSaveString = function () {
-      // @ts-expect-error ts-migrate(7022) FIXME: 's' implicitly has type 'any' because it does not ... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(7022) FIXME: 's' implicitly has type 'any' because it does not ... Remove this comment to see the full error message
       return `TPUsedStrings=${Quest.SaveLoad.saveLoad.encodeArray(usedStrings)}`;
     };
 
@@ -55,7 +55,7 @@ namespace Quest {
     // excluding the curly braces, name and colon),
     // and return a string.
     export const addDirective = function (name: any, fn: any) {
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       text_processors[name] = fn;
     };
 
@@ -76,26 +76,26 @@ namespace Quest {
       if (s) {
         let arr  = s.split(':');
         let left = arr.shift();
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         if (typeof text_processors[left] !== 'function') {
           if (left.startsWith('if ')) {
             const data = /if (not |)(\w+)\.(\w+) *([<>=!]{0,3}) *(.*)/.exec(left);
-            // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
+            // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
             if (data[4] === '') {
-              // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
+              // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
               arr.unshift(data[3]);
-              // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
+              // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
               arr.unshift(data[2]);
-              // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
+              // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
               left = data[1] === 'not ' ? 'ifNot' : 'if';
             } else {
-              // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
+              // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
               arr.unshift(data[5]);
-              // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
+              // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
               arr.unshift(data[3]);
-              // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
+              // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
               arr.unshift(data[2]);
-              // @ts-expect-error ts-migrate(2339) FIXME: Property 'comparisons' does not exist on type '{ t... Remove this comment to see the full error message
+              // ts-error-fixed ts-migrate(2339) FIXME: Property 'comparisons' does not exist on type '{ t... Remove this comment to see the full error message
               left = comparisons[data[4]];
             }
           } else if (left.match(/^(not)?here /)) {
@@ -110,7 +110,7 @@ namespace Quest {
             arr.unshift(Quest.World.currentLocation.name);
             left = 'show';
           }
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           else if (Quest.World.w[left]) {
             arr.unshift(left);
             left = 'show';
@@ -118,12 +118,12 @@ namespace Quest {
             arr  = left.split('.');
             left = 'show';
           } else {
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+            // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
             Quest.IO.errormsg(`Attempting to use unknown text processor directive '${left}' (${params.tpOriginalString})`);
             return str;
           }
         }
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         str = str.replace(`{${s}}`, text_processors[left](arr, params));
         str = processTextTp(str, params);
       }
@@ -139,7 +139,7 @@ namespace Quest {
       }
       const start = s.lastIndexOf('{', end);
       if (start === -1) {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         Quest.IO.errormsg(`Failed to find starting curly brace in text processor (<i>${s}</i>)`);
         return false;
       }
@@ -196,11 +196,11 @@ namespace Quest {
     };
     const rainbow   = function (arr: any, params: any) {
       const s = arr.pop();
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'colours' does not exist on type '{ text_... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'colours' does not exist on type '{ text_... Remove this comment to see the full error message
       const colours = arr.length === 0 ? colours : arr;
       let result    = '';
       for (let i = 0; i < s.length; i++) {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
         result += `<span style="color:${random.fromArray(colours)}">${s.charAt(i)}</span>`;
       }
       return result;
@@ -253,7 +253,7 @@ namespace Quest {
     const dialogue = function (arr: any, params: any) {
       let prefix  = '<span';
       const style = arr.shift();
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       if (arr.length < 1) Quest.IO.errormsg(`Failed to find enough parts in text processor 'dialog' (${params.tpOriginalString})`);
 
       if (style.startsWith('.')) {
@@ -261,7 +261,7 @@ namespace Quest {
       } else if (params[style]) {
         prefix += ` style="${params[style].dialogueStyle}"`;
       } else {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         if (arr.length < 2) Quest.IO.errormsg(`Failed to find enough parts in text processor 'dialog' without a class (${params.tpOriginalString})`);
         const colour = arr.shift();
         prefix      += ' style="';
@@ -301,37 +301,37 @@ namespace Quest {
         name      = ary[0];
         arr.unshift(ary[1]);
       }
-      // @ts-expect-error ts-migrate(2339) FIXME: Property '_findObject' does not exist on type '{ t... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property '_findObject' does not exist on type '{ t... Remove this comment to see the full error message
       const o = _findObject(name, params, arr);
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       if (!o) Quest.IO.errormsg(`Failed to find an object called "${name}" in text processor select.`);
       const l = o[arr[0]];
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       if (l === undefined) Quest.IO.errormsg(`Failed to find an attribute called "${arr[0]}" for "${name}" in text processor "select" directive.`);
       if (Array.isArray(l)) {
         const n = o[arr[1]];
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         if (!l) Quest.IO.errormsg(`Failed to find a secondary attribute called "${arr[1]}" for "${name}" in text processor "select" directive.`);
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'value' does not exist on type '{}'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'value' does not exist on type '{}'.
         return Quest.Utilities.array.value(l, n, opt);
       }
       if (typeof l === 'number') {
         arr.shift();
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'value' does not exist on type '{}'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'value' does not exist on type '{}'.
         return Quest.Utilities.array.value(arr, l, opt);
       }
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       Quest.IO.errormsg(`Failed to do anything with the attribute called "${arr[1]}" for "${name}" in text processor select - neither an array or an integer.`);
     };
 
     const _findObject = function (name: any, params: any, arr: any) {
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       if (params && params[name]) return typeof params[name] === 'string' ? Quest.World.w[params[name]] : params[name];
       if (name === 'player') return Quest.World.player;
       if (name === 'Quest.World.currentLocation') return Quest.World.currentLocation;
       if (name === 'settings') return Quest.Settings.settings;
       if (name === 'params') return params;
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       if (Quest.World.w[name]) return Quest.World.w[name];
       const ary = name.split('.');
       if (ary.length === 1) return undefined;
@@ -341,7 +341,7 @@ namespace Quest {
         return undefined;
       }
       arr.unshift(ary[1]);
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       return Quest.World.w[ary[0]];
     };
 
@@ -354,11 +354,11 @@ namespace Quest {
       const name = arr.shift();
       if (params[name] !== undefined) {
         if (typeof params[name] === 'object') return getWhatever(params[name][arr[0]], params, params[name]);
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'getWhatever' does not exist on type '{ t... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'getWhatever' does not exist on type '{ t... Remove this comment to see the full error message
         return getWhatever(params[name], params);
       }
       const obj = _findObject(name, params, arr);
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       if (!obj) return Quest.IO.errormsg(`Failed to find object '${name}' in text processor 'show' (${params.tpOriginalString})`);
       return getWhatever(obj[arr[0]], params, obj);
     };
@@ -371,7 +371,7 @@ namespace Quest {
       if (val === undefined) return '';
       if (typeof val === 'string') return val;
       if (typeof val === 'number') return val.toString();
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       if (typeof val !== 'function') return Quest.IO.errormsg(`Got a value of a type I was not expecting in show: ${typeof val}`);
       const func = val.bind(obj);
       return func(params);
@@ -380,7 +380,7 @@ namespace Quest {
     const contents = function (arr: any, params: any) {
       const name = arr.shift();
       const obj  = typeof params[name] === 'object' ? params[name] : _findObject(name, params, arr);
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       if (!obj) return Quest.IO.errormsg(`Failed to find object '${name}' in text processor 'contents' (${params.tpOriginalString})`);
       return Quest.Utilities.formatList(obj.getContents(Quest.World.world.LOOK), {
         article: Quest.Utilities.INDEFINITE, lastJoiner: arr[1], nothing: arr[2], sep: arr[0],
@@ -395,9 +395,9 @@ namespace Quest {
         if (arr.length > 0) return params[name][arr[0]];
       }
       const obj = _findObject(name, params, arr);
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       if (!obj) return Quest.IO.errormsg(`Failed to find object '${name}' in text processor 'show' (${params.tpOriginalString})`);
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
       if (obj.alt) return random.fromArray(obj.alt);
       return obj.alias;
     };
@@ -407,10 +407,10 @@ namespace Quest {
       if (name.match(/^\d+$/)) return Quest.lang.toWords(parseInt(name));
       if (typeof params[name] === 'number') return Quest.lang.toWords(params[name]);
       const obj = _findObject(name, params, arr);
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       if (!obj) return Quest.IO.errormsg(`Failed to find object '${name}' in text processor 'number' (${params.tpOriginalString})`);
       if (typeof obj[arr[0]] === 'number') return Quest.lang.toWords(obj[arr[0]]);
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       return Quest.IO.errormsg(`Failed to find a number for object '${name}' in text processor (${params.tpOriginalString})`);
     };
 
@@ -419,10 +419,10 @@ namespace Quest {
       if (name.match(/^\d+$/)) return Quest.lang.toOrdinal(parseInt(name));
       if (typeof params[name] === 'number') return Quest.lang.toOrdinal(params[name]);
       const obj = _findObject(name, params, arr);
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       if (!obj) return Quest.IO.errormsg(`Failed to find object '${name}' in text processor 'number' (${params.tpOriginalString})`);
       if (typeof obj[arr[0]] === 'number') return Quest.lang.toOrdinal(obj[arr[0]]);
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       return Quest.IO.errormsg(`Failed to find a number for object '${name}' in text processor (${params.tpOriginalString})`);
     };
 
@@ -431,7 +431,7 @@ namespace Quest {
       if (name.match(/^\d+$/)) return Quest.Utilities.displayMoney(parseInt(name));
       if (typeof params[name] === 'number') return Quest.Utilities.displayMoney(params[name]);
       const obj = _findObject(name, params, arr);
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       if (!obj) return Quest.IO.errormsg(`Failed to find object '${name}' in text processor 'money' (${params.tpOriginalString})`);
       if (obj.loc === Quest.World.player.name && obj.getSellingPrice) {
         return Quest.Utilities.displayMoney(obj.getSellingPrice(Quest.World.player));
@@ -448,31 +448,31 @@ namespace Quest {
       if (obj.money) {
         return Quest.Utilities.displayMoney(obj.money);
       }
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       return Quest.IO.errormsg(`Failed to find a price for object '${name}' in text processor (${params.tpOriginalString})`);
     };
 
     const dateTime = function (arr: any, params: any) {
       const options = { format: arr[0] };
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'is' does not exist on type '{ format: an... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'is' does not exist on type '{ format: an... Remove this comment to see the full error message
       if (!isNaN(arr[1])) options.is = parseInt(arr[1]);
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'add' does not exist on type '{ format: a... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'add' does not exist on type '{ format: a... Remove this comment to see the full error message
       if (!isNaN(arr[2])) options.add = parseInt(arr[2]);
       return Quest.Utilities.util.getDateTime(options);
     };
 
     const transitDest = function (arr: any, params: any) {
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       const transit = arr[0] ? Quest.World.w[arr[0]] : Quest.World.w[Quest.World.player.loc];
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       if (!transit.transitDoorDir) return Quest.IO.errormsg(`Trying to use the 'transitDest' text process directive when the player is not in a transit location (${params.tpOriginalString}).`);
       if (transit.currentButtonName) {
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         const button = Quest.World.w[transit.currentButtonName];
         if (button.title) return button.title;
       }
       const destName = transit[transit.transitDoorDir].name;
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       return Quest.lang.getName(Quest.World.w[destName], { capital: true });
     };
 
@@ -525,10 +525,10 @@ namespace Quest {
     const popup = function (arr: any, params: any) {
       const s1 = arr.shift();
       const s2 = arr.join(':');
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'int' does not exist on type '{ buffer: n... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'int' does not exist on type '{ buffer: n... Remove this comment to see the full error message
       const id   = s1.replace(/[^a-zA-Z_]/, '') + random.int(0, 999999999);
       const html = `<div id=\"${id}\" class=\"popup\" onclick=\"Quest.IO.io.toggleDisplay('${id}')"><p>${s2}</p></div>`;
-      // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
+      // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
       document.querySelector('#main').innerHTML += html;
       return `<span class=\"popup-link\" onclick=\"Quest.IO.io.toggleDisplay('#${id}')">${s1}</span>`;
     };
@@ -552,7 +552,7 @@ namespace Quest {
       if (typeof params[name] === 'boolean') return (params[name] ? arr[0] : (arr[1] ? arr[1] : ''));
 
       const obj = _findObject(name, params, arr);
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       if (!obj) return Quest.IO.errormsg(`Failed to find object '${name}' in text processor 'if/ifNot' (${params.tpOriginalString})`);
       name         = arr.shift();
       let attValue = typeof obj[name] === 'function' ? obj[name](params) : obj[name];
@@ -563,7 +563,7 @@ namespace Quest {
       } else {
         let value = arr.shift();
         if (typeof attValue === 'number') {
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           if (isNaN(value)) return Quest.IO.errormsg(`Trying to compare a numeric attribute, '${name}' with a string (${params.tpOriginalString}).`);
           value = parseInt(value);
         }
@@ -583,7 +583,7 @@ namespace Quest {
       let name = arr.shift(); let
         flag;
       const obj = _findObject(name, params, arr);
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       if (!obj) return Quest.IO.errormsg(`Failed to find object '${name}' in text processor 'if/ifNot' (${params.tpOriginalString})`);
       name         = arr.shift();
       let attValue = typeof obj[name] === 'function' ? obj[name](params) : obj[name];
@@ -604,7 +604,7 @@ namespace Quest {
       let name = arr.shift(); let
         flag;
       const obj = _findObject(name, params, arr);
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       if (!obj) return Quest.IO.errormsg(`Failed to find object '${name}' in text processor 'if/ifNotExists' (${params.tpOriginalString})`);
       name = arr.shift();
       flag = obj[name] !== undefined;
@@ -628,14 +628,14 @@ namespace Quest {
       let name = arr.shift(); let
         flag;
       const obj = _findObject(name, params, arr);
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       if (!obj) return Quest.IO.errormsg(`Failed to find object '${name}' in text processor 'ifLessMoreThan' (${params.tpOriginalString})`);
       name           = arr.shift();
       const attValue = typeof obj[name] === 'function' ? obj[name](params) : obj[name];
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       if (typeof attValue !== 'number') return Quest.IO.errormsg(`Trying to use ifLessThan with a non-numeric (or nonexistent) attribute, '${name}' (${params.tpOriginalString}).`);
       let value = arr.shift();
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       if (isNaN(value)) return Quest.IO.errormsg(`Trying to compare a numeric attribute, '${name}' with a string (${params.tpOriginalString}).`);
       value = parseInt(value);
       flag  = moreThan ? (orEqual ? (attValue >= value) : (attValue > value)) : (orEqual ? (attValue <= value) : (attValue < value));
@@ -657,7 +657,7 @@ namespace Quest {
     const handleIfHere = function (arr: any, params: any, reverse: any, locAtt: any) {
       const name = arr.shift();
       const obj  = _findObject(name, params, arr);
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       if (!obj) return Quest.IO.errormsg(`Failed to find object '${name}' in text processor 'ifHere' (${params.tpOriginalString})`);
       let flag = obj.isAtLoc(Quest.World.player[locAtt], Quest.World.world.ALL);
       if (reverse) flag = !flag;
@@ -674,7 +674,7 @@ namespace Quest {
       const name = arr.shift(); let
         flag;
       const obj = _findObject(name, params, arr);
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       if (!obj) return Quest.IO.errormsg(`Failed to find object '${name}' in text processor 'if/ifNotPlayer' (${params.tpOriginalString})`);
       flag = obj === Quest.World.player;
       if (reverse) flag = !flag;
@@ -697,7 +697,7 @@ namespace Quest {
     // would only work the first time. In the econd room, {hereDesc} has already been done, so once fails.
     // The hack then is to pre-process the room text in here
     const hereDesc = function (arr: any, params: any) {
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       const room = Quest.World.w[Quest.World.player.loc];
       let s;
       if (typeof room.desc === 'string') {
@@ -716,7 +716,7 @@ namespace Quest {
     };
 
     const hereName = function (arr: any, params: any) {
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       const room = Quest.World.w[Quest.World.player.loc];
       return room.headingAlias;
     };
@@ -727,7 +727,7 @@ namespace Quest {
     };
 
     const exitsHere = function (arr: any, params: any) {
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       const list = Quest.World.w[Quest.World.player.loc].getExitDirs();
       return list.length === 0 ? '' : arr.join(':');
     };
@@ -740,7 +740,7 @@ namespace Quest {
     };
 
     const exits = function (arr: any, params: any) {
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       const list = Quest.World.w[Quest.World.player.loc].getExitDirs();
       return Quest.Utilities.formatList(list, { lastJoiner: Quest.lang.list_or, nothing: Quest.lang.list_nowhere });
     };
@@ -769,19 +769,19 @@ namespace Quest {
       const subject = _findObject(name, params, arr);
       if (!subject) return false;
       const options = { possessive: isPossessive };
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'article' does not exist on type '{ posse... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'article' does not exist on type '{ posse... Remove this comment to see the full error message
       if (arr[0] === 'the') options.article = Quest.Utilities.DEFINITE;
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'article' does not exist on type '{ posse... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'article' does not exist on type '{ posse... Remove this comment to see the full error message
       if (arr[0] === 'a') options.article = Quest.Utilities.INDEFINITE;
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'article' does not exist on type '{ posse... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'article' does not exist on type '{ posse... Remove this comment to see the full error message
       if (arr[0] === 'count') options.article = Quest.Utilities.COUNT;
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       if (params[`${subject.name}_count`]) options[`${subject.name}_count`] = params[`${subject.name}_count`];
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       if (params[`${name}_count`]) options[`${subject.name}_count`] = params[`${name}_count`];
       let n = 2;
       while (arr[n]) {
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         options[arr[n]] = params[arr[n]];
         n++;
       }
@@ -807,13 +807,13 @@ namespace Quest {
 
     const conjugations = function (func: any, arr: any, params: any) {
       const name = arr.shift();
-      // @ts-expect-error ts-migrate(2339) FIXME: Property '_findObject' does not exist on type '{ t... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property '_findObject' does not exist on type '{ t... Remove this comment to see the full error message
       const subject = _findObject(name, params, arr);
       if (!subject) return false;
       const options = { capitalise: arr[1] === 'true' };
       let n         = 2;
       while (arr[n]) {
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         options[arr[n]] = params[arr[n]];
         n++;
       }
@@ -823,7 +823,7 @@ namespace Quest {
     // {function:item:capitalise}
     const handlePronouns = function (arr: any, params: any, pronoun: any) {
       const name = arr.shift();
-      // @ts-expect-error ts-migrate(2339) FIXME: Property '_findObject' does not exist on type '{ t... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property '_findObject' does not exist on type '{ t... Remove this comment to see the full error message
       const subject = _findObject(name, params, arr);
       if (!subject) return false;
       return arr[0] === 'true' ? Quest.Utilities.sentenceCase(subject.pronouns[pronoun]) : subject.pronouns[pronoun];
@@ -834,33 +834,33 @@ namespace Quest {
     };
 
     const ob = function (arr: any, params: any) {
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'handlePronouns' does not exist on type '... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'handlePronouns' does not exist on type '... Remove this comment to see the full error message
       return handlePronouns(arr, params, 'objective');
     };
 
     const sb = function (arr: any, params: any) {
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'handlePronouns' does not exist on type '... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'handlePronouns' does not exist on type '... Remove this comment to see the full error message
       return handlePronouns(arr, params, 'subjective');
     };
 
     const ps = function (arr: any, params: any) {
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'handlePronouns' does not exist on type '... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'handlePronouns' does not exist on type '... Remove this comment to see the full error message
       return handlePronouns(arr, params, 'possessive');
     };
 
     const rf = function (arr: any, params: any) {
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'handlePronouns' does not exist on type '... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'handlePronouns' does not exist on type '... Remove this comment to see the full error message
       return handlePronouns(arr, params, 'reflexive');
     };
 
     // {pa2:chr1:chr2}
     const pa2 = function (arr: any, params: any) {
       const name1 = arr.shift();
-      // @ts-expect-error ts-migrate(2339) FIXME: Property '_findObject' does not exist on type '{ t... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property '_findObject' does not exist on type '{ t... Remove this comment to see the full error message
       const chr1 = _findObject(name1, params, arr);
       if (!chr1) return false;
       const name2 = arr.shift();
-      // @ts-expect-error ts-migrate(2339) FIXME: Property '_findObject' does not exist on type '{ t... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property '_findObject' does not exist on type '{ t... Remove this comment to see the full error message
       const chr2 = _findObject(name2, params, arr);
       if (!chr2) return false;
 
@@ -875,17 +875,17 @@ namespace Quest {
     // {pa3:chr1:chr2}
     const pa3 = function (arr: any, params: any) {
       const name1 = arr.shift();
-      // @ts-expect-error ts-migrate(2339) FIXME: Property '_findObject' does not exist on type '{ t... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property '_findObject' does not exist on type '{ t... Remove this comment to see the full error message
       const chr1 = _findObject(name1, params, arr);
       if (!chr1) return false;
       const name2 = arr.shift();
-      // @ts-expect-error ts-migrate(2339) FIXME: Property '_findObject' does not exist on type '{ t... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property '_findObject' does not exist on type '{ t... Remove this comment to see the full error message
       const chr2 = _findObject(name2, params, arr);
       if (!chr2) return false;
 
       if (chr1 !== chr2) {
         const opt = { article: Quest.Utilities.DEFINITE, possessive: true };
-        // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'subject'.
+        // ts-error-fixed ts-migrate(2304) FIXME: Cannot find name 'subject'.
         return arr[0] === 'true' ? Quest.Utilities.sentenceCase(Quest.lang.getName(subject, opt)) : Quest.lang.getName(subject, opt);
       }
 
@@ -895,100 +895,100 @@ namespace Quest {
     export const text_processors = {
       b,
       big,
+      $:  money,
       code,
+      cmd,
+      command,
       encode,
       exit,
-      handleIfExists,
-      hour,
-      huge,
-      i,
-      if: iif,
-      command,
-      ifExists,
-      $:  money,
-      ifHeld,
-      cmd,
-      ifHere,
+      contents,
       first(arr: any, params: any) {
         return once(params, arr[0], arr[1]);
       },
-      ifIs,
-      contents,
-      ifLessThan,
       dateTime,
+      handleIfExists,
+      hour,
+      huge,
+      cap,
+      i,
+      if: iif,
+      ifExists,
+      ifHeld,
+      ifHere,
+      ifIs,
+      ifLessThan,
       ifLessThanOrEqual,
       ifMoreThan,
       ifMoreThanOrEqual,
-      cap,
       ifNot,
       ifNotExists,
       ifNotHeld,
       ifNotHere,
       ifNotIs,
+      font,
       ifNotPlayer,
+      color,
       ifPlayer,
       img,
-      terse,
+      klass,
       link,
       lower,
+      dialogue,
       money,
+      back,
       multi,
+      colour,
+      terse,
       number,
-      font,
+      nv,
+      ob,
+      cj,
       object,
-      color,
+      nm,
       once(arr: any, params: any) {
         return once(params, arr[0], arr[1]);
       },
-      klass,
-      sup,
-      ordinal,
-      dialogue,
-      pa2,
-      back,
-      sub,
-      colour,
-      pa3,
-      nv,
-      page,
-      ob,
-      popup,
-      cj,
-      roomSet,
-      nm,
       exits,
-      ps,
+      ordinal,
       exitsHere,
-      show,
+      sup,
       hereName,
       hereDesc,
-      rainbow,
+      pa2,
       blur,
-      random,
+      sub,
       nms,
-      rndalt,
+      pa3,
       notfirst,
-      s,
+      page,
       objects,
-      small,
+      popup,
       objectsHere,
-      smallcaps,
+      roomSet,
       pa,
-      tiny,
+      ps,
       pv,
+      rainbow,
+      show,
+      random,
       rf,
-      title,
+      rndalt,
+      s,
       sb,
-      upper,
       select(arr: any, params: any) {
         return select(arr, params, 'none');
       },
       selectEnd,
-      u,
       selectNone,
       selectStart,
       selectWrap,
+      small,
+      smallcaps,
+      tiny,
+      title,
       transitDest,
+      u,
+      upper,
       vn,
       vp,
     };

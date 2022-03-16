@@ -105,7 +105,7 @@ namespace Quest {
               if (a.origin !== location.origin) {
                 corsEnabled(a.href)
                   ? download(blob, name, opts)
-                  // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 2.
+                // ts-error-fixed ts-migrate(2554) FIXME: Expected 1 arguments, but got 2.
                   : click(a, a.target = '_blank');
               } else {
                 click(a);
@@ -163,10 +163,10 @@ namespace Quest {
                 const reader     = new FileReader();
                 reader.onloadend = function () {
                   let url = reader.result;
-                  // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
+                  // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
                   url = isChromeIOS ? url : url.replace(/^data:[^;]*;/, 'data:attachment/file;');
                   if (popup) popup.location.href = url;
-                  // @ts-expect-error ts-migrate(2322) FIXME: Type 'string | ArrayBuffer | null' is not assignab... Remove this comment to see the full error message
+                  // ts-error-fixed ts-migrate(2322) FIXME: Type 'string | ArrayBuffer | null' is not assignab... Remove this comment to see the full error message
                   else location = url;
                   popup = null; // reverse-tabnabbing #460
                 };

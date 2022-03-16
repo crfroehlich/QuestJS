@@ -43,17 +43,17 @@ namespace Quest {
           }
           Quest.Settings.settings.performanceLog('About to run command script');
           const outcome = parser.currentCommand.script(parser.currentCommand.tmp.objects);
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
           if (outcome === undefined && Quest.Settings.settings.playMode === 'dev') log(`WARNING: ${parser.currentCommand.name} command did not return a result to indicate success or failure.`);
           inEndTurnFlag = true;
           Quest.Settings.settings.performanceLog('About to run Quest.World.world.endTurn');
           Quest.World.world.endTurn(outcome);
         } catch (err) {
           if (inEndTurnFlag) {
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
+            // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
             Quest.IO.printError('Hit a coding error trying to process Quest.World.world.endTurn after that command.', err);
           } else {
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
+            // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
             Quest.IO.printError(`Hit a coding error trying to process the command \`${parser.currentCommand.cmdString}'.`, err);
           }
         }
@@ -94,7 +94,7 @@ namespace Quest {
           // NB: Inside function so cannot use 'this'
           el.matchItems(cmdString, inputText);
 
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'NO_MATCH' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'NO_MATCH' does not exist on type '{}'.
           if (el.tmp.score > parser.NO_MATCH) {
             if (!bestMatch || el.tmp.score > bestMatch.tmp.score) {
               parser.msg('Candidate accepted!');
@@ -150,9 +150,9 @@ namespace Quest {
         parser.msg(`Now matching: ${s}`);
         // First handle IT etc.
         for (const key in Quest.lang.pronouns) {
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           if (s === Quest.lang.pronouns[key].objective && parser.pronouns[Quest.lang.pronouns[key].objective]) {
-            // @ts-expect-error ts-migrate(2339) FIXME: Property 'pronouns' does not exist on type '{}'.
+            // ts-error-fixed ts-migrate(2339) FIXME: Property 'pronouns' does not exist on type '{}'.
             return [[parser.pronouns[Quest.lang.pronouns[key].objective]], 1];
           }
         }
@@ -171,7 +171,7 @@ namespace Quest {
       getScope(cmdParams: any) {
         if (!cmdParams.scope) {
           console.log('WARNING: No scope (or scope not found) in command');
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'scope' does not exist on type '{ LIGHT_N... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'scope' does not exist on type '{ LIGHT_N... Remove this comment to see the full error message
           return Quest.World.world.scope;
         }
 
@@ -184,7 +184,7 @@ namespace Quest {
       // Multiple scopes when not ALL
       getScopes(cmdParams: any) {
         const baseScope = cmdParams.extendedScope ? parser.scopeFromWorld(cmdParams.scope) : parser.scopeFromScope(cmdParams.scope);
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'scope' does not exist on type '{ LIGHT_N... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'scope' does not exist on type '{ LIGHT_N... Remove this comment to see the full error message
         return [baseScope, Quest.World.world.scope];
       },
 
@@ -219,54 +219,115 @@ namespace Quest {
         Quest.IO.debugmsg(s);
       },
 
-      
-      isHeld(item: any) {
+      // parser.isInside = function(item, options) {
+//  return item.isAtLoc(options.container.name, Quest.World.world.PARSER) && Quest.World.world.ifNotDark(item);
+// }
+// parser.isRoom = function(item) {
+//  return item.room;
+// }
+// Is in a container that is reachable
+isContained(item: any) {
+        const containers = parser.scopeFromScope(parser.isReachable).filter((el: any) => el.container);
+        for (const container of containers) {
+          if (container.closed) continue;
+          if (item.isAtLoc(container.name, Quest.World.world.PARSER)) return true;
+        }
+        return false;
+      },
+
+
+
+
+
+
+
+
+isHeld(item: any) {
         return item.isAtLoc(Quest.World.player.name, Quest.World.world.PARSER) && Quest.World.world.ifNotDark(item);
       },
 
-      
-      
-      
-      // ... but not in a container
-isHeldNotWorn (item: any) {
-        return item.isAtLoc(Quest.World.player.name, Quest.World.world.PARSER) && Quest.World.world.ifNotDark(item) && !item.getWorn();
-      },
-      
-      
-
-
-isHeldByNpc(item: any) {
+      isHeldByNpc(item: any) {
         const npcs = parser.scopeFromScope(parser.isReachable).filter((el: any) => el.npc);
         for (const npc of npcs) {
           if (item.isAtLoc(npc.name, Quest.World.world.PARSER)) return true;
         }
         return false;
       },
-      
-      
-// This set is used in the objects attribute of commands
+
+
+      isForSale(item: any) {
+        return item.isForSale && item.isForSale(Quest.World.player.loc) && Quest.World.world.ifNotDark(item);
+      },
+
+      // ... but not in a container
+isHeldNotWorn(item: any) {
+        return item.isAtLoc(Quest.World.player.name, Quest.World.world.PARSER) && Quest.World.world.ifNotDark(item) && !item.getWorn();
+      },
+
+      isHere(item: any) {
+        return item.isAtLoc(Quest.World.player.loc, Quest.World.world.PARSER) && Quest.World.world.ifNotDark(item);
+      },
+
+      // In this location, or in a container (used by TAKE)
+      isHereOrContained(item: any) {
+        if (parser.isHere(item)) return true;
+        if (parser.isContained(item)) return true;
+        return false;
+      },
+
+
+
+
+// In this location, or in a container not held by the player (used by TAKE ALL)
+isHereOrLocationContained(item: any) {
+        if (parser.isHere(item)) return true;
+        if (parser.isLocationContained(item)) return true;
+        return false;
+      },
+
+
+      // This set is used in the objects attribute of commands
 // The "is" functions are for looking at a specific place
 // Anywhere in the Quest.World.world
 isInWorld(item: any) {
         return true;
       },
-      
-      // Held or here, but not in a container
-      isPresent: function (item: any) {
-        return parser.isHere(item) || parser.isHeld(item);
+
+      // Is in a container that is reachable, not held by player
+      isLocationContained(item: any) {
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'scopeFromScope' does not exist on type '... Remove this comment to see the full error message
+        const containers = parser.scopeFromScope(parser.isReachable).filter((el: any) => el.container);
+        for (const container of containers) {
+          if (container.closed) continue;
+          if (container.isUltimatelyHeldBy(Quest.World.player)) continue;
+          if (item.isAtLoc(container.name, Quest.World.world.PARSER)) return true;
+        }
+        return false;
       },
-      
+
       isNpcOrHere(item: any) {
         return (item.isAtLoc(Quest.World.player.loc, Quest.World.world.PARSER) && Quest.World.world.ifNotDark(item)) || item.npc || item.player;
       },
 
-      
-isHere(item: any) {
-        return item.isAtLoc(Quest.World.player.loc, Quest.World.world.PARSER) && Quest.World.world.ifNotDark(item);
+
+      isNpcAndHere(item: any) {
+        return Quest.World.player.onPhoneTo === item.name || (item.isAtLoc(Quest.World.player.loc, Quest.World.world.PARSER) && (item.npc || item.player));
       },
-      
+
+
+      // Held or here, but not in a container
+isPresent: function (item: any) {
+        return parser.isHere(item) || parser.isHeld(item);
+      },
+
+
+      // Used by examine, so the player can X ME, even if something called metalhead is here.
+      isPresentOrMe: function (item: any) {
+        return parser.isHere(item) || parser.isHeld(item) || item === Quest.World.player;
+      },
+
       // Override to skip quotes in aliases
-itemSetup(item: any) {
+      itemSetup(item: any) {
         item.parserOptionsSet    = true;
         item.parserItemName      = item.alias.toLowerCase();
         item.parserItemNameParts = Quest.Utilities.array.combos(item.parserItemName.split(' '));
@@ -283,40 +344,42 @@ itemSetup(item: any) {
           });
         }
       },
-      
-      // parser.isInside = function(item, options) {
-      //  return item.isAtLoc(options.container.name, Quest.World.world.PARSER) && Quest.World.world.ifNotDark(item);
-      // }
-      // parser.isRoom = function(item) {
-      //  return item.room;
-      // }
-      // Is in a container that is reachable
-      isContained(item: any) {
-        const containers = parser.scopeFromScope(parser.isReachable).filter((el: any) => el.container);
-        for (const container of containers) {
-          if (container.closed) continue;
-          if (item.isAtLoc(container.name, Quest.World.world.PARSER)) return true;
-        }
+
+
+      // Anywhere in the Quest.World.world
+      isReachable(item: any) {
+        return item.scopeStatus.canReach && Quest.World.world.ifNotDark(item);
+      },
+
+
+// Is a Quest.Templates.CONSTRUCTION and has no location
+isUnconstructed(item: any) {
+        if (!item.loc && item.construction) return true;
         return false;
       },
 
-      // Stores the current values for it, him, etc.
-      pronouns: {},
 
-      isForSale(item: any) {
-        return item.isForSale && item.isForSale(Quest.World.player.loc) && Quest.World.world.ifNotDark(item);
+      // Stores the current values for it, him, etc.
+pronouns: {},
+
+      // Anywhere in the location (used by the parser for the fallback)
+isVisible(item: any) {
+        return item.scopeStatus.visible && Quest.World.world.ifNotDark(item);
       },
 
-      keepTogether(s: any) {
+
+keepTogether(s: any) {
         return Quest.lang.regex.MetaUserComment.test(s);
       },
 
-      // In this location, or in a container (used by TAKE)
-      isHereOrContained(item: any) {
-        if (parser.isHere(item)) return true;
-        if (parser.isContained(item)) return true;
-        return false;
+      isWorn(item: any) {
+        return item.isAtLoc(Quest.World.player.name, Quest.World.world.PARSER) && Quest.World.world.ifNotDark(item) && item.getWorn();
       },
+
+
+
+
+
 
       override: (_p) => { },
 
@@ -325,31 +388,14 @@ itemSetup(item: any) {
 
 
 
-      // In this location, or in a container not held by the player (used by TAKE ALL)
-      isHereOrLocationContained(item: any) {
-        if (parser.isHere(item)) return true;
-        if (parser.isLocationContained(item)) return true;
-        return false;
-      },
-      
-      
-
-
-
-
-// Is in a container that is reachable, not held by player
-isLocationContained(item: any) {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'scopeFromScope' does not exist on type '... Remove this comment to see the full error message
-        const containers = parser.scopeFromScope(parser.isReachable).filter((el: any) => el.container);
-        for (const container of containers) {
-          if (container.closed) continue;
-          if (container.isUltimatelyHeldBy(Quest.World.player)) continue;
-          if (item.isAtLoc(container.name, Quest.World.world.PARSER)) return true;
+isWornByNpc(item: any) {
+        const npcs = parser.scopeFromScope(parser.isReachable).filter((el: any) => el.npc);
+        for (const npc of npcs) {
+          if (item.isAtLoc(npc.name, Quest.World.world.PARSER) && item.getWorn()) return true;
         }
         return false;
       },
 
-      
       // @DOC
 // The "parse" function should be sent either the text the player typed or null.
 // If sent null it will continue to work with the current values in currentCommand.
@@ -379,15 +425,39 @@ parse: function (inputText: any) {
         }
       },
 
-      isNpcAndHere(item: any) {
-        return Quest.World.player.onPhoneTo === item.name || (item.isAtLoc(Quest.World.player.loc, Quest.World.world.PARSER) && (item.npc || item.player));
+      // Want to match items from scopes to this string fragment s
+// matches will go in objectWordList and matches, the score is returned
+// objectWordList is a list of lists of objects and corresponds to an item name typed by the user
+matchToName(s: any, scopes: any, cmdParams: any, objectWordList: any) {
+        // objDisambigList is a list of objects that are in the given scope(s) and match the string fragment
+        const [objDisambigList, n] = this.findInScope(s, scopes, cmdParams);
+        if (n === 0) return parser.NO_OBJECT;
+
+        // So create a new list that will contain objects in objDisambigList not already in objectWordList
+        // This can happen for an object like "Ham and cheese sandwich", which will be split up
+        // as "ham" and "cheese sandwich"
+        const objDisambigList2 = [];
+        // Go though objDisambigList
+        for (const el of objDisambigList) {
+          let flag = false;
+          for (const el1 of objectWordList) {
+            for (const el2 of el1) {
+              if (el2.name === el.name) flag = true;
+            }
+          }
+          if (flag) {
+            parser.msg(`..Skipping duplicate: ${el.name}`);
+          } else {
+            objDisambigList2.push(el);
+          }
+        }
+        if (objDisambigList2.length > 0) objectWordList.push(objDisambigList2);
+        return n;
       },
 
-      
-      
-      
-      
-      
+
+
+
       parseSingle(inputText: any) {
         parser.msg(`Input string: ${inputText}`);
 
@@ -440,36 +510,12 @@ parse: function (inputText: any) {
         }
       },
 
-      
 
 
 
 
-// Used by examine, so the player can X ME, even if something called metalhead is here.
-isPresentOrMe: function (item: any) {
-        return parser.isHere(item) || parser.isHeld(item) || item === Quest.World.player;
-      },
 
-      
-      // @DOC
-// You can use this to bypass the parser altogether, for the next input the player types.
-// Instead, the given function will be used, sent the text the player typed.
-//
-// Used by askQuestion in Quest.IO.io.
-overrideWith: function (fn: any) {
-        parser.override = fn;
-      },
-
-      // Anywhere in the Quest.World.world
-isReachable(item: any) {
-        return item.scopeStatus.canReach && Quest.World.world.ifNotDark(item);
-      },
-
-      
-      
-      
-      
-matchToNames(s: any, scopes: any, cmdParams: any, res: any) {
+      matchToNames(s: any, scopes: any, cmdParams: any, res: any) {
         // Within this item position, break the substring into each item section
         // For PUT HAT, CUP IN BOX, the first will be ['hat', 'cup']
         const objectNames = s.split(Quest.lang.joiner_regex).map((el: any) => el.trim());
@@ -477,7 +523,7 @@ matchToNames(s: any, scopes: any, cmdParams: any, res: any) {
         const objectWordList: any = []; let
           score = 0;
         for (const s of objectNames) {
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'matchToName' does not exist on type '{}'... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'matchToName' does not exist on type '{}'... Remove this comment to see the full error message
           const n = parser.matchToName(Quest.lang.article_filter_regex.exec(s)[1], scopes, cmdParams, objectWordList);
           if (n < 0) {
             res.score   = n;
@@ -496,60 +542,48 @@ matchToNames(s: any, scopes: any, cmdParams: any, res: any) {
         res.objects.push(objectWordList);
         res.score += score;
       },
-      
-      
 
 
-// Is a Quest.Templates.CONSTRUCTION and has no location
-isUnconstructed(item: any) {
-        if (!item.loc && item.construction) return true;
-        return false;
-      },
 
-      
-      // Want to match items from scopes to this string fragment s
-// matches will go in objectWordList and matches, the score is returned
-// objectWordList is a list of lists of objects and corresponds to an item name typed by the user
-matchToName: function (s: any, scopes: any, cmdParams: any, objectWordList: any) {
-        // objDisambigList is a list of objects that are in the given scope(s) and match the string fragment
-        const [objDisambigList, n] = this.findInScope(s, scopes, cmdParams);
-        if (n === 0) return parser.NO_OBJECT;
 
-        // So create a new list that will contain objects in objDisambigList not already in objectWordList
-        // This can happen for an object like "Ham and cheese sandwich", which will be split up
-        // as "ham" and "cheese sandwich"
-        const objDisambigList2 = [];
-        // Go though objDisambigList
-        for (const el of objDisambigList) {
-          let flag = false;
-          for (const el1 of objectWordList) {
-            for (const el2 of el1) {
-              if (el2.name === el.name) flag = true;
-            }
-          }
-          if (flag) {
-            parser.msg(`..Skipping duplicate: ${el.name}`);
-          } else {
-            objDisambigList2.push(el);
-          }
-        }
-        if (objDisambigList2.length > 0) objectWordList.push(objDisambigList2);
-        return n;
-      },
 
-      // Anywhere in the location (used by the parser for the fallback)
-      isVisible(item: any) {
-        return item.scopeStatus.visible && Quest.World.world.ifNotDark(item);
-      },
-      
-      msg(...ary: any[]) {
+
+msg(...ary: any[]) {
         if (parser.debug) {
           for (const s of ary) Quest.IO.debugmsg(`P&gt; ${s}`);
         }
       },
 
-      isWorn(item: any) {
-        return item.isAtLoc(Quest.World.player.name, Quest.World.world.PARSER) && Quest.World.world.ifNotDark(item) && item.getWorn();
+      // @DOC
+// You can use this to bypass the parser altogether, for the next input the player types.
+// Instead, the given function will be used, sent the text the player typed.
+//
+// Used by askQuestion in Quest.IO.io.
+overrideWith: function (fn: any) {
+        parser.override = fn;
+      },
+
+      scopeFromScope(fn: any, options: any) {
+        const list = [];
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'scope' does not exist on type '{ LIGHT_N... Remove this comment to see the full error message
+        for (const o of Quest.World.world.scope) {
+          if (fn(o, options)) {
+            list.push(o);
+          }
+        }
+        return list;
+      },
+
+      scopeFromWorld(fn: any, options: any) {
+        const list = [];
+        for (const key in Quest.World.w) {
+          // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          if (fn(Quest.World.w[key], options)) {
+            // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+            list.push(Quest.World.w[key]);
+          }
+        }
+        return list;
       },
 
       scoreObjectMatch(s: any, item: any, cmdParams: any) {
@@ -601,25 +635,6 @@ matchToName: function (s: any, scopes: any, cmdParams: any, objectWordList: any)
         return res;
       },
 
-      isWornByNpc(item: any) {
-        const npcs = parser.scopeFromScope(parser.isReachable).filter((el: any) => el.npc);
-        for (const npc of npcs) {
-          if (item.isAtLoc(npc.name, Quest.World.world.PARSER) && item.getWorn()) return true;
-        }
-        return false;
-      },
-
-      scopeFromScope(fn: any, options: any) {
-        const list = [];
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'scope' does not exist on type '{ LIGHT_N... Remove this comment to see the full error message
-        for (const o of Quest.World.world.scope) {
-          if (fn(o, options)) {
-            list.push(o);
-          }
-        }
-        return list;
-      },
-
       specialText: {
         fluid: {
           error(text: any) {
@@ -657,18 +672,6 @@ matchToName: function (s: any, scopes: any, cmdParams: any, objectWordList: any)
             return text;
           },
         },
-      },
-
-      scopeFromWorld(fn: any, options: any) {
-        const list = [];
-        for (const key in Quest.World.w) {
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          if (fn(Quest.World.w[key], options)) {
-            // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-            list.push(Quest.World.w[key]);
-          }
-        }
-        return list;
       },
 
       // parser.debug = true

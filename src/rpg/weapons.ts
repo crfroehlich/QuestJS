@@ -90,7 +90,7 @@ namespace Quest {
     },
   ];
 
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'weaponTypeMapping' does not exist on typ... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'weaponTypeMapping' does not exist on typ... Remove this comment to see the full error message
   Quest.RPG.rpg.weaponTypeMapping = {
     F: '2H firearm',
     M: '2H melee',
@@ -100,7 +100,7 @@ namespace Quest {
     t: 'Thrown',
   };
 
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'weaponDamageMapping' does not exist on t... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'weaponDamageMapping' does not exist on t... Remove this comment to see the full error message
   Quest.RPG.rpg.weaponDamageMapping = {
     a: 'Axe',
     b: 'Bash',
@@ -109,7 +109,7 @@ namespace Quest {
     s: 'Slash',    // using weight to create bloody wound
   };
 
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'weaponFlags' does not exist on type '{ l... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'weaponFlags' does not exist on type '{ l... Remove this comment to see the full error message
   Quest.RPG.rpg.weaponFlags = {
     D:  'defensive',
     F:  'fast',
@@ -124,29 +124,29 @@ namespace Quest {
     X:  'requiresSkill',
   };
 
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'createWeapon' does not exist on type '{ ... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'createWeapon' does not exist on type '{ ... Remove this comment to see the full error message
   Quest.RPG.rpg.createWeapon = function (data: any) {
     const name = `${data.name.toLowerCase().replace(/ |\-/g, '_')}_prototype`;
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
     const weapon = Quest.World.createItem(name, Quest.Templates.WEAPON(data.damage));
-    // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
+    // ts-error-fixed ts-migrate(2532) FIXME: Object is possibly 'undefined'.
     weapon.type = Quest.RPG.rpg.weaponTypeMapping[data.atts[0]];
-    // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
+    // ts-error-fixed ts-migrate(2532) FIXME: Object is possibly 'undefined'.
     if (!weapon.type) log(`Weapon type not recognised for ${name}: ${data.atts}`);
-    // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
+    // ts-error-fixed ts-migrate(2532) FIXME: Object is possibly 'undefined'.
     weapon.damageType = Quest.RPG.rpg.weaponDamageMapping[data.atts[1]];
-    // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
+    // ts-error-fixed ts-migrate(2532) FIXME: Object is possibly 'undefined'.
     if (!weapon.damageType) log(`Weapon damage type not recognised for ${name}: ${data.atts}`);
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'weaponFlags' does not exist on type '{ l... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'weaponFlags' does not exist on type '{ l... Remove this comment to see the full error message
     for (const key in Quest.RPG.rpg.weaponFlags) {
-      // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
+      // ts-error-fixed ts-migrate(2532) FIXME: Object is possibly 'undefined'.
       if (data.atts.substring(2).includes(key)) weapon[Quest.RPG.rpg.weaponFlags[key]] = true;
     }
     return weapon;
   };
 
   for (const data of weapons) {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'createWeapon' does not exist on type '{ ... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'createWeapon' does not exist on type '{ ... Remove this comment to see the full error message
     Quest.RPG.rpg.createWeapon(data);
   }
 }

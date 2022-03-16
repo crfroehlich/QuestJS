@@ -4,6 +4,7 @@ export type TGetBool = (...params: any[]) => boolean;
 export const noop: TGetVoid = () => { };
 
 export interface ICustomPaneFunctions {
+  matches: any;
 }
 
 export interface IDateTime {
@@ -20,11 +21,13 @@ export interface IDateTime {
 export interface IInventoryPane {
   alt?: string;
   getLoc: TGetString;
+  hasContent?: boolean;
   name?: string;
+  noContent?: any;
   test: TGetBool;
 }
 
-export interface IMapStyle {
+interface IMapStyle {
   'background-color'?: string;
   height?: string;
   right?: string;
@@ -127,4 +130,6 @@ export interface ISettings {
   version?: string;
   videosFolder?: string;
   walkthroughMenuResponses?: any[];
+  warnings: string;
 }
+

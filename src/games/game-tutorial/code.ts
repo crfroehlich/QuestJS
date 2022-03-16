@@ -4,7 +4,7 @@ function tmsg(s: any, params: any) {
 
 const hint = {};
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'data' does not exist on type '{}'.
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'data' does not exist on type '{}'.
 hint.data = [
   { hint: 'Just type WAIT to get to the next stage.', name: 'waitAtStart' },
   { hint: 'Type NORTH to go into the kitchen.', name: 'northToKitchen' },
@@ -45,22 +45,22 @@ hint.data = [
   { hint: 'Tell the robot to put the rod in the reactor (ROBOT,PUT ROD IN REACTOR).', name: '', tutorial: '' },
   {
     hint() {
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
       if (Quest.World.w.me.loc === 'reactor_room') {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         Quest.IO.metamsg('Head SOUTH, then WEST, then once in the lift, PRESS 3.');
       }
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
       else if (Quest.World.w.me.loc === 'laboratory' || Quest.World.w.me.loc === 'lounge') {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         Quest.IO.metamsg('Head WEST, then once in the lift, PRESS 3.');
       }
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
       else if (Quest.World.w.me.loc === 'lift') {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         Quest.IO.metamsg('PRESS 3.');
       } else {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         Quest.IO.metamsg('Head to either the lounge or the laboratory, then go WEST, then once in the lift, PRESS 3.');
       }
     },
@@ -80,43 +80,43 @@ hint.data = [
   { hint: 'No hints, you have finished the game!', name: '', tutorial: '' },
 ];
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
 hint.now = function (name: any) {
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'data' does not exist on type '{}'.
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'data' does not exist on type '{}'.
   const n = hint.data.findIndex((el: any) => el.name === name);
   if (n === -1) throw `No hint found called ${name}`;
   if (n > Quest.World.player.hintCounter) {
     Quest.World.player.hintCounter = n;
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'data' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'data' does not exist on type '{}'.
     if (hint.data[n].tutorial) {
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'data' does not exist on type '{}'.
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'data' does not exist on type '{}'.
       for (const s of hint.data[n].tutorial.split('|')) tmsg(s);
     }
   }
 };
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'before' does not exist on type '{}'.
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'before' does not exist on type '{}'.
 hint.before = function (name: any) {
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'data' does not exist on type '{}'.
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'data' does not exist on type '{}'.
   const n = hint.data.findIndex((el: any) => el.name === name);
   if (n === -1) throw `No hint found called ${name}`;
   return (n > Quest.World.player.hintCounter);
 };
 
 Quest.Command.findCmd('MetaHint').script = function () {
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'data' does not exist on type '{}'.
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'data' does not exist on type '{}'.
   if (typeof hint.data[Quest.World.player.hintCounter].hint === 'string') {
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     Quest.IO.metamsg(hint.data[Quest.World.player.hintCounter].hint);
   }
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'data' does not exist on type '{}'.
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'data' does not exist on type '{}'.
   else if (typeof hint.data[Quest.World.player.hintCounter].hint === 'function') {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'data' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'data' does not exist on type '{}'.
     hint.data[Quest.World.player.hintCounter].hint();
   } else {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'data' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'data' does not exist on type '{}'.
     console.log(hint.data[Quest.World.player.hintCounter].name);
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'data' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'data' does not exist on type '{}'.
     console.log(`hint.data[Quest.World.player.hintCounter].hint is a ${typeof hint.data[Quest.World.player.hintCounter].hint}`);
   }
   return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
@@ -124,7 +124,7 @@ Quest.Command.findCmd('MetaHint').script = function () {
 
 // eat, purchase/sell, switch on/off, unlock, look behind/under/etc, push/pull
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'walkthroug... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'walkthroug... Remove this comment to see the full error message
 const walkthroughs = {
   a: [
     'z', 'hint',
@@ -212,31 +212,31 @@ const walkthroughs = {
   ],
 };
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
 Quest.Text.addDirective('rope', (arr: any, params: any) => `<span style="font-family:Montserrat">${arr.join(':')}</span>`);
 
 Quest.Command.findCmd('MetaSave').script = function () {
   Quest.lang.saveLoadScript();
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'before' does not exist on type '{}'.
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'before' does not exist on type '{}'.
   if (hint.before('saveGame')) {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
     hint.now('saveGame');
   }
   return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
 };
 
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.push(new Quest.Command.Cmd('Crowbar', {
   defmsg:  "That's not something you can crowbar open.",
   objects: [
     { special: 'ignore' },
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
     { scope: Quest.Parser.parser.isHere },
   ],
   regex: /^(crowbar|level) (.+)$/,
 }));
 
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.unshift(new Quest.Command.Cmd('Move', {
   defmsg: "{pv:item:'be:true} not something you can move.",
 
@@ -244,64 +244,64 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Move', {
 
   objects: [
     { special: 'ignore' },
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
     { scope: Quest.Parser.parser.isHere },
   ],
 
   regex: /^(move) (.+)$/,
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
   rules: [Quest.Command.cmdRules.isPresent],
 }));
 
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.push(new Quest.Command.Cmd('Tutorial', {
   objects: [
   ],
   regex: /^tutorial$/,
   script() {
-    // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
+    // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
     document.querySelector('body').toggleClass('hidden');
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg(Quest.lang.done_msg);
     return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
   },
 }));
 
 const wrapScript = function (obj1: any, obj2: any) {
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'old_newspaper' does not exist on type '{... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'old_newspaper' does not exist on type '{... Remove this comment to see the full error message
   if (obj2 !== Quest.World.w.old_newspaper) return Quest.IO.failedmsg('You cannot wrap that round anything.');
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'fist' does not exist on type '{}'.
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'fist' does not exist on type '{}'.
   if (obj1 !== Quest.World.w.fist) return Quest.IO.failedmsg("You don't think that will achieve anything.");
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+  // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   if (obj2.fist_wrapped) return Quest.IO.failedmsg('It already is.');
   obj2.fist_wrapped = true;
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+  // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
   Quest.IO.msg('You carefully wrap the old newspaper around your fist.');
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
   hint.now('smashWindow2');
   return Quest.World.world.SUCCESS;
 };
 
 const unwrapScript = function (obj1: any, obj2: any) {
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'old_newspaper' does not exist on type '{... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'old_newspaper' does not exist on type '{... Remove this comment to see the full error message
   if (obj2 !== Quest.World.w.old_newspaper) return Quest.IO.failedmsg('They are not wrapped together.');
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'fist' does not exist on type '{}'.
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'fist' does not exist on type '{}'.
   if (obj1 !== Quest.World.w.fist) return Quest.IO.failedmsg('They are not wrapped together.');
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+  // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   if (!obj2.fist_wrapped) return Quest.IO.failedmsg('They are not wrapped together.');
   obj2.fist_wrapped = false;
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+  // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
   Quest.IO.msg('You carefully unwrap the old newspaper from around your fist.');
   return Quest.World.world.SUCCESS;
 };
 
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.unshift(new Quest.Command.Cmd('Wrap1', {
 
   objects: [
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
     { scope: Quest.Parser.parser.isHeld },
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
     { scope: Quest.Parser.parser.isHeld },
   ],
   // wrap fist in newspaper
@@ -311,13 +311,13 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Wrap1', {
   },
 }));
 
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.unshift(new Quest.Command.Cmd('Wrap2', {
 
   objects: [
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
     { scope: Quest.Parser.parser.isHeld },
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
     { scope: Quest.Parser.parser.isHeld },
   ],
   // wrap newspaper round fist
@@ -327,30 +327,30 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Wrap2', {
   },
 }));
 
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.unshift(new Quest.Command.Cmd('Unwrap1', {
 
   objects: [
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
     { scope: Quest.Parser.parser.isHeld },
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
     { scope: Quest.Parser.parser.isHeld },
   ],
   // unwrap fist
   regex: /^(?:unwrap|uncover) (.+)$/,
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'old_newspaper' does not exist on type '{... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'old_newspaper' does not exist on type '{... Remove this comment to see the full error message
   script(objects: any) {
     unwrapScript(objects[0][0], Quest.World.w.old_newspaper);
   },
 }));
 
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.unshift(new Quest.Command.Cmd('Unwrap2', {
 
   objects: [
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
     { scope: Quest.Parser.parser.isHeld },
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
     { scope: Quest.Parser.parser.isHeld },
   ],
   // take newspaper off fist
@@ -360,13 +360,13 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Unwrap2', {
   },
 }));
 
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.unshift(new Quest.Command.Cmd('ThrowThrough', {
 
   objects: [
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
     { scope: Quest.Parser.parser.isHeld },
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
     { attName: 'throwThrough', scope: Quest.Parser.parser.isHere },
   ],
   // throw rope out window
@@ -383,37 +383,37 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('ThrowThrough', {
 }));
 
 const smashWithScript = function (item: any, dest: any) {
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'office_window' does not exist on type '{... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'office_window' does not exist on type '{... Remove this comment to see the full error message
   if (dest !== Quest.World.w.office_window) return Quest.IO.failedmsg("That's not something you can smash.");
   if (!item.isAtLoc('me')) return Quest.IO.failedmsg('You are not holding {nm:item:the}.', { item });
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'office_window' does not exist on type '{... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'office_window' does not exist on type '{... Remove this comment to see the full error message
   if (Quest.World.w.office_window.smashed) return Quest.IO.falsemsg('The window is already smashed.');
 
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'crowbar' does not exist on type '{}'.
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'crowbar' does not exist on type '{}'.
   if (item === Quest.World.w.crowbar) {
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg('You strike the window with the crowbar, breaking the glass. You take a moment to knock away the remaining jagged shards in the frame.');
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'Professor_Kleinscope' does not exist on ... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'Professor_Kleinscope' does not exist on ... Remove this comment to see the full error message
     if (Quest.World.w.Professor_Kleinscope.isHere()) Quest.IO.msg('Strangely, Professor Kleinscope does not seem to notice.');
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'office_window' does not exist on type '{... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'office_window' does not exist on type '{... Remove this comment to see the full error message
     Quest.World.w.office_window.smashed = true;
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
     hint.now('out');
     return Quest.World.world.SUCCESS;
   }
 
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
+  // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
   Quest.IO.msg("You can't smash the window using {nm:item:the}.", { item });
   return Quest.World.world.FAILED;
 };
 
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.unshift(new Quest.Command.Cmd('SmashWith', {
 
   objects: [
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
     { attName: 'throwThrough', scope: Quest.Parser.parser.isHere },
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
     { scope: Quest.Parser.parser.isHeld },
   ],
   // throw rope out window
@@ -423,13 +423,13 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('SmashWith', {
   },
 }));
 
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.unshift(new Quest.Command.Cmd('UseToSmash', {
 
   objects: [
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
     { scope: Quest.Parser.parser.isHeld },
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
     { attName: 'throwThrough', scope: Quest.Parser.parser.isHere },
   ],
   // throw rope out window
@@ -439,83 +439,83 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('UseToSmash', {
   },
 }));
 
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.unshift(new Quest.Command.Cmd('Attack', {
 
   objects: [
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
     { scope: Quest.Parser.parser.isHere },
   ],
   // throw rope out window
   regex: /^(?:attack|kick|punch|hit|strike|kill) (.+?)$/,
   script(objects: any) {
     if (objects[0][0].npc) {
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg('You just need to get the data, not beat anyone up!');
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
       if (!Quest.World.w.me.killFlag) {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         tmsg('You will find most games will not let you attack the characters, and those that do will probably have combat as a large part of the game. That said, it is a good idea to try these things, you never know quite what will happen.');
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
         Quest.World.w.me.killFlag = true;
       }
     } else {
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("That's not going to achieve anything.");
     }
     return Quest.World.world.FAILED;
   },
 }));
 
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.unshift(new Quest.Command.Cmd('TieUp', {
 
   objects: [
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
     { scope: Quest.Parser.parser.isHere },
   ],
   // throw rope out window
   regex: /^(?:tie up|tie|bind) (.+?)$/,
   script(objects: any) {
     const tpParams = { item: objects[0][0] };
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'rope' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'rope' does not exist on type '{}'.
     if (!Quest.World.w.rope.isAtLoc(Quest.World.player)) {
       return Quest.IO.failedmsg('What were you thinking you could tie {ob:item} up with it exactly?', tpParams);
     }
 
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'robot' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'robot' does not exist on type '{}'.
     if (objects[0][0] === Quest.World.w.robot) {
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("'I am not into the kinky stuff,' says the robot. Despite its metallic face, you still feel it is looking at you with disapproval.");
     }
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'Professor_Kleinscope' does not exist on ... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'Professor_Kleinscope' does not exist on ... Remove this comment to see the full error message
     else if (objects[0][0] === Quest.World.w.Professor_Kleinscope) {
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("'I don;t have time for that sort of thing now,' says the Professor irritably. He looks at yoi thoughtfully. 'Though maybe later...'");
     } else {
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg("That's not going to achieve anything.");
     }
     return Quest.World.world.FAILED;
   },
 }));
 
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.push(new Quest.Command.Cmd('RudeCommand', {
 
   objects: [
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
     { scope: Quest.Parser.parser.isHere },
   ],
   // throw rope out window
   regex: /^(?:fuck|facefuck|face-fuck|face fuck|bugger|shag|suck|suck off|assfuck|ass-fuck|ass fuck|rape|ass-rape|ass rape) (.+?)$/,
   script(objects: any) {
     Quest.IO.parsermsg(Quest.lang.not_known_msg);
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
     if (!Quest.World.w.me.rudeCmdFlag) {
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       tmsg('You had to go there...');
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       tmsg('There are games that cater to... well, people like you, but this is NOT one of them.');
     }
     return Quest.World.world.FAILED;

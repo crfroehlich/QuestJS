@@ -1,35 +1,35 @@
 const stars = {
 
   add(data: any) {
-    // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'any' is not assignable to parame... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2345) FIXME: Argument of type 'any' is not assignable to parame... Remove this comment to see the full error message
     this.data.push(data);
     const locs = [];
 
     for (const el of data.locations) {
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       encyclopedia[el.alias] = `In the [[${data.alias}]] system.|${el.desc}`;
       locs.push(el.alias);
     }
-    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     encyclopedia[data.alias] = `A type ${data.type} star in the ${data.sector} sector.|Significant locations include: [[${locs.join(']], [[')}]]`;
   },
 
   arriveAtSector() {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
     Quest.World.w.ship.arrivedAtSector = true;
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
     Quest.World.w.ship.currentSystem = 'cyrennis';
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
     Quest.World.w.ship.datetime += 9 * 24 + 3;
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
     Quest.World.w.ship.Quest.World.currentLocation = 'starbase';
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
     Quest.World.w.ship.onView = 'nagoshima';
 
     Quest.World.player.mission_assemble_crew = 1001;
     Quest.World.player.mission_sector_7_iota = 1001;
     missions.init();
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
     stars.draw();
   },
 
@@ -38,16 +38,16 @@ const stars = {
   draw(name: any) {
     const system = this.getSystem(name);
     const svg    = [];
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
     if (Quest.World.w.ship.showStarMap) {
       for (const el of stars.data) {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'x' does not exist on type 'never'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'x' does not exist on type 'never'.
         if (!el.x) continue;
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'sector' does not exist on type 'never'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'sector' does not exist on type 'never'.
         if (el.sector !== system.sector) continue;
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'x' does not exist on type 'never'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'x' does not exist on type 'never'.
         svg.push(`<circle cx="${el.x}" cy="${el.y}" r="${el.size / 4}" fill="${el.colour}" stroke="none"/>`);
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'x' does not exist on type 'never'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'x' does not exist on type 'never'.
         svg.push(`<text class="map-text" x="${el.x - 3}" y="${el.y - 5}" fill="white">${el.alias}</text>`);
       }
       svg.push(`<text class="map-text" x="0" y="12" fill="silver">Sector ${system.sector}</text>`);
@@ -62,7 +62,7 @@ const stars = {
       }
       svg.push(`<text class="map-text" x="0" y="12" fill="silver">${system.system ? system.system : `${system.alias} system`}</text>`);
     }
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
     if (Quest.World.w.ship.arrivedAtSector) svg.push(`<text class="map-text" x="353" y="12" fill="silver" onclick="stars.toggleStarMap(${Quest.World.w.ship.showStarMap})">Toggle</text>`);
     svg.push('<text class="map-text" x="0" y="398" fill="silver">Quicksilver Starmaps</text>');
     svg.push('<text class="map-text" x="313" y="398" fill="silver">Not to scale</text>');
@@ -73,22 +73,22 @@ const stars = {
     return this.getSystemOrLocation(true, name);
   },
   getLocationNames() {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
     const system = stars.getSystem(Quest.World.w.ship.currentSystem);
     return system.locations.map((el: any) => el.alias);
   },
   getStarNames() {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'alias' does not exist on type 'never'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'alias' does not exist on type 'never'.
     return stars.data.map((el) => el.alias);
   },
   getSystem(name: any) {
     return this.getSystemOrLocation(false, name);
   },
   getSystemOrLocation(isLocation: any, name: any) {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
     if (name === undefined) name = Quest.World.w.ship.Quest.World.currentLocation;
     for (const el of this.data) {
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'locations' does not exist on type 'never... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'locations' does not exist on type 'never... Remove this comment to see the full error message
       for (const el2 of el.locations) {
         if (el2.name === name) return isLocation ? el2 : el;
       }
@@ -96,9 +96,9 @@ const stars = {
     log(`ERROR: Failed to find ${isLocation ? 'location' : 'system'} with name ${name}`);
   },
   toggleStarMap(flag: any) {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
     Quest.World.w.ship.showStarMap = !flag;
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
     this.draw();
   },
 

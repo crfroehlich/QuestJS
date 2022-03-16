@@ -1,19 +1,19 @@
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'isRoom' does not exist on type '{}'.
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'isRoom' does not exist on type '{}'.
 Quest.Parser.parser.isRoom = function (o: any) {
   return o.room;
 };
 
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.unshift(new Quest.Command.Cmd('GoToDest', {
   npcCmd:  true,
   objects: [
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'isRoom' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'isRoom' does not exist on type '{}'.
     { scope: Quest.Parser.parser.isRoom },
   ],
   regex: /^(?:go to|go) (.+)$/,
   script(objects: any) {
     const room = objects[0][0];
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     if (room === Quest.World.currentLocation) return Quest.IO.failedmsg('As if by magic, you are suddenly... where you already were.');
     if (!room.room) return Quest.IO.failedmsg('{pv:item:be:true} not a destination.', { item: room });
     for (const ex of Quest.World.currentLocation.dests) {
@@ -25,15 +25,15 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('GoToDest', {
   },
 }));
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'msgInputText' does not exist on type '{ ... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'msgInputText' does not exist on type '{ ... Remove this comment to see the full error message
 Quest.IO.io.msgInputText = function (s: any) {
   if (!Quest.Settings.settings.cmdEcho || s === '') return;
-  // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
+  // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
   document.querySelector('#output').innerHTML += `<p id="n${Quest.IO.io.nextid}" class="input-text">&gt; ${s.toUpperCase()}</p>`;
   Quest.IO.io.nextid++;
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'speak' does not exist on type '{ nextid:... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'speak' does not exist on type '{ nextid:... Remove this comment to see the full error message
   if (Quest.IO.io.spoken) Quest.IO.io.speak(s, true);
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'transcript' does not exist on type '{ ne... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'transcript' does not exist on type '{ ne... Remove this comment to see the full error message
   if (Quest.IO.io.transcript) Quest.IO.io.scriptAppend({ cssClass: 'input', text: s });
 };
 
@@ -62,7 +62,7 @@ const roster = {
   },
 
   // get the officer object assigned to the role or null if not set
-  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   getOfficer(pos: any) {
     return this.hasOfficer(pos) ? Quest.World.w[Quest.World.w.ship[pos]] : null;
   },
@@ -76,12 +76,12 @@ const roster = {
   getRoles(officer: any) {
     const list = roster.data.map((el) => el.name);
     if (officer === undefined) return list;
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
     if (officer === true) return list.filter((el) => Quest.World.w.ship[el] !== undefined);
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
     if (officer === false) return list.filter((el) => Quest.World.w.ship[el] === undefined);
     if (typeof officer !== 'string') officer = officer.name;
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
     return list.filter((el) => Quest.World.w.ship[el] === officer);
   },
 
@@ -97,18 +97,18 @@ const roster = {
     return s;
   },
   // is an officer assigned to the role?
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
   hasOfficer(pos: any) {
     return Quest.World.w.ship[pos] !== undefined;
   },
 };
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
 Quest.Text.addDirective('role', (arr: any, params: any) => {
   const pos = arr[0];
   const npc = roster.getOfficer(pos);
   if (!npc) {
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     Quest.IO.errormsg(`TP Failed for role :${arr.join(':')}`);
     return '';
   }
@@ -116,14 +116,14 @@ Quest.Text.addDirective('role', (arr: any, params: any) => {
   return arr[2] === 'true' ? Quest.Utilities.sentenceCase(s) : s;
 });
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
 Quest.Text.addDirective('sir', (arr: any, params: any) => (Quest.World.player.callmemaam ? "ma'am" : 'sir'));
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
 Quest.Text.addDirective('Sir', (arr: any, params: any) => (Quest.World.player.callmemaam ? "Ma'am" : 'Sir'));
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
 Quest.Text.addDirective('time', (arr: any, params: any) =>
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
   `Stardate ${Quest.World.w.ship.getDateTime(arr[0])}`);
 
 const newVerbs = [
@@ -137,12 +137,12 @@ const newVerbs = [
 ];
 
 for (const el of newVerbs) {
-  // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
   Quest.Commands.commands.unshift(new Quest.Command.Cmd(el.name, {
     attName: Quest.Utilities.verbify(el.name),
     defmsg:  "{pv:item:'be:true} not something you can do that with.",
     objects: [
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'scopeHeld' does not exist on type '{ nam... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'scopeHeld' does not exist on type '{ nam... Remove this comment to see the full error message
       { scope: el.scopeHeld ? Quest.Parser.parser.isHeld : Quest.Parser.parser.isHere },
     ],
     regex: new RegExp(`^${el.name.toLowerCase()} (.+)$`),
@@ -174,7 +174,7 @@ const newCmds = [
 ];
 
 for (const el of newCmds) {
-  // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
   Quest.Commands.commands.unshift(new Quest.Command.Cmd(el.name, {
     objects: [
     ],
@@ -184,38 +184,38 @@ for (const el of newCmds) {
   }));
 }
 
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.unshift(new Quest.Command.Cmd('JumpStart', {
   objects: [
   ],
   regex: /start/,
   script() {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
     Quest.World.w.ship.helm = 'farrington_moss';
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
     Quest.World.w.ship.science = 'lashirr_hrong';
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
     Quest.World.w.ship.engineering = 'milton_keynes';
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
     Quest.World.w.ship.armsman = 'dakota_north';
 
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'farrington_moss' does not exist on type ... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'farrington_moss' does not exist on type ... Remove this comment to see the full error message
     Quest.World.w.farrington_moss.loc = 'bridge';
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'lashirr_hrong' does not exist on type '{... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'lashirr_hrong' does not exist on type '{... Remove this comment to see the full error message
     Quest.World.w.lashirr_hrong.loc = 'bridge';
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'milton_keynes' does not exist on type '{... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'milton_keynes' does not exist on type '{... Remove this comment to see the full error message
     Quest.World.w.milton_keynes.loc = 'bridge';
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'dakota_north' does not exist on type '{}... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'dakota_north' does not exist on type '{}... Remove this comment to see the full error message
     Quest.World.w.dakota_north.loc = 'bridge';
 
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'helmsman_go_to_7iota' does not exist on ... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'helmsman_go_to_7iota' does not exist on ... Remove this comment to see the full error message
     Quest.World.w.helmsman_go_to_7iota.hide();
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'helmsman_go_to_star' does not exist on t... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'helmsman_go_to_star' does not exist on t... Remove this comment to see the full error message
     Quest.World.w.helmsman_go_to_star.show();
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'helmsman_go_to_location' does not exist ... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'helmsman_go_to_location' does not exist ... Remove this comment to see the full error message
     Quest.World.w.helmsman_go_to_location.show();
 
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'helmsman_go_to_7iota' does not exist on ... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'helmsman_go_to_7iota' does not exist on ... Remove this comment to see the full error message
     Quest.World.w.helmsman_go_to_7iota.script();
     // stars.arriveAtSector()
     return Quest.World.world.SUCCESS;

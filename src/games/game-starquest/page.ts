@@ -1,4 +1,4 @@
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
+// ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 Quest.World.createItem('missions', {
   pageOption: true,
   verbFunction(verbList: any) {
@@ -7,7 +7,7 @@ Quest.World.createItem('missions', {
   },
 });
 
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.unshift(new Quest.Command.Cmd('Mission', {
   objects: [
     { special: 'text' },
@@ -15,27 +15,27 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Mission', {
   regex: /(.+) missions$/,
   script(objects: any) {
     const mission = missions.find(objects[0]);
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
     Quest.Settings.settings.startingDialogHtml = `<p>Name: <i>${mission.alias}</i></p>`;
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
     Quest.Settings.settings.startingDialogHtml += '<p>Brief:</p>';
-    // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
+    // ts-error-fixed ts-migrate(2532) FIXME: Object is possibly 'undefined'.
     const s   = (typeof mission.brief === 'function') ? mission.brief() : mission.brief;
     const ary = s.split('|');
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
     for (const el of ary) Quest.Settings.settings.startingDialogHtml += `<p><i>${el}</i></p>`;
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'setUpDialog' does not exist on type '{ p... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'setUpDialog' does not exist on type '{ p... Remove this comment to see the full error message
     Quest.Settings.settings.setUpDialog();
     return Quest.World.world.SUCCESS;
   },
 }));
 
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
+// ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 Quest.World.createItem('crew_roster', {
   pageOption: true,
   verbFunction(verbList: any) {
     verbList.pop();
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
     if (Quest.World.w.ship.arrivedAtSector) {
       for (const o of roster.getCrew()) verbList.push(o.alias);
     } else {
@@ -44,10 +44,10 @@ Quest.World.createItem('crew_roster', {
   },
 });
 
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.unshift(new Quest.Command.Cmd('Crew Roster', {
   objects: [
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'isInWorld' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'isInWorld' does not exist on type '{}'.
     { attName: 'npc', scope: Quest.Parser.parser.isInWorld },
   ],
   regex: /(.+) crew roster$/,
@@ -58,37 +58,37 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('Crew Roster', {
   },
 }));
 
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
+// ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 Quest.World.createItem('encyclopedia', {
   askDiag(s: any, fromLink: any) {
     if (s.length === 0) return;
     if (s.length < 3) {
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg(`On your PAGE you search for "${s}", but get over a billion hits. Perhaps search for something a few more characters long?`);
       return;
     }
     const regex = RegExp(s, 'i');
     for (const key in encyclopedia) {
       if (regex.test(key)) {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         if (!fromLink) Quest.IO.msg(`On your PAGE you search for "${s}".`);
         const strs = [];
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'encyclopedia' does not exist on type '{}... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'encyclopedia' does not exist on type '{}... Remove this comment to see the full error message
         if (Quest.Utilities.doOnce(Quest.World.w.encyclopedia, 'Encyclopaedia')) {
           strs.push('<b>Welcome to the Fleet Admiralty Encyclopaedia</b>');
           strs.push('Please note that the admiralty cannot be held accountable for any inaccuracy or inconsistency on the information contained herein. Continued use is taken as absolving the admiralty of any and all liability.');
           strs.push('If you do notice any  inaccuracy or inconsistency, please communicate this to the admiralty.');
         }
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         const paras = encyclopedia[key].split('|');
         let flag    = true;
         for (const s of paras) {
           if (flag) {
-            // @ts-expect-error ts-migrate(2339) FIXME: Property 'encyclopedia' does not exist on type '{}... Remove this comment to see the full error message
+            // ts-error-fixed ts-migrate(2339) FIXME: Property 'encyclopedia' does not exist on type '{}... Remove this comment to see the full error message
             strs.push(`<b>${key}</b> ${Quest.World.w.encyclopedia.expandRefs(s)}`);
             flag = false;
           } else {
-            // @ts-expect-error ts-migrate(2339) FIXME: Property 'encyclopedia' does not exist on type '{}... Remove this comment to see the full error message
+            // ts-error-fixed ts-migrate(2339) FIXME: Property 'encyclopedia' does not exist on type '{}... Remove this comment to see the full error message
             strs.push(Quest.World.w.encyclopedia.expandRefs(s));
           }
         }
@@ -97,10 +97,10 @@ Quest.World.createItem('encyclopedia', {
       }
     }
     if (fromLink) {
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg('The link seems to be broken; you wondeer if you should report it to someone....');
     } else {
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg(`On your PAGE you search for "${s}", but find nothing of interest.`);
     }
     return false;
@@ -117,14 +117,14 @@ Quest.World.createItem('encyclopedia', {
   pageOption: true,
 });
 
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.unshift(new Quest.Command.Cmd('Encyclopedia', {
   objects: [
     { special: 'text' },
   ],
   regex: /encyclopedia (.+)$/,
   script(objects: any) {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'encyclopedia' does not exist on type '{}... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'encyclopedia' does not exist on type '{}... Remove this comment to see the full error message
     Quest.World.w.encyclopedia.askDiag(objects[0], true);
     return Quest.World.world.SUCCESS;
   },

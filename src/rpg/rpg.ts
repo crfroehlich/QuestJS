@@ -2,21 +2,21 @@ namespace Quest {
   export namespace RPG {
     const { log } = console;
     // Authors can overide as desired
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'attackOutputLevel' does not exist on typ... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'attackOutputLevel' does not exist on typ... Remove this comment to see the full error message
     Quest.Settings.settings.attackOutputLevel = 10;
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'output' does not exist on type '{ perfor... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'output' does not exist on type '{ perfor... Remove this comment to see the full error message
     Quest.Settings.settings.output = function (reportTexts: any) {
       for (const el of reportTexts) {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'attackOutputLevel' does not exist on typ... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'attackOutputLevel' does not exist on typ... Remove this comment to see the full error message
         if (el.level <= Quest.Settings.settings.attackOutputLevel) {
           if (el.level === 1) {
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+            // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
             Quest.IO.msg(el.t);
           } else if (el.level === 2) {
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+            // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
             Quest.IO.metamsg(el.t);
           } else {
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+            // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
             Quest.IO.msgPre(el.t);
           }
         }
@@ -32,7 +32,7 @@ namespace Quest {
             if (obj[`countdown_${name}`]) {
               obj[`countdown_${name}`]--;
               if (obj[`countdown_${name}`] <= 0) {
-                // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+                // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
                 Quest.IO.msg(rpg.findEffect(name).terminate(obj));
               }
             }
@@ -43,7 +43,7 @@ namespace Quest {
         if (obj.summonedCountdown) {
           obj.summonedCountdown--;
           if (obj.summonedCountdown <= 0) {
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
+            // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
             if (obj.isHere()) Quest.IO.msg('{nv:item:disappear:true}.', { item: obj });
             rpg.destroy(obj);
           }
@@ -51,28 +51,28 @@ namespace Quest {
       }
 
       // Determine lighting and fog/smoke in room
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'dark' does not exist on type '{ turnCoun... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'dark' does not exist on type '{ turnCoun... Remove this comment to see the full error message
       Quest.World.currentLocation.rpgLighting = Quest.World.game.dark ? rpg.DARK : rpg.LIGHT;
       if (!Quest.World.currentLocation.rpgFog) Quest.World.currentLocation.rpgFog = 0;
       let targetFog = Quest.World.currentLocation.defaultFog ? Quest.World.currentLocation.defaultFog : 0;
       if (Quest.World.currentLocation.activeEffects) {
         for (const effectName of Quest.World.currentLocation.activeEffects) {
           const effect = rpg.findEffect(effectName);
-          // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
+          // ts-error-fixed ts-migrate(2532) FIXME: Object is possibly 'undefined'.
           if (effect.fogEffect) targetFog *= effect.fogEffect;
-          // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
+          // ts-error-fixed ts-migrate(2532) FIXME: Object is possibly 'undefined'.
           if (effect.lightEffect) {
-            // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
+            // ts-error-fixed ts-migrate(2532) FIXME: Object is possibly 'undefined'.
             if (effect.lightEffect === rpg.UTTERLIGHT) Quest.World.currentLocation.rpgLighting = rpg.UTTERLIGHT;
-            // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
+            // ts-error-fixed ts-migrate(2532) FIXME: Object is possibly 'undefined'.
             if (effect.lightEffect === rpg.UTTERDARK && Quest.World.currentLocation.rpgLighting !== rpg.UTTERLIGHT) Quest.World.currentLocation.rpgLighting = rpg.UTTERDARK;
-            // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
+            // ts-error-fixed ts-migrate(2532) FIXME: Object is possibly 'undefined'.
             if (effect.lightEffect === rpg.LIGHT && Quest.World.currentLocation.rpgLighting !== rpg.UTTERLIGHT && Quest.World.currentLocation.rpgLighting !== rpg.UTTERDARK) Quest.World.currentLocation.rpgLighting = rpg.DARK;
-            // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
+            // ts-error-fixed ts-migrate(2532) FIXME: Object is possibly 'undefined'.
             if (effect.lightEffect === rpg.LIGHT && Quest.World.currentLocation.rpgLighting !== rpg.UTTERLIGHT && Quest.World.currentLocation.rpgLighting !== rpg.UTTERDARK && Quest.World.currentLocation.rpgLighting !== rpg.LIGHT) Quest.World.currentLocation.rpgLighting = rpg.DARK;
           }
         }
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'dark' does not exist on type '{ turnCoun... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'dark' does not exist on type '{ turnCoun... Remove this comment to see the full error message
         Quest.World.game.dark = (Quest.World.currentLocation.rpgLighting === rpg.UTTERDARK || Quest.World.currentLocation.rpgLighting === rpg.DARK); // !!! This could have bad consequences!
       }
       if (targetFog > Quest.World.currentLocation.rpgFog) Quest.World.currentLocation.rpgFog++;
@@ -92,15 +92,15 @@ namespace Quest {
 
       constructor(name: any, data: any, extra = {}) {
         this.name = name;
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         for (const key in data) this[key] = data[key];
         if (!this.alias) this.alias = name;
         for (const name of rpg.copyToEffect) {
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           if (extra[name]) this[name] = extra[name];
         }
         if (rpg.findEffect(this.name)) throw new Error(`Effect name collision: ${this.name}`);
-        // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'this' is not assignable to param... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2345) FIXME: Argument of type 'this' is not assignable to param... Remove this comment to see the full error message
         rpg.effectsList.push(this);
       }
 
@@ -111,13 +111,13 @@ namespace Quest {
       }
 
       terminate(target: any) {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'remove' does not exist on type '{}'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'remove' does not exist on type '{}'.
         Quest.Utilities.array.remove(target.activeEffects, this.name);
         delete target[`countdown_${this.name}`];
         let s;
         if (this.finish) s = this.finish(target);
         if (this.suppressFinishMsg) return '';
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultEffectExpires' does not exist on ... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'defaultEffectExpires' does not exist on ... Remove this comment to see the full error message
         if (!s) s = Quest.lang.defaultEffectExpires;
         return Quest.Text.processText(s, { effect: this, target });
       }
@@ -171,7 +171,7 @@ namespace Quest {
 
       destroy(obj: any) {
         if (obj.clonePrototype) {
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           delete Quest.World.w[obj.name];
         } else {
           delete obj.loc;
@@ -201,29 +201,29 @@ namespace Quest {
         ],
 
         opposed(s: any) {
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           if (!s) Quest.IO.errormsg(`elements.opposed was sent something that evaluates to false (type is ${typeof s})`);
           for (const el of this.list) {
             if (el.name === s) return el.opposed;
           }
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           Quest.IO.errormsg(`elements.opposed was sent an unrecognised element: ${s}`);
           return null;
         },
       },
       find(skillName: any) {
         skillName = skillName.toLowerCase();
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'name' does not exist on type 'never'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'name' does not exist on type 'never'.
         return this.list.find((el) => skillName === el.name.toLowerCase() || (el.regex && skillName.match(el.regex)));
       },
 
       findEffect(name: any) {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'name' does not exist on type 'never'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'name' does not exist on type 'never'.
         return this.effectsList.find((el) => name === el.name);
       },
 
       findSkill(skillName: any, suppressErrorMsg: any) {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'name' does not exist on type 'never'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'name' does not exist on type 'never'.
         const skill = this.list.find((el) => skillName === el.name);
         if (!skill && !suppressErrorMsg) return Quest.IO.errormsg(`Failed to find skill/spell: '${skillName}'`);
         return skill;
@@ -283,28 +283,28 @@ namespace Quest {
       list: [],
 
       pursueToAttack(target: any) {
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         const exit = Quest.World.w[this.loc].findExit(target.loc);
         if (!exit) return false;  // not in adjacent room, so give up
         // may want to check NPC can use that exit
 
         // log("Move " + npc.name + " to " + dest)
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'movingMsg' does not exist on type '{ lis... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'movingMsg' does not exist on type '{ lis... Remove this comment to see the full error message
         this.movingMsg(exit);
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'moveChar' does not exist on type '{ list... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'moveChar' does not exist on type '{ list... Remove this comment to see the full error message
         this.moveChar(exit);
         return true;
       },
 
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'alert' does not exist on type '{ list: n... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'alert' does not exist on type '{ list: n... Remove this comment to see the full error message
       signalResponse_alert() {
         this.alert = true;
       },
 
       signalResponse_attack(source: any, target: any) {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'aggressive' does not exist on type '{ li... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'aggressive' does not exist on type '{ li... Remove this comment to see the full error message
         this.aggressive = true;
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'target' does not exist on type '{ list: ... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'target' does not exist on type '{ list: ... Remove this comment to see the full error message
         this.target = target ? target.name : Quest.World.player.name;
       },
 
@@ -312,19 +312,19 @@ namespace Quest {
         Quest.IO.msg('{nv:npc:receive:true} a message from {show:source}.', { npc: this, source });
       },
 
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'asleep' does not exist on type '{ list: ... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'asleep' does not exist on type '{ list: ... Remove this comment to see the full error message
       signalResponse_wake() {
         this.asleep = false;
       },
 
       teleport(char: any, loc: any) {
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         const oldLocation = Quest.World.w[char.loc];
         char.loc          = loc;
 
         if (char === Quest.World.player) {
           Quest.World.world.update();
-          // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
           Quest.World.world.enterRoom(new Quest.World.Exit(loc, { dir: 'teleport', msg: Quest.lang.teleport, origin: oldLocation }));
         }
       },
@@ -335,12 +335,12 @@ namespace Quest {
       if (char.testMove && !char.testMove(exit)) return false;
       const guards = exit.isGuarded();
       if (guards && guards.length > 0) {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
         Quest.IO.msg(Quest.lang.wayGuarded, { exit });
         for (const guard of guards) {
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
           if (guard.guardingComment) Quest.IO.msg(guard.guardingComment, { char });
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           if (guard.guardingReaction) Quest.IO.msg(guard.guardingReaction(char, this));
         }
         return false;
@@ -358,40 +358,40 @@ namespace Quest {
 
     // do we need a dead attribute? is it an attribute of NPC? yes and no
 
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'ping' does not exist on type '{ debug: (... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'ping' does not exist on type '{ debug: (... Remove this comment to see the full error message
     Quest.NPC.agenda.ping = function () {
       log('ping'); return false;
     };
 
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'guardExit' does not exist on type '{ deb... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'guardExit' does not exist on type '{ deb... Remove this comment to see the full error message
     Quest.NPC.agenda.guardExit = function (npc: any, arr: any) {
       npc.setGuardFromAgenda(arr);
       return false;
     };
 
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'guardScenery' does not exist on type '{ ... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'guardScenery' does not exist on type '{ ... Remove this comment to see the full error message
     Quest.NPC.agenda.guardScenery = function (npc: any, arr: any) {
       const item = Quest.World.w[arr.shift()];
       if (item.scenery) return false;
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg(arr.join(':'));
       if (item.loc && Quest.World.w[item.loc] && (Quest.World.w[item.loc].npc || Quest.World.w[item.loc].player)) npc.target = item.loc;
       npc.antagonise(Quest.World.player);
       npc.delayAgendaAttack = true;
       return true;
     };
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'guardSceneryNow' does not exist on type ... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'guardSceneryNow' does not exist on type ... Remove this comment to see the full error message
     Quest.NPC.agenda.guardSceneryNow = function (npc: any, arr: any) {
       const item = Quest.World.w[arr.shift()];
       if (item.scenery) return false;
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg(arr.join(':'));
       if (item.loc && Quest.World.w[item.loc] && (Quest.World.w[item.loc].npc || Quest.World.w[item.loc].player)) npc.target = item.loc;
       npc.antagonise(Quest.World.player);
       return true;
     };
 
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'antagonise' does not exist on type '{ de... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'antagonise' does not exist on type '{ de... Remove this comment to see the full error message
     Quest.NPC.agenda.antagonise = function (npc: any, arr: any) {
       if (arr.length === 0) {
         npc.antagonise(Quest.World.player);
@@ -401,20 +401,20 @@ namespace Quest {
         npc.antagonise(Quest.World.w[npc.target]);
       } else {
         const target = Quest.World.w[arr[0]];
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         if (!target) return Quest.IO.errormsg(`Unknown target set for \`antagonise\` agenda item: ${arr[0]}`);
         npc.antagonise(target);
       }
       return true;
     };
 
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'ongoingAttack' does not exist on type '{... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'ongoingAttack' does not exist on type '{... Remove this comment to see the full error message
     Quest.NPC.agenda.ongoingAttack = function (npc: any, arr: any) {
       const attack = npc.performAttack(arr);
       return typeof attack === 'boolean' ? attack : attack.target.dead;
     };
 
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'singleAttack' does not exist on type '{ ... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'singleAttack' does not exist on type '{ ... Remove this comment to see the full error message
     Quest.NPC.agenda.singleAttack = function (npc: any, arr: any) {
       npc.performAttack(arr);
       return true;

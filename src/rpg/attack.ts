@@ -71,19 +71,19 @@ namespace Quest {
         attack.attacker = attacker;
         attack.skill    = skill;
         attack.target   = target;
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'source' does not exist on type 'Attack'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'source' does not exist on type 'Attack'.
         attack.source = source;
 
         // Find the skill
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'getSkill' does not exist on type '{ list... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'getSkill' does not exist on type '{ list... Remove this comment to see the full error message
         if (attacker === Quest.World.player && skill === undefined && Quest.RPG.rpg.getSkill) {
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'getSkill' does not exist on type '{ list... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'getSkill' does not exist on type '{ list... Remove this comment to see the full error message
           attack.skill = Quest.RPG.rpg.getSkill();
-          // @ts-expect-error ts-migrate(2552) FIXME: Cannot find name 'skillUI'. Did you mean 'skill'?
+          // ts-error-fixed ts-migrate(2552) FIXME: Cannot find name 'skillUI'. Did you mean 'skill'?
           skillUI.resetButtons();
         }
         if (!attack.skill) attack.skill = Quest.Skill.defaultSkill;
-        // @ts-expect-error ts-migrate(2551) FIXME: Property 'reportText' does not exist on type 'Atta... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2551) FIXME: Property 'reportText' does not exist on type 'Atta... Remove this comment to see the full error message
         attack.reportText = (source && source.reportText) ? source.reportText : attack.skill.reportText;
 
         if (!attack.skill.testUseable(attack.attacker)) return false;
@@ -97,7 +97,7 @@ namespace Quest {
         attack.secondaryTargets = attack.skill.getSecondaryTargets ? attack.skill.getSecondaryTargets(target, attack) : [];
 
         if (attack.primaryTargets.length === 0) {
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'noTarget' does not exist on type '{ rege... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'noTarget' does not exist on type '{ rege... Remove this comment to see the full error message
           return Quest.IO.falsemsg(attack.skill.msgNoTarget ? attack.skill.msgNoTarget : Quest.lang.noTarget, attack);
         }
 
@@ -113,7 +113,7 @@ namespace Quest {
 
         // log(attack.reportText)
         // log({attacker:attacker, skill:attack.skill, target:attack.primaryTargets[0], source:source})
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
         Quest.IO.msg(attack.reportText, {
           attacker, skill: attack.skill, source, target: attack.primaryTargets[0],
         });
@@ -124,20 +124,20 @@ namespace Quest {
         attack.msg('Offensive bonus', 4);
         if (attack.skill.noWeapon) {
           attack.offensiveBonus = attack.skill.offensiveBonus;
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'damage' does not exist on type 'Attack'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'damage' does not exist on type 'Attack'.
           attack.damage  = attack.skill.damage;
           attack.element = attack.skill.element;
           attack.report('From skill:', attack.offensiveBonus);
         } else {
           attack.weapon         = attacker.getEquippedWeapon();
           attack.offensiveBonus = attack.weapon.offensiveBonus || 0;
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'damage' does not exist on type 'Attack'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'damage' does not exist on type 'Attack'.
           attack.damage  = attack.weapon.damage;
           attack.element = attack.weapon.element;
           attack.report('From weapon:', attack.offensiveBonus);
         }
 
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'damage' does not exist on type 'Attack'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'damage' does not exist on type 'Attack'.
         if (attack.damage) attack.setDamageAtts(attack.damage);
         if (attack.skill.secondaryDamage) attack.setDamageAtts(attack.skill.secondaryDamage, 'secondaryDamage');
 
@@ -167,7 +167,7 @@ namespace Quest {
         attack.report('After attacker items:', attack.offensiveBonus);
 
         // Now take into account the target's room (count as incoming still)
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         const room = (target ? Quest.World.w[target.loc] : Quest.World.w[attacker.loc]);
         if (room.modifyOutgoingAttack) room.modifyOutgoingAttack(attack);
         attack.applyActiveEffects(room, false);
@@ -207,7 +207,7 @@ namespace Quest {
       resolve(target: any, isPrimary: any, count = 0) {
         this.target = target;
 
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'testAttribute' does not exist on type '{... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'testAttribute' does not exist on type '{... Remove this comment to see the full error message
         if (isPrimary && !Quest.Utilities.util.testAttribute(this.skill, 'suppressAntagonise') && this.target.antagonise) {
           this.target.antagonise(this.attacker);
         }
@@ -225,7 +225,7 @@ namespace Quest {
           }
           // Now take into account the target
           if (target.modifyIncomingAttack) target.modifyIncomingAttack(this);
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 3.
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 1 arguments, but got 3.
           if (this.element && target.element) this.modifyElementalAttack(target.element, this, isPrimary);
         }
 
@@ -272,18 +272,18 @@ namespace Quest {
         if (this.skill.targetEffectName) {
           const effect = Quest.RPG.rpg.findEffect(this.skill.targetEffectName === true ? this.skill.name : this.skill.targetEffectName);
           if (!target.hasEffect(effect)) {
-            // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
+            // ts-error-fixed ts-migrate(2532) FIXME: Object is possibly 'undefined'.
             if (effect.category) {
               for (const name of target.activeEffects) {
                 const eff = Quest.RPG.rpg.findEffect(name);
-                // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
+                // ts-error-fixed ts-migrate(2532) FIXME: Object is possibly 'undefined'.
                 if (eff.category === effect.category) {
-                  // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+                  // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
                   this.msg(eff.terminate(target));
                 }
               }
             }
-            // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
+            // ts-error-fixed ts-migrate(2532) FIXME: Object is possibly 'undefined'.
             effect.apply(this, target, this.skill.duration);
           }
         }
@@ -323,7 +323,7 @@ namespace Quest {
       }
 
       output() {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'output' does not exist on type '{ perfor... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'output' does not exist on type '{ perfor... Remove this comment to see the full error message
         Quest.Settings.settings.output(this.reportTexts);
         return this;
       }
@@ -334,7 +334,7 @@ namespace Quest {
 
       clone() {
         const copy = new Quest.RPG.Attack();  // !!!!!
-        // @ts-expect-error ts-migrate(2536) FIXME: Type 'Extract<keyof this, string>' cannot be used ... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2536) FIXME: Type 'Extract<keyof this, string>' cannot be used ... Remove this comment to see the full error message
         for (const key in this) copy[key] = this[key];
         copy.prototype = this;
         return copy;
@@ -343,48 +343,48 @@ namespace Quest {
       setDamageAtts(string: any, prefix = 'damage') {
         const regexMatch = /^(\d*)d(\d+)([\+|\-]\d+)?$/i.exec(string);
         if (regexMatch === null) {
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           Quest.IO.errormsg(`Weapon ${this.weapon.name} has a bad damage attribute: ${string}`);
           return;
         }
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         this[`${prefix}Number`] = regexMatch[1] === '' ? 1 : parseInt(regexMatch[1]);
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         this[`${prefix}Sides`] = parseInt(regexMatch[2]);
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         this[`${prefix}Bonus`] = (regexMatch[3] === undefined ? 0 : parseInt(regexMatch[3]));
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         this[`${prefix}Multiplier`] = 1;
       }
 
       applyDamage(target: any, prefix = 'damage') {
         // calculate base damage
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         if (this[`${prefix}Bonus`] || this[`${prefix}Number`]) {
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           this.msg(`Damage: ${this.damageNumber}d${this[`${prefix}Sides`]}+${this[`${prefix}Bonus`]}\n`, 3);
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           let damage = this[`${prefix}Bonus`];
 
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           for (let i = 0; i < this[`${prefix}Number`]; i++) {
-            // @ts-expect-error ts-migrate(2339) FIXME: Property 'int' does not exist on type '{ buffer: n... Remove this comment to see the full error message
+            // ts-error-fixed ts-migrate(2339) FIXME: Property 'int' does not exist on type '{ buffer: n... Remove this comment to see the full error message
             const roll = Quest.Random.rndm.int(1, this[`${prefix}Sides`]);
             damage    += roll;
             this.report(`Damage roll ${i + 1}:`, roll);
           }
           this.report('Damage before armour:', damage);
           this.msg(`Target's armour is ${target.getArmour()}`, 4);
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           damage -= this[`${prefix}Number`] * (target.getArmour() * this.armourMultiplier + this.armourModifier);
           this.report('Damage after armour:', damage);
           if (damage < 1) damage = 1;
           this.report('Damage before multiplier:', damage);
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           this.modifiedDamage = this[`${prefix}Multiplier`] * damage;
           this.report('Total damage:', this.modifiedDamage);
           target.health -= this.modifiedDamage;
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'damageReport' does not exist on type '{ ... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'damageReport' does not exist on type '{ ... Remove this comment to see the full error message
           this.msg(Quest.lang.damageReport, 1);
         }
       }
@@ -393,13 +393,13 @@ namespace Quest {
         if (!source || !source.activeEffects) return;
         for (const el of source.activeEffects) {
           const effect = Quest.RPG.rpg.findEffect(el);
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           if (!effect) return Quest.IO.errormsg(`applyActiveEffects: Failed to find skill [${el}]`);
           if (outgoing) {
-            // @ts-expect-error ts-migrate(2339) FIXME: Property 'modifyOutgoingAttack' does not exist on ... Remove this comment to see the full error message
+            // ts-error-fixed ts-migrate(2339) FIXME: Property 'modifyOutgoingAttack' does not exist on ... Remove this comment to see the full error message
             if (effect.modifyOutgoingAttack) effect.modifyOutgoingAttack(this, source);
           } else {
-            // @ts-expect-error ts-migrate(2339) FIXME: Property 'modifyIncomingAttack' does not exist on ... Remove this comment to see the full error message
+            // ts-error-fixed ts-migrate(2339) FIXME: Property 'modifyIncomingAttack' does not exist on ... Remove this comment to see the full error message
             if (effect.modifyIncomingAttack) effect.modifyIncomingAttack(this, source);
           }
         }

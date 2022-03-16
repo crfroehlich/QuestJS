@@ -15,10 +15,10 @@ namespace Quest {
 
       constructor(name: any, data: any) {
         this.name = name;
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'attacking' does not exist on type '{ reg... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'attacking' does not exist on type '{ reg... Remove this comment to see the full error message
         this.reportText     = Quest.lang.attacking;
         this.offensiveBonus = 0;
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         for (const key in data) this[key] = data[key];
         if (!this.alias) this.alias = name;
         // log(this.alias)
@@ -27,7 +27,7 @@ namespace Quest {
           this.targetEffectName = true;
         }
         if (Quest.RPG.rpg.findSkill(this.name, true)) throw new Error(`Skill/Spell name collision: ${this.name}`);
-        // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'this' is not assignable to param... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2345) FIXME: Argument of type 'this' is not assignable to param... Remove this comment to see the full error message
         Quest.RPG.rpg.list.push(this);
       }
 
@@ -50,7 +50,7 @@ namespace Quest {
       constructor(name: any, data: any) {
         super(name, data);
         this.noWeapon = true;
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'castSpell' does not exist on type '{ reg... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'castSpell' does not exist on type '{ reg... Remove this comment to see the full error message
         this.reportText            = Quest.lang.castSpell;
         this.statForOffensiveBonus = 'spellCasting';
       }
@@ -75,7 +75,7 @@ namespace Quest {
         super(name, data);
         this.spell    = true;
         this.noWeapon = true;
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'castSpell' does not exist on type '{ reg... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'castSpell' does not exist on type '{ reg... Remove this comment to see the full error message
         this.reportText            = Quest.lang.castSpell;
         this.statForOffensiveBonus = 'spellCasting';
       }
@@ -127,20 +127,20 @@ namespace Quest {
       prototype: any;
 
       constructor(prototype: any, data: any) {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'summonSpellPre' does not exist on type '... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'summonSpellPre' does not exist on type '... Remove this comment to see the full error message
         super(`${Quest.lang.summonSpellPre} ${Quest.Utilities.titleCase(prototype.alias.replace('_', ' '))}`, data);
         this.noTarget         = true;
         this.automaticSuccess = true;
         this.prototype        = prototype;
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'summonSpellDesc' does not exist on type ... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'summonSpellDesc' does not exist on type ... Remove this comment to see the full error message
         if (!this.description) this.description = Quest.lang.summonSpellDesc(this);
       }
 
       targetEffect(attack: any) {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
         attack.item                   = Quest.World.cloneObject(this.prototype, attack.attacker.loc);
         attack.item.summonedCountdown = this.duration;
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'summoning_successful' does not exist on ... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'summoning_successful' does not exist on ... Remove this comment to see the full error message
         attack.msg(Quest.lang.summoning_successful, 1);
       }
     }
@@ -167,9 +167,9 @@ namespace Quest {
 
       modifyOutgoingAttack(attack: any) { },
 
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'primaryFailure' does not exist on type '... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'primaryFailure' does not exist on type '... Remove this comment to see the full error message
       primaryFailure: Quest.lang.primaryFailure,
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'primarySuccess' does not exist on type '... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'primarySuccess' does not exist on type '... Remove this comment to see the full error message
       primarySuccess: Quest.lang.primarySuccess,
     });
   }

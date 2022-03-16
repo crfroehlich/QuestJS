@@ -1,4 +1,4 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'walkthroug... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'walkthroug... Remove this comment to see the full error message
 const walkthroughs = {
   a: [
     'north',
@@ -515,11 +515,11 @@ const walkthroughs = {
 };
 
 // this version allows quotes in aliases
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'itemSetup' does not exist on type '{}'.
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'itemSetup' does not exist on type '{}'.
 Quest.Parser.parser.itemSetup = function (item: any) {
   item.parserOptionsSet = true;
   item.parserItemName   = item.alias.toLowerCase().replace(/[^\w ]/g, '');
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'combos' does not exist on type '{}'.
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'combos' does not exist on type '{}'.
   item.parserItemNameParts = Quest.Utilities.array.combos(item.parserItemName.split(' '));
   if (item.pattern) {
     if (!item.regex) item.regex = new RegExp(`^(${item.pattern})$`);
@@ -531,13 +531,13 @@ Quest.Parser.parser.itemSetup = function (item: any) {
     for (const el of item.synonyms) {
       const s = el.toLowerCase().replace(/[^\w ]/g, '');
       list.push(s);
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'combos' does not exist on type '{}'.
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'combos' does not exist on type '{}'.
       list = list.concat(Quest.Utilities.array.combos(s.split(' ')));
     }
     item.parserItemNameParts = item.parserItemNameParts.concat([...new Set(list)]);
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'remove' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'remove' does not exist on type '{}'.
     Quest.Utilities.array.remove(item.parserItemNameParts, 'and');
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'remove' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'remove' does not exist on type '{}'.
     Quest.Utilities.array.remove(item.parserItemNameParts, 'of');
   }
 };
@@ -559,11 +559,11 @@ const zones = {};
 let zone;
 
 const register = function (name: any, data: any) {
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'uniform' does not exist on type '{}'.
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'uniform' does not exist on type '{}'.
   Quest.World.w.uniform.uniforms[name] = data.uniform;
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'shakespeare_book' does not exist on type... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'shakespeare_book' does not exist on type... Remove this comment to see the full error message
   Quest.World.w.shakespeare_book.names[name] = data.book;
-  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   zones[name] = data;
   zone        = name;
 };
@@ -597,13 +597,13 @@ const sizeAdjectives = {
 
 const SIZE_CHANGING = function () {
   const res = { ...Quest.Templates.TAKEABLE_DICTIONARY };
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'size_changing' does not exist on type '{... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'size_changing' does not exist on type '{... Remove this comment to see the full error message
   res.size_changing = true;
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'size' does not exist on type '{ afterCre... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'size' does not exist on type '{ afterCre... Remove this comment to see the full error message
   res.size = 5;
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'minsize' does not exist on type '{ after... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'minsize' does not exist on type '{ after... Remove this comment to see the full error message
   res.minsize = 4;
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'maxsize' does not exist on type '{ after... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'maxsize' does not exist on type '{ after... Remove this comment to see the full error message
   res.maxsize = 6;
 
   res.afterCreation = function (o) {
@@ -619,66 +619,66 @@ const SIZE_CHANGING = function () {
     if (o.desc9) o.maxsize = 10;
   };
 
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'examine' does not exist on type '{ after... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'examine' does not exist on type '{ after... Remove this comment to see the full error message
   res.examine = function (options: any) {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'size' does not exist on type '{ afterCre... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'size' does not exist on type '{ afterCre... Remove this comment to see the full error message
     if (this.size === this.minsize) {
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
       Quest.IO.msg('{nv:item:be:true} too tiny to see properly!', { item: this });
     }
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'size' does not exist on type '{ afterCre... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'size' does not exist on type '{ afterCre... Remove this comment to see the full error message
     else if (this.size === this.maxsize) {
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
       Quest.IO.msg('{nv:item:be:true} of gigantic proportions!', { item: this });
     } else {
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg(this[`desc${this.size}`]);
     }
     return true;
   };
 
   res.take = function (options) {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'isAtLoc' does not exist on type '{ after... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'isAtLoc' does not exist on type '{ after... Remove this comment to see the full error message
     if (this.isAtLoc(options.char.name)) {
       return Quest.IO.falsemsg(Quest.lang.already_have, options);
     }
     if (!options.char.testManipulate(this, 'take')) return false;
 
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'size' does not exist on type '{ afterCre... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'size' does not exist on type '{ afterCre... Remove this comment to see the full error message
     if (this.size === this.maxsize) {
       return Quest.IO.falsemsg('{nv:item:be:true} far too big to pick up.', { item: this });
     }
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'size' does not exist on type '{ afterCre... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'size' does not exist on type '{ afterCre... Remove this comment to see the full error message
     if (this.size === this.minsize) {
       return Quest.IO.falsemsg('Mandy tries to pick up {nm:item:the}, but {pv:item:be} too tiny for her fingers to grasp.', { item: this });
     }
 
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
     Quest.IO.msg(this.msgTake, options);
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'moveToFrom' does not exist on type '{ af... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'moveToFrom' does not exist on type '{ af... Remove this comment to see the full error message
     this.moveToFrom(options, 'name', 'loc');
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'scenery' does not exist on type '{ after... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'scenery' does not exist on type '{ after... Remove this comment to see the full error message
     if (this.scenery) this.scenery = false;
     return true;
   };
 
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'shrink' does not exist on type '{ afterC... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'shrink' does not exist on type '{ afterC... Remove this comment to see the full error message
   res.shrink = function () {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'size' does not exist on type '{ afterCre... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'size' does not exist on type '{ afterCre... Remove this comment to see the full error message
     this.size--;
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'setAlias' does not exist on type '{ afte... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'setAlias' does not exist on type '{ afte... Remove this comment to see the full error message
     this.setAlias(this.size === 5 ? this.basealias : `${sizeAdjectives[this.size]} ${this.basealias}`);
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterSizeChange' does not exist on type ... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'afterSizeChange' does not exist on type ... Remove this comment to see the full error message
     if (this.afterSizeChange) this.afterSizeChange();
   };
 
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'grow' does not exist on type '{ afterCre... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'grow' does not exist on type '{ afterCre... Remove this comment to see the full error message
   res.grow = function () {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'size' does not exist on type '{ afterCre... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'size' does not exist on type '{ afterCre... Remove this comment to see the full error message
     this.size++;
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'setAlias' does not exist on type '{ afte... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'setAlias' does not exist on type '{ afte... Remove this comment to see the full error message
     this.setAlias(this.size === 5 ? this.basealias : `${sizeAdjectives[this.size]} ${this.basealias}`);
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterSizeChange' does not exist on type ... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'afterSizeChange' does not exist on type ... Remove this comment to see the full error message
     if (this.afterSizeChange) this.afterSizeChange();
   };
 

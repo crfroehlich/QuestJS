@@ -39,36 +39,36 @@ namespace Quest {
       }),
 
       new Quest.Command.Cmd('MetaDarkMode', {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'toggleDarkMode' does not exist on type '... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'toggleDarkMode' does not exist on type '... Remove this comment to see the full error message
         script: Quest.IO.io.toggleDarkMode,
       }),
 
       new Quest.Command.Cmd('MetaNarrowMode', {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'toggleNarrowMode' does not exist on type... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'toggleNarrowMode' does not exist on type... Remove this comment to see the full error message
         script: Quest.IO.io.toggleNarrowMode,
       }),
 
       new Quest.Command.Cmd('MetaAutoScrollMode', {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'toggleAutoScrollMode' does not exist on ... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'toggleAutoScrollMode' does not exist on ... Remove this comment to see the full error message
         script: Quest.IO.io.toggleAutoScrollMode,
       }),
 
       new Quest.Command.Cmd('MetaPlainFontMode', {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'togglePlainFontMode' does not exist on t... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'togglePlainFontMode' does not exist on t... Remove this comment to see the full error message
         script: Quest.IO.io.togglePlainFontMode,
       }),
 
       new Quest.Command.Cmd('MetaSilent', {
         script() {
           if (Quest.Settings.settings.silent) {
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+            // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
             Quest.IO.metamsg(Quest.lang.mode_silent_off);
             Quest.Settings.settings.silent = false;
           } else {
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+            // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
             Quest.IO.metamsg(Quest.lang.mode_silent_on);
             Quest.Settings.settings.silent = true;
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 0.
+            // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 0.
             Quest.IO.ambient();
           }
           return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
@@ -83,11 +83,11 @@ namespace Quest {
         script() {
           if (Quest.IO.io.spoken) {
             Quest.IO.io.spoken = false;
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+            // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
             Quest.IO.metamsg(Quest.lang.spoken_off);
           } else {
             Quest.IO.io.spoken = true;
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+            // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
             Quest.IO.metamsg(Quest.lang.spoken_on);
           }
           return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
@@ -97,12 +97,12 @@ namespace Quest {
       new Quest.Command.Cmd('MetaIntro', {
         script() {
           Quest.IO.io.spoken = true;
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'intro' does not exist on type '{ perform... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'intro' does not exist on type '{ perform... Remove this comment to see the full error message
           if (typeof Quest.Settings.settings.intro === 'string') {
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+            // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
             Quest.IO.msg(Quest.Settings.settings.intro);
           } else {
-            // @ts-expect-error ts-migrate(2339) FIXME: Property 'intro' does not exist on type '{ perform... Remove this comment to see the full error message
+            // ts-error-fixed ts-migrate(2339) FIXME: Property 'intro' does not exist on type '{ perform... Remove this comment to see the full error message
             for (const el of Quest.Settings.settings.intro) Quest.IO.msg(el);
           }
           return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
@@ -112,7 +112,7 @@ namespace Quest {
       new Quest.Command.Cmd('MetaBrief', {
         script() {
           Quest.Settings.settings.verbosity = Quest.World.world.BRIEF;
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           Quest.IO.metamsg(Quest.lang.mode_brief);
           return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
         },
@@ -121,7 +121,7 @@ namespace Quest {
       new Quest.Command.Cmd('MetaTerse', {
         script() {
           Quest.Settings.settings.verbosity = Quest.World.world.TERSE;
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           Quest.IO.metamsg(Quest.lang.mode_terse);
           return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
         },
@@ -130,7 +130,7 @@ namespace Quest {
       new Quest.Command.Cmd('MetaVerbose', {
         script() {
           Quest.Settings.settings.verbosity = Quest.World.world.VERBOSE;
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           Quest.IO.metamsg(llang.mode_verbose);
           return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
         },
@@ -143,11 +143,11 @@ namespace Quest {
       new Quest.Command.Cmd('MetaTranscriptStart', {
         script() {
           if (Quest.SaveLoad.saveLoad.transcript) {
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+            // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
             Quest.IO.metamsg(Quest.lang.transcript_already_on);
             return Quest.World.world.FAILED;
           }
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
           Quest.SaveLoad.saveLoad.transcriptClear();
           Quest.SaveLoad.saveLoad.transcriptStart();
           return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
@@ -157,7 +157,7 @@ namespace Quest {
       new Quest.Command.Cmd('MetaTranscriptOn', {
         script() {
           if (Quest.SaveLoad.saveLoad.transcript) {
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+            // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
             Quest.IO.metamsg(Quest.lang.transcript_already_on);
             return Quest.World.world.FAILED;
           }
@@ -169,7 +169,7 @@ namespace Quest {
       new Quest.Command.Cmd('MetaTranscriptOff', {
         script() {
           if (!Quest.SaveLoad.saveLoad.transcript) {
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+            // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
             Quest.IO.metamsg(Quest.lang.transcript_already_off);
             return Quest.World.world.FAILED;
           }
@@ -180,7 +180,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('MetaTranscriptClear', {
         script() {
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
           Quest.SaveLoad.saveLoad.transcriptClear();
           return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
         },
@@ -225,11 +225,11 @@ namespace Quest {
           { special: 'text' },
         ],
         script(arr: any) {
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'localStorageDisabled' does not exist on ... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'localStorageDisabled' does not exist on ... Remove this comment to see the full error message
           if (Quest.Settings.settings.localStorageDisabled) {
             Quest.SaveLoad.saveLoad.saveGameAsFile(arr[0]);
           } else {
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+            // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
             Quest.SaveLoad.saveLoad.saveGame(arr[0]);
           }
           return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
@@ -250,9 +250,9 @@ namespace Quest {
         objects: [
         ],
         script(arr: any) {
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'localStorageDisabled' does not exist on ... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'localStorageDisabled' does not exist on ... Remove this comment to see the full error message
           if (Quest.Settings.settings.localStorageDisabled) {
-            // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
+            // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
             document.getElementById('fileDialog').click();
           } else {
             Quest.lang.saveLoadScript();
@@ -276,7 +276,7 @@ namespace Quest {
           { special: 'text' },
         ],
         script(arr: any) {
-          // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
+          // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
           document.getElementById('fileDialog').click();
           return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
         },
@@ -302,22 +302,22 @@ namespace Quest {
       new Quest.Command.Cmd('MetaUndo', {
         script() {
           if (Quest.Settings.settings.maxUndo === 0) {
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+            // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
             Quest.IO.metamsg(Quest.lang.undo_disabled);
             return Quest.World.world.FAILED;
           }
           if (Quest.World.world.gameState.length < 2) {
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+            // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
             Quest.IO.metamsg(Quest.lang.undo_not_available);
             return Quest.World.world.FAILED;
           }
           Quest.World.world.gameState.pop();
           const gameState = Quest.World.world.gameState[Quest.World.world.gameState.length - 1];
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           Quest.IO.metamsg(Quest.lang.undo_done);
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           Quest.SaveLoad.saveLoad.loadTheWorld(gameState);
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           Quest.World.w[Quest.World.player.loc].description();
           return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
         },
@@ -341,7 +341,7 @@ namespace Quest {
             if (result.match(Quest.lang.yes_regex)) {
               location.reload();
             } else {
-              // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+              // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
               Quest.IO.metamsg(Quest.lang.restart_no);
             }
           });
@@ -351,16 +351,16 @@ namespace Quest {
 
       new Quest.Command.Cmd('MetaPronouns', {
         script() {
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           Quest.IO.metamsg('See the developer console (F12) for the current pronouns');
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'pronouns' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'pronouns' does not exist on type '{}'.
           console.log(Quest.Parser.parser.pronouns);
         },
       }),
 
       new Quest.Command.Cmd('MetaScore', {
         script() {
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           Quest.IO.metamsg(Quest.lang.scores_not_implemented);
         },
       }),
@@ -384,7 +384,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('Exits', {
         script() {
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
           Quest.IO.msg(Quest.lang.can_go, { char: Quest.World.player });
           return Quest.Settings.settings.lookCountsAsTurn ? Quest.World.world.SUCCESS : Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
         },
@@ -393,7 +393,7 @@ namespace Quest {
       new Quest.Command.Cmd('Inv', {
         script() {
           const listOfOjects = Quest.World.player.getContents(Quest.World.world.INVENTORY);
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
           Quest.IO.msg(`${Quest.lang.inventory_prefix} ${Quest.Utilities.formatList(listOfOjects, {
             article: Quest.Utilities.INDEFINITE, lastJoiner: Quest.lang.list_and, loc: Quest.World.player.name, modified: true, nothing: Quest.lang.list_nothing,
           })}.`, { char: Quest.World.player });
@@ -407,14 +407,14 @@ namespace Quest {
             showMap();
             return Quest.Settings.settings.lookCountsAsTurn ? Quest.World.world.SUCCESS : Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
           }
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           const zone = Quest.World.w[Quest.World.player.loc];
           if (!zone.zone) {
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+            // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
             return Quest.IO.failedmsg(Quest.lang.no_map);
           }
           const flag = zone.drawMap();
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           if (!flag) return Quest.IO.failedmsg(Quest.lang.no_map);
           return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
         },
@@ -424,14 +424,14 @@ namespace Quest {
         attName: 'topics',
         defmsg:  Quest.lang.no_topics,
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isNpcAndHere' does not exist on type '{}... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isNpcAndHere' does not exist on type '{}... Remove this comment to see the full error message
           { scope: Quest.Parser.parser.isNpcAndHere },
         ],
       }),
 
       new Quest.Command.Cmd('Wait', {
         script() {
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg(Quest.lang.wait_msg);
           return Quest.World.world.SUCCESS;
         },
@@ -440,10 +440,10 @@ namespace Quest {
       new Quest.Command.Cmd('Smell', {
         script() {
           if (Quest.World.currentLocation.smell) {
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
+            // ts-error-fixed ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
             Quest.Utilities.printOrRun(Quest.World.player, Quest.World.currentLocation, 'smell');
           } else {
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
+            // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
             Quest.IO.msg(Quest.lang.no_smell, { char: Quest.World.player });
           }
           return Quest.World.world.SUCCESS;
@@ -453,10 +453,10 @@ namespace Quest {
       new Quest.Command.Cmd('Listen', {
         script() {
           if (Quest.World.currentLocation.listen) {
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
+            // ts-error-fixed ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
             Quest.Utilities.printOrRun(Quest.World.player, Quest.World.currentLocation, 'listen');
           } else {
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
+            // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
             Quest.IO.msg(Quest.lang.no_listen, { char: Quest.World.player });
           }
           return Quest.World.world.SUCCESS;
@@ -467,24 +467,24 @@ namespace Quest {
         script() {
           const l = [];
           for (const key in w) {
-            // @ts-expect-error ts-migrate(2339) FIXME: Property 'isForSale' does not exist on type '{}'.
+            // ts-error-fixed ts-migrate(2339) FIXME: Property 'isForSale' does not exist on type '{}'.
             if (Quest.Parser.parser.isForSale(Quest.World.w[key])) {
-              // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+              // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
               const price = Quest.World.w[key].getBuyingPrice(Quest.World.player);
-              // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+              // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
               const row = [Quest.Utilities.sentenceCase(Quest.World.w[key].getName()), Quest.World.world.Money(price)];
-              // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+              // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
               row.push(price > Quest.World.player.money ? '-' : `{cmd:buy ${Quest.World.w[key].alias}:${buy}}`);
               l.push(row);
             }
           }
           if (l.length === 0) {
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+            // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
             return Quest.IO.failedmsg(Quest.lang.nothing_for_sale);
           }
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
           Quest.IO.msg(`${current_money}: ${Quest.World.world.Money(Quest.World.player.money)}`);
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 2.
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 4 arguments, but got 2.
           Quest.IO.msgTable(l, buy_headings);
           return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
         },
@@ -502,7 +502,7 @@ namespace Quest {
         script(objects: any) {
           console.log('here');
           const options = { char: Quest.World.player, fluid: objects[0] };
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'findSource' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'findSource' does not exist on type '{}'.
           if (!Quest.Utilities.util.findSource(options)) return Quest.IO.failedmsg(Quest.lang.no_fluid_here, options);
           console.log('here');
           return Quest.IO.failedmsg(Quest.lang.cannot_get_fluid, options);
@@ -516,7 +516,7 @@ namespace Quest {
         defmsg:  Quest.lang.default_examine,
         npcCmd:  true,
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { multiple: true, scope: Quest.Parser.parser.isPresent },
         ],
       }),
@@ -528,7 +528,7 @@ namespace Quest {
         // used for NPCs
         npcCmd:  true,
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresentOrMe' does not exist on type '{... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresentOrMe' does not exist on type '{... Remove this comment to see the full error message
           { scope: Quest.Parser.parser.isPresentOrMe },
         ],
       }),
@@ -541,10 +541,10 @@ namespace Quest {
         npcCmd: true,
 
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { scope: Quest.Parser.parser.isPresent },
         ],
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
         rules: [Quest.Command.cmdRules.isPresent],
       }),
 
@@ -556,10 +556,10 @@ namespace Quest {
         npcCmd: true,
 
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { scope: Quest.Parser.parser.isPresent },
         ],
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
         rules: [Quest.Command.cmdRules.isPresent],
       }),
 
@@ -571,10 +571,10 @@ namespace Quest {
         npcCmd: true,
 
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { scope: Quest.Parser.parser.isPresent },
         ],
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
         rules: [Quest.Command.cmdRules.isPresent],
       }),
 
@@ -586,10 +586,10 @@ namespace Quest {
         npcCmd: true,
 
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { scope: Quest.Parser.parser.isPresent },
         ],
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
         rules: [Quest.Command.cmdRules.isPresent],
       }),
 
@@ -601,10 +601,10 @@ namespace Quest {
         npcCmd: true,
 
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { scope: Quest.Parser.parser.isPresent },
         ],
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
         rules: [Quest.Command.cmdRules.isPresent],
       }),
 
@@ -616,10 +616,10 @@ namespace Quest {
         npcCmd: true,
 
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { scope: Quest.Parser.parser.isPresent },
         ],
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
         rules: [Quest.Command.cmdRules.isPresent],
       }),
 
@@ -629,10 +629,10 @@ namespace Quest {
         npcCmd: true,
 
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHereOrContained' does not exist on typ... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHereOrContained' does not exist on typ... Remove this comment to see the full error message
           { allScope: Quest.Parser.parser.isHereOrLocationContained, multiple: true, scope: Quest.Parser.parser.isHereOrContained },
         ],
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHereAlready' does not exist on type '{... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHereAlready' does not exist on type '{... Remove this comment to see the full error message
         rules: [Quest.Command.cmdRules.isHereAlready, Quest.Command.cmdRules.testManipulate],
       }),
 
@@ -643,7 +643,7 @@ namespace Quest {
 
         npcCmd:  true,
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
           { multiple: true, scope: Quest.Parser.parser.isHeld },
         ],
         rules: [Quest.Command.cmdRules.isHeldNotWorn, Quest.Command.cmdRules.testManipulate],
@@ -657,7 +657,7 @@ namespace Quest {
         },
         npcCmd:  true,
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
           { multiple: true, scope: Quest.Parser.parser.isHeld },
         ],
         rules: [Quest.Command.cmdRules.isHeldNotWorn, Quest.Command.cmdRules.isHeld, Quest.Command.cmdRules.testManipulate],
@@ -670,7 +670,7 @@ namespace Quest {
 
         npcCmd:  true,
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
           { multiple: true, scope: Quest.Parser.parser.isHeld },
         ],
         rules: [Quest.Command.cmdRules.isHeldNotWorn, Quest.Command.cmdRules.testManipulate],
@@ -684,10 +684,10 @@ namespace Quest {
         npcCmd: true,
 
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isWorn' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isWorn' does not exist on type '{}'.
           { multiple: true, scope: Quest.Parser.parser.isWorn },
         ],
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'isWorn' does not exist on type '{}'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'isWorn' does not exist on type '{}'.
         rules: [Quest.Command.cmdRules.isWorn, Quest.Command.cmdRules.testManipulate],
       }),
 
@@ -701,10 +701,10 @@ namespace Quest {
         npcCmd: true,
 
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isWorn' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isWorn' does not exist on type '{}'.
           { multiple: true, scope: Quest.Parser.parser.isWorn },
         ],
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'isWorn' does not exist on type '{}'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'isWorn' does not exist on type '{}'.
         rules: [Quest.Command.cmdRules.isWorn, Quest.Command.cmdRules.testManipulate],
       }),
 
@@ -714,10 +714,10 @@ namespace Quest {
         npcCmd: true,
 
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
           { multiple: true, scope: Quest.Parser.parser.isHeld },
         ],
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
         rules: [Quest.Command.cmdRules.isPresent],
       }),
 
@@ -726,7 +726,7 @@ namespace Quest {
 
         npcCmd:  true,
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isForSale' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isForSale' does not exist on type '{}'.
           { scope: Quest.Parser.parser.isForSale },
         ],
         rules: [Quest.Command.cmdRules.testManipulate],
@@ -737,7 +737,7 @@ namespace Quest {
 
         npcCmd:  true,
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
           { multiple: true, scope: Quest.Parser.parser.isHeld },
         ],
         rules: [Quest.Command.cmdRules.isHeldNotWorn, Quest.Command.cmdRules.testManipulate],
@@ -748,7 +748,7 @@ namespace Quest {
 
         npcCmd:  true,
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
           { multiple: true, scope: Quest.Parser.parser.isHeld },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresent],
@@ -759,7 +759,7 @@ namespace Quest {
 
         npcCmd:  true,
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { scope: Quest.Parser.parser.isHere },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
@@ -770,7 +770,7 @@ namespace Quest {
 
         npcCmd:  true,
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { scope: Quest.Parser.parser.isHere },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
@@ -781,7 +781,7 @@ namespace Quest {
 
         npcCmd:  true,
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { scope: Quest.Parser.parser.isHere },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
@@ -794,7 +794,7 @@ namespace Quest {
         defmsg:      Quest.lang.cannot_switch_on,
         npcCmd:      true,
         objects:     [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
           { multiple: true, scope: Quest.Parser.parser.isHeld },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
@@ -807,7 +807,7 @@ namespace Quest {
         defmsg:      Quest.lang.cannot_switch_on,
         npcCmd:      true,
         objects:     [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
           { multiple: true, scope: Quest.Parser.parser.isHeld },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
@@ -820,7 +820,7 @@ namespace Quest {
         defmsg:      Quest.lang.cannot_switch_off,
         npcCmd:      true,
         objects:     [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
           { attName: 'switchon', multiple: true, scope: Quest.Parser.parser.isHeld },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
@@ -833,7 +833,7 @@ namespace Quest {
         defmsg:      Quest.lang.cannot_switch_off,
         npcCmd:      true,
         objects:     [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
           { attName: 'switchoff', multiple: true, scope: Quest.Parser.parser.isHeld },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
@@ -844,7 +844,7 @@ namespace Quest {
 
         npcCmd:  true,
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { attName: 'open', multiple: true, scope: Quest.Parser.parser.isPresent },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
@@ -854,9 +854,9 @@ namespace Quest {
 
         defmsg:  Quest.lang.cannot_open_with,
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { attName: 'open', multiple: true, scope: Quest.Parser.parser.isPresent },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
           { multiple: true, scope: Quest.Parser.parser.isHeld },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
@@ -867,7 +867,7 @@ namespace Quest {
 
         npcCmd:  true,
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { attName: 'close', multiple: true, scope: Quest.Parser.parser.isPresent },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
@@ -878,7 +878,7 @@ namespace Quest {
 
         npcCmd:  true,
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { attName: 'lock', multiple: true, scope: Quest.Parser.parser.isPresent },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
@@ -888,9 +888,9 @@ namespace Quest {
 
         defmsg:  Quest.lang.cannot_lock_with,
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { attName: 'lock', scope: Quest.Parser.parser.isPresent },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
           { attName: 'key', scope: Quest.Parser.parser.isHeld },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
@@ -901,7 +901,7 @@ namespace Quest {
 
         npcCmd:  true,
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { attName: 'unlock', multiple: true, scope: Quest.Parser.parser.isPresent },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
@@ -911,9 +911,9 @@ namespace Quest {
 
         defmsg:  Quest.lang.cannot_unlock_with,
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { attName: 'unlock', scope: Quest.Parser.parser.isPresent },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
           { attName: 'key', scope: Quest.Parser.parser.isHeld },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
@@ -924,7 +924,7 @@ namespace Quest {
 
         npcCmd:  true,
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { scope: Quest.Parser.parser.isPresent },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
@@ -935,7 +935,7 @@ namespace Quest {
 
         npcCmd:  true,
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { scope: Quest.Parser.parser.isPresent },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
@@ -946,7 +946,7 @@ namespace Quest {
 
         npcCmd:  true,
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { scope: Quest.Parser.parser.isPresent },
         ],
         rules: [Quest.Command.cmdRules.testManipulate],
@@ -957,7 +957,7 @@ namespace Quest {
 
         npcCmd:  true,
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { scope: Quest.Parser.parser.isPresent },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
@@ -968,7 +968,7 @@ namespace Quest {
         defmsg:  Quest.lang.cannot_smell,
         npcCmd:  true,
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { attName: 'smell', scope: Quest.Parser.parser.isPresent },
         ],
       }),
@@ -978,7 +978,7 @@ namespace Quest {
         defmsg:  Quest.lang.cannot_listen,
         npcCmd:  true,
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { attName: 'listen', scope: Quest.Parser.parser.isPresent },
         ],
       }),
@@ -989,7 +989,7 @@ namespace Quest {
         npcCmd:  true,
         objects: [
           { special: 'text' },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
           { attName: 'ingest', multiple: true, scope: Quest.Parser.parser.isHeld },
         ],
         rules: [Quest.Command.cmdRules.isHeldNotWorn, Quest.Command.cmdRules.testManipulate],
@@ -1001,7 +1001,7 @@ namespace Quest {
         npcCmd:  true,
         objects: [
           { special: 'text' },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { attName: 'ingest', scope: Quest.Parser.parser.isPresent },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
@@ -1012,7 +1012,7 @@ namespace Quest {
         npcCmd:  true,
         objects: [
           { special: 'text' },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { attName: 'ingest', scope: Quest.Parser.parser.isPresent },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
@@ -1028,7 +1028,7 @@ namespace Quest {
         script() {
           const objs = Quest.Utilities.scopeBy((el: any) => el.siton && el.isAtLoc(Quest.World.player.loc));
           console.log(objs);
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           if (objs.length === 0) return Quest.IO.failedmsg(Quest.lang.no_sit_object);
           return objs[0].siton({ char: Quest.World.player, item: objs[0] }) ? Quest.World.world.SUCCESS : Quest.World.world.FAILED;
         },
@@ -1044,7 +1044,7 @@ namespace Quest {
         script() {
           const objs = Quest.Utilities.scopeBy((el: any) => el.reclineon && el.isAtLoc(Quest.World.player.loc));
           console.log(objs);
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           if (objs.length === 0) return Quest.IO.failedmsg(Quest.lang.no_recline_object);
           return objs[0].reclineon({ char: Quest.World.player, item: objs[0] }) ? Quest.World.world.SUCCESS : Quest.World.world.FAILED;
         },
@@ -1057,7 +1057,7 @@ namespace Quest {
         defmsg:  Quest.lang.cannot_sit_on,
         npcCmd:  true,
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { attName: 'assumePosture', scope: Quest.Parser.parser.isHere },
         ],
         rules: [Quest.Command.cmdRules.testPosture, Quest.Command.cmdRules.isHere],
@@ -1070,7 +1070,7 @@ namespace Quest {
         defmsg:  Quest.lang.cannot_stand_on,
         npcCmd:  true,
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { attName: 'assumePosture', scope: Quest.Parser.parser.isHere },
         ],
         rules: [Quest.Command.cmdRules.testPosture, Quest.Command.cmdRules.isHere],
@@ -1082,7 +1082,7 @@ namespace Quest {
         defmsg:      Quest.lang.cannot_recline_on,
         npcCmd:      true,
         objects:     [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { attName: 'assumePosture', scope: Quest.Parser.parser.isHere },
         ],
         rules: [Quest.Command.cmdRules.testPosture, Quest.Command.cmdRules.isHere],
@@ -1097,7 +1097,7 @@ namespace Quest {
         npcCmd: true,
 
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { attName: 'assumePosture', scope: Quest.Parser.parser.isHere },
         ],
         // to give priority over TAKE
@@ -1110,7 +1110,7 @@ namespace Quest {
 
         npcCmd:  true,
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { scope: Quest.Parser.parser.isPresent },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresentOrContained],
@@ -1150,10 +1150,10 @@ namespace Quest {
         defmsg: Quest.lang.cannot_talk_to,
 
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isNpcAndHere' does not exist on type '{}... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isNpcAndHere' does not exist on type '{}... Remove this comment to see the full error message
           { scope: Quest.Parser.parser.isNpcAndHere },
         ],
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'canTalkTo' does not exist on type '{}'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'canTalkTo' does not exist on type '{}'.
         rules: [Quest.Command.cmdRules.canTalkTo],
       }),
 
@@ -1168,29 +1168,29 @@ namespace Quest {
         script(arr: any) {
           const l = [];
           for (const key in w) {
-            // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+            // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
             if (Quest.World.w[key].sayCanHear && Quest.World.w[key].sayCanHear(Quest.World.player, arr[0])) l.push(Quest.World.w[key]);
           }
           l.sort((a, b) => (b.sayPriority + b.sayBonus) - (a.sayPriority + b.sayBonus));
           if (l.length === 0) {
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+            // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
             Quest.IO.msg(Quest.lang.say_no_one_here(Quest.World.player, arr[0], arr[1]));
             return Quest.World.world.SUCCESS;
           }
 
           const options = { char: Quest.World.player, text: Quest.Utilities.sentenceCase(arr[1]) };
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
           if (Quest.Settings.settings.givePlayerSayMsg) Quest.IO.msg(Quest.lang.say_something, options);
           for (const chr of l) {
-            // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+            // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
             if (chr.sayQuestion && Quest.World.w[chr.sayQuestion].sayResponse(chr, arr[1])) return Quest.World.world.SUCCESS;
             if (chr.sayResponse && chr.sayResponse(arr[1], arr[0])) return Quest.World.world.SUCCESS;
           }
           if (Quest.Settings.settings.givePlayerSayMsg) {
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
+            // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
             Quest.IO.msg(Quest.lang.say_no_response, options);
           } else {
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
+            // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
             Quest.IO.msg(Quest.lang.say_no_response_full, options);
           }
           return Quest.World.world.SUCCESS;
@@ -1205,7 +1205,7 @@ namespace Quest {
       new Quest.Command.Cmd('NpcStand', {
         cmdCategory: 'Posture',
         objects:     [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { attName: 'npc', scope: Quest.Parser.parser.isHere },
         ],
         rules:  [Quest.Command.cmdRules.testPosture],
@@ -1214,7 +1214,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('Make', {
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isUnconstructed' does not exist on type ... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isUnconstructed' does not exist on type ... Remove this comment to see the full error message
           { extendedScope: true, scope: Quest.Parser.parser.isUnconstructed },
         ],
         script(objects: any) {
@@ -1225,9 +1225,9 @@ namespace Quest {
 
       new Quest.Command.Cmd('MakeWith', {
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isUnconstructed' does not exist on type ... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isUnconstructed' does not exist on type ... Remove this comment to see the full error message
           { extendedScope: true, scope: Quest.Parser.parser.isUnconstructed },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { multiple: true, scope: Quest.Parser.parser.isHere },
         ],
         script(objects: any) {
@@ -1240,7 +1240,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('NpcMake', {
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isUnconstructed' does not exist on type ... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isUnconstructed' does not exist on type ... Remove this comment to see the full error message
           { scope: Quest.Parser.parser.isUnconstructed },
         ],
         script(objects: any) {
@@ -1254,9 +1254,9 @@ namespace Quest {
 
       new Quest.Command.Cmd('NpcMakeWith', {
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isUnconstructed' does not exist on type ... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isUnconstructed' does not exist on type ... Remove this comment to see the full error message
           { scope: Quest.Parser.parser.isUnconstructed },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { multiple: true, scope: Quest.Parser.parser.isHere },
         ],
         script(objects: any) {
@@ -1272,7 +1272,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('FillWith', {
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
           { scope: Quest.Parser.parser.isHeld },
           { special: 'fluid' },
         ],
@@ -1285,9 +1285,9 @@ namespace Quest {
       new Quest.Command.Cmd('NpcFillWith', {
         cmdCategory: 'Fill',
         objects:     [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { attName: 'npc', scope: Quest.Parser.parser.isHere },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
           { scope: Quest.Parser.parser.isHeld },
           { special: 'fluid' },
         ],
@@ -1302,9 +1302,9 @@ namespace Quest {
 
       new Quest.Command.Cmd('EmptyInto', {
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
           { scope: Quest.Parser.parser.isHeld },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { scope: Quest.Parser.parser.isPresent },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
@@ -1316,11 +1316,11 @@ namespace Quest {
       new Quest.Command.Cmd('NpcEmptyInto', {
         cmdCategory: 'Fill',
         objects:     [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { attName: 'npc', scope: Quest.Parser.parser.isHere },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
           { scope: Quest.Parser.parser.isHeld },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { scope: Quest.Parser.parser.isPresent },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
@@ -1335,7 +1335,7 @@ namespace Quest {
       new Quest.Command.Cmd('EmptyFluidInto', {
         objects: [
           { special: 'fluid' },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { scope: Quest.Parser.parser.isPresent },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
@@ -1347,10 +1347,10 @@ namespace Quest {
       new Quest.Command.Cmd('NpcEmptyFluidInto', {
         cmdCategory: 'Fill',
         objects:     [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { attName: 'npc', scope: Quest.Parser.parser.isHere },
           { special: 'fluid' },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { scope: Quest.Parser.parser.isPresent },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
@@ -1365,7 +1365,7 @@ namespace Quest {
       new Quest.Command.Cmd('PutFluidIn', {
         objects: [
           { special: 'fluid' },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { attName: 'container', scope: Quest.Parser.parser.isPresent },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
@@ -1376,9 +1376,9 @@ namespace Quest {
 
       new Quest.Command.Cmd('PutIn', {
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
           { multiple: true, scope: Quest.Parser.parser.isHeld },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { attName: 'container', scope: Quest.Parser.parser.isPresent },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
@@ -1390,11 +1390,11 @@ namespace Quest {
       new Quest.Command.Cmd('NpcPutIn', {
         cmdCategory: 'Drop/in',
         objects:     [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { attName: 'npc', scope: Quest.Parser.parser.isHere },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeldByNpc' does not exist on type '{}'... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeldByNpc' does not exist on type '{}'... Remove this comment to see the full error message
           { multiple: true, scope: Quest.Parser.parser.isHeldByNpc },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { attName: 'container', scope: Quest.Parser.parser.isPresent },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
@@ -1408,9 +1408,9 @@ namespace Quest {
 
       new Quest.Command.Cmd('TakeOut', {
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isContained' does not exist on type '{}'... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isContained' does not exist on type '{}'... Remove this comment to see the full error message
           { multiple: true, scope: Quest.Parser.parser.isContained },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { attName: 'container', scope: Quest.Parser.parser.isPresent },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresent],
@@ -1422,11 +1422,11 @@ namespace Quest {
       new Quest.Command.Cmd('NpcTakeOut', {
         cmdCategory: 'Take',
         objects:     [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { attName: 'npc', scope: Quest.Parser.parser.isHere },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isContained' does not exist on type '{}'... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isContained' does not exist on type '{}'... Remove this comment to see the full error message
           { multiple: true, scope: Quest.Parser.parser.isContained },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { attName: 'container', scope: Quest.Parser.parser.isPresent },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
@@ -1440,9 +1440,9 @@ namespace Quest {
 
       new Quest.Command.Cmd('GiveTo', {
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
           { multiple: true, scope: Quest.Parser.parser.isHeld },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { attName: 'npc', scope: Quest.Parser.parser.isPresent },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
@@ -1454,11 +1454,11 @@ namespace Quest {
       new Quest.Command.Cmd('NpcGiveTo', {
         cmdCategory: 'Give',
         objects:     [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { attName: 'npc', scope: Quest.Parser.parser.isHere },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeldByNpc' does not exist on type '{}'... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeldByNpc' does not exist on type '{}'... Remove this comment to see the full error message
           { multiple: true, scope: Quest.Parser.parser.isHeldByNpc },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresentOrMe' does not exist on type '{... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresentOrMe' does not exist on type '{... Remove this comment to see the full error message
           { attName: 'npc', scope: Quest.Parser.parser.isPresentOrMe },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
@@ -1476,9 +1476,9 @@ namespace Quest {
           if (!this._test(s)) return;
           if (!this._testNot(s)) return;
 
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{}'.
           Quest.Parser.parser.msg('---------------------------------------------------------');
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{}'.
           Quest.Parser.parser.msg(`* Looking at candidate: ${this.name}`);
 
           // this is a temporary set of data used while we parser one input
@@ -1490,12 +1490,12 @@ namespace Quest {
           const arr = this.tmp.regex.exec(s);
           arr.shift();  // first element is the whole match, so discard
 
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'scope' does not exist on type '{ LIGHT_N... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'scope' does not exist on type '{ LIGHT_N... Remove this comment to see the full error message
           const { scope } = Quest.World.world;
           const npcs      = scope.filter((el: any) => el.npc && el !== Quest.World.player);
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'fromTokens' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'fromTokens' does not exist on type '{}'.
           const items = Quest.Utilities.array.fromTokens(arr[0].split(' '), scope);
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'NO_OBJECT' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'NO_OBJECT' does not exist on type '{}'.
           if (!items) return this.setError(Quest.Parser.parser.NO_OBJECT, Quest.lang.object_unknown_msg(arr[0]));
 
           // The first item could be the NPC to give it to,
@@ -1508,7 +1508,7 @@ namespace Quest {
               items.shift();
               this.tmp.objects[0] = items;
             } else {
-              // @ts-expect-error ts-migrate(2339) FIXME: Property 'NO_OBJECT' does not exist on type '{}'.
+              // ts-error-fixed ts-migrate(2339) FIXME: Property 'NO_OBJECT' does not exist on type '{}'.
               if (npcs.length === 0) return this.setError(Quest.Parser.parser.NO_OBJECT, Quest.lang.object_unknown_msg(arr[0]));
               this.tmp.objects[1] = npcs;
               this.tmp.objects[0] = items;
@@ -1518,7 +1518,7 @@ namespace Quest {
             // NPCs will take priority
             const npcList = items[0].filter((el: any) => el.npc);
             if (npcList.length === 0) {
-              // @ts-expect-error ts-migrate(2339) FIXME: Property 'NO_OBJECT' does not exist on type '{}'.
+              // ts-error-fixed ts-migrate(2339) FIXME: Property 'NO_OBJECT' does not exist on type '{}'.
               if (npcs.length === 0) return this.setError(Quest.Parser.parser.NO_OBJECT, Quest.lang.no_receiver);
               this.tmp.objects[1] = npcs;
               this.tmp.objects[0] = items;
@@ -1550,7 +1550,7 @@ namespace Quest {
           }
 
           this.tmp.score = 10;
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{}'.
           Quest.Parser.parser.msg(`..Base score: ${this.tmp.score}`);
         },
 
@@ -1565,9 +1565,9 @@ namespace Quest {
           if (!this._test(s)) return;
           if (!this._testNot(s)) return;
 
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{}'.
           Quest.Parser.parser.msg('---------------------------------------------------------');
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{}'.
           Quest.Parser.parser.msg(`* Looking at candidate: ${this.name}`);
 
           // this is a temporary set of data used while we parse one input
@@ -1578,15 +1578,15 @@ namespace Quest {
 
           const arr = this.tmp.regex.exec(s);
           arr.shift();  // first element is the whole match, so discard
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'scope' does not exist on type '{ LIGHT_N... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'scope' does not exist on type '{ LIGHT_N... Remove this comment to see the full error message
           const { scope } = Quest.World.world;
 
           // Which NPC are we asking to do this?
           let char: any;
           const charString = arr.shift();
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'findInList' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'findInList' does not exist on type '{}'.
           const possibleChars = Quest.Parser.parser.findInList(charString, scope, {});
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'NO_OBJECT' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'NO_OBJECT' does not exist on type '{}'.
           if (possibleChars.length === 0) return this.setError(Quest.Parser.parser.NO_OBJECT, Quest.lang.object_unknown_msg(charString));
           if (possibleChars.length === 1) {
             char = possibleChars[0];
@@ -1603,9 +1603,9 @@ namespace Quest {
 
           // npcs is a list of people we could be asking the character to give to
           const npcs = scope.filter((el: any) => (el.npc || el.player) && el !== char);
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'fromTokens' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'fromTokens' does not exist on type '{}'.
           const items = Quest.Utilities.array.fromTokens(arr[0].split(' '), scope);
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'NO_OBJECT' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'NO_OBJECT' does not exist on type '{}'.
           if (!items) return this.setError(Quest.Parser.parser.NO_OBJECT, Quest.lang.object_unknown_msg(arr[0]));
 
           // The first item could be the NPC to give it to,
@@ -1618,7 +1618,7 @@ namespace Quest {
               items.shift();
               this.tmp.objects[0] = items;
             } else {
-              // @ts-expect-error ts-migrate(2339) FIXME: Property 'NO_OBJECT' does not exist on type '{}'.
+              // ts-error-fixed ts-migrate(2339) FIXME: Property 'NO_OBJECT' does not exist on type '{}'.
               if (npcs.length === 0) return this.setError(Quest.Parser.parser.NO_OBJECT, Quest.lang.object_unknown_msg(arr[0]));
               this.tmp.objects[1] = npcs;
               this.tmp.objects[0] = items;
@@ -1628,7 +1628,7 @@ namespace Quest {
             // NPCs will take priority
             const npcList = items[0].filter((el: any) => el.npc || el.player);
             if (npcList.length === 0) {
-              // @ts-expect-error ts-migrate(2339) FIXME: Property 'NO_OBJECT' does not exist on type '{}'.
+              // ts-error-fixed ts-migrate(2339) FIXME: Property 'NO_OBJECT' does not exist on type '{}'.
               if (npcs.length === 0) return this.setError(Quest.Parser.parser.NO_OBJECT, Quest.lang.no_receiver);
               this.tmp.objects[1] = npcs;
               this.tmp.objects[0] = items;
@@ -1661,7 +1661,7 @@ namespace Quest {
           this.tmp.objects.unshift([char]);
 
           this.tmp.score = 10;
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{}'.
           Quest.Parser.parser.msg(`..Base score: ${this.tmp.score}`);
         },
 
@@ -1677,7 +1677,7 @@ namespace Quest {
         cmdCategory: 'Push',
         objects:     [
           { special: 'text' },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { attName: 'shiftable', scope: Quest.Parser.parser.isHere },
           { special: 'text' },
         ],
@@ -1691,10 +1691,10 @@ namespace Quest {
 
         cmdCategory: 'Push',
         objects:     [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { attName: 'npc', scope: Quest.Parser.parser.isHere },
           { special: 'text' },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { attName: 'shiftable', scope: Quest.Parser.parser.isHere },
           { special: 'text' },
         ],
@@ -1711,7 +1711,7 @@ namespace Quest {
 
         cmdCategory: 'Tie',
         objects:     [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
           { attName: 'rope', scope: Quest.Parser.parser.isHeld },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
@@ -1726,9 +1726,9 @@ namespace Quest {
 
         cmdCategory: 'Tie',
         objects:     [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
           { attName: 'rope', scope: Quest.Parser.parser.isHeld },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { attName: 'attachable', scope: Quest.Parser.parser.isHere },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
@@ -1743,9 +1743,9 @@ namespace Quest {
 
         cmdCategory: 'Tie',
         objects:     [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { attName: 'npc', scope: Quest.Parser.parser.isHere },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
           { attName: 'rope', scope: Quest.Parser.parser.isHeld },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
@@ -1763,11 +1763,11 @@ namespace Quest {
 
         cmdCategory: 'Tie',
         objects:     [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { attName: 'npc', scope: Quest.Parser.parser.isHere },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
           { attName: 'rope', scope: Quest.Parser.parser.isHeld },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { attName: 'attachable', scope: Quest.Parser.parser.isHere },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isHeld],
@@ -1785,7 +1785,7 @@ namespace Quest {
 
         cmdCategory: 'Untie',
         objects:     [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { attName: 'rope', scope: Quest.Parser.parser.isHere },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresent],
@@ -1800,9 +1800,9 @@ namespace Quest {
 
         cmdCategory: 'Tie',
         objects:     [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { attName: 'npc', scope: Quest.Parser.parser.isHere },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
           { attName: 'rope', scope: Quest.Parser.parser.isHeld },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresent],
@@ -1820,9 +1820,9 @@ namespace Quest {
 
         cmdCategory: 'Untie',
         objects:     [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { attName: 'rope', scope: Quest.Parser.parser.isHere },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { attName: 'attachable', scope: Quest.Parser.parser.isHere },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresent],
@@ -1837,11 +1837,11 @@ namespace Quest {
 
         cmdCategory: 'Tie',
         objects:     [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { attName: 'npc', scope: Quest.Parser.parser.isHere },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { attName: 'rope', scope: Quest.Parser.parser.isHere },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { attName: 'attachable', scope: Quest.Parser.parser.isHere },
         ],
         rules: [Quest.Command.cmdRules.testManipulate, Quest.Command.cmdRules.isPresent],
@@ -1860,9 +1860,9 @@ namespace Quest {
         defmsg: Quest.lang.cannot_use,
 
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { scope: Quest.Parser.parser.isPresent },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
           { scope: Quest.Parser.parser.isPresent },
         ],
         // npcCmd:true,
@@ -1904,7 +1904,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('FollowMe', {
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { attName: 'npc', scope: Quest.Parser.parser.isHere },
         ],
         script(objects: any) {
@@ -1918,7 +1918,7 @@ namespace Quest {
 
       new Quest.Command.Cmd('WaitHere', {
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { attName: 'npc', scope: Quest.Parser.parser.isHere },
         ],
         script(objects: any) {
@@ -1933,12 +1933,12 @@ namespace Quest {
       new Quest.Command.Cmd('AskAbout', {
 
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isNpcAndHere' does not exist on type '{}... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isNpcAndHere' does not exist on type '{}... Remove this comment to see the full error message
           { scope: Quest.Parser.parser.isNpcAndHere },
           { special: 'text' },
           { special: 'text' },
         ],
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'canTalkTo' does not exist on type '{}'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'canTalkTo' does not exist on type '{}'.
         rules: [Quest.Command.cmdRules.canTalkTo],
         script(arr: any) {
           if (!Quest.World.player.testTalk()) return false;
@@ -1951,16 +1951,16 @@ namespace Quest {
       new Quest.Command.Cmd('TellAbout', {
 
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isNpcAndHere' does not exist on type '{}... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isNpcAndHere' does not exist on type '{}... Remove this comment to see the full error message
           { scope: Quest.Parser.parser.isNpcAndHere },
           { special: 'text' },
           { special: 'text' },
         ],
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'canTalkTo' does not exist on type '{}'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'canTalkTo' does not exist on type '{}'.
         rules: [Quest.Command.cmdRules.canTalkTo],
         script(arr: any) {
           if (!Quest.World.player.testTalk()) return false;
-          // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'cannot_tell_about'.
+          // ts-error-fixed ts-migrate(2304) FIXME: Cannot find name 'cannot_tell_about'.
           if (!arr[0][0].tellabout) return Quest.IO.failedmsg(cannot_tell_about, { char: Quest.World.player, item: arr[0][0], text: arr[1] });
 
           return arr[0][0].tellabout(arr[2], arr[1]) ? Quest.World.world.SUCCESS : Quest.World.world.FAILED;
@@ -1970,18 +1970,18 @@ namespace Quest {
       new Quest.Command.Cmd('TalkAbout', {
 
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isNpcAndHere' does not exist on type '{}... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isNpcAndHere' does not exist on type '{}... Remove this comment to see the full error message
           { scope: Quest.Parser.parser.isNpcAndHere },
           { special: 'text' },
           { special: 'text' },
         ],
 
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'canTalkTo' does not exist on type '{}'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'canTalkTo' does not exist on type '{}'.
         rules: [Quest.Command.cmdRules.canTalkTo],
         // score:1, // to override TALK TO
         script(arr: any) {
           if (!Quest.World.player.testTalk()) return false;
-          // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'cannot_tell_about'.
+          // ts-error-fixed ts-migrate(2304) FIXME: Cannot find name 'cannot_tell_about'.
           if (!arr[0][0].tellabout && !arr[0][0].askabout) return Quest.IO.failedmsg(cannot_tell_about, { char: Quest.World.player, item: arr[0][0], text: arr[1] });
 
           return arr[0][0].talkabout(arr[2], arr[1]) ? Quest.World.world.SUCCESS : Quest.World.world.FAILED;
@@ -1994,7 +1994,7 @@ namespace Quest {
       commands.push(new Quest.Command.Cmd(`Go${s}Item`, {
 
         dirType: s,
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
         objects: [{ attName: `go${s}Direction`, scope: Quest.Parser.parser.isHere }],
         script(objects: any) {
           if (typeof objects[0][0][`go${this.dirType}Item`] === 'string') {
@@ -2007,9 +2007,9 @@ namespace Quest {
       commands.push(new Quest.Command.Cmd(`NpcGo${s}Item`, {
         dirType: s,
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { attName: 'npc', scope: Quest.Parser.parser.isHere },
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
           { attName: `go${s}Direction`, scope: Quest.Parser.parser.isHere },
         ],
         script(objects: any) {
@@ -2030,15 +2030,15 @@ namespace Quest {
         ],
         script(objects: any) {
           if (typeof walkthroughs === 'undefined') {
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+            // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
             Quest.IO.metamsg('No walkthroughs set');
             return Quest.World.world.FAILED;
           }
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           const wt = walkthroughs[objects[0]];
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           if (wt === undefined) return Quest.IO.failedmsg(`No walkthrough found called ${objects[0]}`);
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'walkthroughInProgress' does not exist on... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'walkthroughInProgress' does not exist on... Remove this comment to see the full error message
           Quest.Settings.settings.walkthroughInProgress = true;
           for (const el of wt) {
             if (typeof el === 'string') {
@@ -2049,7 +2049,7 @@ namespace Quest {
               Quest.Settings.settings.walkthroughMenuResponses = [];
             }
           }
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'walkthroughInProgress' does not exist on... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'walkthroughInProgress' does not exist on... Remove this comment to see the full error message
           Quest.Settings.settings.walkthroughInProgress = false;
           return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
         },
@@ -2057,7 +2057,7 @@ namespace Quest {
 
       commands.push(new Quest.Command.Cmd('DebugInspect', {
         objects: [
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'isInWorld' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'isInWorld' does not exist on type '{}'.
           { scope: Quest.Parser.parser.isInWorld },
         ],
         script(arr: any) {
@@ -2074,14 +2074,14 @@ namespace Quest {
         ],
         script(arr: any) {
           const item_name = arr[0];
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           if (!Quest.World.w[item_name]) {
             Quest.IO.debugmsg(`No object called ${item_name}`);
             return Quest.World.world.FAILED;
           }
 
           Quest.IO.debugmsg(`See the console for details on the object ${item_name} (press F12 to Quest.World.world. the console)`);
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           console.log(Quest.World.w[item_name]);
           return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
         },
@@ -2090,17 +2090,17 @@ namespace Quest {
       commands.push(new Quest.Command.Cmd('DebugTest', {
         script() {
           if (!Quest.Settings.settings.tests) {
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+            // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
             Quest.IO.metamsg('The TEST command is for unit testing during game development, and is not activated (F12 for more).');
             console.log('To activate testing in your game, set Quest.Settings.settings.tests to true. More details here: https://github.com/ThePix/QuestJS/wiki/Unit-testing');
             return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
           }
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'runTests' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'runTests' does not exist on type '{}'.
           if (typeof test.runTests !== 'function') {
             console.log(Quest.Utilities.test);
             return Quest.World.world.FAILED;
           }
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'runTests' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'runTests' does not exist on type '{}'.
           Quest.Utilities.test.runTests();
           return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
         },
@@ -2174,13 +2174,13 @@ namespace Quest {
         objects: [
         ],
         script(arr: any) {
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'debug' does not exist on type '{}'.
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'debug' does not exist on type '{}'.
           if (Quest.Parser.parser.debug) {
-            // @ts-expect-error ts-migrate(2339) FIXME: Property 'debug' does not exist on type '{}'.
+            // ts-error-fixed ts-migrate(2339) FIXME: Property 'debug' does not exist on type '{}'.
             Quest.Parser.parser.debug = false;
             Quest.IO.debugmsg('Parser debugging messages are off.');
           } else {
-            // @ts-expect-error ts-migrate(2339) FIXME: Property 'debug' does not exist on type '{}'.
+            // ts-error-fixed ts-migrate(2339) FIXME: Property 'debug' does not exist on type '{}'.
             Quest.Parser.parser.debug = true;
             Quest.IO.debugmsg('Parser debugging messages are on.');
           }
@@ -2192,20 +2192,20 @@ namespace Quest {
         objects: [
         ],
         script(arr: any) {
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'count' does not exist on type '{ name: s... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'count' does not exist on type '{ name: s... Remove this comment to see the full error message
           for (const el of Quest.Settings.settings.statsData) el.count = 0;
           for (const key in w) {
             for (const el of Quest.Settings.settings.statsData) {
-              // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+              // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
               const res = el.test(Quest.World.w[key]);
-              // @ts-expect-error ts-migrate(2339) FIXME: Property 'count' does not exist on type '{ name: s... Remove this comment to see the full error message
+              // ts-error-fixed ts-migrate(2339) FIXME: Property 'count' does not exist on type '{ name: s... Remove this comment to see the full error message
               if (res === true) el.count++;
-              // @ts-expect-error ts-migrate(2339) FIXME: Property 'count' does not exist on type '{ name: s... Remove this comment to see the full error message
+              // ts-error-fixed ts-migrate(2339) FIXME: Property 'count' does not exist on type '{ name: s... Remove this comment to see the full error message
               if (typeof res === 'number') el.count += res;
             }
           }
           for (const el of Quest.Settings.settings.statsData) {
-            // @ts-expect-error ts-migrate(2339) FIXME: Property 'count' does not exist on type '{ name: s... Remove this comment to see the full error message
+            // ts-error-fixed ts-migrate(2339) FIXME: Property 'count' does not exist on type '{ name: s... Remove this comment to see the full error message
             Quest.IO.debugmsg(`${el.name}: ${el.count}`);
           }
           return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
@@ -2217,19 +2217,19 @@ namespace Quest {
         ],
         script(arr: any) {
           for (const el of document.querySelectorAll('.parser')) {
-            // @ts-expect-error ts-migrate(2339) FIXME: Property 'style' does not exist on type 'Element'.
+            // ts-error-fixed ts-migrate(2339) FIXME: Property 'style' does not exist on type 'Element'.
             el.style.color = 'black';
-            // @ts-expect-error ts-migrate(2339) FIXME: Property 'style' does not exist on type 'Element'.
+            // ts-error-fixed ts-migrate(2339) FIXME: Property 'style' does not exist on type 'Element'.
             el.style.backgroundColor = 'yellow';
           }
           for (const el of document.querySelectorAll('.error')) {
-            // @ts-expect-error ts-migrate(2339) FIXME: Property 'style' does not exist on type 'Element'.
+            // ts-error-fixed ts-migrate(2339) FIXME: Property 'style' does not exist on type 'Element'.
             el.style.backgroundColor = 'yellow';
           }
           for (const el of document.querySelectorAll('.meta')) {
-            // @ts-expect-error ts-migrate(2339) FIXME: Property 'style' does not exist on type 'Element'.
+            // ts-error-fixed ts-migrate(2339) FIXME: Property 'style' does not exist on type 'Element'.
             el.style.color = 'black';
-            // @ts-expect-error ts-migrate(2339) FIXME: Property 'style' does not exist on type 'Element'.
+            // ts-error-fixed ts-migrate(2339) FIXME: Property 'style' does not exist on type 'Element'.
             el.style.backgroundColor = '#8f8';
           }
           Quest.IO.debugmsg('Previous parser and error messages are now highlighted.');
@@ -2254,11 +2254,11 @@ namespace Quest {
     function handleFillFromUnknown(char: any, sink: any, fluid: any) {
       // fluid can be undefined
       const options = { fluid };
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'findSource' does not exist on type '{}'.
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'findSource' does not exist on type '{}'.
       if (!Quest.Utilities.util.findSource(options)) return Quest.IO.failedmsg(fluid ? Quest.lang.no_fluid_here : Quest.lang.no_fluid_here_at_all, options);
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'source' does not exist on type '{ fluid:... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'source' does not exist on type '{ fluid:... Remove this comment to see the full error message
       if (options.source.vessel) return handleFillFromVessel(char, options.source, sink, options.fluid);
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'source' does not exist on type '{ fluid:... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'source' does not exist on type '{ fluid:... Remove this comment to see the full error message
       return handleFillFromSource(char, options.source, sink, options.fluid);
     }
 
@@ -2300,7 +2300,7 @@ namespace Quest {
 
     function handleEmptyFluidInto(char: any, sink: any, fluid: any) {
       for (const key in w) {
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         const o = Quest.World.w[key];
         if (o.vessel && o.containedFluidName === fluid && o.loc === char.name) {
           return handleFillFromVessel(char, o, sink, fluid);
@@ -2312,7 +2312,7 @@ namespace Quest {
     export function handleInOutContainer(char: any, objects: any, verb: any, func: any) {
       let success     = false;
       const container = objects[1][0];
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'currentCommand' does not exist on type '... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'currentCommand' does not exist on type '... Remove this comment to see the full error message
       const options = {
         char, container, multiple: objects[0].length > 1 || Quest.Parser.parser.currentCommand.all, verb,
       };
@@ -2330,11 +2330,11 @@ namespace Quest {
 
       for (const obj of objects[0]) {
         if (!char.testManipulate(obj, verb)) return Quest.World.world.FAILED;
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'count' does not exist on type '{ char: a... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'count' does not exist on type '{ char: a... Remove this comment to see the full error message
         options.count = obj.countable ? obj.extractNumber() : undefined;
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'item' does not exist on type '{ char: an... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'item' does not exist on type '{ char: an... Remove this comment to see the full error message
         options.item = obj;
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'count' does not exist on type '{ char: a... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'count' does not exist on type '{ char: a... Remove this comment to see the full error message
         if (options.count) options[`${obj.name}_count`] = options.count;  // for the text processor
         const flag = func(char, container, obj, options);
         success    = success || flag;
@@ -2357,7 +2357,7 @@ namespace Quest {
       if (typeof obj.msgDropIn === 'function') {
         obj.msgDropIn(options);
       } else {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
         Quest.IO.msg(obj.msgDropIn, options);
       }
       obj.moveToFrom(options);
@@ -2373,7 +2373,7 @@ namespace Quest {
       if (obj.testTake && !obj.testTake(options)) return false;
       if (container.testTakeOut && !container.testTakeOut(options)) return false;
 
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
       Quest.IO.msg(obj.msgTakeOut, options);
       obj.moveToFrom(options);
       return true;
@@ -2382,7 +2382,7 @@ namespace Quest {
     function handleGiveToNpc(char: any, objects: any) {
       let success = false;
       const npc   = objects[1][0];
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'currentCommand' does not exist on type '... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'currentCommand' does not exist on type '... Remove this comment to see the full error message
       const multiple = objects[0].length > 1 || Quest.Parser.parser.currentCommand.all;
       if (!npc.npc && npc !== Quest.World.player) return Quest.IO.failedmsg(Quest.lang.not_npc_for_give, { char, item: npc });
       if (!npc.handleGiveTo) log(npc);
@@ -2393,7 +2393,7 @@ namespace Quest {
         });
         success    = success || flag;
       }
-      // @ts-expect-error ts-migrate(2367) FIXME: This condition will always return 'false' since th... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2367) FIXME: This condition will always return 'false' since th... Remove this comment to see the full error message
       if (success === Quest.World.world.SUCCESS) char.pause();
       return success ? Quest.World.world.SUCCESS : Quest.World.world.FAILED;
     }
@@ -2423,7 +2423,7 @@ namespace Quest {
         return Quest.World.world.FAILED;
       }
       if (char.posture) {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg(Quest.lang.stop_posture(char));
         char.pause();
         return Quest.World.world.SUCCESS;
@@ -2435,18 +2435,18 @@ namespace Quest {
       const verb = objects[0];
       const obj  = objects[1][0];
       const dir  = Quest.Utilities.getDir(objects[2]);
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       const room     = Quest.World.w[char.loc];
       const tpParams = { char, dir, item: obj };
 
       if (!obj.shiftable && obj.takeable) return Quest.IO.failedmsg(Quest.lang.take_not_push, tpParams);
       if (!obj.shiftable) return Quest.IO.failedmsg(Quest.lang.cannot_push, tpParams);
       if (!room[dir] || room[dir].isHidden()) return Quest.IO.failedmsg(Quest.lang.not_that_way, tpParams);
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       if (room[dir].isLocked()) return Quest.IO.failedmsg(Quest.lang.locked_exit(char, room[dir]));
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       if (typeof room[dir].noShiftingMsg === 'function') return Quest.IO.failedmsg(room[dir].noShiftingMsg(char, item));
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       if (typeof room[dir].noShiftingMsg === 'string') return Quest.IO.failedmsg(room[dir].noShiftingMsg);
       if (!char.getAgreement('Push', obj, dir)) return false;
 
@@ -2457,7 +2457,7 @@ namespace Quest {
 
       // by default, objects cannot be pushed up
       if (dir === 'up') {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
         Quest.IO.msg(Quest.lang.cannot_push_up, tpParams);
         return Quest.World.world.FAILED;
       }
@@ -2466,9 +2466,9 @@ namespace Quest {
       const dest = room[dir].name;
       obj.moveToFrom({ char, item: obj, toLoc: dest });
       char.loc = dest;
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'dest' does not exist on type '{ char: an... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'dest' does not exist on type '{ char: an... Remove this comment to see the full error message
       tpParams.dest = Quest.World.w[dest];
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
       Quest.IO.msg(Quest.lang.push_exit_successful, tpParams);
       return Quest.World.world.SUCCESS;
     }

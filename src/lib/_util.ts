@@ -50,7 +50,7 @@ namespace Quest {
         // The attribute is a string
         let s = item[attname];
         if (item[`${attname}Addendum`]) s += item[`${attname}Addendum`](char);
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
         Quest.IO.msg(s, { char, item });
         return true;
       }
@@ -60,7 +60,7 @@ namespace Quest {
       }
 
       const s = `Unsupported type for printOrRun (${attname} is a ${typeof item[attname]}).`;
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       Quest.IO.errormsg(`${s} F12 for more.`);
       throw new Error(s);
     }
@@ -168,12 +168,12 @@ namespace Quest {
         (typeof el === 'string' ? el : Quest.lang.getName(el, options)));
 
       let s = '';
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'oxfordComma' does not exist on type '{ p... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'oxfordComma' does not exist on type '{ p... Remove this comment to see the full error message
       if (Quest.Settings.settings.oxfordComma && l.length === 2 && options.lastJoiner) return `${l[0]} ${options.lastJoiner} ${l[1]}`;
       do {
         s += l.shift();
         if (l.length === 1 && options.lastJoiner) {
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'oxfordComma' does not exist on type '{ p... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'oxfordComma' does not exist on type '{ p... Remove this comment to see the full error message
           if (Quest.Settings.settings.oxfordComma) s += options.sep;
           s += ` ${options.lastJoiner} `;
         } else if (l.length > 0) s += `${options.sep} `;
@@ -196,7 +196,7 @@ namespace Quest {
     // Returns the given number as a string in Roman numerals.
     export function toRoman(number: any) {
       if (typeof number !== 'number') {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         Quest.IO.errormsg('toRoman can only handle numbers');
         return number;
       }
@@ -216,7 +216,7 @@ namespace Quest {
     // Returns the given number as a string formatted as money. The formatting is defined by Quest.Settings.settings.moneyFormat.
     export function displayMoney(n: any) {
       if (typeof Quest.Settings.settings.moneyFormat === 'undefined') {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         Quest.IO.errormsg('No format for money set (set Quest.Settings.settings.moneyFormat in Quest.Settings.settings.js).');
         return `${n}`;
       }
@@ -245,7 +245,7 @@ namespace Quest {
         return ary[0] + displayNumber(n, options) + ary[3];
       }
 
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       Quest.IO.errormsg('Quest.Settings.settings.moneyFormat in Quest.Settings.settings.js expected to have either 1, 2 or 3 exclamation marks.');
       return `${n}`;
     }
@@ -262,14 +262,14 @@ namespace Quest {
       n           = Math.abs(n);  // must be positive
       const regex = /^(\D*)(\d+)(\D)(\d*)(\D*)$/;
       if (!regex.test(control)) {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         Quest.IO.errormsg(`Unexpected format in displayNumber (${control}). Should be a number, followed by a single character separator, followed by a number.`);
         return `${n}`;
       }
       const options = regex.exec(control);
-      // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
+      // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
       const places = parseInt(options[4]);                      // eg 2
-      // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
+      // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
       let padding = parseInt(options[2]);             // eg 3
       if (places > 0) {
         // We want a decimal point, so the padding, the total length, needs that plus the places
@@ -277,9 +277,9 @@ namespace Quest {
       }
       const factor = 10 ** places;            // eg 100
       const base   = (n / factor).toFixed(places);      // eg "12.34"
-      // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
+      // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
       const decimal = base.replace('.', options[3]);   // eg "12,34"
-      // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
+      // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
       return (options[1] + decimal.padStart(padding, '0') + options[5]);   // eg "(012,34)"
     }
 
@@ -484,9 +484,9 @@ namespace Quest {
     export function scopeReachable() {
       const list = [];
       for (const key in Quest.World.w) {
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         if (Quest.World.w[key].scopeStatus.canReach && Quest.World.world.ifNotDark(Quest.World.w[key])) {
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           list.push(Quest.World.w[key]);
         }
       }
@@ -504,7 +504,7 @@ namespace Quest {
     export function scopeHereListed() {
       const list = [];
       for (const key in Quest.World.w) {
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         const o = Quest.World.w[key];
         if (!o.player && o.isAtLoc(Quest.World.player.loc, Quest.World.world.LOOK) && Quest.World.world.ifNotDark(o)) {
           list.push(o);
@@ -518,7 +518,7 @@ namespace Quest {
     export function scopeHereParser() {
       const list = [];
       for (const key in Quest.World.w) {
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         const o = Quest.World.w[key];
         if (!o.player && o.isAtLoc(Quest.World.player.loc, Quest.World.world.PARSER)) {
           list.push(o);
@@ -532,7 +532,7 @@ namespace Quest {
     function scopeNpcHere(ignoreDark: any) {
       const list = [];
       for (const key in Quest.World.w) {
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         const o = Quest.World.w[key];
         if (o.isAtLoc(Quest.World.player.loc, Quest.World.world.LOOK) && o.npc && (Quest.World.world.ifNotDark(o) || ignoreDark)) {
           list.push(o);
@@ -546,7 +546,7 @@ namespace Quest {
     export function scopeAllNpcHere(ignoreDark: any) {
       const list = [];
       for (const key in Quest.World.w) {
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         const o = Quest.World.w[key];
         if (o.isAtLoc(Quest.World.player.loc, Quest.World.world.PARSER) && o.npc && (Quest.World.world.ifNotDark(o) || ignoreDark)) {
           list.push(o);
@@ -560,9 +560,9 @@ namespace Quest {
     function scopeBy(func: any) {
       const list = [];
       for (const key in Quest.World.w) {
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         if (func(Quest.World.w[key])) {
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           list.push(Quest.World.w[key]);
         }
       }
@@ -573,7 +573,7 @@ namespace Quest {
 
       addChangeListener(object: any, attName: any, func: any, test = util.defaultChangeListenerTest) {
         if (Quest.World.world.isCreated && !Quest.Settings.settings.saveDisabled) {
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           Quest.IO.errormsg('Attempting to use addChangeListener after set up.');
           return;
         }
@@ -592,6 +592,29 @@ namespace Quest {
       },
 
       changeListeners: [],
+
+      changePOV(char: any, pronouns: any) {
+        if (typeof char === 'string') {
+          // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          if (!Quest.World.w[char]) return Quest.IO.errormsg(`Failed to change POV, no object called '${char}'`);
+          // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          char = Quest.World.w[char];
+        }
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+        else if (!char) Quest.IO.errormsg('Failed to change POV, char not defined.');
+
+        if (Quest.World.player) {
+          Quest.World.player.player   = false;
+          Quest.World.player.pronouns = Quest.World.player.npcPronouns;
+          Quest.World.player.regex    = new RegExp(`^(${char.npcAlias ? char.npcAlias : char.alias})$`);
+        }
+        char.player      = true;
+        char.npcPronouns = char.pronouns;
+        char.pronouns    = pronouns || Quest.lang.pronouns.secondperson;
+        char.regex       = new RegExp(`^(me|myself|player|${char.npcAlias ? char.npcAlias : char.alias})$`);
+        Object.assign(Quest.World.player, char);
+        Quest.World.world.update();
+      },
 
       // @DOC
       // Returns the given number, num, but restricted to lie
@@ -614,6 +637,10 @@ namespace Quest {
         return includeCurlyBraces ? `{${ary.join(';')}}` : ary.join(';');
       },
 
+      elapsed(seconds: any, minutes = 0, hours = 0, days = 0) {
+        return util.seconds(seconds, minutes, hours, days) >= Quest.World.game.elapsedTime;
+      },
+
       findResponse(params: any, list: any) {
         for (const item of list) {
           if (item.test && !item.test(params)) continue;
@@ -623,125 +650,18 @@ namespace Quest {
         return false;
       },
 
-      findTopic(alias: any, char: any, n = 1) {
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-        if (Quest.World.w[alias]) return Quest.World.w[alias];
-        for (const key in Quest.World.w) {
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          const o = Quest.World.w[key];
-          if (o.conversationTopic && (!char || o.belongsTo(char.name)) && o.alias === alias) {
-            n--;
-            if (n === 0) return o;
-          }
+      defaultExitUse(char: any, exit: any) {
+        if (!exit) exit = this;
+        if (char.testMove && !char.testMove(exit)) return false;
+        if (exit.isLocked()) {
+          return Quest.IO.falsemsg(exit.lockedmsg ? exit.lockedmsg : Quest.lang.locked_exit, { char, exit });
         }
-        if (char) {
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-          Quest.IO.errormsg(`Trying to find topic ${n} called "${alias}" for ${char.name} and came up empty-handed!`);
-        } else {
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-          Quest.IO.errormsg(`Trying to find topic ${n} called "${alias}" for anyone and came up empty-handed!`);
+        if (exit.testExit && !exit.testExit(char, exit)) return false;
+        for (const el of char.getCarrying()) {
+          if (el.testCarry && !el.testCarry({ char, exit, item: el })) return false;
         }
-      },
-
-      // @DOC
-      // Returns the number of the internal the given number falls in
-      // For example, if intervals
-      // Unit tested.
-      getByInterval(intervals: any, n: any) {
-        let count = 0;
-        while (count < intervals.length) {
-          if (n < intervals[count]) return count;
-          n -= intervals[count];
-          count++;
-        }
-        return false;
-      },
-
-      elapsed(seconds: any, minutes = 0, hours = 0, days = 0) {
-        return util.seconds(seconds, minutes, hours, days) >= Quest.World.game.elapsedTime;
-      },
-
-      getChangeListenersSaveString() {
-        if (util.changeListeners.length === 0) return 'NoChangeListeners';
-        const strings = util.changeListeners.map((el: any) => el.oldValue.toString());
-        return `ChangeListenersUsedStrings=${Quest.SaveLoad.saveLoad.encodeArray(strings)}`;
-      },
-
-      getContents(situation: any) {
-        const list = [];
-        for (const key in Quest.World.w) {
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          if (Quest.World.w[key].isAtLoc(this.name, situation)) {
-            // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-            list.push(Quest.World.w[key]);
-          }
-        }
-        return list;
-      },
-
-      changePOV(char: any, pronouns: any) {
-        if (typeof char === 'string') {
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          if (!Quest.World.w[char]) return Quest.IO.errormsg(`Failed to change POV, no object called '${char}'`);
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          char = Quest.World.w[char];
-        }
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        else if (!char) Quest.IO.errormsg('Failed to change POV, char not defined.');
-
-        if (Quest.World.player) {
-          Quest.World.player.player   = false;
-          Quest.World.player.pronouns = Quest.World.player.npcPronouns;
-          Quest.World.player.regex    = new RegExp(`^(${char.npcAlias ? char.npcAlias : char.alias})$`);
-        }
-        char.player      = true;
-        char.npcPronouns = char.pronouns;
-        char.pronouns    = pronouns || Quest.lang.pronouns.secondperson;
-        char.regex       = new RegExp(`^(me|myself|player|${char.npcAlias ? char.npcAlias : char.alias})$`);
-        Object.assign(Quest.World.player, char);
-        Quest.World.world.update();
-      },
-
-      getCustomDateTime(options: any) {
-        if (!options) options = {};
-        const dict = util.getCustomDateTimeDict(options);
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'formats' does not exist on type '{ year:... Remove this comment to see the full error message
-        let s = options.format ? Quest.Settings.settings.dateTime.formats[options.format] : Quest.Settings.settings.dateTime.formats.def;
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'functions' does not exist on type '{ yea... Remove this comment to see the full error message
-        for (const key in Quest.Settings.settings.dateTime.functions) {
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'functions' does not exist on type '{ yea... Remove this comment to see the full error message
-          s = s.replace(`%${key}%`, Quest.Settings.settings.dateTime.functions[key](dict));
-        }
-        return s;
-      },
-
-      findUniqueName(s: any) {
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-        if (!Quest.World.w[s]) {
-          return (s);
-        }
-        const res = /(\d+)$/.exec(s);
-        if (!res) {
-          return util.findUniqueName(`${s}0`);
-        }
-        const n = parseInt(res[0]) + 1;
-        return util.findUniqueName(s.replace(/(\d+)$/, `${n}`));
-      },
-
-      getCustomDateTimeDict(options: any) {
-        const dict = {};
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'startTime' does not exist on type '{ yea... Remove this comment to see the full error message
-        let time = Quest.Settings.settings.dateTime.startTime + Quest.World.game.elapsedTime;
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'startTime' does not exist on type '{ yea... Remove this comment to see the full error message
-        if (options.is) time = Quest.Settings.settings.dateTime.startTime + options.is;
-        if (options.add) time += options.add;
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'data' does not exist on type '{ year: st... Remove this comment to see the full error message
-        for (const el of Quest.Settings.settings.dateTime.data) {
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          dict[el.name] = time % el.number;
-          time          = Math.floor(time / el.number);
-        }
-        return dict;
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'simpleUse' does not exist on type '{}'.
+        return this.simpleUse ? this.simpleUse(char) : util.defaultSimpleExitUse(char, exit);
       },
 
       findSource(options: any) {
@@ -760,12 +680,12 @@ namespace Quest {
         }
 
         // Is the room a source?
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         if (Quest.World.w[chr.loc].isSourceOf) {
           for (const s of fluids) {
-            // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+            // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
             if (Quest.World.w[chr.loc].isSourceOf(s)) {
-              // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+              // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
               options.source = Quest.World.w[chr.loc];
               options.fluid  = s;
               return true;
@@ -792,13 +712,133 @@ namespace Quest {
         return false;
       },
 
+      // Helper function for exits.
+// You can optionally set "msg" in the exit attributes
+cannotUse: function (char: any, dir: any) {
+        const tpParams = { char };
+// ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
+        Quest.IO.msg(this.msg ? this.msg : Quest.lang.try_but_locked, tpParams);
+        return false;
+      },
+
+
+
+findTopic(alias: any, char: any, n = 1) {
+        // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+        if (Quest.World.w[alias]) return Quest.World.w[alias];
+        for (const key in Quest.World.w) {
+          // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          const o = Quest.World.w[key];
+          if (o.conversationTopic && (!char || o.belongsTo(char.name)) && o.alias === alias) {
+            n--;
+            if (n === 0) return o;
+          }
+        }
+        if (char) {
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+          Quest.IO.errormsg(`Trying to find topic ${n} called "${alias}" for ${char.name} and came up empty-handed!`);
+        } else {
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+          Quest.IO.errormsg(`Trying to find topic ${n} called "${alias}" for anyone and came up empty-handed!`);
+        }
+      },
+
+      findUniqueName(s: any) {
+        // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+        if (!Quest.World.w[s]) {
+          return (s);
+        }
+        const res = /(\d+)$/.exec(s);
+        if (!res) {
+          return util.findUniqueName(`${s}0`);
+        }
+        const n = parseInt(res[0]) + 1;
+        return util.findUniqueName(s.replace(/(\d+)$/, `${n}`));
+      },
+
+
+
+
+
+      defaultSimpleExitUse(char: any, exit: any) {
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+        if (exit.name === '_') return Quest.IO.errormsg(`Trying to move character to location "_" from room ${exit.origin.name}. This is probably a bug, as "_" is used to flag a destination that cannot be reached.`);
+        if (exit === undefined) exit = this;
+
+        char.msg(Quest.lang.stop_posture(char));
+        char.movingMsg(exit);
+        char.moveChar(exit);
+        return true;
+      },
+
+      // @DOC
+// Returns the number of the internal the given number falls in
+// For example, if intervals
+// Unit tested.
+getByInterval(intervals: any, n: any) {
+        let count = 0;
+        while (count < intervals.length) {
+          if (n < intervals[count]) return count;
+          n -= intervals[count];
+          count++;
+        }
+        return false;
+      },
+
+      getChangeListenersSaveString() {
+        if (util.changeListeners.length === 0) return 'NoChangeListeners';
+        const strings = util.changeListeners.map((el: any) => el.oldValue.toString());
+        return `ChangeListenersUsedStrings=${Quest.SaveLoad.saveLoad.encodeArray(strings)}`;
+      },
+
+      getContents(situation: any) {
+        const list = [];
+        for (const key in Quest.World.w) {
+          // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          if (Quest.World.w[key].isAtLoc(this.name, situation)) {
+            // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+            list.push(Quest.World.w[key]);
+          }
+        }
+        return list;
+      },
+
+      getCustomDateTime(options: any) {
+        if (!options) options = {};
+        const dict = util.getCustomDateTimeDict(options);
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'formats' does not exist on type '{ year:... Remove this comment to see the full error message
+        let s = options.format ? Quest.Settings.settings.dateTime.formats[options.format] : Quest.Settings.settings.dateTime.formats.def;
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'functions' does not exist on type '{ yea... Remove this comment to see the full error message
+        for (const key in Quest.Settings.settings.dateTime.functions) {
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'functions' does not exist on type '{ yea... Remove this comment to see the full error message
+          s = s.replace(`%${key}%`, Quest.Settings.settings.dateTime.functions[key](dict));
+        }
+        return s;
+      },
+
+      getCustomDateTimeDict(options: any) {
+        const dict = {};
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'startTime' does not exist on type '{ yea... Remove this comment to see the full error message
+        let time = Quest.Settings.settings.dateTime.startTime + Quest.World.game.elapsedTime;
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'startTime' does not exist on type '{ yea... Remove this comment to see the full error message
+        if (options.is) time = Quest.Settings.settings.dateTime.startTime + options.is;
+        if (options.add) time += options.add;
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'data' does not exist on type '{ year: st... Remove this comment to see the full error message
+        for (const el of Quest.Settings.settings.dateTime.data) {
+          // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          dict[el.name] = time % el.number;
+          time          = Math.floor(time / el.number);
+        }
+        return dict;
+      },
+
       // @DOC
       // Returns the game time as a string. The game time is game.elapsedTime seconds after game.startTime.
       getDateTime(options: any) {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'formats' does not exist on type '{ year:... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'formats' does not exist on type '{ year:... Remove this comment to see the full error message
         if (!Quest.Settings.settings.dateTime.formats) {
           const time = new Date(Quest.World.game.elapsedTime * 1000 + Quest.World.game.startTime.getTime());
-          // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '{ year: string; month: string; d... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2345) FIXME: Argument of type '{ year: string; month: string; d... Remove this comment to see the full error message
           return time.toLocaleString(Quest.Settings.settings.dateTime.locale, Quest.Settings.settings.dateTime);
         }
         return util.getCustomDateTime(options);
@@ -806,22 +846,8 @@ namespace Quest {
 
       getDateTimeDict(options: any) {
         if (!options) options = {};
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'formats' does not exist on type '{ year:... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'formats' does not exist on type '{ year:... Remove this comment to see the full error message
         return Quest.Settings.settings.dateTime.formats ? util.getCustomDateTimeDict(options) : util.getStdDateTimeDict(options);
-      },
-
-      defaultExitUse(char: any, exit: any) {
-        if (!exit) exit = this;
-        if (char.testMove && !char.testMove(exit)) return false;
-        if (exit.isLocked()) {
-          return Quest.IO.falsemsg(exit.lockedmsg ? exit.lockedmsg : Quest.lang.locked_exit, { char, exit });
-        }
-        if (exit.testExit && !exit.testExit(char, exit)) return false;
-        for (const el of char.getCarrying()) {
-          if (el.testCarry && !el.testCarry({ char, exit, item: el })) return false;
-        }
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'simpleUse' does not exist on type '{}'.
-        return this.simpleUse ? this.simpleUse(char) : util.defaultSimpleExitUse(char, exit);
       },
 
       getLoc(options: any, loc: any, name: any) {
@@ -837,59 +863,13 @@ namespace Quest {
         } else if (loc === 'loc') {
           options[name] = options.char.loc;
         }
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         else if (Quest.World.w[loc]) {
           options[name] = loc;
         } else {
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           Quest.IO.errormsg(`Unexpected location in util.setToFrom/util.getLoc: ${loc}`);
         }
-      },
-
-      // Helper function for exits.
-// You can optionally set "msg" in the exit attributes
-cannotUse: function (char: any, dir: any) {
-        const tpParams = { char };
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        Quest.IO.msg(this.msg ? this.msg : Quest.lang.try_but_locked, tpParams);
-        return false;
-      },
-
-      
-
-nameModifierFunctionForContainer(o: any, list: any) {
-        // console.log("here")
-        const contents = o.getContents(Quest.World.world.LOOK);
-        // console.log(contents)
-        if (contents.length > 0 && (!o.closed || o.transparent)) {
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          list.push(Quest.lang.contentsForData[o.contentsType].prefix + o.listContents(Quest.World.world.LOOK) + Quest.lang.contentsForData[o.contentsType].suffix);
-        }
-        // console.log(list)
-      },
-      
-      defaultSimpleExitUse(char: any, exit: any) {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        if (exit.name === '_') return Quest.IO.errormsg(`Trying to move character to location "_" from room ${exit.origin.name}. This is probably a bug, as "_" is used to flag a destination that cannot be reached.`);
-        if (exit === undefined) exit = this;
-
-        char.msg(Quest.lang.stop_posture(char));
-        char.movingMsg(exit);
-        char.moveChar(exit);
-        return true;
-      },
-
-
-
-      registerTimerEvent(eventName: any, triggerTime: any, interval: any) {
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-        if (!Quest.Settings.settings.eventFunctions[eventName]) Quest.IO.errormsg(`A timer is trying to call event '${eventName}' but no such function is registered.`);
-        // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'any' is not assignable to parame... Remove this comment to see the full error message
-        Quest.World.game.timerEventNames.push(eventName);
-        // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'any' is not assignable to parame... Remove this comment to see the full error message
-        Quest.World.game.timerEventTriggerTimes.push(triggerTime);
-        // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'any' is not assignable to parame... Remove this comment to see the full error message
-        Quest.World.game.timerEventIntervals.push(interval || -1);
       },
 
       getNameModifiers(item: any, options: any) {
@@ -902,13 +882,11 @@ nameModifierFunctionForContainer(o: any, list: any) {
         return ` (${list.join('; ')})`;
       },
 
-      
-
-getObj(name: any) {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+      getObj(name: any) {
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         if (!name) return Quest.IO.errormsg(`Trying to find an object in util.getObj, but name is ${name}`);
         if (typeof name === 'string') {
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           const room = Quest.World.w[name];
           if (room === undefined) throw new Error(`Failed to find room: ${name}.`);
           return room;
@@ -917,21 +895,6 @@ getObj(name: any) {
           throw `Not sure what to do with this room: ${name} (a ${typeof name}).`;
         }
         return name;
-      },
-
-      // Is this container already inside the given object, and hence
-// putting the object in the container will destroy the universe
-testForRecursion: function (char: any, item: any) {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'name' does not exist on type '{}'.
-        let contName = this.name;
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-        while (Quest.World.w[contName]) {
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          if (Quest.World.w[contName].loc === item.name) return Quest.IO.falsemsg(Quest.lang.container_recursion, { char, container: this, item });
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          contName = Quest.World.w[contName].loc;
-        }
-        return true;
       },
 
       getResponseSubList(route: any, list: any) {
@@ -949,32 +912,22 @@ testForRecursion: function (char: any, item: any) {
         let timeInSeconds = Quest.World.game.elapsedTime;
         if (options.add) timeInSeconds += options.add;
         const time = new Date(timeInSeconds * 1000 + Quest.World.game.startTime.getTime());
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'second' does not exist on type '{}'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'second' does not exist on type '{}'.
         dict.second = time.getSeconds();
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'minute' does not exist on type '{}'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'minute' does not exist on type '{}'.
         dict.minute = time.getMinutes();
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'hour' does not exist on type '{}'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'hour' does not exist on type '{}'.
         dict.hour = time.getHours();
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'date' does not exist on type '{}'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'date' does not exist on type '{}'.
         dict.date = time.getDate();
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'weekday' does not exist on type '{}'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'weekday' does not exist on type '{}'.
         dict.weekday = time.toLocaleString('default', { weekday: 'long' });
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'month' does not exist on type '{}'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'month' does not exist on type '{}'.
         dict.month = time.toLocaleString('default', { month: 'long' });
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'year' does not exist on type '{}'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'year' does not exist on type '{}'.
         dict.year = time.getFullYear();
 
         return dict;
-      },
-
-      registerTimerFunction(eventName: any, func: any) {
-        if (Quest.World.world.isCreated && !Quest.Settings.settings.saveDisabled) {
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-          Quest.IO.errormsg('Attempting to use registerEvent after set up.');
-          return;
-        }
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-        Quest.Settings.settings.eventFunctions[eventName] = func;
       },
 
       guessMyType(value: any) {
@@ -1011,52 +964,102 @@ testForRecursion: function (char: any, item: any) {
 
         const nowTime    = new Date(Quest.World.game.elapsedTime * 1000 + Quest.World.game.startTime.getTime());
         const targetTime = Date.parse(timeString);
-        // @ts-expect-error ts-migrate(2365) FIXME: Operator '>' cannot be applied to types 'Date' and... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2365) FIXME: Operator '>' cannot be applied to types 'Date' and... Remove this comment to see the full error message
         if (targetTime) return nowTime > targetTime;
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         return Quest.IO.errormsg(`Failed to parse date-time string: ${timeString}`);
       },
 
       // This should be assigned to an object, and then used from there
-      listContents(situation: any, modified = true) {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'getContents' does not exist on type '{}'... Remove this comment to see the full error message
+listContents(situation: any, modified = true) {
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'getContents' does not exist on type '{}'... Remove this comment to see the full error message
         return formatList(this.getContents(situation), {
           article: Quest.INDEFINITE, lastJoiner: Quest.lang.list_and, loc: this.name, modified, nothing: Quest.lang.list_nothing,
         });
       },
 
+
+      nameModifierFunctionForContainer(o: any, list: any) {
+        // console.log("here")
+        const contents = o.getContents(Quest.World.world.LOOK);
+        // console.log(contents)
+        if (contents.length > 0 && (!o.closed || o.transparent)) {
+          // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          list.push(Quest.lang.contentsForData[o.contentsType].prefix + o.listContents(Quest.World.world.LOOK) + Quest.lang.contentsForData[o.contentsType].suffix);
+        }
+        // console.log(list)
+      },
+
       multiIsUltimatelyHeldBy(obj: any, objNames: any) {
         for (const objName of objNames) {
           if (!objName) continue;
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           let o = Quest.World.w[objName];
           if (o === obj) return true;
           while (o.loc) {
             if (o.loc === obj.name) return true;
-            // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+            // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
             o = Quest.World.w[o.loc];
           }
         }
         return false;
       },
 
+      registerTimerEvent(eventName: any, triggerTime: any, interval: any) {
+        // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+        if (!Quest.Settings.settings.eventFunctions[eventName]) Quest.IO.errormsg(`A timer is trying to call event '${eventName}' but no such function is registered.`);
+        // ts-error-fixed ts-migrate(2345) FIXME: Argument of type 'any' is not assignable to parame... Remove this comment to see the full error message
+        Quest.World.game.timerEventNames.push(eventName);
+        // ts-error-fixed ts-migrate(2345) FIXME: Argument of type 'any' is not assignable to parame... Remove this comment to see the full error message
+        Quest.World.game.timerEventTriggerTimes.push(triggerTime);
+        // ts-error-fixed ts-migrate(2345) FIXME: Argument of type 'any' is not assignable to parame... Remove this comment to see the full error message
+        Quest.World.game.timerEventIntervals.push(interval || -1);
+      },
+
+      registerTimerFunction(eventName: any, func: any) {
+        if (Quest.World.world.isCreated && !Quest.Settings.settings.saveDisabled) {
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+          Quest.IO.errormsg('Attempting to use registerEvent after set up.');
+          return;
+        }
+        // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+        Quest.Settings.settings.eventFunctions[eventName] = func;
+      },
+
       seconds(seconds: any, minutes = 0, hours = 0, days = 0) {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'convertSeconds' does not exist on type '... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'convertSeconds' does not exist on type '... Remove this comment to see the full error message
         if (Quest.Settings.settings.dateTime.convertSeconds) return Quest.Settings.settings.dateTime.convertSeconds(seconds, minutes, hours, days);
         return ((((days * 24) + hours) * 60) + minutes) * 60 + seconds;
       },
 
-      setChangeListenersLoadString(s: any) {
+
+
+setChangeListenersLoadString(s: any) {
         if (s === 'NoChangeListeners') return;
         const parts = s.split('=');
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         if (parts.length !== 2) return Quest.IO.errormsg(`Bad format in saved data (${s})`);
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         if (parts[0] !== 'ChangeListenersUsedStrings') return Quest.IO.errormsg('Expected ChangeListenersUsedStrings to be first');
         const strings = Quest.SaveLoad.saveLoad.decodeArray(parts[1]);
         for (let i = 0; i < strings.length; i++) {
           util.changeListeners[i].oldValue = strings[i].match(/^\d+$/) ? parseInt(strings[i]) : strings[i];
         }
+      },
+
+      // Is this container already inside the given object, and hence
+// putting the object in the container will destroy the universe
+testForRecursion: function (char: any, item: any) {
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'name' does not exist on type '{}'.
+        let contName = this.name;
+// ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+        while (Quest.World.w[contName]) {
+// ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          if (Quest.World.w[contName].loc === item.name) return Quest.IO.falsemsg(Quest.lang.container_recursion, { char, container: this, item });
+// ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          contName = Quest.World.w[contName].loc;
+        }
+        return true;
       },
 
       setToFrom(options: any, toLoc: any, fromLoc: any) {
@@ -1075,13 +1078,13 @@ testForRecursion: function (char: any, item: any) {
       // Helper function for exits.
       // You must set "door" and can optionally set "doorName" in the exit attributes
       useWithDoor(char: any) {
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         const obj = Quest.World.w[this.door];
         if (obj === undefined) {
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           Quest.IO.errormsg(`Not found an object called '${this.door}'. Any exit that uses the 'util.useWithDoor' function must also set a 'door' attribute.`);
         }
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'doorName' does not exist on type '{}'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'doorName' does not exist on type '{}'.
         const tpParams = { char, doorName: this.doorName ? this.doorName : 'door' };
         if (!obj.closed) {
           char.moveChar(this);
@@ -1089,7 +1092,7 @@ testForRecursion: function (char: any, item: any) {
         }
         if (!obj.locked) {
           obj.closed = false;
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
           Quest.IO.msg(Quest.lang.open_and_enter, tpParams);
           char.moveChar(this);
           return true;
@@ -1097,12 +1100,12 @@ testForRecursion: function (char: any, item: any) {
         if (obj.testKeys(char)) {
           obj.closed = false;
           obj.locked = false;
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
           Quest.IO.msg(Quest.lang.unlock_and_enter, tpParams);
           char.moveChar(this);
           return true;
         }
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
         Quest.IO.msg(Quest.lang.try_but_locked, tpParams);
         return false;
       },
@@ -1137,12 +1140,12 @@ testForRecursion: function (char: any, item: any) {
     // Searchs the given list for a suitable response, according to the given params, and runs that response.
     // This is a big topic, see [here](https://github.com/ThePix/QuestJS/wiki/The-respond-function) for more.
     export function respond(params: any, list: any, func: any) {
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'responseDebug' does not exist on type '{... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'responseDebug' does not exist on type '{... Remove this comment to see the full error message
       if (Quest.Settings.settings.responseDebug) log(params);
       const response = util.findResponse(params, list);
       if (!response) {
         if (func) func(params);
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         Quest.IO.errormsg('Failed to find a response. ASK/TELL or some other system using the respond function was given a list of options that did not have a default. Below the stack trace, you should see the parameters sent and the list of responses. The last response should have no test function (or a test function that always returns true).');
         console.log(params);
         console.log(list);
@@ -1154,12 +1157,12 @@ testForRecursion: function (char: any, item: any) {
         if (params.char) {
           params.char.msg(response.msg, params);
         } else {
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
           Quest.IO.msg(response.msg, params);
         }
       }
       if (!response.script && !response.msg && !response.failed) {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         Quest.IO.errormsg('No script or msg for response');
         console.log(response);
       }

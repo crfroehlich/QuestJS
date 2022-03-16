@@ -9,7 +9,7 @@ register('normality', {
   walls:   'The walls are all panelled in wood.',
 });
 
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
+// ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 Quest.World.createRoom('lounge', {
   desc:    'This is a cosy room. After the chaos of the last few hours, there is a strange sense of normality here; the comfy chairs around the fireplace, the ornaments on the mantelpiece.|The way out of the house -- and back to her routine life, Mandy suspects -- is west.',
   scenery: [
@@ -35,19 +35,19 @@ Quest.World.createRoom('lounge', {
 
   ],
 
-  // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
   west: new Quest.World.Exit('_', {
     use() {
       if (Quest.World.player.easterEgg) {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg('Mandy steps out of the house, and into the garden. She has escaped at last. Now all she has to worry about is exams in two weeks... But at least she knows what will be on the papers, and has seen the future-Mandy confidently answering the questions. She smiles to herself, feeling strangely confident about the future.');
       } else {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg('Mandy steps out of the house, and into the garden. She has escaped at last. Now all she has to worry about is exams in two weeks. Assuming it is still the thirteenth of May, 2016...');
       }
       Quest.IO.blankLine();
       Quest.IO.msg('T H E &nbsp;&nbsp;&nbsp;&nbsp;  E N D', {}, 'centred');
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'finish' does not exist on type '{ nextid... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'finish' does not exist on type '{ nextid... Remove this comment to see the full error message
       Quest.IO.io.finish();
       return false;
     },

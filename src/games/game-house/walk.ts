@@ -1,4 +1,4 @@
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'b' does not exist on type '{ c: string[]... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'b' does not exist on type '{ c: string[]... Remove this comment to see the full error message
 walkthroughs.b = [
 
   // You can try heading north or south, but will not get anywhere. You can try looking in windows, knocking o the door. What you need to do is get the letter, and then you can head east.

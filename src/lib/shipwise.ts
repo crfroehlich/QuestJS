@@ -9,7 +9,7 @@ namespace Quest {
     {
       abbrev: 'FS', key: 105, name: 'forward-starboard', niceDir: 'forward-starboard', opp: 'aft-port', rotate: 45, symbol: 'fa-arrow-up', type: 'compass', x: 1, y: 1, z: 0,
     },
-    // @ts-expect-error ts-migrate(2322) FIXME: Type '{ name: string; abbrev: string; alt: string;... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2322) FIXME: Type '{ name: string; abbrev: string; alt: string;... Remove this comment to see the full error message
     {
       abbrev: 'In', alt: 'enter', name: 'in', niceDir: 'inside', opp: 'out', symbol: 'fa-sign-in-alt', type: 'inout',
     },
@@ -26,7 +26,7 @@ namespace Quest {
     {
       abbrev: 'S', key: 102, name: 'starboard', niceDir: 'starboard', opp: 'port', symbol: 'fa-arrow-right', type: 'compass', x: 1, y: 0, z: 0,
     },
-    // @ts-expect-error ts-migrate(2322) FIXME: Type '{ name: string; abbrev: string; alt: string;... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2322) FIXME: Type '{ name: string; abbrev: string; alt: string;... Remove this comment to see the full error message
     {
       abbrev: 'Out', alt: 'exit|o', name: 'out', niceDir: 'outside', opp: 'in', symbol: 'fa-sign-out-alt', type: 'inout',
     },

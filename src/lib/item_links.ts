@@ -70,22 +70,22 @@ This means if the item changes its alias, the text could get changed.
 //---
 // @UNDOC
 const itemLinks = {};
-// @ts-expect-error ts-migrate(2345) FIXME: Argument of type '{}' is not assignable to paramet... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2345) FIXME: Argument of type '{}' is not assignable to paramet... Remove this comment to see the full error message
 Quest.IO.io.modulesToUpdate.push(itemLinks);
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'update' does not exist on type '{}'.
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'update' does not exist on type '{}'.
 itemLinks.update = function () {
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'linksEnabled' does not exist on type '{ ... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'linksEnabled' does not exist on type '{ ... Remove this comment to see the full error message
   if (!Quest.Settings.settings.linksEnabled) return;
 
   for (const el of document.querySelectorAll('.object-link')) {
-    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     const obj = Quest.World.w[el.dataset.objname];
     if (obj.scopeStatus.canReach || obj.scopeStatus.visible) {
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'disableItemLink' does not exist on type ... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'disableItemLink' does not exist on type ... Remove this comment to see the full error message
       itemLinks.disableItemLink(el);
     } else {
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'updateItemLinks' does not exist on type ... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'updateItemLinks' does not exist on type ... Remove this comment to see the full error message
       itemLinks.updateItemLinks(el);
     }
   }
@@ -101,7 +101,7 @@ itemLinks.update = function () {
 // - ```obj``` - **&lt;OBJECT&gt;** The in-game item
 //
 //---
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'getVerbsLinks' does not exist on type '{... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'getVerbsLinks' does not exist on type '{... Remove this comment to see the full error message
 itemLinks.getVerbsLinks = function (obj) {
   if (!obj.getVerbs) return;  // if a room
 
@@ -114,20 +114,20 @@ itemLinks.getVerbsLinks = function (obj) {
   return s;
 };
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'itemClick' does not exist on type '{}'.
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'itemClick' does not exist on type '{}'.
 itemLinks.itemClick = function (el) {
   const originallyShown = el.nextSibling.style.display === 'block';
 
   for (const el of document.querySelectorAll('.dropdown-content')) {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'style' does not exist on type 'Element'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'style' does not exist on type 'Element'.
     el.style.display = 'none';
   }
   if (!originallyShown) el.nextSibling.style.display = 'block';
 };
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'itemLinkClick' does not exist on type '{... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'itemLinkClick' does not exist on type '{... Remove this comment to see the full error message
 itemLinks.itemLinkClick = function (el) {
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'toggleDisplay' does not exist on type '{... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'toggleDisplay' does not exist on type '{... Remove this comment to see the full error message
   Quest.IO.io.toggleDisplay(el.parentNode.parentNode);
   Quest.Utilities.runCmd(`${el.dataset.linkverb} ${el.dataset.objalias}`);
 };
@@ -140,7 +140,7 @@ itemLinks.itemLinkClick = function (el) {
 // - ```el``` - **&lt;OBJECT&gt;** The HTML element
 //
 //---
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'disableItemLink' does not exist on type ... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'disableItemLink' does not exist on type ... Remove this comment to see the full error message
 itemLinks.disableItemLink = function (el) {
   el.children[0].removeAttribute('onclick');
   el.classList.remove('object-link');
@@ -157,28 +157,28 @@ itemLinks.disableItemLink = function (el) {
 // - ```el``` - **&lt;OBJECT&gt;** The HTML element
 //
 //---
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'updateItemLinks' does not exist on type ... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'updateItemLinks' does not exist on type ... Remove this comment to see the full error message
 itemLinks.updateItemLinks = function (el) {
-  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   const obj   = Quest.World.w[el.dataset.objname];
   const alias = el.children[0].innerHTML;
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'nameTransformer' does not exist on type ... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'nameTransformer' does not exist on type ... Remove this comment to see the full error message
   el.innerHTML = Quest.Settings.settings.nameTransformer(alias, obj);
 };
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'updateItemLinks2' does not exist on type... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'updateItemLinks2' does not exist on type... Remove this comment to see the full error message
 itemLinks.updateItemLinks2 = function (el) {
-  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   const obj     = Quest.World.w[el.dataset.objname];
   const options = {};
-  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   for (const key in el.dataset) options[key] = Quest.Utilities.util.guessMyType(el.dataset[key]);
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'modified' does not exist on type '{}'.
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'modified' does not exist on type '{}'.
   options.modified = false;
   el.innerHTML     = Quest.lang.getName(obj, options);
 };
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'disableAllLinks' does not exist on type ... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'disableAllLinks' does not exist on type ... Remove this comment to see the full error message
 itemLinks.disableAllLinks = function (className) {
   for (const el of document.querySelectorAll(`.${className}`)) {
     el.removeAttribute('onclick');
@@ -203,28 +203,28 @@ itemLinks.disableAllLinks = function (className) {
 //
 // ---
 // @UNDOC
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'exitsHere' does not exist on type '{}'.
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'exitsHere' does not exist on type '{}'.
 Quest.Text.text_processors.exitsHere = function (arr, params) {
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'disableAllLinks' does not exist on type ... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'disableAllLinks' does not exist on type ... Remove this comment to see the full error message
   itemLinks.disableAllLinks('exit-link');
-  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   const list = Quest.World.w[Quest.World.player.loc].getExitDirs().map((el) => `<span class="exit-link" onclick="Quest.Utilities.runCmd('${el}')">${el}</span>`);
   return Quest.Utilities.formatList(list, { lastJoiner: Quest.lang.list_or, nothing: Quest.lang.list_nowhere });
 };
 
 // Set to ```true``` by this library to enable the links
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'linksEnabled' does not exist on type '{ ... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'linksEnabled' does not exist on type '{ ... Remove this comment to see the full error message
 Quest.Settings.settings.linksEnabled = true;
 
-// @ts-expect-error ts-migrate(2345) FIXME: Argument of type '() => void' is not assignable to... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2345) FIXME: Argument of type '() => void' is not assignable to... Remove this comment to see the full error message
 Quest.Settings.settings.afterFinish.push(() => {
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'disableAllLinks' does not exist on type ... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'disableAllLinks' does not exist on type ... Remove this comment to see the full error message
   itemLinks.disableAllLinks('exit-link');
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'disableAllLinks' does not exist on type ... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'disableAllLinks' does not exist on type ... Remove this comment to see the full error message
   itemLinks.disableAllLinks('dropdown');
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'disableAllLinks' does not exist on type ... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'disableAllLinks' does not exist on type ... Remove this comment to see the full error message
   itemLinks.disableAllLinks('droplink');
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'disableAllLinks' does not exist on type ... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'disableAllLinks' does not exist on type ... Remove this comment to see the full error message
   itemLinks.disableAllLinks('cmd-link');
 });
 
@@ -241,9 +241,9 @@ Quest.Settings.settings.afterFinish.push(() => {
 // - ```obj``` - **&lt;OBJECT&gt;** The in-game item
 //
 //---
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'nameTransformer' does not exist on type ... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'nameTransformer' does not exist on type ... Remove this comment to see the full error message
 Quest.Settings.settings.nameTransformer = function (alias, obj, options) {
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'linksEnabled' does not exist on type '{ ... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'linksEnabled' does not exist on type '{ ... Remove this comment to see the full error message
   if (!Quest.Settings.settings.linksEnabled) return alias;
 
   let s = `<span class="object-link dropdown" data-objname="${obj.name}"`;
@@ -252,7 +252,7 @@ Quest.Settings.settings.nameTransformer = function (alias, obj, options) {
   s += `obj="${obj.name}" class="droplink" name="${obj.name}-link">${alias}</span>`;
   s += `<span obj="${obj.name}" class="dropdown-content">`;
   s += `<span obj="${obj.name}-verbs-list-holder">`;
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'getVerbsLinks' does not exist on type '{... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'getVerbsLinks' does not exist on type '{... Remove this comment to see the full error message
   s += itemLinks.getVerbsLinks(obj);
   s += '</span></span></span>';
   return s;

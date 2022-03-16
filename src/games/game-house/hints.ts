@@ -1,36 +1,36 @@
 const hintSystem = {};
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'toWiki' does not exist on type '{}'.
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'toWiki' does not exist on type '{}'.
 hintSystem.toWiki = function () {
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'hints' does not exist on type '{}'.
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'hints' does not exist on type '{}'.
   for (const el of hintSystem.hints) {
     Quest.IO.blankLine();
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg('***');
     Quest.IO.blankLine();
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg(`#### ${el.name}`);
     for (const [i, value] of el.hints.entries()) {
       Quest.IO.blankLine();
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg('&lt;details>');
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg(` &lt;summary>Clue ${Quest.lang.toWords(i + 1)}&lt;/summary>`);
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg(` ${value}`);
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg('&lt;/details>');
     }
   }
 };
 
 Quest.Command.findCmd('MetaHint').script = function () {
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'hints' does not exist on type '{}'.
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'hints' does not exist on type '{}'.
   if (!Quest.World.player.hintCounter) Quest.World.player.hintCounter = new Array(hintSystem.hints.length).fill(0);
 
   return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
 };
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'hints' does not exist on type '{}'.
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'hints' does not exist on type '{}'.
 hintSystem.hints = [
   {
     hints: [

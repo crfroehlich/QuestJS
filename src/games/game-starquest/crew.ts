@@ -1,11 +1,11 @@
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+// ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 Quest.World.createItem('player', Quest.Templates.PLAYER(), {
   crewSummary:                '',
   loc:                        'bridge',
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
   missionStart_assemble_crew: Quest.World.w.ship.dateTime,
 
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
   missionStart_sector_7_iota: Quest.World.w.ship.dateTime,
 
   mission_assemble_crew: 1,
@@ -14,7 +14,7 @@ Quest.World.createItem('player', Quest.Templates.PLAYER(), {
 });
 
 // Your boss
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+// ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 Quest.World.createItem('nagoshima', Quest.NPC.NPC(true), {
   alias: 'Commander Nagoshima',
 
@@ -51,14 +51,14 @@ Quest.World.createItem('nagoshima', Quest.NPC.NPC(true), {
   ],
 
   examine: 'Despite her striking black hair, which she wears in a neat bun, you would judge Commander Nagoshima to be in her fifties. You find yourself warming to her smile.',
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
   isAtLoc(loc: any, situation: any) {
     return situation === Quest.World.world.PARSER && Quest.World.w.ship.onView === this.name;
   },
   properNoun: true,
 });
 
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+// ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 Quest.World.createItem('yeoman', Quest.NPC.NPC(true), {
   alias:      'Yeoman Rand',
   convTopics: [
@@ -66,13 +66,13 @@ Quest.World.createItem('yeoman', Quest.NPC.NPC(true), {
       alias: 'Are you settling in okay?',
       name:  'yeoman_settling_in',
       script() {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Are you settling in okay?' you ask Yeoman Rand.");
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Yes, {sir}. It's much bigger than the ships I'm used to, but I'm finding my way around.'");
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Well, I'm not used to commanding anything this big. We'll both have to get used to it.'");
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Yes {sir}.'");
       },
       showTopic: true,
@@ -82,17 +82,17 @@ Quest.World.createItem('yeoman', Quest.NPC.NPC(true), {
       name:    'yeoman_academy',
       nowShow: ['yeoman_dewar_pun'],
       script() {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'What academy did you graduate from?' you ask Yeoman Rand.");
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Nairobi, Earth, {sir}.'");
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Must've been hot.'");
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'They do have air con there... But outside, yes, it could be very hot.'");
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'I'm a Mars alumni myself. I wanted to get out into space as soon as possible, and that seemed like the first step.'");
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Oh, I was born on Dewar III. I suppose I did it in reverse. I wanted to go to the centre of it all - Earth.'");
       },
       showTopic: true,
@@ -101,9 +101,9 @@ Quest.World.createItem('yeoman', Quest.NPC.NPC(true), {
       alias: 'Is it always the same temperature of Dewar III?',
       name:  'yeoman_dewar_pun',
       script() {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'So is it always the same temperature of Dewar III?' you ask with a smile, recalling that James Dewar invented the vacuum flask.");
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("She signs. 'Hilarius, sir. In fact the region where I was raised was notable for its extremes of temperature.'");
       },
     },
@@ -113,9 +113,9 @@ Quest.World.createItem('yeoman', Quest.NPC.NPC(true), {
 
       name: 'yeoman_call_me_maam',
       script() {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'I prefer ma'am to sir,' you tell the yeoman.");
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'As you wish, ma'am.'");
         Quest.World.player.callmemaam = true;
       },
@@ -128,48 +128,48 @@ Quest.World.createItem('yeoman', Quest.NPC.NPC(true), {
 
 const CANDIDATE = function (female: any) {
   const res = Quest.NPC.NPC(female);
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'candidate' does not exist on type '{ can... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'candidate' does not exist on type '{ can... Remove this comment to see the full error message
   res.candidate = true;
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'properNoun' does not exist on type '{ ca... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'properNoun' does not exist on type '{ ca... Remove this comment to see the full error message
   res.properNoun = true;
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'dutiesDiag' does not exist on type '{ ca... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'dutiesDiag' does not exist on type '{ ca... Remove this comment to see the full error message
   res.dutiesDiag = function () {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
     Quest.Settings.settings.startingDialogHtml = `<p>Name: <i>${this.alias}</i></p>`;
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
     Quest.Settings.settings.startingDialogHtml += `<p>Species: <i>${this.species}</i></p>`;
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
     Quest.Settings.settings.startingDialogHtml += `<p>Comments: <i>${this.cv}</i></p>`;
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
     Quest.Settings.settings.startingDialogHtml += `<input type="hidden" name="name" id="diag-name" value="${this.name}"/>`;
     for (const role of roster.data) {
       const npc = roster.getOfficer(role.name);
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
       if (!Quest.World.w.ship.arrivedAtSector) {
         if (npc === this) {
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
           Quest.Settings.settings.startingDialogHtml += `<p><input type="checkbox" name="${role.name}" id="diag-${role.name}" checked="yes"/> ${role.alias}</p>`;
         } else if (npc) {
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
           Quest.Settings.settings.startingDialogHtml += `<p><input type="checkbox" checked="yes" disabled="yes"/> ${role.alias}: <i>${npc.alias}</i></p>`;
         } else {
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
           Quest.Settings.settings.startingDialogHtml += `<p><input type="checkbox" name="${role.name}" id="diag-${role.name}"/> ${role.alias}</p>`;
         }
       } else if (npc === this) {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
         Quest.Settings.settings.startingDialogHtml += `<p>Assigned as: ${role.alias}</p>`;
       }
     }
 
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'dialogType' does not exist on type '{ pe... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'dialogType' does not exist on type '{ pe... Remove this comment to see the full error message
     Quest.Settings.settings.dialogType = 'crew roster';
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'setUpDialog' does not exist on type '{ p... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'setUpDialog' does not exist on type '{ p... Remove this comment to see the full error message
     Quest.Settings.settings.setUpDialog();
   };
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'entering' does not exist on type '{ canR... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'entering' does not exist on type '{ canR... Remove this comment to see the full error message
   if (!res.entering) res.entering = '{nm:char} enters the bridge.';
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'leaving' does not exist on type '{ canRe... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'leaving' does not exist on type '{ canRe... Remove this comment to see the full error message
   if (!res.leaving) res.leaving = '{nm:char} leaves the bridge.';
   return res;
 };
@@ -186,11 +186,11 @@ const getCandidates = function () {
 
 const belongsToHelm = function (loc: any) {
   log(loc);
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
   return Quest.World.w.ship.helm && loc === Quest.World.w.ship.helm;
 };
 
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+// ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 Quest.World.createItem('sharraaa', CANDIDATE(false), {
   alias:       'Sharraaa',
   alreadyHere: 'Sharraaa slumps a little in his bucket. For a moment, you wonder what is wrong, then realise you are already here.',
@@ -213,7 +213,7 @@ Quest.World.createItem('sharraaa', CANDIDATE(false), {
   weapons:     '5',
 });
 
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+// ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 Quest.World.createItem('farrington_moss', CANDIDATE(false), {
   alias:       'Farrington Moss',
   alreadyHere: "'{Sir}, we're already here.'",
@@ -236,7 +236,7 @@ Quest.World.createItem('farrington_moss', CANDIDATE(false), {
   weapons:     '5',
 });
 
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+// ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 Quest.World.createItem('lashirr_hrong', CANDIDATE(true), {
   alias:       'Lashirr Hrong',
   alreadyHere: "Lashirr starts to type in the co-ordinates, then pauses, humming thoughtfully. 'Captain, I believe we're already here.'",
@@ -258,7 +258,7 @@ Quest.World.createItem('lashirr_hrong', CANDIDATE(true), {
   weapons:     '2',
 });
 
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+// ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 Quest.World.createItem('dakota_north', CANDIDATE(true), {
   alias:       'Dakota North',
   alreadyHere: "'With respect, {sir}, I think we are already here.'",
@@ -281,7 +281,7 @@ Quest.World.createItem('dakota_north', CANDIDATE(true), {
   weapons:     '9',
 });
 
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+// ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 Quest.World.createItem('river_severn', CANDIDATE(true), {
   alias:       'River Severn',
   alreadyHere: "'We're already here,' says River with a smirk.",
@@ -292,9 +292,9 @@ Quest.World.createItem('river_severn', CANDIDATE(true), {
       alias: 'Incident at MIT',
       name:  'river_incident_mit',
       script() {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Your record mentions an \"incident\" while you were at MIT.'");
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Too dreadful to mention!' she says, with a straight face. Then she smiles. 'No, it was just some wild parties that got seriously out of control. Good times... But the university starting saying the damage had to be paid for, so I had to get a proper job. Bummer. I mean, no offense, but when do you guys smile?'");
       },
       showTopic: true,
@@ -317,7 +317,7 @@ Quest.World.createItem('river_severn', CANDIDATE(true), {
   weapons:     '1',
 });
 
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+// ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 Quest.World.createItem('milton_keynes', CANDIDATE(false), {
   alias:       'Milton Keynes',
   alreadyHere: "'That's where we're already at, {sir}.'",
@@ -328,15 +328,15 @@ Quest.World.createItem('milton_keynes', CANDIDATE(false), {
       alias: 'Religion',
       name:  'milton_religion',
       script() {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'I hear you're a religious man, Milton.'");
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Indeed, {sir}. Janus, the bifold godhead, the One True Religion.'");
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Er, remind me...'");
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'The twin gods, Yinus and Yango, that rules our lives. Yinus the goddess who controls all that is moving, the flowing river of time, the entropy of the universe. Yango the god, controlling all that is static, the foundations of the Quest.World.world, the energy of the universe. I'll give you one of my pamphlets; it explains how the whole of creation is set out in the Book of the All, written by the prophet.'");
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Yeah, I'll read it... later. I guess.'");
       },
       showTopic: true,
@@ -359,7 +359,7 @@ Quest.World.createItem('milton_keynes', CANDIDATE(false), {
   weapons:     '4',
 });
 
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+// ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 Quest.World.createItem('norton_canes', CANDIDATE(false), {
   alias:       'Norton Canes',
   alreadyHere: "'We're 'ere already, guv.'",
@@ -370,13 +370,13 @@ Quest.World.createItem('norton_canes', CANDIDATE(false), {
       alias: 'Storm of Fury',
       name:  'norton_storm_of_fury',
       script() {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'So you served on the Storm of Fury?' you ask Norton.");
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'That's right, guv, under Captain Mallet. Good ship that Storm of Fury, bigger than this one, that's for sure.'");
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'And you resigned?'");
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Yeah... All a bit awkward really. There was these... mistakes in the inventory. Seemed best all around if I just walked away from it.'");
       },
       showTopic: true,
@@ -385,13 +385,13 @@ Quest.World.createItem('norton_canes', CANDIDATE(false), {
       alias: 'Demonic Trout',
       name:  'norton_demonic_trout',
       script() {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'You were on the Demonic Trout?'");
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Yeah, gov. Right tug it was. Maximum warp two point three if you was lucky.'");
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'And you resigned from it?'");
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Couldn't get off it quick enough. First sign of trouble, I was out of there.'");
       },
       showTopic: true,
@@ -400,9 +400,9 @@ Quest.World.createItem('norton_canes', CANDIDATE(false), {
       alias: 'Marking irregularies',
       name:  'marking_irregularies',
       script() {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'I heard there were marking irregularities when you graduated.'");
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Stone me, that story gets round fast, gov. I don't know much about it really, but there was a right brouhaha. Well, I suppose it's only to be expected. You work 'ard for years, then some joker goes and... I was right dischuffed. We all was.'");
       },
       showTopic: true,
@@ -425,7 +425,7 @@ Quest.World.createItem('norton_canes', CANDIDATE(false), {
   weapons:     '7',
 });
 
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+// ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 Quest.World.createItem('info', CANDIDATE(false), {
   alias:       'Info',
   alreadyHere: "Beep. Beep. Beep. 'Current location.' Beep. Beep. Beep.",
@@ -448,7 +448,7 @@ Quest.World.createItem('info', CANDIDATE(false), {
   weapons:     '4',
 });
 
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+// ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 Quest.World.createItem('restrel_juazz', CANDIDATE(true), {
   alias:       'Restrel Juazz',
   alreadyHere: "'We're already here,' says Restral pointedly.",
@@ -458,13 +458,13 @@ Quest.World.createItem('restrel_juazz', CANDIDATE(true), {
     {
       alias: 'Peace treaty',
       script() {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'What's your take on the peace treaty, Restrel?'");
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'I just hope it lasts, {sir}. I know many Chal are concerned; how can we have peace with such blood-thirsty people? Many are worried it is a ploy to learn our secrets, steal our technology.'");
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'What about you?'");
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'I... know it's a possibility, but I think we have to at least make the effort to make this work.'");
       },
       showTopic: true,
@@ -472,9 +472,9 @@ Quest.World.createItem('restrel_juazz', CANDIDATE(true), {
     {
       alias: 'Earth technology',
       script() {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'How are you coping with earth technology, Restrel?'");
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg("'Okay, I think. To be honest, the hardest part was the language. The science is more a question of perspective and the engineering is - well, just fascinating.'");
       },
       showTopic: true,
@@ -496,36 +496,36 @@ Quest.World.createItem('restrel_juazz', CANDIDATE(true), {
   weapons:     '5',
 });
 
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+// ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 Quest.World.createItem('helmsman_go_to_7iota', Quest.NPC.TOPIC(true), {
   alias:     'Lay in a course for 7 Iota',
   belongsTo: belongsToHelm,
   nowShow:   ['helmsman_go_to_star', 'helmsman_go_to_location'],
   script() {
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg("'Lay in a course for sector 7 Iota,' you say to {role:helm:formalName}, 'warp factor 4.'");
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg(`{role:helm:ayeaye} ${roster.getOfficer('helm').firstFlight}`);
     Quest.IO.hr();
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg("Nine days later you arrive at Star Base 142. Yeoman Rand walks on to the bridge. 'Sir, we have a communication from the Star Base.'");
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg("'Main screen, yeoman.'");
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg("'Yes Sir.'");
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg("A woman's face appears on the screen, Commander Nagoshima you assume, noting the rank of her uniform. 'Welcome to the ass-end of the galaxy, Captain' she says with a smile. 'It's good to have a ship around that can actually do something. I've sent over the mission briefs; they should be on your PAGE.'");
     stars.arriveAtSector();
   },
 });
 
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+// ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 Quest.World.createItem('helmsman_go_to_star', Quest.NPC.TOPIC(false), {
   alias:     'Lay in a course for star...',
   belongsTo: belongsToHelm,
   hideAfter: false,
   script() {
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
     Quest.IO.showMenuDiag('Which star system?', stars.getStarNames(), (result: any) => {
       log(result);
       if (result === Quest.lang.never_mind) return;
@@ -536,7 +536,7 @@ Quest.World.createItem('helmsman_go_to_star', Quest.NPC.TOPIC(false), {
   },
 });
 
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+// ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 Quest.World.createItem('helmsman_go_to_location', Quest.NPC.TOPIC(false), {
   alias:     'Lay in a course for location in this system...',
   belongsTo: belongsToHelm,

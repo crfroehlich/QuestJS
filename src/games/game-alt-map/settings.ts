@@ -15,7 +15,7 @@ Quest.Settings.settings.status = [
   function () {
     return `<td>Health points:</td><td>${Quest.World.player.hitpoints}</td>`;
   },
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'getDateTime' does not exist on type '{}'... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'getDateTime' does not exist on type '{}'... Remove this comment to see the full error message
   function () {
     return `<td colspan="2">${Quest.Utilities.util.getDateTime()}</td>`;
   },
@@ -30,7 +30,7 @@ Quest.Settings.settings.roomTemplate = [
 
 Quest.Settings.settings.mapAndImageCollapseAt = 1000;
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'mapImages' does not exist on type '{ per... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'mapImages' does not exist on type '{ per... Remove this comment to see the full error message
 Quest.Settings.settings.mapImages = [
   {
     file:   'game-alt-map/map.png',
@@ -46,10 +46,10 @@ Quest.Settings.settings.mapImages = [
   },
 ];
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'mapScrollSpeed' does not exist on type '... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'mapScrollSpeed' does not exist on type '... Remove this comment to see the full error message
 Quest.Settings.settings.mapScrollSpeed = 1;
 Quest.Settings.settings.mapStyle       = {
-  // @ts-expect-error ts-migrate(2322) FIXME: Type '{ right: string; top: string; width: string;... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2322) FIXME: Type '{ right: string; top: string; width: string;... Remove this comment to see the full error message
   border: '3px black solid',
 
   height: '400px',
@@ -60,15 +60,15 @@ Quest.Settings.settings.mapStyle       = {
 
   width: '400px',
 };
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'mapMarker' does not exist on type '{ per... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'mapMarker' does not exist on type '{ per... Remove this comment to see the full error message
 Quest.Settings.settings.mapMarker = function (loc: any) {
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'polygon' does not exist on type '{ toggl... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'polygon' does not exist on type '{ toggl... Remove this comment to see the full error message
   return map.polygon(loc, [
     [0, 0], [-5, -25], [-7, -20], [-18, -45], [-20, -40], [-25, -42], [-10, -18], [-15, -20],
   ], 'stroke:none;fill:black;pointer-events:none;opacity:0.5');
 };
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'mapPointsOfInterest' does not exist on t... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'mapPointsOfInterest' does not exist on t... Remove this comment to see the full error message
 Quest.Settings.settings.mapPointsOfInterest = [
   {
     fill: 'red', mapX: 100, mapY: 100, text: 'Here is one thing',
@@ -111,12 +111,12 @@ Quest.Settings.settings.dateTime = {
       return dict.hour < 12 ? 'am' : 'pm';
     },
     dayOfWeek(dict: any) {
-      // @ts-expect-error ts-migrate(2551) FIXME: Property 'days' does not exist on type '{ year: st... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2551) FIXME: Property 'days' does not exist on type '{ year: st... Remove this comment to see the full error message
       return Quest.Settings.settings.dateTime.days[(dict.day + 365 * dict.year) % Quest.Settings.settings.dateTime.days.length];
     },
     dayOfYear(dict: any) {
       let { day } = dict;
-      // @ts-expect-error ts-migrate(2551) FIXME: Property 'months' does not exist on type '{ year: ... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2551) FIXME: Property 'months' does not exist on type '{ year: ... Remove this comment to see the full error message
       for (const el of Quest.Settings.settings.dateTime.months) {
         if (el.n > day) return `${day + 1} ${el.name}`;
         day -= el.n;
@@ -147,6 +147,6 @@ Quest.Settings.settings.dateTime = {
   ],
 
   secondsPerTurn: 60,
-  // @ts-expect-error ts-migrate(2322) FIXME: Type '{ startTime: number; secondsPerTurn: number;... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2322) FIXME: Type '{ startTime: number; secondsPerTurn: number;... Remove this comment to see the full error message
   startTime:      1000000000,
 };

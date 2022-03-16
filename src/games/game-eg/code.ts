@@ -1,26 +1,26 @@
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'create' does not exist on type '{ INITIA... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'create' does not exist on type '{ INITIA... Remove this comment to see the full error message
 Quest.quest.create('A carrot for Buddy', [
   { text: 'Go find a carrot.' },
   { text: 'Give the carrot to Buddy.' },
 ]);
 
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.unshift(new Quest.Command.Cmd('TestInput', {
   npcCmd: true,
 
   regex: /^inp/,
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
   rules: [Quest.Command.cmdRules.isPresent],
   script() {
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg('First some preamble...');
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'book' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'book' does not exist on type '{}'.
     Quest.IO.showMenu('What colour?', [Quest.World.w.book, Quest.World.w.coin, Quest.World.w.Kyle, 'None of them'], (result: any) => {
       if (typeof result === 'string') {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg(`You picked ${result}.`);
       } else {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
         Quest.IO.msg(`You picked ${Quest.lang.getName(result, { article: Quest.Utilities.DEFINITE })}.`);
       }
     });
@@ -33,15 +33,15 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('TestInput', {
   },
 }));
 
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.unshift(new Quest.Command.Cmd('TextReveal', {
   regex: /^reveal$/,
   script() {
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg('Some text');
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg('More');
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'unscrambleEffect' does not exist on type... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'unscrambleEffect' does not exist on type... Remove this comment to see the full error message
     Quest.IO.msg('The characters will appear randomly from dots.', {}, {
       action: 'effect',
       effect: Quest.IO.io.unscrambleEffect,
@@ -51,11 +51,11 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('TextReveal', {
       randomPlacing: true,
       tag:           'p',
     });
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 0.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 0.
     Quest.IO.wait();
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'typewriterEffect' does not exist on type... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'typewriterEffect' does not exist on type... Remove this comment to see the full error message
     Quest.IO.msg('Or appears as though typed.', {}, { action: 'effect', effect: Quest.IO.io.typewriterEffect, tag: 'p' });
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'unscrambleEffect' does not exist on type... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'unscrambleEffect' does not exist on type... Remove this comment to see the full error message
     Quest.IO.msg('The real message is revealed!!', {}, {
       action:    'effect',
       effect:    Quest.IO.io.unscrambleEffect,
@@ -66,66 +66,66 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('TextReveal', {
       randomPlacing: true,
       tag:           'pre',
     });
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 0.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 0.
     Quest.IO.wait();
     Quest.IO.clearScreen();
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg('Some more text.');
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
     Quest.IO.wait(3, 'Wait three seconds...');
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg('... and done!');/**/
   },
 }));
 
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.unshift(new Quest.Command.Cmd('Image', {
   regex: /^img$/,
   script() {
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg('Some more text.');
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.picture('favicon.png');
   },
 }));
 
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.unshift(new Quest.Command.Cmd('Audio', {
   regex: /^beep$/,
   script() {
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg('Can you hear this?');
     Quest.IO.sound('hrn06.wav');
   },
 }));
 
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.unshift(new Quest.Command.Cmd('Alpha', {
   regex: /^alpha$/,
   script() {
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg('Some text in Greek: {encode:391:3AC:The quick brown fox jumped over the lazy dog}.');
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg('Some text in Cyrillic: {encode:402:431:The quick brown fox jumped over the lazy dog}.');
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg('Some text in Armenian {encode:531:561:The quick brown fox jumped over the lazy dog}.');
 
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg('Some text in Devanagari: {encode:904:904:The quick brown fox jumped over the lazy dog}.');
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg('Some text in Thai {encode:E01:E01:The quick brown fox jumped over the lazy dog}.');
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg('Some text in Tibetan {encode:F20:F20:The quick brown fox jumped over the lazy dog}.');
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg('Some text in Khmer {encode:1780:1780:The quick brown fox jumped over the lazy dog}.');
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg('Some text in Javan {encode:A985:A985:The quick brown fox jumped over the lazy dog}.');
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg('Some text in Nko {encode:7C1:7C1:The quick brown fox jumped over the lazy dog}.');
   },
 }));
 
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.unshift(new Quest.Command.Cmd('DialogTest', {
   npcCmd:  true,
   objects: [
@@ -133,20 +133,20 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('DialogTest', {
   ],
   regex: /^(?:dialog) (.*)$/,
   script(objects: any) {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'currentCommand' does not exist on type '... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'currentCommand' does not exist on type '... Remove this comment to see the full error message
     const funcName = Quest.Parser.parser.currentCommand.tmp.string.replace(/dialog /i, '');
     console.log(`Testing dialog: ${funcName}`);
     const choices = ['red', 'yellow', 'blue'];
-    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     Quest.IO.io.menuFunctions[funcName]('Pick a colour?', choices, (result: any) => {
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg(`You picked ${result}`);
     });
     return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
   },
 }));
 
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.unshift(new Quest.Command.Cmd('TextTest', {
   npcCmd:  true,
   objects: [
@@ -154,14 +154,14 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('TextTest', {
   regex: /^(?:text)$/,
   script(objects: any) {
     Quest.IO.askDiag('What colour?', (result: any) => {
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg(`You picked ${result}.`);
     }, 'Go');
     return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
   },
 }));
 
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.unshift(new Quest.Command.Cmd('EgKick', {
   defmsg: '{pv:char:kick:true} {ob:item}, but nothing happens.',
 
@@ -169,32 +169,32 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('EgKick', {
 
   objects: [
     { special: 'ignore' },
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
     { scope: Quest.Parser.parser.isPresent },
   ],
 
   regex: /^(kick) (.+)$/,
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
   rules: [Quest.Command.cmdRules.isPresent],
 }));
 
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.unshift(new Quest.Command.Cmd('EgCharge', {
   defmsg: "{pv:item:'be:true} not something you can charge.",
 
   npcCmd: true,
 
   objects: [
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
     { scope: Quest.Parser.parser.isHeld },
   ],
 
   regex: /^(?:charge|power) (.+)$/,
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHeld' does not exist on type '{}'.
   rules: [Quest.Command.cmdRules.isHeld],
 }));
 
-// @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
 Quest.Commands.commands.unshift(new Quest.Command.Cmd('EgMove', {
   defmsg: "{pv:item:'be:true} not something you can move.",
 
@@ -202,19 +202,19 @@ Quest.Commands.commands.unshift(new Quest.Command.Cmd('EgMove', {
 
   objects: [
     { special: 'ignore' },
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
     { scope: Quest.Parser.parser.isHere },
   ],
 
   regex: /^(move) (.+)$/,
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'isPresent' does not exist on type '{}'.
   rules: [Quest.Command.cmdRules.isPresent],
 }));
 
 Quest.Command.findCmd('MetaHint').script = function () {
-  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   if (Quest.World.w[Quest.World.player.loc].hint) {
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     Quest.IO.metamsg(Quest.World.w[Quest.World.player.loc].hint);
   } else {
     return Quest.lang.hintScript();
@@ -241,31 +241,31 @@ const clues = [
 // How to save???
 Quest.Command.findCmd('MetaHint').script = function () {
   for (const clue of clues) {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'count' does not exist on type '{ questio... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'count' does not exist on type '{ questio... Remove this comment to see the full error message
     if (clue.count === undefined) clue.count = 0;
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     Quest.IO.metamsg(clue.question);
     for (let i = 0; i < clue.clues.length; i++) {
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'count' does not exist on type '{ questio... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'count' does not exist on type '{ questio... Remove this comment to see the full error message
       if (i < clue.count) {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         Quest.IO.metamsg(clue.clues[i]);
       } else {
         // hidden!!!
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+        // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         Quest.IO.metamsg(clue.clues[i]);
       }
     }
   }
 };
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
 Quest.Text.addDirective('charger_state', () => {
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'charger_compartment' does not exist on t... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'charger_compartment' does not exist on t... Remove this comment to see the full error message
   if (Quest.World.w.charger_compartment.closed) {
     return 'The compartment is closed';
   }
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'charger_compartment' does not exist on t... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'charger_compartment' does not exist on t... Remove this comment to see the full error message
   const contents = Quest.World.w.charger_compartment.getContents(Quest.World.world.LOOK);
   if (contents.length === 0) {
     return 'The compartment is empty';
@@ -273,7 +273,7 @@ Quest.Text.addDirective('charger_state', () => {
   return `The compartment contains ${Quest.Utilities.formatList(contents, { article: Quest.Utilities.INDEFINITE })}`;
 });
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'createVerbWith' does not exist on type '... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2339) FIXME: Property 'createVerbWith' does not exist on type '... Remove this comment to see the full error message
 Quest.lang.createVerbWith('Slice', { held: true, ing: 'Slicing' });
 
 /*

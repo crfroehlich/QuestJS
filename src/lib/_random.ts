@@ -109,7 +109,7 @@ namespace Quest {
             }
           } else {
             console.log(`Can't parse dice type (but will attempt to use what I can): ${dice}`);
-            // @ts-expect-error ts-migrate(2339) FIXME: Property 'errormsg' does not exist on type 'typeof... Remove this comment to see the full error message
+            // ts-error-fixed ts-migrate(2339) FIXME: Property 'errormsg' does not exist on type 'typeof... Remove this comment to see the full error message
             Quest.errormsg(`Can't parse dice type (but will attempt to use what I can): ${dice}`);
           }
         }

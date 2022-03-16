@@ -26,16 +26,16 @@ currentWeatherTotal
  \__/\_\\___/  |____| |____/    |_|        |___/     |____/
 */
 
-// @ts-expect-error ts-migrate(2345) FIXME: Argument of type '() => void' is not assignable to... Remove this comment to see the full error message
+// ts-error-fixed ts-migrate(2345) FIXME: Argument of type '() => void' is not assignable to... Remove this comment to see the full error message
 Quest.Settings.settings.afterTurn.push(() => {
   if (Quest.World.player.currentWeatherDisabled) return;
   if (Quest.World.player.currentWeatherName) {
-    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     weatherTypes[Quest.World.player.currentWeatherName].turn();
   } else {
     Quest.World.player.currentWeatherName  = Object.keys(weatherTypes)[0];
     Quest.World.player.currentWeatherCount = 0;
-    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     Quest.World.player.currentWeatherTotal = weatherTypes[Quest.World.player.currentWeatherName].getNumberOfTurns();
   }
 });
@@ -53,11 +53,11 @@ class Weather {
 
   constructor(name: any, data: any) {
     this.name = name;
-    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     for (const key in data) this[key] = data[key];
-    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     if (weatherTypes[name]) return Quest.IO.errormsg(`Two weather types called "${name}".`);
-    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     weatherTypes[name] = this;
   }
 
@@ -73,7 +73,7 @@ class Weather {
     }
     if (Quest.World.player.currentWeatherCount >= Quest.World.player.currentWeatherTotal) {
       const currentName = this.getNext();
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       const current                          = weatherTypes[currentName];
       Quest.World.player.currentWeatherName  = currentName;
       Quest.World.player.currentWeatherCount = 0;
@@ -83,9 +83,9 @@ class Weather {
   }
 
   outside(includeVisible: any) {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'weatherReportsAssumeYes' does not exist ... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'weatherReportsAssumeYes' does not exist ... Remove this comment to see the full error message
     if (Quest.Settings.settings.weatherReportsAssumeYes && Quest.World.currentLocation.noWeather) return false;
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'weatherReportsAssumeYes' does not exist ... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'weatherReportsAssumeYes' does not exist ... Remove this comment to see the full error message
     if (!Quest.Settings.settings.weatherReportsAssumeYes && !Quest.World.currentLocation.yesWeather) return false;
     if (includeVisible) return true;
     return !Quest.World.currentLocation.weatherModifier;
@@ -94,7 +94,7 @@ class Weather {
   report(s: any, options: any) {
     if (!this.outside(true)) return false;
     if (Quest.World.currentLocation.weatherModifier) s = Quest.World.currentLocation.weatherModifier.replace('#', s);
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
+    // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
     Quest.IO.msg(s, options);
     return true;
   }
@@ -113,7 +113,7 @@ new Weather('hot', {
     return 'It is hot!';
   },
 
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
   getNext() {
     return Quest.Random.rndm.fromArray(['hot', 'cloudingOver', 'stormPrelude']);
   },
@@ -132,7 +132,7 @@ new Weather('cloudingOver', {
     return 'It is getting cloudy.';
   },
 
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
   getNext() {
     return Quest.Random.rndm.fromArray(['rain', 'clearing', 'drizzle', 'cloudy']);
   },
@@ -149,7 +149,7 @@ new Weather('rain', {
     return 'It is raining.';
   },
 
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
   getNext() {
     return Quest.Random.rndm.fromArray(['rain', 'clearing', 'cloudy']);
   },
@@ -167,7 +167,7 @@ new Weather('cloudy', {
     return 'It is raining.';
   },
 
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
   getNext() {
     return Quest.Random.rndm.fromArray(['rain', 'clearing', 'cloudy']);
   },
@@ -185,7 +185,7 @@ new Weather('drizzle', {
     return 'There is a very light fall of rain; nt much more than mist really.';
   },
 
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
   getNext() {
     return Quest.Random.rndm.fromArray(['rain', 'clearing', 'drizzle', 'cloudy']);
   },
@@ -207,7 +207,7 @@ new Weather('clearing', {
     return 'The sky is clearing.';
   },
 
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
   getNext() {
     return Quest.Random.rndm.fromArray(['hot', 'cloudingOver']);
   },
@@ -238,7 +238,7 @@ new Weather('stormPrelude', {
     return 'It is getting cloudy, and the wind is picking up. A storm is coming.';
   },
 
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
   getNext() {
     return Quest.Random.rndm.fromArray(['storm']);
   },
@@ -255,7 +255,7 @@ new Weather('storm', {
     return 'It is raining hard; the wind is howling.';
   },
 
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'fromArray' does not exist on type '{ buf... Remove this comment to see the full error message
   getNext() {
     return Quest.Random.rndm.fromArray(['rain', 'clearing']);
   },
@@ -263,7 +263,7 @@ new Weather('storm', {
   getNumberOfTurns() {
     return 3;
   },
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'chance' does not exist on type '{ buffer... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'chance' does not exist on type '{ buffer... Remove this comment to see the full error message
   ongoing() {
     if (Quest.Random.rndm.chance(10)) this.report('A flash of lightning illuminates the landscape, and a moment later you hear the crack of thunder.');
   },

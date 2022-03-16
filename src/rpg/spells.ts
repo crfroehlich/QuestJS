@@ -74,7 +74,7 @@ namespace Quest {
     modifyOutgoingAttack(attack: any) {
       attack.element = 'storm';
       if (Quest.World.player.currentWeatherDisabled) return;
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       const weather = weatherTypes[Quest.World.player.currentWeatherName];
       if (!weather.outside()) {
         attack.abort = true;
@@ -231,7 +231,7 @@ namespace Quest {
       effect:      {
         category: 'protection',
         modifyIncomingAttack(attack: any) {
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'element' does not exist on type '{ categ... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'element' does not exist on type '{ categ... Remove this comment to see the full error message
           if (attack.element !== this.element) return;
           attack.damageMultiplier /= 3;
         },
@@ -248,7 +248,7 @@ namespace Quest {
       effect:      {
         category: 'protection',
         modifyIncomingAttack(attack: any) {
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'element' does not exist on type '{ categ... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'element' does not exist on type '{ categ... Remove this comment to see the full error message
           if (attack.element !== this.element) return;
           attack.damageMultiplier *= 3;
         },
@@ -265,7 +265,7 @@ namespace Quest {
       effect:      {
         category: 'protection',
         modifyIncomingAttack(attack: any) {
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'element' does not exist on type '{ categ... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'element' does not exist on type '{ categ... Remove this comment to see the full error message
           if (attack.element !== this.element) return;
           attack.damageMultiplier *= 0;
         },
@@ -368,7 +368,7 @@ namespace Quest {
         return '{nms:target:the:true} appearance returns to normal.';
       },
       start(target: any) {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'visage' does not exist on type '{ catego... Remove this comment to see the full error message
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'visage' does not exist on type '{ catego... Remove this comment to see the full error message
         target.visage === this.visage;
         return '{nv:target:have:true} now has a long, crocodilian snout, and green scales.';
       },
@@ -405,11 +405,11 @@ namespace Quest {
           return '{nms:target:the:true} appearance returns to normal.';
         },
         start(target: any) {
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'visage' does not exist on type '{ catego... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'visage' does not exist on type '{ catego... Remove this comment to see the full error message
           if (target.visage === this.visage) {
             return `{nv:target:have:true} still got ${this.visageData.skin} skin and ${this.visageData.hair} hair.`;
           }
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'visage' does not exist on type '{ catego... Remove this comment to see the full error message
+          // ts-error-fixed ts-migrate(2339) FIXME: Property 'visage' does not exist on type '{ catego... Remove this comment to see the full error message
           target.visage     = this.visage;
           target.visageSkin = this.visageData.skin;
           target.visageHair = this.visageData.hair;
@@ -466,9 +466,9 @@ namespace Quest {
     msgNoTarget: '{nv:attacker:cast:true} the {i:{nm:skill}} spell, but there are no locked doors.',
     targetEffect(attack: any, ex: any) {
       if (ex instanceof Quest.World.Exit) {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'nice' does not exist on type '{}'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'nice' does not exist on type '{}'.
         attack.msg(`The door to ${ex.nice()} unlocks.`, 1);
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'setLock' does not exist on type '{}'.
+        // ts-error-fixed ts-migrate(2339) FIXME: Property 'setLock' does not exist on type '{}'.
         ex.setLock(false);
       } else {
         attack.msg(Quest.Text.processText('{nv:item:unlock:true}.', { item: ex }), 1);
@@ -501,7 +501,7 @@ namespace Quest {
         return;
       }
       for (const el of attack.target.activeEffects) {
-        // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
+        // ts-error-fixed ts-migrate(2532) FIXME: Object is possibly 'undefined'.
         const s = Quest.RPG.rpg.findEffect(el).terminate(attack.target);
         attack.msg(s);
       }
@@ -513,7 +513,7 @@ namespace Quest {
     description: 'Dispels all elementals across the entire Quest.World.world!',
     icon:        'annul',
     targetEffect(attack: any) {
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
       Quest.RPG.rpg.broadcast('elementals', 'destroy', Quest.World.player);
       return true;
     },
@@ -636,7 +636,7 @@ namespace Quest {
     icon:        'moving',
     item:        'Stone_of_Returning',
     targetEffect(attack: any) {
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg('The air swirls around you, and everything blurs...');
       Quest.RPG.rpg.teleport(attack.target, Quest.World.w[this.item].loc);
       return true;
@@ -651,7 +651,7 @@ namespace Quest {
         attack.msg('The {i:Teleport} spell has no effect - no location has been marked!');
         return;
       }
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       Quest.IO.msg('The air swirls around you, and everything blurs...');
       Quest.RPG.rpg.teleport(attack.target, attack.target.activeTeleportLocation);
       return true;
@@ -673,7 +673,7 @@ namespace Quest {
     icon:        'weather',
     modifyOutgoingAttack(attack: any) {
       if (Quest.World.player.currentWeatherDisabled) return;
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       const weather = weatherTypes[Quest.World.player.currentWeatherName];
       if (!weather.outside()) {
         attack.abort = true;
@@ -686,7 +686,7 @@ namespace Quest {
     },
     targetEffect(attack: any) {
       const currentName = 'rain';
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       const current                          = weatherTypes[currentName];
       Quest.World.player.currentWeatherName  = currentName;
       Quest.World.player.currentWeatherCount = 0;
@@ -701,7 +701,7 @@ namespace Quest {
     icon:        'weather',
     modifyOutgoingAttack(attack: any) {
       if (Quest.World.player.currentWeatherDisabled) return;
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       const weather = weatherTypes[Quest.World.player.currentWeatherName];
       if (!weather.outside()) {
         attack.abort = true;
@@ -714,7 +714,7 @@ namespace Quest {
     },
     targetEffect(attack: any) {
       const currentName = 'clearingToHot';
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       const current                          = weatherTypes[currentName];
       Quest.World.player.currentWeatherName  = currentName;
       Quest.World.player.currentWeatherCount = 0;

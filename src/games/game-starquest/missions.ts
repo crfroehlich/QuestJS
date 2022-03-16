@@ -5,34 +5,34 @@ const missions = {
 
   add(data: any) {
     data.diag = function () {
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
       Quest.Settings.settings.startingDialogHtml = `<p>Name: <i>${this.alias}</i></p>`;
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
       Quest.Settings.settings.startingDialogHtml += '<p>Brief:</p>';
       const s                                     = (typeof this.brief === 'function') ? this.brief() : this.brief;
       const ary                                   = s.split('|');
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'startingDialogHtml' does not exist on ty... Remove this comment to see the full error message
       for (const el of ary) Quest.Settings.settings.startingDialogHtml += `<p><i>${el}</i></p>`;
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'setUpDialog' does not exist on type '{ p... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'setUpDialog' does not exist on type '{ p... Remove this comment to see the full error message
       Quest.Settings.settings.setUpDialog();
     };
     data.properNoun = true;
 
-    // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'any' is not assignable to parame... Remove this comment to see the full error message
+    // ts-error-fixed ts-migrate(2345) FIXME: Argument of type 'any' is not assignable to parame... Remove this comment to see the full error message
     this.data.push(data);
     if (data.star) stars.add(data.star);
     if (data.stars) {
       for (const star of data.stars) stars.add(star);
     }
     if (data.encyc) {
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+      // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       for (const key in data.encyc) encyclopedia[key] = data.encyc[key];
     }
   },
 
   data: [],
 
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'alias' does not exist on type 'never'.
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'alias' does not exist on type 'never'.
   find(alias: any) {
     return this.data.find((el) => el.alias.toLowerCase() === alias.toLowerCase());
   },
@@ -40,12 +40,12 @@ const missions = {
   getList() {
     const l: any = [];
     for (const el of this.data) {
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'name' does not exist on type 'never'.
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'name' does not exist on type 'never'.
       if (this.isActive(el.name)) l.push(el);
     }
     return l;
   },
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'name' does not exist on type 'never'.
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'name' does not exist on type 'never'.
   getMission(name: any) {
     return this.data.find((el) => el.name === name);
   },
@@ -54,13 +54,13 @@ const missions = {
   },
 
   getStatus(name: any) {
-    // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
+    // ts-error-fixed ts-migrate(2532) FIXME: Object is possibly 'undefined'.
     return this.isActive(name) ? this.getMission(name).steps[this.getState(name) - 1].alias : 'n/a';
   },
 
   init() {
     for (const m of this.data) {
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'start' does not exist on type 'never'.
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'start' does not exist on type 'never'.
       if (m.start) this.start(m.name);
     }
   },
@@ -73,7 +73,7 @@ const missions = {
   start(name: any) {
     const mission                         = this.getMission(name);
     Quest.World.player[`mission_${name}`] = 1;
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
     Quest.World.player[`missionStart_${name}`] = Quest.World.w.ship.dateTime;
   },
 };

@@ -1,4 +1,4 @@
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
+// ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
 Quest.World.createItem('me', Quest.Templates.PLAYER(), {
   examine:   'Just a regular guy.',
   hitpoints: 100,
@@ -6,7 +6,7 @@ Quest.World.createItem('me', Quest.Templates.PLAYER(), {
   regex:     /^(me|myself|player)$/,
 });
 
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
+// ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
 Quest.World.createRoom('lounge', {
   desc: 'The lounge is boring, the author really needs to put stuff in it.',
 });
