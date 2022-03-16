@@ -12,20 +12,24 @@ type TState = {
 
 interface IStore {
   actions: TActions;
+  callbacks: TCallback[];
+  initialState: TState;
   mutations: TMutations;
   state: TState;
   status: TStatus;
-  callbacks: TCallback[];
-  initialState: TState;
 }
 
 export class Store implements IStore {
-
   actions: TActions = {};
+
   mutations: TMutations = {};
+
   state: TState = {};
+
   status: TStatus = 'resting';
+
   callbacks: TCallback[] = [];
+
   initialState: TState = {};
 
   constructor(params: Partial<Store>) {
@@ -36,7 +40,6 @@ export class Store implements IStore {
     // state is passed in
     this.state = new Proxy((params.initialState || {}), {
       set(state: TState, key: string, value: any) {
-
         // Set the value as we would normally
         state[key] = value;
 
@@ -48,7 +51,7 @@ export class Store implements IStore {
         store.status = 'resting';
 
         return true;
-      }
+      },
     });
   }
 
@@ -62,7 +65,6 @@ export class Store implements IStore {
    * @memberof Store
    */
   dispatch(actionKey: string, payload: any) {
-
     const action = this.actions[actionKey];
     // Run a quick check to see if the action actually exists
     // before we try to run it
@@ -101,7 +103,7 @@ export class Store implements IStore {
     this.status = 'mutation';
 
     // Get a new version of the state by running the mutation and storing the result of it
-    let newState = mutation(this.state, payload);
+    const newState = mutation(this.state, payload);
 
     // Update the old state with the new state returned from our mutation
     this.state = newState;
@@ -123,7 +125,7 @@ export class Store implements IStore {
     }
 
     // We've got callbacks, so loop each one and fire it off
-    this.callbacks.forEach(callback => callback(data));
+    this.callbacks.forEach((callback) => callback(data));
 
     return true;
   }

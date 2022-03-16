@@ -1,23 +1,53 @@
 namespace Quest {
   Quest.lang.exit_list = [
-    { name: 'forward-port', abbrev: 'FP', niceDir: "forward-port", type: 'compass', key: 103, x: -1, y: 1, z: 0, opp: 'aft-starboard', symbol: 'fa-arrow-left', rotate: 45 },
-    { name: 'forward', abbrev: 'F', niceDir: "forward", type: 'compass', key: 104, x: 0, y: 1, z: 0, opp: 'aft', symbol: 'fa-arrow-up' },
-    { name: 'forward-starboard', abbrev: 'FS', niceDir: "forward-starboard", type: 'compass', key: 105, x: 1, y: 1, z: 0, opp: 'aft-port', symbol: 'fa-arrow-up', rotate: 45 },
+    {
+      abbrev: 'FP', key: 103, name: 'forward-port', niceDir: 'forward-port', opp: 'aft-starboard', rotate: 45, symbol: 'fa-arrow-left', type: 'compass', x: -1, y: 1, z: 0,
+    },
+    {
+      abbrev: 'F', key: 104, name: 'forward', niceDir: 'forward', opp: 'aft', symbol: 'fa-arrow-up', type: 'compass', x: 0, y: 1, z: 0,
+    },
+    {
+      abbrev: 'FS', key: 105, name: 'forward-starboard', niceDir: 'forward-starboard', opp: 'aft-port', rotate: 45, symbol: 'fa-arrow-up', type: 'compass', x: 1, y: 1, z: 0,
+    },
     // @ts-expect-error ts-migrate(2322) FIXME: Type '{ name: string; abbrev: string; alt: string;... Remove this comment to see the full error message
-    { name: 'in', abbrev: 'In', alt: 'enter', niceDir: "inside", type: 'inout', opp: 'out', symbol: 'fa-sign-in-alt' },
-    { name: 'up', abbrev: 'U', niceDir: "above", type: 'vertical', key: 107, x: 0, y: 0, z: 1, opp: 'down', symbol: 'fa-arrow-up' },
+    {
+      abbrev: 'In', alt: 'enter', name: 'in', niceDir: 'inside', opp: 'out', symbol: 'fa-sign-in-alt', type: 'inout',
+    },
+    {
+      abbrev: 'U', key: 107, name: 'up', niceDir: 'above', opp: 'down', symbol: 'fa-arrow-up', type: 'vertical', x: 0, y: 0, z: 1,
+    },
 
-    { name: 'port', abbrev: 'P', niceDir: "port", type: 'compass', key: 100, x: -1, y: 0, z: 0, opp: 'starboard', symbol: 'fa-arrow-left' },
-    { name: 'Look', abbrev: 'Lk', type: 'nocmd', key: 101, symbol: 'fa-eye' },
-    { name: 'starboard', abbrev: 'S', niceDir: "starboard", type: 'compass', key: 102, x: 1, y: 0, z: 0, opp: 'port', symbol: 'fa-arrow-right' },
+    {
+      abbrev: 'P', key: 100, name: 'port', niceDir: 'port', opp: 'starboard', symbol: 'fa-arrow-left', type: 'compass', x: -1, y: 0, z: 0,
+    },
+    {
+      abbrev: 'Lk', key: 101, name: 'Look', symbol: 'fa-eye', type: 'nocmd',
+    },
+    {
+      abbrev: 'S', key: 102, name: 'starboard', niceDir: 'starboard', opp: 'port', symbol: 'fa-arrow-right', type: 'compass', x: 1, y: 0, z: 0,
+    },
     // @ts-expect-error ts-migrate(2322) FIXME: Type '{ name: string; abbrev: string; alt: string;... Remove this comment to see the full error message
-    { name: 'out', abbrev: 'Out', alt: 'exit|o', niceDir: "outside", type: 'inout', opp: 'in', symbol: 'fa-sign-out-alt' },
-    { name: 'down', abbrev: 'Dn', alt: 'd', niceDir: "below", type: 'vertical', key: 109, x: 0, y: 0, z: -1, opp: 'up', symbol: 'fa-arrow-down' },
+    {
+      abbrev: 'Out', alt: 'exit|o', name: 'out', niceDir: 'outside', opp: 'in', symbol: 'fa-sign-out-alt', type: 'inout',
+    },
+    {
+      abbrev: 'Dn', alt: 'd', key: 109, name: 'down', niceDir: 'below', opp: 'up', symbol: 'fa-arrow-down', type: 'vertical', x: 0, y: 0, z: -1,
+    },
 
-    { name: 'aft-port', abbrev: 'AF', niceDir: "aft-port", type: 'compass', key: 97, x: -1, y: -1, z: 0, opp: 'forward-starboard', symbol: 'fa-arrow-down', rotate: 45 },
-    { name: 'aft', abbrev: 'A', niceDir: "aft", type: 'compass', key: 98, x: 0, y: -1, z: 0, opp: 'forward', symbol: 'fa-arrow-down' },
-    { name: 'aft-starboard', abbrev: 'AS', niceDir: "aft-starboard", type: 'compass', key: 99, x: 1, y: -1, z: 0, opp: 'forward-port', symbol: 'fa-arrow-right', rotate: 45 },
-    { name: 'Wait', abbrev: 'Z', type: 'nocmd', key: 110, symbol: 'fa-clock' },
-    { name: 'Help', abbrev: '?', type: 'nocmd', symbol: 'fa-info' },
+    {
+      abbrev: 'AF', key: 97, name: 'aft-port', niceDir: 'aft-port', opp: 'forward-starboard', rotate: 45, symbol: 'fa-arrow-down', type: 'compass', x: -1, y: -1, z: 0,
+    },
+    {
+      abbrev: 'A', key: 98, name: 'aft', niceDir: 'aft', opp: 'forward', symbol: 'fa-arrow-down', type: 'compass', x: 0, y: -1, z: 0,
+    },
+    {
+      abbrev: 'AS', key: 99, name: 'aft-starboard', niceDir: 'aft-starboard', opp: 'forward-port', rotate: 45, symbol: 'fa-arrow-right', type: 'compass', x: 1, y: -1, z: 0,
+    },
+    {
+      abbrev: 'Z', key: 110, name: 'Wait', symbol: 'fa-clock', type: 'nocmd',
+    },
+    {
+      abbrev: '?', name: 'Help', symbol: 'fa-info', type: 'nocmd',
+    },
   ];
 }

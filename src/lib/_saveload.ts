@@ -13,329 +13,269 @@ namespace Quest {
 
     export const saveLoad = {
 
-      getName: function (filename: any) {
-        return "QJS:" + Quest.Settings.settings.title + ":" + filename
-      },
+      // UTILs
+      // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'hash' implicitly has an 'any' type.
+      decode(hash, str) {
+        if (str.length === 0) return false;
+        const parts   = str.split(':');
+        const key     = parts[0];
+        const attType = parts[1];
+        const s       = parts[2];
 
-      saveGame: function (filename: any, overwrite: any) {
-        if (filename === undefined) {
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-          Quest.IO.errormsg(sl_no_filename);
-          return false;
+        if (attType === 'boolean') {
+          hash[key] = (s === 'true');
+        } else if (attType === 'number') {
+          hash[key] = parseFloat(s);
+        } else if (attType === 'string') {
+          hash[key] = Quest.SaveLoad.saveLoad.decodeString(s);
+        } else if (attType === 'array') {
+          hash[key] = Quest.SaveLoad.saveLoad.decodeArray(s);
+        } else if (attType === 'numberarray') {
+          hash[key] = Quest.SaveLoad.saveLoad.decodeNumberArray(s);
+        } else if (attType === 'emptyarray') {
+          hash[key] = [];
+        } else if (attType === 'emptystring') {
+          hash[key] = '';
+        } else if (attType === 'qobject') {
+          // this will cause an issue if it points to a clone that has not been done yet !!!
+          hash[key] = Quest.World.w[s];
         }
 
-        if (localStorage.getItem(this.getName(filename)) && !overwrite) {
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-          Quest.IO.metamsg(Quest.lang.sl_already_exists)
-          return
+        return key;
+      },
+
+      // @ts-expect-error ts-migrate(7006) FIXME: Parameter 's' implicitly has an 'any' type.
+      decodeArray(s) {
+        // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'el' implicitly has an 'any' type.
+        return s.split('~').map((el) => Quest.SaveLoad.saveLoad.decodeString(el));
+      },
+
+      
+      // @ts-expect-error ts-migrate(7006) FIXME: Parameter 's' implicitly has an 'any' type.
+decodeExit(s) {
+        // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'el' implicitly has an 'any' type.
+        return s.split('~').map((el) => Quest.SaveLoad.saveLoad.decodeString(el));
+      },
+
+      
+      
+// @ts-expect-error ts-migrate(7006) FIXME: Parameter 's' implicitly has an 'any' type.
+decodeNumberArray (s) {
+        // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'el' implicitly has an 'any' type.
+        return s.split('~').map((el) => parseFloat(el));
+      },
+      
+      // @ts-expect-error ts-migrate(7006) FIXME: Parameter 's' implicitly has an 'any' type.
+      decodeString(s) {
+        // if (typeof s !== 'string') {
+        //  console.log("Expecting a string there, but found this instead (did you add an object to a list rather than its name?):")
+        //  console.log(s)
+        /// }
+        for (const d of Quest.SaveLoad.saveLoad.replacements) {
+          s = s.replace(new RegExp(`@@@${d.escaped}@@@`, 'g'), d.unescaped);
         }
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'saveComment' does not exist on type '{ p... Remove this comment to see the full error message
-        const comment = Quest.Settings.settings.saveComment ? Quest.Settings.settings.saveComment() : "-"
-        const s = Quest.SaveLoad.saveLoad.saveTheWorld(comment);
-        //console.log(s)
-        localStorage.setItem(this.getName(filename), s);
-        Quest.IO.metamsg(Quest.lang.sl_saved, { filename: filename });
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterSave' does not exist on type '{ per... Remove this comment to see the full error message
-        if (Quest.Settings.settings.afterSave) Quest.Settings.settings.afterSave(filename)
-        return true;
-      },
-
-      saveGameAsFile: function (filename: any) {
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'saveComment' does not exist on type '{ p... Remove this comment to see the full error message
-        const comment = Quest.Settings.settings.saveComment ? Quest.Settings.settings.saveComment() : "-"
-        const s = Quest.SaveLoad.saveLoad.saveTheWorld(comment)
-        const myFile = new File([s], filename + ".q6save", { type: "text/plain;charset=utf-8" })
-        Quest.FileSaver.saveAs(myFile)
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("Your entry " + filename + ".q6save should now download.")
-        return true
-      },
-
-      saveTheWorld: function (comment: any) {
-        return Quest.SaveLoad.saveLoad.getSaveHeader(comment) + Quest.SaveLoad.saveLoad.getSaveBody();
-      },
-
-      getHeader: function (s: any) {
-        const arr = s.split("!");
-        return { title: Quest.SaveLoad.saveLoad.decodeString(arr[0]), version: Quest.SaveLoad.saveLoad.decodeString(arr[1]), comment: Quest.SaveLoad.saveLoad.decodeString(arr[2]), timestamp: arr[3] };
-      },
-
-      getSaveHeader: function (comment: any) {
-        const currentdate = new Date();
-        let s = Quest.SaveLoad.saveLoad.encodeString(Quest.Settings.settings.title) + "!";
-        s += Quest.SaveLoad.saveLoad.encodeString(Quest.Settings.settings.version) + "!";
-        s += Quest.SaveLoad.saveLoad.encodeString(comment) + "!";
-        s += currentdate.toLocaleString() + "!";
         return s;
       },
 
-      getSaveBody: function () {
-        const l = [Quest.Text.getSaveString(), Quest.World.game.getSaveString(), Quest.Utilities.util.getChangeListenersSaveString()]
-        for (let key in Quest.World.w) {
-          l.push(key + "=" + Quest.World.w[key].getSaveString())
-        }
-        return l.join("!")
-      },
-
-      // LOAD
-      // This function will be attached to #fileDialog as its "onchange" event
-      loadGameAsFile: function () {
-        const fileInput = document.querySelector("#fileDialog")
-        // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-        const fileIn = fileInput.files
-
-        const reader = new FileReader()
-        reader.readAsText(fileIn[0])
-        reader.onload = function () {
-          Quest.SaveLoad.saveLoad.loadGame(fileIn[0].name, reader.result)
-          const el = document.querySelector("#fileDialogForm")
-          // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-          el.reset()
-        }
-        reader.onerror = function () {
-          console.log(reader.error)
-        }
-      },
-
-      // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'filename' implicitly has an 'any' type.
-      loadGameFromLS: function (filename) {
-        //log(">" + filename + "<")
-        const contents = localStorage.getItem(this.getName(filename));
-        this.loadGame(filename, contents)
-      },
-
-      // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'filename' implicitly has an 'any' type.
-      loadGame: function (filename, contents) {
-        if (!contents) {
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-          Quest.IO.metamsg(Quest.lang.sl_file_not_found);
-        }
-        else if (!contents.startsWith(Quest.Settings.settings.title + '!')) {
-          const encodedTitle = contents.substr(0, contents.indexOf('!'));
-          Quest.IO.metamsg(Quest.lang.sl_bad_format, { title: Quest.SaveLoad.saveLoad.decodeString(encodedTitle) })
-        }
-        else {
-          Quest.SaveLoad.saveLoad.loadTheWorld(contents, 4)
-          Quest.IO.clearScreen()
-          Quest.IO.metamsg(Quest.lang.sl_file_loaded, { filename: filename })
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterLoad' does not exist on type '{ per... Remove this comment to see the full error message
-          if (Quest.Settings.settings.afterLoad) Quest.Settings.settings.afterLoad(filename)
-          Quest.World.currentLocation.description()
-        }
-      },
-
-      // @ts-expect-error ts-migrate(7006) FIXME: Parameter 's' implicitly has an 'any' type.
-      loadTheWorld: function (s, removeHeader) {
-        const arr = s.split("!");
-        if (removeHeader !== undefined) {
-          arr.splice(0, removeHeader);
-        }
-
-        // Eliminate all clones
-        for (let key in Quest.World.w) {
-          if (Quest.World.w[key].clonePrototype) delete Quest.World.w[key]
-        }
-
-        Quest.Text.setLoadString(arr.shift())
-        Quest.World.game.setLoadString(arr.shift())
-        Quest.Utilities.util.setChangeListenersLoadString(arr.shift())
-        for (let el of arr) {
-          this.setLoadString(el);
-        }
-        Quest.World.world.update()
-        Quest.IO.endTurnUI(true)
-      },
-
-      // @ts-expect-error ts-migrate(7006) FIXME: Parameter 's' implicitly has an 'any' type.
-      setLoadString: function (s) {
-        const parts = s.split("=");
-        if (parts.length !== 3) {
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-          Quest.IO.errormsg("Bad format in saved data (" + s + ")");
-          return;
-        }
-        const name = parts[0];
-        const saveType = parts[1]
-        const arr = parts[2].split(";");
-
-        if (saveType.startsWith("Clone")) {
-          const clonePrototype = saveType.split(":")[1];
-          if (!Quest.World.w[clonePrototype]) {
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-            Quest.IO.errormsg("Cannot find prototype '" + clonePrototype + "'");
-            return;
-          }
-          // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          const obj = Quest.World.cloneObject(Quest.World.w[clonePrototype]);
-          this.setFromArray(obj, arr);
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          Quest.World.w[obj.name] = obj;
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterLoadForTemplate' does not exist on ... Remove this comment to see the full error message
-          obj.afterLoadForTemplate();
-          return
-        }
-
-        if (saveType === "Object") {
-          if (!Quest.World.w[name]) {
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-            Quest.IO.errormsg("Cannot find object '" + name + "'");
-            return;
-          }
-          const obj = Quest.World.w[name];
-          this.setFromArray(obj, arr);
-          obj.afterLoadForTemplate();
-          return
-        }
-
+      
+      // Other functions
+// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'filename' implicitly has an 'any' type.
+deleteGame(filename) {
+        localStorage.removeItem(this.getName(filename));
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        Quest.IO.errormsg("Unknown save type for object '" + name + "' (" + hash.saveType + ")");
+        Quest.IO.metamsg(Quest.lang.sl_deleted);
       },
 
-      // UTILs  
+      
+      
 
-      // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'hash' implicitly has an 'any' type.
-      decode: function (hash, str) {
-        if (str.length === 0) return false
-        const parts = str.split(":")
-        const key = parts[0]
-        const attType = parts[1]
-        const s = parts[2]
-
-        if (attType === "boolean") {
-          hash[key] = (s === "true")
-        }
-
-        else if (attType === "number") {
-          hash[key] = parseFloat(s)
-        }
-
-        else if (attType === "string") {
-          hash[key] = Quest.SaveLoad.saveLoad.decodeString(s)
-        }
-
-        else if (attType === "array") {
-          hash[key] = Quest.SaveLoad.saveLoad.decodeArray(s)
-        }
-
-        else if (attType === "numberarray") {
-          hash[key] = Quest.SaveLoad.saveLoad.decodeNumberArray(s)
-        }
-
-        else if (attType === "emptyarray") {
-          hash[key] = []
-        }
-
-        else if (attType === "emptystring") {
-          hash[key] = ''
-        }
-
-        else if (attType === "qobject") {
-          // this will cause an issue if it points to a clone that has not been done yet !!!
-          hash[key] = Quest.World.w[s]
-        }
-
-        return key
-      },
-
-      // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'key' implicitly has an 'any' type.
-      encode: function (key, value) {
-        if (value === 0) return key + ":number:0;"
-        if (value === false) return key + ":boolean:false;"
-        if (value === '') return key + ":emptystring;"
-        if (!value) return ''
-        let attType = typeof value;
+// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'key' implicitly has an 'any' type.
+encode(key, value) {
+        if (value === 0) return `${key}:number:0;`;
+        if (value === false) return `${key}:boolean:false;`;
+        if (value === '') return `${key}:emptystring;`;
+        if (!value) return '';
+        const attType = typeof value;
         if (Array.isArray(value)) {
           try {
-            if (value.length === 0) return key + ":emptyarray;";
-            if (typeof value[0] === 'string') return key + ":array:" + Quest.SaveLoad.saveLoad.encodeArray(value) + ";";
-            if (typeof value[0] === 'number') return key + ":numberarray:" + Quest.SaveLoad.saveLoad.encodeNumberArray(value) + ";";
+            if (value.length === 0) return `${key}:emptyarray;`;
+            if (typeof value[0] === 'string') return `${key}:array:${Quest.SaveLoad.saveLoad.encodeArray(value)};`;
+            if (typeof value[0] === 'number') return `${key}:numberarray:${Quest.SaveLoad.saveLoad.encodeNumberArray(value)};`;
             return '';
           } catch (error) {
             // Add the name of the attribute to the error message
-            console.trace()
-            log(value)
-            throw "Error encountered with attribute \"" + key + "\": " + error + ". More here: https://github.com/ThePix/QuestJS/wiki/Save-Load#save-errors"
+            console.trace();
+            log(value);
+            throw `Error encountered with attribute "${key}": ${error}. More here: https://github.com/ThePix/QuestJS/wiki/Save-Load#save-errors`;
           }
         }
         if (value instanceof Quest.World.Exit) {
           return '';
         }
-        if (attType === "object") {
-          if (value.name) return key + ":qobject:" + value.name + ";";
+        if (attType === 'object') {
+          if (value.name) return `${key}:qobject:${value.name};`;
           return '';
         }
-        if (attType === "string") {
-          return key + ":string:" + Quest.SaveLoad.saveLoad.encodeString(value) + ";";
+        if (attType === 'string') {
+          return `${key}:string:${Quest.SaveLoad.saveLoad.encodeString(value)};`;
         }
-        return key + ":" + attType + ":" + value + ";";
+        return `${key}:${attType}:${value};`;
+      },
+      
+      
+dirGame() {
+        const arr0 = Quest.lang.sl_dir_headings.map((el) => `<th>${el}</th>`);
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'saveComment' does not exist on type '{ p... Remove this comment to see the full error message
+        if (!Quest.Settings.settings.saveComment) arr0.pop();
+        let s = arr0.join('');
+        for (const key in localStorage) {
+          if (!key.startsWith('QJS:')) continue;
+          const arr1 = key.split(':');
+          const arr2 = localStorage[key].split('!');
+          log(arr2.slice(1, 4));
+          s += '<tr>';
+          s += `<td>${arr1[2]}</td>`;
+          s += `<td>${arr1[1]}</td>`;
+          s += `<td>${arr2[1]}</td>`;
+          s += `<td>${arr2[3]}</td>`;
+          // @ts-expect-error ts-migrate(2339) FIXME: Property 'saveComment' does not exist on type '{ p... Remove this comment to see the full error message
+          if (Quest.Settings.settings.saveComment) s += `<td>${arr2[2]}</td>`;
+          s += '</tr>';
+        }
+        Quest.IO.msg(s, {}, { cssClass: 'meta', tag: 'table' });
+        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+        Quest.IO.metamsg(Quest.lang.sl_dir_msg);
       },
 
-
-      replacements: [
-        { unescaped: ':', escaped: 'cln' },
-        { unescaped: ';', escaped: 'scln' },
-        { unescaped: '!', escaped: 'exm' },
-        { unescaped: '=', escaped: 'eqs' },
-        { unescaped: '~', escaped: 'tld' },
-      ],
-
-
       // @ts-expect-error ts-migrate(7006) FIXME: Parameter 's' implicitly has an 'any' type.
-      encodeString: function (s) {
-        for (let d of Quest.SaveLoad.saveLoad.replacements) {
-          if (typeof s !== 'string') throw "Found type \"" + (typeof s) + "\" in array - should be only strings."
-          s = s.replace(new RegExp(d.unescaped, "g"), "@@@" + d.escaped + "@@@");
-        }
-        return s;
-      },
-
-      // @ts-expect-error ts-migrate(7006) FIXME: Parameter 's' implicitly has an 'any' type.
-      decodeString: function (s) {
-        //if (typeof s !== 'string') {
-        //  console.log("Expecting a string there, but found this instead (did you add an object to a list rather than its name?):")
-        //  console.log(s)
-        ///}
-        for (let d of Quest.SaveLoad.saveLoad.replacements) {
-          s = s.replace(new RegExp("@@@" + d.escaped + "@@@", "g"), d.unescaped);
+encodeString(s) {
+        for (const d of Quest.SaveLoad.saveLoad.replacements) {
+          if (typeof s !== 'string') throw `Found type "${typeof s}" in array - should be only strings.`;
+          s = s.replace(new RegExp(d.unescaped, 'g'), `@@@${d.escaped}@@@`);
         }
         return s;
       },
 
       // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'ary' implicitly has an 'any' type.
-      encodeArray: function (ary) {
+      encodeArray(ary) {
         // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'el' implicitly has an 'any' type.
-        return ary.map(el => Quest.SaveLoad.saveLoad.encodeString(el)).join('~');
+        return ary.map((el) => Quest.SaveLoad.saveLoad.encodeString(el)).join('~');
       },
-
-      // @ts-expect-error ts-migrate(7006) FIXME: Parameter 's' implicitly has an 'any' type.
-      decodeArray: function (s) {
-        // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'el' implicitly has an 'any' type.
-        return s.split('~').map(el => Quest.SaveLoad.saveLoad.decodeString(el));
+      
+      getHeader(s: any) {
+        const arr = s.split('!');
+        return {
+          comment: Quest.SaveLoad.saveLoad.decodeString(arr[2]), timestamp: arr[3], title: Quest.SaveLoad.saveLoad.decodeString(arr[0]), version: Quest.SaveLoad.saveLoad.decodeString(arr[1]),
+        };
       },
 
       // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'ary' implicitly has an 'any' type.
-      encodeNumberArray: function (ary) {
+encodeNumberArray(ary) {
         // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'el' implicitly has an 'any' type.
-        return ary.map(el => {
-          if (typeof el !== 'number') throw "Found type \"" + (typeof el) + "\" in array - should be only numbers."
-          return el.toString()
+        return ary.map((el) => {
+          if (typeof el !== 'number') throw `Found type "${typeof el}" in array - should be only numbers.`;
+          return el.toString();
         }).join('~');
       },
 
-      // @ts-expect-error ts-migrate(7006) FIXME: Parameter 's' implicitly has an 'any' type.
-      decodeNumberArray: function (s) {
-        // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'el' implicitly has an 'any' type.
-        return s.split('~').map(el => parseFloat(el));
+      
+getName(filename: any) {
+        return `QJS:${Quest.Settings.settings.title}:${filename}`;
+      },
+      
+      getSaveBody() {
+        const l = [Quest.Text.getSaveString(), Quest.World.game.getSaveString(), Quest.Utilities.util.getChangeListenersSaveString()];
+        for (const key in Quest.World.w) {
+          l.push(`${key}=${Quest.World.w[key].getSaveString()}`);
+        }
+        return l.join('!');
+      },
+
+      getSaveHeader(comment: any) {
+        const currentdate = new Date();
+        let s             = `${Quest.SaveLoad.saveLoad.encodeString(Quest.Settings.settings.title)}!`;
+        s                += `${Quest.SaveLoad.saveLoad.encodeString(Quest.Settings.settings.version)}!`;
+        s                += `${Quest.SaveLoad.saveLoad.encodeString(comment)}!`;
+        s                += `${currentdate.toLocaleString()}!`;
+        return s;
+      },
+
+      // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'filename' implicitly has an 'any' type.
+      getSummary(filename) {
+        const data = localStorage[this.getName(filename)];
+        if (!data) return null;
+        const arr = data.split('!');
+        return arr.slice(1, 4);
+      },
+
+      // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'filename' implicitly has an 'any' type.
+      loadGame(filename, contents) {
+        if (!contents) {
+          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+          Quest.IO.metamsg(Quest.lang.sl_file_not_found);
+        } else if (!contents.startsWith(`${Quest.Settings.settings.title}!`)) {
+          const encodedTitle = contents.substr(0, contents.indexOf('!'));
+          Quest.IO.metamsg(Quest.lang.sl_bad_format, { title: Quest.SaveLoad.saveLoad.decodeString(encodedTitle) });
+        } else {
+          Quest.SaveLoad.saveLoad.loadTheWorld(contents, 4);
+          Quest.IO.clearScreen();
+          Quest.IO.metamsg(Quest.lang.sl_file_loaded, { filename });
+          // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterLoad' does not exist on type '{ per... Remove this comment to see the full error message
+          if (Quest.Settings.settings.afterLoad) Quest.Settings.settings.afterLoad(filename);
+          Quest.World.currentLocation.description();
+        }
+      },
+
+      // LOAD
+      // This function will be attached to #fileDialog as its "onchange" event
+      loadGameAsFile() {
+        const fileInput = document.querySelector('#fileDialog');
+        // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
+        const fileIn = fileInput.files;
+
+        const reader = new FileReader();
+        reader.readAsText(fileIn[0]);
+        reader.onload = function () {
+          Quest.SaveLoad.saveLoad.loadGame(fileIn[0].name, reader.result);
+          const el = document.querySelector('#fileDialogForm');
+          // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
+          el.reset();
+        };
+        reader.onerror = function () {
+          console.log(reader.error);
+        };
+      },
+
+      // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'filename' implicitly has an 'any' type.
+      loadGameFromLS(filename) {
+        // log(">" + filename + "<")
+        const contents = localStorage.getItem(this.getName(filename));
+        this.loadGame(filename, contents);
       },
 
       // @ts-expect-error ts-migrate(7006) FIXME: Parameter 's' implicitly has an 'any' type.
-      decodeExit: function (s) {
-        // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'el' implicitly has an 'any' type.
-        return s.split('~').map(el => Quest.SaveLoad.saveLoad.decodeString(el));
+      loadTheWorld(s, removeHeader) {
+        const arr = s.split('!');
+        if (removeHeader !== undefined) {
+          arr.splice(0, removeHeader);
+        }
+
+        // Eliminate all clones
+        for (const key in Quest.World.w) {
+          if (Quest.World.w[key].clonePrototype) delete Quest.World.w[key];
+        }
+
+        Quest.Text.setLoadString(arr.shift());
+        Quest.World.game.setLoadString(arr.shift());
+        Quest.Utilities.util.setChangeListenersLoadString(arr.shift());
+        for (const el of arr) {
+          this.setLoadString(el);
+        }
+        Quest.World.world.update();
+        Quest.IO.endTurnUI(true);
       },
 
-
-      lsTest: function () {
+      lsTest() {
         const test = 'test';
         try {
           localStorage.setItem(test, test);
@@ -346,159 +286,205 @@ namespace Quest {
         }
       },
 
+      replacements: [
+        { escaped: 'cln', unescaped: ':' },
+        { escaped: 'scln', unescaped: ';' },
+        { escaped: 'exm', unescaped: '!' },
+        { escaped: 'eqs', unescaped: '=' },
+        { escaped: 'tld', unescaped: '~' },
+      ],
 
-
-
-      // Other functions
-
-      // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'filename' implicitly has an 'any' type.
-      deleteGame: function (filename) {
-        localStorage.removeItem(this.getName(filename));
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        Quest.IO.metamsg(Quest.lang.sl_deleted);
-      },
-
-      dirGame: function () {
-        const arr0 = Quest.lang.sl_dir_headings.map(el => '<th>' + el + '</th>')
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'saveComment' does not exist on type '{ p... Remove this comment to see the full error message
-        if (!Quest.Settings.settings.saveComment) arr0.pop()
-        let s = arr0.join('')
-        for (let key in localStorage) {
-          if (!key.startsWith('QJS:')) continue
-          const arr1 = key.split(':')
-          const arr2 = localStorage[key].split('!')
-          log(arr2.slice(1, 4))
-          s += "<tr>"
-          s += "<td>" + arr1[2] + "</td>"
-          s += "<td>" + arr1[1] + "</td>"
-          s += "<td>" + arr2[1] + "</td>"
-          s += "<td>" + arr2[3] + "</td>"
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'saveComment' does not exist on type '{ p... Remove this comment to see the full error message
-          if (Quest.Settings.settings.saveComment) s += "<td>" + arr2[2] + "</td>"
-          s += "</tr>"
+      saveGame(filename: any, overwrite: any) {
+        if (filename === undefined) {
+          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+          Quest.IO.errormsg(sl_no_filename);
+          return false;
         }
-        Quest.IO.msg(s, {}, { cssClass: "meta", tag: 'table' })
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        Quest.IO.metamsg(Quest.lang.sl_dir_msg)
+
+        if (localStorage.getItem(this.getName(filename)) && !overwrite) {
+          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+          Quest.IO.metamsg(Quest.lang.sl_already_exists);
+          return;
+        }
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'saveComment' does not exist on type '{ p... Remove this comment to see the full error message
+        const comment = Quest.Settings.settings.saveComment ? Quest.Settings.settings.saveComment() : '-';
+        const s       = Quest.SaveLoad.saveLoad.saveTheWorld(comment);
+        // console.log(s)
+        localStorage.setItem(this.getName(filename), s);
+        Quest.IO.metamsg(Quest.lang.sl_saved, { filename });
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterSave' does not exist on type '{ per... Remove this comment to see the full error message
+        if (Quest.Settings.settings.afterSave) Quest.Settings.settings.afterSave(filename);
+        return true;
       },
 
-      // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'filename' implicitly has an 'any' type.
-      testExistsGame: function (filename) {
-        const data = localStorage[this.getName(filename)]
-        return data !== undefined
+      saveGameAsFile(filename: any) {
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'saveComment' does not exist on type '{ p... Remove this comment to see the full error message
+        const comment = Quest.Settings.settings.saveComment ? Quest.Settings.settings.saveComment() : '-';
+        const s       = Quest.SaveLoad.saveLoad.saveTheWorld(comment);
+        const myFile  = new File([s], `${filename}.q6save`, { type: 'text/plain;charset=utf-8' });
+        Quest.FileSaver.saveAs(myFile);
+        // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+        Quest.IO.msg(`Your entry ${filename}.q6save should now download.`);
+        return true;
       },
 
-      // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'filename' implicitly has an 'any' type.
-      getSummary: function (filename) {
-        const data = localStorage[this.getName(filename)]
-        if (!data) return null
-        const arr = data.split('!')
-        return arr.slice(1, 4)
+      saveTheWorld(comment: any) {
+        return Quest.SaveLoad.saveLoad.getSaveHeader(comment) + Quest.SaveLoad.saveLoad.getSaveBody();
       },
 
       // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'obj' implicitly has an 'any' type.
-      setFromArray: function (obj, arr) {
-        const keys = Object.keys(obj).filter(e => !obj.saveLoadExclude(e))
-        for (let el of keys) delete obj[el]
-        for (let el of arr) Quest.SaveLoad.saveLoad.decode(obj, el)
+      setFromArray(obj, arr) {
+        const keys = Object.keys(obj).filter((e) => !obj.saveLoadExclude(e));
+        for (const el of keys) delete obj[el];
+        for (const el of arr) Quest.SaveLoad.saveLoad.decode(obj, el);
       },
 
+      // @ts-expect-error ts-migrate(7006) FIXME: Parameter 's' implicitly has an 'any' type.
+      setLoadString(s) {
+        const parts = s.split('=');
+        if (parts.length !== 3) {
+          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+          Quest.IO.errormsg(`Bad format in saved data (${s})`);
+          return;
+        }
+        const name     = parts[0];
+        const saveType = parts[1];
+        const arr      = parts[2].split(';');
 
+        if (saveType.startsWith('Clone')) {
+          const clonePrototype = saveType.split(':')[1];
+          if (!Quest.World.w[clonePrototype]) {
+            // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+            Quest.IO.errormsg(`Cannot find prototype '${clonePrototype}'`);
+            return;
+          }
+          // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
+          const obj = Quest.World.cloneObject(Quest.World.w[clonePrototype]);
+          this.setFromArray(obj, arr);
+          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          Quest.World.w[obj.name] = obj;
+          // @ts-expect-error ts-migrate(2339) FIXME: Property 'afterLoadForTemplate' does not exist on ... Remove this comment to see the full error message
+          obj.afterLoadForTemplate();
+          return;
+        }
+
+        if (saveType === 'Object') {
+          if (!Quest.World.w[name]) {
+            // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+            Quest.IO.errormsg(`Cannot find object '${name}'`);
+            return;
+          }
+          const obj = Quest.World.w[name];
+          this.setFromArray(obj, arr);
+          obj.afterLoadForTemplate();
+          return;
+        }
+
+        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+        Quest.IO.errormsg(`Unknown save type for object '${name}' (${hash.saveType})`);
+      },
+
+      // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'filename' implicitly has an 'any' type.
+      testExistsGame(filename) {
+        const data = localStorage[this.getName(filename)];
+        return data !== undefined;
+      },
 
       // ------------------------------------------------------------------------------------------
       //    TRANSCRIPTS
       //
       // Here because it uses localStorage. That said, there are two independant systems, the second
       // records commands to create a walk-through, and is saved in an array, this.transcriptWalkthrough
-      // because only the author should ever use it. 
+      // because only the author should ever use it.
 
-      transcript: false,  // Set to true when recording
-      transcriptName: "QJST:" + Quest.Settings.settings.title + ":transcript",
-
-      transcriptStart: function () {
-        this.transcript = true
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'transcriptWalkthrough' does not exist on... Remove this comment to see the full error message
-        this.transcriptWalkthrough = []
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        Quest.IO.metamsg(Quest.lang.transcript_on)
-        this.transcriptWrite(Quest.lang.transcriptStart())
-      },
-
-      transcriptEnd: function () {
-        this.transcriptWrite(Quest.lang.transcriptEnd())
-        this.transcript = false
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        Quest.IO.metamsg(Quest.lang.transcript_off)
-      },
-
+      transcript: false,
       // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'data' implicitly has an 'any' type.
-      transcriptAppend: function (data) {
-        if (!this.transcript) return
+      transcriptAppend(data) {
+        if (!this.transcript) return;
         if (data.cssClass === 'menu') {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'transcriptWalkthrough' does not exist on... Remove this comment to see the full error message
-          let previous = this.transcriptWalkthrough.pop()
+          let previous = this.transcriptWalkthrough.pop();
           if (previous) {
-            previous = previous.replace(/\,$/, '').trim()
+            previous = previous.replace(/\,$/, '').trim();
             // @ts-expect-error ts-migrate(2339) FIXME: Property 'transcriptWalkthrough' does not exist on... Remove this comment to see the full error message
-            this.transcriptWalkthrough.push('    {cmd:' + previous + ', menu:' + data.n + '},')
+            this.transcriptWalkthrough.push(`    {cmd:${previous}, menu:${data.n}},`);
           }
         }
-        this.transcriptWrite('<p class="' + data.cssClass + '">' + data.text + '</p>')
-      },
-
-      // Used internally to write to the file, appending it to the existing text.
-      // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'html' implicitly has an 'any' type.
-      transcriptWrite: function (html) {
-        let s = localStorage.getItem(this.transcriptName)
-        if (!s) s = ''
-        s += '\n\n' + html
-        localStorage.setItem(this.transcriptName, s)
+        this.transcriptWrite(`<p class="${data.cssClass}">${data.text}</p>`);
       },
 
       // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'data' implicitly has an 'any' type.
-      transcriptClear: function (data) {
-        localStorage.removeItem(this.transcriptName)
+      transcriptClear(data) {
+        localStorage.removeItem(this.transcriptName);
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        Quest.IO.metamsg(Quest.lang.transcript_cleared)
+        Quest.IO.metamsg(Quest.lang.transcript_cleared);
+      },
+
+      transcriptEnd() {
+        this.transcriptWrite(Quest.lang.transcriptEnd());
+        this.transcript = false;
+        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+        Quest.IO.metamsg(Quest.lang.transcript_off);
       },
 
       // Is there a transcript saved?
       // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'data' implicitly has an 'any' type.
-      transcriptExists: function (data) {
-        return localStorage.getItem(this.transcriptName) !== undefined
+      transcriptExists(data) {
+        return localStorage.getItem(this.transcriptName) !== undefined;
       },
 
-      transcriptShow: function () {
-        const s = localStorage.getItem(this.transcriptName)
+      // Set to true when recording
+      transcriptName: `QJST:${Quest.Settings.settings.title}:transcript`,
+
+      transcriptShow() {
+        const s = localStorage.getItem(this.transcriptName);
         if (!s) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-          Quest.IO.metamsg(Quest.lang.transcript_none)
-          return false
+          Quest.IO.metamsg(Quest.lang.transcript_none);
+          return false;
         }
 
-        let html = ''
-        html += '<div id="main"><div id="inner"><div id="output">'
-        html += Quest.lang.transcriptTitle()
-        html += s
-        html += '</div></div></div>'
-        Quest.IO.io.showInTab(html, 'QuestJS Transcript: ' + Quest.Settings.settings.title)
+        let html = '';
+        html    += '<div id="main"><div id="inner"><div id="output">';
+        html    += Quest.lang.transcriptTitle();
+        html    += s;
+        html    += '</div></div></div>';
+        Quest.IO.io.showInTab(html, `QuestJS Transcript: ${Quest.Settings.settings.title}`);
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        Quest.IO.metamsg(Quest.lang.done_msg)
+        Quest.IO.metamsg(Quest.lang.done_msg);
       },
 
-      transcriptWalk: function () {
-        let html = ''
-        html += '<div id="main"><div id="inner"><div id="output">'
-        html += '<br/><h2>Generated QuestJS Walk-through</h2><br/><br/>'
-        html += '<p>Copy-and-paste the code below into code.js. You can quickly run the walk-though with [Ctrl][Enter].</p>'
-        html += '<p>If you already have a walk-through, you will need to just copy-and-paste the right bit - probably all but the first and last lines, and insert just before the curly brace at the end. You may need to rename it too.</p>'
-        html += '<pre>\n\n\nconst walkthroughs = {\n  c:[\n'
+      transcriptStart() {
+        this.transcript = true;
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'transcriptWalkthrough' does not exist on... Remove this comment to see the full error message
-        html += this.transcriptWalkthrough.join('\n')
-        html += '\n  ],\n}</pre>'
-        html += '</div></div></div>'
-        Quest.IO.io.showInTab(html, 'QuestJS Transcript: ' + Quest.Settings.settings.title)
+        this.transcriptWalkthrough = [];
+        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+        Quest.IO.metamsg(Quest.lang.transcript_on);
+        this.transcriptWrite(Quest.lang.transcriptStart());
       },
-    }
+
+      transcriptWalk() {
+        let html = '';
+        html    += '<div id="main"><div id="inner"><div id="output">';
+        html    += '<br/><h2>Generated QuestJS Walk-through</h2><br/><br/>';
+        html    += '<p>Copy-and-paste the code below into code.js. You can quickly run the walk-though with [Ctrl][Enter].</p>';
+        html    += '<p>If you already have a walk-through, you will need to just copy-and-paste the right bit - probably all but the first and last lines, and insert just before the curly brace at the end. You may need to rename it too.</p>';
+        html    += '<pre>\n\n\nconst walkthroughs = {\n  c:[\n';
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'transcriptWalkthrough' does not exist on... Remove this comment to see the full error message
+        html += this.transcriptWalkthrough.join('\n');
+        html += '\n  ],\n}</pre>';
+        html += '</div></div></div>';
+        Quest.IO.io.showInTab(html, `QuestJS Transcript: ${Quest.Settings.settings.title}`);
+      },
+
+      // Used internally to write to the file, appending it to the existing text.
+      // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'html' implicitly has an 'any' type.
+      transcriptWrite(html) {
+        let s = localStorage.getItem(this.transcriptName);
+        if (!s) s = '';
+        s += `\n\n${html}`;
+        localStorage.setItem(this.transcriptName, s);
+      },
+    };
   }
 }

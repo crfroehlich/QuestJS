@@ -3,45 +3,69 @@ namespace Quest {
     // Should all be language neutral (except the inspect function, which is just for debugging)
     export class Cmd {
       _test: (s: any) => boolean;
+
       _testNot: (s: any) => boolean;
-      //tmp?: { regex: RegExp; mod: {}; };
-      all: boolean = false;
+
+      // tmp?: { regex: RegExp; mod: {}; };
+      all = false;
+
       antiRegexes: RegExp[] = [];
-      attName: string = '';
+
+      attName = '';
+
       default: (options: any) => void;
+
       error: any;
+
       matchItems: (s: any) => any;
+
       mod: any;
+
       name: any;
+
       noTurnscripts?: boolean;
+
       objects: any[];
+
       objectTexts?: any[];
+
       regex: any;
+
       regexes?: RegExp[];
+
       rules: any[];
+
       score: any;
+
       script: (objects: any) => number;
+
       scriptWith: (objects: any) => number;
+
       setError: (score: any, msg: any) => void;
+
       tmp?: Partial<Cmd>;
+
       withScript: any;
+
       [key: string]: any;
 
       constructor(name: any, hash: any) {
-        this.name = name;
+        this.name    = name;
         this.objects = [];
-        this.rules = [];
-        this.default = function (options: any) { Quest.IO.falsemsg(this.defmsg, options) }
+        this.rules   = [];
+        this.default = function (options: any) {
+          Quest.IO.falsemsg(this.defmsg, options);
+        };
 
         // Is this command a match at the most basic level (ignoring items, etc)
         // Also resets the command
         this._test = function (s: any) {
-          if (!Array.isArray(this.regexes)) console.log(this)  // it will crash in the next line!
-          for (let regex of this.regexes) {
+          if (!Array.isArray(this.regexes)) console.log(this);  // it will crash in the next line!
+          for (const regex of this.regexes) {
             if (regex instanceof RegExp) {
               if (regex.test(s)) {
-                this.tmp = { regex: regex, mod: {} }
-                return true
+                this.tmp = { mod: {}, regex };
+                return true;
               }
             }
             // else {
@@ -52,17 +76,17 @@ namespace Quest {
             // }
           }
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'NO_MATCH' does not exist on type '{}'.
-          this.tmp = { score: Quest.Parser.parser.NO_MATCH }
-          return false
-        }
+          this.tmp = { score: Quest.Parser.parser.NO_MATCH };
+          return false;
+        };
 
         // A command can have an array of regexs, "antiRegexes" that will stop the command getting matched
         this._testNot = function (s: any) {
-          if (!Array.isArray(this.antiRegexes)) return true
-          for (let regex of this.antiRegexes) {
+          if (!Array.isArray(this.antiRegexes)) return true;
+          for (const regex of this.antiRegexes) {
             if (regex instanceof RegExp) {
               if (regex.test(s)) {
-                return false
+                return false;
               }
             }
             // else {
@@ -71,14 +95,13 @@ namespace Quest {
             //   }
             // }
           }
-          return true
-        }
-
+          return true;
+        };
 
         // We want to see if this command is a good match to the string
         // This will involve trying to matching objects, according to the
         // values in the command
-        // 
+        //
         // The results go in an attribute, tmp, that should have alreadsy been set by test,
         // and is a dictionary containing:
         //
@@ -99,78 +122,74 @@ namespace Quest {
         // The parameter mod allows us to change how this is done, eg if the nouns are reversed
         // and will have been set in test
         this.matchItems = function (s: any) {
-          if (!this._test(s)) return
-          if (!this._testNot(s)) return
-
+          if (!this._test(s)) return;
+          if (!this._testNot(s)) return;
 
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{}'.
-          Quest.Parser.parser.msg("---------------------------------------------------------");
+          Quest.Parser.parser.msg('---------------------------------------------------------');
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{}'.
-          Quest.Parser.parser.msg("* Looking at candidate: " + this.name);
+          Quest.Parser.parser.msg(`* Looking at candidate: ${this.name}`);
 
           // this is a temporary set of data used while we parser one input
           this.tmp = this.tmp || {};
           this.tmp.objectTexts = [],
-            this.tmp.objects = [],
-            this.tmp.score = this.score ? this.score : 10
-          this.tmp.error = undefined
+          this.tmp.objects = [],
+          this.tmp.score = this.score ? this.score : 10;
+          this.tmp.error = undefined;
 
           // Array of item positions corresponding to capture groups in the regex
-          let arr = this.tmp.regex.exec(s)
-          arr.shift()  // first element is the whole match, so discard
-          if (this.tmp.mod.reverse) arr = arr.reverse()
-          if (this.tmp.mod.func) arr = this.tmp.mod.func(arr)
+          let arr = this.tmp.regex.exec(s);
+          arr.shift();  // first element is the whole match, so discard
+          if (this.tmp.mod.reverse) arr = arr.reverse();
+          if (this.tmp.mod.func) arr = this.tmp.mod.func(arr);
 
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{}'.
-          Quest.Parser.parser.msg("..Base score: " + this.tmp.score);
+          Quest.Parser.parser.msg(`..Base score: ${this.tmp.score}`);
 
           for (let i = 0; i < arr.length; i++) {
-            const cmdParams = this.objects[i]
+            const cmdParams = this.objects[i];
             if (!cmdParams) {
-              Quest.IO.errormsg("The command \"" + this.name + "\" seems to have an error. It has more capture groups than there are elements in the 'objects' attribute.", true)
-              return false
+              Quest.IO.errormsg(`The command "${this.name}" seems to have an error. It has more capture groups than there are elements in the 'objects' attribute.`, true);
+              return false;
             }
             if (arr[i] === undefined) {
-              Quest.IO.errormsg("The command \"" + this.name + "\" seems to have an error. It has captured undefined. This is probably an issue with the command's regular expression.", true)
-              return false
+              Quest.IO.errormsg(`The command "${this.name}" seems to have an error. It has captured undefined. This is probably an issue with the command's regular expression.`, true);
+              return false;
             }
             let score = 0;
-            this.tmp.objectTexts.push(arr[i])
+            this.tmp.objectTexts.push(arr[i]);
 
             if (cmdParams.special) {
               // this capture group has been flagged to be special
               // @ts-expect-error ts-migrate(2339) FIXME: Property 'specialText' does not exist on type '{}'... Remove this comment to see the full error message
-              const specialError = Quest.Parser.parser.specialText[cmdParams.special].error(arr[i], cmdParams)
+              const specialError = Quest.Parser.parser.specialText[cmdParams.special].error(arr[i], cmdParams);
               // @ts-expect-error ts-migrate(2339) FIXME: Property 'BAD_SPECIAL' does not exist on type '{}'... Remove this comment to see the full error message
-              if (specialError) return this.setError(Quest.Parser.parser.BAD_SPECIAL, specialError)
+              if (specialError) return this.setError(Quest.Parser.parser.BAD_SPECIAL, specialError);
               // @ts-expect-error ts-migrate(2339) FIXME: Property 'specialText' does not exist on type '{}'... Remove this comment to see the full error message
-              const special = Quest.Parser.parser.specialText[cmdParams.special].exec(arr[i], cmdParams)
-              if (special !== false) this.tmp.objects.push(special)
-              score = 1
+              const special = Quest.Parser.parser.specialText[cmdParams.special].exec(arr[i], cmdParams);
+              if (special !== false) this.tmp.objects.push(special);
+              score = 1;
               if (special.name) {
                 // @ts-expect-error ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{}'.
-                Quest.Parser.parser.msg("-> special match object found: " + special.name)
-              }
-              else {
+                Quest.Parser.parser.msg(`-> special match object found: ${special.name}`);
+              } else {
                 // @ts-expect-error ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{}'.
-                Quest.Parser.parser.msg("-> special match found: " + special)
+                Quest.Parser.parser.msg(`-> special match found: ${special}`);
               }
-            }
-
-            else if (Quest.lang.all_regex.test(arr[i]) || Quest.lang.all_exclude_regex.test(arr[i])) {
+            } else if (Quest.lang.all_regex.test(arr[i]) || Quest.lang.all_exclude_regex.test(arr[i])) {
               // Handle ALL and ALL BUT
-              this.tmp.all = true
+              this.tmp.all = true;
               // @ts-expect-error ts-migrate(2339) FIXME: Property 'DISALLOWED_MULTIPLE' does not exist on t... Remove this comment to see the full error message
-              if (!cmdParams.multiple) return this.setError(Quest.Parser.parser.DISALLOWED_MULTIPLE, Quest.lang.no_multiples_msg)
-              if (!cmdParams.scope) console.log("WARNING: Command without scope - " + this.name)
+              if (!cmdParams.multiple) return this.setError(Quest.Parser.parser.DISALLOWED_MULTIPLE, Quest.lang.no_multiples_msg);
+              if (!cmdParams.scope) console.log(`WARNING: Command without scope - ${this.name}`);
 
               // @ts-expect-error ts-migrate(2339) FIXME: Property 'getScope' does not exist on type '{}'.
-              let scope = Quest.Parser.parser.getScope(cmdParams)
-              let exclude = [Quest.World.player];
+              let scope     = Quest.Parser.parser.getScope(cmdParams);
+              const exclude = [Quest.World.player];
 
               // anything flagged as scenery should be excluded
-              for (let item of scope) {
-                if (item.scenery || item.excludeFromAll) exclude.push(item)
+              for (const item of scope) {
+                if (item.scenery || item.excludeFromAll) exclude.push(item);
               }
 
               if (Quest.lang.all_exclude_regex.test(arr[i])) {
@@ -178,67 +197,62 @@ namespace Quest {
                 // excludes must be in isVisible
                 // if it is ambiguous or not recognised it does not get added to the list
                 // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'all_exclude_regex'.
-                let s = arr[i].replace(all_exclude_regex, "").trim();
+                const s = arr[i].replace(all_exclude_regex, '').trim();
                 // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'joiner_regex'.
-                const objectNames = s.split(joiner_regex).map(function (el: any) { return el.trim(); });
-                for (let s in objectNames) {
+                const objectNames = s.split(joiner_regex).map((el: any) => el.trim());
+                for (const s in objectNames) {
                   // @ts-expect-error ts-migrate(2339) FIXME: Property 'findInList' does not exist on type '{}'.
                   const items = Quest.Parser.parser.findInList(s, Quest.World.world.scope);
-                  if (items.length === 1) exclude.push(items[0])
+                  if (items.length === 1) exclude.push(items[0]);
                 }
               }
-              scope = scope.filter((el: any) => !exclude.includes(el))
+              scope = scope.filter((el: any) => !exclude.includes(el));
               // @ts-expect-error ts-migrate(2339) FIXME: Property 'DISALLOWED_MULTIPLE' does not exist on t... Remove this comment to see the full error message
-              if (scope.length > 1 && !cmdParams.multiple) return this.setError(Quest.Parser.parser.DISALLOWED_MULTIPLE, Quest.lang.no_multiples_msg)
+              if (scope.length > 1 && !cmdParams.multiple) return this.setError(Quest.Parser.parser.DISALLOWED_MULTIPLE, Quest.lang.no_multiples_msg);
               // @ts-expect-error ts-migrate(2339) FIXME: Property 'NONE_FOR_ALL' does not exist on type '{}... Remove this comment to see the full error message
-              if (scope.length === 0) return this.setError(Quest.Parser.parser.NONE_FOR_ALL, this.nothingForAll ? this.nothingForAll : Quest.lang.nothing_msg)
-              score = 2
-              this.tmp.objects.push(scope.map((el: any) => [el]))
-            }
-
-            else {
+              if (scope.length === 0) return this.setError(Quest.Parser.parser.NONE_FOR_ALL, this.nothingForAll ? this.nothingForAll : Quest.lang.nothing_msg);
+              score = 2;
+              this.tmp.objects.push(scope.map((el: any) => [el]));
+            } else {
               if (!cmdParams.scope) {
-                console.warn("No scope found in command. This may be because the scope specified does not exist; check the spelling. The command in question is:")
-                console.log(this)
+                console.warn('No scope found in command. This may be because the scope specified does not exist; check the spelling. The command in question is:');
+                console.log(this);
                 // @ts-expect-error ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{}'.
-                Quest.Parser.parser.msg("ERROR: No scope")
-                return null
+                Quest.Parser.parser.msg('ERROR: No scope');
+                return null;
               }
               // @ts-expect-error ts-migrate(2339) FIXME: Property 'getScopes' does not exist on type '{}'.
-              const scope = Quest.Parser.parser.getScopes(cmdParams)
+              const scope = Quest.Parser.parser.getScopes(cmdParams);
               // @ts-expect-error ts-migrate(2339) FIXME: Property 'matchToNames' does not exist on type '{}... Remove this comment to see the full error message
-              Quest.Parser.parser.matchToNames(arr[i], scope, cmdParams, this.tmp)
+              Quest.Parser.parser.matchToNames(arr[i], scope, cmdParams, this.tmp);
               // @ts-expect-error ts-migrate(2339) FIXME: Property 'NO_OBJECT' does not exist on type '{}'.
               if (this.tmp.score === Quest.Parser.parser.NO_OBJECT) {
-                this.tmp.error = this.noobjecterror(this.tmp.error_s, i)
-                if (this.objects.length > 1) this.tmp.score += 10
+                this.tmp.error = this.noobjecterror(this.tmp.error_s, i);
+                if (this.objects.length > 1) this.tmp.score += 10;
                 // @ts-expect-error ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{}'.
-                Quest.Parser.parser.msg("Result score is (no object): " + this.tmp.score)
-                return
+                Quest.Parser.parser.msg(`Result score is (no object): ${this.tmp.score}`);
+                return;
               }
             }
             // @ts-expect-error ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{}'.
-            Quest.Parser.parser.msg("...Adding to the score: " + score)
+            Quest.Parser.parser.msg(`...Adding to the score: ${score}`);
             // @ts-expect-error ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{}'.
-            Quest.Parser.parser.msg("Result score is: " + this.tmp.score)
-            this.tmp.score += score
+            Quest.Parser.parser.msg(`Result score is: ${this.tmp.score}`);
+            this.tmp.score += score;
           }
-        }
-
+        };
 
         // If this has multiple parts the error probably takes priority
         // GET STUFF -> assume item
         // FILL JUG WITH WATER -> assume fluid
         this.setError = function (score: any, msg: any) {
-          this.tmp = this.tmp || {};
-          this.tmp.error = msg
-          this.tmp.score = score
-          if (this.objects.length > 1) this.tmp.score += 10
+          this.tmp       = this.tmp || {};
+          this.tmp.error = msg;
+          this.tmp.score = score;
+          if (this.objects.length > 1) this.tmp.score += 10;
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{}'.
-          Quest.Parser.parser.msg("Match failed: " + this.tmp.score + " (" + msg + ")")
-        }
-
-
+          Quest.Parser.parser.msg(`Match failed: ${this.tmp.score} (${msg})`);
+        };
 
         // This is the default script for commands
         // Assumes objects is:
@@ -246,31 +260,32 @@ namespace Quest {
         // an array of objects - each object will have the attribute indicated by attName called
         // optionally an array of one object
         this.script = function (objects: any) {
-          let success = false;
-          let suppressEndturn = false
-          let verb
-          if (typeof objects[0] === 'string') verb = objects.shift()
-          let secondItem
-          if (objects.length > 1) secondItem = objects[1][0]
+          let success         = false;
+          let suppressEndturn = false;
+          let verb;
+          if (typeof objects[0] === 'string') verb = objects.shift();
+          let secondItem;
+          if (objects.length > 1) secondItem = objects[1][0];
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'currentCommand' does not exist on type '... Remove this comment to see the full error message
-          const multiple = objects[0] && (objects[0].length > 1 || Quest.Parser.parser.currentCommand.all)
+          const multiple = objects[0] && (objects[0].length > 1 || Quest.Parser.parser.currentCommand.all);
           if (objects[0].length === 0) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-            Quest.IO.metamsg(Quest.lang.nothing_msg)
+            Quest.IO.metamsg(Quest.lang.nothing_msg);
             return Quest.World.world.FAILED;
           }
           for (let i = 0; i < objects[0].length; i++) {
-            const options = { multiple: multiple, verb: verb, char: Quest.World.player, item: objects[0][i], secondItem: secondItem }
-            const obj = objects[0][i]
-            if (!obj[this.attName + '_count']) obj[this.attName + '_count'] = 0
+            const options = {
+              char: Quest.World.player, item: objects[0][i], multiple, secondItem, verb,
+            };
+            const obj     = objects[0][i];
+            if (!obj[`${this.attName}_count`]) obj[`${this.attName}_count`] = 0;
             if (!obj[this.attName]) {
-              this.default(options)
-            }
-            else {
-              let result = this.processCommand(options);
+              this.default(options);
+            } else {
+              const result = this.processCommand(options);
               if (result === Quest.World.world.SUCCESS_NO_TURNSCRIPTS) {
                 suppressEndturn = true;
-                obj[this.attName + '_count']++;
+                obj[`${this.attName}_count`]++;
                 success = true;
               }
             }
@@ -278,36 +293,35 @@ namespace Quest {
           if (success) {
             return (this.noTurnscripts || suppressEndturn ? Quest.World.world.SUCCESS_NO_TURNSCRIPTS : Quest.World.world.SUCCESS);
           }
-          else {
-            return Quest.World.world.FAILED;
-          }
-        }
 
+          return Quest.World.world.FAILED;
+        };
 
         // This is the second script for commands
         // Assumes a verb and two objects; the verb may or may not be the first object
         this.scriptWith = function (objects: any) {
-          let success = false;
-          let suppressEndturn = false
-          let verb
-          if (objects.length > 2) verb = objects.shift()
+          let success         = false;
+          let suppressEndturn = false;
+          let verb;
+          if (objects.length > 2) verb = objects.shift();
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'currentCommand' does not exist on type '... Remove this comment to see the full error message
-          const multiple = objects[0] && (objects[0].length > 1 || Quest.Parser.parser.currentCommand.all)
+          const multiple = objects[0] && (objects[0].length > 1 || Quest.Parser.parser.currentCommand.all);
           if (objects[0].length === 0) {
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-            Quest.IO.metamsg(Quest.lang.nothing_msg)
+            Quest.IO.metamsg(Quest.lang.nothing_msg);
             return Quest.World.world.FAILED;
           }
           for (let i = 0; i < objects[0].length; i++) {
-            const options = { multiple: multiple, verb: verb, char: player, item: objects[0][i], with: objects[1][0] }
+            const options = {
+              char: player, item: objects[0][i], multiple, verb, with: objects[1][0],
+            };
             if (!objects[0][i][this.attName]) {
-              this.default(options)
-            }
-            else {
+              this.default(options);
+            } else {
               let result = this.processCommand(options);
               if (result === Quest.World.world.SUCCESS_NO_TURNSCRIPTS) {
                 suppressEndturn = true;
-                result = true;
+                result          = true;
               }
               success = result || success;
             }
@@ -315,23 +329,22 @@ namespace Quest {
           if (success) {
             return (this.noTurnscripts || suppressEndturn ? Quest.World.world.SUCCESS_NO_TURNSCRIPTS : Quest.World.world.SUCCESS);
           }
-          else {
-            return Quest.World.world.FAILED;
-          }
-        }
+
+          return Quest.World.world.FAILED;
+        };
 
         this.processCommand = function (options: any) {
-          for (let rule of this.rules) {
-            if (typeof rule !== "function") {
+          for (const rule of this.rules) {
+            if (typeof rule !== 'function') {
               // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-              Quest.IO.errormsg("Failed to process command '" + this.name + "' as one of its rules is not a function.")
-              console.log(this)
-              console.log(rule)
+              Quest.IO.errormsg(`Failed to process command '${this.name}' as one of its rules is not a function.`);
+              console.log(this);
+              console.log(rule);
             }
-            if (!rule(this, options)) return false
+            if (!rule(this, options)) return false;
           }
           let result = Quest.Utilities.printOrRun(options.char, options.item, this.attName, options);
-          if (typeof result !== "boolean" && result !== Quest.World.world.SUCCESS_NO_TURNSCRIPTS) {
+          if (typeof result !== 'boolean' && result !== Quest.World.world.SUCCESS_NO_TURNSCRIPTS) {
             // Assume the author wants to return true from the verb
             result = true;
           }
@@ -339,32 +352,35 @@ namespace Quest {
         };
 
         this.noobjecterror = function (s: any) {
-          return Quest.lang.object_unknown_msg(s)
-        }
+          return Quest.lang.object_unknown_msg(s);
+        };
 
-        for (let key in hash) {
+        for (const key in hash) {
           this[key] = hash[key];
         }
 
         this.attName = this.attName ? this.attName : this.name.toLowerCase();
-        for (let key in this.objects) {
+        for (const key in this.objects) {
           if (!this.objects[key].attName) {
             this.objects[key].attName = this.attName;
           }
         }
         if (!this.regex && !this.regexes) {
           // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          this.regexes = Array.isArray(Quest.lang.regex[this.name]) ? Quest.lang.regex[this.name] : [Quest.lang.regex[this.name]]
+          this.regexes = Array.isArray(Quest.lang.regex[this.name]) ? Quest.lang.regex[this.name] : [Quest.lang.regex[this.name]];
         }
-        if (this.withScript) this.script = this.scriptWith
+        if (this.withScript) this.script = this.scriptWith;
       }
+
       defmsg(defmsg: any, options: any) {
-        throw new Error("Method not implemented.");
+        throw new Error('Method not implemented.');
       }
+
       noobjecterror(error_s: any, i: number): any {
-        throw new Error("Method not implemented.");
+        throw new Error('Method not implemented.');
       }
-      processCommand(options: { multiple: any; verb: any; char: any; item: any; secondItem: any; }) {
+
+      processCommand(options: { char: any; item: any; multiple: any; secondItem: any; verb: any; }) {
         return 1;
       }
     }
@@ -373,7 +389,7 @@ namespace Quest {
     // own custom script attribute. Commands must be an order to a single
     // NPC in the form verb-object.
     function NpcCmd(this: any, name: any, hash: any) {
-      let cmd = new Cmd(name, hash);
+      const cmd = new Cmd(name, hash);
       Object.assign(this, cmd);
       // Cmd.call(this, name, hash);
       if (!this.cmdCategory) this.cmdCategory = name;
@@ -383,22 +399,22 @@ namespace Quest {
           Quest.IO.failedmsg(Quest.lang.not_npc, { char: Quest.World.player, item: npc });
           return Quest.World.world.FAILED;
         }
-        let success = false, handled;
+        let success = false; let
+          handled;
         if (objects.length !== 2) {
           // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-          Quest.IO.errormsg("The command " + name + " is trying to use a facility for NPCs to do it, but there is no object list; this facility is only for commands in the form verb-object.");
+          Quest.IO.errormsg(`The command ${name} is trying to use a facility for NPCs to do it, but there is no object list; this facility is only for commands in the form verb-object.`);
           return Quest.World.world.FAILED;
         }
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'currentCommand' does not exist on type '... Remove this comment to see the full error message
         const multiple = (objects[1].length > 1 || Quest.Parser.parser.currentCommand.all);
-        for (let obj of objects[1]) {
-          const options = { multiple: multiple, char: npc, item: obj }
-          if (!npc.getAgreement(this.cmdCategory, obj, this)) continue
+        for (const obj of objects[1]) {
+          const options = { char: npc, item: obj, multiple };
+          if (!npc.getAgreement(this.cmdCategory, obj, this)) continue;
           if (!obj[this.attName]) {
             this.default(options);
-          }
-          else {
-            let result = this.processCommand({ multiple: multiple, char: npc, item: obj });
+          } else {
+            let result = this.processCommand({ char: npc, item: obj, multiple });
             if (result === Quest.World.world.SUCCESS_NO_TURNSCRIPTS) {
               result = true;
             }
@@ -409,150 +425,149 @@ namespace Quest {
           npc.pause();
           return (this.noTurnscripts ? Quest.World.world.SUCCESS_NO_TURNSCRIPTS : Quest.World.world.SUCCESS);
         }
-        else {
-          return Quest.World.world.FAILED;
-        }
+
+        return Quest.World.world.FAILED;
       };
     }
 
     function ExitCmd(this: any, name: any, dir: any, hash: any) {
-      let cmd = new Cmd(name, hash);
+      const cmd = new Cmd(name, hash);
       Object.assign(this, cmd);
-      //Cmd.call(this, name, hash);
+      // Cmd.call(this, name, hash);
       this.exitCmd = true;
-      this.dir = dir;
-      this.objects = [{ special: 'ignore' }, { special: 'ignore' },],
-        this.script = function (objects: any) {
-          if (!Quest.World.currentLocation.hasExit(this.dir)) {
-            const exitObj = Quest.lang.exit_list.find(el => el.name === this.dir)
-            // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
-            if (exitObj.not_that_way) return Quest.IO.failedmsg(exitObj.not_that_way, { char: Quest.World.player, dir: this.dir })
-            // @ts-expect-error ts-migrate(2339) FIXME: Property 'customNoExitMsg' does not exist on type ... Remove this comment to see the full error message
-            if (Quest.Settings.settings.customNoExitMsg) return Quest.IO.failedmsg(Quest.Settings.settings.customNoExitMsg(Quest.World.player, dir))
-            return Quest.IO.failedmsg(Quest.lang.not_that_way, { char: Quest.World.player, dir: this.dir })
+      this.dir     = dir;
+      this.objects = [{ special: 'ignore' }, { special: 'ignore' }],
+      this.script = function (objects: any) {
+        if (!Quest.World.currentLocation.hasExit(this.dir)) {
+          const exitObj = Quest.lang.exit_list.find((el) => el.name === this.dir);
+          // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
+          if (exitObj.not_that_way) return Quest.IO.failedmsg(exitObj.not_that_way, { char: Quest.World.player, dir: this.dir });
+          // @ts-expect-error ts-migrate(2339) FIXME: Property 'customNoExitMsg' does not exist on type ... Remove this comment to see the full error message
+          if (Quest.Settings.settings.customNoExitMsg) return Quest.IO.failedmsg(Quest.Settings.settings.customNoExitMsg(Quest.World.player, dir));
+          return Quest.IO.failedmsg(Quest.lang.not_that_way, { char: Quest.World.player, dir: this.dir });
+        }
+
+        const ex = Quest.World.currentLocation.getExit(this.dir);
+        if (typeof ex === 'object') {
+          if (!Quest.World.player.testMove(ex)) {
+            return Quest.World.world.FAILED;
           }
-          else {
-            const ex = Quest.World.currentLocation.getExit(this.dir);
-            if (typeof ex === "object") {
-              if (!Quest.World.player.testMove(ex)) {
-                return Quest.World.world.FAILED;
-              }
-              if (typeof ex.use !== 'function') {
-                // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-                Quest.IO.errormsg("Quest.World.Exit's 'use' attribute is not a function (or does not exist).");
-                console.log("Bad exit:")
-                console.log(ex)
-                return Quest.World.world.FAILED;
-              }
-              const flag = ex.use(Quest.World.player, ex);
-              if (typeof flag !== "boolean") {
-                console.warn("Quest.World.Exit on " + Quest.World.currentLocation.name + " failed to return a Boolean value, indicating success or failure; assuming success");
-                return Quest.World.world.SUCCESS;
-              }
-              if (flag && ex.extraTime) Quest.World.game.elapsedTime += ex.extraTime
-              return flag ? Quest.World.world.SUCCESS : Quest.World.world.FAILED;
-            }
-            else {
-              // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-              Quest.IO.errormsg("Unsupported type for direction");
-              return Quest.World.world.FAILED;
-            }
+          if (typeof ex.use !== 'function') {
+            // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+            Quest.IO.errormsg("Quest.World.Exit's 'use' attribute is not a function (or does not exist).");
+            console.log('Bad exit:');
+            console.log(ex);
+            return Quest.World.world.FAILED;
           }
-        };
+          const flag = ex.use(Quest.World.player, ex);
+          if (typeof flag !== 'boolean') {
+            console.warn(`Quest.World.Exit on ${Quest.World.currentLocation.name} failed to return a Boolean value, indicating success or failure; assuming success`);
+            return Quest.World.world.SUCCESS;
+          }
+          if (flag && ex.extraTime) Quest.World.game.elapsedTime += ex.extraTime;
+          return flag ? Quest.World.world.SUCCESS : Quest.World.world.FAILED;
+        }
+
+        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+        Quest.IO.errormsg('Unsupported type for direction');
+        return Quest.World.world.FAILED;
+      };
     }
 
     function NpcExitCmd(this: any, name: any, dir: any, hash: any) {
-      let cmd = new Cmd(name, hash);
+      const cmd = new Cmd(name, hash);
       Object.assign(this, cmd);
-      //Cmd.call(this, name, hash);
+      // Cmd.call(this, name, hash);
       this.exitCmd = true;
-      this.dir = dir;
-      this.objects = [{ scope: Quest.Parser.parser.isHere, attName: "npc" }, { special: 'ignore' }, { special: 'ignore' },],
-        this.script = function (objects: any) {
-          const npc = objects[0][0]
-          if (!npc.npc) return Quest.IO.failedmsg(Quest.lang.not_npc, { char: Quest.World.player, item: npc })
-          if (!Quest.World.currentLocation.hasExit(this.dir)) {
-            const exitObj = Quest.lang.exit_list.find(el => el.name === this.dir)
-            // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
-            if (exitObj.not_that_way) return Quest.IO.failedmsg(exitObj.not_that_way, { char: npc, dir: this.dir })
-            return Quest.IO.failedmsg(Quest.lang.not_that_way, { char: npc, dir: this.dir })
-          }
-
-          const ex = Quest.World.currentLocation.getExit(this.dir)
-          if (typeof ex !== "object") {
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-            Quest.IO.errormsg("Unsupported type for direction")
-            return Quest.World.world.FAILED
-          }
-
-          if (npc.testMove && !npc.testMove(ex)) return Quest.World.world.FAILED
-          if (!npc.getAgreement("Go", ex)) return Quest.World.world.FAILED
-
-          const flag = ex.use(npc, ex)
-          if (flag) npc.pause()
-          return flag ? Quest.World.world.SUCCESS : Quest.World.world.FAILED;
+      this.dir     = dir;
+      this.objects = [{ attName: 'npc', scope: Quest.Parser.parser.isHere }, { special: 'ignore' }, { special: 'ignore' }],
+      this.script = function (objects: any) {
+        const npc = objects[0][0];
+        if (!npc.npc) return Quest.IO.failedmsg(Quest.lang.not_npc, { char: Quest.World.player, item: npc });
+        if (!Quest.World.currentLocation.hasExit(this.dir)) {
+          const exitObj = Quest.lang.exit_list.find((el) => el.name === this.dir);
+          // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
+          if (exitObj.not_that_way) return Quest.IO.failedmsg(exitObj.not_that_way, { char: npc, dir: this.dir });
+          return Quest.IO.failedmsg(Quest.lang.not_that_way, { char: npc, dir: this.dir });
         }
+
+        const ex = Quest.World.currentLocation.getExit(this.dir);
+        if (typeof ex !== 'object') {
+          // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+          Quest.IO.errormsg('Unsupported type for direction');
+          return Quest.World.world.FAILED;
+        }
+
+        if (npc.testMove && !npc.testMove(ex)) return Quest.World.world.FAILED;
+        if (!npc.getAgreement('Go', ex)) return Quest.World.world.FAILED;
+
+        const flag = ex.use(npc, ex);
+        if (flag) npc.pause();
+        return flag ? Quest.World.world.SUCCESS : Quest.World.world.FAILED;
+      };
     }
 
     // Should be called during the initialisation process
     export function initCommands() {
       const newCmds = [];
-      for (let el of Quest.Commands.commands) {
+      for (const el of Quest.Commands.commands) {
         if (!el.regexes) {
-          el.regexes = [el.regex]
+          el.regexes = [el.regex];
         }
         if (el.npcCmd) {
-          if (!Array.isArray(el.regexes)) console.log(el)
-          //console.log("creating NPC command for " + el.name)
+          if (!Array.isArray(el.regexes)) console.log(el);
+          // console.log("creating NPC command for " + el.name)
           const regexAsStr = el.regexes[0]?.source.substr(1);  // lose the ^ at the start, as we will prepend to it
-          const objects = el.objects.slice();
-          objects.unshift({ scope: Quest.Parser.parser.isHere, attName: "npc" });
+          const objects    = el.objects.slice();
+          objects.unshift({ attName: 'npc', scope: Quest.Parser.parser.isHere });
 
           const data = {
-            objects: objects,
-            attName: el.attName,
-            default: el.default,
-            defmsg: el.defmsg,
-            rules: el.rules,
-            score: el.score,
+            attName:     el.attName,
             cmdCategory: el.cmdCategory ? el.cmdCategory : el.name,
-            forNpc: true,
+            default:     el.default,
+            defmsg:      el.defmsg,
+            forNpc:      true,
+            objects,
+            rules:       el.rules,
+            score:       el.score,
           };
 
           // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-          const cmd = new NpcCmd("Npc" + el.name, data)
-          cmd.regexes = []
-          for (let key in Quest.lang.tell_to_prefixes) {
+          const cmd   = new NpcCmd(`Npc${el.name}`, data);
+          cmd.regexes = [];
+          for (const key in Quest.lang.tell_to_prefixes) {
             // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-            cmd.regexes.push(new RegExp("^" + Quest.lang.tell_to_prefixes[key] + regexAsStr))
+            cmd.regexes.push(new RegExp(`^${Quest.lang.tell_to_prefixes[key]}${regexAsStr}`));
           }
-          if (el.useThisScriptForNpcs) cmd.script = el.script
-          cmd.scope = []
-          for (let el2 of el.objects) {
-            cmd.scope.push(el2 === Quest.Parser.parser.isHeld ? Quest.Parser.parser.isHeldByNpc : el2)
-            cmd.scope.push(el2 === Quest.Parser.parser.isWorn ? Quest.Parser.parser.isWornByNpc : el2)
+          if (el.useThisScriptForNpcs) cmd.script = el.script;
+          cmd.scope = [];
+          for (const el2 of el.objects) {
+            cmd.scope.push(el2 === Quest.Parser.parser.isHeld ? Quest.Parser.parser.isHeldByNpc : el2);
+            cmd.scope.push(el2 === Quest.Parser.parser.isWorn ? Quest.Parser.parser.isWornByNpc : el2);
           }
-          newCmds.push(cmd)
+          newCmds.push(cmd);
         }
       }
 
       Quest.Commands.commands.push.apply(Quest.Commands.commands, newCmds);
 
-      for (let el of Quest.lang.exit_list) {
+      for (const el of Quest.lang.exit_list) {
         if (el.type !== 'nocmd') {
-          let regex = "(" + Quest.lang.go_pre_regex + ")(" + el.name + "|" + el.abbrev.toLowerCase();
-          if (el.alt) { regex += "|" + el.alt; }
-          regex += ")$";
+          let regex = `(${Quest.lang.go_pre_regex})(${el.name}|${el.abbrev.toLowerCase()}`;
+          if (el.alt) {
+            regex += `|${el.alt}`;
+          }
+          regex += ')$';
           // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-          Quest.Commands.commands.push(new ExitCmd("Go" + Quest.Utilities.sentenceCase(el.name), el.name, { regexes: [new RegExp("^" + regex)] }));
+          Quest.Commands.commands.push(new ExitCmd(`Go${Quest.Utilities.sentenceCase(el.name)}`, el.name, { regexes: [new RegExp(`^${regex}`)] }));
 
-          const regexes = []
-          for (let key in Quest.lang.tell_to_prefixes) {
+          const regexes = [];
+          for (const key in Quest.lang.tell_to_prefixes) {
             // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-            regexes.push(new RegExp("^" + Quest.lang.tell_to_prefixes[key] + regex))
+            regexes.push(new RegExp(`^${Quest.lang.tell_to_prefixes[key]}${regex}`));
           }
           // @ts-expect-error ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-          Quest.Commands.commands.push(new NpcExitCmd("NpcGo" + Quest.Utilities.sentenceCase(el.name) + "2", el.name, { regexes: regexes }))
+          Quest.Commands.commands.push(new NpcExitCmd(`NpcGo${Quest.Utilities.sentenceCase(el.name)}2`, el.name, { regexes }));
         }
       }
     }
@@ -567,139 +582,137 @@ namespace Quest {
           return Quest.World.world.FAILED;
         }
         objects.shift();
-      }
-      else {
+      } else {
         char = Quest.World.player;
       }
-      return char
+      return char;
     }
 
     export function findCmd(name: any) {
-      return Quest.Commands.commands.find(el => el.name === name)
+      return Quest.Commands.commands.find((el) => el.name === name);
     }
 
     function testCmd(name: any, s: any) {
-      const cmd = findCmd(name)
-      cmd.matchItems(s)
-      console.log(cmd.tmp)
+      const cmd = findCmd(name);
+      cmd.matchItems(s);
+      console.log(cmd.tmp);
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      Quest.IO.metamsg("See results in console (F12)")
+      Quest.IO.metamsg('See results in console (F12)');
     }
 
     export const cmdRules = {
 
-
-      // Item's location is the char and it is not worn
-      isHeldNotWorn: function (cmd: any, options: any) {
-        if (!options.item.getWorn() && options.item.isAtLoc(options.char.name, Quest.World.world.PARSER)) return true
-
-        if (options.item.isAtLoc(options.char.name, Quest.World.world.PARSER)) return Quest.IO.falsemsg(Quest.lang.already_wearing, options)
-
-        if (options.item.loc) {
-          options.holder = Quest.World.w[options.item.loc]
-          if (options.holder.npc || options.holder.player) return Quest.IO.falsemsg(Quest.lang.char_has_it, options)
-        }
-
-        return Quest.IO.falsemsg(Quest.lang.not_carrying, options)
-      },
-
-      // Item's location is the char and it is worn
-      isWorn: function (cmd: any, options: any) {
-        if (options.item.getWorn() && options.item.isAtLoc(options.char.name, Quest.World.world.PARSER)) return true
-
-        if (options.item.isAtLoc(options.char.name, Quest.World.world.PARSER)) return Quest.IO.falsemsg(Quest.lang.not_wearing, options)
-
-        if (options.item.loc) {
-          options.holder = Quest.World.w[options.item.loc];
-          if (options.holder.npc || options.holder.player) return Quest.IO.falsemsg(Quest.lang.char_has_it, options)
-        }
-
-        return Quest.IO.falsemsg(Quest.lang.not_carrying, options)
+      canTalkTo(cmd: any, options: any) {
+        if (!options.char.testTalk(options.item)) return false;
+        if (!options.item.npc && !options.item.talker && !options.item.player) return Quest.IO.falsemsg(Quest.lang.not_able_to_hear, options);
+        return true;
       },
 
       // Item's location is the char
-      isHeld: function (cmd: any, options: any) {
-        if (options.item.isAtLoc(options.char.name, Quest.World.world.PARSER)) return true
+      isHeld(cmd: any, options: any) {
+        if (options.item.isAtLoc(options.char.name, Quest.World.world.PARSER)) return true;
 
         if (options.item.loc) {
-          options.holder = Quest.World.w[options.item.loc]
-          if (options.holder.npc || options.holder.player) return Quest.IO.falsemsg(Quest.lang.char_has_it, options)
+          options.holder = Quest.World.w[options.item.loc];
+          if (options.holder.npc || options.holder.player) return Quest.IO.falsemsg(Quest.lang.char_has_it, options);
         }
 
-        return Quest.IO.falsemsg(Quest.lang.not_carrying, options)
+        return Quest.IO.falsemsg(Quest.lang.not_carrying, options);
+      },
+
+      // Item's location is the char and it is not worn
+      isHeldNotWorn(cmd: any, options: any) {
+        if (!options.item.getWorn() && options.item.isAtLoc(options.char.name, Quest.World.world.PARSER)) return true;
+
+        if (options.item.isAtLoc(options.char.name, Quest.World.world.PARSER)) return Quest.IO.falsemsg(Quest.lang.already_wearing, options);
+
+        if (options.item.loc) {
+          options.holder = Quest.World.w[options.item.loc];
+          if (options.holder.npc || options.holder.player) return Quest.IO.falsemsg(Quest.lang.char_has_it, options);
+        }
+
+        return Quest.IO.falsemsg(Quest.lang.not_carrying, options);
       },
 
       // Item's location is the char's location or the char
       // or item is reachable, but not held by someone else
-      isPresent: function (cmd: any, options: any) {
-        if (options.item.isAtLoc(options.char.loc, Quest.World.world.PARSER)) return true
-        if (options.item.isAtLoc(options.char.name, Quest.World.world.PARSER)) return true
+      isHere(cmd: any, options: any) {
+        if (options.item.isAtLoc(options.char.loc, Quest.World.world.PARSER)) return true;
 
         if (options.item.loc) {
-          options.holder = Quest.World.w[options.item.loc]
-          // Has a specific location and held by someone
-          if (options.holder.npc || options.holder.player) return Quest.IO.falsemsg(Quest.lang.char_has_it, options)
+          options.holder = Quest.World.w[options.item.loc];
+          if (options.already && options.holder === options.char) return Quest.IO.falsemsg(Quest.lang.already_have, options);
+          if (options.holder.npc || options.holder.player) return Quest.IO.falsemsg(Quest.lang.char_has_it, options);
         }
 
-        if (options.item.scopeStatus.canReach) return true
-
-        return Quest.IO.falsemsg(Quest.lang.not_here, options)
-      },
-
-      // Item's location is the char's location or the char
-      // or item is reachable, but not held by someone else
-      isHere: function (cmd: any, options: any) {
-        if (options.item.isAtLoc(options.char.loc, Quest.World.world.PARSER)) return true
-
-        if (options.item.loc) {
-          options.holder = Quest.World.w[options.item.loc]
-          if (options.already && options.holder === options.char) return Quest.IO.falsemsg(Quest.lang.already_have, options)
-          if (options.holder.npc || options.holder.player) return Quest.IO.falsemsg(Quest.lang.char_has_it, options)
-        }
-
-        if (options.item.scopeStatus.canReach || options.item.multiLoc) return true
-        return Quest.IO.falsemsg(Quest.lang.not_here, options)
+        if (options.item.scopeStatus.canReach || options.item.multiLoc) return true;
+        return Quest.IO.falsemsg(Quest.lang.not_here, options);
       },
 
       // Used by take to note if player already holding
-      isHereAlready: function (cmd: any, options: any) {
-        options.already = true
+      isHereAlready(cmd: any, options: any) {
+        options.already = true;
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{}'.
-        return isHere(cmd, options)
+        return isHere(cmd, options);
+      },
+
+      // Item's location is the char's location or the char
+      // or item is reachable, but not held by someone else
+      isPresent(cmd: any, options: any) {
+        if (options.item.isAtLoc(options.char.loc, Quest.World.world.PARSER)) return true;
+        if (options.item.isAtLoc(options.char.name, Quest.World.world.PARSER)) return true;
+
+        if (options.item.loc) {
+          options.holder = Quest.World.w[options.item.loc];
+          // Has a specific location and held by someone
+          if (options.holder.npc || options.holder.player) return Quest.IO.falsemsg(Quest.lang.char_has_it, options);
+        }
+
+        if (options.item.scopeStatus.canReach) return true;
+
+        return Quest.IO.falsemsg(Quest.lang.not_here, options);
       },
 
       // In this location or held by this char, or in a container (used by eg TAKE)
-      isPresentOrContained: function (cmd: any, options: any) {
+      isPresentOrContained(cmd: any, options: any) {
         // use parser functions here as we do not want messages at this point
 
-        if (!options.item.isAtLoc) console.log(options.item.name)
-        if (!options.char) console.log(cmd.name)
+        if (!options.item.isAtLoc) console.log(options.item.name);
+        if (!options.char) console.log(cmd.name);
 
         if (options.item.isAtLoc(options.char.name, Quest.World.world.PARSER)) return true;
         if (Quest.Parser.parser.isHere(options.item)) return true;
 
         if (options.item.loc) {
-          options.holder = Quest.World.w[options.item.loc]
-          if (options.holder && (options.holder.npc || options.holder.player)) return Quest.IO.falsemsg(Quest.lang.char_has_it, options)
+          options.holder = Quest.World.w[options.item.loc];
+          if (options.holder && (options.holder.npc || options.holder.player)) return Quest.IO.falsemsg(Quest.lang.char_has_it, options);
         }
         if (Quest.Parser.parser.isContained(options.item)) return true;
-        return Quest.IO.falsemsg(Quest.lang.not_here, options)
+        return Quest.IO.falsemsg(Quest.lang.not_here, options);
       },
 
-      testManipulate: function (cmd: any, options: any) {
-        if (!options.char.testManipulate(options.item, cmd.name)) return false
-        return true
+      // Item's location is the char and it is worn
+      isWorn(cmd: any, options: any) {
+        if (options.item.getWorn() && options.item.isAtLoc(options.char.name, Quest.World.world.PARSER)) return true;
+
+        if (options.item.isAtLoc(options.char.name, Quest.World.world.PARSER)) return Quest.IO.falsemsg(Quest.lang.not_wearing, options);
+
+        if (options.item.loc) {
+          options.holder = Quest.World.w[options.item.loc];
+          if (options.holder.npc || options.holder.player) return Quest.IO.falsemsg(Quest.lang.char_has_it, options);
+        }
+
+        return Quest.IO.falsemsg(Quest.lang.not_carrying, options);
       },
 
-      canTalkTo: function (cmd: any, options: any) {
-        if (!options.char.testTalk(options.item)) return false
-        if (!options.item.npc && !options.item.talker && !options.item.player) return Quest.IO.falsemsg(Quest.lang.not_able_to_hear, options)
-        return true
+      testManipulate(cmd: any, options: any) {
+        if (!options.char.testManipulate(options.item, cmd.name)) return false;
+        return true;
       },
 
-      testPosture: function (cmd: any, options: any) {
-        if (!options.char.testPosture(cmd.name)) return false
-        return true
+      testPosture(cmd: any, options: any) {
+        if (!options.char.testPosture(cmd.name)) return false;
+        return true;
       },
     };
   }
