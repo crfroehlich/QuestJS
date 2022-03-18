@@ -1,4 +1,17 @@
-import commonjs   from '@rollup/plugin-commonjs';
+import merge               from 'deepmerge';
+import { createSpaConfig } from '@open-wc/building-rollup';
+import typescript          from '@rollup/plugin-typescript';
+
+const baseConfig = createSpaConfig();
+
+export default merge(baseConfig, {
+  input:   './src/index.html',
+  plugins: [typescript()],
+});
+
+
+/*
+import commonjs from '@rollup/plugin-commonjs';
 import resolve    from '@rollup/plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
 import typescript from 'rollup-plugin-ts';
@@ -81,3 +94,4 @@ const rollup = [
 ];
 
 export default rollup;
+*/

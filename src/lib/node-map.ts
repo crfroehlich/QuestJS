@@ -1,3 +1,5 @@
+import { Quest } from '../types/quest';
+
 // ts-error-fixed ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'map'.
 const map = {
   defaults: {

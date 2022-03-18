@@ -1,0 +1,1 @@
+//# sourceMappingURL=weird.d.ts.map

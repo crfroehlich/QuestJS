@@ -1,3 +1,5 @@
+import { Quest } from '../types/quest';
+
 const imagePane = {
   defaults: {
     imageStyle: {

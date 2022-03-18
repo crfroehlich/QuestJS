@@ -1,3 +1,5 @@
+import { Quest } from "../../types/quest";
+
 const stars = {
 
   add(data: any) {
@@ -22,7 +24,7 @@ const stars = {
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
     Quest.World.w.ship.datetime += 9 * 24 + 3;
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
-    Quest.World.w.ship.Quest.World.currentLocation = 'starbase';
+    Quest.World.w.ship.currentLocation = 'starbase';
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'ship' does not exist on type '{}'.
     Quest.World.w.ship.onView = 'nagoshima';
 

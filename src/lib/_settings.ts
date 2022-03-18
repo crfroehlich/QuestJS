@@ -1,11 +1,11 @@
-/* eslint-disable @typescript-eslint/no-shadow */
-/* eslint-disable import/no-mutable-exports */
+/* eslint-disable class-methods-use-this */
 import {
-  ICustomPaneFunctions, IDateTime, IInventoryPane, IScriptDoc, ISettings, IStatsDatum, noop, TGetString, TGetVoid,
-} from '../types/interfaces';
+  ISettings, IDateTime, IFileSaver, IInventoryPane, IMapStyle, IScriptDoc, IStatsDatum,
+} from '../types/iquest';
+import { Quest } from '../types/quest';
 
 export class Settings implements ISettings {
-  afterEnter?: TGetVoid;
+  afterEnter?: any;
 
   afterFinish: any[] = [];
 
@@ -15,7 +15,7 @@ export class Settings implements ISettings {
 
   autoscroll?: boolean;
 
-  beforeEnter?: TGetVoid;
+  beforeEnter?: any;
 
   closeQuotation?: string;
 
@@ -33,7 +33,7 @@ export class Settings implements ISettings {
 
   customLibraries: any[] = [];
 
-  customPaneFunctions?: ICustomPaneFunctions;
+  customPaneFunctions?: IFileSaver;
 
   darkModeActive?: boolean;
 
@@ -41,7 +41,7 @@ export class Settings implements ISettings {
 
   delayStart?: boolean;
 
-  eventFunctions?: ICustomPaneFunctions;
+  eventFunctions?: IFileSaver;
 
   failCountsAsTurn?: boolean;
 
@@ -106,7 +106,7 @@ export class Settings implements ISettings {
 
   maxUndo = 1000;
 
-  mediaQuery?: ICustomPaneFunctions;
+  mediaQuery?: IFileSaver;
 
   moneyFormat?: string;
 
@@ -132,7 +132,7 @@ export class Settings implements ISettings {
 
   questVersion?: string;
 
-  roomSetList?: ICustomPaneFunctions;
+  roomSetList?: IFileSaver;
 
   roomTemplate: string[] = [];
 
@@ -158,7 +158,7 @@ export class Settings implements ISettings {
 
   statsData: IStatsDatum[] = [];
 
-  status: TGetString[] = [];
+  status: any;
 
   statusPane?: string;
 
@@ -195,6 +195,10 @@ export class Settings implements ISettings {
   walkthroughMenuResponses: any[] = [];
 
   warnings = '';
+
+  sceneryInSidePane = '';
+
+  [key: string]: any;
 
   constructor(data: Partial<Settings>) {
     Object.assign(this, data);
@@ -275,9 +279,9 @@ export class Settings implements ISettings {
         for (const el of this.soundFiles) {
           const audio = document.createElement('audio');
           // ts-error-fixed ts-migrate(2551) FIXME: Property 'seAttribute' does not exist on type 'HTM... Remove this comment to see the full error message
-          audio.seAttribute('id', el);
+          audio.setAttribute('id', el);
           // ts-error-fixed ts-migrate(2551) FIXME: Property 'seAttribute' does not exist on type 'HTM... Remove this comment to see the full error message
-          audio.seAttribute('src', this.soundsFolder + el + this.soundsFileExt);
+          audio.setAttribute('src', this.soundsFolder + el + this.soundsFileExt);
           // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
           main.appendChild(audio);
         }
@@ -347,53 +351,53 @@ export class Settings implements ISettings {
   }
 
   setUpDialog() {
-    const diag = document.querySelector('#dialog');
-    // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
-    document.querySelector('#dialog-title').innerHTML = this.startingDialogTitle;
-    // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
-    document.querySelector('#dialog-content').innerHTML = this.startingDialogHtml;
-    // ts-error-fixed ts-migrate(2339) FIXME: Property 'startingDialogButton' does not exist on ... Remove this comment to see the full error message
-    if (this.startingDialogButton) document.querySelector('#dialog-button').innerHTML = this.startingDialogButton;
-    // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
-    document.querySelector('#dialog-button').addEventListener('click', () => {
+    const diag = document.querySelector('#dialog') as HTMLDialogElement;
+    if (!diag) return;
+
+    const diagTitle = document.querySelector('#dialog-title') as HTMLElement;
+    if (!diagTitle) return;
+    diagTitle.innerHTML = this.startingDialogTitle;
+
+    const diagContent = document.querySelector('#dialog-content') as HTMLElement;
+    if (!diagContent) return;
+    diagContent.innerHTML = this.startingDialogHtml;
+
+    const diagButton = document.querySelector('#dialog-button') as HTMLElement;
+    if (!diagButton) return;
+    if (this.startingDialogButton) {
+      diagButton.innerHTML = this.startingDialogButton;
+    }
+
+    diagButton.addEventListener('click', () => {
       this.startingDialogEnabled = false;
-      // ts-error-fixed ts-migrate(2339) FIXME: Property 'enable' does not exist on type '{ nextid... Remove this comment to see the full error message
       Quest.IO.io.enable();
-      // ts-error-fixed ts-migrate(2339) FIXME: Property 'startingDialogOnClick' does not exist on... Remove this comment to see the full error message
       this.startingDialogOnClick();
       Quest.World.world.begin();
-      // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
       if (this.textInput) {
-        document.querySelector('#textbox').focus();
+        const tb = document.querySelector('#textbox') as HTMLElement;
+        tb.focus();
       }
-      // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
-      document.querySelector('#dialog').style.display = 'none';
+      diag.style.display = 'none';
     });
 
-    // ts-error-fixed ts-migrate(2339) FIXME: Property 'disable' does not exist on type '{ nexti... Remove this comment to see the full error message
     Quest.IO.io.disable();
-    // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
-    diag.show();
-    // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
+    // diag.show();
     diag.style.display = 'block';
-    // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
-    diag.style.width = `${this.startingDialogWidth}px`;
-    // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
-    diag.style.height = `${this.startingDialogHeight}px`;
-    // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
-    diag.style.top = '100px';
+    diag.style.width   = `${this.startingDialogWidth}px`;
+    diag.style.height  = `${this.startingDialogHeight}px`;
+    diag.style.top     = '100px';
   }
 }
 
 export const settings: Settings = new Settings({
 
-  afterEnter: noop,
+  afterEnter: () => { },
 
   afterFinish: [],
 
   afterTurn: [],
 
-  beforeEnter: noop,
+  beforeEnter: () => { },
 
   closeQuotation: "'",
 
@@ -430,7 +434,7 @@ export const settings: Settings = new Settings({
     month:          'short',
     secondsPerTurn: 60,
     start:          new Date('February 14, 2019 09:43:00'),
-    year:           'numeric',
+    year:           '2-digit',
   },
 
   eventFunctions: {},
@@ -459,7 +463,7 @@ export const settings: Settings = new Settings({
   lang: 'lang-en',
 
   // Additional files to load
-  libraries: ['_file_saver', '_saveload', '_text', '_io', '_command', '_defaults', '_templates', '_world', '_npc', '_parser', '_commands'],
+  libraries: [], // ['_file_saver', '_saveload', '_text', '_io', '_command', '_defaults', '_templates', '_world', '_npc', '_parser', '_commands'],
 
   lookCountsAsTurn: false,
 
@@ -492,7 +496,7 @@ export const settings: Settings = new Settings({
   // Can be set to Left, Right or None (setting PANES to None will more than double the speed of your game!)
   panesCollapseAt: 700,
 
-  performanceLog: noop,
+  performanceLog: () => { },
 
   performanceLogStartTime: performance.now(),
 
@@ -540,9 +544,7 @@ export const settings: Settings = new Settings({
   statsData: [
     {
       name: 'Objects',
-      test(o: any) {
-        return true;
-      },
+      test: (o: any) => true,
     },
     {
       name: 'Locations',
@@ -607,12 +609,7 @@ export const settings: Settings = new Settings({
 
 });
 
-namespace Quest {
-  export namespace Settings {
-    export let Settings: any;
-    Quest.Settings.Settings = Settings;
-    export let settings: any;
-    Quest.Settings.settings = settings;
-
-    }
-  }
+Quest.Settings = {
+  Settings,
+  settings,
+};

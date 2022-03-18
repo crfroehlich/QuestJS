@@ -1,3 +1,6 @@
+import { Quest } from '../types/quest';
+
+
 const board = {};
 
 // ts-error-fixed ts-migrate(2339) FIXME: Property 'setup' does not exist on type '{}'.

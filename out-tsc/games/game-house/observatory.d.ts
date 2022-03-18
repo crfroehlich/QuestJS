@@ -1,0 +1,1 @@
+//# sourceMappingURL=observatory.d.ts.map

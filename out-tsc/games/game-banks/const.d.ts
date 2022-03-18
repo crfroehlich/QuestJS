@@ -1,0 +1,45 @@
+declare const TURNS_TO_LANDING = 3;
+declare const TURNS_TO_ORBIT = 2;
+declare const TURNS_TO_DATA = 3;
+declare const PLANETS: ({
+    Aada_how_are_you: string;
+    Ha_yoon_how_are_you: string;
+    Kyle_how_are_you: string;
+    Ostap_how_are_you: string;
+    arrivalTime: Date;
+    atmosphere: string;
+    bioProbeBonusPerRank: number;
+    bioProbeRanks: number[][];
+    comment: string;
+    geoProbeBonusPerRank: number;
+    geoProbeRanks: number[][];
+    lights: string;
+    onArrival(): void;
+    planet: string;
+    planetDesc: string;
+    probeLandingSuccess: string;
+    radio: string;
+    starDesc: string;
+    starName: string;
+} | {
+    arrivalTime: Date;
+    atmosphere: string;
+    comment: string;
+    lights: string;
+    onArrival(): void;
+    planet: string;
+    planetDesc: string;
+    probeLandingSuccess: string;
+    radio: string;
+    starDesc: string;
+    starName: string;
+    Aada_how_are_you?: undefined;
+    Ha_yoon_how_are_you?: undefined;
+    Kyle_how_are_you?: undefined;
+    Ostap_how_are_you?: undefined;
+    bioProbeBonusPerRank?: undefined;
+    bioProbeRanks?: undefined;
+    geoProbeBonusPerRank?: undefined;
+    geoProbeRanks?: undefined;
+})[];
+//# sourceMappingURL=const.d.ts.map

@@ -1,3 +1,5 @@
+import { Quest } from '../types/quest';
+
 // @DOC
 // ## ITEM LINKS LIB
 //
