@@ -9,7 +9,7 @@
 # production / NPM
 **/dist/**
 **/build/**
-**/out-src/**
+**/out-tsc/**
 
 # Storybook
 **/storybook-static/**

@@ -1,4 +1,8 @@
-const mapSVG = `
+import { QuestClass } from '../../types/quest';
+
+export const init = (Quest: QuestClass) => {
+
+  const mapSVG = `
 <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="156" height="356" viewBox="0 -2 36 80" version="1.1" id="svg8" inkscape:version="1.0 (4035a4fb49, 2020-05-01)" sodipodi:docname="joseph_banks.svg">
   <defs id="defs2">
     <marker inkscape:stockid="Arrow1Send" orient="auto" refY="0" refX="0" id="marker3791" style="overflow:visible" inkscape:isstock="true">
@@ -118,3 +122,4 @@ const mapSVG = `
   </g>
 </svg>
 `;
+}

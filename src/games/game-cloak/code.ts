@@ -36,13 +36,15 @@ export const init = (Quest: QuestClass) => {
     script(objects: any) {
       if (!objects[0][0].isAtLoc(Quest.World.player)) {
         return Quest.IO.failedmsg("You're not carrying {sb:obj}.", { obj: objects[0][0] });
-      } if (objects[0][0].worn) {
+      }
+      if (objects[0][0].worn) {
         return Quest.IO.failedmsg("Not while you're wearing {sb:obj}!", { obj: objects[0][0] });
-      } if (!Quest.World.player.isAtLoc('cloakroom')) {
+      }
+      if (!Quest.World.player.isAtLoc('cloakroom')) {
         return Quest.IO.failedmsg('Hang {sb:obj} where, exactly?', { obj: objects[0][0] });
       }
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'hook' does not exist on type '{}'.
-      objects[0][0].moveToFrom(player, Quest.World.w.hook);
+      objects[0][0].moveToFrom(Quest.World.player, Quest.World.w.hook);
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
       Quest.IO.msg('You hang {nm:obj:the} on the hook.', { obj: objects[0][0] });
       return Quest.World.world.SUCCESS;
