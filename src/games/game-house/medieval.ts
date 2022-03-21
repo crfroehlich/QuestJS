@@ -1,4 +1,5 @@
 import { QuestClass } from '../../types/quest';
+import { msg, failedmsg, falsemsg } from '../../lib/io';
 
 export const init = (Quest: QuestClass) => {
   register('medieval', {
@@ -24,7 +25,7 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(1117) FIXME: An object literal cannot have multiple properties ... Remove this comment to see the full error message
       // afterEnter() {
       /// / ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      //   if (this.silverSighting[this.visited % 15]) Quest.IO.msg(this.silverSighting[this.visited % 15])
+      //   if (this.silverSighting[this.visited % 15]) msg(this.silverSighting[this.visited % 15])
       // },
     },
 
@@ -37,7 +38,7 @@ export const init = (Quest: QuestClass) => {
     east: new Quest.World.Exit('brass_dining_room', {
       simpleUse(char: any) {
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'brass_dining_room' does not exist on typ... Remove this comment to see the full error message
-        if (Quest.World.w.brass_dining_room.blocked()) return Quest.IO.falsemsg('Mandy starts heading east, but the dining room is now so full of mannequins, she cannot get into it.');
+        if (Quest.World.w.brass_dining_room.blocked()) return falsemsg('Mandy starts heading east, but the dining room is now so full of mannequins, she cannot get into it.');
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'defaultSimpleExitUse' does not exist on ... Remove this comment to see the full error message
         return Quest.Utilities.util.defaultSimpleExitUse(char, this);
       },
@@ -45,7 +46,7 @@ export const init = (Quest: QuestClass) => {
 
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     examine_ceiling() {
-      Quest.IO.msg('The stone bricks of the walls curve over to form a vaulted roof to the room.');
+      msg('The stone bricks of the walls curve over to form a vaulted roof to the room.');
     },
 
     // ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
@@ -80,10 +81,10 @@ export const init = (Quest: QuestClass) => {
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'greenhouse_east' does not exist on type ... Remove this comment to see the full error message
         if (exit.origin === Quest.World.w.greenhouse_east) {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg('Mandy sees a flash of silver as a figure darts up the stairs at the other end of the room.');
+          msg('Mandy sees a flash of silver as a figure darts up the stairs at the other end of the room.');
         } else {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg('Mandy sees a flash of silver as a figure darts out the doors at the other end of the room, heading into the greenhouse.');
+          msg('Mandy sees a flash of silver as a figure darts out the doors at the other end of the room, heading into the greenhouse.');
         }
       }
     },
@@ -95,7 +96,7 @@ export const init = (Quest: QuestClass) => {
 
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     examine_ceiling() {
-      Quest.IO.msg('The stone bricks of the walls curve over to form a vaulted roof to the room, up above the gallery.');
+      msg('The stone bricks of the walls curve over to form a vaulted roof to the room, up above the gallery.');
     },
 
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -115,11 +116,11 @@ export const init = (Quest: QuestClass) => {
     alias: 'floor',
     examine() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('The floor is composed of flagstones, of the same mid-grey as the walls. It looks a little uneven in places.');
+      msg('The floor is composed of flagstones, of the same mid-grey as the walls. It looks a little uneven in places.');
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'great_gallery' does not exist on type '{... Remove this comment to see the full error message
       if (Quest.World.w.great_gallery.visited > 7) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Remembering the interest the silver figure had in the floor, Mandy examines that patch of it especially well, but it looks as boring as the rest.');
+        msg('Remembering the interest the silver figure had in the floor, Mandy examines that patch of it especially well, but it looks as boring as the rest.');
       }
     },
     loc: 'great_hall',
@@ -128,10 +129,10 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'great_gallery' does not exist on type '{... Remove this comment to see the full error message
       if (Quest.World.w.great_gallery.visited > 7) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Mandy thinks about the silver figure sniffing the floor. Most of the flagstones just smell somewhat musty, but there is one - more or less when the silver was sniffing - that smells distinctly of lavender.');
+        msg('Mandy thinks about the silver figure sniffing the floor. Most of the flagstones just smell somewhat musty, but there is one - more or less when the silver was sniffing - that smells distinctly of lavender.');
       } else {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('The floor smells vaguely unpleasant; kind of musty.');
+        msg('The floor smells vaguely unpleasant; kind of musty.');
       }
     },
     synonyms: ['ground', 'flagstones'],
@@ -180,24 +181,24 @@ export const init = (Quest: QuestClass) => {
     scenery: true,
     synonyms: ['chamberpot'],
     testCarry() {
-      if (this.loc === Quest.World.player.name && this.size === 7 && this.containedFluidName) return Quest.IO.falsemsg('Mandy starts to the door, but the weight of the enormous chamber pot full of {show:fluid} is just too much for her to lug around.', { fluid: this.containedFluidName });
+      if (this.loc === Quest.World.player.name && this.size === 7 && this.containedFluidName) return falsemsg('Mandy starts to the door, but the weight of the enormous chamber pot full of {show:fluid} is just too much for her to lug around.', { fluid: this.containedFluidName });
       return true;
     },
     testFill(options: any) {
       if (this.size > 5) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg(`Mandy thinks about filling the chamber pot with ${options.fluid}, but it is so big, she would never be able to lift it.`);
+        msg(`Mandy thinks about filling the chamber pot with ${options.fluid}, but it is so big, she would never be able to lift it.`);
         return false;
       }
       if (options.fluid === 'water' && Quest.World.player.loc === 'beach') {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Mandy thinks about filling the chamber pot with water from the sea, but just the sight of those bodies in it is making her feel nauseous. No way is she going near that water.');
+        msg('Mandy thinks about filling the chamber pot with water from the sea, but just the sight of those bodies in it is making her feel nauseous. No way is she going near that water.');
         return false;
       }
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
       if (Quest.World.w.chamber_pot.underLeakState > 0) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Mandy empties the tiny bit of oily water out of the chamber pot.');
+        msg('Mandy empties the tiny bit of oily water out of the chamber pot.');
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
         Quest.World.w.chamber_pot.underLeakState = 0;
       }
@@ -208,7 +209,7 @@ export const init = (Quest: QuestClass) => {
     underTree: false,
     use() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('Mandy looks at the chamber pot. She could actually do with a wee, but the thought of using that... No, she can wait.');
+      msg('Mandy looks at the chamber pot. She could actually do with a wee, but the thought of using that... No, she can wait.');
     },
   });
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'addDirective' does not exist on type '{ ... Remove this comment to see the full error message
@@ -229,11 +230,11 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'wire' does not exist on type '{}'.
       if (Quest.World.w.wire.tiedTo2 === 'spike') {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Suddenly there is a crack of thunder, so loud Mandy can hear it even down here. Mandy shrieks in shock at a bright flash that she thinks at first is the lightning, but then realises is the wire suddenly, and very briefly, glowing white-hot.');
+        msg('Suddenly there is a crack of thunder, so loud Mandy can hear it even down here. Mandy shrieks in shock at a bright flash that she thinks at first is the lightning, but then realises is the wire suddenly, and very briefly, glowing white-hot.');
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('There is a smell of ozone and burnt flesh and, as her pounding heart slows again, she sees that smoke is coming from the strange device.');
+        msg('There is a smell of ozone and burnt flesh and, as her pounding heart slows again, she sees that smoke is coming from the strange device.');
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("Then she notices the body on the bench twitching. It raises its right arm, and looks at it. 'It's alive!' Mandy cackles, because, really, what else is one supposed to do after animating a body with lightning?");
+        msg("Then she notices the body on the bench twitching. It raises its right arm, and looks at it. 'It's alive!' Mandy cackles, because, really, what else is one supposed to do after animating a body with lightning?");
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'spike' does not exist on type '{}'.
         Quest.World.w.spike.setAlias('mangled metal');
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'wire' does not exist on type '{}'.
@@ -278,12 +279,12 @@ export const init = (Quest: QuestClass) => {
 
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     examine_ceiling() {
-      Quest.IO.msg('The stone bricks of the walls curve over to form a vaulted roof to the room.');
+      msg('The stone bricks of the walls curve over to form a vaulted roof to the room.');
     },
 
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     examine_floor() {
-      Quest.IO.msg('The floor is packed earth; there are patches that look darker, where something might have been spilt perhaps.');
+      msg('The floor is packed earth; there are patches that look darker, where something might have been spilt perhaps.');
     },
 
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -293,10 +294,10 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'spike' does not exist on type '{}'.
       if (Quest.World.w.spike.alias === 'mangled metal') {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('There is a strong smell burnt flesh -- disturbingly like barbecue -- and ozone.');
+        msg('There is a strong smell burnt flesh -- disturbingly like barbecue -- and ozone.');
       } else {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Mandy warily sniffs the air; it is not a pleasant smell. Acrid, a bit like vinegar, but not quite.');
+        msg('Mandy warily sniffs the air; it is not a pleasant smell. Acrid, a bit like vinegar, but not quite.');
       }
     },
 
@@ -320,12 +321,12 @@ export const init = (Quest: QuestClass) => {
     scenery: true,
     testCarry(options: any) {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      if (options.char === Quest.World.player) return Quest.IO.falsemsg('Mandy thinks about heading off... She hoists up the crocodile to get the better grip, but it is just too big! No way is she going anywhere whilst carrying this thing.');
+      if (options.char === Quest.World.player) return falsemsg('Mandy thinks about heading off... She hoists up the crocodile to get the better grip, but it is just too big! No way is she going anywhere whilst carrying this thing.');
     },
     testDropIn(options: any) {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'crocodile_tooth' does not exist on type ... Remove this comment to see the full error message
-      if (options.item === Quest.World.w.crocodile_tooth) return Quest.IO.falsemsg("The tooth does not seem to want to go back into the crocodile's mouth. Mandy shrugs; no big deal.");
-      Quest.IO.Quest.IO.falsemsg("Mandy contemplates putting {nm:item:the} in the mouth of the crocodile. People have handbags made out of crocodiles, right? It suddenly occurs to her that the crocodile will be skinned, and its leather used to make the bag, rather than putting things down the corpse's gullet.", options);
+      if (options.item === Quest.World.w.crocodile_tooth) return falsemsg("The tooth does not seem to want to go back into the crocodile's mouth. Mandy shrugs; no big deal.");
+      falsemsg("Mandy contemplates putting {nm:item:the} in the mouth of the crocodile. People have handbags made out of crocodiles, right? It suddenly occurs to her that the crocodile will be skinned, and its leather used to make the bag, rather than putting things down the corpse's gullet.", options);
     },
     testOpen(options: any) {
       return this.testTake(options);
@@ -337,7 +338,7 @@ export const init = (Quest: QuestClass) => {
         return true;
       }
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
-      if (options.char !== Quest.World.w.Patch) return Quest.IO.falsemsg('The crocodile is too high for {nm:char:the} to reach.', { char: options.char });
+      if (options.char !== Quest.World.w.Patch) return falsemsg('The crocodile is too high for {nm:char:the} to reach.', { char: options.char });
       return true;
     },
   });
@@ -352,7 +353,7 @@ export const init = (Quest: QuestClass) => {
       if (this.loc !== 'stuffed_crocodile' || !Quest.World.w.stuffed_crocodile.scenery) return true;
       if (options.char.postureFurniture === 'mad_science_bench' && options.char.posture === 'standing') return true;
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
-      if (options.char !== Quest.World.w.Patch && this.loc === 'stuffed_crocodile' && Quest.World.w.stuffed_crocodile.scenery) return Quest.IO.falsemsg('The crocodile is too high for {nm:char:the} to reach.', { char: options.char });
+      if (options.char !== Quest.World.w.Patch && this.loc === 'stuffed_crocodile' && Quest.World.w.stuffed_crocodile.scenery) return falsemsg('The crocodile is too high for {nm:char:the} to reach.', { char: options.char });
       return true;
     },
   });
@@ -373,9 +374,9 @@ export const init = (Quest: QuestClass) => {
       const s = `The thought of ${phrase} next to a body assembled from numerous corpses makes Mandy feel sick.`;
 
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'patchwork_body' does not exist on type '... Remove this comment to see the full error message
-      if (Quest.World.w.patchwork_body.loc === 'mad_science_lab') return Quest.IO.falsemsg(s);
+      if (Quest.World.w.patchwork_body.loc === 'mad_science_lab') return falsemsg(s);
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'Patch' does not exist on type '{}'.
-      if (Quest.World.w.Patch.isHere() && !Quest.World.w.boots.isAtLoc('Patch')) return Quest.IO.falsemsg(`${s} The fact that said body is now moving makes the prospect no more appealing.`);
+      if (Quest.World.w.Patch.isHere() && !Quest.World.w.boots.isAtLoc('Patch')) return falsemsg(`${s} The fact that said body is now moving makes the prospect no more appealing.`);
       return true;
     },
   });
@@ -386,7 +387,7 @@ export const init = (Quest: QuestClass) => {
     examine() {
       this.state = 1;
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('Mandy gingerly inspects the corpse on the table. It is naked, but nothing to suggest it is either male or female. Mandy decides she does not want to look too closely at {i:that} situation. As she looks closer, she can see stitch marks, and with a growing sense of nausea, she realises it is not a corpse, but the stitched together parts of {i:several} corpses.');
+      msg('Mandy gingerly inspects the corpse on the table. It is naked, but nothing to suggest it is either male or female. Mandy decides she does not want to look too closely at {i:that} situation. As she looks closer, she can see stitch marks, and with a growing sense of nausea, she realises it is not a corpse, but the stitched together parts of {i:several} corpses.');
     },
     loc: 'mad_science_lab',
     scenery: true,
@@ -413,7 +414,7 @@ export const init = (Quest: QuestClass) => {
       {
         script(p: any) {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'What's the big deal about the boots?' asks Mandy. Patch just stares at her.");
+          msg("'What's the big deal about the boots?' asks Mandy. Patch just stares at her.");
         },
         // boots
         test(p: any) {
@@ -423,7 +424,7 @@ export const init = (Quest: QuestClass) => {
       {
         script(p: any) {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg(`'Tell me about ${p.text},' says Mandy. Patch just stares at her`);
+          msg(`'Tell me about ${p.text},' says Mandy. Patch just stares at her`);
         },
         test(p: any) {
           return true;
@@ -432,11 +433,11 @@ export const init = (Quest: QuestClass) => {
     ],
     endFollow() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      Quest.IO.msg("'Wait here,' says Mandy to {nm:npc:the}.", { npc: this });
-      if (!this.leaderName) return Quest.IO.falsemsg('{nv:npc:look:true} at Mandy in confusion.', { npc: this });
+      msg("'Wait here,' says Mandy to {nm:npc:the}.", { npc: this });
+      if (!this.leaderName) return falsemsg('{nv:npc:look:true} at Mandy in confusion.', { npc: this });
       this.setLeader();
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      Quest.IO.msg('{nv:npc:nod:true} his head.', { npc: this });
+      msg('{nv:npc:nod:true} his head.', { npc: this });
       return true;
     },
     examine() {
@@ -461,11 +462,11 @@ export const init = (Quest: QuestClass) => {
       if (held.length > 0) s += ` He is holding ${Quest.Utilities.formatList(held, { article: Quest.Utilities.INDEFINITE, lastJoiner: 'and' })}.`;
       if (this.huggingTree) s += '|He is currently hugging a tree.';
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg(s);
+      msg(s);
     },
     getAgreement() {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
-      if (Quest.World.w.boots.loc !== 'Patch') return Quest.IO.falsemsg('Patch looks mournfully at his feet. His bare feet.');
+      if (Quest.World.w.boots.loc !== 'Patch') return falsemsg('Patch looks mournfully at his feet. His bare feet.');
       return true;
     },
     hasPod() {
@@ -485,7 +486,7 @@ export const init = (Quest: QuestClass) => {
           if (Quest.World.w.boots.size < 5) {
             // ts-error-fixed ts-migrate(2339) FIXME: Property 'loc' does not exist on type '{ item: any... Remove this comment to see the full error message
             options.item.loc = this.loc;
-            return Quest.IO.falsemsg('Mandy gives the boots to {nm:npc:the}. He looks at the tiny footwear in confusion, before dropping them on the floor.', options);
+            return falsemsg('Mandy gives the boots to {nm:npc:the}. He looks at the tiny footwear in confusion, before dropping them on the floor.', options);
           }
           // ts-error-fixed ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
           if (!Quest.World.w.boots.mended) {
@@ -493,21 +494,21 @@ export const init = (Quest: QuestClass) => {
             options.item.loc = this.loc;
             // ts-error-fixed ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
             Quest.World.w.boots.rejectedForHole = true;
-            return Quest.IO.falsemsg('Mandy gives the boots to {nm:npc:the}. He looks at the footwear at first with a big smile, which turns into a forlorn frown when he finds the right boot is coming apart. With a glum expression, he drops them on the floor.', options);
+            return falsemsg('Mandy gives the boots to {nm:npc:the}. He looks at the footwear at first with a big smile, which turns into a forlorn frown when he finds the right boot is coming apart. With a glum expression, he drops them on the floor.', options);
           }
           // ts-error-fixed ts-migrate(2339) FIXME: Property 'secret_recipe' does not exist on type '{... Remove this comment to see the full error message
           if (Quest.World.w.secret_recipe.loc === 'boots_room') {
             // ts-error-fixed ts-migrate(2339) FIXME: Property 'loc' does not exist on type '{ item: any... Remove this comment to see the full error message
             options.item.loc = this.loc;
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-            Quest.IO.msg('Mandy gives the boots to {nm:npc:the}. He looks at the footwear with a big smile, then proceeds to pull on the left boot... Suddenly his grin turns to a frown, and he pulls off the boot, dropping both on the floor.', options);
+            msg('Mandy gives the boots to {nm:npc:the}. He looks at the footwear with a big smile, then proceeds to pull on the left boot... Suddenly his grin turns to a frown, and he pulls off the boot, dropping both on the floor.', options);
             // ts-error-fixed ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
             if (Quest.World.w.boots.rejectedForHole = true) {
               // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-              Quest.IO.msg("'For fuck's sake,' mutters Mandy, 'now what? Is there a stone in it or something?'");
+              msg("'For fuck's sake,' mutters Mandy, 'now what? Is there a stone in it or something?'");
             } else {
               // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-              Quest.IO.msg("'What the...' mutters Mandy, 'Is there a stone in it or something?'");
+              msg("'What the...' mutters Mandy, 'Is there a stone in it or something?'");
             }
             // ts-error-fixed ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
             Quest.World.w.boots.rejectedForStone = true;
@@ -519,7 +520,7 @@ export const init = (Quest: QuestClass) => {
           // ts-error-fixed ts-migrate(2339) FIXME: Property 'animated' does not exist on type '{ item... Remove this comment to see the full error message
           this.animated = true;
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-          Quest.IO.msg('Mandy gives the boots to {nm:npc:the}. He looks at the footwear with a big smile, then proceeds to pull on the left boot... Then the right. He looks at them, now on his feet, for a moment, before getting off the bench, and standing upright, ripping of all the wires connecting him to the strange device.', options);
+          msg('Mandy gives the boots to {nm:npc:the}. He looks at the footwear with a big smile, then proceeds to pull on the left boot... Then the right. He looks at them, now on his feet, for a moment, before getting off the bench, and standing upright, ripping of all the wires connecting him to the strange device.', options);
         },
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
         item: Quest.World.w.boots,
@@ -527,18 +528,18 @@ export const init = (Quest: QuestClass) => {
     ],
     receiveItemsFailMsg(options: any) {
       options.item.loc = this.loc;
-      return Quest.IO.Quest.IO.falsemsg('Mandy gives {nm:item:the} to {nm:Patch:the}. {nv:Patch:look} at {sb:item} in confusion, before dropping {sb:item} to the floor.', options);
+      return falsemsg('Mandy gives {nm:item:the} to {nm:Patch:the}. {nv:Patch:look} at {sb:item} in confusion, before dropping {sb:item} to the floor.', options);
     },
     startFollow() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      Quest.IO.msg("'Follow me,' says Mandy to {nm:npc:the}.", { npc: this });
-      if (this.leaderName) return Quest.IO.Quest.IO.falsemsg('{nv:npc:look:true} at Mandy in confusion.', { npc: this });
+      msg("'Follow me,' says Mandy to {nm:npc:the}.", { npc: this });
+      if (this.leaderName) return falsemsg('{nv:npc:look:true} at Mandy in confusion.', { npc: this });
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
-      if (Quest.World.w.boots.loc !== 'Patch') return Quest.IO.falsemsg('Patch looks mournfully at his feet. His bare feet.');
+      if (Quest.World.w.boots.loc !== 'Patch') return falsemsg('Patch looks mournfully at his feet. His bare feet.');
 
       this.setLeader(Quest.World.player);
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      Quest.IO.msg('{nv:npc:nod:true} his head.', { npc: this });
+      msg('{nv:npc:nod:true} his head.', { npc: this });
       return true;
     },
     state: 0,
@@ -546,14 +547,14 @@ export const init = (Quest: QuestClass) => {
     talkto() {
       if (this.state === 0) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'I shall call you \"Patch\",' declares Mandy.");
+        msg("'I shall call you \"Patch\",' declares Mandy.");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('The animated body seems to stand a little taller, Mandy thinks, proud to have a name.');
+        msg('The animated body seems to stand a little taller, Mandy thinks, proud to have a name.');
         this.setAlias('Patch');
         this.state = 1;
       } else {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg(this.talktoOptions[Quest.Random.rndm.int(2)]);
+        msg(this.talktoOptions[Quest.Random.rndm.int(2)]);
       }
       return true;
     },
@@ -566,7 +567,7 @@ export const init = (Quest: QuestClass) => {
       {
         script(p: any) {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg(`Mandy starts to tell Patch about ${p.text}. He looks at her intensely, but she gets the feeling he has no idea what she is saying.`);
+          msg(`Mandy starts to tell Patch about ${p.text}. He looks at her intensely, but she gets the feeling he has no idea what she is saying.`);
         },
         test(p: any) {
           return true;
@@ -576,7 +577,7 @@ export const init = (Quest: QuestClass) => {
     testFollowTo(room: any) {
       if (room && !room.noFollow) return true;
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('Mandy realises Patch is no longer following her.');
+      msg('Mandy realises Patch is no longer following her.');
       this.setLeader();
       return false;
     },
@@ -620,7 +621,7 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'spike' does not exist on type '{}'.
       if (Quest.World.w.spike.alias === 'mangled metal') s += ' There is smoke coming from the back of it.';
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      Quest.IO.msg(s, { item: body });
+      msg(s, { item: body });
     },
     loc: 'mad_science_lab',
     scenery: true,
@@ -629,7 +630,7 @@ export const init = (Quest: QuestClass) => {
     synonyms: ['strange machine'],
     testAttach(options: any) {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      return Quest.IO.falsemsg('Mandy thinks about attaching the wire to the the strange device... But the other end is already soldered to it, and she decides having one end fixed to it is enough.');
+      return falsemsg('Mandy thinks about attaching the wire to the the strange device... But the other end is already soldered to it, and she decides having one end fixed to it is enough.');
     },
     use: 'Mandy gives the knobs on the strange device a twist, but nothing happens. She gives it a kick, but that is no more successful.',
   });
@@ -643,16 +644,16 @@ export const init = (Quest: QuestClass) => {
     synonyms: ['dials', 'knobs'],
     testAttach(options: any) {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      return Quest.IO.falsemsg('Mandy thinks about attaching the wire to the the strange device... But the other end is already soldered to it, and she decides having one end fixed to it is enough.');
+      return falsemsg('Mandy thinks about attaching the wire to the the strange device... But the other end is already soldered to it, and she decides having one end fixed to it is enough.');
     },
     turn() {
       return this.use();
     },
     use() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('Mandy looks at the complicated controls on the strange device. She probably should not mess with them.');
+      msg('Mandy looks at the complicated controls on the strange device. She probably should not mess with them.');
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg("'Ah, what the hell...' She turns the knob on the left clockwise a bit, then a bit more. Then all of them as far as they can go, and then turns them all the other way as far as they can go. Nothing happens.");
+      msg("'Ah, what the hell...' She turns the knob on the left clockwise a bit, then a bit more. Then all of them as far as they can go, and then turns them all the other way as far as they can go. Nothing happens.");
       return false;
     },
   });
@@ -662,14 +663,14 @@ export const init = (Quest: QuestClass) => {
     examine: 'There are twelve bolts on the strange device, in a row under the control panel. {ifExists:patchwork_body:loc:Each has a wire that runs to a pad on the patchwork body:Each has a wire dangling from it}.',
     handleUntieFrom() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      return Quest.IO.failedmsg('Mandy thinks about detaching the wires, but decides to leave it alone. {ifExists:patchwork_body:loc:Just has a weird feeling it is important that they stay attached to the body:They are no use to her, and not doing any harm just dangling there}.');
+      return failedmsg('Mandy thinks about detaching the wires, but decides to leave it alone. {ifExists:patchwork_body:loc:Just has a weird feeling it is important that they stay attached to the body:They are no use to her, and not doing any harm just dangling there}.');
     },
     parserPriority: 15,
     rope: true,
     synonyms: ['pads', 'wires'],
     testAttach(options: any) {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      return Quest.IO.falsemsg('Mandy thinks about attaching the wire to the the strange device... But the other end is already soldered to it, and she decides having one end fixed to it is enough.');
+      return falsemsg('Mandy thinks about attaching the wire to the the strange device... But the other end is already soldered to it, and she decides having one end fixed to it is enough.');
     },
   });
 
@@ -679,7 +680,7 @@ export const init = (Quest: QuestClass) => {
       if (!this.examined) {
         this.examined = true;
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Mandy realises one end of the wire on the spindle is soldered to the strange machine.');
+        msg('Mandy realises one end of the wire on the spindle is soldered to the strange machine.');
       }
       if (!this.moved) this.moved = true;
     },
@@ -691,22 +692,22 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'spike' does not exist on type '{}'.
       if (item === Quest.World.w.spike) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Mandy wraps the wire from the spindle around the letter E on the weather vane, then lets the spindle drop, happy that it is secure.');
+        msg('Mandy wraps the wire from the spindle around the letter E on the weather vane, then lets the spindle drop, happy that it is secure.');
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'sky' does not exist on type '{}'.
         if (Quest.World.w.sky.state < 5) {
           // ts-error-fixed ts-migrate(2339) FIXME: Property 'sky' does not exist on type '{}'.
           Quest.World.w.sky.state = 5;
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg('A brief flash of lightning lights up the weather vane, and a few seconds later Mandy hears the thunder.');
+          msg('A brief flash of lightning lights up the weather vane, and a few seconds later Mandy hears the thunder.');
         }
       } else {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        Quest.IO.msg('Mandy attaches the wire from the spindle to {nm:item:true}, then lets the spindle drop.', { item });
+        msg('Mandy attaches the wire from the spindle to {nm:item:true}, then lets the spindle drop.', { item });
       }
     },
     detachFrom(char: any, item: any) {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      if (!this.tiedTo2) return Quest.IO.falsemsg('Mandy looks at where the wire is soldered to the strange device. That is not coming of there.');
+      if (!this.tiedTo2) return falsemsg('Mandy looks at where the wire is soldered to the strange device. That is not coming of there.');
 
       this.tiedTo2 = false;
       this.locs.pop();
@@ -714,10 +715,10 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'spike' does not exist on type '{}'.
       if (item === Quest.World.w.spike) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Mandy unwraps the wire from the spindle around the letter E on the weather vane.');
+        msg('Mandy unwraps the wire from the spindle around the letter E on the weather vane.');
       } else {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        Quest.IO.msg('Mandy detaches the wire from {nm:item:true}.', { item });
+        msg('Mandy detaches the wire from {nm:item:true}.', { item });
       }
     },
     examine() {
@@ -737,7 +738,7 @@ export const init = (Quest: QuestClass) => {
       }
       this.examined = true;
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg(s);
+      msg(s);
     },
     indefArticle: 'some',
     loc: 'mad_science_lab',
@@ -819,7 +820,7 @@ export const init = (Quest: QuestClass) => {
     scenery: true,
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     testPostureOn() {
-      return Quest.IO.falsemsg('Mandy looks at the cot, and decides it is too small for her.');
+      return falsemsg('Mandy looks at the cot, and decides it is too small for her.');
     },
   });
 
@@ -836,7 +837,7 @@ export const init = (Quest: QuestClass) => {
     scenery: true,
     testTake() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      if (this.alive) return Quest.IO.falsemsg('Mandy tries to grab the china doll, but she is a bit more tricky to grab hold off now she is a live. There is also the moral question of whether Mandy should be picking up a living person too.');
+      if (this.alive) return falsemsg('Mandy tries to grab the china doll, but she is a bit more tricky to grab hold off now she is a live. There is also the moral question of whether Mandy should be picking up a living person too.');
       return true;
     },
   });
@@ -854,16 +855,16 @@ export const init = (Quest: QuestClass) => {
     burst() {
       const sharp = Quest.World.player.getSharp();
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      if (!sharp) return Quest.IO.falsemsg('Mandy jabs her finger at the balloon, and it just bounces off. She jabs again, and then again, but does no better. she needs something sharp.');
+      if (!sharp) return falsemsg('Mandy jabs her finger at the balloon, and it just bounces off. She jabs again, and then again, but does no better. she needs something sharp.');
 
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      Quest.IO.msg('Mandy jabs at the balloon with {nm:item:the}, and it just bounces off. She jabs again, and then again, and finally the balloon pops! The remains drop to the floor. She resists the urge to grind the limp yellow remnants under her heel.', { item: sharp });
+      msg('Mandy jabs at the balloon with {nm:item:the}, and it just bounces off. She jabs again, and then again, and finally the balloon pops! The remains drop to the floor. She resists the urge to grind the limp yellow remnants under her heel.', { item: sharp });
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'yellow_balloon_remains' does not exist o... Remove this comment to see the full error message
       this.transform(Quest.World.w.yellow_balloon_remains);
     },
     catch() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('Mandy tries to catch the balloon, but it bounces upwards, out of reach.');
+      msg('Mandy tries to catch the balloon, but it bounces upwards, out of reach.');
       this.state = 0;
     },
     eventIsActive() {
@@ -872,30 +873,30 @@ export const init = (Quest: QuestClass) => {
     eventPeriod: 1,
     eventScript() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg(this.states[this.state]);
+      msg(this.states[this.state]);
       this.state++;
       if (this.state === this.states.length) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Suddenly everything goes white...');
+        msg('Suddenly everything goes white...');
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg(Quest.World.w.great_gallery.north.msg);
+        msg(Quest.World.w.great_gallery.north.msg);
         this.reset();
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg(this.states[0]);
+        msg(this.states[0]);
         this.state++;
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        for (const s of Quest.Settings.settings.roomTemplate) Quest.IO.msg(s);
+        for (const s of Quest.Settings.settings.roomTemplate) msg(s);
       }
     },
     examine: 'The balloon is bright yellow, and pretty much spherical, except for the bit where it is blown up.',
     kick() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('Mandy kicks the balloon, making it rise up to the ceiling.');
+      msg('Mandy kicks the balloon, making it rise up to the ceiling.');
       this.state = 0;
     },
     knockon() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('Mandy knocks the balloon, sending it up to the ceiling.');
+      msg('Mandy knocks the balloon, sending it up to the ceiling.');
       this.state = 0;
     },
     loc: 'nursery',
@@ -970,7 +971,7 @@ export const init = (Quest: QuestClass) => {
     scenery: true,
     smash() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('Mandy tries to burst the stupid balloon, but it bounces out of reach, rising up to the ceiling.');
+      msg('Mandy tries to burst the stupid balloon, but it bounces out of reach, rising up to the ceiling.');
       this.state = 0;
     },
     state: 0,
@@ -983,7 +984,7 @@ export const init = (Quest: QuestClass) => {
     ],
     take() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('Mandy tries to grab the balloon, but it bounces upwards, out of reach.');
+      msg('Mandy tries to grab the balloon, but it bounces upwards, out of reach.');
       this.state = 0;
     },
   });
@@ -1005,9 +1006,9 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'china_doll' does not exist on type '{}'.
       if (options.item === Quest.World.w.china_doll) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('After a moment, the china doll suddenly comes to life! She sits up, and looks around, then gets to her feet.');
+        msg('After a moment, the china doll suddenly comes to life! She sits up, and looks around, then gets to her feet.');
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'Blow me,' says the tiny man, 'you found me a friend, lady-giant! Mind, if you could get me one a bit less creepy next time, that would be even better.'");
+        msg("'Blow me,' says the tiny man, 'you found me a friend, lady-giant! Mind, if you could get me one a bit less creepy next time, that would be even better.'");
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'china_doll' does not exist on type '{}'.
         Quest.World.w.china_doll.alive = true;
       }
@@ -1021,7 +1022,7 @@ export const init = (Quest: QuestClass) => {
         s += 'The back is opened up, and inside Mandy can see a tiny man.';
       }
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg(s);
+      msg(s);
     },
     hasBeenOpened: false,
     loc: 'nursery',
@@ -1029,10 +1030,10 @@ export const init = (Quest: QuestClass) => {
     openMsg() {
       if (this.hasBeenOpened) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("She opens the doll's house. There is the little man; he looks at Mandy. 'You again, eh?'");
+        msg("She opens the doll's house. There is the little man; he looks at Mandy. 'You again, eh?'");
       } else {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("She opens the doll's house. Inside, the house is perfectly furnished, complete with a little man, sat on a chair.");
+        msg("She opens the doll's house. Inside, the house is perfectly furnished, complete with a little man, sat on a chair.");
         let s = "The little man looks at Mandy, a look of surprise on his face. 'Cor blimey, you're a big 'un!' ";
         switch (this.openCount) {
           case 0: s += ' Apparently he is alive!'; break;
@@ -1042,7 +1043,7 @@ export const init = (Quest: QuestClass) => {
           default: s += ' He is alive, just as she expected.'; break;
         }
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg(s);
+        msg(s);
         this.openCount++;
         this.hasBeenOpened = true;
       }
@@ -1056,9 +1057,9 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'china_doll' does not exist on type '{}'.
       if (options.item === Quest.World.w.china_doll && Quest.World.w.china_doll.size === 4) return true;
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'china_doll' does not exist on type '{}'.
-      if (options.item === Quest.World.w.china_doll) return Quest.IO.falsemsg("Mandy thinks about putting the china doll in the doll's house, but she is too big.");
+      if (options.item === Quest.World.w.china_doll) return falsemsg("Mandy thinks about putting the china doll in the doll's house, but she is too big.");
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      return Quest.IO.falsemsg("Mandy thinks about putting {nm:item:the} in the doll's house, but maybe now is not the time to be playing in it.");
+      return falsemsg("Mandy thinks about putting {nm:item:the} in the doll's house, but maybe now is not the time to be playing in it.");
     },
   });
 
@@ -1066,7 +1067,7 @@ export const init = (Quest: QuestClass) => {
   Quest.World.createItem('tiny_man', Quest.NPC.NPC(false), {
     agendaBootsDone() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg("'Okay, there you go,' says the tiny man, putting the boots on the floor just outside the doll's house. 'Good as new! Well, nearly.'");
+      msg("'Okay, there you go,' says the tiny man, putting the boots on the floor just outside the doll's house. 'Good as new! Well, nearly.'");
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'tiny_man' does not exist on type '{}'.
       Quest.World.w.tiny_man.state = 3;
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
@@ -1078,7 +1079,7 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'int' does not exist on type '{ buffer: n... Remove this comment to see the full error message
       const count = Quest.Random.rndm.int(3, 5);
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg(`'Nearly there,' says the tiny man with a cheerful grin. He gives the chisel another tap, and the pod splits open, to reveal ${count} seeds.`);
+      msg(`'Nearly there,' says the tiny man with a cheerful grin. He gives the chisel another tap, and the pod splits open, to reveal ${count} seeds.`);
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'tamarind_seed' does not exist on type '{... Remove this comment to see the full error message
       if (!Quest.World.w.tamarind_seed.countableLocs[Quest.World.player.name]) Quest.World.w.tamarind_seed.countableLocs[Quest.World.player.name] = 0;
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'tamarind_seed' does not exist on type '{... Remove this comment to see the full error message
@@ -1153,17 +1154,17 @@ export const init = (Quest: QuestClass) => {
       {
         script() {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'I can't help noticing...,' says Mandy wondering how she say this, 'that you quite... well, small.'");
+          msg("'I can't help noticing...,' says Mandy wondering how she say this, 'that you quite... well, small.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Or maybe you're freakishly tall.'");
+          msg("'Or maybe you're freakishly tall.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Well, maybe. But this room looks to me like a nursery for people my  size, and you're in a toy house.'");
+          msg("'Well, maybe. But this room looks to me like a nursery for people my  size, and you're in a toy house.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Ah, that coz this 'ouse went big. Never used to be. I got trapped 'ere, see? In this 'ouse when it was normal-sized. Went exploring, trying to find a way out, like, walked in this room with all the signs of the zodiac on the rub. As I looked at, the whole house grew! Suddenly I `ad to walk miles to get anywhere. Eventually I found this place, what's a bit more my size, what with the {class:riddle:little things} in it.'");
+          msg("'Ah, that coz this 'ouse went big. Never used to be. I got trapped 'ere, see? In this 'ouse when it was normal-sized. Went exploring, trying to find a way out, like, walked in this room with all the signs of the zodiac on the rub. As I looked at, the whole house grew! Suddenly I `ad to walk miles to get anywhere. Eventually I found this place, what's a bit more my size, what with the {class:riddle:little things} in it.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("`How long ago was that?' asks Mandy");
+          msg("`How long ago was that?' asks Mandy");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Only about ten minutes, maybe twenty.' Mandy thinks about the balloon, and wonders how many years it has really been.");
+          msg("'Only about ten minutes, maybe twenty.' Mandy thinks about the balloon, and wonders how many years it has really been.");
         },
         test(p: any) {
           return p.text.match(/small|tiny/);
@@ -1172,11 +1173,11 @@ export const init = (Quest: QuestClass) => {
       {
         script() {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Do you know a Dr Winfield Malewicz?' says Mandy. 'I've got a letter for him.'|He looks Mandy up and down. 'I swear postmen get younger ever day! And bigger too. Yeah, I know the doctor. Weird guy, 'as an 'house on me route.'");
+          msg("'Do you know a Dr Winfield Malewicz?' says Mandy. 'I've got a letter for him.'|He looks Mandy up and down. 'I swear postmen get younger ever day! And bigger too. Yeah, I know the doctor. Weird guy, 'as an 'house on me route.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Your route?'");
+          msg("'Your route?'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Yeah, me route, when I'm deliverin' coal. Up Highfield Lane as I recalls. God knows what me customers are doing with no coal! Must be days now.'");
+          msg("'Yeah, me route, when I'm deliverin' coal. Up Highfield Lane as I recalls. God knows what me customers are doing with no coal! Must be days now.'");
         },
         test(p: any) {
           return p.text.match(/doctor|winfield|malewicz|man/);
@@ -1185,15 +1186,15 @@ export const init = (Quest: QuestClass) => {
       {
         script() {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'What's the deal with the balloon?' asks Mandy");
+          msg("'What's the deal with the balloon?' asks Mandy");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("The tiny man looks out the window. 'Yeah, I saw that floating up there when I got here, like some great floaty yellow thing. Big ain't it?'");
+          msg("The tiny man looks out the window. 'Yeah, I saw that floating up there when I got here, like some great floaty yellow thing. Big ain't it?'");
           // ts-error-fixed ts-migrate(2339) FIXME: Property 'dollshouse' does not exist on type '{}'.
           if (Quest.World.w.dollshouse.openCount > 3) {
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg("'I was more concerned with the way it seems to rewind time when it hits the floor.'");
+            msg("'I was more concerned with the way it seems to rewind time when it hits the floor.'");
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg("'You what? You on drugs on summit?' Being in the middle of it, he may not realise anything odd is happening, it occurs to Mandy.");
+            msg("'You what? You on drugs on summit?' Being in the middle of it, he may not realise anything odd is happening, it occurs to Mandy.");
           }
         },
         test(p: any) {
@@ -1203,9 +1204,9 @@ export const init = (Quest: QuestClass) => {
       {
         script() {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'I don't suppose you know any Shakespeare?' asks Mandy. 'Hamlet in particular.'");
+          msg("'I don't suppose you know any Shakespeare?' asks Mandy. 'Hamlet in particular.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Do I look like a toff?'");
+          msg("'Do I look like a toff?'");
         },
         test(p: any) {
           return p.text.match(/hamlet/);
@@ -1214,9 +1215,9 @@ export const init = (Quest: QuestClass) => {
       {
         script() {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'What did you do before you got trapped here?' asks Mandy");
+          msg("'What did you do before you got trapped here?' asks Mandy");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'I'm a coal merchant. I was just 'ere bring round a sack of coal, when I kind of got sucked inside. {class:riddle:Drag me down,} it did! That was weeks ago. What's happened to my business?' Mandy decides not to tell him the entire coal industry is dead in England, and no one has coal fires any more.");
+          msg("'I'm a coal merchant. I was just 'ere bring round a sack of coal, when I kind of got sucked inside. {class:riddle:Drag me down,} it did! That was weeks ago. What's happened to my business?' Mandy decides not to tell him the entire coal industry is dead in England, and no one has coal fires any more.");
         },
         test(p: any) {
           return p.text.match(/past|origin|career|job|deliver/);
@@ -1225,9 +1226,9 @@ export const init = (Quest: QuestClass) => {
       {
         script() {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'You know anything about this letter?' asks Mandy");
+          msg("'You know anything about this letter?' asks Mandy");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'What am I, a postman?'");
+          msg("'What am I, a postman?'");
         },
         test(p: any) {
           return p.text.match(/letter/);
@@ -1236,13 +1237,13 @@ export const init = (Quest: QuestClass) => {
       {
         script() {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'What's the deal with the telescope in the observatory?' asks Mandy");
+          msg("'What's the deal with the telescope in the observatory?' asks Mandy");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Observatory? You 'aving a laugh! I bin delivering round here for years; and ?I can tell you, this is a 'ouse, ain't got no observatory. '");
+          msg("'Observatory? You 'aving a laugh! I bin delivering round here for years; and ?I can tell you, this is a 'ouse, ain't got no observatory. '");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'You must've noticed it's a lot bigger than it should be from the outside.'");
+          msg("'You must've noticed it's a lot bigger than it should be from the outside.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Lot of 'ouses look big 'un there are. Clever use of furniture, that's the trick.'");
+          msg("'Lot of 'ouses look big 'un there are. Clever use of furniture, that's the trick.'");
         },
         test(p: any) {
           return p.text.match(/telescope|observatory/);
@@ -1253,13 +1254,13 @@ export const init = (Quest: QuestClass) => {
 
         script() {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'So where {i:do} you live?'");
+          msg("'So where {i:do} you live?'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'14 Clarence Street. Least, that's where I lived before I come in 'ere.'");
+          msg("'14 Clarence Street. Least, that's where I lived before I come in 'ere.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Clarence Street? I know that road, Charlene Porter lives there.' It is a terrace house, built in the later nineteenth century, near the centre of town.");
+          msg("'Clarence Street? I know that road, Charlene Porter lives there.' It is a terrace house, built in the later nineteenth century, near the centre of town.");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'I don't know no Charlene. French is she?'");
+          msg("'I don't know no Charlene. French is she?'");
         },
         // !!!
         test(p: any) {
@@ -1271,11 +1272,11 @@ export const init = (Quest: QuestClass) => {
           // ts-error-fixed ts-migrate(2339) FIXME: Property 'tiny_man' does not exist on type '{}'.
           Quest.World.w.tiny_man.badTopicCount++;
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg(`Mandy asks the little man about ${p.text}.`);
+          msg(`Mandy asks the little man about ${p.text}.`);
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'What the..?' he replies, 'Ask me about a topic what I know about.'");
+          msg("'What the..?' he replies, 'Ask me about a topic what I know about.'");
           // ts-error-fixed ts-migrate(2339) FIXME: Property 'tiny_man' does not exist on type '{}'.
-          if (Quest.World.w.tiny_man.badTopicCount > 7) Quest.IO.msg("'Do you know about anything?' asks Mandy getting increasingly frustrated.|'Not a lot, no.'");
+          if (Quest.World.w.tiny_man.badTopicCount > 7) msg("'Do you know about anything?' asks Mandy getting increasingly frustrated.|'Not a lot, no.'");
         },
       },
     ],
@@ -1285,9 +1286,9 @@ export const init = (Quest: QuestClass) => {
     // override default for NPCs so we see it when he is in house
     endFollow() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      Quest.IO.msg("'Wait here,' says Mandy to {nm:npc:the}.", { npc: obj });
+      msg("'Wait here,' says Mandy to {nm:npc:the}.", { npc: obj });
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      return Quest.IO.falsemsg("'I wasn't going nowhere!'");
+      return falsemsg("'I wasn't going nowhere!'");
     },
 
     examine() {
@@ -1302,14 +1303,14 @@ export const init = (Quest: QuestClass) => {
         s += 'He is once again making a pair of shoes.';
       }
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg(s);
+      msg(s);
     },
 
     getAgreement(verb: any, item: any) {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      if (verb !== 'Repair') return Quest.IO.falsemsg("'Sorry, lady-giant, I've got to much to do here. In fact I best get on.'");
+      if (verb !== 'Repair') return falsemsg("'Sorry, lady-giant, I've got to much to do here. In fact I best get on.'");
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
-      if (item !== Quest.World.w.boots && item !== Quest.World.w.tiny_shoes) return Quest.IO.falsemsg("'Sorry, lady-giant, I can do shoes, maybe boots at a push, but... No, not that.'");
+      if (item !== Quest.World.w.boots && item !== Quest.World.w.tiny_shoes) return falsemsg("'Sorry, lady-giant, I can do shoes, maybe boots at a push, but... No, not that.'");
       return true;
     },
 
@@ -1324,7 +1325,7 @@ export const init = (Quest: QuestClass) => {
 
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
     msg(s: any, params: any) {
-      Quest.IO.msg(s, params);
+      msg(s, params);
     },
 
     receiveItems: [
@@ -1333,20 +1334,20 @@ export const init = (Quest: QuestClass) => {
         f(options: any) {
           // ts-error-fixed ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
           if (Quest.World.w.boots.size !== 4) {
-            return Quest.IO.falsemsg("Mandy gives {nm:item:the} to the tiny man. 'What'd I want something like that for?' he asks.|'I thought you might be a cobbler elf.'|'A what? Are you taking the piss?'|'No! It's just you're quite... small.|'I'm normal size, I am. You're the freak, lady-giant. I can't fix no giant lady boots; I only do {i:normal-size} footwear.'", options);
+            return falsemsg("Mandy gives {nm:item:the} to the tiny man. 'What'd I want something like that for?' he asks.|'I thought you might be a cobbler elf.'|'A what? Are you taking the piss?'|'No! It's just you're quite... small.|'I'm normal size, I am. You're the freak, lady-giant. I can't fix no giant lady boots; I only do {i:normal-size} footwear.'", options);
           }
 
           // ts-error-fixed ts-migrate(2339) FIXME: Property 'tiny_man' does not exist on type '{}'.
           if (Quest.World.w.tiny_man.state !== 1 || Quest.World.w.boots.size !== 4) {
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg("Mandy gives the small boots to the tiny man. 'What'd I want something like that for?' he asks.|'I thought you might be a cobbler elf.'|'A what? Are you taking the piss?'|'No! It's just you're quite... small.|'I'm normal size, I am. You're the freak, lady-giant. Though I suppose I {i:could} fix them.' He starts to examine the hole in the boot.");
+            msg("Mandy gives the small boots to the tiny man. 'What'd I want something like that for?' he asks.|'I thought you might be a cobbler elf.'|'A what? Are you taking the piss?'|'No! It's just you're quite... small.|'I'm normal size, I am. You're the freak, lady-giant. Though I suppose I {i:could} fix them.' He starts to examine the hole in the boot.");
           } else {
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg("Mandy gives the boots to the tiny man. 'I'll get on that as soon as I've done these,' he says.");
+            msg("Mandy gives the boots to the tiny man. 'I'll get on that as soon as I've done these,' he says.");
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg("{ifExists:yellow_balloon:loc:Mandy glances at the balloon. }'I don't suppose you could do it now?' She smiles sweetly at him, making him jump back from his seat in horror.");
+            msg("{ifExists:yellow_balloon:loc:Mandy glances at the balloon. }'I don't suppose you could do it now?' She smiles sweetly at him, making him jump back from his seat in horror.");
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg("'Okay, okay, giant-lady! Whatever you say!' He drops the shoes, and starts to examine the hole in the boot.");
+            msg("'Okay, okay, giant-lady! Whatever you say!' He drops the shoes, and starts to examine the hole in the boot.");
           }
           // ts-error-fixed ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
           Quest.World.w.boots.loc = 'tiny_man';
@@ -1361,10 +1362,10 @@ export const init = (Quest: QuestClass) => {
       {
         f(options: any) {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("Mandy gives the tamarind pod to the tiny man. 'What'd I want something like that for?' he asks.|'I thought you might be able to cut it open,' says Mandy. 'You know, with your little tools.'|'My what?'|'Er, your normal-sized tools?'");
+          msg("Mandy gives the tamarind pod to the tiny man. 'What'd I want something like that for?' he asks.|'I thought you might be able to cut it open,' says Mandy. 'You know, with your little tools.'|'My what?'|'Er, your normal-sized tools?'");
           if (options.item.size > 4) {
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg("He shrugs. 'Give it a go.' He grabs and hammer and chisel, and sets about trying to break into the pod.");
+            msg("He shrugs. 'Give it a go.' He grabs and hammer and chisel, and sets about trying to break into the pod.");
             // ts-error-fixed ts-migrate(2339) FIXME: Property 'tiny_man' does not exist on type '{}'.
             Quest.World.w.tiny_man.breakingIntoPod = options.item.name;
             // ts-error-fixed ts-migrate(2339) FIXME: Property 'tiny_man' does not exist on type '{}'.
@@ -1373,7 +1374,7 @@ export const init = (Quest: QuestClass) => {
             // ts-error-fixed ts-migrate(2339) FIXME: Property 'int' does not exist on type '{ buffer: n... Remove this comment to see the full error message
             const count = Quest.Random.rndm.int(3, 5);
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg(`He shrugs. 'Should be easy enough.' He grabs and hammer and chisel, and sets the chisel to the pod. He gives it a gentle tap, and the pod splits open, to reveal ${count} seeds.`);
+            msg(`He shrugs. 'Should be easy enough.' He grabs and hammer and chisel, and sets the chisel to the pod. He gives it a gentle tap, and the pod splits open, to reveal ${count} seeds.`);
             // ts-error-fixed ts-migrate(2339) FIXME: Property 'tamarind_seed' does not exist on type '{... Remove this comment to see the full error message
             if (!Quest.World.w.tamarind_seed.countableLocs[Quest.World.player.name]) Quest.World.w.tamarind_seed.countableLocs[Quest.World.player.name] = 0;
             // ts-error-fixed ts-migrate(2339) FIXME: Property 'tamarind_seed' does not exist on type '{... Remove this comment to see the full error message
@@ -1392,28 +1393,28 @@ export const init = (Quest: QuestClass) => {
     scenery: true,
     startFollow() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      Quest.IO.msg("'Follow me,' says Mandy to {nm:npc:the}.", { npc: obj });
+      msg("'Follow me,' says Mandy to {nm:npc:the}.", { npc: obj });
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      return Quest.IO.falsemsg("'If it's all the same to you, I'll stay here.'");
+      return falsemsg("'If it's all the same to you, I'll stay here.'");
     },
     state: 0,
     synonyms: ['little man', 'big bert', 'cuthbert'],
     take() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      return Quest.IO.falsemsg("Mandy tries to grab the tiny man, because a four inch high man has to score a few views on Youtube, but he dodges out of the way. 'Ere, wot you playin' at?' he demands. 'You keep yer 'ands off!'");
+      return falsemsg("Mandy tries to grab the tiny man, because a four inch high man has to score a few views on Youtube, but he dodges out of the way. 'Ere, wot you playin' at?' he demands. 'You keep yer 'ands off!'");
     },
     talkto() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('Mandy wonders what {i:topics} she could {i:ask the tiny man about}...');
+      msg('Mandy wonders what {i:topics} she could {i:ask the tiny man about}...');
       return false;
     },
     tellOptions: [
       {
         script(p: any) {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg(`Mandy starts to tell the tiny man about ${p.text}.`);
+          msg(`Mandy starts to tell the tiny man about ${p.text}.`);
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("He looks at her, 'Listen giant-lady, I don't really care.{once: Maybe these things are important in the giant Quest.World.world, but not in mine.}'");
+          msg("He looks at her, 'Listen giant-lady, I don't really care.{once: Maybe these things are important in the giant Quest.World.world, but not in mine.}'");
         },
         test(p: any) {
           return true;
@@ -1428,11 +1429,11 @@ export const init = (Quest: QuestClass) => {
     loc: 'nursery',
     repair(options: any) {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      if (options.char === Quest.World.player) return Quest.IO.falsemsg('With the best will in the Quest.World.world, Mandy is not going to be ablke to repair the shoes. Better leave it to the cobbler elf...');
+      if (options.char === Quest.World.player) return falsemsg('With the best will in the Quest.World.world, Mandy is not going to be ablke to repair the shoes. Better leave it to the cobbler elf...');
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'tiny_man' does not exist on type '{}'.
-      if (Quest.World.w.tiny_man.bootsState === 2) return Quest.IO.falsemsg("'So can you fox those shoes?' asks Mandy.|'Not while I'm doin' this I can't.'");
+      if (Quest.World.w.tiny_man.bootsState === 2) return falsemsg("'So can you fox those shoes?' asks Mandy.|'Not while I'm doin' this I can't.'");
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg("'So can you fox those shoes?' asks Mandy.|'Reckon so!'");
+      msg("'So can you fox those shoes?' asks Mandy.|'Reckon so!'");
       return true;
     },
     scenery: true,

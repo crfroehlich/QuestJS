@@ -1,4 +1,5 @@
 import { QuestClass } from '../../types/quest';
+import { metamsg } from '../../lib/io';
 
 export const init = (Quest: QuestClass) => {
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'title' does not exist on type '{ perform... Remove this comment to see the full error message
@@ -41,7 +42,7 @@ export const init = (Quest: QuestClass) => {
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'mapClick' does not exist on type '{ perf... Remove this comment to see the full error message
   Quest.Settings.settings.mapClick = function (name: any) {
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    Quest.IO.metamsg(`You clicked on ${Quest.World.w[name].alias}`);
+    metamsg(`You clicked on ${Quest.World.w[name].alias}`);
   };
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'mapAutomapFrom' does not exist on type '... Remove this comment to see the full error message
   Quest.Settings.settings.mapAutomapFrom = ['street_middle', 'glade'];

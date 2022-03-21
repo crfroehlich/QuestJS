@@ -1,4 +1,5 @@
 import { QuestClass } from '../../types/quest';
+import { msg, falsemsg } from '../../lib/io';
 
 export const init = (Quest: QuestClass) => {
   register('battlefield', {
@@ -13,17 +14,17 @@ export const init = (Quest: QuestClass) => {
     afterEnter() {
       if (this.visited === 2) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Chess is supposed to be based on warfare or a metaphor or something, thinks Mandy. Perhaps that was why moving the horse on the chessboard brought her here.');
+        msg('Chess is supposed to be based on warfare or a metaphor or something, thinks Mandy. Perhaps that was why moving the horse on the chessboard brought her here.');
       }
       if (this.visited === 4) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('If the chessboard is a metaphor for this battle, and there is some kind of mystical link between then two, it occurs to Mandy that the knight she turned back in the house might be similarly linked to this dead horse.');
+        msg('If the chessboard is a metaphor for this battle, and there is some kind of mystical link between then two, it occurs to Mandy that the knight she turned back in the house might be similarly linked to this dead horse.');
       }
     },
 
     afterFirstEnter() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg("'Shit,' mutters Mandy. This is certainly outside the house, but she has no idea where she is. Or even when; how long is it since horses were used in a war, or uniforms like that?");
+      msg("'Shit,' mutters Mandy. This is certainly outside the house, but she has no idea where she is. Or even when; how long is it since horses were used in a war, or uniforms like that?");
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
       Quest.World.w.clockwork_thespian.state = 201;
     },
@@ -57,15 +58,15 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'oar' does not exist on type '{}'.
       if (!Quest.World.w.oar.isHeld()) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("{i:This can't be right,} thinks Mandy, as she tries to push the rump of the dead horse, to get it to turn. 'Shit!' It is too heavy to move. If she had a lever...");
+        msg("{i:This can't be right,} thinks Mandy, as she tries to push the rump of the dead horse, to get it to turn. 'Shit!' It is too heavy to move. If she had a lever...");
         return false;
       }
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg("{once:{i:This can't be right,} thinks Mandy. }She puts the oar under the rump of the dead horse. With a grunt, she jerks it up, and the hindquarters of the horse move a bit. With a shrug, she does it again, and again, slowly inching the back end of the horse round the front end...");
+      msg("{once:{i:This can't be right,} thinks Mandy. }She puts the oar under the rump of the dead horse. With a grunt, she jerks it up, and the hindquarters of the horse move a bit. With a shrug, she does it again, and again, slowly inching the back end of the horse round the front end...");
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('She lets go of the oar, and stands to take a breath, and suddenly the Quest.World.world dissolves around here.');
+      msg('She lets go of the oar, and stands to take a breath, and suddenly the Quest.World.world dissolves around here.');
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('She is back in the house.');
+      msg('She is back in the house.');
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'oar' does not exist on type '{}'.
       Quest.World.w.oar.loc = 'battlefield';
       Quest.World.player.loc = 'gallery';
@@ -76,7 +77,7 @@ export const init = (Quest: QuestClass) => {
     },
     withUse(char: any, obj: any) {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'oar' does not exist on type '{}'.
-      if (obj !== Quest.World.w.oar) return Quest.IO.falsemsg('Mandy wonder how she ould use {nm:item:the} on the horse.', { item: obj });
+      if (obj !== Quest.World.w.oar) return falsemsg('Mandy wonder how she ould use {nm:item:the} on the horse.', { item: obj });
       return this.turn();
     },
   });
@@ -93,7 +94,7 @@ export const init = (Quest: QuestClass) => {
       },
       use(char: any) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("Mandy carefully steps into her chamber pot boat... Which promptly capsizes! 'Shit,' she screams, now drenched in the filthy water. 'Well that was a fucking stupid idea,' she mutters to herself, as she steps back on dry land, dragging the chamber-pot-that-is-definitely-not-a-boat behind her.");
+        msg("Mandy carefully steps into her chamber pot boat... Which promptly capsizes! 'Shit,' she screams, now drenched in the filthy water. 'Well that was a fucking stupid idea,' she mutters to herself, as she steps back on dry land, dragging the chamber-pot-that-is-definitely-not-a-boat behind her.");
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
         Quest.World.w.chamber_pot.loc = 'beach';
         return false;
@@ -121,7 +122,7 @@ export const init = (Quest: QuestClass) => {
       alsoDir: ['swim'],
       use(char: any) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Mandy is about to paddle in the sea, when she sees a corpse floating nearby, surrounded by clouds of red. And another over there. And... lots of corpses. Perhaps the sea is not so inviting.');
+        msg('Mandy is about to paddle in the sea, when she sees a corpse floating nearby, surrounded by clouds of red. And another over there. And... lots of corpses. Perhaps the sea is not so inviting.');
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'beach' does not exist on type '{}'.
         Quest.World.w.beach.paddleFlag = true;
         return false;
@@ -138,11 +139,11 @@ export const init = (Quest: QuestClass) => {
     scenery: true,
     testDropIn(options: any) {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
-      if (options.item !== Quest.World.w.chamber_pot || Quest.World.w.chamber_pot.size !== 7) return Quest.IO.falsemsg("The thought of putting anything in that filthy water makes Mandy's stomach turn.");
+      if (options.item !== Quest.World.w.chamber_pot || Quest.World.w.chamber_pot.size !== 7) return falsemsg("The thought of putting anything in that filthy water makes Mandy's stomach turn.");
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
-      if (Quest.World.w.chamber_pot.containedFluidName) return Quest.IO.falsemsg('Mandy wonders if the chamber pot would make a boat. Not while it is full of {show:fluid} of course.', { fluid: Quest.World.w.chamber_pot.containedFluidName });
+      if (Quest.World.w.chamber_pot.containedFluidName) return falsemsg('Mandy wonders if the chamber pot would make a boat. Not while it is full of {show:fluid} of course.', { fluid: Quest.World.w.chamber_pot.containedFluidName });
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('Mandy carefully puts the enormous chamber pot into the water; it floats!');
+      msg('Mandy carefully puts the enormous chamber pot into the water; it floats!');
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
       Quest.World.w.chamber_pot.loc = 'sea';
     },
@@ -164,26 +165,26 @@ export const init = (Quest: QuestClass) => {
     loc: 'beach',
     play(options: any) {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'sandcastle' does not exist on type '{}'.
-      if (Quest.World.w.sandcastle.loc) return Quest.IO.falsemsg('Mandy looks at her sandcastle. Perhaps that is enough playing for now.');
+      if (Quest.World.w.sandcastle.loc) return falsemsg('Mandy looks at her sandcastle. Perhaps that is enough playing for now.');
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'sandcastle' does not exist on type '{}'.
       return Quest.World.w.sandcastle.build();
     },
     scenery: true,
     smash(options: any) {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('Mandy spends a few minutes kicking sand. It does not achieve anything, but she feels better for it.');
+      msg('Mandy spends a few minutes kicking sand. It does not achieve anything, but she feels better for it.');
       return true;
     },
     take(options: any) {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
-      if (!Quest.World.w.chamber_pot.isHeld()) return Quest.IO.falsemsg('Mandy scoops up some sand in her hand, and watches as it slowly falls through her fingers.');
+      if (!Quest.World.w.chamber_pot.isHeld()) return falsemsg('Mandy scoops up some sand in her hand, and watches as it slowly falls through her fingers.');
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
-      if (Quest.World.w.chamber_pot.containedFluidName === 'sand') return Quest.IO.falsemsg('Mandy things about getting more sand, but chamber pot is already full, she will not be able to carry more.');
+      if (Quest.World.w.chamber_pot.containedFluidName === 'sand') return falsemsg('Mandy things about getting more sand, but chamber pot is already full, she will not be able to carry more.');
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
-      if (Quest.World.w.chamber_pot.containedFluidName) return Quest.IO.falsemsg('Mandy thinks about getting some sand, but the chamber pot is already full; she would need to empty it first.');
+      if (Quest.World.w.chamber_pot.containedFluidName) return falsemsg('Mandy thinks about getting some sand, but the chamber pot is already full; she would need to empty it first.');
 
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('Mandy scoops up a load of sand into the chamber pot.');
+      msg('Mandy scoops up a load of sand into the chamber pot.');
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'chamber_pot' does not exist on type '{}'... Remove this comment to see the full error message
       Quest.World.w.chamber_pot.containedFluidName = 'sand';
       return true;
@@ -194,9 +195,9 @@ export const init = (Quest: QuestClass) => {
   Quest.World.createItem('sandcastle', Quest.Templates.CONSTRUCTION(), {
     buildAtLocation: true,
     buildPrecheck(options: any) {
-      if (this.loc) return Quest.IO.falsemsg(Quest.lang.construction_already, options);
+      if (this.loc) return falsemsg(Quest.lang.construction_already, options);
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      if (options.char.loc !== 'beach') return Quest.IO.falsemsg('Mandy laments that she is not on a sandy beach, and is therefore unable build a sandcastle.');
+      if (options.char.loc !== 'beach') return falsemsg('Mandy laments that she is not on a sandy beach, and is therefore unable build a sandcastle.');
       return true;
     },
     examine: 'The sandcastle looks pretty good, to Mandy\'s eye; four squat towers, connected by thick walls and surrounded by a moat. Well, a ditch that will {i:become} a moat when the tide comes in.',
@@ -206,7 +207,7 @@ export const init = (Quest: QuestClass) => {
     msgConstruction: 'Mandy wonders if she has time to play in the sand. She gives a shrug. She is on a beach in the nineteenth century. It will be over a century until she is born! She finds a patch of beach that is relatively free of blood and bodies, and where the sand is just slightly damp, and sits down. She spends the best part of an hour building a sandcastle. It is not as easy as she remembers - but she is just using her hands, rather than bucket and spade.|She stands up to inspect her work. Pretty damn good!',
     smash(options: any) {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('With a big grin, Mandy kicks the sandcastle, again and again, until no trace is left.');
+      msg('With a big grin, Mandy kicks the sandcastle, again and again, until no trace is left.');
       delete this.loc;
       return true;
     },
@@ -249,7 +250,7 @@ export const init = (Quest: QuestClass) => {
         return Quest.World.w.dead_horse.turn();
       }
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('Mandy wonders how she can use the oar... Perhaps she can find a boat?');
+      msg('Mandy wonders how she can use the oar... Perhaps she can find a boat?');
       return false;
     },
   });

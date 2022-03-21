@@ -1,4 +1,6 @@
 import { QuestClass } from '../../types/quest';
+import { log } from '../../lib/logger';
+import { falsemsg } from '../../lib/io';
 
 export const init = (Quest: QuestClass) => {
   // Quest.quest.next(char, questname)
@@ -6,16 +8,22 @@ export const init = (Quest: QuestClass) => {
 
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'create' does not exist on type '{ INITIA... Remove this comment to see the full error message
   Quest.quest.create('Charm for Tary', [
-    { text: 'Tary has asked me to find her a petro-charm; I should try Madame Rel\'s Little Shop of Wonders on the Wheat Road.' },
-    { text: 'Tary has asked me to find her a petro-charm; I have found one, I need to give it to her.' },
+    {
+      text: "Tary has asked me to find her a petro-charm; I should try Madame Rel's Little Shop of Wonders on the Wheat Road.",
+    },
+    {
+      text: 'Tary has asked me to find her a petro-charm; I have found one, I need to give it to her.',
+    },
   ]);
 
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'openingTimes' does not exist on type '{}... Remove this comment to see the full error message
   Quest.Utilities.util.openingTimes = function () {
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'isAfter' does not exist on type '{}'.
-    if (Quest.Utilities.util.isAfter('1700')) return Quest.IO.falsemsg('The business is now closed.');
+    if (Quest.Utilities.util.isAfter('1700'))
+      return falsemsg('The business is now closed.');
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'isAfter' does not exist on type '{}'.
-    if (!Quest.Utilities.util.isAfter('0800')) return Quest.IO.falsemsg('The business closed until eight.');
+    if (!Quest.Utilities.util.isAfter('0800'))
+      return falsemsg('The business closed until eight.');
     return true;
   };
 
@@ -39,7 +47,7 @@ export const init = (Quest: QuestClass) => {
     const result = [];
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
     for (const el of Quest.Utilities.scopeAllNpcHere()) {
-      console.log(el.name);
+      log(el.name);
       if (el.locationStatus) {
         const s = el.locationStatus();
         if (s) result.push(s);

@@ -220,7 +220,7 @@ export interface ISettingsClass extends IBase {
   panesCollapseAt?: number;
   performanceLogStartTime?: number;
   plainFontModeActive?: boolean;
-  playMode?: string;
+  playMode?: 'play' | 'beta' | 'dev' | 'meta';
   questVersion?: string;
   roomSetList?: IFileSaver;
   roomTemplate?: string[];
@@ -235,7 +235,7 @@ export interface ISettingsClass extends IBase {
   soundsFolder?: string;
   startingDialogEnabled?: boolean;
   statsData?: IStatsDatum[];
-  status?: null[];
+  status?: (string | (() => string))[];
   statusPane?: string;
   statusWidthLeft?: number;
   statusWidthRight?: number;
@@ -272,7 +272,10 @@ export interface IDateTime extends IBase {
 export interface IInventoryPane {
   alt?: string;
   getLoc?: (...params: any[]) => any;
+  hasContent?: boolean;
+  highlight: (...params: any[]) => boolean;
   name?: string;
+  noContent?: boolean;
   test?: (...params: any[]) => any;
 }
 
@@ -334,6 +337,11 @@ export interface IUtilities extends IBase {
 }
 
 export interface ITest {
+  errorOutput?: any[];
+  fullOutputData?: boolean;
+  ignoreHTML?: boolean;
+  menuResponseNumber?: any[];
+  testOutput?: any[];
   testing?: boolean;
 }
 
@@ -866,7 +874,9 @@ export interface IContainer {
 export interface IExitList {
   abbrev?: string;
   alt?: string;
-  key?: number;
+  background?: string;
+  destination?: string;
+  key?: string;
   name?: string;
   niceDir?: string;
   opp?: string;

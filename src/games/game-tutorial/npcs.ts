@@ -1,4 +1,5 @@
 import { QuestClass } from '../../types/quest';
+import { msg } from '../../lib/io';
 
 export const init = (Quest: QuestClass) => {
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
@@ -8,9 +9,9 @@ export const init = (Quest: QuestClass) => {
         name: 'laboratory',
         script() {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'What sort of lab is this?' you ask the robot.");
+          msg("'What sort of lab is this?' you ask the robot.");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'This is Professor Kleinscope's zeta-particle laboratory,' says the robot grandly.");
+          msg("'This is Professor Kleinscope's zeta-particle laboratory,' says the robot grandly.");
           // ts-error-fixed ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
           if (Quest.World.w.me.hints < 220) {
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -29,13 +30,13 @@ export const init = (Quest: QuestClass) => {
         name: 'Professor Kleinscope',
         script() {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Who is Professor Kleinscope?' you ask the robot.");
+          msg("'Who is Professor Kleinscope?' you ask the robot.");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Professor Kleinscope is the pre-eminent authority on zeta-particles,' says the robot, not to helpfully.");
+          msg("'Professor Kleinscope is the pre-eminent authority on zeta-particles,' says the robot, not to helpfully.");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Okay... go on.'");
+          msg("'Okay... go on.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Oh. Professor Kleinscope graduated from Keele University with a B.Sc. in physics, and later from Alabama Evangelical Bible College with a Ph.D. in an unspecified subject. Since then, he has been engaged in important post-graduate work under the Tutorial House.'");
+          msg("'Oh. Professor Kleinscope graduated from Keele University with a B.Sc. in physics, and later from Alabama Evangelical Bible College with a Ph.D. in an unspecified subject. Since then, he has been engaged in important post-graduate work under the Tutorial House.'");
         },
         test(p: any) {
           return p.text.match(/\b(professor|kleinscope)\b/);
@@ -45,9 +46,9 @@ export const init = (Quest: QuestClass) => {
         name: 'Zeta-particles',
         script() {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'What is a zeta-particle?' you ask the robot.");
+          msg("'What is a zeta-particle?' you ask the robot.");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Zeta-particles were discovered in Atlantis over 3000 years ago, but knowledge of them was lost when that great city disappeared. They offer unlimited power and a cure for all diseases,' says the robot.");
+          msg("'Zeta-particles were discovered in Atlantis over 3000 years ago, but knowledge of them was lost when that great city disappeared. They offer unlimited power and a cure for all diseases,' says the robot.");
           // ts-error-fixed ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
           if (Quest.World.w.me.hints < 230) {
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -65,9 +66,9 @@ export const init = (Quest: QuestClass) => {
 
         script() {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'How do I turn on the reactor?' you ask the robot. 'And where is it, anyway?'");
+          msg("'How do I turn on the reactor?' you ask the robot. 'And where is it, anyway?'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'The control rod must be placed in the reactor core,' says the robot. 'The reactor is through the door to the north.'");
+          msg("'The control rod must be placed in the reactor core,' says the robot. 'The reactor is through the door to the north.'");
           // ts-error-fixed ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
           if (Quest.World.w.me.hints < 270) {
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -86,14 +87,14 @@ export const init = (Quest: QuestClass) => {
 
         script() {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'What's the deal with the lift?' you ask the robot.");
+          msg("'What's the deal with the lift?' you ask the robot.");
           // ts-error-fixed ts-migrate(2339) FIXME: Property 'reactor_room' does not exist on type '{}... Remove this comment to see the full error message
           if (Quest.World.w.reactor_room.reactorRunning) {
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg("'The zeta-lift - or zeta-elevator - is operating normally,' says the robot.");
+            msg("'The zeta-lift - or zeta-elevator - is operating normally,' says the robot.");
           } else {
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg("'The zeta-lift - or zeta-elevator - is powered by the zeta-reactor, which is currently not running,' says the robot.");
+            msg("'The zeta-lift - or zeta-elevator - is powered by the zeta-reactor, which is currently not running,' says the robot.");
           }
           // ts-error-fixed ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
           if (Quest.World.w.me.hints < 260) {
@@ -111,9 +112,9 @@ export const init = (Quest: QuestClass) => {
       {
         script() {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Did you say Atlantis? What is that about?'");
+          msg("'Did you say Atlantis? What is that about?'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Atlantis is the name of a technologically-advanced city that disappeared 2954 years ago,'  says the robot. 'It supposedly sunk, but Professor Kleinscope believes it actually moved into another dimension, using zeta-particles.'");
+          msg("'Atlantis is the name of a technologically-advanced city that disappeared 2954 years ago,'  says the robot. 'It supposedly sunk, but Professor Kleinscope believes it actually moved into another dimension, using zeta-particles.'");
         },
         test(p: any) {
           return p.text.match(/atlantis/);
@@ -123,7 +124,7 @@ export const init = (Quest: QuestClass) => {
         failed: true,
         script() {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg('The robot certainly has no interest in {i:that}!');
+          msg('The robot certainly has no interest in {i:that}!');
           // ts-error-fixed ts-migrate(2339) FIXME: Property 'flag' does not exist on type '{ test: (p... Remove this comment to see the full error message
           if (!this.flag) {
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -149,7 +150,7 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'rope' does not exist on type '{}'.
       if (Quest.World.w.rope.isAttachedTo(this)) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'I cannot move while tied to the rope.'");
+        msg("'I cannot move while tied to the rope.'");
         if (!this.ropeMoveFlag) {
           this.ropeMoveFlag = true;
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -164,7 +165,7 @@ export const init = (Quest: QuestClass) => {
       eventPeriod:1,
       eventScript:function() {
         if (Quest.World.w.me.hints < 250 && this.loc === 'reactor_room') {
-          Quest.IO.msg("You noti.")
+          msg("You noti.")
           tmsg("Of course, there may be other topics you can ask about, so you might want to experiment. But that does NOT mean you should start asking about every rude word you can think of.")
           Quest.World.w.me.hints = 220
         }
@@ -183,17 +184,17 @@ export const init = (Quest: QuestClass) => {
         name: 'vomit',
         script() {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Er, so it looks like there might be some vomit over there,' you say, a little sheepishly.");
+          msg("'Er, so it looks like there might be some vomit over there,' you say, a little sheepishly.");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'I suppose you expect me to clean it up?' he replies.");
+          msg("'I suppose you expect me to clean it up?' he replies.");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Well, you are a robot...'");
+          msg("'Well, you are a robot...'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'And therefore subservient?'");
+          msg("'And therefore subservient?'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'No, no... Er, and therefore you have no sense of smell.'");
+          msg("'No, no... Er, and therefore you have no sense of smell.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Hmm. I will deal with the erstwhile contents of your stomach in a bit.'");
+          msg("'Hmm. I will deal with the erstwhile contents of your stomach in a bit.'");
         },
         test(p: any) {
           // ts-error-fixed ts-migrate(2339) FIXME: Property 'vomit' does not exist on type '{}'.
@@ -204,7 +205,7 @@ export const init = (Quest: QuestClass) => {
         failed: true,
         script() {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg('The robot certainly has no interest in {i:that}!');
+          msg('The robot certainly has no interest in {i:that}!');
           // ts-error-fixed ts-migrate(2339) FIXME: Property 'flag' does not exist on type '{ test: (p... Remove this comment to see the full error message
           if (!this.flag) {
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -231,20 +232,20 @@ export const init = (Quest: QuestClass) => {
     examine: 'The Professor is a slim tall man, perhaps in his forties, dressed, inevitably in a lab coat. Curiously his hair is neither white nor wild.{ifNot:Professor_Kleinscope:flag: He is sat at he desk, engrossed in his work.}',
     getAgreement() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg("'I'm far to busy to do that!' says Kleinscope indignantly.");
+      msg("'I'm far to busy to do that!' says Kleinscope indignantly.");
       return false;
     },
     loc: 'office',
     talk() {
       if (!this.flag) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("You say 'Hello,' to Professor Kleinscope.");
+        msg("You say 'Hello,' to Professor Kleinscope.");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("He looks up, apparently seeing you for the first time. 'Hello,yes?'");
+        msg("He looks up, apparently seeing you for the first time. 'Hello,yes?'");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'Your dinner is ready.'");
+        msg("'Your dinner is ready.'");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'What? Already? Well, I better get downstairs then!' He gets to his feet.");
+        msg("'What? Already? Well, I better get downstairs then!' He gets to his feet.");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         tmsg('Maybe now he is not sitting there we can use the computer.');
         this.flag = true;
@@ -262,9 +263,9 @@ export const init = (Quest: QuestClass) => {
         ]);
       } else {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'Professor?'");
+        msg("'Professor?'");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'Not now, my boy,' he says. He looks at you again. 'You are a boy, aren't you? Important appointment with my dinner!'");
+        msg("'Not now, my boy,' he says. He looks at you again. 'You are a boy, aren't you? Important appointment with my dinner!'");
       }
     },
   });

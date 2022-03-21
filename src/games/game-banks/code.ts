@@ -20,6 +20,7 @@ Each awakening gets steadily worse, by the fourth you are throwing up.
 
 */
 import { QuestClass } from '../../types/quest';
+import { msg, falsemsg, updateStatus, errormsg } from '../../lib/io';
 
 export const init = (Quest: QuestClass) => {
 
@@ -52,22 +53,22 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2304) FIXME: Cannot find name 'char'.
       if (char === Quest.World.player) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        Quest.IO.msg('You wonder how to revive {nm:item} - probably best to leave that to Xsansi.', options);
+        msg('You wonder how to revive {nm:item} - probably best to leave that to Xsansi.', options);
         return false;
       }
       if (options.char !== Quest.World.w.Xsansi) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        Quest.IO.msg("'{nm:char}, can you revive {nm:item}?' you ask.", options);
+        msg("'{nm:char}, can you revive {nm:item}?' you ask.", options);
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'Probably best to leave that to Xsansi.'");
+        msg("'Probably best to leave that to Xsansi.'");
         return false;
       }
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'inPod' does not exist on type '{ canReac... Remove this comment to see the full error message
       if (!this.inPod) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        Quest.IO.msg("'Xsansi, please revive {nm:item},' you say.", options);
+        msg("'Xsansi, please revive {nm:item},' you say.", options);
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        Quest.IO.msg("'Crew member {nm:item} is not currently in stasis.'", options);
+        msg("'Crew member {nm:item} is not currently in stasis.'", options);
         return false;
       }
       // check number revived TODO!!!
@@ -93,22 +94,22 @@ export const init = (Quest: QuestClass) => {
         s += ` {pv:char:be:true} ${this.posture}.`;
       }
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      Quest.IO.msg(this.desc + s, tpParams);
+      msg(this.desc + s, tpParams);
     };
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'stasis' does not exist on type '{ canRea... Remove this comment to see the full error message
     res.stasis = function () {
       const tpParams = { char: this };
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      Quest.IO.msg("'{nm:char}, you're work here is done; you can go get in your stasis pod.'", tpParams);
+      msg("'{nm:char}, you're work here is done; you can go get in your stasis pod.'", tpParams);
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'deployProbeTotal' does not exist on type... Remove this comment to see the full error message
       if (this.deployProbeTotal === 0) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        Quest.IO.msg("'You don't think I should deploy a probe first?'", tpParams);
+        msg("'You don't think I should deploy a probe first?'", tpParams);
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        Quest.IO.msg("'I'm the captain,' you remind {ob:char}.", tpParams);
+        msg("'I'm the captain,' you remind {ob:char}.", tpParams);
       }
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg(this.okay);
+      msg(this.okay);
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'agenda' does not exist on type '{ canRea... Remove this comment to see the full error message
       this.agenda.push('walkTo:stasis_bay');
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'agenda' does not exist on type '{ canRea... Remove this comment to see the full error message
@@ -348,9 +349,9 @@ export const init = (Quest: QuestClass) => {
       script(response: any) {
         const tpParams = { char: response.char };
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        Quest.IO.msg("'What's your report on {planet}?' you ask {nm:char:the}.", tpParams);
+        msg("'What's your report on {planet}?' you ask {nm:char:the}.", tpParams);
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        Quest.IO.msg(planetAnalysis(response), tpParams);
+        msg(planetAnalysis(response), tpParams);
       },
       test(p: any) {
         return p.text.match(this.regex);
@@ -371,7 +372,7 @@ export const init = (Quest: QuestClass) => {
       regex: /(your |his |her )?(area|special.*|expert.*|job|role)/,
       script(response: any) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg(`'What is your area of expertise?' you ask ${Quest.lang.getName(response.char, { article: Quest.Utilities.DEFINITE })}.`);
+        msg(`'What is your area of expertise?' you ask ${Quest.lang.getName(response.char, { article: Quest.Utilities.DEFINITE })}.`);
         response.char.areaAskResponse();
       },
       test(p: any) {
@@ -383,7 +384,7 @@ export const init = (Quest: QuestClass) => {
       regex: /^((his |her )?(background))|((him|her)self)$/,
       script(response: any) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg(`'Tell me about yourself,' you say to ${Quest.lang.getName(response.char, { article: Quest.Utilities.DEFINITE })}.`);
+        msg(`'Tell me about yourself,' you say to ${Quest.lang.getName(response.char, { article: Quest.Utilities.DEFINITE })}.`);
         response.char.backgroundAskResponse();
         trackRelationship(response.char, 1, 'background');
       },
@@ -399,9 +400,9 @@ export const init = (Quest: QuestClass) => {
 
   function howAreYouFeeling(response: any) {
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    Quest.IO.msg(`'How are you feeling?' you ask ${Quest.lang.getName(response.char, { article: Quest.Utilities.DEFINITE })}.`);
+    msg(`'How are you feeling?' you ask ${Quest.lang.getName(response.char, { article: Quest.Utilities.DEFINITE })}.`);
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    Quest.IO.msg(PLANETS[Quest.World.w.Xsansi.currentPlanet][`${response.char.name}_how_are_you`]);
+    msg(PLANETS[Quest.World.w.Xsansi.currentPlanet][`${response.char.name}_how_are_you`]);
   }
 
   function planetAnalysis(response: any) {
@@ -409,12 +410,12 @@ export const init = (Quest: QuestClass) => {
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
     const arr = response.char.data[Quest.World.w.Xsansi.currentPlanet];
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (Object.keys(arr).length === 0) return Quest.IO.falsemsg('You should talk to Aada or Ostap about that stuff.');
+    if (Object.keys(arr).length === 0) return falsemsg('You should talk to Aada or Ostap about that stuff.');
 
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'Xsansi' does not exist on type '{}'.
     let rank = response.char[`rank${Quest.World.w.Xsansi.currentPlanet}`];
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (rank === undefined) return Quest.IO.falsemsg('You should talk to Aada or Ostap about that stuff.');
+    if (rank === undefined) return falsemsg('You should talk to Aada or Ostap about that stuff.');
     rank >>= 1;
     if (rank >= arr.length) rank = arr.length - 1;
     return arr[rank];
@@ -469,7 +470,7 @@ export const init = (Quest: QuestClass) => {
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
     Quest.World.w.Kyle.setAgenda(['walkTo:probes_forward', 'text:deployProbe:1']);
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'updateStatus' does not exist on type '{ ... Remove this comment to see the full error message
-    Quest.IO.io.updateStatus();
+    updateStatus();
   }
 
   // If a topic has an attribute "name2", then using code=2,
@@ -510,7 +511,7 @@ export const init = (Quest: QuestClass) => {
   function shipAlert(s: any) {
     if (isOnShip()) {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg(`'${s}' announces Xsansi.`);
+      msg(`'${s}' announces Xsansi.`);
     }
   }
 
@@ -555,7 +556,7 @@ export const init = (Quest: QuestClass) => {
     // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
     document.querySelector('#map').setAttribute('title', `The Joseph Banks, ${Quest.Settings.settings.deckNames[currentDeck]}`);
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (!currentDeck) return Quest.IO.errormsg(`No deckName for ${Quest.World.player.loc}`);
+    if (!currentDeck) return errormsg(`No deckName for ${Quest.World.player.loc}`);
     const el = document.querySelector(`#${currentDeck}`);
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'style' does not exist on type 'Element'.
     if (el) el.style.display = 'block';

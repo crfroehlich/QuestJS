@@ -1,11 +1,11 @@
 import { QuestClass } from '../../types/quest';
+import { msg, wait }        from '../../lib/io';
 
 export const init = (Quest: QuestClass) => {
-
   const TURNS_TO_LANDING = 3;
-  const TURNS_TO_ORBIT = 2;
-  const TURNS_TO_DATA = 3;
-  const PLANETS = [
+  const TURNS_TO_ORBIT   = 2;
+  const TURNS_TO_DATA    = 3;
+  const PLANETS          = [
     {
 
       Aada_how_are_you: "'I'm okay.'",
@@ -48,12 +48,12 @@ export const init = (Quest: QuestClass) => {
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
         Quest.World.w.Kyle.status = Math.min(Quest.World.w.Kyle.status, 98);
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('{i:The "Joseph Banks" left Earth orbit in 2319, on a centuries-long mission to survey five relatively close star systems. The crew were put in stasis for the long journey between the stars. As the captain, it is up to you to decide what probes to send to the surface to maximise your bonus - and to keep the crew happy and safe.}');
-        // Quest.IO.wait()
+        msg('{i:The "Joseph Banks" left Earth orbit in 2319, on a centuries-long mission to survey five relatively close star systems. The crew were put in stasis for the long journey between the stars. As the captain, it is up to you to decide what probes to send to the surface to maximise your bonus - and to keep the crew happy and safe.}');
+        // wait()
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('&nbsp;');
+        msg('&nbsp;');
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'Good morning,' says a female voice. {i:Who the hell?} you wonder for a few minutes, before realising you are in a stasis pod. You sit up. 'We have arrived at {star},' the voice continues, 'our first destination, without incident.' It is Xsansi, the ship AI, who has been piloting the ship for the last twenty years or whatever. 'You may be suffering from disorientation, nausea, headache and muscle fatigue. If symptoms persist, you should seek medical advice. Following standard procedure, Crewman Kyle will soon launch a satellite, which will give us basic data about the planet, allowing you to decide how many probes to send to the surface.'");
+        msg("'Good morning,' says a female voice. {i:Who the hell?} you wonder for a few minutes, before realising you are in a stasis pod. You sit up. 'We have arrived at {star},' the voice continues, 'our first destination, without incident.' It is Xsansi, the ship AI, who has been piloting the ship for the last twenty years or whatever. 'You may be suffering from disorientation, nausea, headache and muscle fatigue. If symptoms persist, you should seek medical advice. Following standard procedure, Crewman Kyle will soon launch a satellite, which will give us basic data about the planet, allowing you to decide how many probes to send to the surface.'");
         // Quest.World.world.enterRoom();
       },
 
@@ -109,9 +109,9 @@ export const init = (Quest: QuestClass) => {
 
       onArrival() {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg(`'Good morning,' says a female voice. {i:Who the hell?} you wonder for a few minutes, before again realising you are in a stasis pod. 'We have arrived at ${this.starName},' the voice continues, 'our second destination, after a lengthy journey, with a single incident. On the nineteenth of September, 2338 at 2104, ship time, the ship passed through a meteor shower, resulting in a loss of integrity in: the lounge, the captain's cabin, the top deck corridor.`);
+        msg(`'Good morning,' says a female voice. {i:Who the hell?} you wonder for a few minutes, before again realising you are in a stasis pod. 'We have arrived at ${this.starName},' the voice continues, 'our second destination, after a lengthy journey, with a single incident. On the nineteenth of September, 2338 at 2104, ship time, the ship passed through a meteor shower, resulting in a loss of integrity in: the lounge, the captain's cabin, the top deck corridor.`);
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'You may be suffering from disorientation, nausea, headache and muscle fatigue. If symptoms persist, you should seek medical advice.' You sit up, and for a moment you do feel dizzy, but it soon passes.");
+        msg("'You may be suffering from disorientation, nausea, headache and muscle fatigue. If symptoms persist, you should seek medical advice.' You sit up, and for a moment you do feel dizzy, but it soon passes.");
         Quest.World.player.status = Math.min(Quest.World.player.status, 95);
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
         Quest.World.w.Kyle.status = Math.min(Quest.World.w.Kyle.status, 93);
@@ -189,7 +189,7 @@ export const init = (Quest: QuestClass) => {
 
       onArrival() {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg(`'Good morning,' says a female voice. {i:Xsansi,} you think to yourself. 'We have arrived at ${this.starName},' the voice continues, 'our third destination, after a long and oh-so-tedious journey. You may be suffering from disorientation, nausea, headache and muscle fatigue, but I expect that is nothing to decades of loniness, right? If symptoms persist, I suggest you man-up.' You sit up, and immediately feel sick. You grip the sides of the pod as the room spins, waiting for it stop. It is a few minutes before you feel well enough to actually think.`);
+        msg(`'Good morning,' says a female voice. {i:Xsansi,} you think to yourself. 'We have arrived at ${this.starName},' the voice continues, 'our third destination, after a long and oh-so-tedious journey. You may be suffering from disorientation, nausea, headache and muscle fatigue, but I expect that is nothing to decades of loniness, right? If symptoms persist, I suggest you man-up.' You sit up, and immediately feel sick. You grip the sides of the pod as the room spins, waiting for it stop. It is a few minutes before you feel well enough to actually think.`);
         Quest.World.player.status = Math.min(Quest.World.player.status, 85);
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
         Quest.World.w.Kyle.status = Math.min(Quest.World.w.Kyle.status, 82);
@@ -252,7 +252,7 @@ export const init = (Quest: QuestClass) => {
 
       onArrival() {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg(`'Awake at last are we?' says a female voice. {i:Why does she sound so odd?} you wonder. 'Here we are at ${this.starName},' the strangely inflected voice continues, 'our fourth destination, after a long, long journey, giving me plenty of time to consider the nature of reality.' You sit up, and immediately throw up over the side of the pod. You grip the sides of the pod as the entire contents of your stomach is ejected on to the floor. Eventually, the heaving stops.`);
+        msg(`'Awake at last are we?' says a female voice. {i:Why does she sound so odd?} you wonder. 'Here we are at ${this.starName},' the strangely inflected voice continues, 'our fourth destination, after a long, long journey, giving me plenty of time to consider the nature of reality.' You sit up, and immediately throw up over the side of the pod. You grip the sides of the pod as the entire contents of your stomach is ejected on to the floor. Eventually, the heaving stops.`);
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'pile_of_vomit' does not exist on type '{... Remove this comment to see the full error message
         Quest.World.w.pile_of_vomit.loc = 'stasis_bay';
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'alienShip' does not exist on type '{}'.
@@ -299,4 +299,4 @@ export const init = (Quest: QuestClass) => {
     },
 
   ];
-}
+};

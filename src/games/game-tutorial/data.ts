@@ -1,4 +1,5 @@
 import { QuestClass } from '../../types/quest';
+import { msg } from '../../lib/io';
 
 export const init = (Quest: QuestClass) => {
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
@@ -31,7 +32,7 @@ export const init = (Quest: QuestClass) => {
   Quest.World.createRoom('lounge', {
     afterFirstEnter() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('The man you need to find is upstairs, but the lift does not work - it has no power. How can you get to him?');
+      msg('The man you need to find is upstairs, but the lift does not work - it has no power. How can you get to him?');
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       tmsg('This is the first room, and the text is telling you about it. If there were things here, you would probably be told about them in the room description, but we will come on to that later. You will also usually be told of any exits. This room has an exit north, but it is currently locked.');
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -175,20 +176,20 @@ export const init = (Quest: QuestClass) => {
     move() {
       if (!this.moved) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('You move the crates... And find a passage was hidden behind them.');
+        msg('You move the crates... And find a passage was hidden behind them.');
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
         hint.now('enterPassage');
         this.moved = true;
         return true;
       }
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('You feel pretty sure moving the crates again will not reveal any more hidden doors.');
+      msg('You feel pretty sure moving the crates again will not reveal any more hidden doors.');
       return false;
     },
     pronouns: Quest.lang.pronouns.plural,
     take(options: any) {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('The crates are too heavy to pick... But you might be able to move them.');
+      msg('The crates are too heavy to pick... But you might be able to move them.');
       return false;
     },
   });
@@ -197,7 +198,7 @@ export const init = (Quest: QuestClass) => {
   Quest.World.createItem('cobwebs', {
     examine() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('There are a lot! You wonder if it is worse if there are a thousand spiders down here... Or just one very big one.');
+      msg('There are a lot! You wonder if it is worse if there are a thousand spiders down here... Or just one very big one.');
       if (!this.flag) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         tmsg("I felt embarrassed about the cobwebs not being implemented, now you can look at them to your heart's content.");
@@ -207,7 +208,7 @@ export const init = (Quest: QuestClass) => {
     scenery: true,
     take(options: any) {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('The cobwebs just disintegrate when you try to take them.');
+      msg('The cobwebs just disintegrate when you try to take them.');
       return false;
     },
   });
@@ -255,11 +256,11 @@ export const init = (Quest: QuestClass) => {
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'shed_door' does not exist on type '{}'.
         if (Quest.World.w.shed_door.locked) {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg('You shed door is padlocked. If only you have something to break it off...');
+          msg('You shed door is padlocked. If only you have something to break it off...');
           return false;
         }
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('You walk into the shed.');
+        msg('You walk into the shed.');
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
         Quest.World.w.me.moveChar(this);
         return true;
@@ -268,13 +269,13 @@ export const init = (Quest: QuestClass) => {
 
     smell() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('You can smell the freshly-cut grass!');
+      msg('You can smell the freshly-cut grass!');
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'before' does not exist on type '{}'.
       if (hint.before('xBox')) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         tmsg('You can also smell specific items, so SMELL GRASS would have also worked.');
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('A large wooden box falls from the sky! Miraculously, it seems to have survived intact.');
+        msg('A large wooden box falls from the sky! Miraculously, it seems to have survived intact.');
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         tmsg('The box is a container, which means you can put things inside it and maybe find things already in it. Perhaps we should start by looking at it.');
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'box' does not exist on type '{}'.
@@ -305,7 +306,7 @@ export const init = (Quest: QuestClass) => {
   Quest.World.createItem('grass', {
     examine() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('The grass is green, and recently cut.');
+      msg('The grass is green, and recently cut.');
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
       hint.now('smell');
     },
@@ -313,13 +314,13 @@ export const init = (Quest: QuestClass) => {
     scenery: true,
     smell() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('You can smell the grass; it has just been cut!');
+      msg('You can smell the grass; it has just been cut!');
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'before' does not exist on type '{}'.
       if (hint.before('xBox')) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         tmsg('You can also smell the whole location, so just SMELL would have also worked.');
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('A large wooden box falls from the sky! Miraculously, it seems to have survived intact.');
+        msg('A large wooden box falls from the sky! Miraculously, it seems to have survived intact.');
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         tmsg('The box is a container, which means you can put things inside it and maybe find things already in it. Perhaps we should start by looking at it.');
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'box' does not exist on type '{}'.
@@ -336,13 +337,13 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'hat' does not exist on type '{}'.
       if (this.loc && Quest.World.w.hat.loc === 'box' && Quest.World.w.crowbar.loc !== 'box') {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg(" 'Thank you for your custom!' says the box. It starts to shake violently then leaps into the air, rapidly disappearing from sight.");
+        msg(" 'Thank you for your custom!' says the box. It starts to shake violently then leaps into the air, rapidly disappearing from sight.");
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
         hint.now('crowbar');
         this.loc = false;
       } else {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'Hey!' exclaims a voice from the box, 'where's my hat?' The lid flips back open.");
+        msg("'Hey!' exclaims a voice from the box, 'where's my hat?' The lid flips back open.");
         this.closed = false;
       }
     },
@@ -351,16 +352,16 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'list' does not exist on type '{ char: an... Remove this comment to see the full error message
       tpParams.list = this.listContents(Quest.World.world.LOOK);
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('It is large, wooden box. It does not look very substantial, but it survived the fall nevertheless. There is a label on the {ifNot:box:closed:open }lid.');
+      msg('It is large, wooden box. It does not look very substantial, but it survived the fall nevertheless. There is a label on the {ifNot:box:closed:open }lid.');
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      if (!this.closed) Quest.IO.msg(Quest.lang.look_inside_it, tpParams);
+      if (!this.closed) msg(Quest.lang.look_inside_it, tpParams);
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
       if (!this.flag2) hint.now('readBox');
     },
     msgClose: 'You close the lid.',
     read() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('The label says: "The Hat and Crowbar Company - exchanging hats for crowbars since 2020."');
+      msg('The label says: "The Hat and Crowbar Company - exchanging hats for crowbars since 2020."');
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
       hint.now('openBox');
       this.locked = false;
@@ -380,7 +381,7 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'lab_door' does not exist on type '{}'.
       if (options.char.loc === 'laboratory' && Quest.World.w.lab_door.locked) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('The crowbar is not going to help open that door.');
+        msg('The crowbar is not going to help open that door.');
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         tmsg('Nice try, but you have to get the robot to open this door, not the crowbar.');
         return false;
@@ -388,7 +389,7 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'lab_door' does not exist on type '{}'.
       if (options.char.loc === 'office' && Quest.World.w.lab_door.locked) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Use it on what?');
+        msg('Use it on what?');
         return false;
       }
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -404,7 +405,7 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       if (!this.locked) return Quest.IO.falsemsg('The padlock is already off the lock.');
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('You put the crowbar to the padlock, and give a pull. The padlock breaks.');
+      msg('You put the crowbar to the padlock, and give a pull. The padlock breaks.');
       this.locked = false;
       return true;
     },
@@ -494,7 +495,7 @@ export const init = (Quest: QuestClass) => {
           // ts-error-fixed ts-migrate(2339) FIXME: Property 'lab_door' does not exist on type '{}'.
           if (Quest.World.w.lab_door.closed) {
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg('The robot opens the heavy door with ease.');
+            msg('The robot opens the heavy door with ease.');
             // ts-error-fixed ts-migrate(2339) FIXME: Property 'lab_door' does not exist on type '{}'.
             Quest.World.w.lab_door.closed = false;
           }
@@ -519,19 +520,19 @@ export const init = (Quest: QuestClass) => {
     open(options: any) {
       if (!this.closed) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        Quest.IO.msg(Quest.lang.already, { item: this });
+        msg(Quest.lang.already, { item: this });
         return false;
       }
       if (options.char.strong) {
         this.closed = false;
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        Quest.IO.msg(this.msgOpen, tpParams);
+        msg(this.msgOpen, tpParams);
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
         hint.now('northToReactor');
         return true;
       }
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('The door is too heavy to open.');
+      msg('The door is too heavy to open.');
       return false;
     },
   });
@@ -554,7 +555,7 @@ export const init = (Quest: QuestClass) => {
   Quest.World.createItem('brand_badges', Quest.Templates.COMPONENT('instruments'), {
     examine() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('The badges on the various instruments are all the same; "Zeta Industries". They appear to be hand-drawn.');
+      msg('The badges on the various instruments are all the same; "Zeta Industries". They appear to be hand-drawn.');
       if (!this.flag1) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         tmsg('Cool, you are using your initiative to look deeper. This can be vital in some games.');
@@ -585,32 +586,32 @@ export const init = (Quest: QuestClass) => {
     eventScript() {
       this.countdown--;
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg("A recorded voice echoes round the room: 'Warning: Zeta-particle levels above recommended safe threshold. Death expected after approximately {reactor_room.countdown} minutes of exposure.'");
+      msg("A recorded voice echoes round the room: 'Warning: Zeta-particle levels above recommended safe threshold. Death expected after approximately {reactor_room.countdown} minutes of exposure.'");
       switch (this.countdown) {
         case 5:
           // ts-error-fixed ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
           hint.now('getRod');
         case 4:
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg('You are feeling a little nauseous.');
+          msg('You are feeling a little nauseous.');
           break;
         case 3:
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg('You start to get a headache.');
+          msg('You start to get a headache.');
           break;
         case 2:
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg('You are feeling very nauseous.');
+          msg('You are feeling very nauseous.');
           break;
         case 1:
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg('You throw up, feeling very weak.');
+          msg('You throw up, feeling very weak.');
           // ts-error-fixed ts-migrate(2339) FIXME: Property 'vomit' does not exist on type '{}'.
           Quest.World.w.vomit.loc = this.name;
           break;
         case 0:
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg('You have died.');
+          msg('You have died.');
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           tmsg("Don't worry, you are not really dead; this is just a tutorial. Unfortunately, that does mean the next warning will say you will die in minus one minute, as the countdown goes below zero.");
           break;
@@ -630,7 +631,7 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'control_rod' does not exist on type '{}'... Remove this comment to see the full error message
       if (Quest.World.w.control_rod.loc === this.name) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('The reactor starts to glow with a blue light, and you can hear it is now buzzing.');
+        msg('The reactor starts to glow with a blue light, and you can hear it is now buzzing.');
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'reactor_room' does not exist on type '{}... Remove this comment to see the full error message
         Quest.World.w.reactor_room.reactorRunning = true;
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
@@ -645,7 +646,7 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'control_rod' does not exist on type '{}'... Remove this comment to see the full error message
       if (options.item === Quest.World.w.control_rod) return true;
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('That cannot go in there!');
+      msg('That cannot go in there!');
       return false;
     },
   });
@@ -666,7 +667,7 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2304) FIXME: Cannot find name 'char'.
       if (this.isAtLoc(char.name)) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        Quest.IO.msg(Quest.lang.already_have, tpParams);
+        msg(Quest.lang.already_have, tpParams);
         return false;
       }
       // ts-error-fixed ts-migrate(2304) FIXME: Cannot find name 'char'.
@@ -675,18 +676,18 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2304) FIXME: Cannot find name 'char'.
       if (char === Quest.World.w.me) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("As you go to grab the control rod, a recorded message says: 'Warning: Control rod is highly zeta-active. Handling will result in instant death.' You decide upon reflection that you do not want to pick it up that much.");
+        msg("As you go to grab the control rod, a recorded message says: 'Warning: Control rod is highly zeta-active. Handling will result in instant death.' You decide upon reflection that you do not want to pick it up that much.");
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
         hint.now('backToRobot');
         return false;
       }
       const flag = (this.loc === 'reactor');
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      Quest.IO.msg(Quest.lang.take_successful, tpParams);
+      msg(Quest.lang.take_successful, tpParams);
       this.moveToFrom(options, 'name');
       if (flag) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('The blue light in the reactor winks out and the buzz dies.');
+        msg('The blue light in the reactor winks out and the buzz dies.');
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'reactor_room' does not exist on type '{}... Remove this comment to see the full error message
         Quest.World.w.reactor_room.reactorRunning = false;
       }
@@ -726,19 +727,19 @@ export const init = (Quest: QuestClass) => {
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'rope' does not exist on type '{}'.
         if (!Quest.World.w.rope.locs.includes('outside')) {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg('You look out the window. If is a long way down to the ground, and there are no hand-holds. You need a way to climb down.');
+          msg('You look out the window. If is a long way down to the ground, and there are no hand-holds. You need a way to climb down.');
           // ts-error-fixed ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
           hint.now('climbOut');
           return false;
         }
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('You climb out the window, and down the rope, quickly reaching the ground. You jump in your SUV, and drive away. A job well done.');
+        msg('You climb out the window, and down the rope, quickly reaching the ground. You jump in your SUV, and drive away. A job well done.');
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg(' ');
+        msg(' ');
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Congratulations, you have won!');
+        msg('Congratulations, you have won!');
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg(' ');
+        msg(' ');
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         tmsg('So this is where we say good bye; you have completed the game, and hopefully now have a pretty good idea of how to play parser-based adventure games (and perhaps even write some too).');
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'finish' does not exist on type '{ nextid... Remove this comment to see the full error message
@@ -752,7 +753,7 @@ export const init = (Quest: QuestClass) => {
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'office' does not exist on type '{}'.
         if (Quest.World.w.office.lift_exit_locked) return Quest.IO.falsemsg('The lift door is closed. You suspect Professor Kleinscope is in he lift and on his way up right now.');
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('You walk back into the lift.');
+        msg('You walk back into the lift.');
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'me' does not exist on type '{}'.
         Quest.World.w.me.moveChar(this);
       },
@@ -764,10 +765,10 @@ export const init = (Quest: QuestClass) => {
     examine() {
       if (this.smashed) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('The window is tall and wide... and smashed.');
+        msg('The window is tall and wide... and smashed.');
       } else {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('The window is tall and wide; it does not look like it will open.');
+        msg('The window is tall and wide; it does not look like it will open.');
       }
       if (!this.lookedout) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -785,7 +786,7 @@ export const init = (Quest: QuestClass) => {
       let s = 'Out of the window you can see the street at the front of the house. Your black SUV is parked at the side on the road.';
       if (this.outside.length > 0) s += ` On the street below the house you can see ${Quest.Utilities.formatList(this.outside, { article: Quest.Utilities.DEFINITE, lastJoiner: Quest.lang.list_and })}.`;
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg(s);
+      msg(s);
     },
     open() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -801,14 +802,14 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'old_newspaper' does not exist on type '{... Remove this comment to see the full error message
       if (Quest.World.w.old_newspaper.fist_wrapped) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('With your fist wrapped in the old newspaper, you punch it through the window, breaking the glass. You take a moment to knock away the remaining jagged shards in the frame.');
+        msg('With your fist wrapped in the old newspaper, you punch it through the window, breaking the glass. You take a moment to knock away the remaining jagged shards in the frame.');
         this.smashed = true;
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
         hint.now('out');
         return true;
       }
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('You are about to put your fist through the window when it occurs to you that your hand will get ripped to shreds by the glass fragments, and you really do not want to leave DNA evidence here. It is definitely not that you hate the sight of blood.');
+      msg('You are about to put your fist through the window when it occurs to you that your hand will get ripped to shreds by the glass fragments, and you really do not want to leave DNA evidence here. It is definitely not that you hate the sight of blood.');
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
       hint.now('wrapFist');
       return false;
@@ -817,7 +818,7 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'rope' does not exist on type '{}'.
       if (item !== Quest.World.w.rope) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('You lob {nm:item:the} out the window; it lands on the street below.');
+        msg('You lob {nm:item:the} out the window; it lands on the street below.');
         item.loc = false;
         // ts-error-fixed ts-migrate(2304) FIXME: Cannot find name 'office_window'.
         office_window.outside.push(item);
@@ -829,7 +830,7 @@ export const init = (Quest: QuestClass) => {
       if (item.tiedTo1 && item.tiedTo2) falsedmsg('The rope is tied to both {nm:obj1:the} and {nm:obj2:the}; which end were you hoping to throw out?', { obj1: Quest.World.w[rope.tiedTo1], obj2: Quest.World.w[rope.tiedTo2] });
 
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('You throw the end of the rope out the window.');
+      msg('You throw the end of the rope out the window.');
       if (item.tiedTo1) {
         item.locs.push('outside');
       } else {
@@ -846,10 +847,10 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'Professor_Kleinscope' does not exist on ... Remove this comment to see the full error message
       if (Quest.World.w.Professor_Kleinscope.loc === 'office') {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'Please don't touch that,' says the Professor as you reach out, 'it's very expensive.'");
+        msg("'Please don't touch that,' says the Professor as you reach out, 'it's very expensive.'");
       } else {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('You look behind the painting, but inexplicably there is no safe there. But there is a post-it note stuck to the back of the picture.');
+        msg('You look behind the painting, but inexplicably there is no safe there. But there is a post-it note stuck to the back of the picture.');
       }
     },
     scenery: true,
@@ -870,7 +871,7 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'Professor_Kleinscope' does not exist on ... Remove this comment to see the full error message
       if (Quest.World.w.Professor_Kleinscope.loc === 'office' && options.posture === 'sit') {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'Making yourself at home, I see...' notes Professor Kleinscope.");
+        msg("'Making yourself at home, I see...' notes Professor Kleinscope.");
       }
     },
     examine: 'This is an elegant, white office chair in good condition.',
@@ -884,7 +885,7 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'Professor_Kleinscope' does not exist on ... Remove this comment to see the full error message
       if (Quest.World.w.Professor_Kleinscope.loc === 'office' && options.posture === 'stand') {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'I'd rather you kept your feet {i:off} the furniture,' says Professor Kleinscope crossly.");
+        msg("'I'd rather you kept your feet {i:off} the furniture,' says Professor Kleinscope crossly.");
       }
     },
   });
@@ -911,31 +912,31 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'Professor_Kleinscope' does not exist on ... Remove this comment to see the full error message
       if (!Quest.World.w.Professor_Kleinscope.flag) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('You cannot use the computer while Professor Kleinscope is sat there using it himself!');
+        msg('You cannot use the computer while Professor Kleinscope is sat there using it himself!');
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
         hint.now('talkProf');
       }
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'Professor_Kleinscope' does not exist on ... Remove this comment to see the full error message
       else if (Quest.World.w.Professor_Kleinscope.loc === 'office') {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("You reach a hand out to the keyboard. 'Hands off!' insists the Professor.{once: 'I have some very important files on there, and I don't want the likes of you messing with them.'}");
+        msg("You reach a hand out to the keyboard. 'Hands off!' insists the Professor.{once: 'I have some very important files on there, and I don't want the likes of you messing with them.'}");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         tmsg('I have a feeling if we just wait a few turns Kleinscope will head off and look for his dinner.');
       } else {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("You press a key on the keyboard, and a message appears on the screen: 'Please input your six digit PIN.'");
+        msg("You press a key on the keyboard, and a message appears on the screen: 'Please input your six digit PIN.'");
         Quest.IO.askText('PIN?', (result: any) => {
           // ts-error-fixed ts-migrate(2339) FIXME: Property 'computer' does not exist on type '{}'.
           if (result === Quest.World.w.computer.code) {
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg(`You type "${result}", and unlock the computer. You put in your USB stick, and download the files... It takes nearly twenty minutes; this is one slow computer.`);
+            msg(`You type "${result}", and unlock the computer. You put in your USB stick, and download the files... It takes nearly twenty minutes; this is one slow computer.`);
             // ts-error-fixed ts-migrate(2339) FIXME: Property 'before' does not exist on type '{}'.
             if (hint.before('smashWindow')) {
               // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
               tmsg('Cool, you found the number without any prompting from me.');
             }
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg("As you remove the USB stick, an alarm sounds, and you hear a voice: 'Warning: Illegal access to USB port detected. Warning: Illegal access to USB port detected.'");
+            msg("As you remove the USB stick, an alarm sounds, and you hear a voice: 'Warning: Illegal access to USB port detected. Warning: Illegal access to USB port detected.'");
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
             tmsg('Who knew such an old computer would be protected like that? The Professor will be here soon, coming up the lift. You need to find another way out. How about the window?');
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -978,7 +979,7 @@ export const init = (Quest: QuestClass) => {
             Quest.World.w.office.lift_exit_locked = true;
           } else {
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg(`You type "${result}", but it fails to unlock the computer.`);
+            msg(`You type "${result}", but it fails to unlock the computer.`);
             // ts-error-fixed ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
             hint.now('findCode');
           }
@@ -1009,7 +1010,7 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'reactor_room' does not exist on type '{}... Remove this comment to see the full error message
       if (!Quest.World.w.reactor_room.reactorRunning) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('The lift does not seem to be working.');
+        msg('The lift does not seem to be working.');
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'now' does not exist on type '{}'.
         hint.now('askRLift');
         return false;
@@ -1017,7 +1018,7 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'rope' does not exist on type '{}'.
       if (Quest.World.w.rope.locs.includes('lift') && Quest.World.w.rope.locs.length > 2) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('The lift door closes... gets stopped by the rope, and then opens again.');
+        msg('The lift door closes... gets stopped by the rope, and then opens again.');
         if (!this.ropeFlag) {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
           tmsg("What have you done? I said nothing about tying the rope to something! I've got a bad feeling about this...");

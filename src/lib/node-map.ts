@@ -1,22 +1,25 @@
 import { Quest } from '../types/quest';
+import { findCmd } from './command/util';
+import { Cmd } from './_command';
+import { msg } from './io';
 
 // ts-error-fixed ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'map'.
 const map = {
   defaults: {
-    mapBorderColour:   'black',
-    mapCellSize:       20,
-    mapExitColour:     '#444',
-    mapExitWidth:      3,
-    mapLabelColour:    'black',
-    mapLabelOffset:    15,
+    mapBorderColour: 'black',
+    mapCellSize: 20,
+    mapExitColour: '#444',
+    mapExitWidth: 3,
+    mapLabelColour: 'black',
+    mapLabelOffset: 15,
     mapLocationColour: 'yellow',
-    mapScale:          25,
-    mapTextColour:     'black',
+    mapScale: 25,
+    mapTextColour: 'black',
   },
   toggle: true,
 };
 // ts-error-fixed ts-migrate(2339) FIXME: Property 'defaultStyle' does not exist on type '{ ... Remove this comment to see the full error message
-map.defaultStyle = { display: 'block', position: 'fixed' };  // !!!!!!!!!!!!!!
+map.defaultStyle = { display: 'block', position: 'fixed' }; // !!!!!!!!!!!!!!
 // ts-error-fixed ts-migrate(2345) FIXME: Argument of type '{ toggle: boolean; defaults: { m... Remove this comment to see the full error message
 Quest.IO.io.modulesToUpdate.push(map);
 // ts-error-fixed ts-migrate(2345) FIXME: Argument of type '{ toggle: boolean; defaults: { m... Remove this comment to see the full error message
@@ -25,13 +28,15 @@ Quest.IO.io.modulesToInit.push(map);
 // Authors can override this so there are several starting locations if there are isolated regions
 // ts-error-fixed ts-migrate(2339) FIXME: Property 'getStartingLocations' does not exist on ... Remove this comment to see the full error message
 map.getStartingLocations = function () {
-// ts-error-fixed ts-migrate(2339) FIXME: Property 'mapAutomapFrom' does not exist on type '... Remove this comment to see the full error message
-  const starts = Quest.Settings.settings.mapAutomapFrom ? Quest.Settings.settings.mapAutomapFrom.map((el: any) => Quest.World.w[el]) : [Quest.World.w[Quest.World.player.loc]];
-  let count    = 0;
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'mapAutomapFrom' does not exist on type '... Remove this comment to see the full error message
+  const starts = Quest.Settings.settings.mapAutomapFrom
+    ? Quest.Settings.settings.mapAutomapFrom.map((el: any) => Quest.World.w[el])
+    : [Quest.World.w[Quest.World.player.loc]];
+  let count = 0;
   for (const start of starts) {
-    start.mapX      = 0;
-    start.mapY      = 0;
-    start.mapZ      = 0;
+    start.mapX = 0;
+    start.mapY = 0;
+    start.mapZ = 0;
     start.mapRegion = count;
     count++;
   }
@@ -39,37 +44,53 @@ map.getStartingLocations = function () {
 };
 
 // ts-error-fixed ts-migrate(2339) FIXME: Property 'transitUpdate' does not exist on type '{... Remove this comment to see the full error message
-map.transitUpdate = function (location: any, transitButton: any, callEvent: any) {
-  location.mapCurrentConnection = location.locations.findIndex((el: any) => el.connectedRoom.name === transitButton.transitDest);
+map.transitUpdate = function (
+  location: any,
+  transitButton: any,
+  callEvent: any,
+) {
+  location.mapCurrentConnection = location.locations.findIndex(
+    (el: any) => el.connectedRoom.name === transitButton.transitDest,
+  );
   if (location.mapCurrentConnection === -1) {
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    Quest.IO.errormsg(`Failed to find a location called "${transitButton.transitDest}"`);
-    console.log(location.locations);
+    Quest.IO.errormsg(
+      `Failed to find a location called "${transitButton.transitDest}"`,
+    );
+    log(location.locations);
     return;
   }
   const loc = location.locations[location.mapCurrentConnection];
 
   // set these so we can get the player location
-  location.mapX      = loc.mapX;
-  location.mapY      = loc.mapY;
-  location.mapZ      = loc.mapZ;
+  location.mapX = loc.mapX;
+  location.mapY = loc.mapY;
+  location.mapZ = loc.mapZ;
   location.mapRegion = loc.mapRegion;
 };
 
 // ts-error-fixed ts-migrate(2339) FIXME: Property 'init' does not exist on type '{ toggle: ... Remove this comment to see the full error message
 map.init = function () {
   // First set up the HTMP page
-// ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
-  Object.assign(document.querySelector('#quest-map').style, map.defaultStyle, Quest.Settings.settings.mapStyle);
+  // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
+  Object.assign(
+    document.querySelector('#quest-map').style,
+    map.defaultStyle,
+    Quest.Settings.settings.mapStyle,
+  );
   // document.querySelector("<style>")
   //    .prop("type", "text/css")
   //    .innerHTML = ".map-text " + Quest.Utilities.util.dictionaryToCss(Quest.Settings.settings.mapLabelStyle, true)
   //    .appendTo("head")
   // document.querySelector('.map-text').style.color = 'red'
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'mapHeight' does not exist on type '{ per... Remove this comment to see the full error message
-  Quest.Settings.settings.mapHeight = parseInt(Quest.Settings.settings.mapStyle.height);
+  Quest.Settings.settings.mapHeight = parseInt(
+    Quest.Settings.settings.mapStyle.height,
+  );
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'mapWidth' does not exist on type '{ perf... Remove this comment to see the full error message
-  Quest.Settings.settings.mapWidth = parseInt(Quest.Settings.settings.mapStyle.width);
+  Quest.Settings.settings.mapWidth = parseInt(
+    Quest.Settings.settings.mapStyle.width,
+  );
 
   // Set the default values for settings
   for (const key in map.defaults) {
@@ -80,7 +101,9 @@ map.init = function () {
   // rooms is a list of rooms to be mapped
   // set it up with some seed rooms
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'mapGetStartingLocations' does not exist ... Remove this comment to see the full error message
-  const rooms = Quest.Settings.settings.mapGetStartingLocations ? Quest.Settings.settings.mapGetStartingLocations() : map.getStartingLocations();
+  const rooms = Quest.Settings.settings.mapGetStartingLocations
+    ? Quest.Settings.settings.mapGetStartingLocations()
+    : map.getStartingLocations();
 
   // go through each room in the list
   while (rooms.length > 0) {
@@ -126,71 +149,114 @@ map.init = function () {
   map.layers = [
     // rooms on other levels
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'mapBorderColour' does not exist on type ... Remove this comment to see the full error message
-    { attrs: `stroke="${Quest.Settings.settings.mapBorderColour}" stroke-width="1" fill="${Quest.Settings.settings.mapLocationColour}" opacity="0.2" pointer-events="none"`, name: 'otherLevels' },
+    {
+      attrs: `stroke="${Quest.Settings.settings.mapBorderColour}" stroke-width="1" fill="${Quest.Settings.settings.mapLocationColour}" opacity="0.2" pointer-events="none"`,
+      name: 'otherLevels',
+    },
     // exits
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'mapExitColour' does not exist on type '{... Remove this comment to see the full error message
-    { attrs: `style="stroke:${Quest.Settings.settings.mapExitColour};stroke-width:${Quest.Settings.settings.mapExitWidth}px;fill:${Quest.Settings.settings.mapExitColour}"`, name: 'exits' },
+    {
+      attrs: `style="stroke:${Quest.Settings.settings.mapExitColour};stroke-width:${Quest.Settings.settings.mapExitWidth}px;fill:${Quest.Settings.settings.mapExitColour}"`,
+      name: 'exits',
+    },
     // rooms on this level
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'mapBorderColour' does not exist on type ... Remove this comment to see the full error message
-    { attrs: `stroke="${Quest.Settings.settings.mapBorderColour}" stroke-width="1" fill="${Quest.Settings.settings.mapLocationColour}"`, name: 'base' },
+    {
+      attrs: `stroke="${Quest.Settings.settings.mapBorderColour}" stroke-width="1" fill="${Quest.Settings.settings.mapLocationColour}"`,
+      name: 'base',
+    },
     // features (anything the author might want to add)
     { attrs: '', name: 'features' },
     // labels
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'mapLabelColour' does not exist on type '... Remove this comment to see the full error message
-    { attrs: `pointer-events="none" fill="${Quest.Settings.settings.mapLabelColour}" text-anchor="middle"`, name: 'labels' },
+    {
+      attrs: `pointer-events="none" fill="${Quest.Settings.settings.mapLabelColour}" text-anchor="middle"`,
+      name: 'labels',
+    },
   ];
 };
 
 // Mapping from room to exitRoom, exit is the exit linking the two, dir is an object from Quest.lang.exit_list
 // ts-error-fixed ts-migrate(2339) FIXME: Property 'mapRoomFromExit' does not exist on type ... Remove this comment to see the full error message
-map.mapRoomFromExit = function (room: any, exitRoom: any, exit: any, dir: any, rooms: any) {
-  // console.log(exit)
-// ts-error-fixed ts-migrate(2339) FIXME: Property 'mapScale' does not exist on type '{ perf... Remove this comment to see the full error message
-  const offsetX = (exit.mapOffsetX ? exit.mapOffsetX : dir.x) * Quest.Settings.settings.mapScale;
+map.mapRoomFromExit = function (
+  room: any,
+  exitRoom: any,
+  exit: any,
+  dir: any,
+  rooms: any,
+) {
+  // log(exit)
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'mapScale' does not exist on type '{ perf... Remove this comment to see the full error message
-  const offsetY = (exit.mapOffsetY ? exit.mapOffsetY : dir.y) * Quest.Settings.settings.mapScale;
-  const offsetZ = (exit.mapOffsetZ ? exit.mapOffsetZ : dir.z);
-  // console.log('' + offsetX + ', ' + offsetY + ', ' + offsetZ)
+  const offsetX =
+    (exit.mapOffsetX ? exit.mapOffsetX : dir.x) *
+    Quest.Settings.settings.mapScale;
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'mapScale' does not exist on type '{ perf... Remove this comment to see the full error message
+  const offsetY =
+    (exit.mapOffsetY ? exit.mapOffsetY : dir.y) *
+    Quest.Settings.settings.mapScale;
+  const offsetZ = exit.mapOffsetZ ? exit.mapOffsetZ : dir.z;
+  // log('' + offsetX + ', ' + offsetY + ', ' + offsetZ)
   if (exitRoom.mapX === undefined) {
     // if room not done, set coords, add to rooms
     if (!exitRoom.mapIgnore) {
-      exitRoom.mapX      = room.mapX + offsetX;
-      exitRoom.mapY      = room.mapY - offsetY;
-      exitRoom.mapZ      = room.mapZ + offsetZ;
+      exitRoom.mapX = room.mapX + offsetX;
+      exitRoom.mapY = room.mapY - offsetY;
+      exitRoom.mapZ = room.mapZ + offsetZ;
       exitRoom.mapRegion = room.mapRegion;
       if (rooms) rooms.push(exitRoom);
-      // console.log("Rooms: " + rooms.map(el => el.name).join(', '))
+      // log("Rooms: " + rooms.map(el => el.name).join(', '))
     }
-    // console.log(exitRoom)
+    // log(exitRoom)
   } else {
     // if done, check coords and alert if dodgy
     if (exitRoom.mapX !== room.mapX + offsetX) {
-      console.log(`WARNING: Mapping exit from ${room.name} to ${exit.name} - funny X offset (${exitRoom.mapX} vs ${room.mapX + offsetX})`);
-      console.log(room);
-      console.log(exitRoom);
-      console.log(exit.mapOffsetX);
-      console.log(dir.x);
-      console.log(`${offsetX}, ${offsetY}, ${offsetZ}`);
+      log(
+        `WARNING: Mapping exit from ${room.name} to ${
+          exit.name
+        } - funny X offset (${exitRoom.mapX} vs ${room.mapX + offsetX})`,
+      );
+      log(room);
+      log(exitRoom);
+      log(exit.mapOffsetX);
+      log(dir.x);
+      log(`${offsetX}, ${offsetY}, ${offsetZ}`);
     }
-    if (exitRoom.mapY !== room.mapY - offsetY) console.log(`WARNING: Mapping exit from ${room.name} to ${exit.name} - funny Y offset (${exitRoom.mapY} vs ${room.mapY + offsetY})`);
-    if (exitRoom.mapZ !== room.mapZ + offsetZ) console.log(`WARNING: Mapping exit from ${room.name} to ${exit.name} - funny Z offset`);
+    if (exitRoom.mapY !== room.mapY - offsetY)
+      log(
+        `WARNING: Mapping exit from ${room.name} to ${
+          exit.name
+        } - funny Y offset (${exitRoom.mapY} vs ${room.mapY + offsetY})`,
+      );
+    if (exitRoom.mapZ !== room.mapZ + offsetZ)
+      log(
+        `WARNING: Mapping exit from ${room.name} to ${exit.name} - funny Z offset`,
+      );
   }
 };
 
 // Mapping from room to exitRoom, exit is the exit linking the two, dir is an object from Quest.lang.exit_list
 // Use when exitRoom is multi-location, so is not to be added to the room list, and needs to know each location
 // ts-error-fixed ts-migrate(2339) FIXME: Property 'mapMultiRoomFromExit' does not exist on ... Remove this comment to see the full error message
-map.mapMultiRoomFromExit = function (room: any, exitRoom: any, exit: any, dir: any) {
-  // console.log(exit)
-// ts-error-fixed ts-migrate(2339) FIXME: Property 'mapScale' does not exist on type '{ perf... Remove this comment to see the full error message
-  const offsetX = (exit.mapOffsetX ? exit.mapOffsetX : dir.x) * Quest.Settings.settings.mapScale;
+map.mapMultiRoomFromExit = function (
+  room: any,
+  exitRoom: any,
+  exit: any,
+  dir: any,
+) {
+  // log(exit)
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'mapScale' does not exist on type '{ perf... Remove this comment to see the full error message
-  const offsetY = (exit.mapOffsetY ? exit.mapOffsetY : dir.y) * Quest.Settings.settings.mapScale;
-  const offsetZ = (exit.mapOffsetZ ? exit.mapOffsetZ : dir.z);
-  // console.log('' + offsetX + ', ' + offsetY + ', ' + offsetZ)
+  const offsetX =
+    (exit.mapOffsetX ? exit.mapOffsetX : dir.x) *
+    Quest.Settings.settings.mapScale;
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'mapScale' does not exist on type '{ perf... Remove this comment to see the full error message
+  const offsetY =
+    (exit.mapOffsetY ? exit.mapOffsetY : dir.y) *
+    Quest.Settings.settings.mapScale;
+  const offsetZ = exit.mapOffsetZ ? exit.mapOffsetZ : dir.z;
+  // log('' + offsetX + ', ' + offsetY + ', ' + offsetZ)
   if (exitRoom.locations === undefined) exitRoom.locations = [];
   exitRoom.mapRegion = true;
-  const loc          = {};
+  const loc = {};
   if (!exitRoom.mapIgnore) {
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'mapX' does not exist on type '{}'.
     loc.mapX = room.mapX + offsetX;
@@ -214,7 +280,7 @@ map.mapMultiRoomFromExit = function (room: any, exitRoom: any, exit: any, dir: a
 // ts-error-fixed ts-migrate(2339) FIXME: Property 'update' does not exist on type '{ toggle... Remove this comment to see the full error message
 map.update = function () {
   // grab the current room region and level. If the room is missing either, give up now!
-// ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   const level = Quest.World.w[Quest.World.player.loc].mapZ;
   // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   const region = Quest.World.w[Quest.World.player.loc].mapRegion;
@@ -225,7 +291,8 @@ map.update = function () {
   // Stuff gets put in any of several layers, which will be displayed in this order
   const lists = {};
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'layers' does not exist on type '{ toggle... Remove this comment to see the full error message
-  for (const el of map.layers) lists[el.name] = ['', `<g id="${el.name}-layer" ${el.attrs}>`];
+  for (const el of map.layers)
+    lists[el.name] = ['', `<g id="${el.name}-layer" ${el.attrs}>`];
 
   // Loop through every room
   for (const key in Quest.World.w) {
@@ -242,25 +309,44 @@ map.update = function () {
 
   // Add it all together
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'mapDefs' does not exist on type '{ perfo... Remove this comment to see the full error message
-  const result = Quest.Settings.settings.mapDefs ? Quest.Settings.settings.mapDefs() : [];
+  const result = Quest.Settings.settings.mapDefs
+    ? Quest.Settings.settings.mapDefs()
+    : [];
   for (const key in lists) {
     // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     for (const el of lists[key]) result.push(el);
     result.push('</g>');
   }
-  // console.log(result)
+  // log(result)
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'mapExtras' does not exist on type '{ per... Remove this comment to see the full error message
-  if (Quest.Settings.settings.mapExtras) result.push(...Quest.Settings.settings.mapExtras());
+  if (Quest.Settings.settings.mapExtras)
+    result.push(...Quest.Settings.settings.mapExtras());
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'mapMarker' does not exist on type '{ per... Remove this comment to see the full error message
-  result.push(Quest.Settings.settings.mapMarker ? Quest.Settings.settings.mapMarker(Quest.World.w[Quest.World.player.loc]) : map.marker(Quest.World.w[Quest.World.player.loc].mapX, Quest.World.w[Quest.World.player.loc].mapY));
+  result.push(
+    Quest.Settings.settings.mapMarker
+      ? Quest.Settings.settings.mapMarker(Quest.World.w[Quest.World.player.loc])
+      : map.marker(
+          Quest.World.w[Quest.World.player.loc].mapX,
+          Quest.World.w[Quest.World.player.loc].mapY,
+        ),
+  );
 
   // Centre the view on the player, and draw it
   // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  const x = Quest.World.w[Quest.World.player.loc].mapX - Quest.Settings.settings.mapWidth / 2;
+  const x =
+    Quest.World.w[Quest.World.player.loc].mapX -
+    Quest.Settings.settings.mapWidth / 2;
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'mapHeight' does not exist on type '{ per... Remove this comment to see the full error message
-  const y = -Quest.Settings.settings.mapHeight / 2 + Quest.World.w[Quest.World.player.loc].mapY;
+  const y =
+    -Quest.Settings.settings.mapHeight / 2 +
+    Quest.World.w[Quest.World.player.loc].mapY;
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'mapWidth' does not exist on type '{ perf... Remove this comment to see the full error message
-  Quest.IO.draw(Quest.Settings.settings.mapWidth, Quest.Settings.settings.mapHeight, result, { destination: 'quest-map', x, y });
+  Quest.IO.draw(
+    Quest.Settings.settings.mapWidth,
+    Quest.Settings.settings.mapHeight,
+    result,
+    { destination: 'quest-map', x, y },
+  );
 };
 
 // The default draw function for a room
@@ -298,18 +384,22 @@ map.mapDraw = function (lists: any, region: any, level: any, room: any) {
     } else if (exit.mapMoveableLoc) {
       // For an exit going TO a mapMoveableLoc,
       // assume a straight exit
-      // console.log('here ' + room.name + ' ' + dir.name)
+      // log('here ' + room.name + ' ' + dir.name)
       let s = `<line x1="${room.mapX}" y1="${room.mapY}`;
       // ts-error-fixed ts-migrate(2532) FIXME: Object is possibly 'undefined'.
-      s += `" x2="${room.mapX + dir.x * Quest.Settings.settings.mapScale / 2}" y2="${room.mapY - dir.y * Quest.Settings.settings.mapScale / 2}`;
+      s += `" x2="${
+        room.mapX + (dir.x * Quest.Settings.settings.mapScale) / 2
+      }" y2="${room.mapY - (dir.y * Quest.Settings.settings.mapScale) / 2}`;
       if (exit.mapStyle) s += `" style="${exit.mapStyle}`;
-      s                 += '"/>';
+      s += '"/>';
       exit.mapDrawString = s;
-      // console.log(s)
+      // log(s)
       lists.exits.push(s);
     } else {
       let s = `<line x1="${room.mapX}" y1="${room.mapY}`;
-      s    += `" x2="${(exitRoom.mapX + room.mapX) / 2}" y2="${(exitRoom.mapY + room.mapY) / 2}`;
+      s += `" x2="${(exitRoom.mapX + room.mapX) / 2}" y2="${
+        (exitRoom.mapY + room.mapY) / 2
+      }`;
       if (exit.mapStyle) s += `" style="${exit.mapStyle}`;
       s += '"/>';
       if (!exit.mapRedrawEveryTurn) exit.mapDrawString = s;
@@ -338,15 +428,24 @@ map.mapDraw = function (lists: any, region: any, level: any, room: any) {
 // The default draw function for a multi-location room
 // Puts the various bits in the appropriate lists
 // ts-error-fixed ts-migrate(2339) FIXME: Property 'moveableLocDraw' does not exist on type ... Remove this comment to see the full error message
-map.moveableLocDraw = function (lists: any, region: any, level: any, room: any) {
-// ts-error-fixed ts-migrate(2339) FIXME: Property 'locations' does not exist on type '{ tog... Remove this comment to see the full error message
+map.moveableLocDraw = function (
+  lists: any,
+  region: any,
+  level: any,
+  room: any,
+) {
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'locations' does not exist on type '{ tog... Remove this comment to see the full error message
   for (const el of this.locations) {
     if (el.mapRegion !== region) continue;
     // Location itself
     const destinationLayer = el.mapZ === level ? lists.base : lists.otherLevels;
     // if a multi-location room, give it the special draw function
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'mapDrawDefault' does not exist on type '... Remove this comment to see the full error message
-    destinationLayer.push(room.mapDrawBase ? room.mapDrawBase(level, el) : map.mapDrawDefault(room, el));
+    destinationLayer.push(
+      room.mapDrawBase
+        ? room.mapDrawBase(level, el)
+        : map.mapDrawDefault(room, el),
+    );
 
     // Exits
     for (const dir of Quest.lang.exit_list) {
@@ -366,14 +465,18 @@ map.moveableLocDraw = function (lists: any, region: any, level: any, room: any) 
           if (el.mapZ !== level || el.mapRegion !== region) continue;
           let s = `<line x1="${el.mapX}" y1="${el.mapY}`;
           // ts-error-fixed ts-migrate(2532) FIXME: Object is possibly 'undefined'.
-          s += `" x2="${el.mapX + dir.x * Quest.Settings.settings.mapScale / 2}" y2="${el.mapY - dir.y * Quest.Settings.settings.mapScale / 2}`;
+          s += `" x2="${
+            el.mapX + (dir.x * Quest.Settings.settings.mapScale) / 2
+          }" y2="${el.mapY - (dir.y * Quest.Settings.settings.mapScale) / 2}`;
           s += '"/>';
           lists.exits.push(s);
         }
       } else {
         let s = `<line x1="${el.mapX}" y1="${room.mapY}`;
-        s    += `" x2="${(exitRoom.mapX + el.mapX) / 2}" y2="${(exitRoom.mapY + el.mapY) / 2}`;
-        s    += '"/>';
+        s += `" x2="${(exitRoom.mapX + el.mapX) / 2}" y2="${
+          (exitRoom.mapY + el.mapY) / 2
+        }`;
+        s += '"/>';
         lists.exits.push(s);
       }
     }
@@ -406,11 +509,11 @@ map.mapDrawDefault = function (o: any, loc: any) {
   const w = o.mapWidth ? o.mapWidth : Quest.Settings.settings.mapCellSize;
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'mapCellSize' does not exist on type '{ p... Remove this comment to see the full error message
   const h = o.mapHeight ? o.mapHeight : Quest.Settings.settings.mapCellSize;
-  let s   = '<rect x="';
-  s      += loc.mapX - w / 2;
-  s      += '" y="';
-  s      += loc.mapY - h / 2;
-  s      += `" width="${w}" height="${h}`;
+  let s = '<rect x="';
+  s += loc.mapX - w / 2;
+  s += '" y="';
+  s += loc.mapY - h / 2;
+  s += `" width="${w}" height="${h}`;
   if (o.mapColour) s += `" fill="${o.mapColour}`;
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'getClickAttrs' does not exist on type '{... Remove this comment to see the full error message
   s += `"${map.getClickAttrs(o)}/>`;
@@ -419,7 +522,7 @@ map.mapDrawDefault = function (o: any, loc: any) {
 
 // ts-error-fixed ts-migrate(2339) FIXME: Property 'getClickAttrs' does not exist on type '{... Remove this comment to see the full error message
 map.getClickAttrs = function (o: any) {
-// ts-error-fixed ts-migrate(2339) FIXME: Property 'mapClick' does not exist on type '{ perf... Remove this comment to see the full error message
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'mapClick' does not exist on type '{ perf... Remove this comment to see the full error message
   if (!Quest.Settings.settings.mapClick) return '';
   return ` onclick="Quest.Settings.settings.mapClick('${o.name}')" cursor="pointer" role="button"`;
 };
@@ -428,12 +531,15 @@ map.getClickAttrs = function (o: any) {
 map.mapDrawLabelDefault = function (o: any, loc: any) {
   if (loc === undefined) loc = o;
   let s = '<text class="map-text" x="';
-  s    += loc.mapX;
-  s    += '" y="';
+  s += loc.mapX;
+  s += '" y="';
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'mapLabelOffset' does not exist on type '... Remove this comment to see the full error message
   s += loc.mapY - Quest.Settings.settings.mapLabelOffset;
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'mapLabelRotate' does not exist on type '... Remove this comment to see the full error message
-  if (Quest.Settings.settings.mapLabelRotate) s += `" transform="rotate(${Quest.Settings.settings.mapLabelRotate},${loc.mapX},${loc.mapY - Quest.Settings.settings.mapLabelOffset})`;
+  if (Quest.Settings.settings.mapLabelRotate)
+    s += `" transform="rotate(${Quest.Settings.settings.mapLabelRotate},${
+      loc.mapX
+    },${loc.mapY - Quest.Settings.settings.mapLabelOffset})`;
   s += '">';
   s += o.mapLabel ? o.mapLabel : Quest.Utilities.sentenceCase(o.alias);
   s += '</text>';
@@ -456,13 +562,15 @@ map.polyroom = function (room: any, points: any, attrs: any) {
 // ts-error-fixed ts-migrate(2339) FIXME: Property 'polyany' does not exist on type '{ toggl... Remove this comment to see the full error message
 map.polyany = function (type: any, room: any, points: any, attrs: any) {
   let s = `<poly${type === 'line' ? 'line' : 'gon'} points="`;
-  s    += points.map((el: any) => `${room.mapX + el[0]},${room.mapY + el[1]}`).join(' ');
-  s    += '" ';
+  s += points
+    .map((el: any) => `${room.mapX + el[0]},${room.mapY + el[1]}`)
+    .join(' ');
+  s += '" ';
   if (attrs) s += ` style="${attrs}"`;
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'getClickAttrs' does not exist on type '{... Remove this comment to see the full error message
   if (type === 'room') s += map.getClickAttrs(room);
   s += '/>';
-  // console.log(s)
+  // log(s)
   return s;
 };
 
@@ -477,8 +585,10 @@ map.rectangle = function (room: any, points: any, attrs: any) {
 
 // ts-error-fixed ts-migrate(2339) FIXME: Property 'rect' does not exist on type '{ toggle: ... Remove this comment to see the full error message
 map.rect = function (isRoom: any, room: any, points: any, attrs: any) {
-  let s = `<rect x="${room.mapX + points[0][0]}" y="${room.mapY + points[0][1]}`;
-  s    += `" width="${points[1][0]}" height="${points[1][1]}"`;
+  let s = `<rect x="${room.mapX + points[0][0]}" y="${
+    room.mapY + points[0][1]
+  }`;
+  s += `" width="${points[1][0]}" height="${points[1][1]}"`;
   if (attrs) s += ` style="${attrs}"`;
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'getClickAttrs' does not exist on type '{... Remove this comment to see the full error message
   if (isRoom) s += map.getClickAttrs(room);
@@ -488,8 +598,10 @@ map.rect = function (isRoom: any, room: any, points: any, attrs: any) {
 
 // ts-error-fixed ts-migrate(2339) FIXME: Property 'ellipse' does not exist on type '{ toggl... Remove this comment to see the full error message
 map.ellipse = function (isRoom: any, room: any, points: any, attrs: any) {
-  let s = `<ellipse cx="${room.mapX + points[0][0]}" cy="${room.mapY + points[0][1]}`;
-  s    += `" rx="${points[1][0]}" ry="${points[1][1]}"`;
+  let s = `<ellipse cx="${room.mapX + points[0][0]}" cy="${
+    room.mapY + points[0][1]
+  }`;
+  s += `" rx="${points[1][0]}" ry="${points[1][1]}"`;
   if (attrs) s += ` style="${attrs}"`;
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'getClickAttrs' does not exist on type '{... Remove this comment to see the full error message
   if (isRoom) s += map.getClickAttrs(room);
@@ -502,55 +614,58 @@ map.text = function (room: any, st: any, points: any, attrs: any) {
   let s = `<text x="${room.mapX + points[0]}" y="${room.mapY + points[1]}"`;
   if (attrs) s += ` style="${attrs}"`;
   s += ` text-anchor="middle">${st}</text>`;
-  // console.log(s)
+  // log(s)
   return s;
 };
 
 // ts-error-fixed ts-migrate(2339) FIXME: Property 'bezier' does not exist on type '{ toggle... Remove this comment to see the full error message
 map.bezier = function (room: any, points: any, attrs: any) {
   let s = '<path d="M ';
-  s    += `${room.mapX + points[0][0]} ${room.mapY + points[0][1]}`;
+  s += `${room.mapX + points[0][0]} ${room.mapY + points[0][1]}`;
   points.shift();
   s += points.length === 2 ? ' q ' : ' c ';
   s += points.map((el: any) => `${el[0]} ${el[1]}`).join(' ');
   s += '" ';
   if (attrs) s += ` style="${attrs}"`;
   s += '/>';
-  // console.log(s)
+  // log(s)
   return s;
 };
 
 // ts-error-fixed ts-migrate(2339) FIXME: Property 'marker' does not exist on type '{ toggle... Remove this comment to see the full error message
 map.marker = function (x: any, y: any) {
   let s = '<circle cx="';
-  s    += x;
-  s    += '" cy="';
-  s    += y;
-  s    += '" r="5" stroke="black" fill="blue"/>';
+  s += x;
+  s += '" cy="';
+  s += y;
+  s += '" r="5" stroke="black" fill="blue"/>';
   return s;
 };
 
 // ts-error-fixed ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
 if (Quest.Settings.settings.playMode === 'dev') {
-// ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-  Quest.Commands.commands.unshift(new Quest.Command.Cmd('DebugMap', {
-    objects: [
-    ],
-    regex: /^debug map$/,
-    script() {
-      for (const key in Quest.World.w) {
-        // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-        if (Quest.World.w[key].mapZ == undefined) continue;
-        // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        Quest.IO.metamsg(`${Quest.World.w[key].name}: ${Quest.World.w[key].mapX}, ${Quest.World.w[key].mapY}, ${Quest.World.w[key].mapZ} Region=${Quest.World.w[key].mapRegion}`);
-      }
-      return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
-    },
-  }));
+  // ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
+  Quest.Commands.commands.unshift(
+    new Cmd('DebugMap', {
+      objects: [],
+      regex: /^debug map$/,
+      script() {
+        for (const key in Quest.World.w) {
+          // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          if (Quest.World.w[key].mapZ == undefined) continue;
+          // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
+          Quest.IO.metamsg(
+            `${Quest.World.w[key].name}: ${Quest.World.w[key].mapX}, ${Quest.World.w[key].mapY}, ${Quest.World.w[key].mapZ} Region=${Quest.World.w[key].mapRegion}`,
+          );
+        }
+        return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
+      },
+    }),
+  );
 }
 
-Quest.Command.findCmd('Map').script = function () {
-// ts-error-fixed ts-migrate(2339) FIXME: Property 'hideMap' does not exist on type '{ perfo... Remove this comment to see the full error message
+findCmd('Map').script = function () {
+  // ts-error-fixed ts-migrate(2339) FIXME: Property 'hideMap' does not exist on type '{ perfo... Remove this comment to see the full error message
   if (Quest.Settings.settings.hideMap) {
     // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
     document.querySelector('#quest-map').style.display = 'block';
@@ -565,6 +680,6 @@ Quest.Command.findCmd('Map').script = function () {
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'calcMargins' does not exist on type '{ n... Remove this comment to see the full error message
   Quest.IO.io.calcMargins();
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-  Quest.IO.msg(Quest.lang.done_msg);
+  msg(Quest.lang.done_msg);
   return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
 };

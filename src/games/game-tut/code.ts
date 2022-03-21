@@ -2,7 +2,7 @@ import { QuestClass } from '../../types/quest';
 
 export const init = (Quest: QuestClass) => {
   /*
-  Quest.Commands.commands.unshift(new Quest.Command.Cmd('Charge', {
+  Quest.Commands.commands.unshift(new Cmd('Charge', {
     npcCmd:true,
     regex:/^(?:charge|power) (.+)$/,
     objects:[
@@ -23,6 +23,9 @@ export const init = (Quest: QuestClass) => {
     if (contents.length === 0) {
       return 'The compartment is empty';
     }
-    return `The compartment contains ${Quest.Utilities.formatList(contents, { article: Quest.Utilities.INDEFINITE, lastJoiner: 'and' })}`;
+    return `The compartment contains ${Quest.Utilities.formatList(contents, {
+      article: Quest.Utilities.INDEFINITE,
+      lastJoiner: 'and',
+    })}`;
   });
-}
+};

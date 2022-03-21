@@ -1,4 +1,5 @@
 import { QuestClass } from '../../types/quest';
+import { msg } from '../../lib/io';
 
 export const init = (Quest: QuestClass) => {
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
@@ -70,13 +71,13 @@ export const init = (Quest: QuestClass) => {
         name: 'yeoman_settling_in',
         script() {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Are you settling in okay?' you ask Yeoman Rand.");
+          msg("'Are you settling in okay?' you ask Yeoman Rand.");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Yes, {sir}. It's much bigger than the ships I'm used to, but I'm finding my way around.'");
+          msg("'Yes, {sir}. It's much bigger than the ships I'm used to, but I'm finding my way around.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Well, I'm not used to commanding anything this big. We'll both have to get used to it.'");
+          msg("'Well, I'm not used to commanding anything this big. We'll both have to get used to it.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Yes {sir}.'");
+          msg("'Yes {sir}.'");
         },
         showTopic: true,
       },
@@ -86,17 +87,17 @@ export const init = (Quest: QuestClass) => {
         nowShow: ['yeoman_dewar_pun'],
         script() {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'What academy did you graduate from?' you ask Yeoman Rand.");
+          msg("'What academy did you graduate from?' you ask Yeoman Rand.");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Nairobi, Earth, {sir}.'");
+          msg("'Nairobi, Earth, {sir}.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Must've been hot.'");
+          msg("'Must've been hot.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'They do have air con there... But outside, yes, it could be very hot.'");
+          msg("'They do have air con there... But outside, yes, it could be very hot.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'I'm a Mars alumni myself. I wanted to get out into space as soon as possible, and that seemed like the first step.'");
+          msg("'I'm a Mars alumni myself. I wanted to get out into space as soon as possible, and that seemed like the first step.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Oh, I was born on Dewar III. I suppose I did it in reverse. I wanted to go to the centre of it all - Earth.'");
+          msg("'Oh, I was born on Dewar III. I suppose I did it in reverse. I wanted to go to the centre of it all - Earth.'");
         },
         showTopic: true,
       },
@@ -105,9 +106,9 @@ export const init = (Quest: QuestClass) => {
         name: 'yeoman_dewar_pun',
         script() {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'So is it always the same temperature of Dewar III?' you ask with a smile, recalling that James Dewar invented the vacuum flask.");
+          msg("'So is it always the same temperature of Dewar III?' you ask with a smile, recalling that James Dewar invented the vacuum flask.");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("She signs. 'Hilarius, sir. In fact the region where I was raised was notable for its extremes of temperature.'");
+          msg("She signs. 'Hilarius, sir. In fact the region where I was raised was notable for its extremes of temperature.'");
         },
       },
       {
@@ -117,9 +118,9 @@ export const init = (Quest: QuestClass) => {
         name: 'yeoman_call_me_maam',
         script() {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'I prefer ma'am to sir,' you tell the yeoman.");
+          msg("'I prefer ma'am to sir,' you tell the yeoman.");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'As you wish, ma'am.'");
+          msg("'As you wish, ma'am.'");
           Quest.World.player.callmemaam = true;
         },
       },
@@ -296,9 +297,9 @@ export const init = (Quest: QuestClass) => {
         name: 'river_incident_mit',
         script() {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Your record mentions an \"incident\" while you were at MIT.'");
+          msg("'Your record mentions an \"incident\" while you were at MIT.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Too dreadful to mention!' she says, with a straight face. Then she smiles. 'No, it was just some wild parties that got seriously out of control. Good times... But the university starting saying the damage had to be paid for, so I had to get a proper job. Bummer. I mean, no offense, but when do you guys smile?'");
+          msg("'Too dreadful to mention!' she says, with a straight face. Then she smiles. 'No, it was just some wild parties that got seriously out of control. Good times... But the university starting saying the damage had to be paid for, so I had to get a proper job. Bummer. I mean, no offense, but when do you guys smile?'");
         },
         showTopic: true,
       },
@@ -332,15 +333,15 @@ export const init = (Quest: QuestClass) => {
         name: 'milton_religion',
         script() {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'I hear you're a religious man, Milton.'");
+          msg("'I hear you're a religious man, Milton.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Indeed, {sir}. Janus, the bifold godhead, the One True Religion.'");
+          msg("'Indeed, {sir}. Janus, the bifold godhead, the One True Religion.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Er, remind me...'");
+          msg("'Er, remind me...'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'The twin gods, Yinus and Yango, that rules our lives. Yinus the goddess who controls all that is moving, the flowing river of time, the entropy of the universe. Yango the god, controlling all that is static, the foundations of the Quest.World.world, the energy of the universe. I'll give you one of my pamphlets; it explains how the whole of creation is set out in the Book of the All, written by the prophet.'");
+          msg("'The twin gods, Yinus and Yango, that rules our lives. Yinus the goddess who controls all that is moving, the flowing river of time, the entropy of the universe. Yango the god, controlling all that is static, the foundations of the Quest.World.world, the energy of the universe. I'll give you one of my pamphlets; it explains how the whole of creation is set out in the Book of the All, written by the prophet.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Yeah, I'll read it... later. I guess.'");
+          msg("'Yeah, I'll read it... later. I guess.'");
         },
         showTopic: true,
       },
@@ -374,13 +375,13 @@ export const init = (Quest: QuestClass) => {
         name: 'norton_storm_of_fury',
         script() {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'So you served on the Storm of Fury?' you ask Norton.");
+          msg("'So you served on the Storm of Fury?' you ask Norton.");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'That's right, guv, under Captain Mallet. Good ship that Storm of Fury, bigger than this one, that's for sure.'");
+          msg("'That's right, guv, under Captain Mallet. Good ship that Storm of Fury, bigger than this one, that's for sure.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'And you resigned?'");
+          msg("'And you resigned?'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Yeah... All a bit awkward really. There was these... mistakes in the inventory. Seemed best all around if I just walked away from it.'");
+          msg("'Yeah... All a bit awkward really. There was these... mistakes in the inventory. Seemed best all around if I just walked away from it.'");
         },
         showTopic: true,
       },
@@ -389,13 +390,13 @@ export const init = (Quest: QuestClass) => {
         name: 'norton_demonic_trout',
         script() {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'You were on the Demonic Trout?'");
+          msg("'You were on the Demonic Trout?'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Yeah, gov. Right tug it was. Maximum warp two point three if you was lucky.'");
+          msg("'Yeah, gov. Right tug it was. Maximum warp two point three if you was lucky.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'And you resigned from it?'");
+          msg("'And you resigned from it?'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Couldn't get off it quick enough. First sign of trouble, I was out of there.'");
+          msg("'Couldn't get off it quick enough. First sign of trouble, I was out of there.'");
         },
         showTopic: true,
       },
@@ -404,9 +405,9 @@ export const init = (Quest: QuestClass) => {
         name: 'marking_irregularies',
         script() {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'I heard there were marking irregularities when you graduated.'");
+          msg("'I heard there were marking irregularities when you graduated.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Stone me, that story gets round fast, gov. I don't know much about it really, but there was a right brouhaha. Well, I suppose it's only to be expected. You work 'ard for years, then some joker goes and... I was right dischuffed. We all was.'");
+          msg("'Stone me, that story gets round fast, gov. I don't know much about it really, but there was a right brouhaha. Well, I suppose it's only to be expected. You work 'ard for years, then some joker goes and... I was right dischuffed. We all was.'");
         },
         showTopic: true,
       },
@@ -462,13 +463,13 @@ export const init = (Quest: QuestClass) => {
         alias: 'Peace treaty',
         script() {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'What's your take on the peace treaty, Restrel?'");
+          msg("'What's your take on the peace treaty, Restrel?'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'I just hope it lasts, {sir}. I know many Chal are concerned; how can we have peace with such blood-thirsty people? Many are worried it is a ploy to learn our secrets, steal our technology.'");
+          msg("'I just hope it lasts, {sir}. I know many Chal are concerned; how can we have peace with such blood-thirsty people? Many are worried it is a ploy to learn our secrets, steal our technology.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'What about you?'");
+          msg("'What about you?'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'I... know it's a possibility, but I think we have to at least make the effort to make this work.'");
+          msg("'I... know it's a possibility, but I think we have to at least make the effort to make this work.'");
         },
         showTopic: true,
       },
@@ -476,9 +477,9 @@ export const init = (Quest: QuestClass) => {
         alias: 'Earth technology',
         script() {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'How are you coping with earth technology, Restrel?'");
+          msg("'How are you coping with earth technology, Restrel?'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Okay, I think. To be honest, the hardest part was the language. The science is more a question of perspective and the engineering is - well, just fascinating.'");
+          msg("'Okay, I think. To be honest, the hardest part was the language. The science is more a question of perspective and the engineering is - well, just fascinating.'");
         },
         showTopic: true,
       },
@@ -506,18 +507,18 @@ export const init = (Quest: QuestClass) => {
     nowShow: ['helmsman_go_to_star', 'helmsman_go_to_location'],
     script() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg("'Lay in a course for sector 7 Iota,' you say to {role:helm:formalName}, 'warp factor 4.'");
+      msg("'Lay in a course for sector 7 Iota,' you say to {role:helm:formalName}, 'warp factor 4.'");
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg(`{role:helm:ayeaye} ${roster.getOfficer('helm').firstFlight}`);
+      msg(`{role:helm:ayeaye} ${roster.getOfficer('helm').firstFlight}`);
       Quest.IO.hr();
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg("Nine days later you arrive at Star Base 142. Yeoman Rand walks on to the bridge. 'Sir, we have a communication from the Star Base.'");
+      msg("Nine days later you arrive at Star Base 142. Yeoman Rand walks on to the bridge. 'Sir, we have a communication from the Star Base.'");
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg("'Main screen, yeoman.'");
+      msg("'Main screen, yeoman.'");
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg("'Yes Sir.'");
+      msg("'Yes Sir.'");
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg("A woman's face appears on the screen, Commander Nagoshima you assume, noting the rank of her uniform. 'Welcome to the ass-end of the galaxy, Captain' she says with a smile. 'It's good to have a ship around that can actually do something. I've sent over the mission briefs; they should be on your PAGE.'");
+      msg("A woman's face appears on the screen, Commander Nagoshima you assume, noting the rank of her uniform. 'Welcome to the ass-end of the galaxy, Captain' she says with a smile. 'It's good to have a ship around that can actually do something. I've sent over the mission briefs; they should be on your PAGE.'");
       stars.arriveAtSector();
     },
   });

@@ -1,4 +1,5 @@
 import { QuestClass } from '../../types/quest';
+import { msg } from '../../lib/io';
 
 export const init = (Quest: QuestClass) => {
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'title' does not exist on type '{ perform... Remove this comment to see the full error message
@@ -117,17 +118,17 @@ export const init = (Quest: QuestClass) => {
     });
 
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    Quest.IO.msg("You step on to the bridge. 'Welcome aboard, sir,' says a blonde woman in a red uniform, handing you a PAGE. 'I'm Yeoman Rand, I've been designated as your aide. The ship is all set, sir. We just need to to appoint the bridge officers. I believe Command has prepared a short list on your PAGE.'");
+    msg("You step on to the bridge. 'Welcome aboard, sir,' says a blonde woman in a red uniform, handing you a PAGE. 'I'm Yeoman Rand, I've been designated as your aide. The ship is all set, sir. We just need to to appoint the bridge officers. I believe Command has prepared a short list on your PAGE.'");
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    Quest.IO.msg("'Thank you, yeoman.'");
+    msg("'Thank you, yeoman.'");
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    Quest.IO.msg("'Can I ask what our mission is, sir?'");
+    msg("'Can I ask what our mission is, sir?'");
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    Quest.IO.msg("'We're being sent to Sector 7 Iota.'");
+    msg("'We're being sent to Sector 7 Iota.'");
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    Quest.IO.msg("'That's a long way out, sir. What do they want us to do there? Anything to do with the Brakk?'");
+    msg("'That's a long way out, sir. What do they want us to do there? Anything to do with the Brakk?'");
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    Quest.IO.msg("'I was just told to report to the Starbase. Beyond that... you know as much as I do, yeoman. Hopefully we'll not be close enough to the border to encounter any Brakk ships.'");
+    msg("'I was just told to report to the Starbase. Beyond that... you know as much as I do, yeoman. Hopefully we'll not be close enough to the border to encounter any Brakk ships.'");
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
     if (Quest.Settings.settings.playMode !== 'dev') Quest.IO.wait();
 
@@ -186,22 +187,22 @@ export const init = (Quest: QuestClass) => {
       const roles = roster.getRoles(npc);
       if (roles.length === 0) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg(`You assign no positions to ${npc.alias}.`);
+        msg(`You assign no positions to ${npc.alias}.`);
       } else {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg(`You assign ${Quest.Utilities.formatList(roles)} to ${npc.alias}.`);
+        msg(`You assign ${Quest.Utilities.formatList(roles)} to ${npc.alias}.`);
       }
       if (roles.length === 0 && npc.loc) {
         npc.loc = false;
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        Quest.IO.msg(npc.leaving, { char: npc });
+        msg(npc.leaving, { char: npc });
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'updateUIItems' does not exist on type '{... Remove this comment to see the full error message
         Quest.IO.io.updateUIItems();
       }
       if (roles.length !== 0 && !npc.loc) {
         npc.loc = 'bridge';
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        Quest.IO.msg(npc.entering, { char: npc });
+        msg(npc.entering, { char: npc });
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'updateUIItems' does not exist on type '{... Remove this comment to see the full error message
         Quest.IO.io.updateUIItems();
       }

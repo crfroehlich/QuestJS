@@ -1,14 +1,15 @@
 import { QuestClass } from '../../types/quest';
+import { msg, falsemsg }        from '../../lib/io';
 
 export const init = (Quest: QuestClass) => {
   register('observatory', {
-    book: 'Comedy of Errors',
+    book:    'Comedy of Errors',
     ceiling: 'The ceiling is domed.',
-    floor: 'The floor is wood.',
-    listen: 'Mandy can hear nothing.',
-    smell: 'The room smells slightly of oil.',
+    floor:   'The floor is wood.',
+    listen:  'Mandy can hear nothing.',
+    smell:   'The room smells slightly of oil.',
     uniform: 'a curious white dress that buttons at the front; more like a lab coat really',
-    walls: 'The walls are all painted white.',
+    walls:   'The walls are all painted white.',
   });
 
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
@@ -19,7 +20,7 @@ export const init = (Quest: QuestClass) => {
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'uniform' does not exist on type '{}'.
         Quest.World.w.uniform.wet = 3;
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('She is dripping water on to the floor.');
+        msg('She is dripping water on to the floor.');
       }
     },
 
@@ -43,7 +44,7 @@ export const init = (Quest: QuestClass) => {
         }
       }
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg(s);
+      msg(s);
     },
 
     // ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
@@ -69,19 +70,19 @@ export const init = (Quest: QuestClass) => {
         }
       }
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg(s);
+      msg(s);
     },
     isLocatedAt(loc: any) {
       return ['observatory', 'observatory_up', 'telescope_end'].includes(loc);
     },
-    scenery: true,
+    scenery:  true,
     synonyms: ['opening'],
   });
 
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
   Quest.World.createItem('telescope', {
-    alias: 'telescope',
-    altitude: 5,
+    alias:     'telescope',
+    altitude:  5,
     altitudes: [
       'horizontal',
       'nearly horizontal',
@@ -92,32 +93,32 @@ export const init = (Quest: QuestClass) => {
       'raised high',
       'nearly vertical',
     ],
-    azimuth: 1,
+    azimuth:          1,
     azimuthAsDegrees: 45,
-    azimuths: ['north', 'northeast', 'east', 'southeast', 'south', 'southwest', 'west', 'northwest'],
+    azimuths:         ['north', 'northeast', 'east', 'southeast', 'south', 'southwest', 'west', 'northwest'],
     climbverb(options: any) {
       return Quest.World.currentLocation.up.use(options.char);
     },
     examine() {
       let s = 'The telescope itself is about four metres long. It is held in place by a complicated mechanism, involving cogs and gears, and the whole thing is made of brass, giving it a strange beauty.{if:observatory_up:visited:0: Mandy wonders idly if she could climb up it.}';
-      s += ` It is currently ${this.altitudes[this.altitude]},`;
-      s += ` and pointing ${this.azimuths[this.azimuth]}ward.`;
+      s    += ` It is currently ${this.altitudes[this.altitude]},`;
+      s    += ` and pointing ${this.azimuths[this.azimuth]}ward.`;
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg(s);
+      msg(s);
     },
     goUpDirection: 'up',
-    loc: 'observatory',
+    loc:           'observatory',
     lookin() {
       return this.use();
     },
     lookthrough() {
       return this.use();
     },
-    roofOpen: false,
-    scenery: true,
+    roofOpen:      false,
+    scenery:       true,
     shardReversed: false,
-    shardTime: 7,
-    shardViews: [
+    shardTime:     7,
+    shardViews:    [
       'There is just blackness. Is this before she was born?',
       "This is a view in a hospital; her mother is in a bed, clearly in pain.{once: Mandy cannot remember her mother being in hospital, when was this? Then she notices the huge belly. This is Mandy's birth!} She watches in fascination as her mother silently screams with each push, as the baby Mandy emerges into the Quest.World.world.{once: Mandy revises her plan to have a large family...}",
       'A room... The lounge in her house, she realises, and the toddler -- stood, holding on to the chair -- must be her aged about one. The little girl lets go of the chair, takes two hesitant steps, then falls to ground. But undeterred, she crawls back to the chair, uses it to stand, and takes a few more steps.',
@@ -141,24 +142,24 @@ export const init = (Quest: QuestClass) => {
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'glass_shard' does not exist on type '{}'... Remove this comment to see the full error message
         if (Quest.World.w.glass_shard.size === 7) {
           this.shardTime += (this.shardReversed ? 1 : -1);
-          this.shardTime = Math.min(Math.max(this.shardTime, 0), this.shardViews.length - 1);
+          this.shardTime  = Math.min(Math.max(this.shardTime, 0), this.shardViews.length - 1);
           if (this.shardTime === 8) Quest.World.player.easterEgg = true;
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg('Mandy looks though the eyepiece at the side of the base of the telescope, now it is pointed directly at the glass shard... ');
+          msg('Mandy looks though the eyepiece at the side of the base of the telescope, now it is pointed directly at the glass shard... ');
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg(this.shardViews[this.shardTime]);
+          msg(this.shardViews[this.shardTime]);
         } else {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg('Mandy looks though the eyepiece at the side of the base of the telescope, hoping to see the glass shard through it... But all she can see is {if:telescope:roofOpen:the sky:the dome of the roof}. She would need the telescope to go even lower. Or have a bigger shard.');
+          msg('Mandy looks though the eyepiece at the side of the base of the telescope, hoping to see the glass shard through it... But all she can see is {if:telescope:roofOpen:the sky:the dome of the roof}. She would need the telescope to go even lower. Or have a bigger shard.');
         }
       }
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
       else if (Quest.World.w.telescope.roofOpen) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Mandy looks though the eyepiece at the side of the base of the telescope. For a moment, all she can see is the reflection of her eyelashes, but she opens her eye wide, and can see... clouds. And they look pretty much the same as they do without a telescope.');
+        msg('Mandy looks though the eyepiece at the side of the base of the telescope. For a moment, all she can see is the reflection of her eyelashes, but she opens her eye wide, and can see... clouds. And they look pretty much the same as they do without a telescope.');
       } else {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Mandy looks though the eyepiece at the side of the base of the telescope, but all she can see is a uniform off-white. Exactly the same colour as the ceiling...');
+        msg('Mandy looks though the eyepiece at the side of the base of the telescope, but all she can see is a uniform off-white. Exactly the same colour as the ceiling...');
       }
       return true;
     },
@@ -166,10 +167,10 @@ export const init = (Quest: QuestClass) => {
 
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
   Quest.World.createItem('controls', Quest.Templates.SURFACE(), {
-    alias: 'controls',
-    examine: 'The controls consist of two wheels, one on the left, one on the right, and a lever, all set into a slim box, all in brass, fixed to the wall on the south side of the room.',
-    loc: 'observatory',
-    scenery: true,
+    alias:    'controls',
+    examine:  'The controls consist of two wheels, one on the left, one on the right, and a lever, all set into a slim box, all in brass, fixed to the wall on the south side of the room.',
+    loc:      'observatory',
+    scenery:  true,
     synonyms: ['panel', 'slim box'],
   });
 
@@ -188,15 +189,15 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
       Quest.World.w.telescope.azimuthAsDegrees = Quest.World.w.telescope.azimuth * 45 + (Quest.World.w.telescope.azimuths[Quest.World.w.telescope.azimuth].length % 5 + 1);
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      Quest.IO.msg('{if:params:inc:-1:With a grunt of effort, }Mandy turns the left wheel a full rotation {if:params:inc:-1:anti-}clockwise{if:params:inc:-1: -- it is hard work! As:, and as} she does the entire telescope, and the mechanism holding it, {if:params:inc:-1:rotates, with a painful grinding noise:smoothly rotates}. At the same time, the ceiling also turns{if:telescope:roofOpen:{if:telescope:azimuth:6:, and she can just see the roof of the great hall through the slot}}.', { inc });
+      msg('{if:params:inc:-1:With a grunt of effort, }Mandy turns the left wheel a full rotation {if:params:inc:-1:anti-}clockwise{if:params:inc:-1: -- it is hard work! As:, and as} she does the entire telescope, and the mechanism holding it, {if:params:inc:-1:rotates, with a painful grinding noise:smoothly rotates}. At the same time, the ceiling also turns{if:telescope:roofOpen:{if:telescope:azimuth:6:, and she can just see the roof of the great hall through the slot}}.', { inc });
       return true;
     },
 
     examine: 'The left wheel is about seven centimetres across, and made of brass. There is a set of numbers on dials, like a gas meter, just above the wheel, showing {show:telescope:azimuthAsDegrees}.',
     // azimuth
-    loc: 'observatory',
+    loc:     'observatory',
     scenery: true,
-    turn: 'Mandy looks at the wheel, wondering if she wants to turn the left wheel left or turn it right...',
+    turn:    'Mandy looks at the wheel, wondering if she wants to turn the left wheel left or turn it right...',
     turnleft() {
       return this.doTurn(-1);
     },
@@ -212,33 +213,33 @@ export const init = (Quest: QuestClass) => {
 
     examine: 'The right wheel is about seven centimetres across, and made of brass. There is a set of numbers on dials, like a gas meter, just above the wheel, showing {show:telescope:altitude}0.',
     // altitude
-    loc: 'observatory',
+    loc:     'observatory',
     scenery: true,
-    turn: 'Mandy looks at the wheel, wondering if she wants to turn the right wheel left or turn it right...',
+    turn:    'Mandy looks at the wheel, wondering if she wants to turn the right wheel left or turn it right...',
     turnleft() {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
       if (Quest.World.w.telescope.altitude === 0) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Mandy tries to move the right wheel anti-clockwise, but it will not turn any more.');
+        msg('Mandy tries to move the right wheel anti-clockwise, but it will not turn any more.');
         return false;
       }
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
       Quest.World.w.telescope.altitude--;
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('Mandy turns the right wheel a full rotation anti-clockwise, and as she does the telescope lowers.');
+      msg('Mandy turns the right wheel a full rotation anti-clockwise, and as she does the telescope lowers.');
       return true;
     },
     turnright() {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
       if (Quest.World.w.telescope.altitude === Quest.World.w.telescope.altitudes.length - 1) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Mandy tries to move the right wheel clockwise, but it will not turn any more.');
+        msg('Mandy tries to move the right wheel clockwise, but it will not turn any more.');
         return false;
       }
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
       Quest.World.w.telescope.altitude++;
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('Mandy turns the right wheel a full rotation clockwise, and as she does the telescope rises.');
+      msg('Mandy turns the right wheel a full rotation clockwise, and as she does the telescope rises.');
       return true;
     },
   });
@@ -259,17 +260,17 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
       if (Quest.World.w.telescope.roofOpen) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        Quest.IO.msg(`{nv:char:${verb}:true} the lever up, and the slot in the ceiling slides closed.`, options);
+        msg(`{nv:char:${verb}:true} the lever up, and the slot in the ceiling slides closed.`, options);
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
         Quest.World.w.telescope.roofOpen = false;
       } else {
         if (!this.used) {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-          Quest.IO.msg(`{nv:char:${verb}:true} the lever down, and a huge slot in the ceiling opens up, directly in front of the telescope, allowing anyone using the telescope to actually see the sky.{if:telescope:azimuth:6: She can just see the roof of the great hall from here.}|{nv:char:glance:true} outside; the sky looks threatening. It had been quite nice before she entered the house.`, options);
+          msg(`{nv:char:${verb}:true} the lever down, and a huge slot in the ceiling opens up, directly in front of the telescope, allowing anyone using the telescope to actually see the sky.{if:telescope:azimuth:6: She can just see the roof of the great hall from here.}|{nv:char:glance:true} outside; the sky looks threatening. It had been quite nice before she entered the house.`, options);
           this.used = true;
         } else {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-          Quest.IO.msg(`{nv:char:${verb}:true} the lever down, and the huge slot in the ceiling opens up.{if:telescope:azimuth:6: She can just see the roof of the great hall from here.}`, options);
+          msg(`{nv:char:${verb}:true} the lever down, and the huge slot in the ceiling opens up.{if:telescope:azimuth:6: She can just see the roof of the great hall from here.}`, options);
         }
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
         Quest.World.w.telescope.roofOpen = true;
@@ -290,7 +291,7 @@ export const init = (Quest: QuestClass) => {
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'uniform' does not exist on type '{}'.
         Quest.World.w.uniform.wet = 4;
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('At least she is out of the rain now!');
+        msg('At least she is out of the rain now!');
       }
     },
     alias: 'up on the telescope',
@@ -331,19 +332,19 @@ export const init = (Quest: QuestClass) => {
 
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     lookthrough() {
-      return Quest.IO.falsemsg('She cannot look though the telescope while climbing on it.');
+      return falsemsg('She cannot look though the telescope while climbing on it.');
     },
 
     scenery: true,
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     use() {
-      return Quest.IO.falsemsg('She cannot use the telescope while climbing on it.');
+      return falsemsg('She cannot use the telescope while climbing on it.');
     },
   });
 
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
   Quest.World.createItem('roof_from_telescrope', {
-    alias: 'roof',
+    alias:   'roof',
     examine: 'Through the open slot in the domed roof, Mandy can see the peaked roof of the Great Hall, and on it a weather vane. {ifMoreThan:telescope:altitude:4:If the telescope was lower, she might be able to reach the roof:She wonders if she could go west along the telescope, and get onto the roof}.',
     isLocatedAt(loc: any) {
       if (loc !== 'observatory_up') return false;
@@ -376,8 +377,8 @@ export const init = (Quest: QuestClass) => {
       return s;
     },
     headingAlias: 'The Observatory (End Of The Telescope)',
-    noFollow: true,
-    windowsface: 'none',
+    noFollow:     true,
+    windowsface:  'none',
   });
 
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
@@ -391,9 +392,9 @@ export const init = (Quest: QuestClass) => {
       msg: 'Mandy cautiously edges along the telescope to the very end.',
       simpleUse(char: any) {
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
-        if (this.dir !== Quest.World.w.telescope.azimuths[Quest.World.w.telescope.azimuth]) return Quest.IO.falsemsg(Quest.lang.not_that_way, { char, dir: this.dir });
+        if (this.dir !== Quest.World.w.telescope.azimuths[Quest.World.w.telescope.azimuth]) return falsemsg(Quest.lang.not_that_way, { char, dir: this.dir });
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
-        if (Quest.World.w.telescope.altitude > 4) return Quest.IO.falsemsg('Mandy looks at the end of the telescope; if it were not so steep and smooth, she could edge along it{if:telescope:azimuth:6:, and perhaps get out onto the roof to the west}.');
+        if (Quest.World.w.telescope.altitude > 4) return falsemsg('Mandy looks at the end of the telescope; if it were not so steep and smooth, she could edge along it{if:telescope:azimuth:6:, and perhaps get out onto the roof to the west}.');
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'defaultSimpleExitUse' does not exist on ... Remove this comment to see the full error message
         return Quest.Utilities.util.defaultSimpleExitUse(char, this);
       },
@@ -413,11 +414,11 @@ export const init = (Quest: QuestClass) => {
         // if we are here, altitude must be okay
         // catch early for special message
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
-        if (!Quest.World.w.telescope.roofOpen && this.dir === Quest.World.w.telescope.azimuths[Quest.World.w.telescope.azimuth]) return Quest.IO.falsemsg('Mandy looks at the slot in the ceiling, just beyond the end of the telescope. If that were open, she might be able to get out through it, she muses.');
+        if (!Quest.World.w.telescope.roofOpen && this.dir === Quest.World.w.telescope.azimuths[Quest.World.w.telescope.azimuth]) return falsemsg('Mandy looks at the slot in the ceiling, just beyond the end of the telescope. If that were open, she might be able to get out through it, she muses.');
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
-        if (Quest.World.w.telescope.roofOpen && this.dir !== 'west' && this.dir === Quest.World.w.telescope.azimuths[Quest.World.w.telescope.azimuth]) return Quest.IO.falsemsg('Mandy considers for a moment a leap of faith from the end of the telescope, out through the slot in the ceiling... No, not a good idea.');
+        if (Quest.World.w.telescope.roofOpen && this.dir !== 'west' && this.dir === Quest.World.w.telescope.azimuths[Quest.World.w.telescope.azimuth]) return falsemsg('Mandy considers for a moment a leap of faith from the end of the telescope, out through the slot in the ceiling... No, not a good idea.');
 
-        if (this.isHidden()) return Quest.IO.falsemsg(Quest.lang.not_that_way, { char, dir: this.dir });
+        if (this.isHidden()) return falsemsg(Quest.lang.not_that_way, { char, dir: this.dir });
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
         if (this.dir === Quest.World.w.telescope.azimuths[(Quest.World.w.telescope.azimuth + 4) % 8]) return Quest.Utilities.util.defaultSimpleExitUse(char, this);
 
@@ -430,7 +431,7 @@ export const init = (Quest: QuestClass) => {
 
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
   Quest.World.createItem('roof_seen_from_telescope', {
-    alias: 'roof',
+    alias:   'roof',
     examine: 'The roof of the great hall can be seen though the slot in the roof. It has a definite gothic vibe going on, with pointy bits at either end -- the further one sporting a weather vane --  and an ornate metal ridge between them.',
 
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'telescope' does not exist on type '{}'.
@@ -442,13 +443,13 @@ export const init = (Quest: QuestClass) => {
   });
 
   register('roof', {
-    book: 'The Tempest',
+    book:    'The Tempest',
     ceiling: 'The ceiling is the clouds... No, seriously, there is no ceiling here.',
-    floor: 'There is no floor, just the roof of the Great Hall.',
-    listen: 'Mandy can hear the wind howling around her.',
-    smell: 'The air is certainly fresh up here!',
+    floor:   'There is no floor, just the roof of the Great Hall.',
+    listen:  'Mandy can hear the wind howling around her.',
+    smell:   'The air is certainly fresh up here!',
     uniform: 'a midnight blue uniform that is actually not that bad',
-    walls: 'There are no walls here.',
+    walls:   'There are no walls here.',
   });
 
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
@@ -457,43 +458,43 @@ export const init = (Quest: QuestClass) => {
       if (Quest.World.w.wire.isAtLoc(Quest.World.player) && Quest.World.w.sky.state < 3) {
         Quest.World.w.sky.state = 3;
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("Suddenly the rain starts. 'Shit,' she screams at the sky, as she is quickly soaked to the skin. It was supposed to be sunny today!");
+        msg("Suddenly the rain starts. 'Shit,' she screams at the sky, as she is quickly soaked to the skin. It was supposed to be sunny today!");
         Quest.World.w.uniform.wet = 5;
       }
       if (Quest.World.w.wire.tiedTo2 === 'spike' && Quest.World.w.sky.state < 6) {
         Quest.World.w.sky.state = 6;
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Is the rain getting worse? She did not think that was possible.');
+        msg('Is the rain getting worse? She did not think that was possible.');
       }
     },
     alias: 'east end of the roof',
-    desc: 'Mandy is standing -- rather nervously -- on the apex of a roof{once:. She is far above the ground. Not just scary far but also does-not-make-sense far above the ground. It is a two-story house! Then again, she is pretty sure number 23 does not have an observatory at the back.|As she looks harder, she realises she cannot see the Ash Tree Estate, instead there are only fields. Perhaps no bad thing, she thinks, but then she notices that there is no modern housing at all. This is what the town would have looked like before the war. Possibly before the first Quest.World.world war.|:, far above the ground. }As for the roof itself, it is slate, with a rusty iron decorative ridge to which Mandy is clinging. There is a weather vane at one end{ifIs:wire:tiedTo2:spike:, with wire wrapped round the letter E}.',
+    desc:  'Mandy is standing -- rather nervously -- on the apex of a roof{once:. She is far above the ground. Not just scary far but also does-not-make-sense far above the ground. It is a two-story house! Then again, she is pretty sure number 23 does not have an observatory at the back.|As she looks harder, she realises she cannot see the Ash Tree Estate, instead there are only fields. Perhaps no bad thing, she thinks, but then she notices that there is no modern housing at all. This is what the town would have looked like before the war. Possibly before the first Quest.World.world war.|:, far above the ground. }As for the roof itself, it is slate, with a rusty iron decorative ridge to which Mandy is clinging. There is a weather vane at one end{ifIs:wire:tiedTo2:spike:, with wire wrapped round the letter E}.',
     // ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-    east: new Quest.World.Exit('telescope_end', { msg: 'Mandy nervously jumps back on to the sill of the opening in the observatory roof. After a moment to catch her breath, she reaches across, to grab the telescope, and straddle the end of it.' }),
+    east:  new Quest.World.Exit('telescope_end', { msg: 'Mandy nervously jumps back on to the sill of the opening in the observatory roof. After a moment to catch her breath, she reaches across, to grab the telescope, and straddle the end of it.' }),
 
     headingAlias: 'On A High Roof',
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     testDropIn() {
-      return Quest.IO.falsemsg('It occurs to Mandy that anything she drops here will fall down the roof, and will be lost forever.');
+      return falsemsg('It occurs to Mandy that anything she drops here will fall down the roof, and will be lost forever.');
     },
   });
 
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
   Quest.World.createItem('roof', {
-    examine: 'The roof is slate, and slopes down to the north and south. Many of the slates have mould growing on them, or are chipped or crooked, suggesting the roof has not been repaired for a long time. Then again, this is the first roof Mandy has seen so close-up -- maybe this is normal. ',
-    loc: 'roof_location_east',
-    scenery: true,
+    examine:  'The roof is slate, and slopes down to the north and south. Many of the slates have mould growing on them, or are chipped or crooked, suggesting the roof has not been repaired for a long time. Then again, this is the first roof Mandy has seen so close-up -- maybe this is normal. ',
+    loc:      'roof_location_east',
+    scenery:  true,
     synonyms: ['ridge', 'tiles', 'slates', 'mold', 'ridge tiles'],
   });
 
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
   Quest.World.createItem('spike', {
-    alias: 'weather vane',
+    alias:      'weather vane',
     attachable: true,
     examine() {
       if (this.alias === 'mangled metal') {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('The weather vane is a twisted lump of black metal. Two rods stick out, with "N" and "W" of them, the only hint of what it used to be.');
+        msg('The weather vane is a twisted lump of black metal. Two rods stick out, with "N" and "W" of them, the only hint of what it used to be.');
         return;
       }
       let s = 'The weather vane is made of black metal. Above the traditional compass points, a flat raven, sat on an arrow, swings round with each gust of wind.';
@@ -502,10 +503,10 @@ export const init = (Quest: QuestClass) => {
         s += ' A metal wire is attached to the letter E.';
       }
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg(s);
+      msg(s);
     },
-    loc: 'roof_location_east',
-    scenery: true,
+    loc:      'roof_location_east',
+    scenery:  true,
     synonyms: ['weather vane', 'raven', 'weathervane'],
   });
 
@@ -525,15 +526,15 @@ export const init = (Quest: QuestClass) => {
       switch (this.state) {
         case 20:
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg('The sky is blue, with the odd fluffy cloud.');
+          msg('The sky is blue, with the odd fluffy cloud.');
           break;
         case 2:
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg('The dark clouds threatened rain at any moment.');
+          msg('The dark clouds threatened rain at any moment.');
           break;
         default:
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg('The sky is looking thundery; rain is pouring hard.');
+          msg('The sky is looking thundery; rain is pouring hard.');
           break;
       }
     },
@@ -541,6 +542,6 @@ export const init = (Quest: QuestClass) => {
       return loc.startsWith('roof_location');
     },
     scenery: true,
-    state: 2,
+    state:   2,
   });
-}
+};

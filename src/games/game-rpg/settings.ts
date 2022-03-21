@@ -1,4 +1,5 @@
-import { QuestClass } from '../../types/quest';
+import { QuestClass }                         from '../../types/quest';
+import { msg, metamsg, createAdditionalPane } from '../../lib/io';
 
 export const init = (Quest: QuestClass) => {
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'title' does not exist on type '{ perform... Remove this comment to see the full error message
@@ -16,7 +17,7 @@ export const init = (Quest: QuestClass) => {
 
   // ts-error-fixed ts-migrate(2322) FIXME: Type 'boolean' is not assignable to type 'string'.
   Quest.Settings.settings.statusPane = false;
-  Quest.Settings.settings.tests = true;
+  Quest.Settings.settings.tests      = true;
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
   Quest.Settings.settings.playMode = 'dev';
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'attackOutputLevel' does not exist on typ... Remove this comment to see the full error message
@@ -32,10 +33,10 @@ export const init = (Quest: QuestClass) => {
       if (el.level <= Quest.Settings.settings.attackOutputLevel) {
         if (el.level === 1) {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg(el.t);
+          msg(el.t);
         } else {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-          Quest.IO.metamsg(el.t);
+          metamsg(el.t);
         }
       }
     }
@@ -54,7 +55,7 @@ export const init = (Quest: QuestClass) => {
     days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
 
     formats: {
-      def: '%dayOfWeek% %dayOfYear%, %year%, %hour%:%minute% %ampm%',
+      def:  '%dayOfWeek% %dayOfYear%, %year%, %hour%:%minute% %ampm%',
       time: '%hour%:%minute% %ampm%',
     },
 
@@ -111,7 +112,7 @@ export const init = (Quest: QuestClass) => {
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'setup' does not exist on type '{ perform... Remove this comment to see the full error message
   Quest.Settings.settings.setup = function () {
     Quest.World.player.skillsLearnt = ['Double attack', 'Fireball'];
-    Quest.IO.createAdditionalPane(1, 'Spells', 'spells-known', () => {
+    createAdditionalPane(1, 'Spells', 'spells-known', () => {
       let html = '';
       for (const name of Quest.World.player.skillsLearnt) {
         html += `<p class="item" onclick="Quest.Utilities.runCmd('cast ${name}')" >${name}</p><br/>`;
@@ -119,11 +120,11 @@ export const init = (Quest: QuestClass) => {
       return html;
     });
 
-    Quest.World.player.hitpoints = 20;
-    Quest.World.player.status = 'You are feeling fine';
+    Quest.World.player.hitpoints    = 20;
+    Quest.World.player.status       = 'You are feeling fine';
     Quest.World.player.skillsLearnt = ['Double attack', 'Fireball'];
     // Quest.Settings.settings.updateCustomUI()
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'rabbit' does not exist on type '{}'.
     Quest.World.w.rabbit.setLeader(player);
   };
-}
+};

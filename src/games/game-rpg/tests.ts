@@ -1,4 +1,5 @@
 import { QuestClass } from '../../types/quest';
+import { falsemsg }   from '../../lib/io';
 
 export const init = (Quest: QuestClass) => {
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'resetOnCompletion' does not exist on typ... Remove this comment to see the full error message
@@ -175,9 +176,9 @@ export const init = (Quest: QuestClass) => {
     Quest.World.w.snotling.aggressive = false;
 
     // Turn off getting aggressive
-    Quest.World.w.goblin.antagonise = function () { };
+    Quest.World.w.goblin.antagonise  = function () { };
     Quest.World.w.goblin.afterAttack = function () { };
-    Quest.World.w.orc.antagonise = function () { };
+    Quest.World.w.orc.antagonise     = function () { };
 
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
     test.title('Quest.RPG.Attack.createAttack (unarmed)');
@@ -206,7 +207,7 @@ export const init = (Quest: QuestClass) => {
 
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
     test.title('Quest.RPG.Attack.createAttack (flail)');
-    const oldProcessAttack = Quest.World.player.modifyOutgoingAttack;
+    const oldProcessAttack                  = Quest.World.player.modifyOutgoingAttack;
     Quest.World.player.modifyOutgoingAttack = function (attack: any) {
       attack.offensiveBonus += 2;
     };
@@ -542,7 +543,7 @@ export const init = (Quest: QuestClass) => {
     test.title('cast Commune with animal restricted');
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     Quest.RPG.rpg.defaultSpellTestUseable = function (char) {
-      return Quest.IO.falsemsg('You have no mana.');
+      return falsemsg('You have no mana.');
     };
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
     test.assertCmd('cast commune on rabbit', ['You have no mana.']);
@@ -653,7 +654,7 @@ export const init = (Quest: QuestClass) => {
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'title' does not exist on type '{}'.
     test.title('cast Lore');
     Quest.World.player.activeEffects = [];
-    Quest.World.player.skillsLearnt = ['Double attack', 'Fireball', 'Lore', 'Steelskin'];
+    Quest.World.player.skillsLearnt  = ['Double attack', 'Fireball', 'Lore', 'Steelskin'];
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
     test.assertCmd('x rabbit', ['An example of a monster you can talk to after casting the right spell, and is generally not hostile.']);
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -760,7 +761,7 @@ export const init = (Quest: QuestClass) => {
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'alias' does not exist on type '{}'.
     illusion.alias = 'red dragon';
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'examine' does not exist on type '{}'.
-    illusion.examine = 'A scary dragon, that is definitely real!';
+    illusion.examine                = 'A scary dragon, that is definitely real!';
     Quest.World.player.skillsLearnt = ['Double attack', 'Fireball', 'Returning', 'Teleport', 'Mark', 'Unillusion', 'Summon Frost Elemental', 'Dispel', 'Healing'];
 
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'assertCmd' does not exist on type '{}'.
@@ -894,7 +895,7 @@ export const init = (Quest: QuestClass) => {
     test.title('weather');
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'weatherReportsAssumeYes' does not exist ... Remove this comment to see the full error message
     Quest.Settings.settings.weatherReportsAssumeYes = true;
-    Quest.World.player.currentWeatherDisabled = false;
+    Quest.World.player.currentWeatherDisabled       = false;
 
     // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     const hotWeather = weatherTypes.hot;
@@ -1143,4 +1144,4 @@ export const init = (Quest: QuestClass) => {
 
     /**/
   };
-}
+};

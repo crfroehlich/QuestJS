@@ -1,4 +1,5 @@
 import { QuestClass } from '../../types/quest';
+import { msg, falsemsg } from '../../lib/io';
 
 export const init = (Quest: QuestClass) => {
   // ts-error-fixed ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'walkthroug... Remove this comment to see the full error message
@@ -627,15 +628,15 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'size' does not exist on type '{ afterCre... Remove this comment to see the full error message
       if (this.size === this.minsize) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        Quest.IO.msg('{nv:item:be:true} too tiny to see properly!', { item: this });
+        msg('{nv:item:be:true} too tiny to see properly!', { item: this });
       }
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'size' does not exist on type '{ afterCre... Remove this comment to see the full error message
       else if (this.size === this.maxsize) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        Quest.IO.msg('{nv:item:be:true} of gigantic proportions!', { item: this });
+        msg('{nv:item:be:true} of gigantic proportions!', { item: this });
       } else {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg(this[`desc${this.size}`]);
+        msg(this[`desc${this.size}`]);
       }
       return true;
     };
@@ -643,21 +644,21 @@ export const init = (Quest: QuestClass) => {
     res.take = function (options) {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'isAtLoc' does not exist on type '{ after... Remove this comment to see the full error message
       if (this.isAtLoc(options.char.name)) {
-        return Quest.IO.falsemsg(Quest.lang.already_have, options);
+        return falsemsg(Quest.lang.already_have, options);
       }
       if (!options.char.testManipulate(this, 'take')) return false;
 
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'size' does not exist on type '{ afterCre... Remove this comment to see the full error message
       if (this.size === this.maxsize) {
-        return Quest.IO.falsemsg('{nv:item:be:true} far too big to pick up.', { item: this });
+        return falsemsg('{nv:item:be:true} far too big to pick up.', { item: this });
       }
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'size' does not exist on type '{ afterCre... Remove this comment to see the full error message
       if (this.size === this.minsize) {
-        return Quest.IO.falsemsg('Mandy tries to pick up {nm:item:the}, but {pv:item:be} too tiny for her fingers to grasp.', { item: this });
+        return falsemsg('Mandy tries to pick up {nm:item:the}, but {pv:item:be} too tiny for her fingers to grasp.', { item: this });
       }
 
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      Quest.IO.msg(this.msgTake, options);
+      msg(this.msgTake, options);
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'moveToFrom' does not exist on type '{ af... Remove this comment to see the full error message
       this.moveToFrom(options, 'name', 'loc');
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'scenery' does not exist on type '{ after... Remove this comment to see the full error message

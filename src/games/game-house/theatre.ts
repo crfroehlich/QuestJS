@@ -1,4 +1,5 @@
 import { QuestClass } from '../../types/quest';
+import { msg, falsemsg } from '../../lib/io';
 
 export const init = (Quest: QuestClass) => {
   register('theatre', {
@@ -51,7 +52,7 @@ export const init = (Quest: QuestClass) => {
     scenery: true,
     testDropIn(options: any) {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'floppy_hat' does not exist on type '{}'.
-      if (options.item !== Quest.World.w.floppy_hat) return Quest.IO.falsemsg('Mandy can only put hats on the hatstand - the clue is in the name.');
+      if (options.item !== Quest.World.w.floppy_hat) return falsemsg('Mandy can only put hats on the hatstand - the clue is in the name.');
 
       return true;
     },
@@ -62,7 +63,7 @@ export const init = (Quest: QuestClass) => {
     alias: 'theatre stage',
     beforeFirstEnter() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg("'Oh, what? Hey!' She is startled for a moment to see a figure standing on the stage. She is about to say something more articulate when she realises it is not moving.");
+      msg("'Oh, what? Hey!' She is startled for a moment to see a figure standing on the stage. She is about to say something more articulate when she realises it is not moving.");
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
       Quest.World.w.clockwork_thespian.loc = this.name;
     },
@@ -98,12 +99,12 @@ export const init = (Quest: QuestClass) => {
     afterWear(options: any) {
       if (options.char === Quest.World.w.Patch && !this.patchFlag) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("Mandy looks at Patch in his new hat. 'You look cool!'");
+        msg("Mandy looks at Patch in his new hat. 'You look cool!'");
         this.patchFlag = true;
       }
       if (options.char === Quest.World.player && !this.playerFlag) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Mandy decides she likes the hat; it makes her feel very... Bohemian she decides. It is a shame there is no mirror here.');
+        msg('Mandy decides she likes the hat; it makes her feel very... Bohemian she decides. It is a shame there is no mirror here.');
         this.playerFlag = true;
       }
     },
@@ -120,26 +121,26 @@ export const init = (Quest: QuestClass) => {
         script(p: any) {
           if (Quest.World.w.clockwork_thespian.state < 2) {
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg("'So...' says Mandy, 'I don't suppose you can tell me how to get out of here?'");
+            msg("'So...' says Mandy, 'I don't suppose you can tell me how to get out of here?'");
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg("'I seek to know what the soul of wit is. If you can tell me what that is, then I shall help you as far as I am able.'");
+            msg("'I seek to know what the soul of wit is. If you can tell me what that is, then I shall help you as far as I am able.'");
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg("'The soul of wit? I've no idea what you're talking about.'");
+            msg("'The soul of wit? I've no idea what you're talking about.'");
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg("'Come, come, it is a simple question. Any scholar of the bard should know it. You have one of his works in your bag. I must say, Twelfth Night is one of my favourites. Why do you feign ignorance?'");
+            msg("'Come, come, it is a simple question. Any scholar of the bard should know it. You have one of his works in your bag. I must say, Twelfth Night is one of my favourites. Why do you feign ignorance?'");
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg("{i:No feigning here,} thinks Mandy. The bard, that has to be Shakespeare. She wishes she had actually read some of that stupid book. {if:shakespeare_book:state:0:Wait, did he say \"Twelfth Night\", that is not right. Her book is \"Antony and Cleopatra\". She has a feeling he wrote quite a few plays:Then again, she has a feeling he wrote quite a few plays}. 'So, remind me which play it was again.'");
+            msg("{i:No feigning here,} thinks Mandy. The bard, that has to be Shakespeare. She wishes she had actually read some of that stupid book. {if:shakespeare_book:state:0:Wait, did he say \"Twelfth Night\", that is not right. Her book is \"Antony and Cleopatra\". She has a feeling he wrote quite a few plays:Then again, she has a feeling he wrote quite a few plays}. 'So, remind me which play it was again.'");
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg("'Why, Hamlet of course, as you well know. Act 2, scene 2. Now quickly girl, answer the question, and we shall be done here.'");
+            msg("'Why, Hamlet of course, as you well know. Act 2, scene 2. Now quickly girl, answer the question, and we shall be done here.'");
             // ts-error-fixed ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
             Quest.World.w.clockwork_thespian.state = 2;
           } else {
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg("'So what's the deal with this house,' asks Mandy. 'Why can we not escape it?'");
+            msg("'So what's the deal with this house,' asks Mandy. 'Why can we not escape it?'");
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg("The clockwork thespian gives a dramatic sign. 'Tis our lot in life,' he laments.");
+            msg("The clockwork thespian gives a dramatic sign. 'Tis our lot in life,' he laments.");
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg("'Well that insight was a big help...'");
+            msg("'Well that insight was a big help...'");
           }
         },
         test(p: any) {
@@ -150,11 +151,11 @@ export const init = (Quest: QuestClass) => {
         name: 'Fellow Thespian',
         script(p: any) {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Why did you say I'm a fellow thespian' asks Mandy.");
+          msg("'Why did you say I'm a fellow thespian' asks Mandy.");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'I see you carry one of the Bard's plays. I must say, Twelfth Night is one of my favourites.'");
+          msg("'I see you carry one of the Bard's plays. I must say, Twelfth Night is one of my favourites.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg('The bard, thinks Mandy, that has to be Shakespeare. She wishes she had actually read some of that stupid book.{if:shakespeare_book:state:0: Wait, did he say "Twelfth Night", that is not right. Her book is "Antony and Cleopatra".}');
+          msg('The bard, thinks Mandy, that has to be Shakespeare. She wishes she had actually read some of that stupid book.{if:shakespeare_book:state:0: Wait, did he say "Twelfth Night", that is not right. Her book is "Antony and Cleopatra".}');
         },
         test(p: any) {
           return p.text.match(/fellow/);
@@ -164,14 +165,14 @@ export const init = (Quest: QuestClass) => {
         name: 'Soul of wit',
         script(p: any) {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'So... the soul of wit, the soul of wit... What was that again?' asks Mandy.");
+          msg("'So... the soul of wit, the soul of wit... What was that again?' asks Mandy.");
           // ts-error-fixed ts-migrate(2339) FIXME: Property 'white_knight' does not exist on type '{}... Remove this comment to see the full error message
           if (!Quest.World.w.white_knight.active) {
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg("'That is for you to determine, my dear,' declares the clockwork thespian. 'Tis a simple question.'");
+            msg("'That is for you to determine, my dear,' declares the clockwork thespian. 'Tis a simple question.'");
           } else {
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg("'Tis brevity, as you already said.'");
+            msg("'Tis brevity, as you already said.'");
           }
         },
         test(p: any) {
@@ -181,7 +182,7 @@ export const init = (Quest: QuestClass) => {
       {
         script(p: any) {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg('What would a clockwork thespian have... down below, Mandy muses. Anything at all? She is tempted to ask him, but it might be a sensitive subject, and really none of her business. Not to say, very embarrassing to ask about!');
+          msg('What would a clockwork thespian have... down below, Mandy muses. Anything at all? She is tempted to ask him, but it might be a sensitive subject, and really none of her business. Not to say, very embarrassing to ask about!');
         },
         // cock
         test(p: any) {
@@ -192,9 +193,9 @@ export const init = (Quest: QuestClass) => {
 
         script(p: any) {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'What's the deal with these boots?' asks Mandy, holding up the pair of boots.");
+          msg("'What's the deal with these boots?' asks Mandy, holding up the pair of boots.");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Well they're not mine, I can assure you of that! The owner of these must be quite the giant! And rather down on his luck, I would wager.'");
+          msg("'Well they're not mine, I can assure you of that! The owner of these must be quite the giant! And rather down on his luck, I would wager.'");
         },
         // boots
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'boots' does not exist on type '{}'.
@@ -205,9 +206,9 @@ export const init = (Quest: QuestClass) => {
       {
         script(p: any) {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Can I have that key back?' asks Mandy. 'I got it from the clock in the dining room.'");
+          msg("'Can I have that key back?' asks Mandy. 'I got it from the clock in the dining room.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Oh, I see. I feel rather like I would prefer to keep it. Who knows what will happen if I am not kept constantly wound up? I would hate for it to go astray.'");
+          msg("'Oh, I see. I feel rather like I would prefer to keep it. Who knows what will happen if I am not kept constantly wound up? I would hate for it to go astray.'");
         },
         // key
         test(p: any) {
@@ -218,9 +219,9 @@ export const init = (Quest: QuestClass) => {
         name: 'Clockwork',
         script(p: any) {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'So...' Mandy wonders what the social etiquette is when talking to someone who is clockwork. Why did none of her personal development lessons at Kyderbrook cover this? She decides to just go for it. 'So how come you are clockwork?' asks Mandy. 'I mean, I have you always...'");
+          msg("'So...' Mandy wonders what the social etiquette is when talking to someone who is clockwork. Why did none of her personal development lessons at Kyderbrook cover this? She decides to just go for it. 'So how come you are clockwork?' asks Mandy. 'I mean, I have you always...'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'An unfortunate situation,' admits the clockwork thespian. 'Twas not always so. Once I was flesh-and-blood, like yourself, until misfortune struck me down in my prime! I have been meaning to consult a physician about my condition, but have been unable to leave this accursed house.'");
+          msg("'An unfortunate situation,' admits the clockwork thespian. 'Twas not always so. Once I was flesh-and-blood, like yourself, until misfortune struck me down in my prime! I have been meaning to consult a physician about my condition, but have been unable to leave this accursed house.'");
         },
         test(p: any) {
           return p.text.match(/clockwork/);
@@ -230,9 +231,9 @@ export const init = (Quest: QuestClass) => {
         name: 'Theatre',
         script(p: any) {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'What's the deal with the theatre?' asks Mandy. 'Are there ever shows?'");
+          msg("'What's the deal with the theatre?' asks Mandy. 'Are there ever shows?'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Also no,' laments the clockwork thespian. 'The lights are on, but no audience awaits in rapt anticipation, no actors perform.'");
+          msg("'Also no,' laments the clockwork thespian. 'The lights are on, but no audience awaits in rapt anticipation, no actors perform.'");
         },
         test(p: any) {
           return p.text.match(/theatre/);
@@ -241,9 +242,9 @@ export const init = (Quest: QuestClass) => {
       {
         script(p: any) {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Tell me about Shakespeare,' says Mandy. 'What was he like?'");
+          msg("'Tell me about Shakespeare,' says Mandy. 'What was he like?'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'I can assure you, I am not that old!' declares the clockwork thespian.");
+          msg("'I can assure you, I am not that old!' declares the clockwork thespian.");
         },
         // shakespeare
         test(p: any) {
@@ -254,15 +255,15 @@ export const init = (Quest: QuestClass) => {
         name: 'Himself',
         script(p: any) {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Tell me about yourself,' says Mandy. 'Like, have you always been... you know... clockwork?'");
+          msg("'Tell me about yourself,' says Mandy. 'Like, have you always been... you know... clockwork?'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Mine is a sorry tale!' declares the clockwork thespian. 'I was born Cecil Malewicz, eldest of three...");
+          msg("'Mine is a sorry tale!' declares the clockwork thespian. 'I was born Cecil Malewicz, eldest of three...");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Wait, \"Malewicz\"? So you're related to Winfield?'");
+          msg("'Wait, \"Malewicz\"? So you're related to Winfield?'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Indeed, my younger brother. Twas while I was visiting my brother that something utterly inexplicable happened, and I ended up here, in this sorry state, my illustrious career in the theatre brought to an abrupt stop in this mocking travesty of life.'");
+          msg("'Indeed, my younger brother. Twas while I was visiting my brother that something utterly inexplicable happened, and I ended up here, in this sorry state, my illustrious career in the theatre brought to an abrupt stop in this mocking travesty of life.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'How sad.'");
+          msg("'How sad.'");
         },
         test(p: any) {
           return p.text.match(/himself|who he|clockwock|thespian/) || (p.text.match(/he is/) && p.text2 === 'who');
@@ -271,13 +272,13 @@ export const init = (Quest: QuestClass) => {
       {
         script() {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Who's the tiny man?'");
+          msg("'Who's the tiny man?'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'If that is a reference to my...'");
+          msg("'If that is a reference to my...'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'What? No!' Mandy feels her cheeks redden. 'The small man who lives in the doll's house in the nursery.");
+          msg("'What? No!' Mandy feels her cheeks redden. 'The small man who lives in the doll's house in the nursery.");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Oh, well... I am afraid I an not familiar with the diminutive gentleman..'");
+          msg("'Oh, well... I am afraid I an not familiar with the diminutive gentleman..'");
         },
         // tiny man
         test(p: any) {
@@ -287,17 +288,17 @@ export const init = (Quest: QuestClass) => {
       {
         script() {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Do you know a Dr Winfield Malewicz?' says Mandy. 'I've got a letter for him.'");
+          msg("'Do you know a Dr Winfield Malewicz?' says Mandy. 'I've got a letter for him.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Indeed I do, young lady. Indeed I do.' He pauses, presumably for dramatic effect - Mandy waits impatiently. 'He's my brother!'");
+          msg("'Indeed I do, young lady. Indeed I do.' He pauses, presumably for dramatic effect - Mandy waits impatiently. 'He's my brother!'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Your brother? And is he... er... clockwork?'");
+          msg("'Your brother? And is he... er... clockwork?'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'No, no. That would be absurd! He is flesh-and-blood, like you and me!'");
+          msg("'No, no. That would be absurd! He is flesh-and-blood, like you and me!'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Right... And where would I find him?'");
+          msg("'Right... And where would I find him?'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Seems to spend most his time fiddling with that contraction of his. Steam operated analytical engine or some such nonsense. Find the steam engine and take the lift to the top. Nothing simpler, my dear.'");
+          msg("'Seems to spend most his time fiddling with that contraction of his. Steam operated analytical engine or some such nonsense. Find the steam engine and take the lift to the top. Nothing simpler, my dear.'");
         },
         // malewicz
         test(p: any) {
@@ -307,17 +308,17 @@ export const init = (Quest: QuestClass) => {
       {
         script() {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Do you know to use the lift?' says Mandy.");
+          msg("'Do you know to use the lift?' says Mandy.");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Ah, yes, I do. It has a series of buttons, one corresponding to each floor. Jolly clever really.'");
+          msg("'Ah, yes, I do. It has a series of buttons, one corresponding to each floor. Jolly clever really.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'I meant how do you get it to come down to your floor?'");
+          msg("'I meant how do you get it to come down to your floor?'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Oh, I see. Well, there's another button beside the doorway. Simply press that, and then wait.'");
+          msg("'Oh, I see. Well, there's another button beside the doorway. Simply press that, and then wait.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'This is the lift by the steam engine we are talking about? It has no button.'");
+          msg("'This is the lift by the steam engine we are talking about? It has no button.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Have you checked? It did last time I looked.' It occurs to Mandy he could have been inanimate for decades; maybe the buttons disappeared during that time.");
+          msg("'Have you checked? It did last time I looked.' It occurs to Mandy he could have been inanimate for decades; maybe the buttons disappeared during that time.");
         },
         // life
         test(p: any) {
@@ -329,29 +330,29 @@ export const init = (Quest: QuestClass) => {
           // ts-error-fixed ts-migrate(2339) FIXME: Property 'white_knight' does not exist on type '{}... Remove this comment to see the full error message
           if (!Quest.World.w.white_knight.active) {
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg("'So... the soul of wit, the soul of wit... What was that again?' asks Mandy.");
+            msg("'So... the soul of wit, the soul of wit... What was that again?' asks Mandy.");
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg("'That is for you to determine, my dear,' declares the clockwork thespian. 'Tis a simple question.'");
+            msg("'That is for you to determine, my dear,' declares the clockwork thespian. 'Tis a simple question.'");
           }
           // ts-error-fixed ts-migrate(2339) FIXME: Property 'weird_room' does not exist on type '{}'.
           else if (Quest.World.w.weird_room.visited > 0) {
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg("'Can you help me solve the riddle?'");
+            msg("'Can you help me solve the riddle?'");
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg("'Tis brevity, as you already said.'");
+            msg("'Tis brevity, as you already said.'");
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg("'Not that one. The house's riddle: \"What direction?\".'");
+            msg("'Not that one. The house's riddle: \"What direction?\".'");
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg("'Ah, that. No more than I already have.'");
+            msg("'Ah, that. No more than I already have.'");
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg("'What does that mean? Have you already helped me?'");
+            msg("'What does that mean? Have you already helped me?'");
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg("'I can say no more, I'm afraid. It's {class:riddle:gotta be you}. Just remember that {class:riddle:one thing}.'");
+            msg("'I can say no more, I'm afraid. It's {class:riddle:gotta be you}. Just remember that {class:riddle:one thing}.'");
           } else {
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg("'So... the soul of wit, the soul of wit... What was that again?' asks Mandy.");
+            msg("'So... the soul of wit, the soul of wit... What was that again?' asks Mandy.");
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-            Quest.IO.msg("'Tis \"brevity\", as you already said.'");
+            msg("'Tis \"brevity\", as you already said.'");
           }
         },
         // riddle
@@ -378,9 +379,9 @@ export const init = (Quest: QuestClass) => {
       {
         script(p: any) {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg(`'Tell me about ${p.text}' says Mandy.`);
+          msg(`'Tell me about ${p.text}' says Mandy.`);
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'I'm sure I don't know about that!' declares the clockwork thespian.");
+          msg("'I'm sure I don't know about that!' declares the clockwork thespian.");
         },
         test(p: any) {
           return true;
@@ -389,20 +390,20 @@ export const init = (Quest: QuestClass) => {
     ],
     brevity() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg("'I've found it, the answer,' says Mandy triumphantly. 'It's \"Brevity\"!'");
+      msg("'I've found it, the answer,' says Mandy triumphantly. 'It's \"Brevity\"!'");
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg("'{class:riddle:Perfect!} Indeed it is. I knew you would find it. And now I will tell you how to escape this house. Outside this small theatre is a long gallery, with a chess set on a table.'");
+      msg("'{class:riddle:Perfect!} Indeed it is. I knew you would find it. And now I will tell you how to escape this house. Outside this small theatre is a long gallery, with a chess set on a table.'");
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'chess_pieces' does not exist on type '{}... Remove this comment to see the full error message
       if (Quest.World.w.chess_pieces.gluedDownNoted) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'I saw it. All the pieces are glued down.'");
+        msg("'I saw it. All the pieces are glued down.'");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'Not all of them. The white k{class:riddle:night changes} the room if you twist it, takes you outside the house.'");
+        msg("'Not all of them. The white k{class:riddle:night changes} the room if you twist it, takes you outside the house.'");
       } else {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'I saw it.'");
+        msg("'I saw it.'");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'The white k{class:riddle:night changes} the room if you twist it, takes you outside the house.'");
+        msg("'The white k{class:riddle:night changes} the room if you twist it, takes you outside the house.'");
       }
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'white_knight' does not exist on type '{}... Remove this comment to see the full error message
       Quest.World.w.white_knight.active = true;
@@ -413,12 +414,12 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'large_key' does not exist on type '{}'.
       if (Quest.World.w.large_key.size < 6) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        return Quest.IO.falsemsg('Mandy looks at the hole in the back of the inanimate figure; a square peg. Like it would fit the key she has -- only much bigger.');
+        return falsemsg('Mandy looks at the hole in the back of the inanimate figure; a square peg. Like it would fit the key she has -- only much bigger.');
       }
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'large_key' does not exist on type '{}'.
       if (Quest.World.w.large_key.size > 6) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        return Quest.IO.falsemsg('Mandy looks at the hole in the back of the inanimate figure; a square peg. Like it would fit the key she has -- if not {i:that} big.');
+        return falsemsg('Mandy looks at the hole in the back of the inanimate figure; a square peg. Like it would fit the key she has -- if not {i:that} big.');
       }
 
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
@@ -426,18 +427,18 @@ export const init = (Quest: QuestClass) => {
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'large_key' does not exist on type '{}'.
         if (Quest.World.w.large_key.loc !== 'clockwork_thespian') {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg('Mandy looks at the hole in the back of the inanimate figure; a square peg. She puts the large key over it, and finds it is a good fit. What are the odds?');
+          msg('Mandy looks at the hole in the back of the inanimate figure; a square peg. She puts the large key over it, and finds it is a good fit. What are the odds?');
           // ts-error-fixed ts-migrate(2339) FIXME: Property 'large_key' does not exist on type '{}'.
           Quest.World.w.large_key.loc = 'clockwork_thespian';
         }
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("She gives the key in the back of the mannequin half a turn, with some effort. Another turn, and another, until it will turn no more. Suddenly, the figure moves, and Mandy jumps back, even though that is exactly what she is hoping for. He looks at her. 'Good day. I see you are a fellow thespian!' he says in a fruity voice.{if:floppy_hat:loc:player: 'And you seem to have my hat!'}");
+        msg("She gives the key in the back of the mannequin half a turn, with some effort. Another turn, and another, until it will turn no more. Suddenly, the figure moves, and Mandy jumps back, even though that is exactly what she is hoping for. He looks at her. 'Good day. I see you are a fellow thespian!' he says in a fruity voice.{if:floppy_hat:loc:player: 'And you seem to have my hat!'}");
         this.state = 1;
         this.setAlias('clockwork thespian');
         this.npc = true;
       } else {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Mandy gives the clockwork thespian another couple of turns with the key. She does not want him winding down.');
+        msg('Mandy gives the clockwork thespian another couple of turns with the key. She does not want him winding down.');
       }
       return true;
     },
@@ -445,15 +446,15 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
       if (Quest.World.w.clockwork_thespian.state === 0) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('The figure seems to have been manufactured to resemble a man of impressive proportions, in height, but also in the girth of his chest. And its groin too, Mandy notices with a wry smile. It, or he, is constructed of brass, and looks to be jointed. He is clothed in a frilly off-white shirt, and dark baggy trousers, as well as a floppy hat. Mandy notices there is a hole in the back of his shirt, and a corresponding hole in his back, where a simple, if large, key might fit.');
+        msg('The figure seems to have been manufactured to resemble a man of impressive proportions, in height, but also in the girth of his chest. And its groin too, Mandy notices with a wry smile. It, or he, is constructed of brass, and looks to be jointed. He is clothed in a frilly off-white shirt, and dark baggy trousers, as well as a floppy hat. Mandy notices there is a hole in the back of his shirt, and a corresponding hole in his back, where a simple, if large, key might fit.');
       } else {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('The clockwork thespian seems to have been manufactured to resemble a man of impressive proportions, in height, but also in the girth of his chest. And his groin too, Mandy noticed with a wry smile. He is constructed of brass, and looks to be jointed. He is clothed in a frilly off-white shirt, and dark baggy trousers, as well as a floppy hat.');
+        msg('The clockwork thespian seems to have been manufactured to resemble a man of impressive proportions, in height, but also in the girth of his chest. And his groin too, Mandy noticed with a wry smile. He is constructed of brass, and looks to be jointed. He is clothed in a frilly off-white shirt, and dark baggy trousers, as well as a floppy hat.');
       }
     },
     getAgreement() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      return Quest.IO.falsemsg("'I have no time for that, girl! I have a show to prepare!'");
+      return falsemsg("'I have no time for that, girl! I have a show to prepare!'");
     },
     nameModifierFunction(list: any) {
       list.length = 0;
@@ -467,68 +468,68 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
       if (Quest.World.w.clockwork_thespian.state === 0) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'Hello!' says Mandy to the inanimate figure. There is no response.");
+        msg("'Hello!' says Mandy to the inanimate figure. There is no response.");
       }
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
       else if (Quest.World.w.clockwork_thespian.state === 1) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'So...' says Mandy, 'I don't suppose you can tell me how to get out of here?'");
+        msg("'So...' says Mandy, 'I don't suppose you can tell me how to get out of here?'");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'I seek to know what the soul of wit is. If you can tell me what that is, then I shall help you as far as I am able.'");
+        msg("'I seek to know what the soul of wit is. If you can tell me what that is, then I shall help you as far as I am able.'");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'The soul of wit? I've no idea what you're talking about.'");
+        msg("'The soul of wit? I've no idea what you're talking about.'");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'Come, come, it is a simple question. Any scholar of the bard should know it. You have one of his works in your bag. I must say, Twelfth Night is one of my favourites. Why do you feign ignorance?'");
+        msg("'Come, come, it is a simple question. Any scholar of the bard should know it. You have one of his works in your bag. I must say, Twelfth Night is one of my favourites. Why do you feign ignorance?'");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("{i:No feigning here,} thinks Mandy. The bard, that has to be Shakespeare. She wishes she had actually read some of that stupid book. {if:shakespeare_book:state:0:Wait, did he say \"Twelfth Night\", that is not right. Her book is \"Antony and Cleopatra\". She has a feeling he wrote quite a few plays:Then again, she has a feeling he wrote quite a few plays}. 'So, remind me which play it was again.'");
+        msg("{i:No feigning here,} thinks Mandy. The bard, that has to be Shakespeare. She wishes she had actually read some of that stupid book. {if:shakespeare_book:state:0:Wait, did he say \"Twelfth Night\", that is not right. Her book is \"Antony and Cleopatra\". She has a feeling he wrote quite a few plays:Then again, she has a feeling he wrote quite a few plays}. 'So, remind me which play it was again.'");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'Why, Hamlet of course, as you well know. Act 2, scene 2. Now quickly girl, answer the question, and we shall be done here.'");
+        msg("'Why, Hamlet of course, as you well know. Act 2, scene 2. Now quickly girl, answer the question, and we shall be done here.'");
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
         Quest.World.w.clockwork_thespian.state = 2;
       }
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
       else if (Quest.World.w.clockwork_thespian.state === 2) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'Why do you need to know what the soul of wit is anyway?'");
+        msg("'Why do you need to know what the soul of wit is anyway?'");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'There are rules that must be obeyed. If I am to help you, then you must first do something for me. As to the exact question, well, I made that up myself. You are clearly a scholar of the bard, so I know it is easy for you, but for the riff-raff, it will be utterly beyond them.'");
+        msg("'There are rules that must be obeyed. If I am to help you, then you must first do something for me. As to the exact question, well, I made that up myself. You are clearly a scholar of the bard, so I know it is easy for you, but for the riff-raff, it will be utterly beyond them.'");
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
         Quest.World.w.clockwork_thespian.state = 3;
       }
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
       else if (Quest.World.w.clockwork_thespian.state === 3) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'How do you know what's in my bag?'");
+        msg("'How do you know what's in my bag?'");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'I just do. It is something you get use to when you've been here as long as I have. One might as well ask, how does one remember one's name. One just does.'");
+        msg("'I just do. It is something you get use to when you've been here as long as I have. One might as well ask, how does one remember one's name. One just does.'");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'How long have you been here?'");
+        msg("'How long have you been here?'");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'I don't really know, it is so hard to judge. It was the 3rd of October 1932 when I entered herein. To me, it feels as though at least two or three whole years have passed.'");
+        msg("'I don't really know, it is so hard to judge. It was the 3rd of October 1932 when I entered herein. To me, it feels as though at least two or three whole years have passed.'");
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
         Quest.World.w.clockwork_thespian.state = 4;
       }
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
       else if (Quest.World.w.clockwork_thespian.state === 4) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'I'm not really a, er, scholar of the bard.'");
+        msg("'I'm not really a, er, scholar of the bard.'");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'Ah, such modesty. So becoming in a young lady!'");
+        msg("'Ah, such modesty. So becoming in a young lady!'");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'No, really. I know fuck all about Shakespeare, and I'm not much of a lady either!'");
+        msg("'No, really. I know fuck all about Shakespeare, and I'm not much of a lady either!'");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'Oh. Oh, dear. That's unfortunate. I'm afraid once the question has been set, it cannot be unset.'");
+        msg("'Oh. Oh, dear. That's unfortunate. I'm afraid once the question has been set, it cannot be unset.'");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'Says who? Who makes up these stupid rules?'");
+        msg("'Says who? Who makes up these stupid rules?'");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("He shrugged. 'That's just the way things are in The House. Perhaps you should look it up? In a library, maybe. I imagine there's a library...'");
+        msg("He shrugged. 'That's just the way things are in The House. Perhaps you should look it up? In a library, maybe. I imagine there's a library...'");
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
         Quest.World.w.clockwork_thespian.state = 5;
       }
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
       else if (Quest.World.w.clockwork_thespian.state === 5) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Mandy had nothing to say to the Clockwork Thespian at the moment.');
+        msg('Mandy had nothing to say to the Clockwork Thespian at the moment.');
       }
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
       else if (Quest.World.w.clockwork_thespian.state === 101) {
@@ -538,46 +539,46 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
       else if (Quest.World.w.clockwork_thespian.state === 102) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Mandy has nothing to say to the Clockwork Thespian at the moment.');
+        msg('Mandy has nothing to say to the Clockwork Thespian at the moment.');
       }
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
       else if (Quest.World.w.clockwork_thespian.state === 201) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'What the fuck?' says Mandy to the Clockwork Thespian indignantly. 'You said I'd be able to get out of this stupid house!'");
+        msg("'What the fuck?' says Mandy to the Clockwork Thespian indignantly. 'You said I'd be able to get out of this stupid house!'");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'And indeed you did!'");
+        msg("'And indeed you did!'");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'I want to go home, you stupid jerk, not to some field full of dead people.'");
+        msg("'I want to go home, you stupid jerk, not to some field full of dead people.'");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'Of course, but it is a {i:process}. Going to the battlefield was a necessary part of that process.'");
+        msg("'Of course, but it is a {i:process}. Going to the battlefield was a necessary part of that process.'");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'Seriously?' pouts Mandy. 'So what's the next part of this stupid process then?'");
+        msg("'Seriously?' pouts Mandy. 'So what's the next part of this stupid process then?'");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'I would suggest there was something at the battlefield that will help you progress.'");
+        msg("'I would suggest there was something at the battlefield that will help you progress.'");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'The oar? I had that, but it did not come back with me.'");
+        msg("'The oar? I had that, but it did not come back with me.'");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'Something else. Something that may help the passing of time...'");
+        msg("'Something else. Something that may help the passing of time...'");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'What the..?'");
+        msg("'What the..?'");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'I can say no more.'");
+        msg("'I can say no more.'");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'Of course not! Heaven forbid you could just tell me!'");
+        msg("'Of course not! Heaven forbid you could just tell me!'");
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
         Quest.World.w.clockwork_thespian.state = 202;
       }
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'clockwork_thespian' does not exist on ty... Remove this comment to see the full error message
       else if (Quest.World.w.clockwork_thespian.state === 202) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Mandy has nothing to say to the Clockwork Thespian at the moment; she just gives the stupid thing a kick.');
+        msg('Mandy has nothing to say to the Clockwork Thespian at the moment; she just gives the stupid thing a kick.');
       }
     },
     tellOptions: [
       {
         script(p: any) {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg(`Mandy starts to tell the clockwork thespian about ${p.text} but he pays no attention.`);
+          msg(`Mandy starts to tell the clockwork thespian about ${p.text} but he pays no attention.`);
         },
         test(p: any) {
           return true;
@@ -587,22 +588,22 @@ export const init = (Quest: QuestClass) => {
 
     testDropIn(options: any) {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'large_key' does not exist on type '{}'.
-      if (options.item !== Quest.World.w.large_key) return Quest.IO.falsemsg('That is not something you can put in the keyhole. The clue is in the word "keyhole".');
+      if (options.item !== Quest.World.w.large_key) return falsemsg('That is not something you can put in the keyhole. The clue is in the word "keyhole".');
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'large_key' does not exist on type '{}'.
-      if (Quest.World.w.large_key.size > 6) return Quest.IO.falsemsg('The key is too large for the keyhole.');
+      if (Quest.World.w.large_key.size > 6) return falsemsg('The key is too large for the keyhole.');
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'large_key' does not exist on type '{}'.
-      if (Quest.World.w.large_key.size < 6) return Quest.IO.falsemsg('The key is too small for the keyhole.');
+      if (Quest.World.w.large_key.size < 6) return falsemsg('The key is too small for the keyhole.');
       return true;
     },
     testTalk(text: any) {
-      if (!this.npc) return Quest.IO.falsemsg(text ? Quest.lang.cannot_ask_about : Quest.lang.cannot_talk_to, { char: Quest.World.player, item: this, text });
+      if (!this.npc) return falsemsg(text ? Quest.lang.cannot_ask_about : Quest.lang.cannot_talk_to, { char: Quest.World.player, item: this, text });
       return true;
     },
     windup() {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'large_key' does not exist on type '{}'.
       if (Quest.World.w.large_key.loc !== Quest.World.player.name && Quest.World.w.large_key.loc !== this.name) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        return Quest.IO.falsemsg('Mandy has nothing to wind up the mannequin with.');
+        return falsemsg('Mandy has nothing to wind up the mannequin with.');
       }
       return this.dowindup();
     },

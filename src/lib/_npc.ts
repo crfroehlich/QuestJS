@@ -1,17 +1,24 @@
-import { INpc }  from '../types/iquest';
+import { INpc } from '../types/iquest';
 import { Quest } from '../types/quest';
+import { msg } from '../../lib/io';
 
 // Should all be language neutral
 export const NPC = function (isFemale: any) {
   // A whole bunch of defaults are the same as the player
-  const res = { ...Quest.Templates.CHARACTER(), ...CONSULTABLE(), ...AGENDA_FOLLOWER() };
+  const res = {
+    ...Quest.Templates.CHARACTER(),
+    ...CONSULTABLE(),
+    ...AGENDA_FOLLOWER(),
+  };
 
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'npc' does not exist on type '{ canReachT... Remove this comment to see the full error message
   res.npc = true;
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'isFemale' does not exist on type '{ canR... Remove this comment to see the full error message
   res.isFemale = isFemale;
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'pronouns' does not exist on type '{ canR... Remove this comment to see the full error message
-  res.pronouns = isFemale ? Quest.lang.pronouns.female : Quest.lang.pronouns.male;
+  res.pronouns = isFemale
+    ? Quest.lang.pronouns.female
+    : Quest.lang.pronouns.male;
 
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'askOptions' does not exist on type '{ ca... Remove this comment to see the full error message
   res.askOptions = [];
@@ -22,8 +29,8 @@ export const NPC = function (isFemale: any) {
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'reactions' does not exist on type '{ can... Remove this comment to see the full error message
   res.reactions = [];
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'receiveItems' does not exist on type '{ ... Remove this comment to see the full error message
-  res.receiveItems        = [];
-  res.followers           = [];
+  res.receiveItems = [];
+  res.followers = [];
   res.canReachThroughThis = () => false;
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'icon' does not exist on type '{ canReach... Remove this comment to see the full error message
   res.icon = () => 'npc12';
@@ -43,14 +50,14 @@ export const NPC = function (isFemale: any) {
 
   res.msg = function (s, params) {
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{ canRea... Remove this comment to see the full error message
-    if (this.isHere()) Quest.IO.msg(s, params);
+    if (this.isHere()) msg(s, params);
   };
 
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'multiMsg' does not exist on type '{ canR... Remove this comment to see the full error message
   res.multiMsg = function (ary: any) {
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'isHere' does not exist on type '{ canRea... Remove this comment to see the full error message
     if (!this.isHere()) return;
-    const counter = ary[0].replace(/[^a-z]/ig, '');
+    const counter = ary[0].replace(/[^a-z]/gi, '');
     // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     if (this[counter] === undefined) this[counter] = -1;
     // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
@@ -58,7 +65,7 @@ export const NPC = function (isFemale: any) {
     // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     if (this[counter] >= ary.length) this[counter] = ary.length - 1;
     // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    if (ary[this[counter]]) Quest.IO.msg(ary[this[counter]]);
+    if (ary[this[counter]]) msg(ary[this[counter]]);
   };
 
   // can we see the NPC from here?
@@ -71,9 +78,11 @@ export const NPC = function (isFemale: any) {
     if (!room) room = Quest.World.w[this.loc];
     if (Quest.World.player.loc === room.name) return true;
     if (room.visibleFrom === undefined) return false;
-    if (typeof room.visibleFrom === 'function') return room.visibleFrom(Quest.World.currentLocation);
+    if (typeof room.visibleFrom === 'function')
+      return room.visibleFrom(Quest.World.currentLocation);
     if (Array.isArray(room.visibleFrom)) {
-      if (room.visibleFrom.includes(Quest.World.currentLocation.name)) return room.visibleFromPrefix ? room.visibleFromPrefix : true;
+      if (room.visibleFrom.includes(Quest.World.currentLocation.name))
+        return room.visibleFromPrefix ? room.visibleFromPrefix : true;
     }
     return false;
   };
@@ -83,7 +92,11 @@ export const NPC = function (isFemale: any) {
     // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     if (typeof npc === 'string') npc = Quest.World.w[npc];
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'leaderName' does not exist on type '{ ca... Remove this comment to see the full error message
-    if (this.leaderName) Quest.Utilities.array.remove(Quest.World.w[this.leaderName].followers, this.name);
+    if (this.leaderName)
+      Quest.Utilities.array.remove(
+        Quest.World.w[this.leaderName].followers,
+        this.name,
+      );
     if (npc) {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'name' does not exist on type '{ canReach... Remove this comment to see the full error message
       npc.followers.push(this.name);
@@ -102,39 +115,46 @@ export const NPC = function (isFemale: any) {
 
   // Used by commands
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'startFollow' does not exist on type '{ c... Remove this comment to see the full error message
-  res.startFollow = function () {
+  (res.startFollow = function () {
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'leaderName' does not exist on type '{ ca... Remove this comment to see the full error message
-    if (this.leaderName) return Quest.IO.falsemsg(Quest.lang.already_following, { npc: this });
+    if (this.leaderName)
+      return Quest.IO.falsemsg(Quest.lang.already_following, { npc: this });
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'setLeader' does not exist on type '{ can... Remove this comment to see the full error message
     this.setLeader(Quest.World.player);
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    Quest.IO.msg('{nv:npc:nod:true} his head.', { npc: this });
+    msg('{nv:npc:nod:true} his head.', { npc: this });
     return true;
-  },
-  // ts-error-fixed ts-migrate(2339) FIXME: Property 'endFollow' does not exist on type '{ can... Remove this comment to see the full error message
-  res.endFollow = function () {
-    // ts-error-fixed ts-migrate(2339) FIXME: Property 'leaderName' does not exist on type '{ ca... Remove this comment to see the full error message
-    if (!this.leaderName) return Quest.IO.falsemsg(Quest.lang.already_waiting, { npc: this });
-    // ts-error-fixed ts-migrate(2339) FIXME: Property 'setLeader' does not exist on type '{ can... Remove this comment to see the full error message
-    this.setLeader();
-    // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    Quest.IO.msg('{nv:npc:nod:true} his head.', { npc: this });
-    return true;
-  },
-
-  // ts-error-fixed ts-migrate(2339) FIXME: Property 'endTurn' does not exist on type '{ canRe... Remove this comment to see the full error message
-  res.endTurn = function (turn: any) {
-    // ts-error-fixed ts-migrate(2339) FIXME: Property 'dead' does not exist on type '{ canReach... Remove this comment to see the full error message
-    if (this.dead) return;
-    // ts-error-fixed ts-migrate(2339) FIXME: Property 'sayTakeTurn' does not exist on type '{ c... Remove this comment to see the full error message
-    this.sayTakeTurn();
-    // ts-error-fixed ts-migrate(2339) FIXME: Property 'doReactions' does not exist on type '{ c... Remove this comment to see the full error message
-    this.doReactions();
-    // ts-error-fixed ts-migrate(2551) FIXME: Property 'paused' does not exist on type '{ canRea... Remove this comment to see the full error message
-    if (!this.paused && !this.suspended && this.agenda && this.agenda.length > 0) this.doAgenda();
-    // ts-error-fixed ts-migrate(2339) FIXME: Property 'doEvent' does not exist on type '{ canRe... Remove this comment to see the full error message
-    this.doEvent(turn);
-  };
+  }),
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'endFollow' does not exist on type '{ can... Remove this comment to see the full error message
+    (res.endFollow = function () {
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'leaderName' does not exist on type '{ ca... Remove this comment to see the full error message
+      if (!this.leaderName)
+        return Quest.IO.falsemsg(Quest.lang.already_waiting, { npc: this });
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'setLeader' does not exist on type '{ can... Remove this comment to see the full error message
+      this.setLeader();
+      // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
+      msg('{nv:npc:nod:true} his head.', { npc: this });
+      return true;
+    }),
+    // ts-error-fixed ts-migrate(2339) FIXME: Property 'endTurn' does not exist on type '{ canRe... Remove this comment to see the full error message
+    (res.endTurn = function (turn: any) {
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'dead' does not exist on type '{ canReach... Remove this comment to see the full error message
+      if (this.dead) return;
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'sayTakeTurn' does not exist on type '{ c... Remove this comment to see the full error message
+      this.sayTakeTurn();
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'doReactions' does not exist on type '{ c... Remove this comment to see the full error message
+      this.doReactions();
+      // ts-error-fixed ts-migrate(2551) FIXME: Property 'paused' does not exist on type '{ canRea... Remove this comment to see the full error message
+      if (
+        !this.paused &&
+        !this.suspended &&
+        this.agenda &&
+        this.agenda.length > 0
+      )
+        this.doAgenda();
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'doEvent' does not exist on type '{ canRe... Remove this comment to see the full error message
+      this.doEvent(turn);
+    });
 
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'doReactions' does not exist on type '{ c... Remove this comment to see the full error message
   res.doReactions = function () {
@@ -152,7 +172,8 @@ export const NPC = function (isFemale: any) {
           this.reactionFlags.push(el.name);
           if (!el.noPause) this.pause();
           // ts-error-fixed ts-migrate(2339) FIXME: Property 'reactionFlags' does not exist on type '{... Remove this comment to see the full error message
-          if (el.override) this.reactionFlags = this.reactionFlags.concat(el.override);
+          if (el.override)
+            this.reactionFlags = this.reactionFlags.concat(el.override);
         }
       }
     }
@@ -174,15 +195,25 @@ export const NPC = function (isFemale: any) {
     let flag = false;
     for (const action of ['ask', 'tell']) {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      const arr  = Quest.Utilities.getResponseList({ action, char: this }, this[`${action}Options`]);
+      const arr = Quest.Utilities.getResponseList(
+        { action, char: this },
+        this[`${action}Options`],
+      );
       const arr2 = [];
       for (const res of arr) {
-        if (res.silent && !Quest.World.player.mentionedTopics.includes(res.name)) continue;
+        if (
+          res.silent &&
+          !Quest.World.player.mentionedTopics.includes(res.name)
+        )
+          continue;
         arr2.push(res.name);
       }
       if (arr2.length !== 0) {
         // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-        Quest.IO.metamsg(lang[`topics_${action}_list`], { item: this, list: arr2.sort().join('; ') });
+        Quest.IO.metamsg(lang[`topics_${action}_list`], {
+          item: this,
+          list: arr2.sort().join('; '),
+        });
         flag = true;
       }
     }
@@ -191,7 +222,9 @@ export const NPC = function (isFemale: any) {
       Quest.IO.metamsg(Quest.lang.topics_none_found, { item: this });
     }
 
-    return Quest.Settings.settings.lookCountsAsTurn ? Quest.World.world.SUCCESS : Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
+    return Quest.Settings.settings.lookCountsAsTurn
+      ? Quest.World.world.SUCCESS
+      : Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
   };
 
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'sayBonus' does not exist on type '{ canR... Remove this comment to see the full error message
@@ -255,7 +288,8 @@ const npc_utilities = {
   askTopics(...topics: any[]) {
     const title = topics.shift();
     // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    const fn = Quest.IO.io.menuFunctions[Quest.Settings.settings.funcForDynamicConv];
+    const fn =
+      Quest.IO.io.menuFunctions[Quest.Settings.settings.funcForDynamicConv];
     fn(title, topics, (result: any) => {
       result.runscript();
     });
@@ -268,7 +302,10 @@ const npc_utilities = {
     const list = [];
     for (const key in Quest.World.w) {
       // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      if (Quest.World.w[key].isTopicVisible && Quest.World.w[key].isTopicVisible(this)) {
+      if (
+        Quest.World.w[key].isTopicVisible &&
+        Quest.World.w[key].isTopicVisible(this)
+      ) {
         // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         list.push(Quest.World.w[key]);
       }
@@ -303,7 +340,7 @@ const npc_utilities = {
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'talk' does not exist on type '{ findTopi... Remove this comment to see the full error message
     if (typeof this.talk === 'string') {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      Quest.IO.msg(this.talk, { char: this });
+      msg(this.talk, { char: this });
       return true;
     }
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'talk' does not exist on type '{ findTopi... Remove this comment to see the full error message
@@ -313,9 +350,13 @@ const npc_utilities = {
     }
 
     // handle dynamic talkto
-    const topics                         = this.getTopics();
+    const topics = this.getTopics();
     Quest.World.player.conversingWithNpc = this;
-    if (topics.length === 0) return Quest.IO.failedmsg(Quest.lang.no_topics, { char: Quest.World.player, item: this });
+    if (topics.length === 0)
+      return Quest.IO.failedmsg(Quest.lang.no_topics, {
+        char: Quest.World.player,
+        item: this,
+      });
 
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'greeting' does not exist on type '{ find... Remove this comment to see the full error message
     if (this.greeting) {
@@ -325,7 +366,8 @@ const npc_utilities = {
     topics.push(Quest.lang.never_mind);
 
     // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    const fn = Quest.IO.io.menuFunctions[Quest.Settings.settings.funcForDynamicConv];
+    const fn =
+      Quest.IO.io.menuFunctions[Quest.Settings.settings.funcForDynamicConv];
     fn(Quest.lang.speak_to_menu_title(this), topics, (result: any) => {
       if (result !== Quest.lang.never_mind) {
         result.runscript();
@@ -334,7 +376,6 @@ const npc_utilities = {
 
     return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
   },
-
 };
 
 export const AGENDA_FOLLOWER = function () {
@@ -352,7 +393,8 @@ export const AGENDA_FOLLOWER = function () {
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'endTurn' does not exist on type '{}'.
   res.endTurn = function (turn: any) {
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'paused' does not exist on type '{}'.
-    if (!this.paused && !this.suspended && this.agenda.length > 0) this.doAgenda();
+    if (!this.paused && !this.suspended && this.agenda.length > 0)
+      this.doAgenda();
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'doEvent' does not exist on type '{}'.
     this.doEvent(turn);
   };
@@ -383,18 +425,22 @@ export const AGENDA_FOLLOWER = function () {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'followers' does not exist on type '{}'.
       this.followers.unshift(this.name);
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'alias' does not exist on type '{}'.
-      this.alias = Quest.Utilities.formatList(this.getFollowers(), { lastJoiner: Quest.lang.list_and });
+      this.alias = Quest.Utilities.formatList(this.getFollowers(), {
+        lastJoiner: Quest.lang.list_and,
+      });
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'followers' does not exist on type '{}'.
       this.followers.shift();
     }
 
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'agenda' does not exist on type '{}'.
-    const arr          = this.agenda[0].split(':');
+    const arr = this.agenda[0].split(':');
     const functionName = arr.shift();
     // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     if (typeof agenda[functionName] !== 'function') {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      Quest.IO.errormsg(`Unknown function \`${functionName}' in agenda for ${this.name}`);
+      Quest.IO.errormsg(
+        `Unknown function \`${functionName}' in agenda for ${this.name}`,
+      );
       return;
     }
     // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
@@ -435,18 +481,30 @@ export const AGENDA_FOLLOWER = function () {
 export const agenda = {
   debug(s: any, npc: any, arr: any) {
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'agendaDebugging' does not exist on type ... Remove this comment to see the full error message
-    if (Quest.Settings.settings.agendaDebugging && Quest.Settings.settings.playMode === 'dev') Quest.IO.debugmsg(`AGENDA for ${npc.name}: ${s}; ${Quest.Utilities.formatList(arr, { doNotSort: true })}`);
+    if (
+      Quest.Settings.settings.agendaDebugging &&
+      Quest.Settings.settings.playMode === 'dev'
+    )
+      Quest.IO.debugmsg(
+        `AGENDA for ${npc.name}: ${s}; ${Quest.Utilities.formatList(arr, {
+          doNotSort: true,
+        })}`,
+      );
   },
   debugS(s: any) {
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'agendaDebugging' does not exist on type ... Remove this comment to see the full error message
-    if (Quest.Settings.settings.agendaDebugging && Quest.Settings.settings.playMode === 'dev') Quest.IO.debugmsg(`AGENDA comment: ${s}`);
+    if (
+      Quest.Settings.settings.agendaDebugging &&
+      Quest.Settings.settings.playMode === 'dev'
+    )
+      Quest.IO.debugmsg(`AGENDA comment: ${s}`);
   },
 
   disband(npc: any, arr: any) {
     this.debug('disband', npc, arr);
     for (const s of npc.followers) {
       // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      const follower  = Quest.World.w[s];
+      const follower = Quest.World.w[s];
       follower.leader = false;
     }
     npc.followers = [];
@@ -455,16 +513,16 @@ export const agenda = {
   },
 
   extractPath(start: any, end: any) {
-    const res   = [end];
+    const res = [end];
     let current = end;
-    let count   = 0;
+    let count = 0;
 
     do {
       current = current.pathfinderNote.jumpFrom;
       res.push(current);
       count++;
     } while (current !== start && count < 99);
-    res.pop();  // The last is the start location, which we do not ned
+    res.pop(); // The last is the start location, which we do not ned
     return res.reverse();
   },
 
@@ -478,9 +536,10 @@ export const agenda = {
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'pathID' does not exist on type '{ turnCo... Remove this comment to see the full error message
     Quest.World.game.pathID++;
     let currentList = [start];
-    let length      = 0;
-    let nextList; let dest; let
-      exits;
+    let length = 0;
+    let nextList;
+    let dest;
+    let exits;
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'pathID' does not exist on type '{ turnCo... Remove this comment to see the full error message
     start.pathfinderNote = { id: Quest.World.game.pathID };
 
@@ -498,12 +557,18 @@ export const agenda = {
           dest = Quest.World.w[exit.name];
           if (dest === undefined) {
             // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-            Quest.IO.errormsg(`Dest is undefined: ${exit.name} (room ${room.name}). Giving up.`);
-            console.log(this);
+            Quest.IO.errormsg(
+              `Dest is undefined: ${exit.name} (room ${room.name}). Giving up.`,
+            );
+            this;
             return false;
           }
           // ts-error-fixed ts-migrate(2339) FIXME: Property 'pathID' does not exist on type '{ turnCo... Remove this comment to see the full error message
-          if (dest.pathfinderNote && dest.pathfinderNote.id === Quest.World.game.pathID) continue;
+          if (
+            dest.pathfinderNote &&
+            dest.pathfinderNote.id === Quest.World.game.pathID
+          )
+            continue;
           // ts-error-fixed ts-migrate(2339) FIXME: Property 'pathID' does not exist on type '{ turnCo... Remove this comment to see the full error message
           dest.pathfinderNote = { id: Quest.World.game.pathID, jumpFrom: room };
           if (dest === end) return agenda.extractPath(start, end);
@@ -513,7 +578,7 @@ export const agenda = {
       currentList = nextList;
     }
     return false;
-    /* console.error("Path-finding failed: " + (currentList.length === 0 ? 'list is empty' : 'exceeded maximum length'))
+    /* error("Path-finding failed: " + (currentList.length === 0 ? 'list is empty' : 'exceeded maximum length'))
     log("start: " + start.name)
     log("end: " + end.name)
     log("maxlength: " + maxlength)
@@ -528,7 +593,7 @@ export const agenda = {
       if (npc[name](arr)) {
         this.text(npc, arr);
         this.debugS('Pass');
-        return (immediate ? 'next' : true);
+        return immediate ? 'next' : true;
       }
       return false;
     }
@@ -537,7 +602,7 @@ export const agenda = {
     if (npc.loc === Quest.World.w[name].loc) {
       this.text(npc, arr);
       this.debugS('Pass');
-      return (immediate ? 'next' : true);
+      return immediate ? 'next' : true;
     }
     return false;
   },
@@ -547,12 +612,12 @@ export const agenda = {
     const item = arr[0] === 'player' ? player : Quest.World.w[arr[0]];
     arr.shift();
     const attName = arr.shift();
-    const value   = Quest.Utilities.util.guessMyType(arr.shift());
-    let flag      = item[attName] === value;
+    const value = Quest.Utilities.util.guessMyType(arr.shift());
+    let flag = item[attName] === value;
     if (reverse) flag = !flag;
     if (flag) return false;
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    Quest.IO.msg(arr.join(':'));
+    msg(arr.join(':'));
     return immediate ? 'next' : true;
   },
 
@@ -588,11 +653,17 @@ export const agenda = {
       dest = false;
     } else {
       // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      if (!Quest.World.w[dest]) return Quest.IO.errormsg(`Location '${dest}' not recognised in the agenda of ${npc.name}`);
+      if (!Quest.World.w[dest])
+        return Quest.IO.errormsg(
+          `Location '${dest}' not recognised in the agenda of ${npc.name}`,
+        );
       // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      if (!Quest.World.w[dest].room) dest = dest.loc;  // go to the room the item is in
+      if (!Quest.World.w[dest].room) dest = dest.loc; // go to the room the item is in
       // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      if (!Quest.World.w[dest]) return Quest.IO.errormsg(`Location '${dest}' not recognized in the agenda of ${npc.name}`);
+      if (!Quest.World.w[dest])
+        return Quest.IO.errormsg(
+          `Location '${dest}' not recognized in the agenda of ${npc.name}`,
+        );
     }
     npc.loc = dest;
     this.text(npc, arr);
@@ -617,14 +688,17 @@ export const agenda = {
   moveItem(npc: any, arr: any) {
     this.debug('moveItem', npc, arr);
     const item = arr.shift();
-    let dest   = arr.shift();
+    let dest = arr.shift();
     if (dest === 'player') {
       dest = Quest.World.player.name;
     } else if (dest === '_') {
       dest = false;
     } else {
       // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      if (!Quest.World.w[dest]) return Quest.IO.errormsg(`Location '${dest}' not recognized in the agenda of ${npc.name}`);
+      if (!Quest.World.w[dest])
+        return Quest.IO.errormsg(
+          `Location '${dest}' not recognized in the agenda of ${npc.name}`,
+        );
     }
     // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     Quest.World.w[item].moveToFrom({ char: npc, item, toLoc: dest });
@@ -637,13 +711,19 @@ export const agenda = {
   moveTo(npc: any, arr: any) {
     let dest = arr.shift();
     // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    if (!Quest.World.w[dest]) return Quest.IO.errormsg(`Location '${dest}' not recognised in the agenda of ${npc.name}`);
+    if (!Quest.World.w[dest])
+      return Quest.IO.errormsg(
+        `Location '${dest}' not recognised in the agenda of ${npc.name}`,
+      );
     // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    if (!Quest.World.w[dest].room) dest = dest.loc;  // go to the room the item is in
+    if (!Quest.World.w[dest].room) dest = dest.loc; // go to the room the item is in
     // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     const exit = Quest.World.w[npc.loc].findExit(dest);
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (!exit) return Quest.IO.errormsg(`Could not find an exit to location '${dest}' in the agenda of ${npc.name}`);
+    if (!exit)
+      return Quest.IO.errormsg(
+        `Could not find an exit to location '${dest}' in the agenda of ${npc.name}`,
+      );
     // log("Move " + npc.name + " to " + dest)
     npc.movingMsg(exit);
     npc.moveChar(exit);
@@ -654,7 +734,7 @@ export const agenda = {
   msg(npc: any, arr: any) {
     this.debug('msg (string)', npc, arr);
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    Quest.IO.msg(arr.join(':'));
+    msg(arr.join(':'));
     return true;
   },
 
@@ -681,10 +761,13 @@ export const agenda = {
   setItemAtt(npc: any, arr: any) {
     this.debug('setItemAtt', npc, arr);
     const item = arr.shift();
-    const att  = arr.shift();
-    let value  = arr.shift();
+    const att = arr.shift();
+    let value = arr.shift();
     // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    if (!Quest.World.w[item]) Quest.IO.errormsg(`Item '${item}' not recognised in the agenda of ${npc.name}`);
+    if (!Quest.World.w[item])
+      Quest.IO.errormsg(
+        `Item '${item}' not recognised in the agenda of ${npc.name}`,
+      );
     if (value === 'true') value = true;
     if (value === 'false') value = false;
     if (/^\d+$/.test(value)) value = parseInt(value);
@@ -708,14 +791,14 @@ export const agenda = {
   text(npc: any, arr: any) {
     if (typeof npc[arr[0]] === 'function') {
       this.debug('text (function)', npc, arr);
-      const fn  = arr.shift();
+      const fn = arr.shift();
       const res = npc[fn](arr);
-      return (typeof res === 'boolean' ? res : true);
+      return typeof res === 'boolean' ? res : true;
     }
     this.debug('text (string)', npc, arr);
 
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-    if (npc.inSight()) Quest.IO.msg(arr.join(':'));
+    if (npc.inSight()) msg(arr.join(':'));
     return true;
   },
 
@@ -724,7 +807,10 @@ export const agenda = {
     this.debug('wait', npc, arr);
     if (arr.length === 0) return true;
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (isNaN(arr[0])) Quest.IO.errormsg(`Expected wait to be given a number in the agenda of '${npc.name}'`);
+    if (isNaN(arr[0]))
+      Quest.IO.errormsg(
+        `Expected wait to be given a number in the agenda of '${npc.name}'`,
+      );
     const count = parseInt(arr.shift());
     if (npc.agendaWaitCounter !== undefined) {
       npc.agendaWaitCounter++;
@@ -771,13 +857,19 @@ export const agenda = {
   walkRandom(npc: any, arr: any) {
     this.debug('walkRandom', npc, arr);
     // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    const exit = Quest.World.w[npc.loc].getRandomExit({ excludeLocked: true, excludeScenery: true });
+    const exit = Quest.World.w[npc.loc].getRandomExit({
+      excludeLocked: true,
+      excludeScenery: true,
+    });
     if (exit === null) {
       this.text(npc, arr);
       return true;
     }
     // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    if (!Quest.World.w[exit.name]) Quest.IO.errormsg(`Location '${exit.name}' not recognised in the agenda of ${npc.name}`);
+    if (!Quest.World.w[exit.name])
+      Quest.IO.errormsg(
+        `Location '${exit.name}' not recognised in the agenda of ${npc.name}`,
+      );
     npc.movingMsg(exit);
     npc.moveChar(exit);
     return false;
@@ -790,7 +882,9 @@ export const agenda = {
     // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     if (Quest.World.w[dest] === undefined) {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      Quest.IO.errormsg(`Location '${dest}' not recognised in the agenda of ${npc.name}`);
+      Quest.IO.errormsg(
+        `Location '${dest}' not recognised in the agenda of ${npc.name}`,
+      );
       return true;
     }
     // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
@@ -800,7 +894,9 @@ export const agenda = {
       // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       if (Quest.World.w[dest] === undefined) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        Quest.IO.errormsg(`Object location '${dest}' not recognised in the agenda of ${npc.name}`);
+        Quest.IO.errormsg(
+          `Object location '${dest}' not recognised in the agenda of ${npc.name}`,
+        );
         return true;
       }
     }
@@ -811,7 +907,10 @@ export const agenda = {
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'findPath' does not exist on type '{ debu... Remove this comment to see the full error message
     const route = agenda.findPath(Quest.World.w[npc.loc], Quest.World.w[dest]);
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (!route) Quest.IO.errormsg(`Location '${dest}' not reachable in the agenda of ${npc.name}`);
+    if (!route)
+      Quest.IO.errormsg(
+        `Location '${dest}' not reachable in the agenda of ${npc.name}`,
+      );
     // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     const exit = Quest.World.w[npc.loc].findExit(route[0]);
     npc.movingMsg(exit);
@@ -832,12 +931,24 @@ const CONSULTABLE = function () {
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'askabout' does not exist on type '{}'.
   res.askabout = function (text1: any, text2: any) {
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'asktellabout' does not exist on type '{}... Remove this comment to see the full error message
-    return this.asktellabout(text1, text2, Quest.lang.ask_about_intro, this.askOptions, 'ask');
+    return this.asktellabout(
+      text1,
+      text2,
+      Quest.lang.ask_about_intro,
+      this.askOptions,
+      'ask',
+    );
   };
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'tellabout' does not exist on type '{}'.
   res.tellabout = function (text1: any, text2: any) {
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'asktellabout' does not exist on type '{}... Remove this comment to see the full error message
-    return this.asktellabout(text1, text2, Quest.lang.tell_about_intro, this.tellOptions, 'tell');
+    return this.asktellabout(
+      text1,
+      text2,
+      Quest.lang.tell_about_intro,
+      this.tellOptions,
+      'tell',
+    );
   };
 
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'talkabout' does not exist on type '{}'.
@@ -845,13 +956,28 @@ const CONSULTABLE = function () {
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'talkOptions' does not exist on type '{}'... Remove this comment to see the full error message
     let data = this.talkOptions;
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'talkOptions' does not exist on type '{}'... Remove this comment to see the full error message
-    if (!this.talkOptions) data = this.tellOptions ? this.tellOptions.concat(this.askOptions) : this.askOptions;
+    if (!this.talkOptions)
+      data = this.tellOptions
+        ? this.tellOptions.concat(this.askOptions)
+        : this.askOptions;
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'asktellabout' does not exist on type '{}... Remove this comment to see the full error message
-    return this.asktellabout(text1, text2, Quest.lang.talk_about_intro, data, 'talk');
+    return this.asktellabout(
+      text1,
+      text2,
+      Quest.lang.talk_about_intro,
+      data,
+      'talk',
+    );
   };
 
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'asktellabout' does not exist on type '{}... Remove this comment to see the full error message
-  res.asktellabout = function (text1: any, text2: any, intro: any, list: any, action: any) {
+  res.asktellabout = function (
+    text1: any,
+    text2: any,
+    intro: any,
+    list: any,
+    action: any,
+  ) {
     // ts-error-fixed ts-migrate(2367) FIXME: This condition will always return 'true' since the... Remove this comment to see the full error message
     if (Quest.Settings.settings.noAskTell !== false) {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -867,10 +993,13 @@ const CONSULTABLE = function () {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       Quest.IO.metamsg(Quest.Settings.settings.noAskTell);
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      return Quest.IO.errormsg(`No ${action}Options set for ${this.name} and I think there should at least be default saying why.`);
+      return Quest.IO.errormsg(
+        `No ${action}Options set for ${this.name} and I think there should at least be default saying why.`,
+      );
     }
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    if (Quest.Settings.settings.givePlayerAskTellMsg) Quest.IO.msg(intro(this, text1, text2), { char: Quest.World.player });
+    if (Quest.Settings.settings.givePlayerAskTellMsg)
+      msg(intro(this, text1, text2), { char: Quest.World.player });
 
     const params = {
       action,
@@ -885,12 +1014,13 @@ const CONSULTABLE = function () {
   res.askTellDone = function (params: any, response: any) {
     if (!response) {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      Quest.IO.msg(Quest.lang.npc_no_interest_in, params);
+      msg(Quest.lang.npc_no_interest_in, params);
       return;
     }
     if (response.mentions) {
       for (const s of response.mentions) {
-        if (!Quest.World.player.mentionedTopics.includes(s)) Quest.World.player.mentionedTopics.push(s);
+        if (!Quest.World.player.mentionedTopics.includes(s))
+          Quest.World.player.mentionedTopics.push(s);
       }
     }
     params.char.pause();
@@ -905,7 +1035,7 @@ export const QUESTION = function () {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'responses' does not exist on type '{ say... Remove this comment to see the full error message
       for (const res of this.responses) {
         if (!res.regex || res.regex.test(s)) {
-          char.sayBonus    = 0;
+          char.sayBonus = 0;
           char.sayQuestion = false;
           res.response(s);
           return true;
@@ -942,7 +1072,7 @@ export const TOPIC = function (fromStart: any) {
     },
 
     hide() {
-      return this.hideTopic = true;
+      return (this.hideTopic = true);
     },
 
     hideAfter: true,
@@ -953,36 +1083,57 @@ export const TOPIC = function (fromStart: any) {
 
     isTopicVisible(char: any) {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
-      return this.showTopic && !this.hideTopic && this.belongsTo(char.name) && this.isVisible(char);
+      return (
+        this.showTopic &&
+        !this.hideTopic &&
+        this.belongsTo(char.name) &&
+        this.isVisible(char)
+      );
     },
 
     isVisible: () => true,
 
-    nowHide:    [],
+    nowHide: [],
     // we do not want "the" prepended
-    nowShow:    [],
+    nowShow: [],
     properNoun: true,
     runscript() {
       const obj = Quest.World.player.conversingWithNpc;
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      if (obj === undefined) return Quest.IO.errormsg(`No conversing NPC called ${Quest.World.player.conversingWithNpc} found.`);
+      if (obj === undefined)
+        return Quest.IO.errormsg(
+          `No conversing NPC called ${Quest.World.player.conversingWithNpc} found.`,
+        );
       obj.pause();
       this.hideTopic = this.hideAfter;
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'script' does not exist on type '{ conver... Remove this comment to see the full error message
-      if (!this.script && !this.msg) return Quest.IO.errormsg(`Topic ${this.name} has neither script nor msg attributes.`);
+      if (!this.script && !this.msg)
+        return Quest.IO.errormsg(
+          `Topic ${this.name} has neither script nor msg attributes.`,
+        );
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'script' does not exist on type '{ conver... Remove this comment to see the full error message
       if (this.script) {
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'script' does not exist on type '{ conver... Remove this comment to see the full error message
-        if (typeof this.script !== 'function') return Quest.IO.errormsg(`script for topic ${this.name} is not a function.`);
+        if (typeof this.script !== 'function')
+          return Quest.IO.errormsg(
+            `script for topic ${this.name} is not a function.`,
+          );
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'script' does not exist on type '{ conver... Remove this comment to see the full error message
-        this.script.bind(obj)({ char: obj, player: Quest.World.player, topic: this });
+        this.script.bind(obj)({
+          char: obj,
+          player: Quest.World.player,
+          topic: this,
+        });
       }
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{ conversat... Remove this comment to see the full error message
       if (this.msg) {
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'msg' does not exist on type '{ conversat... Remove this comment to see the full error message
-        if (typeof this.msg !== 'string') return Quest.IO.errormsg(`msg for topic ${this.name} is not a string.`);
+        if (typeof this.msg !== 'string')
+          return Quest.IO.errormsg(
+            `msg for topic ${this.name} is not a string.`,
+          );
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        Quest.IO.msg(this.msg, { char: obj, topic: this });
+        msg(this.msg, { char: obj, topic: this });
       }
       this.showHideList(this.nowShow, true);
       this.showHideList(this.nowHide, false);
@@ -990,12 +1141,16 @@ export const TOPIC = function (fromStart: any) {
       Quest.World.world.endTurn(Quest.World.world.SUCCESS);
     },
     show() {
-      return this.showTopic = true;
+      return (this.showTopic = true);
     },
     showHideList(list: any, isShow: any) {
       if (typeof list === 'string') {
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'name' does not exist on type '{ conversa... Remove this comment to see the full error message
-        log(`WARNING: ${isShow ? 'nowShow' : 'nowHide'} for topic ${this.name} is a string.`);
+        log(
+          `WARNING: ${isShow ? 'nowShow' : 'nowHide'} for topic ${
+            this.name
+          } is a string.`,
+        );
         return;
       }
       for (const s of list) {
@@ -1005,7 +1160,9 @@ export const TOPIC = function (fromStart: any) {
           t[isShow ? 'showTopic' : 'hideTopic'] = true;
         } else {
           // ts-error-fixed ts-migrate(2339) FIXME: Property 'name' does not exist on type '{ conversa... Remove this comment to see the full error message
-          log(`WARNING: Topic ${this.name} wants to now show/hide a non-existent topic, ${s}`);
+          log(
+            `WARNING: Topic ${this.name} wants to now show/hide a non-existent topic, ${s}`,
+          );
         }
       }
     },

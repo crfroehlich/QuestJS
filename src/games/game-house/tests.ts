@@ -1,4 +1,5 @@
 import { QuestClass } from '../../types/quest';
+import { debugmsg } from '../../lib/io';
 
 export const init = (Quest: QuestClass) => {
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'resetOnCompletion' does not exist on typ... Remove this comment to see the full error message
@@ -9,9 +10,9 @@ export const init = (Quest: QuestClass) => {
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'afterFinish' does not exist on type '{}'... Remove this comment to see the full error message
   test.afterFinish = function (success: any) {
     if (success) {
-      Quest.IO.debugmsg('Hurrah!');
+      debugmsg('Hurrah!');
     } else {
-      Quest.IO.debugmsg('Oh dear...');
+      debugmsg('Oh dear...');
     }
   };
 

@@ -1,4 +1,5 @@
 import { QuestClass } from '../../types/quest';
+import { msg } from '../../lib/io';
 
 export const init = (Quest: QuestClass) => {
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
@@ -55,7 +56,7 @@ export const init = (Quest: QuestClass) => {
       if (options.char.loc != 'garage') return Quest.IO.falsemsg('There is nothing to charge the torch with here.');
 
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      Quest.IO.msg('{pv:char:charge:true} the torch - it should last for hours now.', options);
+      msg('{pv:char:charge:true} the torch - it should last for hours now.', options);
       this.power = 20;
       return true;
     },
@@ -67,11 +68,11 @@ export const init = (Quest: QuestClass) => {
       this.power--;
       if (this.power === 2) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('The torch flickers.');
+        msg('The torch flickers.');
       }
       if (this.power < 0) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('The torch flickers and dies.{once: Perhaps there is a charger in the garage?}');
+        msg('The torch flickers and dies.{once: Perhaps there is a charger in the garage?}');
         this.doSwitchoff();
       }
     },
@@ -85,7 +86,7 @@ export const init = (Quest: QuestClass) => {
     testSwitchOn() {
       if (this.power < 0) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('The torch is dead.');
+        msg('The torch is dead.');
         return false;
       }
       return true;
@@ -102,7 +103,7 @@ export const init = (Quest: QuestClass) => {
   Quest.World.createRoom('kitchen', {
     afterFirstEnter() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('A fresh smell here!');
+      msg('A fresh smell here!');
     },
 
     desc: 'A clean room, a clock hanging on the wall. There is a sink in the corner.',
@@ -175,7 +176,7 @@ export const init = (Quest: QuestClass) => {
       if (!Quest.World.w.charger_compartment.closed || Quest.World.w.torch.loc !== 'charger_compartment') return Quest.IO.falsemsg('{pv:char:push:true} the button, but nothing happens.', options);
 
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      Quest.IO.msg('{pv:char:push:true} the button. There is a brief hum of power, and a flash.', options);
+      msg('{pv:char:push:true} the button. There is a brief hum of power, and a flash.', options);
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'torch' does not exist on type '{}'.
       Quest.World.w.torch.power = 20;
       return true;

@@ -1,10 +1,11 @@
 import { QuestClass } from '../../types/quest';
+import { msg, failedmsg, falsemsg }        from '../../lib/io';
 
 export const init = (Quest: QuestClass) => {
   register('external', {
-    book: 'Antony and Cleopatra',
-    listen: 'Mandy can hear birds in the trees, and the vague sound of traffic coming from the town.',
-    smell: 'The smell of the countryside mingled with the smell of the town -- mature and car fumes -- but so faint it is only now that Mandy thinks about it that she notices them.',
+    book:    'Antony and Cleopatra',
+    listen:  'Mandy can hear birds in the trees, and the vague sound of traffic coming from the town.',
+    smell:   'The smell of the countryside mingled with the smell of the town -- mature and car fumes -- but so faint it is only now that Mandy thinks about it that she notices them.',
     uniform: 'her grey and blue Kyderbrook High School uniform',
   });
 
@@ -25,10 +26,10 @@ export const init = (Quest: QuestClass) => {
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'letter' does not exist on type '{}'.
         if (Quest.World.w.letter.loc === Quest.World.player.name) {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg('With the letter is her hand, Mandy nervously steps though the garden gate...');
+          msg('With the letter is her hand, Mandy nervously steps though the garden gate...');
         } else {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg('Not quite sure why she is doing so, Mandy nervously steps though the garden gate...');
+          msg('Not quite sure why she is doing so, Mandy nervously steps though the garden gate...');
         }
       },
     }),
@@ -40,43 +41,43 @@ export const init = (Quest: QuestClass) => {
 
     scenery: [
       {
-        alias: 'other houses',
+        alias:   'other houses',
         examine: 'The other houses on the street look just like number 23. Just... not evil.',
       },
       {
-        alias: 'road',
+        alias:   'road',
         examine: 'The road is tarmacked with pavements either side -- like pretty much every road in Westleigh. It slopes upwards to the north, and has numerous cars parked on either side.',
       },
       {
-        alias: 'cars',
+        alias:   'cars',
         examine: 'There are various cars parked on either side of the road, from a small blue Volkswagen Polo to a massive black Nissan Navara.',
       },
       {
-        alias: 'blue Volkswagen Polo',
+        alias:   'blue Volkswagen Polo',
         examine: 'The Volkswagen Polo is blue; the registration indicates it is two years old, and from Yorkshire.',
       },
       {
-        alias: 'black Nissan Navara',
+        alias:   'black Nissan Navara',
         examine: 'The Nissan Navara is black and in serious need of a wash; the registration number indicates it is five years old, and local to the county.',
       },
       {
-        alias: 'pavement',
+        alias:   'pavement',
         examine: 'The pavement is set with flagstones. At one time -- not so many years ago -- Mandy would would studiously avoid the cracks between the flags. She is too old for that now, of course.',
       },
       {
-        alias: ['door'],
-        examine: 'From the road, all Mandy can really see of the door is that it is green and has a funny little window above it.',
-        goInItem: 'Mandy would need to be a little closer to the door to go though it. Dare she do that?',
+        alias:         ['door'],
+        examine:       'From the road, all Mandy can really see of the door is that it is green and has a funny little window above it.',
+        goInItem:      'Mandy would need to be a little closer to the door to go though it. Dare she do that?',
         goThroughItem: 'Mandy would need to be a little closer to the door to go though it. Dare she do that?',
-        knockon: 'Mandy would need to be a little closer to the door to knock on it. Dare she do that?',
-        open: 'Mandy would need to be a little closer to the door to open it. Dare she do that?',
+        knockon:       'Mandy would need to be a little closer to the door to knock on it. Dare she do that?',
+        open:          'Mandy would need to be a little closer to the door to open it. Dare she do that?',
       },
       {
-        alias: ['windows'],
+        alias:   ['windows'],
         examine: 'The house has four windows that look nothing like eyes, and yet...',
       },
       {
-        alias: ['garden'],
+        alias:   ['garden'],
         examine: 'Mandy can see a path curving through the lawn, leading to the door.',
       },
     ],
@@ -86,11 +87,11 @@ export const init = (Quest: QuestClass) => {
 
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
   Quest.World.createItem('house_from_road', {
-    examine: 'Mandy can never decide what is so sinister about the house. It is two storeys high, a door in the centre of the lower floor, with bay windows either side, typical of many middle-class houses built around the turn of the last century.',
+    examine:       'Mandy can never decide what is so sinister about the house. It is two storeys high, a door in the centre of the lower floor, with bay windows either side, typical of many middle-class houses built around the turn of the last century.',
     goInDirection: 'east',
-    loc: 'highfield_lane',
-    scenery: true,
-    synonyms: ['house', '23'],
+    loc:           'highfield_lane',
+    scenery:       true,
+    synonyms:      ['house', '23'],
   });
 
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
@@ -102,16 +103,16 @@ export const init = (Quest: QuestClass) => {
     examine() {
       if (this.scenery) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('The letter is face-down; Mandy would have to pick it up to see the address.');
+        msg('The letter is face-down; Mandy would have to pick it up to see the address.');
       } else if (Quest.World.currentLocation.zone === 'external') {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Mandy turns the letter over. It is addressed to "Dr Winfield Malewicz, 23 Highfield Lane, Westleigh". {i:That must be who lives in The House,} she thinks. Perhaps she should deliver it. She feels a little terrified at the prospect, but that is ridiculous -- it is only a house. Mrs Kennedy is always saying you should confront your fears head-on in Personal Development lessons.');
+        msg('Mandy turns the letter over. It is addressed to "Dr Winfield Malewicz, 23 Highfield Lane, Westleigh". {i:That must be who lives in The House,} she thinks. Perhaps she should deliver it. She feels a little terrified at the prospect, but that is ridiculous -- it is only a house. Mrs Kennedy is always saying you should confront your fears head-on in Personal Development lessons.');
       } else if (this.addressread) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Mandy looks at the address on the letter again:  "Dr Winfield Malewicz, 23 Highfield Lane, Westleigh".');
+        msg('Mandy looks at the address on the letter again:  "Dr Winfield Malewicz, 23 Highfield Lane, Westleigh".');
       } else {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Mandy turns the letter over. It is addressed to "Dr Winfield Malewicz, 23 Highfield Lane, Westleigh". {i:That must be who lives in The House,} she thinks.');
+        msg('Mandy turns the letter over. It is addressed to "Dr Winfield Malewicz, 23 Highfield Lane, Westleigh". {i:That must be who lives in The House,} she thinks.');
       }
       this.addressread = true;
     },
@@ -121,26 +122,26 @@ export const init = (Quest: QuestClass) => {
       if (Quest.World.player.loc === Quest.World.w.winfield_malovich.loc) {
         if (Quest.World.player.loc === 'lounge') {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg('Mandy takes the letter from her bag, and hands it to the old man.');
+          msg('Mandy takes the letter from her bag, and hands it to the old man.');
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("Winfield looks confused. 'This is for Amanda Kettleton.'");
+          msg("Winfield looks confused. 'This is for Amanda Kettleton.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'What? That's me!' She takes the letter back, and looks at the address. It is indeed addressed to her, but at 23 Highfield Lane. She opens it. \"Thank You\" is all it said, in large, scrawling handwriting.");
+          msg("'What? That's me!' She takes the letter back, and looks at the address. It is indeed addressed to her, but at 23 Highfield Lane. She opens it. \"Thank You\" is all it said, in large, scrawling handwriting.");
         } else {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'This letter's for you,' said Mandy, offing Winfield the letter she had picked up outside the house.");
+          msg("'This letter's for you,' said Mandy, offing Winfield the letter she had picked up outside the house.");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Keep it for now,' he said. 'If there's {class:riddle:one thing} I hate {class:riddle:more than this} its {class:riddle:little things} distracting us from the big picture.'");
+          msg("'Keep it for now,' he said. 'If there's {class:riddle:one thing} I hate {class:riddle:more than this} its {class:riddle:little things} distracting us from the big picture.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg('{i:What is he talking about,} wonders Mandy.');
+          msg('{i:What is he talking about,} wonders Mandy.');
         }
       } else {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Mandy considers giving the letter, but perhaps she should keep it in case she came across this Winfield Malewicz guy.');
+        msg('Mandy considers giving the letter, but perhaps she should keep it in case she came across this Winfield Malewicz guy.');
       }
     },
     // cannot get dropped in size change rooms
-    loc: 'highfield_lane',
+    loc:  'highfield_lane',
     open: 'Mandy wonders what the letter contains, but it is addressed to someone else; she cannot open it herself!',
     read() {
       this.examine();
@@ -159,8 +160,8 @@ export const init = (Quest: QuestClass) => {
       if (!Quest.World.w.letter.scenery) {
         s += ' The door to the house is open. ';
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'front_door' does not exist on type '{}'.
-        s += Quest.World.w.front_door.checked ? 'Mandy is sure it was closed when she looked before.' : 'Had it been open when she first looked? Mandy cannot remember.';
-        s += ' Her heart is starting to pound. She cannot decide if this is a good idea or not.';
+        s        += Quest.World.w.front_door.checked ? 'Mandy is sure it was closed when she looked before.' : 'Had it been open when she first looked? Mandy cannot remember.';
+        s        += ' Her heart is starting to pound. She cannot decide if this is a good idea or not.';
         this.flag = true;
       }
       return s;
@@ -169,12 +170,12 @@ export const init = (Quest: QuestClass) => {
     // ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
     east: new Quest.World.Exit('front_hall', {
       alsoDir: ['in'],
-      msg: "Heart beating furiously, Mandy steps slowly through the open door. 'Anyone home?' she calls. After a moment's hesitation, she steps further inside, and calls again...",
+      msg:     "Heart beating furiously, Mandy steps slowly through the open door. 'Anyone home?' she calls. After a moment's hesitation, she steps further inside, and calls again...",
       use(char: any, dir: any) {
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'letter' does not exist on type '{}'.
         if (Quest.World.w.letter.scenery) {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg('Mandy looks at the door to the house. Can she really just walk in? She tries the handle -- it is locked. So, no, she cannot just walk in.');
+          msg('Mandy looks at the door to the house. Can she really just walk in? She tries the handle -- it is locked. So, no, she cannot just walk in.');
           return false;
         }
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'defaultExitUse' does not exist on type '... Remove this comment to see the full error message
@@ -184,44 +185,44 @@ export const init = (Quest: QuestClass) => {
 
     scenery: [
       {
-        alias: ['roses', 'rose bushes'],
+        alias:   ['roses', 'rose bushes'],
         examine: "The only reason Mandy knows they are roses is that they are prickly. They are no flowers on them. Her grandmother has some, and they have the same prickles -- a bit like a sharkfin. Unlike these, her grandmother's rose blossomed every year.",
-        pick: 'If there was a flower on any of the rose bushes, Mandy would pick it, and put it in her hair, but she cannot see a single one.',
-        smell: 'Mandy smells the rose bushes, but cannot smell much. There are no flowers, so no surprise there, but disappointing nonetheless.',
-        take: 'If there was a flower on any of the rose bushes, Mandy would pick it, and put it in her hair, but she cannot see a single one.',
+        pick:    'If there was a flower on any of the rose bushes, Mandy would pick it, and put it in her hair, but she cannot see a single one.',
+        smell:   'Mandy smells the rose bushes, but cannot smell much. There are no flowers, so no surprise there, but disappointing nonetheless.',
+        take:    'If there was a flower on any of the rose bushes, Mandy would pick it, and put it in her hair, but she cannot see a single one.',
       },
       {
-        alias: 'gravel path',
+        alias:   'gravel path',
         examine: 'The gravel path curved gently to the right, then back to the left up to the front door.',
       },
       {
-        alias: 'grass',
+        alias:   'grass',
         examine: 'The grass is green, and proverbially boring to watch grow.',
       },
       {
-        alias: 'transom',
-        examine: 'The transom is a low, but wide window in a half-oval shape, above the door. The glass is dirty, but it is too high up to see through anyway.',
+        alias:       'transom',
+        examine:     'The transom is a low, but wide window in a half-oval shape, above the door. The glass is dirty, but it is too high up to see through anyway.',
         lookthrough: 'The transom is too high to see through.',
       },
       {
-        alias: 'hedge',
+        alias:   'hedge',
         examine: 'The hedge is privet, and almost as tall as Mandy.',
       },
       {
-        alias: 'fence',
-        examine: 'Mandy wonders if she could climb the fence to get round the back; she decides not.',
+        alias:    'fence',
+        examine:  'Mandy wonders if she could climb the fence to get round the back; she decides not.',
         goUpItem: 'Mandy wonders if she could climb the fence to get round the back; she decides not.',
       },
       {
-        alias: ['portraits', 'pictures', 'paintings'],
+        alias:   ['portraits', 'pictures', 'paintings'],
         examine: 'Mandy peers through the door; she can see there are five paintings on the far wall; they look like portraits, but it is too dark to seem them properly.',
       },
       {
-        alias: ['garden'],
+        alias:   ['garden'],
         examine: 'Mandy examines the garden more carefully. She studies the gravel path curves from the road, to the west, to The House, to the east. On either side, the lush and well-trimmed lawn is also carefully looked at.',
       },
       {
-        alias: ['lawn', 'grass'],
+        alias:   ['lawn', 'grass'],
         examine: "The grass is a uniform four to five centimetres high, and has none of the dandelions and clover that seem to fill her father's lawn.",
       },
     ],
@@ -241,22 +242,22 @@ export const init = (Quest: QuestClass) => {
         this.checked = true;
       }
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg(s);
+      msg(s);
     },
     goThroughDirection: 'east',
     knockon() {
       if (this.knocked) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Mandy knocks on the door again, but still no signs of life in the house.');
+        msg('Mandy knocks on the door again, but still no signs of life in the house.');
       }
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'letter' does not exist on type '{}'.
       else if (!Quest.World.w.letter.scenery) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Mandy knocks gingerly on the open door, not sure she really wants to disturb anyone. Then again, a bit harder, but still no reply.');
+        msg('Mandy knocks gingerly on the open door, not sure she really wants to disturb anyone. Then again, a bit harder, but still no reply.');
         this.knocked = true;
       } else {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Mandy knocks gingerly on the open door, not sure she really wants to disturb anyone. Then again, a bit harder, but still no reply.');
+        msg('Mandy knocks gingerly on the open door, not sure she really wants to disturb anyone. Then again, a bit harder, but still no reply.');
         this.knocked = true;
         this.checked = true;
       }
@@ -270,59 +271,59 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'letter' does not exist on type '{}'.
       if (!Quest.World.w.letter.scenery) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Mandy looks through the open door, into the house. It is dark, but she can see a hallway with a tiled floor and wood panelled walls; are there painting on the far wall? ');
+        msg('Mandy looks through the open door, into the house. It is dark, but she can see a hallway with a tiled floor and wood panelled walls; are there painting on the far wall? ');
       } else {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Mandy spends a few moments trying to look through a solid door. If she was eight foot tall she might be able to see through the small window above it, but not otherwise.');
+        msg('Mandy spends a few moments trying to look through a solid door. If she was eight foot tall she might be able to see through the small window above it, but not otherwise.');
       }
       return Quest.World.world.SUCCESS;
     },
     open() {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'letter' does not exist on type '{}'.
-      if (!Quest.World.w.letter.scenery) return Quest.IO.failedmsg('It already is. ');
+      if (!Quest.World.w.letter.scenery) return failedmsg('It already is. ');
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('Mandy tries the door, but it is locked.');
+      msg('Mandy tries the door, but it is locked.');
       this.checked = true;
       return Quest.World.world.SUCCESS;
     },
     scenery: true,
     testDropIn(options: any) {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'letter' does not exist on type '{}'.
-      if (options.item !== Quest.World.w.letter) return Quest.IO.falsemsg('It is a door, not a suitcase...');
+      if (options.item !== Quest.World.w.letter) return falsemsg('It is a door, not a suitcase...');
 
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      return Quest.IO.falsemsg('Mandy looks for a letter box she can just post the letter through, and be done with it. No letter box.');
+      return falsemsg('Mandy looks for a letter box she can just post the letter through, and be done with it. No letter box.');
     },
   });
 
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
   Quest.World.createItem('windows', {
     examine: 'The windows look old-fashioned, sash-opening. The window frames are painted white; the paint looks old and it peeling off in places.',
-    loc: 'garden_location',
+    loc:     'garden_location',
     lookinside() {
       return this.lookthrough();
     },
     lookthrough() {
       if (!this.flag) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("Mandy tries to look through one of the windows, but it is too dark to see anything. After a moment's thought about getting caught spying on people, she puts her face right up to the glass, and shades her face with her hands. It is still difficult to make much out, but there is a figure in there, silvery-grey against the general darkness. He or she looks towards Mandy, then darts off. She gets the feeling whoever it is is more worried about getting caught than she is.");
+        msg("Mandy tries to look through one of the windows, but it is too dark to see anything. After a moment's thought about getting caught spying on people, she puts her face right up to the glass, and shades her face with her hands. It is still difficult to make much out, but there is a figure in there, silvery-grey against the general darkness. He or she looks towards Mandy, then darts off. She gets the feeling whoever it is is more worried about getting caught than she is.");
         this.flag = true;
       } else {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('Mandy tries another window, but it is too dark to make out anything besides vague impressions of furniture.');
+        msg('Mandy tries another window, but it is too dark to make out anything besides vague impressions of furniture.');
       }
       return Quest.World.world.SUCCESS;
     },
-    open: 'Mandy tries to open a window, but none of the budge; looks like the door is the only way.',
+    open:    'Mandy tries to open a window, but none of the budge; looks like the door is the only way.',
     scenery: true,
   });
 
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
   Quest.World.createItem('house_from_garden', {
-    examine: 'From the garden, Mandy has a better view of the house. Well, {i:better} might not be the right word, she considers, but certainly more. The windows are old-fashioned, with white-painted wood surrounds. The bricks are a reddish-brown. The door is green, with the numerals 2 and 3 in steel in the dead centre of it, and a transom above it.',
+    examine:       'From the garden, Mandy has a better view of the house. Well, {i:better} might not be the right word, she considers, but certainly more. The windows are old-fashioned, with white-painted wood surrounds. The bricks are a reddish-brown. The door is green, with the numerals 2 and 3 in steel in the dead centre of it, and a transom above it.',
     goInDirection: 'east',
-    loc: 'garden_location',
-    scenery: true,
-    synonyms: ['house', '23'],
+    loc:           'garden_location',
+    scenery:       true,
+    synonyms:      ['house', '23'],
   });
-}
+};

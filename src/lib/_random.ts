@@ -46,7 +46,7 @@ export class Random {
       return null;
     }
     const index = this.int(arr.length - 1);
-    const res   = arr[index];
+    const res = arr[index];
     if (deleteEntry) {
       arr.splice(index, 1);
     }
@@ -82,14 +82,14 @@ export class Random {
     if (typeof s === 'number') {
       return s;
     }
-    s         = s.replace(/ /g, '').replace(/\-/g, '+-');
+    s = s.replace(/ /g, '').replace(/\-/g, '+-');
     let total = 0;
 
     for (let dice of s.split('+')) {
       if (dice === '') continue;
       let negative = 1;
       if (/^\-/.test(dice)) {
-        dice     = dice.substring(1);
+        dice = dice.substring(1);
         negative = -1;
       }
       if (/^\d+$/.test(dice)) {
@@ -99,7 +99,11 @@ export class Random {
           dice = `1${dice}`;
         }
         const parts = dice.split('d');
-        if (parts.length === 2 && /^\d+$/.test(parts[0]) && /^[0-9\:]+$/.test(parts[1])) {
+        if (
+          parts.length === 2 &&
+          /^\d+$/.test(parts[0]) &&
+          /^[0-9\:]+$/.test(parts[1])
+        ) {
           const number = parseInt(parts[0]);
           for (let i = 0; i < number; i++) {
             if (/^\d+$/.test(parts[1])) {
@@ -109,9 +113,11 @@ export class Random {
             }
           }
         } else {
-          console.log(`Can't parse dice type (but will attempt to use what I can): ${dice}`);
+          `Can't parse dice type (but will attempt to use what I can): ${dice}`;
           // ts-error-fixed ts-migrate(2339) FIXME: Property 'errormsg' does not exist on type 'typeof... Remove this comment to see the full error message
-          Quest.errormsg(`Can't parse dice type (but will attempt to use what I can): ${dice}`);
+          Quest.errormsg(
+            `Can't parse dice type (but will attempt to use what I can): ${dice}`,
+          );
         }
       }
     }

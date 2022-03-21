@@ -1,21 +1,22 @@
 import { Quest } from '../types/quest';
+import { Cmd, cmdRules } from './command';
 
 export const quest = {
-  ACTIVE:        1,
-  FAILED:        3,
-  INITIAL:       0,
-  MOOT:          2,
-  SUCCESS:       4,
-  data:          [],
+  ACTIVE: 1,
+  FAILED: 3,
+  INITIAL: 0,
+  MOOT: 2,
+  SUCCESS: 4,
+  data: [],
   progressNames: ['', 'Active', 'Moot', 'Failed', 'Success'],
 };
 
 // ts-error-fixed ts-migrate(2339) FIXME: Property 'create' does not exist on type '{ INITIA... Remove this comment to see the full error message
 quest.create = function (name: any, stages: any, data: any) {
   if (!data) data = {};
-  data.name   = name;
+  data.name = name;
   data.stages = stages;
-  data.key    = name.replace(/ /g, '_').replace(/[^a-zA-Z0-9_]/g, '');
+  data.key = name.replace(/ /g, '_').replace(/[^a-zA-Z0-9_]/g, '');
   // ts-error-fixed ts-migrate(2345) FIXME: Argument of type 'any' is not assignable to parame... Remove this comment to see the full error message
   quest.data.push(data);
 };
@@ -25,26 +26,27 @@ quest.getState = function (name: any, char: any) {
   if (!char) char = Quest.World.player;
   const result = {};
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'quest' does not exist on type '{}'.
-  result.quest = typeof name === 'string' ? quest.data.find((el) => el.name === name) : name;
+  result.quest =
+    typeof name === 'string' ? quest.data.find((el) => el.name === name) : name;
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'quest' does not exist on type '{}'.
   if (!result.quest) {
-    console.error(`Failed to find a quest called ${name}`);
-    console.log('Giving up...');
+    error(`Failed to find a quest called ${name}`);
+    ('Giving up...');
   }
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'stateName' does not exist on type '{}'.
   result.stateName = `quest_state_${result.quest.key}`;
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'progressName' does not exist on type '{}... Remove this comment to see the full error message
   result.progressName = `quest_progress_${result.quest.key}`;
-  console.log(char);
+  char;
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'stateName' does not exist on type '{}'.
-  console.log(result.stateName);
+  result.stateName;
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'stateName' does not exist on type '{}'.
-  console.log(char[result.stateName]);
+  char[result.stateName];
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'state' does not exist on type '{}'.
   result.state = char[result.stateName];
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'progress' does not exist on type '{}'.
   result.progress = char[result.progressName];
-  console.log(result);
+  result;
   return result;
 };
 
@@ -58,12 +60,12 @@ quest.comment = function (q: any, n: any, s: any) {
 
 // ts-error-fixed ts-migrate(2339) FIXME: Property 'start' does not exist on type '{ INITIAL... Remove this comment to see the full error message
 quest.start = function (name: any) {
-  console.log(name);
+  name;
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'getState' does not exist on type '{ INIT... Remove this comment to see the full error message
   const result = quest.getState(name, Quest.World.player);
   if (result.progress !== undefined) return false; // quest already started
   Quest.World.player[result.progressName] = quest.ACTIVE;
-  Quest.World.player[result.stateName]    = 0;
+  Quest.World.player[result.stateName] = 0;
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'comment' does not exist on type '{ INITI... Remove this comment to see the full error message
   quest.comment(result.quest, 0, 'Quest started');
   return true;
@@ -93,7 +95,8 @@ quest.next = function (name: any) {
   // ts-error-fixed ts-migrate(2304) FIXME: Cannot find name 'result'.
   Quest.World.player[result.stateName]++;
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'stages' does not exist on type '{ INITIA... Remove this comment to see the full error message
-  if (quest.stages.length >= Quest.World.player[result.stateName]) return quest.complete(data.quest);
+  if (quest.stages.length >= Quest.World.player[result.stateName])
+    return quest.complete(data.quest);
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'comment' does not exist on type '{ INITI... Remove this comment to see the full error message
   quest.comment(result.quest, result.stateName, 'Quest progress');
   return true;
@@ -170,7 +173,8 @@ quest.progress = function (name: any, all: any) {
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   Quest.IO.metamsg(`${data.name}, {i:${quest.progressNames[result.progress]}}`);
   // ts-error-fixed ts-migrate(2304) FIXME: Cannot find name 'result'.
-  if (result.progress === quest.ACTIVE) Quest.IO.metamsg(data.quest.stages[result.stateName].text);
+  if (result.progress === quest.ACTIVE)
+    Quest.IO.metamsg(data.quest.stages[result.stateName].text);
   return true;
 };
 
@@ -186,27 +190,30 @@ quest.list = function (all: any) {
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   if (!flag) Quest.IO.metamsg('None');
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  if (!all) Quest.IO.metamsg('[Do QUESTS ALL to include completed and failed quests]');
+  if (!all)
+    Quest.IO.metamsg('[Do QUESTS ALL to include completed and failed quests]');
 };
 
-Quest.Commands.commands.unshift(new Quest.Command.Cmd('MetaQuests', {
-  objects: [
-  ],
-  regex: /^(?:quest|quests|q)$/,
-  rules: [Quest.Command.cmdRules.isPresent],
-  script(item: any) {
-    // ts-error-fixed ts-migrate(2339) FIXME: Property 'list' does not exist on type '{ INITIAL:... Remove this comment to see the full error message
-    quest.list(false);
-  },
-}));
+Quest.Commands.commands.unshift(
+  new Cmd('MetaQuests', {
+    objects: [],
+    regex: /^(?:quest|quests|q)$/,
+    rules: [cmdRules.isPresent],
+    script(item: any) {
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'list' does not exist on type '{ INITIAL:... Remove this comment to see the full error message
+      quest.list(false);
+    },
+  }),
+);
 
-Quest.Commands.commands.unshift(new Quest.Command.Cmd('MetaQuestsAll', {
-  objects: [
-  ],
-  regex: /^(?:quest|quests|q) all$/,
-  rules: [Quest.Command.cmdRules.isPresent],
-  script(item: any) {
-    // ts-error-fixed ts-migrate(2339) FIXME: Property 'list' does not exist on type '{ INITIAL:... Remove this comment to see the full error message
-    quest.list(true);
-  },
-}));
+Quest.Commands.commands.unshift(
+  new Cmd('MetaQuestsAll', {
+    objects: [],
+    regex: /^(?:quest|quests|q) all$/,
+    rules: [cmdRules.isPresent],
+    script(item: any) {
+      // ts-error-fixed ts-migrate(2339) FIXME: Property 'list' does not exist on type '{ INITIAL:... Remove this comment to see the full error message
+      quest.list(true);
+    },
+  }),
+);

@@ -1,5 +1,5 @@
 import { IParser } from '../types/iquest';
-import { Quest }   from '../types/quest';
+import { Quest } from '../types/quest';
 
 // @DOC
 // ## Parser Functions
@@ -9,7 +9,6 @@ import { Quest }   from '../types/quest';
 //
 // @UNDOC
 export const parser = {
-
   BAD_SPECIAL: -14,
 
   DISALLOWED_MULTIPLE: -16,
@@ -22,7 +21,9 @@ export const parser = {
 
   abort() {
     if (parser.inputTexts.length === 0) return;
-    Quest.IO.parsermsg(`Abandoning later commands: ${parser.inputTexts.join('; ')}`);
+    Quest.IO.parsermsg(
+      `Abandoning later commands: ${parser.inputTexts.join('; ')}`,
+    );
     parser.inputTexts = [];
   },
 
@@ -36,25 +37,46 @@ export const parser = {
     let inEndTurnFlag = false;
     try {
       // save objects for pronouns
-      if (parser.currentCommand.tmp.objects.length > 0 && Array.isArray(parser.currentCommand.tmp.objects[0]) && !parser.currentCommand.all) {
+      if (
+        parser.currentCommand.tmp.objects.length > 0 &&
+        Array.isArray(parser.currentCommand.tmp.objects[0]) &&
+        !parser.currentCommand.all
+      ) {
         for (const obj of parser.currentCommand.tmp.objects[0]) {
-          parser.pronouns[obj.parserPronouns ? obj.parserPronouns.objective : obj.pronouns.objective] = obj;
+          parser.pronouns[
+            obj.parserPronouns
+              ? obj.parserPronouns.objective
+              : obj.pronouns.objective
+          ] = obj;
         }
       }
       Quest.Settings.settings.performanceLog('About to run command script');
-      const outcome = parser.currentCommand.script(parser.currentCommand.tmp.objects);
+      const outcome = parser.currentCommand.script(
+        parser.currentCommand.tmp.objects,
+      );
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'playMode' does not exist on type '{ perf... Remove this comment to see the full error message
-      if (outcome === undefined && Quest.Settings.settings.playMode === 'dev') log(`WARNING: ${parser.currentCommand.name} command did not return a result to indicate success or failure.`);
+      if (outcome === undefined && Quest.Settings.settings.playMode === 'dev')
+        log(
+          `WARNING: ${parser.currentCommand.name} command did not return a result to indicate success or failure.`,
+        );
       inEndTurnFlag = true;
-      Quest.Settings.settings.performanceLog('About to run Quest.World.world.endTurn');
+      Quest.Settings.settings.performanceLog(
+        'About to run Quest.World.world.endTurn',
+      );
       Quest.World.world.endTurn(outcome);
     } catch (err) {
       if (inEndTurnFlag) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        Quest.IO.printError('Hit a coding error trying to process Quest.World.world.endTurn after that command.', err);
+        Quest.IO.printError(
+          'Hit a coding error trying to process Quest.World.world.endTurn after that command.',
+          err,
+        );
       } else {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-        Quest.IO.printError(`Hit a coding error trying to process the command \`${parser.currentCommand.cmdString}'.`, err);
+        Quest.IO.printError(
+          `Hit a coding error trying to process the command \`${parser.currentCommand.cmdString}'.`,
+          err,
+        );
       }
     }
     Quest.Settings.settings.performanceLog('All done');
@@ -108,7 +130,7 @@ export const parser = {
       return Quest.lang.not_known_msg;
     }
 
-    bestMatch.tmp.string    = inputText;
+    bestMatch.tmp.string = inputText;
     bestMatch.tmp.cmdString = cmdString;
     parser.msg(`This is the one:${bestMatch.name}`);
     return bestMatch;
@@ -119,7 +141,7 @@ export const parser = {
   // s is the string to match
   // list is an array of items to match again
   findInList(s: any, list: any, cmdParams: any) {
-    let res   = [];
+    let res = [];
     let score = 0;
     let n;
     parser.msg(`-> Trying to match: ${s}`);
@@ -129,14 +151,20 @@ export const parser = {
       n = this.scoreObjectMatch(s, item, cmdParams);
       if (n >= 0) parser.msg(`${item.name} scores ${n}`);
       if (n > score) {
-        res   = [];
+        res = [];
         score = n;
       }
       if (n >= score) {
         res.push(item);
       }
     }
-    parser.msg(res.length > 1 ? `Cannot decide between: ${res.map((el) => el.name).join(', ')}` : (res.length === 1 ? `..Going with: ${res[0].name}` : 'Found no suitable objects'));
+    parser.msg(
+      res.length > 1
+        ? `Cannot decide between: ${res.map((el) => el.name).join(', ')}`
+        : res.length === 1
+        ? `..Going with: ${res[0].name}`
+        : 'Found no suitable objects',
+    );
     return res;
   },
 
@@ -151,7 +179,10 @@ export const parser = {
     // First handle IT etc.
     for (const key in Quest.lang.pronouns) {
       // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      if (s === Quest.lang.pronouns[key].objective && parser.pronouns[Quest.lang.pronouns[key].objective]) {
+      if (
+        s === Quest.lang.pronouns[key].objective &&
+        parser.pronouns[Quest.lang.pronouns[key].objective]
+      ) {
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'pronouns' does not exist on type '{}'.
         return [[parser.pronouns[Quest.lang.pronouns[key].objective]], 1];
       }
@@ -170,20 +201,26 @@ export const parser = {
   // One scope for ALL (use allScope if available)
   getScope(cmdParams: any) {
     if (!cmdParams.scope) {
-      console.log('WARNING: No scope (or scope not found) in command');
+      ('WARNING: No scope (or scope not found) in command');
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'scope' does not exist on type '{ LIGHT_N... Remove this comment to see the full error message
       return Quest.World.world.scope;
     }
 
     if (cmdParams.extendedScope) {
-      return parser.scopeFromWorld(cmdParams.allScope ? cmdParams.allScope : cmdParams.scope);
+      return parser.scopeFromWorld(
+        cmdParams.allScope ? cmdParams.allScope : cmdParams.scope,
+      );
     }
-    return parser.scopeFromScope(cmdParams.allScope ? cmdParams.allScope : cmdParams.scope);
+    return parser.scopeFromScope(
+      cmdParams.allScope ? cmdParams.allScope : cmdParams.scope,
+    );
   },
 
   // Multiple scopes when not ALL
   getScopes(cmdParams: any) {
-    const baseScope = cmdParams.extendedScope ? parser.scopeFromWorld(cmdParams.scope) : parser.scopeFromScope(cmdParams.scope);
+    const baseScope = cmdParams.extendedScope
+      ? parser.scopeFromWorld(cmdParams.scope)
+      : parser.scopeFromScope(cmdParams.scope);
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'scope' does not exist on type '{ LIGHT_N... Remove this comment to see the full error message
     return [baseScope, Quest.World.world.scope];
   },
@@ -197,19 +234,22 @@ export const parser = {
     if (!parser.debug) return;
 
     let s = 'PARSER RESULT:<br/>';
-    s    += `Input text: ${parser.currentCommand.string}<br/>`;
-    s    += `Matched command: ${parser.currentCommand.name}<br/>`;
-    s    += `Matched regex: ${parser.currentCommand.tmp.regex}<br/>`;
-    s    += `Match score: ${parser.currentCommand.tmp.score}<br/>`;
+    s += `Input text: ${parser.currentCommand.string}<br/>`;
+    s += `Matched command: ${parser.currentCommand.name}<br/>`;
+    s += `Matched regex: ${parser.currentCommand.tmp.regex}<br/>`;
+    s += `Match score: ${parser.currentCommand.tmp.score}<br/>`;
     if (parser.currentCommand.all) {
       s += 'Player typed ALL<br/>';
     }
-    s += `Objects/texts (${parser.currentCommand.tmp.objects.length}):` + '<br/>';
+    s +=
+      `Objects/texts (${parser.currentCommand.tmp.objects.length}):` + '<br/>';
     for (const obj of parser.currentCommand.tmp.objects) {
       if (typeof obj === 'string') {
         s += `&nbsp;&nbsp;&nbsp;&nbsp;Text: ${obj}<br/>`;
       } else if (Array.isArray(obj)) {
-        s += `&nbsp;&nbsp;&nbsp;&nbsp;Objects:${obj.map((el) => el.name).join(', ')}<br/>`;
+        s += `&nbsp;&nbsp;&nbsp;&nbsp;Objects:${obj
+          .map((el) => el.name)
+          .join(', ')}<br/>`;
       } else if (obj.name) {
         s += `&nbsp;&nbsp;&nbsp;&nbsp;Something called :${obj}<br/>`;
       } else {
@@ -227,7 +267,9 @@ export const parser = {
   // }
   // Is in a container that is reachable
   isContained(item: any) {
-    const containers = parser.scopeFromScope(parser.isReachable).filter((el: any) => el.container);
+    const containers = parser
+      .scopeFromScope(parser.isReachable)
+      .filter((el: any) => el.container);
     for (const container of containers) {
       if (container.closed) continue;
       if (item.isAtLoc(container.name, Quest.World.world.PARSER)) return true;
@@ -236,15 +278,24 @@ export const parser = {
   },
 
   isForSale(item: any) {
-    return item.isForSale && item.isForSale(Quest.World.player.loc) && Quest.World.world.ifNotDark(item);
+    return (
+      item.isForSale &&
+      item.isForSale(Quest.World.player.loc) &&
+      Quest.World.world.ifNotDark(item)
+    );
   },
 
   isHeld(item: any) {
-    return item.isAtLoc(Quest.World.player.name, Quest.World.world.PARSER) && Quest.World.world.ifNotDark(item);
+    return (
+      item.isAtLoc(Quest.World.player.name, Quest.World.world.PARSER) &&
+      Quest.World.world.ifNotDark(item)
+    );
   },
 
   isHeldByNpc(item: any) {
-    const npcs = parser.scopeFromScope(parser.isReachable).filter((el: any) => el.npc);
+    const npcs = parser
+      .scopeFromScope(parser.isReachable)
+      .filter((el: any) => el.npc);
     for (const npc of npcs) {
       if (item.isAtLoc(npc.name, Quest.World.world.PARSER)) return true;
     }
@@ -253,11 +304,18 @@ export const parser = {
 
   // ... but not in a container
   isHeldNotWorn(item: any) {
-    return item.isAtLoc(Quest.World.player.name, Quest.World.world.PARSER) && Quest.World.world.ifNotDark(item) && !item.getWorn();
+    return (
+      item.isAtLoc(Quest.World.player.name, Quest.World.world.PARSER) &&
+      Quest.World.world.ifNotDark(item) &&
+      !item.getWorn()
+    );
   },
 
   isHere(item: any) {
-    return item.isAtLoc(Quest.World.player.loc, Quest.World.world.PARSER) && Quest.World.world.ifNotDark(item);
+    return (
+      item.isAtLoc(Quest.World.player.loc, Quest.World.world.PARSER) &&
+      Quest.World.world.ifNotDark(item)
+    );
   },
 
   // In this location, or in a container (used by TAKE)
@@ -284,7 +342,9 @@ export const parser = {
   // Is in a container that is reachable, not held by player
   isLocationContained(item: any) {
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'scopeFromScope' does not exist on type '... Remove this comment to see the full error message
-    const containers = parser.scopeFromScope(parser.isReachable).filter((el: any) => el.container);
+    const containers = parser
+      .scopeFromScope(parser.isReachable)
+      .filter((el: any) => el.container);
     for (const container of containers) {
       if (container.closed) continue;
       if (container.isUltimatelyHeldBy(Quest.World.player)) continue;
@@ -294,11 +354,20 @@ export const parser = {
   },
 
   isNpcAndHere(item: any) {
-    return Quest.World.player.onPhoneTo === item.name || (item.isAtLoc(Quest.World.player.loc, Quest.World.world.PARSER) && (item.npc || item.player));
+    return (
+      Quest.World.player.onPhoneTo === item.name ||
+      (item.isAtLoc(Quest.World.player.loc, Quest.World.world.PARSER) &&
+        (item.npc || item.player))
+    );
   },
 
   isNpcOrHere(item: any) {
-    return (item.isAtLoc(Quest.World.player.loc, Quest.World.world.PARSER) && Quest.World.world.ifNotDark(item)) || item.npc || item.player;
+    return (
+      (item.isAtLoc(Quest.World.player.loc, Quest.World.world.PARSER) &&
+        Quest.World.world.ifNotDark(item)) ||
+      item.npc ||
+      item.player
+    );
   },
 
   // Held or here, but not in a container
@@ -308,7 +377,9 @@ export const parser = {
 
   // Used by examine, so the player can X ME, even if something called metalhead is here.
   isPresentOrMe(item: any) {
-    return parser.isHere(item) || parser.isHeld(item) || item === Quest.World.player;
+    return (
+      parser.isHere(item) || parser.isHeld(item) || item === Quest.World.player
+    );
   },
 
   // Anywhere in the Quest.World.world
@@ -328,31 +399,43 @@ export const parser = {
   },
 
   isWorn(item: any) {
-    return item.isAtLoc(Quest.World.player.name, Quest.World.world.PARSER) && Quest.World.world.ifNotDark(item) && item.getWorn();
+    return (
+      item.isAtLoc(Quest.World.player.name, Quest.World.world.PARSER) &&
+      Quest.World.world.ifNotDark(item) &&
+      item.getWorn()
+    );
   },
 
   isWornByNpc(item: any) {
-    const npcs = parser.scopeFromScope(parser.isReachable).filter((el: any) => el.npc);
+    const npcs = parser
+      .scopeFromScope(parser.isReachable)
+      .filter((el: any) => el.npc);
     for (const npc of npcs) {
-      if (item.isAtLoc(npc.name, Quest.World.world.PARSER) && item.getWorn()) return true;
+      if (item.isAtLoc(npc.name, Quest.World.world.PARSER) && item.getWorn())
+        return true;
     }
     return false;
   },
 
   // Override to skip quotes in aliases
   itemSetup(item: any) {
-    item.parserOptionsSet    = true;
-    item.parserItemName      = item.alias.toLowerCase();
-    item.parserItemNameParts = Quest.Utilities.array.combos(item.parserItemName.split(' '));
+    item.parserOptionsSet = true;
+    item.parserItemName = item.alias.toLowerCase();
+    item.parserItemNameParts = Quest.Utilities.array.combos(
+      item.parserItemName.split(' '),
+    );
     if (item.pattern) {
       if (!item.regex) item.regex = new RegExp(`^(${item.pattern})$`);
       if (!item.synonyms) item.synonyms = item.pattern.split('|');
     }
     if (item.synonyms) {
-      if (!Array.isArray(item.synonyms)) throw `Expected "synonyms" to be an array for ${item.name}`;
+      if (!Array.isArray(item.synonyms))
+        throw `Expected "synonyms" to be an array for ${item.name}`;
       item.synonyms.forEach((el: any) => {
         if (el.includes(' ')) {
-          item.parserItemNameParts = item.parserItemNameParts.concat(el.split(' '));
+          item.parserItemNameParts = item.parserItemNameParts.concat(
+            el.split(' '),
+          );
         }
       });
     }
@@ -395,15 +478,22 @@ export const parser = {
   matchToNames(s: any, scopes: any, cmdParams: any, res: any) {
     // Within this item position, break the substring into each item section
     // For PUT HAT, CUP IN BOX, the first will be ['hat', 'cup']
-    const objectNames = s.split(Quest.lang.joiner_regex).map((el: any) => el.trim());
+    const objectNames = s
+      .split(Quest.lang.joiner_regex)
+      .map((el: any) => el.trim());
 
-    const objectWordList: any = []; let
-      score = 0;
+    const objectWordList: any = [];
+    let score = 0;
     for (const s of objectNames) {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'matchToName' does not exist on type '{}'... Remove this comment to see the full error message
-      const n = parser.matchToName(Quest.lang.article_filter_regex.exec(s)[1], scopes, cmdParams, objectWordList);
+      const n = parser.matchToName(
+        Quest.lang.article_filter_regex.exec(s)[1],
+        scopes,
+        cmdParams,
+        objectWordList,
+      );
       if (n < 0) {
-        res.score   = n;
+        res.score = n;
         res.error_s = s;
         return;
       }
@@ -426,7 +516,7 @@ export const parser = {
     }
   },
 
-  override: (_p) => { },
+  override: (_p) => {},
 
   // @DOC
   // You can use this to bypass the parser altogether, for the next input the player types.
@@ -436,7 +526,6 @@ export const parser = {
   overrideWith(fn: any) {
     parser.override = fn;
   },
-
 
   // @DOC
   // The "parse" function should be sent either the text the player typed or null.
@@ -457,7 +546,9 @@ export const parser = {
       return;
     }
 
-    parser.inputTexts = parser.keepTogether(inputText) ? [inputText] : inputText.split(Quest.lang.command_split_regex);
+    parser.inputTexts = parser.keepTogether(inputText)
+      ? [inputText]
+      : inputText.split(Quest.lang.command_split_regex);
 
     while (parser.inputTexts.length > 0) {
       const s = parser.inputTexts.shift();
@@ -467,8 +558,7 @@ export const parser = {
     }
   },
 
-
-parseSingle(inputText: any) {
+  parseSingle(inputText: any) {
     parser.msg(`Input string: ${inputText}`);
 
     if (inputText) {
@@ -497,18 +587,29 @@ parseSingle(inputText: any) {
       for (let j = 0; j < parser.currentCommand.tmp.objects[i].length; j++) {
         if (parser.currentCommand.tmp.objects[i][j] instanceof Array) {
           if (parser.currentCommand.tmp.objects[i][j].length === 1) {
-            parser.currentCommand.tmp.objects[i][j] = parser.currentCommand.tmp.objects[i][j][0];
+            parser.currentCommand.tmp.objects[i][j] =
+              parser.currentCommand.tmp.objects[i][j][0];
           } else {
-            needToDisAmbigFlag                      = true;
+            needToDisAmbigFlag = true;
             parser.currentCommand.tmp.disambiguate1 = i;
             parser.currentCommand.tmp.disambiguate2 = j;
-            const fn                                = Quest.IO.io.menuFunctions[Quest.Settings.settings.funcForDisambigMenu];
-            fn(Quest.lang.disambig_msg, parser.currentCommand.tmp.objects[i][j], (result: any) => {
-              parser.currentCommand.tmp.objects[parser.currentCommand.tmp.disambiguate1][parser.currentCommand.tmp.disambiguate2] = result;
-              parser.parseSingle(null);
-            }, (input: any) => {
-              parser.parse(input);
-            });
+            const fn =
+              Quest.IO.io.menuFunctions[
+                Quest.Settings.settings.funcForDisambigMenu
+              ];
+            fn(
+              Quest.lang.disambig_msg,
+              parser.currentCommand.tmp.objects[i][j],
+              (result: any) => {
+                parser.currentCommand.tmp.objects[
+                  parser.currentCommand.tmp.disambiguate1
+                ][parser.currentCommand.tmp.disambiguate2] = result;
+                parser.parseSingle(null);
+              },
+              (input: any) => {
+                parser.parse(input);
+              },
+            );
           }
         }
       }
@@ -521,7 +622,7 @@ parseSingle(inputText: any) {
   },
 
   // Stores the current values for it, him, etc.
-pronouns: {},
+  pronouns: {},
 
   scopeFromScope(fn: any, options: any) {
     const list = [];
@@ -549,30 +650,51 @@ pronouns: {},
   scoreObjectMatch(s: any, item: any, cmdParams: any) {
     if (!item.parserOptionsSet) parser.itemSetup(item);
     const itemName = item.alias.toLowerCase();
-    let res        = -1;
+    let res = -1;
     if (cmdParams.items && cmdParams.items.includes(item.name)) {
       // does this pay any attention to what the player typed????
-      parser.msg('The command specifically mentions this item, so highest priority, score 100');
+      parser.msg(
+        'The command specifically mentions this item, so highest priority, score 100',
+      );
       res = 100;
     } else if (s === item.parserItemName) {
       parser.msg('The player has used the exact alias, score 60');
       res = 60;
     } else if (item.regex && item.regex.test(s)) {
-      parser.msg('The player has used the exact string allowed in the regex, score 55');
+      parser.msg(
+        'The player has used the exact string allowed in the regex, score 55',
+      );
       parser.msg(`${item.regex}`);
       parser.msg(`>${s}<`);
       res = 55;
-    } else if (item.parserItemNameParts && item.parserItemNameParts.some((el: any) => el === s)) {
-      parser.msg('The player has matched a complete word, but not the full phrase, score 50');
+    } else if (
+      item.parserItemNameParts &&
+      item.parserItemNameParts.some((el: any) => el === s)
+    ) {
+      parser.msg(
+        'The player has matched a complete word, but not the full phrase, score 50',
+      );
       res = 50;
     } else if (item.parserItemName.startsWith(s)) {
-      parser.msg('the player has used a string that matches the start of the alias, score length + 15');
+      parser.msg(
+        'the player has used a string that matches the start of the alias, score length + 15',
+      );
       res = s.length + 15;
-    } else if (item.synonyms && item.synonyms.some((el: any) => el.startsWith(s))) {
-      parser.msg('the player has used a string that matches the start of an alt name, score length + 10');
+    } else if (
+      item.synonyms &&
+      item.synonyms.some((el: any) => el.startsWith(s))
+    ) {
+      parser.msg(
+        'the player has used a string that matches the start of an alt name, score length + 10',
+      );
       res = s.length + 10;
-    } else if (item.parserItemNameParts && item.parserItemNameParts.some((el: any) => el.startsWith(s))) {
-      parser.msg('the player has used a string that matches the start of an alt name, score length');
+    } else if (
+      item.parserItemNameParts &&
+      item.parserItemNameParts.some((el: any) => el.startsWith(s))
+    ) {
+      parser.msg(
+        'the player has used a string that matches the start of an alt name, score length',
+      );
       res = s.length;
     } else {
       return -1;
@@ -635,7 +757,6 @@ pronouns: {},
   },
 
   // parser.debug = true
-
 };
 
 export const Parser: IParser = {

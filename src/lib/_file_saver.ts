@@ -14,7 +14,7 @@ import { Quest }      from '../types/quest';
 function bom(blob: any, opts: any) {
   if (typeof opts === 'undefined') opts = { autoBom: false };
   else if (typeof opts !== 'object') {
-    console.warn('Deprecated: Expected third argument to be a object');
+    warn('Deprecated: Expected third argument to be a object');
     opts = { autoBom: !opts };
   }
 
@@ -34,7 +34,7 @@ function download(url: any, name: any, opts: any) {
     saveAs(xhr.response, name, opts);
   };
   xhr.onerror      = function () {
-    console.error('could not download file');
+    error('could not download file');
   };
   xhr.send();
 }

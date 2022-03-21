@@ -1,4 +1,6 @@
+import { findCmd }    from '../../lib/command';
 import { QuestClass } from '../../types/quest';
+import { msg, blankLine }        from '../../lib/io';
 
 export const init = (Quest: QuestClass) => {
   const hintSystem = {};
@@ -6,29 +8,35 @@ export const init = (Quest: QuestClass) => {
   hintSystem.toWiki = function () {
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'hints' does not exist on type '{}'.
     for (const el of hintSystem.hints) {
-      Quest.IO.blankLine();
+      blankLine();
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('***');
-      Quest.IO.blankLine();
+      msg('***');
+      blankLine();
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg(`#### ${el.name}`);
+      msg(`#### ${el.name}`);
       for (const [i, value] of el.hints.entries()) {
-        Quest.IO.blankLine();
+        blankLine();
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('&lt;details>');
+        msg('&lt;details>');
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg(` &lt;summary>Clue ${Quest.lang.toWords(i + 1)}&lt;/summary>`);
+        msg(
+          ` &lt;summary>Clue ${Quest.lang.toWords(i + 1)}&lt;/summary>`,
+        );
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg(` ${value}`);
+        msg(` ${value}`);
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('&lt;/details>');
+        msg('&lt;/details>');
       }
     }
   };
 
-  Quest.Command.findCmd('MetaHint').script = function () {
+  findCmd('MetaHint').script = function () {
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'hints' does not exist on type '{}'.
-    if (!Quest.World.player.hintCounter) Quest.World.player.hintCounter = new Array(hintSystem.hints.length).fill(0);
+    if (!Quest.World.player.hintCounter) {
+      Quest.World.player.hintCounter = new Array(hintSystem.hints.length).fill(
+        0,
+      );
+    }
 
     return Quest.World.world.SUCCESS_NO_TURNSCRIPTS;
   };
@@ -36,10 +44,8 @@ export const init = (Quest: QuestClass) => {
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'hints' does not exist on type '{}'.
   hintSystem.hints = [
     {
-      hints: [
-        'Pick up the letter, and the house will let you inside.',
-      ],
-      name: 'In to the house',
+      hints: ['Pick up the letter, and the house will let you inside.'],
+      name:  'In to the house',
     },
 
     {
@@ -146,4 +152,4 @@ export const init = (Quest: QuestClass) => {
       name: 'The Riddle',
     },
   ];
-}
+};

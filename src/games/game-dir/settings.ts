@@ -1,4 +1,5 @@
 import { QuestClass } from '../../types/quest';
+import { createAdditionalPane } from '../../lib/io';
 
 export const init = (Quest: QuestClass) => {
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'title' does not exist on type '{ perform... Remove this comment to see the full error message
@@ -21,7 +22,7 @@ export const init = (Quest: QuestClass) => {
 
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'setup' does not exist on type '{ perform... Remove this comment to see the full error message
   Quest.Settings.settings.setup = function () {
-    Quest.IO.createAdditionalPane(2, 'Go to', 'directions', () => {
+    createAdditionalPane(2, 'Go to', 'directions', () => {
       let html = '';
       for (const ex of Quest.World.currentLocation.dests) {
         // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message

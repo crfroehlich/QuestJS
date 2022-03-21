@@ -1,4 +1,5 @@
 import { QuestClass } from '../../types/quest';
+import { msg } from '../../lib/io';
 
 export const init = (Quest: QuestClass) => {
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'title' does not exist on type '{ perform... Remove this comment to see the full error message
@@ -20,7 +21,7 @@ export const init = (Quest: QuestClass) => {
   Quest.Settings.settings.eventFunctions = {
     sayNow() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('Now!');
+      msg('Now!');
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'scrollToEnd' does not exist on type '{ n... Remove this comment to see the full error message
       Quest.IO.io.scrollToEnd();
     },
@@ -29,7 +30,7 @@ export const init = (Quest: QuestClass) => {
       if (!Quest.World.player.count) Quest.World.player.count = 0;
       Quest.World.player.count++;
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg(`Often! ${Quest.World.player.count}`);
+      msg(`Often! ${Quest.World.player.count}`);
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'scrollToEnd' does not exist on type '{ n... Remove this comment to see the full error message
       Quest.IO.io.scrollToEnd();
       if (Quest.World.player.count > 3) return true;
@@ -37,7 +38,7 @@ export const init = (Quest: QuestClass) => {
 
     sayThen() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('Then!');
+      msg('Then!');
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'scrollToEnd' does not exist on type '{ n... Remove this comment to see the full error message
       Quest.IO.io.scrollToEnd();
     },

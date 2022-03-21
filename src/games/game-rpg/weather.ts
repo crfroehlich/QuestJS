@@ -1,4 +1,5 @@
 import { QuestClass } from '../../types/quest';
+import { msg, errormsg }        from '../../lib/io';
 
 export const init = (Quest: QuestClass) => {
   // weather
@@ -36,7 +37,7 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       weatherTypes[Quest.World.player.currentWeatherName].turn();
     } else {
-      Quest.World.player.currentWeatherName = Object.keys(weatherTypes)[0];
+      Quest.World.player.currentWeatherName  = Object.keys(weatherTypes)[0];
       Quest.World.player.currentWeatherCount = 0;
       // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       Quest.World.player.currentWeatherTotal = weatherTypes[Quest.World.player.currentWeatherName].getNumberOfTurns();
@@ -59,7 +60,7 @@ export const init = (Quest: QuestClass) => {
       // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       for (const key in data) this[key] = data[key];
       // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      if (weatherTypes[name]) return Quest.IO.errormsg(`Two weather types called "${name}".`);
+      if (weatherTypes[name]) return errormsg(`Two weather types called "${name}".`);
       // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       weatherTypes[name] = this;
     }
@@ -77,8 +78,8 @@ export const init = (Quest: QuestClass) => {
       if (Quest.World.player.currentWeatherCount >= Quest.World.player.currentWeatherTotal) {
         const currentName = this.getNext();
         // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-        const current = weatherTypes[currentName];
-        Quest.World.player.currentWeatherName = currentName;
+        const current                          = weatherTypes[currentName];
+        Quest.World.player.currentWeatherName  = currentName;
         Quest.World.player.currentWeatherCount = 0;
         Quest.World.player.currentWeatherTotal = current.getNumberOfTurns();
         if (current.start) current.start(this.name);
@@ -98,7 +99,7 @@ export const init = (Quest: QuestClass) => {
       if (!this.outside(true)) return false;
       if (Quest.World.currentLocation.weatherModifier) s = Quest.World.currentLocation.weatherModifier.replace('#', s);
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      Quest.IO.msg(s, options);
+      msg(s, options);
       return true;
     }
 
@@ -276,4 +277,4 @@ export const init = (Quest: QuestClass) => {
     },
     wetness: 4,
   });
-}
+};

@@ -1,3 +1,5 @@
+import { error } from './logger';
+
 type TCallback = (data: any) => {};
 type TStatus = 'resting' | 'mutation' | 'action';
 type TActions = {
@@ -69,7 +71,7 @@ export class Store implements IStore {
     // Run a quick check to see if the action actually exists
     // before we try to run it
     if (!action) {
-      console.error(`Action "${actionKey}" doesn't exist.`);
+      error(`Action "${actionKey}" doesn't exist.`);
       return false;
     }
 
@@ -95,7 +97,7 @@ export class Store implements IStore {
     // Run a quick check to see if this mutation actually exists
     // before trying to run it
     if (!mutation) {
-      console.error(`Mutation "${mutationKey}" doesn't exist`);
+      error(`Mutation "${mutationKey}" doesn't exist`);
       return false;
     }
 

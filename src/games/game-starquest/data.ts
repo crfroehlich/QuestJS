@@ -1,4 +1,5 @@
 import { QuestClass } from '../../types/quest';
+import { msg } from '../../lib/io';
 
 export const init = (Quest: QuestClass) => {
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
@@ -146,7 +147,7 @@ export const init = (Quest: QuestClass) => {
     alias: 'Forward view',
     examine() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('On the mainscreen you see a field of stars, and familiar constellations you can see from earth, though brighter and more constant and so many more of them.');
+      msg('On the mainscreen you see a field of stars, and familiar constellations you can see from earth, though brighter and more constant and so many more of them.');
     },
     isAtLoc(loc: any, situation: any) {
       return situation === Quest.World.world.PARSER && loc === 'bridge';

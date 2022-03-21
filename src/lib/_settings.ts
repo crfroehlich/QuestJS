@@ -1,6 +1,12 @@
 /* eslint-disable class-methods-use-this */
 import {
-  ISettings, IDateTime, IFileSaver, IInventoryPane, IMapStyle, IScriptDoc, IStatsDatum,
+  IDateTime,
+  IFileSaver,
+  IInventoryPane,
+  IMapStyle,
+  IScriptDoc,
+  ISettings,
+  IStatsDatum,
 } from '../types/iquest';
 import { Quest } from '../types/quest';
 
@@ -209,21 +215,38 @@ export class Settings implements ISettings {
   }
 
   getDefaultRoomHeading(item: any) {
-    return Quest.Utilities.sentenceCase(Quest.lang.addDefiniteArticle(item) + item.alias);
+    return Quest.Utilities.sentenceCase(
+      Quest.lang.addDefiniteArticle(item) + item.alias,
+    );
   }
 
   // Functions for the side panes lists
   isHeldNotWorn(item: any) {
-    return item.isAtLoc(Quest.World.player.name, Quest.World.world.SIDE_PANE) && Quest.World.world.ifNotDark(item) && !item.getWorn();
+    return (
+      item.isAtLoc(Quest.World.player.name, Quest.World.world.SIDE_PANE) &&
+      Quest.World.world.ifNotDark(item) &&
+      !item.getWorn()
+    );
   }
 
   isHere(item: any) {
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'sceneryInSidePane' does not exist on typ... Remove this comment to see the full error message
-    return item.isAtLoc(Quest.World.player.loc, this.sceneryInSidePane ? Quest.World.world.PARSER : Quest.World.world.SIDE_PANE) && Quest.World.world.ifNotDark(item);
+    return (
+      item.isAtLoc(
+        Quest.World.player.loc,
+        this.sceneryInSidePane
+          ? Quest.World.world.PARSER
+          : Quest.World.world.SIDE_PANE,
+      ) && Quest.World.world.ifNotDark(item)
+    );
   }
 
   isWorn(item: any) {
-    return item.isAtLoc(Quest.World.player.name, Quest.World.world.SIDE_PANE) && Quest.World.world.ifNotDark(item) && item.getWorn();
+    return (
+      item.isAtLoc(Quest.World.player.name, Quest.World.world.SIDE_PANE) &&
+      Quest.World.world.ifNotDark(item) &&
+      item.getWorn()
+    );
   }
 
   // This is split out for Quest.IO.io.showInTab to use
@@ -239,19 +262,19 @@ export class Settings implements ISettings {
 
   loadCssFile(filename: any, doc = document, path = '') {
     const link = document.createElement('link');
-    link.href  = path + filename;
-    link.type  = 'text/css';
-    link.rel   = 'stylesheet';
+    link.href = path + filename;
+    link.type = 'text/css';
+    link.rel = 'stylesheet';
     link.media = 'screen,print';
     doc.head.appendChild(link);
   }
 
   loadFavicon() {
     if (!this.favicon) this.favicon = `${this.iconsFolder}favicon.png`;
-    const link    = document.createElement('link');
-    link.id       = 'dynamic-favicon';
-    link.rel      = 'shortcut icon';
-    link.href     = this.favicon;
+    const link = document.createElement('link');
+    link.id = 'dynamic-favicon';
+    link.rel = 'shortcut icon';
+    link.href = this.favicon;
     const oldLink = document.getElementById('dynamic-favicon');
     if (oldLink) document.head.removeChild(oldLink);
     document.head.appendChild(link);
@@ -266,9 +289,10 @@ export class Settings implements ISettings {
   }
 
   scriptOnLoad() {
-    if (this.scriptLoading && this.scriptLoadLogging) console.log(`Loaded ${this.scriptLoading}`);
+    if (this.scriptLoading && this.scriptLoadLogging)
+      `Loaded ${this.scriptLoading}`;
     if (!this.scriptToLoad || this.scriptToLoad.length === 0) {
-      if (this.scriptLoadLogging) console.log('All script files loaded');
+      if (this.scriptLoadLogging) 'All script files loaded';
       this.performanceLog('Scripts loaded');
 
       // This is currently untested !!!!
@@ -281,7 +305,10 @@ export class Settings implements ISettings {
           // ts-error-fixed ts-migrate(2551) FIXME: Property 'seAttribute' does not exist on type 'HTM... Remove this comment to see the full error message
           audio.setAttribute('id', el);
           // ts-error-fixed ts-migrate(2551) FIXME: Property 'seAttribute' does not exist on type 'HTM... Remove this comment to see the full error message
-          audio.setAttribute('src', this.soundsFolder + el + this.soundsFileExt);
+          audio.setAttribute(
+            'src',
+            this.soundsFolder + el + this.soundsFileExt,
+          );
           // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
           main.appendChild(audio);
         }
@@ -296,14 +323,14 @@ export class Settings implements ISettings {
       return;
     }
     this.scriptLoading = this.scriptToLoad?.shift();
-    if (this.scriptLoadLogging) console.log(`Loading ${this.scriptLoading}`);
+    if (this.scriptLoadLogging) `Loading ${this.scriptLoading}`;
     // ts-error-fixed ts-migrate(2532) FIXME: Object is possibly 'undefined'.
     const myScript = document.createElement('script');
     myScript.setAttribute('src', this.scriptLoading);
-    myScript.onload  = () => this.scriptOnLoad();
+    myScript.onload = () => this.scriptOnLoad();
     myScript.onerror = () => {
-      console.log(`Failed to load file "${this.scriptLoading}".`);
-      console.log('Check the file and folder actually exist.');
+      `Failed to load file "${this.scriptLoading}".`;
+      ('Check the file and folder actually exist.');
     };
     // ts-error-fixed ts-migrate(2532) FIXME: Object is possibly 'undefined'.
     document.head.appendChild(myScript);
@@ -346,8 +373,10 @@ export class Settings implements ISettings {
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'performanceLogging' does not exist on ty... Remove this comment to see the full error message
     if (!this.performanceLogging) return;
     // ts-error-fixed ts-migrate(2550) FIXME: Property 'padStart' does not exist on type 'string... Remove this comment to see the full error message
-    const dur = Math.round(performance.now() - this.performanceLogStartTime).toString().padStart(4);
-    console.log(s.padEnd(32) + dur);
+    const dur = Math.round(performance.now() - this.performanceLogStartTime)
+      .toString()
+      .padStart(4);
+    s.padEnd(32) + dur;
   }
 
   setUpDialog() {
@@ -358,7 +387,9 @@ export class Settings implements ISettings {
     if (!diagTitle) return;
     diagTitle.innerHTML = this.startingDialogTitle;
 
-    const diagContent = document.querySelector('#dialog-content') as HTMLElement;
+    const diagContent = document.querySelector(
+      '#dialog-content',
+    ) as HTMLElement;
     if (!diagContent) return;
     diagContent.innerHTML = this.startingDialogHtml;
 
@@ -383,21 +414,20 @@ export class Settings implements ISettings {
     Quest.IO.io.disable();
     // diag.show();
     diag.style.display = 'block';
-    diag.style.width   = `${this.startingDialogWidth}px`;
-    diag.style.height  = `${this.startingDialogHeight}px`;
-    diag.style.top     = '100px';
+    diag.style.width = `${this.startingDialogWidth}px`;
+    diag.style.height = `${this.startingDialogHeight}px`;
+    diag.style.top = '100px';
   }
 }
 
 export const settings: Settings = new Settings({
-
-  afterEnter: () => { },
+  afterEnter: () => {},
 
   afterFinish: [],
 
   afterTurn: [],
 
-  beforeEnter: () => { },
+  beforeEnter: () => {},
 
   closeQuotation: "'",
 
@@ -427,14 +457,14 @@ export const settings: Settings = new Settings({
 
   // Date and time settings
   dateTime: {
-    day:            '2-digit',
-    hour:           '2-digit',
-    locale:         'en-GB',
-    minute:         '2-digit',
-    month:          'short',
+    day: '2-digit',
+    hour: '2-digit',
+    locale: 'en-GB',
+    minute: '2-digit',
+    month: 'short',
     secondsPerTurn: 60,
-    start:          new Date('February 14, 2019 09:43:00'),
-    year:           '2-digit',
+    start: new Date('February 14, 2019 09:43:00'),
+    year: '2-digit',
   },
 
   eventFunctions: {},
@@ -470,7 +500,11 @@ export const settings: Settings = new Settings({
   mapAndImageCollapseAt: 1200,
 
   mapStyle: {
-    'background-color': 'beige', height: '300px', right: '0', top: '200px', width: '300px',
+    'background-color': 'beige',
+    height: '300px',
+    right: '0',
+    top: '200px',
+    width: '300px',
   },
 
   maxUndo: 10,
@@ -496,7 +530,7 @@ export const settings: Settings = new Settings({
   // Can be set to Left, Right or None (setting PANES to None will more than double the speed of your game!)
   panesCollapseAt: 700,
 
-  performanceLog: () => { },
+  performanceLog: () => {},
 
   performanceLogStartTime: performance.now(),
 
@@ -519,10 +553,21 @@ export const settings: Settings = new Settings({
   saveDisabled: false,
 
   saveLoadExcludedAtts: [
-    'name', 'ensembleMembers', 'clonePrototype', 'saveLoadExcludedAtts', 'startTime',
-    'verbFunctions', 'pronouns', 'nameModifierFunctions',
-    'afterEnterIf', 'askOptions', 'tellOptions', 'regex',
-    'reactions', 'receiveItems', 'scopeStatus',
+    'name',
+    'ensembleMembers',
+    'clonePrototype',
+    'saveLoadExcludedAtts',
+    'startTime',
+    'verbFunctions',
+    'pronouns',
+    'nameModifierFunctions',
+    'afterEnterIf',
+    'askOptions',
+    'tellOptions',
+    'regex',
+    'reactions',
+    'receiveItems',
+    'scopeStatus',
   ],
 
   scriptDoc: undefined,
@@ -579,7 +624,9 @@ export const settings: Settings = new Settings({
   ],
 
   // How wide the right column is in the status pane
-  status: [() => (`<td>Health points:</td><td>${Quest.World.player.hitpoints}</td>`)],
+  status: [
+    () => `<td>Health points:</td><td>${Quest.World.player.hitpoints}</td>`,
+  ],
 
   statusPane: 'Status',
 
@@ -602,11 +649,10 @@ export const settings: Settings = new Settings({
 
   themes: ['sans-serif'],
 
-  timerInterval:            1000,
-  turnsQuestionsLast:       5,
-  videosFolder:             'assets/video/',
+  timerInterval: 1000,
+  turnsQuestionsLast: 5,
+  videosFolder: 'assets/video/',
   walkthroughMenuResponses: [],
-
 });
 
 Quest.Settings = {

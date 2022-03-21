@@ -1,12 +1,14 @@
 import { ITest, IUtil, IUtilities } from '../types/iquest';
 import { Quest } from '../types/quest';
+import { msg } from './io';
+
 // ============  Utilities  =================================
 
 // Should all be language neutral
 export const INDEFINITE = 1;
 export const DEFINITE = 2;
 export const COUNT = 3;
-export const NULL_FUNC = function () { };
+export const NULL_FUNC = function () {};
 
 export const test: ITest = {
   testing: false,
@@ -14,8 +16,11 @@ export const test: ITest = {
 
 // If we try to do anything fancy with log we get this line number not the calling line
 export const { log } = console;
-const debuglog  = (s: any) => {
-  if (Quest.Settings.settings.playMode === 'dev' || Quest.Settings.settings.playMode === 'beta') {
+const debuglog = (s: any) => {
+  if (
+    Quest.Settings.settings.playMode === 'dev' ||
+    Quest.Settings.settings.playMode === 'beta'
+  ) {
     log(s);
   }
 };
@@ -51,7 +56,7 @@ export function printOrRun(char: any, item: any, attname: any, options: any) {
     let s = item[attname];
     if (item[`${attname}Addendum`]) s += item[`${attname}Addendum`](char);
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    Quest.IO.msg(s, { char, item });
+    msg(s, { char, item });
     return true;
   }
   if (typeof item[attname] === 'function') {
@@ -59,7 +64,9 @@ export function printOrRun(char: any, item: any, attname: any, options: any) {
     return item[attname](options);
   }
 
-  const s = `Unsupported type for printOrRun (${attname} is a ${typeof item[attname]}).`;
+  const s = `Unsupported type for printOrRun (${attname} is a ${typeof item[
+    attname
+  ]}).`;
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
   Quest.IO.errormsg(`${s} F12 for more.`);
   throw new Error(s);
@@ -84,7 +91,11 @@ export function sentenceCase(str: any) {
 // @DOC
 // Returns the string with the first letter of each word capitalised
 export function titleCase(str: any) {
-  return str.toLowerCase().split(' ').map((el: any) => el.replace(el[0], el[0].toUpperCase())).join(' ');
+  return str
+    .toLowerCase()
+    .split(' ')
+    .map((el: any) => el.replace(el[0], el[0].toUpperCase()))
+    .join(' ');
 }
 
 // @DOC
@@ -98,7 +109,7 @@ export function spaces(n: any) {
 // If multiple is true, returns the item name, otherwise nothing. This is useful in commands that handle
 // multiple objects, as you can have this at the start of the response string. For example, if the player does GET BALL,
 // the response might be "Done". If she does GET ALL, then the response for the ball needs to be "Ball: Done".
-// In the command, you can have `Quest.IO.msg("Done"), and it is sorted.
+// In the command, you can have `msg("Done"), and it is sorted.
 function prefix(item: any, options: any) {
   if (!options.multiple) {
     return '';
@@ -142,12 +153,13 @@ export function formatList(itemArray: any, options: any) {
   if (!options.sep) options.sep = ',';
 
   if (!options.separateEnsembles) {
-    const toRemove   = [];
+    const toRemove = [];
     const toAdd: any = [];
     for (const item of itemArray) {
       if (item.ensembleMaster && item.ensembleMaster.isAllTogether()) {
         toRemove.push(item);
-        if (!toAdd.includes(item.ensembleMaster)) toAdd.push(item.ensembleMaster);
+        if (!toAdd.includes(item.ensembleMaster))
+          toAdd.push(item.ensembleMaster);
       }
     }
     itemArray = array.subtract(itemArray, toRemove);
@@ -164,12 +176,18 @@ export function formatList(itemArray: any, options: any) {
   }
 
   const l = itemArray.map((el: any) =>
-  // if (el === undefined) return "[undefined]";
-    (typeof el === 'string' ? el : Quest.lang.getName(el, options)));
+    // if (el === undefined) return "[undefined]";
+    typeof el === 'string' ? el : Quest.lang.getName(el, options),
+  );
 
   let s = '';
   // ts-error-fixed ts-migrate(2339) FIXME: Property 'oxfordComma' does not exist on type '{ p... Remove this comment to see the full error message
-  if (Quest.Settings.settings.oxfordComma && l.length === 2 && options.lastJoiner) return `${l[0]} ${options.lastJoiner} ${l[1]}`;
+  if (
+    Quest.Settings.settings.oxfordComma &&
+    l.length === 2 &&
+    options.lastJoiner
+  )
+    return `${l[0]} ${options.lastJoiner} ${l[1]}`;
   do {
     s += l.shift();
     if (l.length === 1 && options.lastJoiner) {
@@ -190,7 +208,7 @@ function listProperties(obj: any) {
 }
 
 const arabic = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
-const roman  = 'M;CM;D;CD;C;XC;L;XL;X;IX;V;IV;I'.split(';');
+const roman = 'M;CM;D;CD;C;XC;L;XL;X;IX;V;IV;I'.split(';');
 
 // @DOC
 // Returns the given number as a string in Roman numerals.
@@ -217,7 +235,9 @@ export function toRoman(number: any) {
 export function displayMoney(n: any) {
   if (typeof Quest.Settings.settings.moneyFormat === 'undefined') {
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    Quest.IO.errormsg('No format for money set (set Quest.Settings.settings.moneyFormat in Quest.Settings.settings.js).');
+    Quest.IO.errormsg(
+      'No format for money set (set Quest.Settings.settings.moneyFormat in Quest.Settings.settings.js).',
+    );
     return `${n}`;
   }
   const ary = Quest.Settings.settings.moneyFormat.split('!');
@@ -225,9 +245,9 @@ export function displayMoney(n: any) {
     return Quest.Settings.settings.moneyFormat.replace('!', `${n}`);
   }
   if (ary.length === 3) {
-    const negative = (n < 0);
-    n              = Math.abs(n);
-    let options    = ary[1];
+    const negative = n < 0;
+    n = Math.abs(n);
+    let options = ary[1];
     const showsign = options.startsWith('+');
     if (showsign) {
       options = options.substring(1);
@@ -238,7 +258,7 @@ export function displayMoney(n: any) {
     } else if (n !== 0 && showsign) {
       number = `+${number}`;
     }
-    return (ary[0] + number + ary[2]);
+    return ary[0] + number + ary[2];
   }
   if (ary.length === 4) {
     const options = n < 0 ? ary[2] : ary[1];
@@ -246,7 +266,9 @@ export function displayMoney(n: any) {
   }
 
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  Quest.IO.errormsg('Quest.Settings.settings.moneyFormat in Quest.Settings.settings.js expected to have either 1, 2 or 3 exclamation marks.');
+  Quest.IO.errormsg(
+    'Quest.Settings.settings.moneyFormat in Quest.Settings.settings.js expected to have either 1, 2 or 3 exclamation marks.',
+  );
   return `${n}`;
 }
 
@@ -259,28 +281,30 @@ export function displayMoney(n: any) {
 // The fourth is a sequence of digits and it the number of characters right of the decimal point; this is padded with zeros to make it longer.
 // The fifth is a sequence of characters that are not digits that will be added to the end of the string, and is optional.
 export function displayNumber(n: any, control: any) {
-  n           = Math.abs(n);  // must be positive
+  n = Math.abs(n); // must be positive
   const regex = /^(\D*)(\d+)(\D)(\d*)(\D*)$/;
   if (!regex.test(control)) {
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    Quest.IO.errormsg(`Unexpected format in displayNumber (${control}). Should be a number, followed by a single character separator, followed by a number.`);
+    Quest.IO.errormsg(
+      `Unexpected format in displayNumber (${control}). Should be a number, followed by a single character separator, followed by a number.`,
+    );
     return `${n}`;
   }
   const options = regex.exec(control);
   // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
-  const places = parseInt(options[4], 10);                      // eg 2
+  const places = parseInt(options[4], 10); // eg 2
   // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
-  let padding = parseInt(options[2], 10);             // eg 3
+  let padding = parseInt(options[2], 10); // eg 3
   if (places > 0) {
     // We want a decimal point, so the padding, the total length, needs that plus the places
-    padding = padding + 1 + places;               // eg 6
+    padding = padding + 1 + places; // eg 6
   }
-  const factor = 10 ** places;            // eg 100
-  const base   = (n / factor).toFixed(places);      // eg "12.34"
+  const factor = 10 ** places; // eg 100
+  const base = (n / factor).toFixed(places); // eg "12.34"
   // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
-  const decimal = base.replace('.', options[3]);   // eg "12,34"
+  const decimal = base.replace('.', options[3]); // eg "12,34"
   // ts-error-fixed ts-migrate(2531) FIXME: Object is possibly 'null'.
-  return (options[1] + decimal.padStart(padding, '0') + options[5]);   // eg "(012,34)"
+  return options[1] + decimal.padStart(padding, '0') + options[5]; // eg "(012,34)"
 }
 
 // @DOC
@@ -301,7 +325,6 @@ export function getDir(s: any) {
 // ## Array (List) Functions
 // @UNDOC
 export const array = {
-
   // @DOC
   // Returns a copy of the given array. Members of the array are not cloned.
   clone(ary: any, options: any) {
@@ -309,7 +332,12 @@ export const array = {
     let newary = options.compress ? [...new Set(ary)] : [...ary];
     if (options.value) newary = newary.map((el) => el[options.value]);
     if (options.function) newary = newary.map((el) => el[options.function]());
-    if (options.attribute) newary = newary.map((el) => (typeof el[options.attribute] === 'function' ? el[options.attribute]() : el[options.attribute]));
+    if (options.attribute)
+      newary = newary.map((el) =>
+        typeof el[options.attribute] === 'function'
+          ? el[options.attribute]()
+          : el[options.attribute],
+      );
     return options.reverse ? newary.reverse() : newary;
   },
 
@@ -417,19 +445,19 @@ export const array = {
   // If el is present more than once, it goes with the first.
   // If el is the last element, and circular is true it return the fist element and false otherwise.
   nextFlagged(ary: any, el: any, att: any, circular: any) {
-    let o     = el;
+    let o = el;
     let count = ary.length;
     while (o && !o[att] && count > 0) {
-      o      = array.next(ary, o, circular);
+      o = array.next(ary, o, circular);
       count -= 1;
     }
     if (!o || !o[att]) return false;
-    return (o);
+    return o;
   },
 
   oneFromTokens(ary: any, scope: any, cmdParams = {}) {
     for (let i = ary.length; i > 0; i--) {
-      const s     = ary.slice(0, i).join(' ');
+      const s = ary.slice(0, i).join(' ');
       const items = Quest.Parser.parser.findInList(s, scope, cmdParams);
       if (items.length > 0) {
         for (let j = 0; j < i; j++) ary.shift();
@@ -485,7 +513,10 @@ export function scopeReachable() {
   const list = [];
   for (const key in Quest.World.w) {
     // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    if (Quest.World.w[key].scopeStatus.canReach && Quest.World.world.ifNotDark(Quest.World.w[key])) {
+    if (
+      Quest.World.w[key].scopeStatus.canReach &&
+      Quest.World.world.ifNotDark(Quest.World.w[key])
+    ) {
       // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       list.push(Quest.World.w[key]);
     }
@@ -495,7 +526,10 @@ export function scopeReachable() {
 
 // @DOC
 // Returns an array of objects held by the given character.
-export function scopeHeldBy(chr = Quest.World.player, situation = Quest.World.world.PARSER) {
+export function scopeHeldBy(
+  chr = Quest.World.player,
+  situation = Quest.World.world.PARSER,
+) {
   return chr.getContents(situation);
 }
 
@@ -506,7 +540,11 @@ export function scopeHereListed() {
   for (const key in Quest.World.w) {
     // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     const o = Quest.World.w[key];
-    if (!o.player && o.isAtLoc(Quest.World.player.loc, Quest.World.world.LOOK) && Quest.World.world.ifNotDark(o)) {
+    if (
+      !o.player &&
+      o.isAtLoc(Quest.World.player.loc, Quest.World.world.LOOK) &&
+      Quest.World.world.ifNotDark(o)
+    ) {
       list.push(o);
     }
   }
@@ -520,7 +558,10 @@ export function scopeHereParser() {
   for (const key in Quest.World.w) {
     // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     const o = Quest.World.w[key];
-    if (!o.player && o.isAtLoc(Quest.World.player.loc, Quest.World.world.PARSER)) {
+    if (
+      !o.player &&
+      o.isAtLoc(Quest.World.player.loc, Quest.World.world.PARSER)
+    ) {
       list.push(o);
     }
   }
@@ -534,7 +575,11 @@ function scopeNpcHere(ignoreDark: any) {
   for (const key in Quest.World.w) {
     // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     const o = Quest.World.w[key];
-    if (o.isAtLoc(Quest.World.player.loc, Quest.World.world.LOOK) && o.npc && (Quest.World.world.ifNotDark(o) || ignoreDark)) {
+    if (
+      o.isAtLoc(Quest.World.player.loc, Quest.World.world.LOOK) &&
+      o.npc &&
+      (Quest.World.world.ifNotDark(o) || ignoreDark)
+    ) {
       list.push(o);
     }
   }
@@ -548,7 +593,11 @@ export function scopeAllNpcHere(ignoreDark: any) {
   for (const key in Quest.World.w) {
     // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     const o = Quest.World.w[key];
-    if (o.isAtLoc(Quest.World.player.loc, Quest.World.world.PARSER) && o.npc && (Quest.World.world.ifNotDark(o) || ignoreDark)) {
+    if (
+      o.isAtLoc(Quest.World.player.loc, Quest.World.world.PARSER) &&
+      o.npc &&
+      (Quest.World.world.ifNotDark(o) || ignoreDark)
+    ) {
       list.push(o);
     }
   }
@@ -570,15 +619,23 @@ function scopeBy(func: any) {
 }
 
 export const util: IUtil = {
-
-  addChangeListener(object: any, attName: any, func: any, test = util.defaultChangeListenerTest) {
+  addChangeListener(
+    object: any,
+    attName: any,
+    func: any,
+    test = util.defaultChangeListenerTest,
+  ) {
     if (Quest.World.world.isCreated && !Quest.Settings.settings.saveDisabled) {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       Quest.IO.errormsg('Attempting to use addChangeListener after set up.');
       return;
     }
     util.changeListeners.push({
-      attName, func, object, oldValue: object[attName], test,
+      attName,
+      func,
+      object,
+      oldValue: object[attName],
+      test,
     });
   },
 
@@ -596,7 +653,7 @@ export const util: IUtil = {
   cannotUse(char: any, dir: any) {
     const tpParams = { char };
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    Quest.IO.msg(this.msg ? this.msg : Quest.lang.try_but_locked, tpParams);
+    msg(this.msg ? this.msg : Quest.lang.try_but_locked, tpParams);
     return false;
   },
 
@@ -605,22 +662,30 @@ export const util: IUtil = {
   changePOV(char: any, pronouns: any) {
     if (typeof char === 'string') {
       // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      if (!Quest.World.w[char]) return Quest.IO.errormsg(`Failed to change POV, no object called '${char}'`);
+      if (!Quest.World.w[char])
+        return Quest.IO.errormsg(
+          `Failed to change POV, no object called '${char}'`,
+        );
       // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       char = Quest.World.w[char];
     }
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    else if (!char) Quest.IO.errormsg('Failed to change POV, char not defined.');
+    else if (!char)
+      Quest.IO.errormsg('Failed to change POV, char not defined.');
 
     if (Quest.World.player) {
-      Quest.World.player.player   = false;
+      Quest.World.player.player = false;
       Quest.World.player.pronouns = Quest.World.player.npcPronouns;
-      Quest.World.player.regex    = new RegExp(`^(${char.npcAlias ? char.npcAlias : char.alias})$`);
+      Quest.World.player.regex = new RegExp(
+        `^(${char.npcAlias ? char.npcAlias : char.alias})$`,
+      );
     }
-    char.player      = true;
+    char.player = true;
     char.npcPronouns = char.pronouns;
-    char.pronouns    = pronouns || Quest.lang.pronouns.secondperson;
-    char.regex       = new RegExp(`^(me|myself|player|${char.npcAlias ? char.npcAlias : char.alias})$`);
+    char.pronouns = pronouns || Quest.lang.pronouns.secondperson;
+    char.regex = new RegExp(
+      `^(me|myself|player|${char.npcAlias ? char.npcAlias : char.alias})$`,
+    );
     Object.assign(Quest.World.player, char);
     Quest.World.world.update();
   },
@@ -630,10 +695,15 @@ export const util: IUtil = {
   // between min and max; i.e., if number is less than min,
   // then min will be returned instead.
   clamp(num: any, min: any, max: any) {
-    return num <= min ? min : (num >= max ? max : num);
+    return num <= min ? min : num >= max ? max : num;
   },
 
-  defaultChangeListenerTest(object: any, currentValue: any, oldValue: any, attName: any) {
+  defaultChangeListenerTest(
+    object: any,
+    currentValue: any,
+    oldValue: any,
+    attName: any,
+  ) {
     return currentValue !== oldValue;
   },
 
@@ -641,19 +711,27 @@ export const util: IUtil = {
     if (!exit) exit = this;
     if (char.testMove && !char.testMove(exit)) return false;
     if (exit.isLocked()) {
-      return Quest.IO.falsemsg(exit.lockedmsg ? exit.lockedmsg : Quest.lang.locked_exit, { char, exit });
+      return Quest.IO.falsemsg(
+        exit.lockedmsg ? exit.lockedmsg : Quest.lang.locked_exit,
+        { char, exit },
+      );
     }
     if (exit.testExit && !exit.testExit(char, exit)) return false;
     for (const el of char.getCarrying()) {
       if (el.testCarry && !el.testCarry({ char, exit, item: el })) return false;
     }
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'simpleUse' does not exist on type '{}'.
-    return this.simpleUse ? this.simpleUse(char) : util.defaultSimpleExitUse(char, exit);
+    return this.simpleUse
+      ? this.simpleUse(char)
+      : util.defaultSimpleExitUse(char, exit);
   },
 
   defaultSimpleExitUse(char: any, exit: any) {
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (exit.name === '_') return Quest.IO.errormsg(`Trying to move character to location "_" from room ${exit.origin.name}. This is probably a bug, as "_" is used to flag a destination that cannot be reached.`);
+    if (exit.name === '_')
+      return Quest.IO.errormsg(
+        `Trying to move character to location "_" from room ${exit.origin.name}. This is probably a bug, as "_" is used to flag a destination that cannot be reached.`,
+      );
     if (exit === undefined) exit = this;
 
     char.msg(Quest.lang.stop_posture(char));
@@ -672,7 +750,10 @@ export const util: IUtil = {
   },
 
   elapsed(seconds: any, minutes = 0, hours = 0, days = 0) {
-    return util.seconds(seconds, minutes, hours, days) >= Quest.World.game.elapsedTime;
+    return (
+      util.seconds(seconds, minutes, hours, days) >=
+      Quest.World.game.elapsedTime
+    );
   },
 
   findResponse(params: any, list: any) {
@@ -685,15 +766,17 @@ export const util: IUtil = {
   },
 
   findSource(options: any) {
-    const fluids = options.fluid ? [options.fluid] : Quest.Settings.settings.fluids;
-    const chr    = options.char ? options.char : Quest.World.player;
+    const fluids = options.fluid
+      ? [options.fluid]
+      : Quest.Settings.settings.fluids;
+    const chr = options.char ? options.char : Quest.World.player;
 
     // Is character a source?
     if (chr.isSourceOf) {
       for (const s of fluids) {
         if (chr.isSourceOf(s)) {
           options.source = chr;
-          options.fluid  = s;
+          options.fluid = s;
           return true;
         }
       }
@@ -707,7 +790,7 @@ export const util: IUtil = {
         if (Quest.World.w[chr.loc].isSourceOf(s)) {
           // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           options.source = Quest.World.w[chr.loc];
-          options.fluid  = s;
+          options.fluid = s;
           return true;
         }
       }
@@ -719,12 +802,12 @@ export const util: IUtil = {
       for (const obj of items) {
         if (obj.isSourceOf && obj.isSourceOf(s)) {
           options.source = obj;
-          options.fluid  = s;
+          options.fluid = s;
           return true;
         }
         if (obj.containedFluidName && obj.containedFluidName === s) {
           options.source = obj;
-          options.fluid  = s;
+          options.fluid = s;
           return true;
         }
       }
@@ -738,24 +821,32 @@ export const util: IUtil = {
     for (const key in Quest.World.w) {
       // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       const o = Quest.World.w[key];
-      if (o.conversationTopic && (!char || o.belongsTo(char.name)) && o.alias === alias) {
+      if (
+        o.conversationTopic &&
+        (!char || o.belongsTo(char.name)) &&
+        o.alias === alias
+      ) {
         n--;
         if (n === 0) return o;
       }
     }
     if (char) {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      Quest.IO.errormsg(`Trying to find topic ${n} called "${alias}" for ${char.name} and came up empty-handed!`);
+      Quest.IO.errormsg(
+        `Trying to find topic ${n} called "${alias}" for ${char.name} and came up empty-handed!`,
+      );
     } else {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      Quest.IO.errormsg(`Trying to find topic ${n} called "${alias}" for anyone and came up empty-handed!`);
+      Quest.IO.errormsg(
+        `Trying to find topic ${n} called "${alias}" for anyone and came up empty-handed!`,
+      );
     }
   },
 
   findUniqueName(s: any) {
     // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     if (!Quest.World.w[s]) {
-      return (s);
+      return s;
     }
     const res = /(\d+)$/.exec(s);
     if (!res) {
@@ -781,8 +872,12 @@ export const util: IUtil = {
 
   getChangeListenersSaveString() {
     if (util.changeListeners.length === 0) return 'NoChangeListeners';
-    const strings = util.changeListeners.map((el: any) => el.oldValue.toString());
-    return `ChangeListenersUsedStrings=${Quest.SaveLoad.saveLoad.encodeArray(strings)}`;
+    const strings = util.changeListeners.map((el: any) =>
+      el.oldValue.toString(),
+    );
+    return `ChangeListenersUsedStrings=${Quest.SaveLoad.saveLoad.encodeArray(
+      strings,
+    )}`;
   },
 
   getContents(situation: any) {
@@ -801,11 +896,16 @@ export const util: IUtil = {
     if (!options) options = {};
     const dict = util.getCustomDateTimeDict(options);
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'formats' does not exist on type '{ year:... Remove this comment to see the full error message
-    let s = options.format ? Quest.Settings.settings.dateTime.formats[options.format] : Quest.Settings.settings.dateTime.formats.def;
+    let s = options.format
+      ? Quest.Settings.settings.dateTime.formats[options.format]
+      : Quest.Settings.settings.dateTime.formats.def;
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'functions' does not exist on type '{ yea... Remove this comment to see the full error message
     for (const key in Quest.Settings.settings.dateTime.functions) {
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'functions' does not exist on type '{ yea... Remove this comment to see the full error message
-      s = s.replace(`%${key}%`, Quest.Settings.settings.dateTime.functions[key](dict));
+      s = s.replace(
+        `%${key}%`,
+        Quest.Settings.settings.dateTime.functions[key](dict),
+      );
     }
     return s;
   },
@@ -813,15 +913,17 @@ export const util: IUtil = {
   getCustomDateTimeDict(options: any) {
     const dict = {};
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'startTime' does not exist on type '{ yea... Remove this comment to see the full error message
-    let time = Quest.Settings.settings.dateTime.startTime + Quest.World.game.elapsedTime;
+    let time =
+      Quest.Settings.settings.dateTime.startTime + Quest.World.game.elapsedTime;
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'startTime' does not exist on type '{ yea... Remove this comment to see the full error message
-    if (options.is) time = Quest.Settings.settings.dateTime.startTime + options.is;
+    if (options.is)
+      time = Quest.Settings.settings.dateTime.startTime + options.is;
     if (options.add) time += options.add;
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'data' does not exist on type '{ year: st... Remove this comment to see the full error message
     for (const el of Quest.Settings.settings.dateTime.data) {
       // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       dict[el.name] = time % el.number;
-      time          = Math.floor(time / el.number);
+      time = Math.floor(time / el.number);
     }
     return dict;
   },
@@ -831,7 +933,10 @@ export const util: IUtil = {
   getDateTime(options: any) {
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'formats' does not exist on type '{ year:... Remove this comment to see the full error message
     if (!Quest.Settings.settings.dateTime.formats) {
-      const time = new Date(Quest.World.game.elapsedTime * 1000 + Quest.World.game.startTime.getTime());
+      const time = new Date(
+        Quest.World.game.elapsedTime * 1000 +
+          Quest.World.game.startTime.getTime(),
+      );
       // ts-error-fixed ts-migrate(2345) FIXME: Argument of type '{ year: string; month: string; d... Remove this comment to see the full error message
       return time.toLocaleString(Quest.Settings.settings.dateTime.locale); // , Quest.Settings.settings.dateTime);
     }
@@ -841,7 +946,9 @@ export const util: IUtil = {
   getDateTimeDict(options: any) {
     if (!options) options = {};
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'formats' does not exist on type '{ year:... Remove this comment to see the full error message
-    return Quest.Settings.settings.dateTime.formats ? util.getCustomDateTimeDict(options) : util.getStdDateTimeDict(options);
+    return Quest.Settings.settings.dateTime.formats
+      ? util.getCustomDateTimeDict(options)
+      : util.getStdDateTimeDict(options);
   },
 
   getLoc(options: any, loc: any, name: any) {
@@ -862,7 +969,9 @@ export const util: IUtil = {
       options[name] = loc;
     } else {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      Quest.IO.errormsg(`Unexpected location in util.setToFrom/util.getLoc: ${loc}`);
+      Quest.IO.errormsg(
+        `Unexpected location in util.setToFrom/util.getLoc: ${loc}`,
+      );
     }
   },
 
@@ -878,7 +987,10 @@ export const util: IUtil = {
 
   getObj(name: any) {
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (!name) return Quest.IO.errormsg(`Trying to find an object in util.getObj, but name is ${name}`);
+    if (!name)
+      return Quest.IO.errormsg(
+        `Trying to find an object in util.getObj, but name is ${name}`,
+      );
     if (typeof name === 'string') {
       // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       const room = Quest.World.w[name];
@@ -902,10 +1014,12 @@ export const util: IUtil = {
   },
 
   getStdDateTimeDict(options: any) {
-    const dict        = {};
+    const dict = {};
     let timeInSeconds = Quest.World.game.elapsedTime;
     if (options.add) timeInSeconds += options.add;
-    const time = new Date(timeInSeconds * 1000 + Quest.World.game.startTime.getTime());
+    const time = new Date(
+      timeInSeconds * 1000 + Quest.World.game.startTime.getTime(),
+    );
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'second' does not exist on type '{}'.
     dict.second = time.getSeconds();
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'minute' does not exist on type '{}'.
@@ -943,20 +1057,24 @@ export const util: IUtil = {
   },
 
   isAfter(timeString: any) {
-    if (typeof timeString === 'number') return Quest.World.game.elapsedTime > timeString;
+    if (typeof timeString === 'number')
+      return Quest.World.game.elapsedTime > timeString;
 
     if (timeString.match(/^\d\d\d\d$/)) {
       // This is a 24h clock time, so a daily
       const dict = util.getDateTimeDict();
 
-      const hour   = parseInt(timeString.substring(0, 2));
+      const hour = parseInt(timeString.substring(0, 2));
       const minute = parseInt(timeString.substring(2, 4));
       if (hour < dict.hour) return true;
       if (hour > dict.hour) return false;
-      return (minute < dict.minute);
+      return minute < dict.minute;
     }
 
-    const nowTime    = new Date(Quest.World.game.elapsedTime * 1000 + Quest.World.game.startTime.getTime());
+    const nowTime = new Date(
+      Quest.World.game.elapsedTime * 1000 +
+        Quest.World.game.startTime.getTime(),
+    );
     const targetTime = Date.parse(timeString);
     // ts-error-fixed ts-migrate(2365) FIXME: Operator '>' cannot be applied to types 'Date' and... Remove this comment to see the full error message
     if (targetTime) return nowTime > targetTime;
@@ -968,7 +1086,11 @@ export const util: IUtil = {
   listContents(situation: any, modified = true) {
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'getContents' does not exist on type '{}'... Remove this comment to see the full error message
     return formatList(this.getContents(situation), {
-      article: Quest.INDEFINITE, lastJoiner: Quest.lang.list_and, loc: this.name, modified, nothing: Quest.lang.list_nothing,
+      article: Quest.INDEFINITE,
+      lastJoiner: Quest.lang.list_and,
+      loc: this.name,
+      modified,
+      nothing: Quest.lang.list_nothing,
     });
   },
 
@@ -988,19 +1110,26 @@ export const util: IUtil = {
   },
 
   nameModifierFunctionForContainer(o: any, list: any) {
-    // console.log("here")
+    // ("here")
     const contents = o.getContents(Quest.World.world.LOOK);
-    // console.log(contents)
+    // (contents)
     if (contents.length > 0 && (!o.closed || o.transparent)) {
       // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      list.push(Quest.lang.contentsForData[o.contentsType].prefix + o.listContents(Quest.World.world.LOOK) + Quest.lang.contentsForData[o.contentsType].suffix);
+      list.push(
+        Quest.lang.contentsForData[o.contentsType].prefix +
+          o.listContents(Quest.World.world.LOOK) +
+          Quest.lang.contentsForData[o.contentsType].suffix,
+      );
     }
-    // console.log(list)
+    // (list)
   },
 
   registerTimerEvent(eventName: any, triggerTime: any, interval: any) {
     // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    if (!Quest.Settings.settings.eventFunctions[eventName]) Quest.IO.errormsg(`A timer is trying to call event '${eventName}' but no such function is registered.`);
+    if (!Quest.Settings.settings.eventFunctions[eventName])
+      Quest.IO.errormsg(
+        `A timer is trying to call event '${eventName}' but no such function is registered.`,
+      );
     // ts-error-fixed ts-migrate(2345) FIXME: Argument of type 'any' is not assignable to parame... Remove this comment to see the full error message
     Quest.World.game.timerEventNames.push(eventName);
     // ts-error-fixed ts-migrate(2345) FIXME: Argument of type 'any' is not assignable to parame... Remove this comment to see the full error message
@@ -1021,20 +1150,32 @@ export const util: IUtil = {
 
   seconds(seconds: any, minutes = 0, hours = 0, days = 0) {
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'convertSeconds' does not exist on type '... Remove this comment to see the full error message
-    if (Quest.Settings.settings.dateTime.convertSeconds) return Quest.Settings.settings.dateTime.convertSeconds(seconds, minutes, hours, days);
-    return ((((days * 24) + hours) * 60) + minutes) * 60 + seconds;
+    if (Quest.Settings.settings.dateTime.convertSeconds)
+      return Quest.Settings.settings.dateTime.convertSeconds(
+        seconds,
+        minutes,
+        hours,
+        days,
+      );
+    return ((days * 24 + hours) * 60 + minutes) * 60 + seconds;
   },
 
   setChangeListenersLoadString(s: any) {
     if (s === 'NoChangeListeners') return;
     const parts = s.split('=');
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (parts.length !== 2) return Quest.IO.errormsg(`Bad format in saved data (${s})`);
+    if (parts.length !== 2)
+      return Quest.IO.errormsg(`Bad format in saved data (${s})`);
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (parts[0] !== 'ChangeListenersUsedStrings') return Quest.IO.errormsg('Expected ChangeListenersUsedStrings to be first');
+    if (parts[0] !== 'ChangeListenersUsedStrings')
+      return Quest.IO.errormsg(
+        'Expected ChangeListenersUsedStrings to be first',
+      );
     const strings = Quest.SaveLoad.saveLoad.decodeArray(parts[1]);
     for (let i = 0; i < strings.length; i++) {
-      util.changeListeners[i].oldValue = strings[i].match(/^\d+$/) ? parseInt(strings[i]) : strings[i];
+      util.changeListeners[i].oldValue = strings[i].match(/^\d+$/)
+        ? parseInt(strings[i])
+        : strings[i];
     }
   },
 
@@ -1059,7 +1200,12 @@ export const util: IUtil = {
     // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     while (Quest.World.w[contName]) {
       // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      if (Quest.World.w[contName].loc === item.name) return Quest.IO.falsemsg(Quest.lang.container_recursion, { char, container: this, item });
+      if (Quest.World.w[contName].loc === item.name)
+        return Quest.IO.falsemsg(Quest.lang.container_recursion, {
+          char,
+          container: this,
+          item,
+        });
       // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       contName = Quest.World.w[contName].loc;
     }
@@ -1073,7 +1219,9 @@ export const util: IUtil = {
     const obj = Quest.World.w[this.door];
     if (obj === undefined) {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      Quest.IO.errormsg(`Not found an object called '${this.door}'. Any exit that uses the 'util.useWithDoor' function must also set a 'door' attribute.`);
+      Quest.IO.errormsg(
+        `Not found an object called '${this.door}'. Any exit that uses the 'util.useWithDoor' function must also set a 'door' attribute.`,
+      );
     }
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'doorName' does not exist on type '{}'.
     const tpParams = { char, doorName: this.doorName ? this.doorName : 'door' };
@@ -1084,7 +1232,7 @@ export const util: IUtil = {
     if (!obj.locked) {
       obj.closed = false;
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      Quest.IO.msg(Quest.lang.open_and_enter, tpParams);
+      msg(Quest.lang.open_and_enter, tpParams);
       char.moveChar(this);
       return true;
     }
@@ -1092,27 +1240,27 @@ export const util: IUtil = {
       obj.closed = false;
       obj.locked = false;
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      Quest.IO.msg(Quest.lang.unlock_and_enter, tpParams);
+      msg(Quest.lang.unlock_and_enter, tpParams);
       char.moveChar(this);
       return true;
     }
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-    Quest.IO.msg(Quest.lang.try_but_locked, tpParams);
+    msg(Quest.lang.try_but_locked, tpParams);
     return false;
   },
 
   verifyResponses(list: any, level: any) {
-    //  console.log(list)
+    //  (list)
     if (level === undefined) level = 1;
     if (list[list.length - 1].test) {
-      console.log(`WARNING: Last entry at depth ${level} has a test condition:`);
-      console.log(list);
+      `WARNING: Last entry at depth ${level} has a test condition:`;
+      list;
     }
     for (const item of list) {
       if (item.responses) {
-        // console.log(item.name)
+        // (item.name)
         if (item.responses.length === 0) {
-          console.log(`Zero responses at depth ${level} for: ${item.name}`);
+          `Zero responses at depth ${level} for: ${item.name}`;
         } else {
           util.verifyResponses(item.responses, level + 1);
         }
@@ -1137,25 +1285,27 @@ export function respond(params: any, list: any, func: any) {
   if (!response) {
     if (func) func(params);
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    Quest.IO.errormsg('Failed to find a response. ASK/TELL or some other system using the respond function was given a list of options that did not have a default. Below the stack trace, you should see the parameters sent and the list of responses. The last response should have no test function (or a test function that always returns true).');
-    console.log(params);
-    console.log(list);
+    Quest.IO.errormsg(
+      'Failed to find a response. ASK/TELL or some other system using the respond function was given a list of options that did not have a default. Below the stack trace, you should see the parameters sent and the list of responses. The last response should have no test function (or a test function that always returns true).',
+    );
+    params;
+    list;
     return false;
   }
-  // console.log(params)
+  // (params)
   if (response.script) response.script.bind(params.char)(params);
   if (response.msg) {
     if (params.char) {
       params.char.msg(response.msg, params);
     } else {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
-      Quest.IO.msg(response.msg, params);
+      msg(response.msg, params);
     }
   }
   if (!response.script && !response.msg && !response.failed) {
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     Quest.IO.errormsg('No script or msg for response');
-    console.log(response);
+    response;
   }
   if (func) func(params, response);
   return !response.failed;
@@ -1166,14 +1316,15 @@ export function getResponseList(params: any, list: any, result: any) {
   for (const item of list) {
     if (item.name) {
       params.text = item.name.toLowerCase();
-      // console.log("check item: " + item.name)
+      // ("check item: " + item.name)
       if (item.test) {
         if (!result.includes(item) && item.test(params)) result.push(item);
       } else if (!result.includes(item)) result.push(item);
-      // console.log("item is good: " + item.name)
+      // ("item is good: " + item.name)
     }
-    if (item.responses) result = getResponseList(params, item.responses, result);
-    // console.log("done")
+    if (item.responses)
+      result = getResponseList(params, item.responses, result);
+    // ("done")
   }
   return result;
 }

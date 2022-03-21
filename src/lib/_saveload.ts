@@ -11,18 +11,17 @@ import { Quest } from '../types/quest';
   */
 
 export const saveLoad = {
-
   // UTILs
   // ts-error-fixed ts-migrate(7006) FIXME: Parameter 'hash' implicitly has an 'any' type.
   decode(hash, str) {
     if (str.length === 0) return false;
-    const parts   = str.split(':');
-    const key     = parts[0];
+    const parts = str.split(':');
+    const key = parts[0];
     const attType = parts[1];
-    const s       = parts[2];
+    const s = parts[2];
 
     if (attType === 'boolean') {
-      hash[key] = (s === 'true');
+      hash[key] = s === 'true';
     } else if (attType === 'number') {
       hash[key] = parseFloat(s);
     } else if (attType === 'string') {
@@ -64,8 +63,8 @@ export const saveLoad = {
   // ts-error-fixed ts-migrate(7006) FIXME: Parameter 's' implicitly has an 'any' type.
   decodeString(s) {
     // if (typeof s !== 'string') {
-    //  console.log("Expecting a string there, but found this instead (did you add an object to a list rather than its name?):")
-    //  console.log(s)
+    //  ("Expecting a string there, but found this instead (did you add an object to a list rather than its name?):")
+    //  (s)
     /// }
     for (const d of Quest.SaveLoad.saveLoad.replacements) {
       s = s.replace(new RegExp(`@@@${d.escaped}@@@`, 'g'), d.unescaped);
@@ -115,8 +114,12 @@ export const saveLoad = {
     if (Array.isArray(value)) {
       try {
         if (value.length === 0) return `${key}:emptyarray;`;
-        if (typeof value[0] === 'string') return `${key}:array:${Quest.SaveLoad.saveLoad.encodeArray(value)};`;
-        if (typeof value[0] === 'number') return `${key}:numberarray:${Quest.SaveLoad.saveLoad.encodeNumberArray(value)};`;
+        if (typeof value[0] === 'string')
+          return `${key}:array:${Quest.SaveLoad.saveLoad.encodeArray(value)};`;
+        if (typeof value[0] === 'number')
+          return `${key}:numberarray:${Quest.SaveLoad.saveLoad.encodeNumberArray(
+            value,
+          )};`;
         return '';
       } catch (error) {
         // Add the name of the attribute to the error message
@@ -147,16 +150,20 @@ export const saveLoad = {
   // ts-error-fixed ts-migrate(7006) FIXME: Parameter 'ary' implicitly has an 'any' type.
   encodeNumberArray(ary) {
     // ts-error-fixed ts-migrate(7006) FIXME: Parameter 'el' implicitly has an 'any' type.
-    return ary.map((el) => {
-      if (typeof el !== 'number') throw `Found type "${typeof el}" in array - should be only numbers.`;
-      return el.toString();
-    }).join('~');
+    return ary
+      .map((el) => {
+        if (typeof el !== 'number')
+          throw `Found type "${typeof el}" in array - should be only numbers.`;
+        return el.toString();
+      })
+      .join('~');
   },
 
   // ts-error-fixed ts-migrate(7006) FIXME: Parameter 's' implicitly has an 'any' type.
   encodeString(s) {
     for (const d of Quest.SaveLoad.saveLoad.replacements) {
-      if (typeof s !== 'string') throw `Found type "${typeof s}" in array - should be only strings.`;
+      if (typeof s !== 'string')
+        throw `Found type "${typeof s}" in array - should be only strings.`;
       s = s.replace(new RegExp(d.unescaped, 'g'), `@@@${d.escaped}@@@`);
     }
     return s;
@@ -165,7 +172,10 @@ export const saveLoad = {
   getHeader(s: any) {
     const arr = s.split('!');
     return {
-      comment: Quest.SaveLoad.saveLoad.decodeString(arr[2]), timestamp: arr[3], title: Quest.SaveLoad.saveLoad.decodeString(arr[0]), version: Quest.SaveLoad.saveLoad.decodeString(arr[1]),
+      comment: Quest.SaveLoad.saveLoad.decodeString(arr[2]),
+      timestamp: arr[3],
+      title: Quest.SaveLoad.saveLoad.decodeString(arr[0]),
+      version: Quest.SaveLoad.saveLoad.decodeString(arr[1]),
     };
   },
 
@@ -174,7 +184,11 @@ export const saveLoad = {
   },
 
   getSaveBody() {
-    const l = [Quest.Text.getSaveString(), Quest.World.game.getSaveString(), Quest.Utilities.util.getChangeListenersSaveString()];
+    const l = [
+      Quest.Text.getSaveString(),
+      Quest.World.game.getSaveString(),
+      Quest.Utilities.util.getChangeListenersSaveString(),
+    ];
     for (const key in Quest.World.w) {
       l.push(`${key}=${Quest.World.w[key].getSaveString()}`);
     }
@@ -183,10 +197,14 @@ export const saveLoad = {
 
   getSaveHeader(comment: any) {
     const currentdate = new Date();
-    let s             = `${Quest.SaveLoad.saveLoad.encodeString(Quest.Settings.settings.title)}!`;
-    s                += `${Quest.SaveLoad.saveLoad.encodeString(Quest.Settings.settings.version)}!`;
-    s                += `${Quest.SaveLoad.saveLoad.encodeString(comment)}!`;
-    s                += `${currentdate.toLocaleString()}!`;
+    let s = `${Quest.SaveLoad.saveLoad.encodeString(
+      Quest.Settings.settings.title,
+    )}!`;
+    s += `${Quest.SaveLoad.saveLoad.encodeString(
+      Quest.Settings.settings.version,
+    )}!`;
+    s += `${Quest.SaveLoad.saveLoad.encodeString(comment)}!`;
+    s += `${currentdate.toLocaleString()}!`;
     return s;
   },
 
@@ -205,13 +223,16 @@ export const saveLoad = {
       Quest.IO.metamsg(Quest.lang.sl_file_not_found);
     } else if (!contents.startsWith(`${Quest.Settings.settings.title}!`)) {
       const encodedTitle = contents.substr(0, contents.indexOf('!'));
-      Quest.IO.metamsg(Quest.lang.sl_bad_format, { title: Quest.SaveLoad.saveLoad.decodeString(encodedTitle) });
+      Quest.IO.metamsg(Quest.lang.sl_bad_format, {
+        title: Quest.SaveLoad.saveLoad.decodeString(encodedTitle),
+      });
     } else {
       Quest.SaveLoad.saveLoad.loadTheWorld(contents, 4);
       Quest.IO.clearScreen();
       Quest.IO.metamsg(Quest.lang.sl_file_loaded, { filename });
       // ts-error-fixed ts-migrate(2339) FIXME: Property 'afterLoad' does not exist on type '{ per... Remove this comment to see the full error message
-      if (Quest.Settings.settings.afterLoad) Quest.Settings.settings.afterLoad(filename);
+      if (Quest.Settings.settings.afterLoad)
+        Quest.Settings.settings.afterLoad(filename);
       Quest.World.currentLocation.description();
     }
   },
@@ -232,7 +253,7 @@ export const saveLoad = {
       el.reset();
     };
     reader.onerror = function () {
-      console.log(reader.error);
+      reader.error;
     };
   },
 
@@ -297,21 +318,28 @@ export const saveLoad = {
       return;
     }
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'saveComment' does not exist on type '{ p... Remove this comment to see the full error message
-    const comment = Quest.Settings.settings.saveComment ? Quest.Settings.settings.saveComment() : '-';
-    const s       = Quest.SaveLoad.saveLoad.saveTheWorld(comment);
-    // console.log(s)
+    const comment = Quest.Settings.settings.saveComment
+      ? Quest.Settings.settings.saveComment()
+      : '-';
+    const s = Quest.SaveLoad.saveLoad.saveTheWorld(comment);
+    // (s)
     localStorage.setItem(this.getName(filename), s);
     Quest.IO.metamsg(Quest.lang.sl_saved, { filename });
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'afterSave' does not exist on type '{ per... Remove this comment to see the full error message
-    if (Quest.Settings.settings.afterSave) Quest.Settings.settings.afterSave(filename);
+    if (Quest.Settings.settings.afterSave)
+      Quest.Settings.settings.afterSave(filename);
     return true;
   },
 
   saveGameAsFile(filename: any) {
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'saveComment' does not exist on type '{ p... Remove this comment to see the full error message
-    const comment = Quest.Settings.settings.saveComment ? Quest.Settings.settings.saveComment() : '-';
-    const s       = Quest.SaveLoad.saveLoad.saveTheWorld(comment);
-    const myFile  = new File([s], `${filename}.q6save`, { type: 'text/plain;charset=utf-8' });
+    const comment = Quest.Settings.settings.saveComment
+      ? Quest.Settings.settings.saveComment()
+      : '-';
+    const s = Quest.SaveLoad.saveLoad.saveTheWorld(comment);
+    const myFile = new File([s], `${filename}.q6save`, {
+      type: 'text/plain;charset=utf-8',
+    });
     Quest.FileSaver.saveAs(myFile);
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
     Quest.IO.msg(`Your entry ${filename}.q6save should now download.`);
@@ -319,7 +347,10 @@ export const saveLoad = {
   },
 
   saveTheWorld(comment: any) {
-    return Quest.SaveLoad.saveLoad.getSaveHeader(comment) + Quest.SaveLoad.saveLoad.getSaveBody();
+    return (
+      Quest.SaveLoad.saveLoad.getSaveHeader(comment) +
+      Quest.SaveLoad.saveLoad.getSaveBody()
+    );
   },
 
   // ts-error-fixed ts-migrate(7006) FIXME: Parameter 'obj' implicitly has an 'any' type.
@@ -337,9 +368,9 @@ export const saveLoad = {
       Quest.IO.errormsg(`Bad format in saved data (${s})`);
       return;
     }
-    const name     = parts[0];
+    const name = parts[0];
     const saveType = parts[1];
-    const arr      = parts[2].split(';');
+    const arr = parts[2].split(';');
 
     if (saveType.startsWith('Clone')) {
       const clonePrototype = saveType.split(':')[1];
@@ -371,7 +402,9 @@ export const saveLoad = {
     }
 
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    Quest.IO.errormsg(`Unknown save type for object '${name}' (${hash.saveType})`);
+    Quest.IO.errormsg(
+      `Unknown save type for object '${name}' (${hash.saveType})`,
+    );
   },
 
   // ts-error-fixed ts-migrate(7006) FIXME: Parameter 'filename' implicitly has an 'any' type.
@@ -397,7 +430,9 @@ export const saveLoad = {
       if (previous) {
         previous = previous.replace(/\,$/, '').trim();
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'transcriptWalkthrough' does not exist on... Remove this comment to see the full error message
-        this.transcriptWalkthrough.push(`    {cmd:${previous}, menu:${data.n}},`);
+        this.transcriptWalkthrough.push(
+          `    {cmd:${previous}, menu:${data.n}},`,
+        );
       }
     }
     this.transcriptWrite(`<p class="${data.cssClass}">${data.text}</p>`);
@@ -435,11 +470,14 @@ export const saveLoad = {
     }
 
     let html = '';
-    html    += '<div id="main"><div id="inner"><div id="output">';
-    html    += Quest.lang.transcriptTitle();
-    html    += s;
-    html    += '</div></div></div>';
-    Quest.IO.io.showInTab(html, `QuestJS Transcript: ${Quest.Settings.settings.title}`);
+    html += '<div id="main"><div id="inner"><div id="output">';
+    html += Quest.lang.transcriptTitle();
+    html += s;
+    html += '</div></div></div>';
+    Quest.IO.io.showInTab(
+      html,
+      `QuestJS Transcript: ${Quest.Settings.settings.title}`,
+    );
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     Quest.IO.metamsg(Quest.lang.done_msg);
   },
@@ -455,16 +493,21 @@ export const saveLoad = {
 
   transcriptWalk() {
     let html = '';
-    html    += '<div id="main"><div id="inner"><div id="output">';
-    html    += '<br/><h2>Generated QuestJS Walk-through</h2><br/><br/>';
-    html    += '<p>Copy-and-paste the code below into code.js. You can quickly run the walk-though with [Ctrl][Enter].</p>';
-    html    += '<p>If you already have a walk-through, you will need to just copy-and-paste the right bit - probably all but the first and last lines, and insert just before the curly brace at the end. You may need to rename it too.</p>';
-    html    += '<pre>\n\n\nconst walkthroughs = {\n  c:[\n';
+    html += '<div id="main"><div id="inner"><div id="output">';
+    html += '<br/><h2>Generated QuestJS Walk-through</h2><br/><br/>';
+    html +=
+      '<p>Copy-and-paste the code below into code.js. You can quickly run the walk-though with [Ctrl][Enter].</p>';
+    html +=
+      '<p>If you already have a walk-through, you will need to just copy-and-paste the right bit - probably all but the first and last lines, and insert just before the curly brace at the end. You may need to rename it too.</p>';
+    html += '<pre>\n\n\nconst walkthroughs = {\n  c:[\n';
     // ts-error-fixed ts-migrate(2339) FIXME: Property 'transcriptWalkthrough' does not exist on... Remove this comment to see the full error message
     html += this.transcriptWalkthrough.join('\n');
     html += '\n  ],\n}</pre>';
     html += '</div></div></div>';
-    Quest.IO.io.showInTab(html, `QuestJS Transcript: ${Quest.Settings.settings.title}`);
+    Quest.IO.io.showInTab(
+      html,
+      `QuestJS Transcript: ${Quest.Settings.settings.title}`,
+    );
   },
 
   // Used internally to write to the file, appending it to the existing text.

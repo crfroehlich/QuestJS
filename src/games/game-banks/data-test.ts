@@ -1,4 +1,5 @@
 import { QuestClass } from '../../types/quest';
+import { msg } from '../../lib/io';
 
 export const init = (Quest: QuestClass) => {
 
@@ -9,7 +10,7 @@ export const init = (Quest: QuestClass) => {
     {
       examine(options: any) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg(`A ${this.isFemale ? 'chick' : 'guy'} called ${this.alias}`);
+        msg(`A ${this.isFemale ? 'chick' : 'guy'} called ${this.alias}`);
       },
       loc: 'lounge',
       regex: /^(me|myself|player)$/,
@@ -23,17 +24,17 @@ export const init = (Quest: QuestClass) => {
     {
       chargeResponse(participant: any) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('There is a loud bang, and the knife is destroyed.');
+        msg('There is a loud bang, and the knife is destroyed.');
         this.loc = false;
         return false;
       },
       examine(options: any) {
         if (this.sharp) {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg('A really sharp knife.');
+          msg('A really sharp knife.');
         } else {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg('A blunt knife.');
+          msg('A blunt knife.');
         }
       },
       loc: 'me',

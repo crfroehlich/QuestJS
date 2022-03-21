@@ -1,7 +1,8 @@
-import { QuestClass } from '../../types/quest';
+import { QuestClass }             from '../../types/quest';
+import { msg, falsemsg, metamsg } from '../../lib/io';
+import { log }                    from '../../lib/logger';
 
 export const init = (Quest: QuestClass) => {
-
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
   Quest.World.createRoom('nowhere', {
   });
@@ -9,20 +10,20 @@ export const init = (Quest: QuestClass) => {
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
   Quest.World.createItem('me', Quest.Templates.PLAYER(), {
     baseOxygeUse: 6,
-    bonus: 0,
+    bonus:        0,
     examine() {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('You feel fine...');
+      msg('You feel fine...');
     },
     loc: 'stasis_pod_room',
     oxygenUse() {
       return this.baseOxygeUse * this.oxygenUseModifier;
     },
     oxygenUseModifier: 1,
-    regex: /^(me|myself|player)$/,
+    regex:             /^(me|myself|player)$/,
     spray(char: any) {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('You spray sealant on yourself.');
+      msg('You spray sealant on yourself.');
     },
     status: 100,
     testMove(ex: any) {
@@ -39,10 +40,10 @@ export const init = (Quest: QuestClass) => {
       if (room1.vacuum === room2.vacuum) return true;
 
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      if (room2.name === 'space') return Quest.IO.falsemsg('The external airlock door cannot be opened while the airlock is pressurised.');
+      if (room2.name === 'space') return falsemsg('The external airlock door cannot be opened while the airlock is pressurised.');
 
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg(`The door to ${Quest.lang.getName(room2, { article: Quest.Utilities.DEFINITE })} will not open while it is ${room1.vacuum ? 'pressurised' : 'depressurised'} and ${Quest.lang.getName(room1, { article: Quest.Utilities.DEFINITE })} is not.`);
+      msg(`The door to ${Quest.lang.getName(room2, { article: Quest.Utilities.DEFINITE })} will not open while it is ${room1.vacuum ? 'pressurised' : 'depressurised'} and ${Quest.lang.getName(room1, { article: Quest.Utilities.DEFINITE })} is not.`);
       return false;
     },
   });
@@ -54,31 +55,31 @@ export const init = (Quest: QuestClass) => {
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'stasis_pod_drawer' does not exist on typ... Remove this comment to see the full error message
         Quest.World.w.stasis_pod_drawer.closed = true;
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('The stasis pod drawer slides shut.');
+        msg('The stasis pod drawer slides shut.');
       }
     },
-    alias: 'jumpsuit',
-    defArticle: 'your',
-    examine: 'Your jumpsuit is tight, but comfortable; a dark grey colour, with a slight metallic sheen.',
+    alias:        'jumpsuit',
+    defArticle:   'your',
+    examine:      'Your jumpsuit is tight, but comfortable; a dark grey colour, with a slight metallic sheen.',
     indefArticle: 'your',
-    loc: 'stasis_pod_drawer',
+    loc:          'stasis_pod_drawer',
     spray(char: any) {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('');
+      msg('');
     },
     sprayCount: 2,
   });
 
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
   Quest.World.createItem('your_underwear', Quest.Templates.WEARABLE(1, ['body']), {
-    alias: 'underwear',
-    defArticle: 'your',
-    examine: 'Your underwear is standard issue; white and functional.',
+    alias:        'underwear',
+    defArticle:   'your',
+    examine:      'Your underwear is standard issue; white and functional.',
     indefArticle: 'your',
-    loc: 'me',
+    loc:          'me',
     spray(char: any) {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('');
+      msg('');
     },
     worn: true,
   });
@@ -130,33 +131,33 @@ export const init = (Quest: QuestClass) => {
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
   Quest.World.createItem('pile_of_vomit', {
     examine: 'A large splat of vomit, it stinks. You decide not to look too closely. You already know what you ate last, so what is the point?',
-    regex: /vomit|sick/,
+    regex:   /vomit|sick/,
     scenery: true,
     spray(char: any) {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('');
+      msg('');
     },
   });
 
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
   Quest.World.createItem('stasis_pod', {
-    alias: 'pod',
+    alias:   'pod',
     examine: 'Externally, the pods are rather less like coffins, as the sides are thick with the stasis equipment, and flared towards the floor. Each stasis pod is about waist height. {stasis_pod_status}{ifHere:pile_of_vomit: One has a slight splattering of vomit.}',
-    loc: 'stasis_bay',
-    regex: /^(stasis )?pods?$/,
+    loc:     'stasis_bay',
+    regex:   /^(stasis )?pods?$/,
     scenery: true,
     spray(char: any) {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('');
+      msg('');
     },
   });
 
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
   Quest.World.createItem('stasis_pod_drawer', Quest.Templates.CONTAINER(true), {
-    alias: 'drawer',
-    closed: false,
+    alias:   'drawer',
+    closed:  false,
     examine: '{if:stasis_pod_drawer:closed:The drawer is flush with the stasis pod, almost invisible.:The drawer extends out from the foot of the pod; it is white and quite shallow, and almost the width of the pod. You can see {contents:stasis_pod_drawer:,:and:nothing} stored in it.{ifHere:pile_of_vomit: Fortunately, it is well away from the vomit.}}',
-    loc: 'stasis_bay',
+    loc:     'stasis_bay',
     scenery: true,
   });
 
@@ -166,61 +167,61 @@ export const init = (Quest: QuestClass) => {
     examine() {
       if (this.closed) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('This metal locker is taller than you, and just as wide; it is where spacesuits are stored{once: - if there is an emergency, you want the spacesuits by the stasis pods}.');
+        msg('This metal locker is taller than you, and just as wide; it is where spacesuits are stored{once: - if there is an emergency, you want the spacesuits by the stasis pods}.');
       } else {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('This metal locker is taller than you, and just as wide; it is where spacesuits are stored. You can see {contents:stasis_locker:,:and:nothing} stored in it.');
+        msg('This metal locker is taller than you, and just as wide; it is where spacesuits are stored. You can see {contents:stasis_locker:,:and:nothing} stored in it.');
       }
     },
-    loc: 'stasis_bay',
+    loc:     'stasis_bay',
     scenery: true,
     spray(char: any) {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('');
+      msg('');
     },
   });
 
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
   Quest.World.createItem('your_spacesuit', Quest.Templates.WEARABLE(2, ['body']), {
-    alias: 'spacesuit',
-    defArticle: 'your',
-    examine: 'Your spacesuit is a pale grey colour, with bright yellow flashes on the arms and legs for visibility. It says "{show:player:alias}" on the back.',
+    alias:        'spacesuit',
+    defArticle:   'your',
+    examine:      'Your spacesuit is a pale grey colour, with bright yellow flashes on the arms and legs for visibility. It says "{show:player:alias}" on the back.',
     indefArticle: 'your',
-    loc: 'stasis_locker',
+    loc:          'stasis_locker',
     spray(char: any) {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('');
+      msg('');
     },
     testRemove(char: any) {
       // ts-error-fixed ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       if (isRoomPressured(Quest.World.w[char.loc])) return true;
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('{nv:char:start:true} to unseal {pa:char} spacesuit... There is a hissing sound, and suddenly {nv:char:be} struggling for breath. Quickly, {nv:char:seal:true} it up again. Perhaps taking a spacesuit off in a vacuum is not such a good idea?');
+      msg('{nv:char:start:true} to unseal {pa:char} spacesuit... There is a hissing sound, and suddenly {nv:char:be} struggling for breath. Quickly, {nv:char:seal:true} it up again. Perhaps taking a spacesuit off in a vacuum is not such a good idea?');
       return false;
     },
   });
 
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
   Quest.World.createItem('other_spacesuit', Quest.Templates.WEARABLE(2, ['body']), {
-    alias: 'spare spacesuit',
-    examine: 'The other spacesuit is identical to your own, except it does not have your name on the back.',
-    loc: 'stasis_locker',
+    alias:          'spare spacesuit',
+    examine:        'The other spacesuit is identical to your own, except it does not have your name on the back.',
+    loc:            'stasis_locker',
     parserPriority: -10,
     spray(char: any) {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-      Quest.IO.msg('');
+      msg('');
     },
   });
 
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
   Quest.World.createItem('spray_sealant', Quest.Templates.TAKEABLE(), {
-    alias: 'sealant spray',
+    alias:   'sealant spray',
     examine: 'A spray can; the label says "No-Leak Sealant" and there is some other writing on it.',
-    loc: 'stasis_locker',
-    read: 'You read the label on the can: "No-Leak Sealant is a high performance foam sealant suitable for emergency use in space. It can be used to seal holes up to 30 mm side and 200 mm long, and is designed to maintain integrity for up to 24 hours. Typically one can is sufficient for five holes. WARNING: Highly flammable. Do not ingest. Do not breath fumes."',
+    loc:     'stasis_locker',
+    read:    'You read the label on the can: "No-Leak Sealant is a high performance foam sealant suitable for emergency use in space. It can be used to seal holes up to 30 mm side and 200 mm long, and is designed to maintain integrity for up to 24 hours. Typically one can is sufficient for five holes. WARNING: Highly flammable. Do not ingest. Do not breath fumes."',
     spray(char: any) {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      Quest.IO.metamsg('Spray the spray with the spray? Not going to happen.');
+      metamsg('Spray the spray with the spray? Not going to happen.');
       this.uses++;
       return Quest.World.world.FAILED;
     },
@@ -233,7 +234,7 @@ export const init = (Quest: QuestClass) => {
       log(options);
       options.item.loc = 'stasis_bay';
     },
-    alias: 'stasis pod',
+    alias:    'stasis pod',
     deckName: 'layer1',
 
     desc: 'The stasis pod is shaped uncomfortably like a coffin, and is a pale grey colour. The lid is in the raised position.',
@@ -242,20 +243,20 @@ export const init = (Quest: QuestClass) => {
     out: new Quest.World.Exit('stasis_bay', {
       use() {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('You climb out of the stasis pod.');
+        msg('You climb out of the stasis pod.');
         Quest.World.player.moveChar(this);
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'your_jumpsuit' does not exist on type '{... Remove this comment to see the full error message
         if (Quest.World.w.your_jumpsuit.loc === 'stasis_pod_drawer') {
           // ts-error-fixed ts-migrate(2339) FIXME: Property 'stasis_pod_drawer' does not exist on typ... Remove this comment to see the full error message
           Quest.World.w.stasis_pod_drawer.loc = 'stasis_bay';
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg('A drawer under the pod slides open to reveal your jumpsuit.');
+          msg('A drawer under the pod slides open to reveal your jumpsuit.');
         }
         return true;
       },
     }),
 
-    svgId: 'rect2756',
+    svgId:  'rect2756',
     vacuum: 'stasis_bay',
   });
 
@@ -269,13 +270,13 @@ export const init = (Quest: QuestClass) => {
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'Kyle' does not exist on type '{}'.
         if (Quest.World.w.Kyle.deployProbeAction < 5) {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("You give pod lid a pull, and it starts to descend for a moment, before stopping. 'Commander,' says Xsensi, 'closing the lid of a stasis pod will put you back in stasis. That is not permitted until the satellite is deployed, and not advised until probes have been deployed and data collected.' The lid rises to its fully open position.");
+          msg("You give pod lid a pull, and it starts to descend for a moment, before stopping. 'Commander,' says Xsensi, 'closing the lid of a stasis pod will put you back in stasis. That is not permitted until the satellite is deployed, and not advised until probes have been deployed and data collected.' The lid rises to its fully open position.");
           return false;
         }
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'your_jumpsuit' does not exist on type '{... Remove this comment to see the full error message
         if (Quest.World.w.your_jumpsuit.loc === Quest.World.player.name) {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("You give pod lid a pull, and it starts to descend for a moment, before stopping. 'Commander,' says Xsensi, 'your jumpsuit should be left outside the pod when going into stasis.' The lid rises to its fully open position.");
+          msg("You give pod lid a pull, and it starts to descend for a moment, before stopping. 'Commander,' says Xsensi, 'your jumpsuit should be left outside the pod when going into stasis.' The lid rises to its fully open position.");
           return false;
         }
 
@@ -284,16 +285,16 @@ export const init = (Quest: QuestClass) => {
         // ts-error-fixed ts-migrate(2339) FIXME: Property 'stasis_pod_drawer' does not exist on typ... Remove this comment to see the full error message
         Quest.World.w.stasis_pod_drawer.scenery = true;
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('You give pod lid a pull, and it starts to descend, sealing you in. You feel a sharp pain in your shoulder, and almost immediately you start to feel sleepy... so sleepy you cannot keep your eyes open.');
-        Quest.IO.hr();
+        msg('You give pod lid a pull, and it starts to descend, sealing you in. You feel a sharp pain in your shoulder, and almost immediately you start to feel sleepy... so sleepy you cannot keep your eyes open.');
+        hr();
         arrival();
         // MORE STUFF HERE ???
         return true;
       },
-      closed: false,
+      closed:  false,
       examine: 'Externally, the pods are rather less like coffins, as the sides are thick with the stasis equipment, and flared towards the floor. Each stasis pod is about waist height. {stasis_pod_status}.{ifHere:pile_of_vomit: One has a slight splattering of vomit.}',
-      loc: 'stasis_pod_room',
-      regex: /^(stasis pod|pod|lid)$/,
+      loc:     'stasis_pod_room',
+      regex:   /^(stasis pod|pod|lid)$/,
       scenery: true,
     },
   );
@@ -313,7 +314,7 @@ export const init = (Quest: QuestClass) => {
     // ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
     port: new Quest.World.Exit('top_deck_aft', {
       alsoDir: ['up'],
-      msg: 'You walk up the narrow stair way to the top deck.',
+      msg:     'You walk up the narrow stair way to the top deck.',
     }),
 
     scenery: [
@@ -331,9 +332,9 @@ export const init = (Quest: QuestClass) => {
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
   Quest.World.createRoom('airlock', Quest.Templates.TRANSIT('starboard'), {
     deckName: 'layer1',
-    desc: 'The airlock is just big enough for two persons wearing spacesuits, and is featureless besides the doors, port and starboard, and the controls.',
+    desc:     'The airlock is just big enough for two persons wearing spacesuits, and is featureless besides the doors, port and starboard, and the controls.',
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    port: new Quest.World.Exit('cargo_bay'),
+    port:     new Quest.World.Exit('cargo_bay'),
 
     // ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
     starboard: new Quest.World.Exit('space', { alsoDir: ['out'], locked: true }),
@@ -456,7 +457,7 @@ export const init = (Quest: QuestClass) => {
     // ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
     down: new Quest.World.Exit('probes_aft', {
       alsoDir: ['starboard'],
-      msg: 'You walk down the narrow stair way to the bottom deck.',
+      msg:     'You walk down the narrow stair way to the bottom deck.',
     }),
 
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
@@ -472,11 +473,11 @@ export const init = (Quest: QuestClass) => {
 
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
   Quest.World.createRoom('engineering1', {
-    alias: 'Engineering (port)',
+    alias:    'Engineering (port)',
     deckName: 'layer1',
-    desc: 'This is where the fusion micro-reactor stands, a vaguely cylindrical device about a meter across, and stretching from floor to ceiling. Cables run to a small console nearby.',
+    desc:     'This is where the fusion micro-reactor stands, a vaguely cylindrical device about a meter across, and stretching from floor to ceiling. Cables run to a small console nearby.',
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    forward: new Quest.World.Exit('geolab'),
+    forward:  new Quest.World.Exit('geolab'),
 
     properNoun: true,
 
@@ -490,11 +491,11 @@ export const init = (Quest: QuestClass) => {
 
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
   Quest.World.createRoom('engineering2', {
-    alias: 'Engineering (aft)',
+    alias:    'Engineering (aft)',
     deckName: 'layer1',
-    desc: 'The main engineers are here, five huge light-drives that project out the rear of the ship.',
+    desc:     'The main engineers are here, five huge light-drives that project out the rear of the ship.',
     // ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-    forward: new Quest.World.Exit('service_passage', {
+    forward:  new Quest.World.Exit('service_passage', {
       isHidden() {
         return true;
       },
@@ -515,9 +516,9 @@ export const init = (Quest: QuestClass) => {
 
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
   Quest.World.createRoom('engineering3', {
-    alias: 'Engineering (starboard)',
+    alias:    'Engineering (starboard)',
     deckName: 'layer1',
-    desc: 'The various life-support machinery is housed on this side of engineering, including the CO2 scrubbers and water recycler.',
+    desc:     'The various life-support machinery is housed on this side of engineering, including the CO2 scrubbers and water recycler.',
 
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     forward: new Quest.World.Exit('cargo_bay'),
@@ -559,18 +560,18 @@ export const init = (Quest: QuestClass) => {
 
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
   Quest.World.createRoom('probes_aft', {
-    alias: 'Aft probe hanger',
+    alias:    'Aft probe hanger',
     deckName: 'layer3',
-    desc: 'The aft probe hanger has the scientific probes. Each probe is contained in a crate, and needs unpacking before deployment. On the port side there is a delivery system into which a probe can be placed, to be sent to the planet. Various types of probes are available.',
+    desc:     'The aft probe hanger has the scientific probes. Each probe is contained in a crate, and needs unpacking before deployment. On the port side there is a delivery system into which a probe can be placed, to be sent to the planet. Various types of probes are available.',
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    forward: new Quest.World.Exit('probes_forward'),
+    forward:  new Quest.World.Exit('probes_forward'),
 
     svgId: 'rect3638',
 
     // ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
     up: new Quest.World.Exit('geolab', {
       alsoDir: ['port'],
-      msg: 'You walk up the narrow stair way to the middle deck.',
+      msg:     'You walk up the narrow stair way to the middle deck.',
     }),
 
     vacuum: false,
@@ -675,7 +676,7 @@ export const init = (Quest: QuestClass) => {
     // ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
     starboard: new Quest.World.Exit('cargo_bay', {
       alsoDir: ['down'],
-      msg: 'You walk down the narrow stair way to the middle deck.',
+      msg:     'You walk down the narrow stair way to the middle deck.',
     }),
 
     svgId: 'rect3976',
@@ -686,9 +687,9 @@ export const init = (Quest: QuestClass) => {
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
   Quest.World.createRoom('canteen', {
     deckName: 'layer4',
-    desc: 'The canteen, like everything else of the ship, is pretty small. There is a table, with one short side against the wall, and five plastic chairs around it.{table_desc} At the back is the food preparation area; a work surface across the width of the room, with a sink on the right and a hob on the left.',
+    desc:     'The canteen, like everything else of the ship, is pretty small. There is a table, with one short side against the wall, and five plastic chairs around it.{table_desc} At the back is the food preparation area; a work surface across the width of the room, with a sink on the right and a hob on the left.',
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    port: new Quest.World.Exit('top_deck_forward'),
+    port:     new Quest.World.Exit('top_deck_forward'),
 
     svgId: 'rect3979',
 
@@ -697,9 +698,9 @@ export const init = (Quest: QuestClass) => {
 
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
   Quest.World.createItem('canteen_table', Quest.Templates.SURFACE(), {
-    alias: 'table',
+    alias:   'table',
     examine: 'The table is plastic, attached to the wall at one end, and held up by a single leg at the other end.{table_desc}',
-    loc: 'canteen',
+    loc:     'canteen',
     scenery: true,
     tpDesc() {
       return ' The table is bare.';
@@ -707,16 +708,16 @@ export const init = (Quest: QuestClass) => {
   });
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 3.
   Quest.World.createItem('canteen_chair', Quest.Templates.FURNITURE({ sit: true }), {
-    alias: 'chair',
+    alias:   'chair',
     examine: 'The chaits are white and plastic and very basic.',
-    loc: 'canteen',
+    loc:     'canteen',
     scenery: true,
   });
 
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
   Quest.World.createRoom('your_cabin', {
-    deckName: 'layer4',
-    desc: 'This is you cabin, not much more than a bed and a locker.',
+    deckName:  'layer4',
+    desc:      'This is you cabin, not much more than a bed and a locker.',
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     starboard: new Quest.World.Exit('top_deck_forward'),
 
@@ -727,9 +728,9 @@ export const init = (Quest: QuestClass) => {
 
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
   Quest.World.createRoom('guys_cabin', {
-    alias: "Men's cabin",
-    deckName: 'layer4',
-    desc: 'Two bunk beds and two lockers pretty much sums up this room.',
+    alias:     "Men's cabin",
+    deckName:  'layer4',
+    desc:      'Two bunk beds and two lockers pretty much sums up this room.',
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
     starboard: new Quest.World.Exit('top_deck_aft'),
 
@@ -740,11 +741,11 @@ export const init = (Quest: QuestClass) => {
 
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
   Quest.World.createRoom('girls_cabin', {
-    alias: "Women's cabin",
+    alias:    "Women's cabin",
     deckName: 'layer4',
-    desc: 'Two bunk beds and two lockers pretty much sums up this room.',
+    desc:     'Two bunk beds and two lockers pretty much sums up this room.',
     // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    forward: new Quest.World.Exit('top_deck_aft'),
+    forward:  new Quest.World.Exit('top_deck_aft'),
 
     svgId: 'rect3985',
 
@@ -756,12 +757,12 @@ export const init = (Quest: QuestClass) => {
 
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
   Quest.World.createRoom('space', {
-    deckName: 'space',
-    desc: 'You are floating in space, holding on to a handle on the side of the {i:Joseph Banks}. {once:You are very conscious of the fact that heading further out into space would be a {i:very bad idea}, as there would be no way to get back to the ship.} The view takes your breath away; the planet looming over head, and billions of stars. It is amazing to think that each is vastly bigger than the planet, and so far away your mind cannot really comprehend the distance.',
-    isSpace: true,
+    deckName:  'space',
+    desc:      'You are floating in space, holding on to a handle on the side of the {i:Joseph Banks}. {once:You are very conscious of the fact that heading further out into space would be a {i:very bad idea}, as there would be no way to get back to the ship.} The view takes your breath away; the planet looming over head, and billions of stars. It is amazing to think that each is vastly bigger than the planet, and so far away your mind cannot really comprehend the distance.',
+    isSpace:   true,
     notOnShip: true,
     // ts-error-fixed ts-migrate(7009) FIXME: 'new' expression, whose target lacks a construct s... Remove this comment to see the full error message
-    port: new Quest.World.Exit('airlock', { alsoDir: ['in'] }),
+    port:      new Quest.World.Exit('airlock', { alsoDir: ['in'] }),
 
     properNoun: true,
 
@@ -770,7 +771,7 @@ export const init = (Quest: QuestClass) => {
       alsoDir: ['out'],
       use() {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg('You feel a sudden urge to be free, and push away from the ship... No! That would be a bad idea! You would drift forever. You cling desperately to the handle. What were you thinking?');
+        msg('You feel a sudden urge to be free, and push away from the ship... No! That would be a bad idea! You would drift forever. You cling desperately to the handle. What were you thinking?');
         return false;
       },
     }),
@@ -780,9 +781,9 @@ export const init = (Quest: QuestClass) => {
 
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
   Quest.World.createItem('alien_ship_interior', {
-    desc: '',
+    desc:   '',
     isShip: true,
-    regex: /^alien ship|alien vessel|ship|vessel$/,
+    regex:  /^alien ship|alien vessel|ship|vessel$/,
     status: 0,
   });
 
@@ -810,9 +811,9 @@ export const init = (Quest: QuestClass) => {
 
   // ts-error-fixed ts-migrate(2554) FIXME: Expected 0 arguments, but got 2.
   Quest.World.createItem('alienShip', {
-    desc: '',
+    desc:   '',
     isShip: true,
-    regex: /^alien ship|alien vessel|ship|vessel$/,
+    regex:  /^alien ship|alien vessel|ship|vessel$/,
     status: 0,
   });
 
@@ -831,7 +832,7 @@ export const init = (Quest: QuestClass) => {
     },
     isShip: true,
     oxygen: 9546,
-    regex: /^ship|alien vessel|ship|vessel$/,
+    regex:  /^ship|alien vessel|ship|vessel$/,
     status: 0,
   });
 
@@ -870,49 +871,49 @@ export const init = (Quest: QuestClass) => {
     },
     launch(char: any) {
       // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-      if (!char.probeType) return Quest.IO.falsemsg('To launch a probe, see either Aada or Ostap. For a satellite see Kyle.');
+      if (!char.probeType) return falsemsg('To launch a probe, see either Aada or Ostap. For a satellite see Kyle.');
 
       let number = this.extractNumber();
       if (!number) number = 1;
 
       if (number === 1) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg(`'Launch a ${char.probeType},' you say to ${Quest.lang.getName(char, { article: Quest.Utilities.DEFINITE })}.`);
+        msg(`'Launch a ${char.probeType},' you say to ${Quest.lang.getName(char, { article: Quest.Utilities.DEFINITE })}.`);
       } else {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg(`'Launch ${number} ${char.probeType}s,' you say to ${Quest.lang.getName(char, { article: Quest.Utilities.DEFINITE })}.`);
+        msg(`'Launch ${number} ${char.probeType}s,' you say to ${Quest.lang.getName(char, { article: Quest.Utilities.DEFINITE })}.`);
       }
       if (number > char.probesRemaining) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-        return Quest.IO.falsemsg(`'We only have ${char.probesRemaining} and we should save some for the other planets on our itinerary.'`);
+        return falsemsg(`'We only have ${char.probesRemaining} and we should save some for the other planets on our itinerary.'`);
       }
 
       if (char.probeType === 'satellite') {
         if (number > (2 - char.deployProbeTotal)) {
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Are you sure? Protocol says we should deploy no more than two around a single planet.'");
+          msg("'Are you sure? Protocol says we should deploy no more than two around a single planet.'");
           // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-          Quest.IO.msg("'Hey, I'm the captain. It's my bonus on the line here. Get those satellites deployed.'");
+          msg("'Hey, I'm the captain. It's my bonus on the line here. Get those satellites deployed.'");
         }
       } else if (number > (5 - char.deployProbeTotal)) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'Are you sure? Protocol says we should deploy no more than five on a single planet.'");
+        msg("'Are you sure? Protocol says we should deploy no more than five on a single planet.'");
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'Hey, I'm the captain. It's my bonus on the line here. Get those probes deployed.'");
+        msg("'Hey, I'm the captain. It's my bonus on the line here. Get those probes deployed.'");
       }
 
       if (char.deployProbeAction === 0 || char.deployProbeAction === 4) {
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'Okay captain.'");
+        msg("'Okay captain.'");
         char.setAgenda([`walkTo:probes_aft:${Quest.lang.getName(char, { article: Quest.Utilities.DEFINITE })} goes to the probe deployment console.`, `text:deployProbe:${number}`]);
         char.deployProbeAction = 0;
-        char.deployProbeCount = 0;
+        char.deployProbeCount  = 0;
       } else {
         // already part way through launching
         // skip walking there, skip first deploy action
         // the old number should be replaced
         // ts-error-fixed ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
-        Quest.IO.msg("'Okay captain.'");
+        msg("'Okay captain.'");
         char.setAgenda([`text:deployProbe:${number}`]);
         char.deployProbeAction = 1;
       }
@@ -928,7 +929,7 @@ export const init = (Quest: QuestClass) => {
         } else {
           shipAlert(`Contact with ${this.alias} has been lost as it attempted to land on the planet.`);
           this.launched = false;
-          this.status = 'Destroyed';
+          this.status   = 'Destroyed';
         }
       }
       if (this.launchCounter === TURNS_TO_LANDING + 1) {
@@ -966,4 +967,4 @@ export const init = (Quest: QuestClass) => {
     status: 'In flight',
 
   });
-}
+};
